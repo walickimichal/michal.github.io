@@ -247,7 +247,7 @@ framework for algebraic software development"</A>
 <!-- <li><A HREF="yngve/parameterization/parameterizedADT/TRmu.ps">"The Institution of Multialgebras"</A>
 Tech.Rep. no.209, Department of Informatics, University of Bergen, 2000 -->     
 
-<li>A digression: <A HREF="ca/caMSCS/04final/ca04final.ps">"Computation Algebras"</A>
+<li>A digression: <A HREF="caMSCS/04final/ca04final.ps">"Computation Algebras"</A>
  [Tech. Rep. no. 117, Dept. of Informatics, University of Bergen, 1996], appeared in <i>Mathematical
   Structures in Computer Science</i>, 2001
 </ol>
