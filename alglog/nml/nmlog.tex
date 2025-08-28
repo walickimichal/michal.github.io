@@ -1,0 +1,211 @@
+%% \documentclass[10pt]{article}
+%% \usepackage{latexsym}
+
+%% \makeatletter
+%% \input{a4wide}
+%% \makeatother
+
+%\input{defs}
+
+%% \title{States as non-monotonic logic}
+
+%% \begin{document}
+%% \maketitle
+
+\begin{itemize}\MyLPar
+\item language with: program formulae $\prf$ ($x=x+1$, if\_then\_else), and logic formulae
+$\lrf$ ($x=5$); ?
+$\lrf\subseteq\prf$ ? $\Vars{\lrf}\subseteq\Vars{\prf}$ ?
+\item forms: $\Gamma\pr{} \phi$, where $\Gamma$ -- a {\em sequence} of
+$\prf$, $\phi\in\lrf$
+\item we have some standard logic $\slog$, and program logic $\plog$.
+\item the notion of a (program?) formula $B$ interfereing another (logical?)
+formula $\phi: B\intf \phi$ (not necessarily symmetric), e.g.,
+$B\not\intf\phi$ iff $B\is x=...\Impl x\not\in\Vars\phi$
+\item variables are bound across $\pr$, resp. $\tpr$
+\end{itemize}
+
+\subsubsection*{Structural rules}
+\[
+\PROOFRm{\Gamma\se A\tprp\phi}{\Gamma\se A\tpr\phi}  \hspace*{4em}
+\PROOFRm{\Gamma\pr\phi}{\Gamma\se B\pr\phi}\scon{$B\not\intf\phi$}
+\hspace*{4em}
+\PROOFRm{\Gamma\tpr\phi}{\Gamma\pr\phi}
+\]
+\subsubsection*{Logical rules}
+\[\begin{array}{l@{\hspace*{3em}}l}
+ \PROOFRm{\Gamma\pr T\og T\prl \phi}{\Gamma\pr\phi} &  \\
+\PROOFRm{\Gamma\pr T\og \Gamma\tpr\phi\og
+ T\prl\phi\ii\psi}{\Gamma\tpr\psi}\label{ru:tpreq}
+&  \PROOFRm{\Gamma\pr\neg\phi(x)\og \Gamma\se A\tpr \alpha\impl\phi(x)}
+     {\Gamma\se A\tpr \alpha\ii\phi(x)}\label{ru:tpr} 
+\end{array}
+\]
+In addition, possibly, all stuff from ADTs.
+\subsubsection*{Program rules (no side-effects in Boolean expressions)}
+\[\begin{array}{ll}
+\PROOFRm{\Gamma\pr x=?}{\Gamma \se z\as f(x)\tprp 
+        z=f(?)}\scon{$z\not\in\Vars ?$}\label{ru:ass} 
+& \PROOFR{\pr y=y}{\Gamma \se x\as y\tprp x=y}  \scon{? special case of (\ref{ru:ass})}\\[3ex]
+\PROOFRm{\Gamma\pr\alpha\og %invertible
+ \Gamma \se B\tpr\phi}{\Gamma \se \ifte\alpha{B}{C}\tprp\phi} 
+& \PROOFRm{\Gamma\pr\neg\alpha\og %invertible
+ \Gamma \se C\tpr\phi}{\Gamma \se \ifte\alpha{B}{C}\tprp\phi}
+     %\scon{no s.-ef. in $\alpha$} 
+\\[3ex]
+\PROOFRm{B\tpr\phi}{\ifte\alpha{B}{C}\tprp 
+  \alpha\impl\phi}\scon{$B\not\intf\alpha$}\label{ru:iftey} 
+& \PROOFRm{C\tpr\phi}{\ifte\alpha{B}{C}\tprp 
+  \neg\alpha\impl\phi}\scon{$C\not\intf\alpha$}
+    \scon{not invert.}\label{ru:iften} \\[3ex]
+\PROOFRm{B\tpr\phi}{\ift\alpha{B}\tprp\alpha\impl\phi}
+   \scon{$B\not\intf\alpha$}\label{ru:ifty} 
+& \PROOFRm{\Gamma\tpr\phi}
+  {\Gamma \se \ift\alpha{B}\tprp\neg\alpha\impl \phi}\label{ru:iftn} \\[3ex]
+\PROOFRm{\Gamma\pr\iota\ ;\ X\tpr\iota\land\alpha \Impl X \se B\tpr\iota}
+   {\Gamma \se \wh\alpha{B}\tprp\iota\land\neg\alpha}\scon{???}  \\[3ex] 
+   \hline\hline
+\PROOFRm{}{x\as\ch.S\tprp x\in S}\\[3ex]
+\PROOFRm{B\tpr\phi(x)}{\fore{x\in S}B\tprp x\in S\impl
+        \phi(x)}\label{ru:forey}\scon{$B\not\intf(x\in S)$}
+& \PROOFRm{B\tpr\phi(x)}{\fore{x\in S}B\tprp x\in S\timpl
+        \phi(x)}\label{ru:foren} 
+\end{array}
+\]
+Program piece:
+\preq{
+P_v:=\emptyset \se \fore{e\in E}{\ift{t(e)=v}{add(P_v,s(e))}}
+\label{pr:a}
+}
+with the additional rule for $asp:add(S,x)\tprp x\in S$, should give:
+\[
+\begin{array}{rr@{\ \ \pr\ \ }ll}
+1.& P_v:=\emptyset & P_v=\emptyset & (\ref{ru:ass}) \\[1ex]
+2.& P_v:=\emptyset \se \fore{e\in E}{...} & e\in E\impl ... & (\ref{ru:forey})\\[1ex]
+...:3.& \Gamma \se {\ift{t(e)=v}{add(P_v,s(e))}} & ... \\[1ex]
+    & \Gamma \se add(P_v,s(e)) &  s(e)\in P_v & asp. \\[1ex]
+ & \Gamma \se {\ift{t(e)=v}{add(P_v,s(e))}} & t(e)=v\impl s(e)\in P_v & (\ref{ru:ifty})\\[1ex]
+4.& P_v:=\emptyset \se \fore{e\in E}{...} & e\in E\impl
+(t(e)=v\impl s(e)\in P_v) & 2.,3. \\[1ex] 
+%4.& P_v:=\emptyset \se \fore{e\in E}{...} & e\in E\land t(e)=v\impl s(e)\in P_v  \\[1ex] 
+\hline
+%
+1.& P_v:=\emptyset & P_v=\emptyset & (\ref{ru:ass}) \\[1ex]
+2.& P_v:=\emptyset & s(e)\not\in P_v & SetADT \\[1ex]
+3.& P_v:=\emptyset \se \fore{e\in E}{...} & e\not\in E\impl s(e)\not\in P_v &
+    ???
+\end{array}
+\]
+Want:
+\[
+x\in P_v \iff \exists e: e\in E\land x=s(e) \land t(e)=v \ \ \  i.e.,\ x\in P_v
+\iff xv\in E
+\]
+\[
+\begin{array}{rrcll}
+1.& P_v:=\emptyset & \tpr & P_v=\emptyset & (\ref{ru:ass}) \\[1ex]
+2.& P_v:=\emptyset \se \fore{xy\in E}{...} & \pr & xy\in E\impl ... & (\ref{ru:forey})\\[1ex]
+...:3.& \Gamma \se {\ift{y=v}{add(P_v,x)}} & \pr & ... \\[1ex]
+    & \Gamma \se add(P_v,x) & \tpr &  x\in P_v & asp. \\[1ex]
+ & \Gamma \se {\ift{y=v}{add(P_v,x)}} & \tpr & y=v\impl x\in P_v & (\ref{ru:ifty})\\[1ex]
+4.& P_v:=\emptyset \se \fore{xy\in E}{...} & \tpr & xy\in E\impl
+(y=v\impl x\in P_v) & 2.,3. \\[1ex]\hline
+& P_v:=\emptyset \se \fore{xy\in E}{...} & \tpr & xy\in E\land
+y=v\impl x\in P_v & (\ref{ru:tpreq}) \\[1ex]
+& P_v:=\emptyset \se \fore{xy\in E}{...} & \tpr & xv\in E \impl x\in P_v &
+ (\ref{ru:tpreq}) \\[1ex]
+& P_v:=\emptyset & \tpr & x\not\in P_v \\[1ex]
+& P_v:=\emptyset \se \fore{xy\in E}{...} & \tpr & xv\in E \ii x\in P_v &
+(\ref{ru:tpr}) 
+\end{array}
+\]
+Using the above, and assuming that initially $\pr x\not\in P_v$, we get for the program piece
+\preq{\begin{array}{rcll}
+ & \pr & xv\in E \not\ii x\in P_v \\
+\fore{v\in V}{\mbox{(\ref{pr:a})}} & \tpr & v\in V\impl (xv\in E \ii x\in P_v)
+& (\ref{ru:forey}) \\
+\fore{v\in V}{\mbox{(\ref{pr:a})}} & \tpr & v\in V\ii (xv\in E \ii x\in P_v)
+& (\ref{ru:tpr})
+\end{array}
+\label{pr:b}}
+
+\newpage
+\section*{State rules}
+\[\begin{array}{rrl|rrl}
+A\pr\phi\timpl\psi &  {\rm means} & \{\phi\}A\{\psi\}   
+   &  A\pr\phi &  {\rm means} & \{\}A\{\phi\} \\
+A\tpr\phi\timpl\psi &  \mbox{\rm ``means''} & \{\phi\}A\{\psi\}\  {\rm and}   
+   &  A\tpr\phi &  \mbox{\rm ``means''} & \{\}A\{\phi\}\  {\rm and} \\
+&  \forall\alpha: & \{\phi\}A\{\alpha\}\Impl \psi\impl\alpha  
+   & & \forall\alpha: & \{\}A\{\alpha\}\Impl \phi\impl\alpha \\
+& \forall\beta: & \{\beta\}A\{\psi\}\Impl \beta\impl\phi
+\end{array}
+\]
+\subsubsection*{Structural rules}
+\[
+\PROOFRm{\Gamma\se A\tprp\phi}{\Gamma\se A\tpr\phi}  \hspace*{4em}
+\PROOFR{is\ now}{(\ref{ru:tmp})}\hspace*{4em}
+\PROOFRm{\Gamma\tpr\phi}{\Gamma\pr\phi}
+\]
+\subsubsection*{Logical rules}
+\[\begin{array}{l@{\hspace*{3em}}l}
+\PROOFRm{\Gamma\pr T\og T\prl \phi}{\Gamma\pr\phi} 
+& \PROOFRm{\Gamma\pr \phi}{\Gamma\pr\psi\timpl\phi}\hspace*{4em}
+\PROOFR{\pr\phi\Impl \Gamma\pr\psi}{\Gamma\pr\phi\timpl\psi}\scon{???} 
+\\[3ex]
+\PROOFRm{\Gamma\pr T\og \Gamma\tpr\phi\og
+ T\prl\phi\ii\psi}{\Gamma\tpr\psi}\label{ru:ttpreq}
+&  \fbox{$\PROOFRm{\Gamma\pr\neg\phi(x)\og \Gamma\se A\tpr \alpha\timpl\phi(x)}
+     {\Gamma\se A\tpr \alpha\tii\phi(x)}\label{ru:ttpr}$ } \\[3ex]
+\PROOFR{\Gamma\pr\phi\timpl\alpha\og \prl\alpha\impl\psi}{\Gamma\pr\phi\timpl\psi}
+ & \PROOFRm{\Gamma\pr \phi \timpl\psi}{\Gamma\pr \neg\phi\timpld\neg\psi} \\[3ex]
+  & \PROOFRm{\Gamma\pr\phi\og \Delta\tpr \phi\timpl\psi}{\Gamma\se
+ \Delta\tpr\psi}\label{ru:tmp}\\[3ex]
+\PROOFRm{\Gamma\pr\phi\timpl\alpha\og\Delta\pr\alpha\timpl\psi}{\Gamma\se\Delta\pr\phi\timpl\psi} 
+  & \PROOFRm{\Gamma\tpr \phi\timpl (\alpha\timpl\psi) \og \Gamma\tpr
+  \phi\timpl (\neg\alpha\timpl\psi)} {\Gamma\tpr\phi\timpl\psi}\scon{???}
+\end{array}
+\]
+In addition, possibly, all stuff from ADTs.
+\subsubsection*{Program rules}
+\[\begin{array}{ll}
+\PROOFRm{\Gamma\pr x=?}{\Gamma \se z\as f(x)\tprp 
+        z=f(?)}\scon{$z\not\in\Vars ?$}\label{ru:tass} 
+& \PROOFR{\pr y=y}{\Gamma \se x\as y\tprp x=y}  \scon{? special case of (\ref{ru:tass})}\\[3ex]
+\PROOFRm{B\tpr\phi}{\ifte\alpha{B}{C}\tprp \alpha\timpl\phi}\label{ru:tiftey} 
+& \PROOFRm{C\tpr\phi}{\ifte\alpha{B}{C}\tprp \neg\alpha\timpl\phi}\label{ru:tiften} \\[3ex]
+\PROOFRm{B\tpr\phi}{\ift\alpha{B}\tprp\alpha\timpl\phi} \label{ru:tifty} 
+& \PROOFRm{\Gamma\tpr\phi}
+  {\Gamma \se \ift\alpha{B}\tprp\neg\alpha\timpl \phi}\label{ru:tiftn} \\[3ex]
+\PROOFRm{\Gamma\pr\iota\og B\pr\iota\land\alpha \timpl \iota}
+   {\Gamma \se \wh\alpha{B}\tprp\iota\land\neg\alpha}\scon{???} 
+& \PROOFRm{}{x\as t\prp \subs\phi{x}{t}\timpl\phi} \\[3ex] 
+   \hline\hline
+\PROOFRm{}{x\as\ch.S\tprp x\in S}\\[3ex]
+\PROOFRm{B\tpr\phi}{\fore{x\in S}B\tprp x\in S\timpl
+        \phi}\label{ru:tforey}
+& \PROOFRm{B\tpr\phi}{\fore{x\in S}B\tprp x\in S\timpl
+        \phi}\label{ru:tforen} 
+\end{array}
+\]
+
+\newpage
+\noindent
+TS(V,E) \\
+$
+\inde Z\as\emptyset\se G\as\emptyset \\
+\inde\forep{1}{v\in V}
+{P_v:=\emptyset \se \\ 
+\ind{2}\forep{2}{xy\in E}{\iftp{y=v}{add(P_v,x)}} \\
+\cond{1}{xv\in E \ii x\in P_v} \\
+\ind{2}\iftep{2}{P_v=\emptyset}{add(Z,v)}{add(G,z)} } \\
+%\inde\forep{1}{v\in V}{\iftep{2}{P_v=\emptyset}{add(Z,v)}{add(G,z)}} \\
+\cond{0}{v\in V \ii (xv\in E\ii x\in P_v \land P_v=\emptyset \ii v\in Z \land
+P_v\not=\emptyset \ii v\in G)} \\
+\inde\whp{1}{Z\not=\emptyset}
+{\cond{0}{v\in Z\ii P(v,Z\cup G)=\emptyset \land v\in G\ii P(v,Z\cup G)\not=\emptyset}\\
+\ind{2}z\as\ch.Z\se \\ \ind{2} add(S,z)\se \\ \ind{2} rem(Z,z)\se \\
+ \ind{2}\forep{2}{x\in G}{rem(P_x,z)\se \\ 
+ \ind{3}\iftp{P_x=\emptyset}{rem(G,x)\se add(Z,x)}}
+}
+$

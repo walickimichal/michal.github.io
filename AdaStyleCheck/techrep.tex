@@ -1,0 +1,254 @@
+\documentstyle{report}
+
+\input{apemacro}
+
+\def\apekeywordfont{\footnotesize\bf}
+\def\apecommentfont{\footnotesize\it}
+\def\apebodyfont{\small\rm}
+\def\apelmargin{0.5cm}
+
+\setlength{\textwidth}{6.8in}
+\setlength{\textheight}{8.7in}
+\setlength{\topmargin}{-1in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{1in}
+\setlength{\columnsep}{.3in}
+\setlength{\oddsidemargin}{-0.15in}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\medskipamount}
+
+\begin{document}
+\pagenumbering{roman}
+
+\newdimen\indz
+\newdimen\inda
+\newdimen\indb
+\newdimen\indc
+\newdimen\indd
+\newdimen\inde
+\indz=5in
+\inda=\apehspace
+\multiply\inda by -3
+\indb=\inda
+\indc=\inda
+\indd=\inda
+\inde=\inda
+\advance\inda by \indz
+\advance\indb by \inda
+\advance\indc by \indb
+\advance\indd by \indc
+\advance\inde by \indd
+
+% Cover page
+\setcounter{page}{0}
+
+\newdimen\coverindent
+\coverindent=0.8cm
+
+\def\tfb{\Large\bf}
+\def\tf{\Large}
+
+\vspace*{2.5cm}
+
+{\tfb
+\hspace*{\coverindent}\strut THE STANFORD ADA STYLE CHECKER:\\
+\hspace*{\coverindent}\strut AN APPLICATION OF THE ANNA TOOLS AND\\
+\hspace*{\coverindent}\strut METHODOLOGY}
+
+\vspace{2.8cm}
+
+{\tfb
+\hspace*{\coverindent}\strut Micha{\l} Walicki\\
+\hspace*{\coverindent}\strut Jens Ulrik Skakkeb{\ae}k\\
+\hspace*{\coverindent}\strut Sriram Sankar}
+
+\vspace{2.8cm}
+
+\hspace*{\coverindent}{\tf Technical Report:} {\tfb CSL--TR--91--488}
+
+\hspace*{\coverindent}{\tf (Program Analysis and Verification Group
+                            Report No. 55)}
+
+\vspace{2.8cm}
+
+\hspace*{\coverindent}{\tfb August, 1991}
+
+\vspace{2.8cm}
+
+\hspace*{\coverindent}\parbox[t]{5.9in}
+{Micha{\l} Walicki was on leave from the University of Bergen, Norway,
+and was supported by the Royal Norwegian Council for Scientific and
+Industrial Research.
+Jens Ulrik Skakkeb{\ae}k was on leave from the Technical University of
+Denmark, Denmark.
+Sriram Sankar was supported by the Defense Advanced Research Projects
+Agency contracts \mbox{N00039-84-C-0211} and \mbox{N00039-91-C-0162}.
+}
+
+\newpage
+
+% Abstract page
+\setcounter{page}{0}
+
+\vspace*{1.6cm}
+
+\begin{center}
+{\tfb
+\strut THE STANFORD ADA STYLE CHECKER:\\
+\strut AN APPLICATION OF THE ANNA TOOLS AND\\
+\strut METHODOLOGY}
+
+\vspace{1.2cm}
+
+{\large\bf
+\strut Micha{\l} Walicki\\
+\strut Jens Ulrik Skakkeb{\ae}k\\
+\strut Sriram Sankar}
+
+\vspace{1.2cm}
+
+{\large Technical Report: {\bf CSL--TR--91--488}}
+
+{\large (Program Analysis and Verification Group Report No. 55)}
+
+\vspace{0.7cm}
+
+{\large August, 1991}
+
+\vspace{0.7cm}
+
+{\large
+\strut Computer Systems Laboratory\\
+\strut Departments of Electrical Engineering and Computer Science\\
+\strut Stanford University\\
+\strut Stanford, California - 94305}
+
+\vspace{2cm}
+
+{\large\bf Abstract}
+\end{center}
+
+This report describes the {\em Ada style checker}, which was designed
+and constructed in Winter and Spring 1989--90. The style checker is
+based on the Stanford Anna Tools and has been annotated using Anna.
+The style checker examines Ada programs for ``correct style'' which is
+defined in a {\em style specification language (SSL)}.
+A {\it style checker generator} is used to automatically generate a
+style checker based on a set of style specifications.
+
+\vspace{10pt}
+
+\noindent
+{\bf Keywords}---{\it
+Ada,
+Anna,
+style specification,
+style checking.}
+
+\newpage
+
+% Copywrite page
+\setcounter{page}{0}
+
+\vspace*{2.8in}
+
+\begin{center}
+\Large Copyright \copyright\ 1991
+\end{center}
+
+\begin{center}
+\large by
+\end{center}
+
+\begin{center}
+\Large
+\strut Micha{\l} Walicki\\
+\strut Jens Ulrik Skakkeb{\ae}k\\
+\strut Sriram Sankar
+\end{center}
+
+\newpage
+\setcounter{page}{3}
+
+\newcommand{\version}{1.20}
+
+\tableofcontents
+
+\chapter{Introduction}
+\label{intro}
+\pagenumbering{arabic}
+\input{tech-introduction}
+
+\chapter{The Style Specification Language}
+\label{ssl}
+\input{tech-ssl}
+
+\chapter{System Overview}
+\label{init-system}
+\input{tech-init-system}
+
+\chapter{Using The Style Checker}
+\label{usage}
+\input{tech-usage}
+
+\chapter{The Programmatic Interface}
+\label{prog-interf}
+\input{tech-interf}
+
+\chapter{Future Work}
+\label{future}
+\input{tech-future}
+
+\bibliography{style}
+\bibliographystyle{alpha}
+
+\appendix
+
+\newenvironment{stylerule}[2]
+{
+
+\vspace{6pt}
+
+\Large {\bf Rule No. #1 - #2} \normalsize
+}{}
+
+\newcommand{\guideline}[1]{\large {\bf Guideline:} \normalsize \\ #1
+
+\vspace{10pt}
+
+}
+
+\newcommand{\ssl}[1]{\large {\bf SSL form:} \normalsize \\ {\tt #1} 
+
+\vspace{10pt}
+
+}
+
+\newcommand{\internal}[1]{\large {\bf Internal Representation:} \normalsize
+\\ {\tt #1}
+
+\vspace{10pt}
+
+}
+
+\newcommand{\descr}[1]{\large {\bf Description:} \normalsize \\ #1
+
+\vspace{10pt}
+
+}
+
+\newcommand{\remarks}[1]{\large {\bf Remarks:} \normalsize \\ #1
+
+\vspace{10pt}
+
+}
+
+\chapter{The Stanford Style Checker}
+\label{stanford}
+\input{tech-stan}
+
+\chapter{Maintenance Guide}
+\label{maint}
+\input{tech-maint}
+
+\end{document}

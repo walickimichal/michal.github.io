@@ -1,0 +1,249 @@
+Apart from using the style checker as a stand-alone program,
+we have also provided a programmatic interface that can be used, for instance,
+in a software development environment.
+
+The interface to such an environment takes the form of a package and consists of types, functions, and an iterator package. 
+
+The style checker package is with'ed in the compilation unit that intends to 
+call the style checker.
+
+The flow of control is as follows:
+\begin{itemize}
+\item [1.] All the options to the style checker are specified.
+\item [2.] The style checker is activated. It returns a list of style violations.
+\item [3.] A dump of the violations or insertion of the violations in the source
+file can be performed (using the violation list and the functions described below).
+\item [4.] Using the iterator package, violation records can be removed from the 
+violation list one by one and the values of each component of the violation 
+records ({\em e.g.}, the name of a violation) can be selected.
+\end{itemize}
+
+\section{The Data Types}
+
+Options to the style checker are specified by
+providing the style checker procedure with an Ada record containing the
+following components:
+
+\begin{itemize}
+
+\item {\it Compilation\_Unit\_Only (type Boolean, default false):} Indicates whether the
+style checker should only perform the checks on the source file, or if
+the with'ed packages also should be checked.
+
+\item {\it Suppress\_Explanation (type Boolean, default false):} Indicates whether 
+the violation explanation should be omitted or not.
+
+\item {\it Log\_To\_Screen (type Boolean, default false):} Indicates whether the violations should
+be sent to the screen when checking.
+
+\item {\it Continue\_On\_Semantic\_Error (type Boolean, default false):} Indicates whether the
+style checker should continue, even if semantic errors occur in the input. Note
+that if this component is set to true,
+the output of the style checker might not be reliable.
+
+\item {\it Suppress\_vio\_File (type Boolean, default false):} The style checker will 
+automatically dump the violations in the file with '.vio' as the 
+last name. This slot indicates whether this dump should be suppressed or 
+not.
+
+\item {\it Stop\_At\_Violation\_Number (type Natural, default 0):} If this
+number is greater than zero 
+ the style checker will
+stop before it reaches the end of the source file, after this number of
+style violations has been detected.
+
+\end{itemize}
+
+\noindent
+The types defined in the visible part of the programmatic interface are
+shown below:
+
+\apebegin\bhinge
+\Package Style_Checker \Is
+
+   \Type Option_Record \Is \Record
+      Compilation_Unit_Only,
+      Suppress_Explanation,
+      Log_To_Screen,
+      Continue_On_Semantic_Error,
+      Suppress_vio_File: Boolean;
+      Stop_At_Violation_Number: Natural;
+   \End \Record;\\
+\\
+   \Subtype Line_Number_Type \Is Positive;\\
+   \Subtype Column_Number_Type \Is Positive;\\
+   \Type Name_Type \Is access String;\\
+   \Type Explanation_Type \Is access String;\\
+   \Subtype Warning_Type \Is Boolean;\\
+\\
+   \Type Violation_Type \Is \Private;
+   \Type Violation_List \Is \Private;
+   \vdots
+\End Style_Checker;
+\apeend
+
+\section{The Visible Operations}
+The programmatic interface consists of the following three operations:
+
+\begin{itemize}
+
+\item {\it Procedure Check:} This procedure performs the 
+actual style checking. It is provided a file name and
+a data structure containing the options for style checking ({\em e.g.},
+whether or not the style checker should continue on a semantic error, whether output
+should be printed on the screen, etc.). After the style
+checking has completed, a list of violations is returned together with
+a boolean variable that indicates whether the style checking was successful or
+aborted.
+
+\item {\it Procedure Dump:} This function dumps the violations into a
+file. The list of violations and the name of the list file are provided
+ as an argument.
+Furthermore, the user can also indicate to the function, whether or not the
+violation explanation should be suppressed in the file.
+
+\item {\it Procedure Merge:} Provided with a list of violations,
+the name of the source file and the name of the output file, this
+procedure inserts the violations properly in the source
+file code and dumps the result in the list file specified. For each violation,
+a pointer
+to the exact place where the style violation has occurred is also
+provided.
+
+\end{itemize}
+
+\noindent
+The functions are specified as follows in the visible part of the
+style checker:
+
+\apebegin\bhinge
+\Package Style_Checker \Is
+\vdots
+  \Procedure Check(file: String; Options: Option_Record;
+                        Violations: \Out Violation_List;
+                        Success: \Out Boolean);
+
+  \Procedure Dump(Violations: Violation_List; Log: \In String; 
+                       Suppress_Explanation: Boolean);
+
+  \Procedure Merge(Violations: Violation_List; Source, List: String);
+\vdots
+\End Style_Checker;
+\apeend
+
+\section{The Iterator Package}
+The visible part of the style checker also contains the specification for
+an iterator over violation lists.
+The following functions are provided to the user:
+
+\begin{itemize}
+
+\item {\it Function First\_Violation:} Provided with a violation
+list, this function will return the first violation in the list. Furthermore,
+if a name is also provided, the function will return the first
+violation in the list that has this name.
+
+
+\item {\it Function Next\_Violation:} Returns the next violation in the
+violation list. If a name is provided as an argument, the function will
+return the next violation in the violation list with this name. 
+
+\item {\it Function Line\_Number:} Given a violation, this function returns the 
+line number where the style violation occurred in the source file.
+
+\item {\it Function Column\_Number:} Given a violation, this function returns the 
+column number where the style violation occurred in the source file.
+
+\item {\it Function Name:} Given a violation, this function returns the 
+name of the style violation.
+
+\item {\it Function Explanation:} Given a violation, this function returns the 
+explanation of why the style violation occurred.
+
+\item {\it Function Warning:} Returns True if the violation is a warning, and
+False if it is an error.
+
+\item {\it Exception No\_More\_Violation}. This exception is raised if
+First\_Violation is provided an empty list or if Next\_Violations reaches
+the end of the violation list.
+
+\end{itemize}
+
+\noindent
+The package is defined as follows in the style checker:
+
+\apebegin\bhinge
+\Package Style_Checker \Is
+\vdots
+  \Package Iterator \Is
+
+    \Function First_Violation(Violations: Violation_List) \Return Violation_Type;
+    \Function First_Violation(Violations: Violation_List; Name: Name_Type)
+    \Return Violation_Type;
+
+    \Function Next_Violation \Return Violation_Type;
+    \Function Next_Violation(Name: Name_Type) \Return Violation_Type;
+
+    \Function Line_Number(Violation: Violation_Type) \Return Line_Number_Type;
+    \Function Column_Number(Violation: Violation_Type) \Return Column_Number_Type;
+    \Function Name(Violation: Violation_Type) \Return Name_Type;
+    \Function Explanation(Violation: Violation_Type) \Return Explanation_Type;
+    \Function Warning(Violation:Violation_Type) \Return Warning_Type;
+
+    No_More_Violations: \Exception;
+
+  \End Iterator;
+\vdots
+\End Style_Checker;
+\apeend
+
+\noindent
+Note that the actual visible part of the style checker contains more types
+and functions than described here. These are, however, only for internal
+use in the style checker and should be ignored. A failure to comply with
+this rule might cause an internal error in the style checker!
+
+
+\section{Putting It All Together}
+
+We now provide a simple example of how to use the style checker.
+
+\apebegin\bhinge
+\With Style_Checker;
+\Use Style_Checker;
+
+\Procedure Style_Driver \Is
+  \vdots
+  \cm{\indz}{We first declare the variables needed.}
+  vl: Violation_List;
+  v: Violation_Type;
+  o_r: Option_Record;
+  s: Boolean;
+  n: Name_Type;
+  e: Explanation_Type;
+  \vdots
+\Begin
+  \vdots
+  o_r := (&Compilation_Unit_Only => True,
+&Suppress_Explanation => False,
+&Log_To_Screen => True,
+&Continue_On_Semantic_Error => False,
+&Suppress_vio_File => False,
+&Stop_At_Violation_Number => 0);
+  \cm{\indz}{O_r is the option record, which specifies the set
+             of options, that the style checker should use.}
+  Check(``test.a'', o_r, vl, s);
+  \cm{\indz}{The style checker is activated.}
+  \vdots
+  Merge(vl, ``test.a'', ``list_test.a'');
+  \cm{\indz}{The style violations are inserted in the source code.}
+  \vdots
+  v := Iterator.First_Violation(vl);
+  \cm{\indz}{V holds the first violation.}
+  n := Iterator.Name(v);
+  \cm{\indz}{N holds the name/ID of the violation.}
+  e := Iterator.Explanation(v);
+  \cm{\indz}{E holds the explanation.}
+  \vdots
+\End Style_Driver;
+\apeend

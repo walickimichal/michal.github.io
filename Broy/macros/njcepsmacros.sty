@@ -1,0 +1,132 @@
+% njcepsmacros.sty	1994-10-25
+\typeout{Document Style Options `njcepsmacros'. Version 1994-10-25, Kimmo Raatikainen}
+%  This option file is derived from
+%   EPSF.TEX macro file:
+%   Written by Tomas Rokicki of Radical Eye Software, 29 Mar 1989.
+%   Revised by Don Knuth, 3 Jan 1990.
+%   Revised by Tomas Rokicki to accept bounding boxes with no
+%      space after the colon, 18 Jul 1990.
+%
+\def\njceps@kernl{0}
+\def\njceps@kernc{0.5}
+\def\njceps@kernr{1}
+%
+\newread\njceps@filein
+\newif\ifnjceps@noteof
+\newif\ifnjceps@bbfound
+\newif\ifnjceps@bbatend
+\newif\ifnjceps@psfile
+\newdimen\njceps@wd
+\newdimen\njceps@ht
+\newdimen\njceps@dimena
+\newdimen\njceps@dimenb
+\newdimen\njceps@tmp
+\newdimen\njceps@unit
+\newdimen\njceps@tmpa
+\newdimen\njceps@tmpb
+\newdimen\njceps@tmpc
+\newdimen\pspoints
+%
+\pspoints=1bp
+%
+{\catcode`\%=12 \gdef\njceps@start{%!}}%
+%
+\gdef\@@makeepsbox[#1]#2[#3]{\edef\njceps@kern{\@nameuse{njceps@kern#1}}%
+	\njceps@bbfoundfalse%
+	\njceps@getbb{#2}%
+	\ifnjceps@bbfound\njceps@makebox{#2}[#3]\fi%
+}%
+\def\njceps@getbb#1{%
+  \openin\njceps@filein=#1
+  \ifeof\njceps@filein\@warning{Cannot open `#1', will ignore it}\else
+   {\njceps@noteoftrue \njceps@psfilefalse\chardef\other=12
+    \def\do##1{\catcode`##1=\other}\dospecials \catcode`\ =10
+    \loop
+       \read\njceps@filein to \njceps@fileline
+       \ifeof\njceps@filein\njceps@noteoffalse\else
+          \ifnjceps@psfile
+            \expandafter\njceps@aux\njceps@fileline:. \\%
+          \else \expandafter\njceps@testpsfile\njceps@fileline:. \\%
+             \ifnjceps@psfile\else
+               \@warning{`#1' does not start with `\njceps@start'}%
+               \njceps@psfiletrue\fi
+          \fi
+       \fi
+   \ifnjceps@noteof\repeat
+   \ifnjceps@bbfound\else
+    \message{No BoundingBox comment in `#1';  will ignore it}\fi
+   }\closein\njceps@filein\fi}%
+%
+\def\njceps@scaleit#1#2#3{\njceps@tmpa=#1\njceps@tmpb=#2
+	\njceps@unit=#3
+	\njceps@tmpc\njceps@tmpa \divide\njceps@tmpc by \njceps@tmpb
+	\njceps@tmp=\number\njceps@tmpc\njceps@unit
+	\advance\njceps@tmpa by -\number\njceps@tmpc\njceps@tmpb
+	\loop \divide\njceps@unit by 2 \divide\njceps@tmpb by 2
+		\ifnum\njceps@tmpb>0
+		   \ifnum\njceps@tmpa<\njceps@tmpb \else
+			\advance\njceps@tmp by\njceps@unit
+			\advance\njceps@tmpa by-\njceps@tmpb
+		    \fi
+	\repeat
+}
+\def\njcepsprog@scale#1{
+	\njceps@scaleit{#1pt}{1000pt}{\njceps@wd} \njceps@wd=\njceps@tmp
+	\njceps@scaleit{#1pt}{1000pt}{\njceps@ht} \njceps@ht=\njceps@tmp
+}
+\def\njcepsprog@width#1{
+	\njceps@scaleit{#1}{\njceps@wd}{\njceps@ht} \njceps@ht=\njceps@tmp
+	\njceps@wd=#1
+}
+\def\njcepsprog@height#1{
+	\njceps@scaleit{#1}{\njceps@ht}{\njceps@wd} \njceps@wd=\njceps@tmp
+	\njceps@ht=#1
+}
+\def\njceps@doscaling#1=#2\@nil{%
+	\@ifundefined{njcepsprog@#1}{\@warning{%
+		Unknown scaling keyword `#1' in \string\makeepsbox}}{%
+	   \@nameuse{njcepsprog@#1}{#2}}
+}
+%
+\def\njceps@makebox#1[#2]{%
+   \njceps@ht=\njceps@ury\pspoints
+   \advance\njceps@ht by-\njceps@lly\pspoints
+   \njceps@wd=\njceps@urx\pspoints
+   \advance\njceps@wd by-\njceps@llx\pspoints
+   \njceps@doscaling#2\@nil
+   \njceps@dimena=10\njceps@wd \divide\njceps@dimena\pspoints
+   \njceps@dimenb\textwidth \advance\njceps@dimenb by-\njceps@wd
+   \vbox to\njceps@ht{\vfil\leavevmode\kern\njceps@kern\njceps@dimenb%
+      \hbox to\njceps@wd{\ifnjcputspecial%
+      \special{PSfile=#1 llx=\njceps@llx\space lly=\njceps@lly\space
+          urx=\njceps@urx\space ury=\njceps@ury\space
+          rwi=\number\njceps@dimena}\fi%
+      \hfil}}%
+}%
+\long\def\njceps@testpsfile#1#2#3:#4\\{\def\njceps@testit{#1#2}
+    \ifx\njceps@testit\njceps@start\njceps@psfiletrue\fi}%
+%
+{\catcode`\%=12 \global\let\njceps@percent=%\global\def\njceps@bblit{%BoundingBox}}%
+%
+\long\def\njceps@aux#1#2:#3\\{\ifx#1\njceps@percent
+   \def\njceps@testit{#2}\ifx\njceps@testit\njceps@bblit
+      \njceps@bbatendfalse
+      \njceps@atend #3 . \\%
+      \ifnjceps@bbatend\else
+        \njceps@BBox #3 . . . \\%
+        \njceps@noteoffalse
+        \global\njceps@bbfoundtrue
+      \fi
+   \fi\fi}%
+%
+\def\njceps@BBox #1 #2 #3 #4 #5\\{%
+   \global\def\njceps@llx{#1}\ifx\njceps@llx\empty
+      \njceps@BBox #2 #3 #4 #5 .\\\else
+   \global\def\njceps@lly{#2}%
+   \global\def\njceps@urx{#3}\global\def\njceps@ury{#4}\fi}%
+%
+\def\njceps@atendlit{(atend)}
+\def\njceps@atend #1 #2 #3\\{%
+   \def\njceps@tmp{#1}\ifx\njceps@tmp\empty
+        \njceps@atend #2 #3 .\\\else
+    \ifx\njceps@tmp\njceps@atendlit\njceps@bbatendtrue\fi\fi}

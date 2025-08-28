@@ -1,0 +1,554 @@
+\documentclass[leqno]{article}
+\makeatletter
+%\show\label
+\input{a4wide}
+\makeatother
+
+\usepackage{amssymb}
+\input{defs}
+
+\begin{document}
+
+\section{Specification of depth-first search in directed reflexive graphs}
+
+Specification of graph theory problems and algorithms is an interesting
+application area for nondeterminism. One reason for this is
+that graphs are defined as set, while their presentation in computer memory
+uses deterministic data structures, such as lists. To abstract from this
+inessential determinism we need some ``set-oriented''
+specification language, like the presented one. The problem in the example
+consists in finding traverse order through all vertices of a given graph
+following the well known, in the algorithmic graph theory, procedure called {\em
+depth-first search}. The presented specification is very abstract and it is
+not easy to see (without comments) that a tree (defined by a function)
+$T$ satisfying the specification is actually a DFS-tree.
+%
+The signature of the  specification contains
+\begin{description}\MyLPar
+\item[\(\cal V\)] --- the sort of vertices of graphs;
+\item[\(V:\ \to \cal V\)] --- a nondeterministic constant, defining the set of
+vertices of the given graph; 
+\item[\(A:\cal V\to\cal V\)] --- a nondeterministic function defining sets
+of neigbours of vertices, \(u\Incl A(v)\) means that the pair \(\<v,u\>\) is
+an arc in the given graph;
+\item[\(V_0:\ \to\cal V\)] --- a deterministic constant denoting the vertex
+where the search begins;
+\item[\(M:\cal V\to\cal V\)] --- a function defining vertices which were
+visited before a vertex is visited. This corresponds to marking of graph
+vertices, usually used in this procedure; 
+\item[\(T:\cal V\to\cal V\)] --- a function defining a resulting DFS-tree,
+like $A$ defines the given graph.
+\end{description}
+The specification of initial data contains such clauses:
+\clause{G1}{ax:graph}{$A(V)\Incl V$ 
+   -- the pair \(\<V,A\>\) is a directed graph; }
+\clause{G2}{ax:refl-A}{$v\Incl A(v)$,} 
+   -- reflexivity of the graph; it ensures both
+   non-emptness of \(A(v)\) for each \(v\Incl V\), and totality of \(A(v)\) on
+the sort \(\cal V\); 
+\clause{V1} {ax:det-V0} {$V_0\Eq V_0$,
+   -- uniqueness of \(V_0\); }
+\clause{V2}{ax:vert-V0}{\(V_0\Incl V\),
+   -- \(V_0\) is a vertex of the graph. }
+
+The following clauses determine some properties of the marking function $M$. This
+function linearly orders all vertices because marked vertices never become
+unmarked. The order relation ``a vertex $x$ is visited before $y$ 
+(or \(x\Eq y\)'' is
+written as \(x\Incl M(y)\). Clauses M1-M4 express the well-known properties
+of linear order.
+\clause{M1}{ax:refl-M}{\(v\Incl M(v)\) \quad (reflexivity);}
+\clause{M2}{ax:trans-M}{\(x\notIncl M(y),y\notIncl M(z),x\Incl M(z)\) \quad
+  (transitivity); }
+\clause{M3}{ax:asym-M}{\(x\notIncl M(y),y\notIncl M(x),x\Eq y\) \quad
+  (antisymmetricity);}
+\clause{M4}{ax:lin-M}{\(x\Incl M(y),y\Incl M(x)\)\quad (linearity).}
+
+The following three clauses relate $M$ to a given graph structure.
+\clause{M5}{ax:M-V0}{\(M(V_0)\Eq V_0\) \quad (the search begins from $V_0$);}
+\clause{M6}{ax:M-V}{\(M(V)\Incl V\) \quad (everything remains inside of $V$);}
+\clause{M7}{ax:M-A}{\(u\Incl A(M(v)),A(M(v))\Incl M(u)\),}
+   -- expresses some locality of $M$: if one reaches a vertex $u$ and
+there are some neigbours of visited vertices which have not
+been visited yet, then $u$ is also
+one of such vertices -- one cannot leave a part of the graph before
+all accessible vertices have been visited.
+
+The following clauses describe $T$ and a complex interaction between $T$ and
+$M$.   
+\clause{T1}{ax:TinA}{\(T(v)\Incl A(v)\),}
+  -- resulting tree is a subset of the graph's arcs;
+\clause{T2}{ax:Tsuf}{\(A(M(v))\Incl T(M(v))\),}
+  -- $T$ has enough arcs to reach all the neighbours of marked vertices;
+%  \ref{ax:M-A};
+\clause{T3}{ax:Tleaf}{\(A(v)\Incl M(v), T(v)\notIncl v\),}
+  -- describes the conditions for $v$ to be a leaf (i.e., \(T(v)\Eq v\)) of the
+  tree $T$: all neighbours of $v$ must be marked before $v$;
+\clause{T4}{ax:Tnew}{\(u\notIncl T(v), v\Incl M(u)\),}
+  -- monotonicity of $M$ along arcs of $T$; together with {\bf M3} %\ref{ax:asym-M} 
+it says that $T(v)$ and $M(v)$ have only one common value
+  $v$;
+\clause{T5}{ax:Tmin}{\(u\notIncl T(v), z\Incl M(u),z\Incl M(v), A(z)\Incl
+  M(u)\).} Refines the locality condition {\bf M7} %\ref{ax:M-A} 
+to an optimality requirement on $v$ and $u$:
+all neighbours of any $z$ between them (in the
+order defined by $M$) are visited before $u$.  
+
+We will define an {\em ancestor} function $C$, which allows easy
+formulation of the properties we want to express. The function $C$ is a
+transitive closure of \(T^{-1}\). The following clauses relate $C$ and $T$.
+
+\clause{C1}{ax:C-V0}{\(C(V_0)\Eq V_0\),}
+   -- again, everything begins from $V_0$;
+\clause{C2}{ax:C-T}{\(v\notIncl T(u),C(u)\Incl C(v)\),}
+   -- monotonicity of $C$;
+\clause{C3}{ax:tight-C}{\(u\notIncl T(v), z\notIncl C(u), z\Incl C(v), z\Eq u\),}
+   -- $C$ cannot be ``too large''.
+
+We should prove now that $C$ is transitive and antisymmetric:
+\clause{C4}{th:trans-C}{\(x\notIncl C(y),y\notIncl C(z),x\Incl C(z)\),}
+\clause{C5}{th:asym-C}{\(x\notIncl C(y),y\notIncl C(x),x\Eq y\).}
+
+The more interesting property is that $C$ defines a tree-order
+\clause{C6}{th:tree-C}{\(x\notIncl C(v), y\notIncl(v), x\Incl C(y), y\Incl
+C(x)\),} i.e., $T$ defines a forest, not only an acyclic graph
+(acyclicity is the same as antisymetricity).
+
+For the case of non-oriented graphs, i.e., when the condition of symmetricity
+for $A$
+\clause{NO}{ax:sym-A}{\(x\notIncl A(y),y\Incl A(x)\)}
+holds, the characteristic property of DFS-trees (forests, in general) can
+be formulated as
+\clause{CH}{th:DFS}{\(x\notIncl A(y),x\Incl T(y),x\Incl C(y),y\Incl C(x)\).}
+It says that any edge from $A$ not used in $T$ connects some vertex and its
+ancestor. 
+
+Unfortunately, we can not prove either {\bf C4} or {\bf C5} %\ref{th:trans-C} or \ref{th:asym-C} 
+(nor some other properties). What we get in the proof search are
+infinitely growing formulas. Properties like {\bf C2} and {\bf C3} %\ref{ax:C-T} or \ref{ax:tight-C} 
+localy relate $T$ and $C$ but do not say enough about the global
+properties of $C$.  
+
+\section{Concrete algorithms ...}
+\begin{itemize}\MyLPar
+\item Does the above specify an algorithm OR its result?
+\item Does it specify explicitly a data structure OR just relay on sets? And works only
+because sets are the convenient data structure for this particular problem?
+\item It should be checked agains constraint programming\ldots
+\end{itemize}
+In general, we do need an explicit data structure \ldots
+%\begin{description}\MyLPar
+%\item[
+$\es: \to S$, 
+%] -- constructs an empty set; the sort/data structure: sets of $\cal V$
+%%\item[$\cup:S\times E\to S$] -- a set constructor
+%%\item[$\setminus:S\times E\to S$] -- set minus
+%\item[
+$\ch:S\to E$ -- iterator (choice), 
+%\item[
+$|\_|:G\to S$ -- the set of all vertices in a graph \ldots
+%\item[\ldots]
+%\end{description}
+Most (if not all) operations from the previous section work on the {\em defined} sets!
+$g$ is the actually traversed graph and $t$ the DFS-tree constructed so far.
+\bit %egin{itemize}
+\itte{B}{}{B(g,v)\Eq A(g,v)\setminus v} -- auxiliary \\[.5ex]
+\itt{D0}{}{D(g,v_0)\Incl Tr(g,v_0,\es)} 
+% & \multicolumn{3}{l}{-- start constructing $T$ from empty graph} \\[.5ex]
+ or & & & $T(g,v_0)\Seteq Tr(g,v_0,\es)$ \\[.5ex]
+\itt{D1}{(B(g,v)\setminus |t|)\Eq\es}{Tr(g,v,t)\Incl t}
+  & \multicolumn{3}{l}{-- backtrack if all neighbours were visited (leaf is a special case)} \\[.5ex]
+\itt{D2}{x\Incl \ch.(B(g,v)\setminus |t|)} 
+  {Tr(g,v,t)\Incl Tr(g,v, Tr(g,x,t\cup \<v,x\>))}
+% & \multicolumn{3}{l}{-- go recursively to all the neighbours} \\[.5ex]
+ or& & & $Tr(g,v,t)\Seteq TTr(g,v, t, B(g,v)\setminus |t|)$ 
+\eit %nd{itemize}
+where $TTr(g,v,t,s)\Seteq \bigcup_{x\Incl\ch.s}Tr(g,v, Tr(g,x,t\cup \<v,x\>))$ 
+In those with $\Incl$, this relation expresses naturally the {\em progress} of the 
+computation. Alternatively, keep explicitly the ``marked'' vertices:
+\bit
+\itt{D0}{}{D(g,v_0)\Incl Tr(g,v_0,\es,\{v_0\})|_1} 
+\itt{D1}{(B(g,v)\setminus s)\Eq\es}{Tr(g,v,t,s)\Incl [t,s]}
+\itte{D2}{x\Incl \ch.B(g,v), x\not\in s} 
+  {Tr(g,v,t,s)\Incl Tr(g,v, Tr(g,x,t\cup \<v,x\>,s\cup x))}
+\eit
+% E.g. in D2., first find an $x$ from the RHS of $\Incl$ and then
+% ($\impl$) compute LHS by computing RHS. In B., we might (?) write 
+% $B(g,v)\Incl A(g,v)\setminus v$ -- if no other axioms have $B(g,v)$ in the LHS, this
+% will be the only possibility \ldots
+
+\subsection{Converting a natural $n$ to a binary representation} 
+$/$ divides ignoring fractions:
+\begin{ites}
+\itt{B1}{}{bin(0)\Incl \estr} 
+\itte{B2}{n> 0}{bin(n)\Incl bin(n/2) \app (n\ mod\ 2)}
+\end{ites}
+
+\subsection{First-fit Bin-packing}
+Given a list of $n$ numbers (bins, initially 0, but here whatever), a list of 
+$m$ numbers 
+(perhaps $x_m\leq U$), we let
+$P1:\Nat\times Seq_n\into Seq_n$ and $P:Seq_m\times Seq_n\into Seq_n:$\vspace*{1ex}
+
+\noindent
+\begin{iten}
+\itt{P1}{}{P1(x,\estr)\Incl {\rm Err}} %\ [\estr\app x\ \ {\rm no\ }l]}
+\itt{P2}{x+y\leq U}{P1(x,l\app y)\Incl l\app(x+y)}
+\itte{P3}{x+y> U}{P1(x,l\app y)\Incl P1(x,l)\app y}
+\end{iten}
+\hspace*{.5em}
+\begin{iten}
+\itt{Pa}{}{P(\estr,l)\Incl l}
+\itt{Pb}{}{P(s\app x,l)\Incl P(s,P1(x,l))}
+\itte{PS}{}{PS(s,l)\Incl P(SrtDec(s),l)} \\[1ex]
+\end{iten}
+Replacing in {\bf P1.} Err by $\estr\app x$ will fit
+$Seq_m$ into a minimum number of bins. {\bf PS.} is a variant sorting first 
+$Seq_m$ in a decreasing order.
+
+\newpage\subsection{Topological sort}
+DAG $G$ is a pair $\<E,V\>$ where $E$ is the set of edges $xy$ (i.e., $\<x,y\>$).
+(Notation $\upd Eon=E\setminus\{o\}\cup\{n\}$ for a set/function $E$ means: 
+replace $o$ by $n$; $\rem Eo$ -- remove $o$; $\add En$ -- add $n$.)
+% We write $x\Incl \ch.G$, resp. $yx\Incl \ch.G$, assuming that the choice is
+% made for the appropriate set $V$, resp. $E$. Adding/removing edge/vertex affects only the
+% respective component of the graph.
+
+Indegree $I:Gr\times V\to\Nat$
+\bit
+\itt{I1}{}{I(\<\es,V\>,x) \Incl 0}
+\itt{I2}{yz\Incl \ch.E, z\Eq x}{I(\<E,V\>,x) \Incl I(\<\rem E{yz},V\>,x) + 1} 
+\itt{I3}{yz\Incl \ch.E, z\notEq x}{I(\<E,V\>,x) \Incl I(\<\rem E{yz},V\>,x)}
+\itteqc{I?}{I(\<E,V\>,x)} {|\{y\in V:yx\in E\}|} 
+\itteqq{}{\cp(I(E,V,x))}{|E|}
+\eit
+and the set of $0$-vertices $Z:G\into Set(V)$
+\bit
+\itt{Z1}{}{Z(\<E,\es\>) \Incl \es}
+\itt{Z2}{x\Incl \ch.V, I(\<E,V\>,x)\notEq 0}{Z(\<E,V\>)\Incl Z(\<E,\rem Vx\>)}
+\itt{Z3}{x\Incl \ch.V, I(\<E,V\>,x)\Eq 0}{Z(\<E,V\>)\Incl Z(\<E,\rem Vx\>)\cup x}
+\itteqc{Z?}{Z(G)}{\{x\in V:I(G,x)=0\}} 
+\itteqq{}{\cp(Z(E,V))}{|V|*\cp(I(E,V,x))}
+\eit
+Topological sort $TS: G \into Seq$
+\bit
+\itt{T1}{Z(G)\Eq\es}{TS(G)\Incl\estr}
+\itte{T2}{x\Incl \ch.Z(G)}{TS(G)\Incl TS(U(G,x)) \app x}
+\eit
+and updating $G$ wrt. $x\in Z(G)$, i.e., removing all edges from $x$ -- $U:G\times V \into G$
+\bit
+\itt{U1}{}{U(\<\es,V\>,x)\Incl \<\es,\rem Vx\>}
+\itt{U2}{ zy\Incl \ch.E, z\Eq x}{U(\<E,V\>,x)\Incl U(\<\rem E{zy},V\>,x)}
+\itt{U3}{ zy\Incl \ch.E, z\notEq x}{U(\<E,V\>,x)\Incl U(\<\rem E{zy},V\>,x)\cup \< zy,\es\>}
+\itteq{U?}{U(\<E,V\>,x)} {\<E\setminus \{xy\in E:y\in V\},V\setminus x\>}
+\eit
+
+\subsection*{Show ?}
+If there is a path from $x$ to $y$ in $G$, then $y$ comes $aft$er $x$ in $TS(G)$ (since $G$ is a DAG, 
+$pth(x,y,G)\impl x\notEq y$)
+
+\noindent\begin{iten}
+\itt{}{pth(x,y,G)}{y\in aft(x,TS(G))}
+\itte{i.e}{y\in|D(G,x)|}{y\in aft(x,TS(G))}
+\end{iten}
+%% \(\begin{array}{rrcl}
+%% & pth(x,y,G) & \impl & y\in aft(x,TS(G)) \\[.5ex]
+%% or & y\in |D(G,x)| & \impl & y\in aft(x,TS(G))
+%% \end{array}\)
+\hspace{1em}
+\begin{iten}
+\itt{p1}{}{aft(x,\estr) \Incl \estr}
+\itt{p2}{x\Eq z}{aft(x,l\app z)\Incl l}
+\itt{p2}{x\notEq z}{aft(x,l\app z)\Incl aft(x,l)}
+\end{iten}
+
+\noindent
+Apparently, everything is implicitly generated and induction is everywhere. Show?
+\bit
+\itt{?1}{y\in|D(G,x)|, x\Incl\ch.Z(G)}{y\notIncl\ch.Z(G)}
+\itt{?2}{y\in|D(G,x)|, x\notIncl\ch.Z(G)}{y\notIncl\ch.Z(G)}
+\itt{?3}{y\notIncl\ch.Z(G), t\Incl TS(G)}{y\in aft(head(t),t)}
+\itte{?4}{y\in|D(G,x)|, x\Incl\ch.Z(G), z\Incl\ch.Z(G), x\notEq z}{y\in|D(U(G,z),x)|}
+\eit
+?2. takes care of two possibilities: either $x\not\in Z(G)$ or else $x\in Z(G)$ but it wasn't
+returned by the actual computation of choice in axiom T2. Similarly ?3.
+
+\newpage
+\subsubsection{Top. sort: multiple calls $\iff$ data structures}
+We convert a DAG $\<E,V\>$ into a set $G=\{\<x,P\>:x\in V\}$ where for each 
+vertex $\<x,P\>$,
+$P$ is the set of vertices $y$ such that $\<y,x\>\in E$.
+This conversion amounts to initialization of the Indegree's for all vertices. 
+The data structure is then $\<Z,G\>$ with $Z$ being the current (sub)set of 
+0-vertices, i.e., $x\in Z\iff \<x,\es\>\in G$. 
+The algorithm goes  as follows:
+\bit
+\itt{T1}{G\Incl Conv(\<E,V\>)}{TS(\<E,V\>)\Incl h(Z(G),G)}
+\itteqc{}{\cp(TS(\<E,V\>))}{\cp(Conv(\<E,V\>))+\cp(Z(G)) + \cp(h(Z,G))}
+\itcoe{}{}{{\rm where\ }G=Conv(\<E,V\>),\ Z=Z(G)}
+\eit
+
+\bit
+\itt{h1}{}{h(\es,G)\Incl\estr}
+\itt{h2}{z\Incl\ch.Z}{h(Z,G)\Incl h(U(\rem Zz,\rem G{\<z,\es\>},\rem G{\<z,\es\>},z))\app z}
+\itteq{h?}{\cp(h(Z,G))}{\ ?\ \cp(Z)*\cp(U(Z,G,G))\ {\rm -\ dynamic\ }Z\ ?} \\[-1ex]
+\eit
+$U:Set(V)\times G\times G\times V\into \<Set(V),G\>$ removes $zx$ from $G$ 
+and updates the 0-vertices:
+%% \bit
+%% \itt{U1}{}{U(Z,\es,G,z)\Incl \<Z,G\>}
+%% \itt{U2}{\<x,P\>\Incl\ch.H, \{z\}\Eq P}    {U(Z,H,G,z) \Incl
+%%        U(\add Zx, \rem H{\<x,P\>},\rem G{\<x,P\>},z)}
+%% \itt{U3}{\<x,P\>\Incl\ch.H, z\in P, \{z\}\notEq P}{U(Z,H,G,z) \Incl 
+%%        U(Z,\rem H{\<x,P\>}, \upd G{\<x,P\>}{\<x,P\setminus z\>},z)}
+%% \itt{U4}{\<x,P\>\Incl\ch.H, z\not\in P}{U(Z,H,G,z)\Incl 
+%%        U(Z,\rem H{\<x,P\>}, G, z)}
+%% \ass{The initial call is for: $Z=Z(G)$ and a $z\in Z$.} \\[.5ex] \hline
+%% \itt{U?}{U(Z,G,G,z)=\<Z',G'\>}{Z'=Z(G')\ \&\ G'=G\setminus (z\times V)\setminus (Z'\times V)}
+%% \itteqq{}{\cp(U(Z,H,G,z))}{|H|*(\cp(\in P)+\cp(\rem H{}))} 
+%% \eit
+
+\noindent
+$\begin{array}{rccl@{\ \ \impl\ \ }l}
+{\bf U1.} &&& & {U(Z,\es,G,z)\Incl \<Z,G\>} \\[.5ex]
+{\bf U2.} & \<x,P\>\Incl\ch.H & z\in P & \{z\}\Eq P  &  U(Z,H,G,z) \Incl
+       U(\add Zx, \rem H{\<x,P\>},\rem G{\<x,P\>},z) \\[1ex]
+{\bf U3.} & \into & \into & \{z\}\notEq P  & U(Z,H,G,z) \Incl 
+       U(Z,\rem H{\<x,P\>}, \upd G{\<x,P\>}{\<x,P\setminus z\>},z) \\[1ex]
+{\bf U4.} & \into  & z\not\in P & & U(Z,H,G,z)\Incl 
+       U(Z,\rem H{\<x,P\>}, G, z) \\[.5ex]
+&\multicolumn{4}{l}{[{\rm The\ initial\ call\ is\ for}: Z=Z(G), z\in Z.]} \\[.5ex] \hline
+{\bf U?} &\multicolumn{3}{r@{\ \ \impl\ \ }}{U(Z,G,G,z)=\<Z',G'\>} & Z'=Z(G')\ \ 
+     \&\ \ G'=G\setminus (z\times V)\setminus (Z'\times V) \\[.5ex]
+  &\multicolumn{4}{r}{\cp(U(Z,H,G,z))=|H|*(\cp(\in P)+\cp(\rem H{}))} \\[-1ex] \ & \ 
+\end{array}
+$
+
+\noindent
+Initialization, $Conv:Set(E)\times Set(V)\into G$ goes as follows:
+\bit
+\itt{Co1}{}{Conv(E,\es)\Incl \es}
+\itt{Co2}{x\Incl\ch.V}{Conv(E,V)\Incl Conv(E,\rem Vx)\cup C(E,x,\es)}
+\itteqc{Co?}{Conv(E,V)}{\{C(E,x,\es):x\in V\}}
+\itteqq{}{\cp(Conv(E,V))}{|V|*\cp(C(E,x,\es))} \\[2ex]
+\itt{C1}{}{C(\es,x,P)\Incl \<x,P\>}
+\itt{C2}{zy\Incl \ch.E, y\Eq x}{C(E,x,P)\Incl C(\rem E{zy},x,\add Pz)}
+\itt{C3}{zy\Incl \ch.E, y\notEq x}{C(E,x,P)\Incl C(\rem E{zy},x,P)}
+\itteqc{C?}{C(E,x,\es)}{\<x,\{z:zx\in E\}\>} 
+\itteqq{}{\cp(C(E,x,\es))}{|E|*\cp(\rem E{})} \\
+\itteq{}{\cp(Conv(E,V))}{|V|*|E|*\cp(\rem E{})}
+\eit
+Finally, $Z(G)$ is called only once at the start:
+\bit
+\itt{Z1}{}{Z(\es)\Incl \es}
+\itt{Z2}{\<x,P\>\Incl \ch.G, P\notEq\es}{Z(G)\Incl Z(\rem G{\<x,P\>})}
+\itt{Z3}{\<x,P\>\Incl \ch.G, P\Eq\es}{Z(G)\Incl Z(\rem G{\<x,P\>})\cup x}
+\itteqc{Z?}{Z(G)}{\{x:\<x,\es\>\in G\}}
+\itteqq{}{\cp(Z(G))}{|G|*\cp(\rem G{}),\ \ \ |G|=|V|} \\[-1ex]
+\eit
+
+\newpage
+\subsection{MCST and Kruskal}
+We write $xy$ for a pair $\<x,y\>$ -- probably, it may be later 
+specified as an ordered pair (directed edge) or unordered set 
+(undirected edge).
+
+The data structure is an (irreflexive, connected) graph $\<E,V\>$ where $E$ is a 
+set of pairs $xy$ 
+for $x,y\in V$, and a function cost $cst:E\into\Nat$, such that 
+$cst(xx)=\infty$.
+%
+\bit \hspace*{-1em}
+\itt{MC1}{}{MCST(\es,V)\Incl \es}
+\itt{MC2}{xy\Incl \ch.min(E)}{MCST(E,V)\Incl h(E, 
+V, \{xy\}, Ne(E, xy)) } \\[-1ex]
+\itt{h1}{}{h(E,V,T,\es)\Incl T}
+\itt{h2}{xy\Incl \ch.min(N), y\not\in T}{h(E,V,T,N)\Incl h(E,
+V, \add T{xy},Ne(E, \add T{xy})) }
+\ass{each edge in $N$, i.e. $Ne(E,T)$ goes from $T$ outside it}
+\eit 
+%
+For sets of edges $T\subseteq E$, $Ne(E,T)$ returns the set of minimal edges going 
+out of $T$ into $E\setminus T$:
+\bit
+\itt{Ne}{}{Ne(E,T)\Incl n(E,T,\es)}
+\itt{n0}{}{n(\es,T,C)\Incl C}
+\itt{n1}{xy\Incl\ch.E, x\in T, y\in T}
+      {n(E,T,C)\Incl n(\rem E{xy},T,C)}
+\itt{n2}{xy\Incl\ch.E, x\not\in T, y\not\in T}
+      {n(E,T,C)\Incl n(\rem E{xy},T,C)}
+\itc{n3}{xy\Incl\ch.E, x\in T, y\not\in T, e\Incl Con(C,y)}
+  \itco{cst(xy)<cst(e)}{\impl}{n(E,T,C)\Incl n(\rem E{xy}, T, \upd Ce{xy})}
+\itc{n4}{xy\Incl\ch.E, x\in T, y\not\in T, e\Incl Con(C,y)}
+  \itcoe{cst(xy)\geq cst(e)}{\impl}{n(E,T,C)\Incl n(\rem E{xy}, T, C)}
+\eit
+$C$ is a set of edges to vertices neighbouring current $T$, and for 
+an $y\not\in T$, $Con(C,y)$ returns 
+the edge (from $C$) connecting $y$ 
+to $T$, or $yy$ if no such edge exists:
+\bit
+\itt{c1}{}{Con(\es,y)\Incl yy}
+\itt{c2}{xy\Incl \ch.C}{Con(C,y)\Incl xy}
+\itt{c3}{xz\Incl \ch.C, z\notEq y, x\notEq y}
+     {Con(C,y)\Incl Con(\rem C{xz},y)}
+\ass{at most one edge to $y$ in $C$ and, for {\bf Ne}, $cst(yy)=\infty$} 
+\eit
+%
+$min(E)$ returns the subset of edges $E$ with minimal cost:
+\bit
+\itt{min}{}{min(E)\Incl m(E,\es,\infty)}
+\itt{m1}{}{m(\es,T,n)\Incl T}
+\itt{m2}{e\Incl\ch.E, cst(e) < n}{m(E,T,n)\Incl m(\rem Ee, \{e\},cst(e))}
+\itt{m3}{e\Incl\ch.E, cst(e) = n}{m(E,T,n)\Incl m(\rem Ee, \add Te,n)}
+ \itt{m4}{e\Incl\ch.E, cst(e) > n}{m(E,T,n)\Incl m(\rem Ee, T,n)}
+\eit
+
+\newpage
+\subsubsection{Kruskal light}
+$F$ is a forest -- initially, just the set of vertices $V$.
+\bit
+\itt{MC1}{}{MSCT(\es,V)\Incl \es}
+\itt{MC2}{}{MCST(E,V)\Incl h(V, srt(E))} %\\[-1ex]
+\itteq{}{\cp(MCST(E,V))}{\cp(srt(E) + h(V,E))}
+\eit
+$srt$ returns the sequence of edges sorted in increasing order according to weights,
+\bit
+\itt{h1}{}{h(F,\estr)\Incl F}
+\itt{h2}{xy\Incl hd(S), DIF(F,xy)\Eq\true}{h(F,S)\Incl h(join(F,xy), tail(S))\cup xy}
+\itt{h3}{xy\Incl hd(S), DIF(F,xy)\Eq\false}{h(F,S)\Incl h(F, tail(S))}
+\itteq{}{\cp(h(E,V))}{|E|*\cp(DIF(F)+join(F))}
+\eit
+$DIF(F,e)$ returns true if $e$ connects different trees
+from $F$
+\bit
+\itt{d1}{in(F,x)\Eq in(F,y)}{DIF(F,\es)\Incl \false}
+\itt{d2}{in(F,x)\notEq in(F,y)}{DIF(F,\es)\Incl \true}
+\itteq{}{\cp(DIF(F))}{2*in(F)}
+\eit
+where $in(F,x)$ returns the tree from $F$ to which $x$ belongs:
+\bit
+\itt{i1}{t\Incl \ch.F, x\in t}{in(F,x)\Incl t}
+\itt{i2}{t\Incl \ch.F, x\not\in t}{in(F,x)\Incl in(\rem Ft,x)}
+\ass{$x$ does belong to some tree in $F$} \\
+\itteq{}{\cp(in(F))}{|F|*\_\in t}
+\eit
+Finally, $join(F,xy)$ joins trees from $F$ connected by $xy$ returning a new forest:
+\bit
+\itt{j1}{s\Incl in(F,x), t\Incl in(F,y)}
+   {join(F,xy)\Incl \rem F{s,t}\cup \{s\cup t\cup xy\}}
+\ass{$s\notEq t$ are tees} \\
+\itteq{}{\cp(join(F))}{2* in(F) + 2*\rem F{}}
+\eit
+$\cp(MC) = srt(E) + |E|*(4*in(F)+ 2*\rem F{}) = srt(E)+|E|*(4*|F|*\in t + 2*\rem F{})$.
+\subsubsection*{... a bit better:}
+\bit
+\itc{h2'}{xy\Incl hd(S), s\Incl in(F,x), }
+ \itco{t\Incl in(F,y), s\notEq t}{\impl}{h(F,S)\Incl h(join(F,s,t,xy), tail(S))\cup xy}
+\itc{h3'}{xy\Incl hd(S), s\Incl in(F,x),}
+ \itco{t\Incl in(F,y), s\Eq t}{\impl}{h(F,S)\Incl h(F, tail(S))}
+%\itteq{}{\cp(MCST(E,V))}{\cp(\ srt(E) + |E|*((2*in(F))+join(F))\ )}
+\hline\multicolumn{4}{r}
+{$\cp(MCST(E,V)) = \cp(\ srt(E) + |E|*((2*in(F))+join(F))\ )$}
+\eit
+and 
+\bit
+\itt{j1'}{}{join(F,s,t,xy)\Incl \rem F{s,t}\cup \{s\cup t\cup xy\}}
+\itteq{}{\cp(join(F))}{2*(\rem F{})}
+\eit
+$\cp(MC)) = srt(E) + |E|*(2*in(F)+ 2*\rem F{})= srt(E) + |E|*(2*|F|*\in t+ 2*\rem F{})$
+
+
+Here, a tree is a single vertex or a set of edges and membership $x\in T$ given by:
+\bit
+\itt{}{}{x\not\in\es}
+\itt{}{e\Incl\ch.T, e\Eq x}{x\in T}
+\itt{}{e\Incl\ch.T, e\Eq y,y\notEq x}{x\in T\Incl x\in \rem Te}
+\itt{}{e\Incl\ch.T, e\Eq zy, z\Eq x}{x\in T}
+\itt{}{e\Incl\ch.T, e\Eq zy, y\Eq x}{x\in T}
+\itt{}{e\Incl\ch.T, e\Eq zy, z\notEq x, y\notEq x}{x\in T\Incl x\in \rem Te}
+\eit
+
+\newpage
+\subsubsection*{or worse ...}
+\bit
+\itt{MC1}{}{MSCT(\es,V)\Incl \es}
+\itt{MC1}{}{MCST(E,V)\Incl h(E,V)}\\[-1ex]
+\itt{h1}{}{h(\es,F)\Incl F}
+\itte{h2}{xy\Incl\ch.min(dif(F,E))}{h(E,F)\Incl h(E\setminus xy,join(F,xy))}
+\eit
+$min$ is as in {\bf MSCT}, $dif(F,E)$ returns the edges from $E$ connecting different trees
+from $F$
+\bit
+\itt{d1}{}{dif(F,\es)\Incl \es}
+\itt{d2}{xy\Incl\ch.E, in(F,x)\Eq in(F,y)}{dif(F,E)\Incl dif(F,E\setminus xy)}
+\itte{d3}{xy\Incl\ch.E, in(F,x)\notEq in(F,y)}{dif(F,E)\Incl dif(F,E\setminus xy)\cup xy}
+\eit
+where $in(F,x)$ returns the tree from $F$ to which $x$ belongs:
+\bit
+\itt{i1}{t\Incl \ch.F, x\in t}{in(F,x)\Incl t}
+\itt{i2}{t\Incl \ch.F, x\not\in t}{in(F,x)\Incl in(F\setminus t,x)}
+\ass{$x$ does belong to some tree in $F$}
+\eit
+Finally, $join(F,xy)$ joins trees from $F$ connected by $xy$ returning a new forest:
+\bit
+\itt{j1}{s\Incl in(F,x), t\Incl in(F,y)}
+   {join(F,xy)\Incl (F\setminus s\setminus t)\cup (s\cup t\cup xy)}
+\ass{$s\notEq t$ are tees}
+\eit
+
+\newpage\section{Kind of ...}
+general schema ?
+\[A_1 \impl \ldots \impl A_n\ \ \impl\ \ L\Incl R\]
+\begin{itemize}\MyLPar
+\item 
+To compute $L$ compute $R$, provided that all $A_i$ hold -- or, compute $A_1$, 
+then $A_2$, etc., and finally compute $R$.
+\item
+$A_i$'s must bind all the variables as results of computations, i.e., if an $x$ occurs 
+somewhere (not in $L$ but in $R$ or $A_j$), it must be introduced in some $A_i<A_j$ of 
+the form $x\Incl C_i$. Then $A_j$ may check if it satisfies some condition $x\Eq C_j$.
+\item
+Shall we distinguish static conditions from those ``to be computed''? If there are 
+several $x\Incl C_i\ldots x\Incl C_j$, how to interpret this?
+Certainly, data structures should be specified statically -- not necessarily with the
+algorithmic interpretation.
+\item
+For an algorithm, such restrictions, as well as the order of $A_i$'s matter. 
+Also, things like {\bf U2} matter. Logically, they are irrelevant -- instead of {\bf U2}
+we might well write 
+\[xy\Incl \ch.E\ \impl\ \ U(\<E,V\>,x)\Incl U(\<E\setminus\<x,y,V\>,x) \]
+\item Computations, like in {\bf T2} are inside-out.
+\item LOGIC: since $\Incl$ is $:=$, its LHSs have 
+ \begin{itemize}
+  \item variables $:x\Incl\ldots z\Incl\ldots\impl\ldots$, or
+  \item function to be computed $:\ldots \impl F(x)\Incl\ldots$ (-- with variables?)
+ \end{itemize}
+\end{itemize}
+Finally ...
+\begin{itemize}\MyLPar
+\item Isn't it just 
+ \begin{itemize}\MyLPar
+ \item recursion (show it?): {\tt if} and {\tt while}?
+ \item {\tt Prolog}?
+ \item rewriting? (What are the differences?)
+ \item constructive specifications? (We need not be executable?)
+ \item algorithmic logic (dynamic l., etc.)
+ \end{itemize}
+\item Give it multialgebra/evolving-algebra/imperative semantics ?
+\item Generatedness -- any universal assumption of? Shouldn't all stuff involve explicit
+distinction destructors vs. constructors -- Ds for observation, Cs for construction? 
+E.g., \begin{itemize}
+\item[{\bf Z3.}] $x\Incl \ch.V(G),\ I(G,x)\Eq 0\impl Z(G)\Incl Z(RemV(G,x))\cup x$
+\item[{\bf U3.}] $ zy\Incl \ch.E(G),\ z\notEq x\impl U(G,x)\Incl 
+   AddE(U(RemE(G, zy)),\  zy)$
+  \end{itemize}
+\item Would like to get, (semi)automatically
+ \begin{itemize}\MyLPar
+ \item complexity of the algorithm
+ \item static properties of functions (as {\bf U?}, {\bf Z?} etc.)
+ \item usual logical means to reason about the formulae
+ \end{itemize}
+\end{itemize}
+
+
+\end{document}

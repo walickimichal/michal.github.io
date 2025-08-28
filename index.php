@@ -1,0 +1,372 @@
+<TITLE>Michal Walicki </TITLE>
+<!-- Changed by: Michal Walicki,  3-Oct-1996 -->
+
+<style>
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1;
+}
+
+h1, h2, h3, h4 {
+    margin-bottom:5px
+}
+
+}    
+ol {
+    line-height: 1; 
+}
+
+</style>
+
+<H1>Michal Walicki </H1>
+<hr>
+<PRE>
+Address: University of Bergen 
+         Department of Informatics
+         HiB, 5020 Bergen, NORWAY
+Ph.       : +47 55 58-41-78
+Fx.       : +47 55 58-41-99
+E-mail : myforename-at-ii-dot-uib-dot-no
+
+Interests: self-reference and semantic closure, digraph kernels, paraconsistency. 
+more specifically: 
+
+(CURRENT) Graph representation of logical theories:
+    Classical/paraconsistent semantics represented by digraph kernels/semikernels
+    Graph Normal Form and its applications
+    Logical circularity as cycles in language graph 
+    Semantic paradoxes, self-reference, definability of truth
+    <!--Transparent sentential truth predicate -->
+<H3 style="margin-bottom:0px"> The earlier conjecture:
+    A digraph with no kernel has an odd cycle or
+    a ray with infinitely many vertices dominating it.
+<p style="margin-bottom:0px;margin-top:5px"> has been proven for: 
+
+  1. <A HREF="finEnds.pdf">graphs with finite number of ends</A> (Discrete Mathematics, 2019)
+
+  2. A <A HREF="PoisonGame.pdf"> variant of Poison Game,</A> introduced by Duchet and Meyniel for finite digraphs,
+     which can be useful for proving (non)existence of (semi)kernels in the infinite digraphs.
+<!--2. Not yet <A HREF="2paradoxes.pdf">all graphs</A>. This try uses 1. and variant of Duchet's `poison game' but has some mistakes. 
+   Some are fixed, as compared to the version from <A HREF ="http://arxiv.org/abs/2309.03137">arXive</A>, but when you find others I will appreciate you letting me know. -->
+
+ </H3>
+<p style="margin-top:0px">(PAST) Universal algebra and category theory:    
+    Categories of multialgebras
+    Relational and power structures
+    Algebraic treatment of nondeterminism
+</PRE>
+
+<BR>
+
+<H3>Some papers:</H3>
+<!-- Files which are mentioned as available for ftp, can also be obtained directly by
+anonymous ftp from the directory <b>/pub/michal</b> on the server <b> ftp.ii.uib.no</b>. --> 
+
+<H2>1. Logic</H2>
+<ol>
+      
+ <H3>Self-reference, paradoxes, truth theory and kernels of digraphs</H3> (about third part of these are joint works with Sjur Dyrkolbotn)
+<ol>
+
+<li><A HREF="LSOT.pdf">Truth is definable in Logic of Sentential Operators,</A> LSO (introduced in the paper below), without deviating from classical logic, (2025). 
+  
+ <li>
+<A HREF="LSO-FINAL.pdf">Logic of sentential operators,</A> LSO,
+    extends LK with 2 rules for sentential quantifiers, providing a
+    complete reasoning for the language extending any FOL language with
+    operators and quantification over sentences. Graph-based
+    semantics admits self-reference arising from the unrestricted
+    sentential quantification.
+Paradoxes are distinct from contradictions and do not lead to explosion, unless unrestricted (cut) is added to LSO.  
+ The final version in <A HREF="https://link.springer.com/article/10.1007/s10992-024-09775-2">Journal of Philosophical Logic, Vol. 53, pp.1579–1639, (2024)</A>.
+ 
+  <li> <A HREF="RG-KT.pdf">Reference graphs, dependence relations and kernel theory in analysis of paradoxes</A>, a note on some relations between the three. [unpublished]
+
+<!--  <li> "Paraconsistent resolution",  [to appear in Australasian  Journal of Logic, 2022] -->
+<!-- <A HREF="GNF-FOL.pdf"> --> 
+
+    
+  <li> <A HREF="https://academic.oup.com/jigpal/advance-article/doi/10.1093/jigpal/jzaa054/5954216?guestAccessKey=071eadea-9cb0-4552-9069-8cc5a6ef4f34">"Extensions in Graph Normal Form"
+- graph normal form for first-order logic</A>, with applications to (conservative) extensions [Logic Journal of the IGPL, Vol. 30, No. 1, pp.101-123, 2022]
+<!-- <A HREF="GNF-FOL.pdf"> --> 
+
+<li><A HREF="JSL17.pdf">"Resolving infinitary paradoxes"</A>, complete reasoning with classical resolution about and in the presence of inconsistency [preprint, final version in 
+<A HREF="https://www.cambridge.org/core/journals/journal-of-symbolic-logic/article/resolving-infinitary-paradoxes/285066F41EA1F0F0008A3CEF8A4CCD83"> Journal of Symbolic Logic, 82,(2),2017,709-723</A>]
+
+<li><A HREF="ParaRes2.pdf">Paraconsistent resolution and semantics, refining the above:</A> maximal, predecessor-closed local kernels provide general semantics for the resolution logic; when the theory is consistent, they coincide with the classical semantics, while otherwise provide a classical semantics for the maximal consistent subdiscourse (kernel for maximal ``consistent'' induced subgraph);
+  [<A HREF="https://ojs.victoria.ac.nz/ajl/article/view/6471">Australasian Journal of Logic, Vol. 19 No. 3, 2022</A>]
+
+ <li><A HREF="graph-paradox.pdf">"Propositional Discourse Logic"</A>: graph structure of paradoxes, diagnosis of semantic paradoxes [preprint; appeared in Synthese, 2013]
+
+<li><A HREF="Sjur-tese.pdf">Argumentation, paradox and kernels in directed graphs</A> - a Ph.D. thesis by Sjur Dyrkolbotn, written (and defended) under my supervision in 2012. 
+    
+ <li><A HREF="Synthese.pdf">"Reference, paradoxes and truth"</A>, 
+ graph-based (or boolean equations based) approach to paradoxes of
+ self-reference. Many cases problematic for earlier approaches are solved in a
+ simple way. [preprint; the final version in Synthese, available at <A
+ HREF="http://www.springerlink.com">www.springerlink.com</A> or at <A HREF="http://www.jstor.org/stable/40495992">JStore</A>, 2009.]
+
+<!--
+<li><A HREF="truth.pdf">"The holism of truth and paradox"</A>: with a complete diagnosis of semantic paradoxes using only classical logic 
+
+ <li><A HREF="parKernels.pdf">"Paradoxes and kernels"</A>,
+Consistent propositional theories (possibly in infinitary logic) are
+equivalent to digraphs possessing kernels. The equivalence is exploited to
+establish some known and new results and to analyse particular theories. 
+-->
+<!-- </ul> -->
+
+<!--<H4>Kernels of digraphs and paradoxes</H4> -->
+
+</ol>
+
+<H3>Kernels of digraphs (paradoxes and satisfiability)</H3>
+<ol start=10>
+<li> A <A HREF="PoisonGame.pdf"> variant of Poison Game,</A> introduced by Duchet and Meyniel for finite digraphs, which can be useful for proving (non)existence of (semi)kernels on infinite digraphs. Nonexistence of any semikernel amounts to player B winning always in finitely many steps.
+<li> <A HREF="finEnds.pdf">Kernels of digraphs with finitely many ends</A>, a proof of the main conjecture (top of this page) for graphs with finitely many ends,  [preprint; Discrete Mathematics, 342, 473-486, 2019]
+
+<li> <A HREF="graph-revMath.pdf">Graph Normal Form for propositional logic and some reverse mathematical results</A>, at <A HREF="http://dx.doi.org/10.1016/j.apal.2011.08.004">APAL, vol. 162, no. 3, March 2012</A>
+
+<li><A HREF="KernelSAT.pdf">"Finding kernels or solving SAT"</A>: analysing 
+the relations between the algorithms for kernels and SAT, [Journal of Discrete Algorithms, vol.10, 146-164, 2012]
+</ol>
+
+<H3>Modal / Epistemic / Sequence logic / Bounded (finite) agents </H3>
+
+<H4 style="margin-top:10px">--  Sequence Logic</H4>
+<ol start=14>
+<li><A HREF="Marc/WalickiBezemSz.pdf">"A strongly complete logic of dense
+ time intervals"</A>, ESSLI-06, (logic relating sequential descriptions (in an arbitrary
+ parameter logic) of systems passing through changing states)
+
+ <li><A HREF="Marc/JoLLI.pdf">"Developing Bounded Reasoning" </A>  (a preliminary
+ version, 2008. The original publication is available at <A HREF="http://www.springerlink.com">www.springerlink.com</A>)
+ <li><A HREF="Marc/LPAR.pdf">"Completeness and decidability in Sequence Logic" </A>, LPAR'07
+
+<li><A HREF="modint.pdf">"Modalities as Interactions between the
+ Classical and the Intuitionistic Logics"</A>, Tech.Rep. no.330, June 2006,
+ (in the classical algebraic semantics, modalities can be viewed as
+ combinations of classical and intuitionisitc negations) 
+   <ul> <li> <A HREF="JLLP.pdf"> abbreviated version published in the journal 
+ Logic and Logical Philosophy, 2007</A> 
+   </ul>
+</ol>
+   
+<H4>-- Bounded agents and finite sets</H4>
+<ol start=18>
+<li><A HREF="thomas/climaFinal.pdf">Strongly Complete Axiomatizations of
+``Knowing At Most'' in Standard Syntactic Assignments</A>, CLIMA'05.
+
+ <li><A HREF="thomas/fmrba-05.pdf">Complete Axiomatization of Finite Syntactic
+Epistemic States</A>, in Declarative Agent Languages and Technologies, workshop 
+at AAMAS'2005. 
+
+ <li><A HREF="2004/thomasThesis.pdf">"The Logic of Finite Syntactic States"</A>
+<br> (a Ph.D. thesis written under my supervision by Thomas AAgotnes, 2004
+(epistemic logic of finite agents with bounded resources) with a small <A
+HREF="2004/thomasErrata.ps">errata</A>)
+ <li><A HREF="Marc/joLLI.pdf">"Developing Bounded Reasoning"</A>  (a preliminary
+ version, 2008. The original publication is available at www.springerlink.com)
+<li><A HREF="IGPL-Thomas.pdf">Complete axiomatisations of properties of finite sets</A>, Logic
+ Journal of the IGPL, vol.16, no.3, June 2008.
+</ol>
+
+
+<H3>Logic of multifunctions</H3>
+<ol start=23>
+ <li> <A HREF="2003/wollic03.ps">Quantifier-free logic for multialgebraic
+theories</A>, WOLLIC, 2003 [revised version in Theoretical Computer Science, 2006]
+
+<li><A HREF="toplas/toplas95.ps">"A Complete Calculus for the
+Multialgebraic and Functional Semantics of Nondeterminism"</A>
+ [<i>ACM TOPLAS</i>, Vol. 17, No. 2, March 1995], 
+<!--  <li> <A HREF="ftp://ftp.ii.uib.no/pub/michal/toplas95.ps">ftp the .ps file</A> 
+ </ul> <P> -->
+
+  <li>A digression:<A HREF="Regis/StPet/stpet.ps">"On Specialization of Derivations in Axiomatic Equality Theories"</A>
+  [in <i>Proc. of LFCS'94,</i>LNCS vol. 813, 1994]
+
+<li>  <A HREF="adt94/adt.pdf">"Multialgebras, Power Algebras and Complete Calculi of Identities and
+  Inclusions"</A>   [ADT'94, in <i>Recent Trends in Data Type Specification,</i>LNCS, vol. 906, 1995]
+</ol>
+
+<H4>-- Rewriting in multialgebras</H4>
+<ol start=27>
+<li>"Reasoning and Rewriting with Set-Relations I: Ground Completeness"
+  [<i>Proc. of CSL'94</i>, L.Pacholski, J.Tiuryn (eds.), LNCS vol. 933, 1995]
+  <br> - <A HREF="valis/csl94/csl.ps">ps file</A> or 
+   <A HREF="valis/csl94/long/RewSet.ps">a longer version with more proofs</A>
+<!--  <li> <A HREF="ftp://ftp.ii.uib.no/pub/michal/csl.ps">ftp the .ps file</A> -->
+ 
+<li><A HREF="valis/adt95/adt.ps">"Reasoning and Rewriting with Set-Relations II: Completeness for the
+  Non-Ground Case"</A>
+  [<i>Recent Trends in Data Type Specification</i>, LNCS. vol.1130, 
+  (eds. M.Haveraaen, O.Owe, O.-J.Dahl), Oslo, 1995]
+<!--  <li> <A HREF="ftp://ftp.ii.uib.no/pub/michal/adt.ps">ftp the .ps file</A> -->
+
+<li> <A HREF="valis/Rels/nwpt.ps">"Nondeterministic Algebraic Specifications in Relational Syntax"</A>
+ [<i>Proc. of Nordic Workshop on Programming Theory</i>,
+   B.Bjerner, M.Larsson, B.Norstroem (eds.), Rep. 86, The Programming
+   Methodology Group, Goeteborg University, pp.185-203, 1996]
+<!--  <li> <A HREF="ftp://ftp.ii.uib.no/pub/michal/nwpt.ps">ftp the .ps file</A> -->
+</ol>
+
+
+<H2 style="margin-left:-35px">2. Algebra, semantics</H2>
+
+<H3>Relations, multifunctions, homomorphisms, universal multialgebra</H3>
+<!-- <li>full version: Tech.Rep. 838, Inst. of CS, Polish Academy of Sciences, 1997
+    <ul>
+    <li> <A HREF="marcin/09waw/techrep.ps"> view the .ps file</A>
+    <li> <A HREF="ftp://ftp.ii.uib.no/pub/michal/reltech.ps">ftp the .ps file</A>
+    </ul>
+ <li> Short version: "Categories of Relational Structures"
+    <ul>
+    <li> <A HREF="http://www.springer.de/catalog/html-files/deutsch/series/558.html">
+         LNCS 1376, 1997</A>
+    <li> <A HREF="marcin/09waw/wadt.ps"> view the .ps file</A>
+    <li> <A HREF="ftp://ftp.ii.uib.no/pub/michal/relwadt.ps">ftp the .ps file</A>
+    </ul>  -->
+<ol start=30>    
+ <li> <A HREF="UniMulti.pdf"> "Universal Multialgebra"</A>, summarises all
+ earlier results, presenting an interesting notion of multialgebraic
+ homomorphism and congruence. A revised version appears as a chapter in "New Topics in Theoretical Computer Science", Nova Science Publishers, 2008. 
+
+ <li>  <A HREF="marcin/otCALCO.pdf"> "Bireachability and final
+multialgebras"</A> [Proceedings of CALCO'05, LNCS 3629]
+
+ <li> <A HREF="http://www.ii.uib.no/publikasjoner/texrap/pdf/2006-314.pdf">"A
+category for studying the standarization of reporting languages"</A> [TR, also in Proceedings of the 9th Asian
+Conference on Logic]
+
+ <li> <A HREF="2003/ftc01.ps">"Compositional Homomorphisms of Relational
+	 Structures"</A>, FTC 2001 <br> 
+
+ <li><A HREF="2003/yngvePhD.ps">"The institution of Multialgebras - a general
+framework for algebraic software development"</A>
+  <br> (a Ph.D. thesis written under my supervision by Yngve Lamo, 2003) 
+<!-- <li><A HREF="yngve/parameterization/parameterizedADT/TRmu.ps">"The Institution of Multialgebras"</A>
+Tech.Rep. no.209, Department of Informatics, University of Bergen, 2000 -->     
+
+<li>A digression: <A HREF="ca/caMSCS/04final/ca04final.ps">"Computation Algebras"</A>
+ [Tech. Rep. no. 117, Dept. of Informatics, University of Bergen, 1996], appeared in <i>Mathematical
+  Structures in Computer Science</i>, 2001
+</ol>
+
+<H3>Multialgebraic semantics of nondeterminism</H3>
+<ol start=36>
+<li> <A HREF="CompSurv/acm/walicki.ps">"Algebraic Approaches to Nondeterminism - an Overview"</A>
+  [<i>ACM Computing Surveys</i>,29, 1, March, 1997]
+ <!--  <li> <A HREF="ftp://ftp.ii.uib.no/pub/michal/walicki.ps">ftp the .ps file</A> --> 
+<li><A HREF="tapsoft.ps">"Generated Models and the Omega-rule: the Nondterministic Case"</A>
+  [<i>Proc. of TAPSOFT'95</i>, LNCS, vol. 915, 1995]
+<!-- <ul>
+  <li> <A HREF="tapsoft.ps">view the .ps file</A>
+  <li> <A HREF="ftp://ftp.ii.uib.no/pub/michal/tapsoft.ps">ftp the .ps file</A>
+ </ul> -->
+<li> <A HREF="adt94/adt.pdf">"Multialgebras, Power Algebras and Complete Calculi of Identities and Inclusions"</A>
+  [ADT'94, in <i>Recent Trends in Data Type Specification,</i>LNCS, vol. 906, 1995]
+
+<li><A HREF="NIK/NIK94.ps">"Initiality + Nondeterminism => Junk"</A>
+  [in <i>Proc. of NIK'94,</i>Tapir, 1994]
+
+<li><A HREF="SIAM/siam.ps">"Singular and Plural Nondeterministic Parameters"</A>
+ [<i>SIAM Journal on Computing,</i> 26-3, 1997 (1995)]
+
+<li> <A HREF="2003/nondetUnder.ps">"Nondeterminism vs. Underspecification"</A>, SCI 2001
+</ol>
+
+<H3>Applications and extensions of nondeterministic specifications</H3>
+<ol start=42>
+<li> <A HREF="Broy/TR.ps">"Structured Specifications and Implementation of Nondeterminisitc Data Types"</A>   [Tech. Rep. TUM-I9442, Inst. fur Informatik,
+       Technische Universitat Munchen, 1994], appeared also in 
+  <i>Nordic Journal of Computing,</i> no. 2, 1995. 
+
+<li><A HREF="yngve/partial/par02TR/par.ps">"Modeling partiality by nondeterminism"</A>
+ [Tech. Rep. 178, Department of Informatics, University of Bergen, 1999.
+
+<li><A HREF="2003/flirt02.ps">"Combining specification formalisms in the
+`general logic' of multialgebras"</A>, FLIRTS 2002 (2003).
+
+<li><A HREF="2003/refine02.ps">"Composition and refinement of 
+specifications of parameterized data types"</A>, REFINE 2002.
+
+<li><A HREF="yngve/parametrization/parameterizedADT/NJC/njc.ps">Specification
+of Parameterized Programs - persistency revisited</A>, Nordic Journal of
+Computing, 2001.
+</ol>
+    
+<H2 style="margin-left:-35px">3. Lecture Notes:</H2>
+<ol style="margin-top:0px" start="47">
+ <li> <!-- <A HREF="und/i127/i127.html">I-127 homepage: V-98</A> -->
+   INF-227 - Introduction to mathematical logic
+  <ul>
+  <li> <A HREF="https://www.worldscientific.com/worldscibooks/10.1142/9783">the complete text published as a book by World Scientific<A> 
+   <li> <A HREF="und/i227/book/inf227.pdf">a preliminary version</A> with most of the 
+ syllabus (and an extensive section on the history of logic)
+<!--   <li> <A HREF="und/i227/book-old/book.pdf">(an older, complete version)</A> -->
+<li> <A HREF="errata-logicBook.pdf">a short errata</A>
+  </ul>
+ <li> <!-- <A HREF="und/i220/bjornts">I-220 homepage: H-97</A> -->
+ INF-220 - Algebraic Specification: 
+  <ul>
+   <li> <A HREF="und/i220/kompendium/i220.pdf">"Universal Algebra and
+   ADTs"</A> (Draft, I-220, 1996)
+  </ul>
+  <li> <A HREF="und/i121/index.html">INF-121 (h-2005) </A>
+    <ul> <li><A HREF="und/i121/lect/02rekInv.pdf"> 02. Rekursjon </A>
+          <li><A HREF="und/i121/lect/02rekInvTR.pdf"> 02. RekursjonTR </A></ul>
+</ol>
+
+<!-- </ol> -->
+<H2 style="margin-left:-35px">4. Other things:</H2> 
+<ol>
+<!--  <li> <FONT COLOR=RED>"Visible and Invisible"</FONT> - philosophical
+ anthropology, 2004
+  <ul>
+   <li>  <A HREF="phil/ggbInReading/visInvis.pdf"> the current text (400p.)</A>
+   <li> <A HREF="phil/ggbInReading/visInvis2.pdf"> 2-pages/a4-page  (200p.)</A>
+  <li> <A HREF ="https://www.pch24.pl/ich-prawdziwe-cele">trafny opis </A>
+  </ul> -->
+<li> <A HREF="phil/phil1.html">philosophy</A>, telemark skiing.
+<!-- <li> <A HREF ="https://www.pch24.pl/ich-prawdziwe-cele">trafny opis </A>
+<!--<li><A HREF="http://interface.time-popcorn.info"> popCornTime</A> -->
+
+<!--<li> <A HREF="HOLD-UP.mp4">HOLD-UP, a film in French about current affairs</A>
+-->   
+</ol>
+<BR>
+
+<?php
+// File to store the count
+$file = __DIR__ . "/counter.txt";
+
+// If file doesn’t exist, create it with 0
+if (!file_exists($file)) {
+    file_put_contents($file, "0");
+}
+
+// Read the current count
+$count = (int)file_get_contents($file);
+
+// Increment by 1 for each visit
+$count++;
+
+// Save the new count back to the file
+file_put_contents($file, $count);
+
+// Now we can display it
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <p>You are visitor number: <strong><?= $count ?></strong>
+ since 21.08.2025.</H3>
+</p>
+</body>
+</html>
+
+<BR>
+

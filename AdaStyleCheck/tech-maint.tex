@@ -1,0 +1,104 @@
+The following describes the process of producing a new stand-alone version of
+ the style checker. We assume that an Anna library has been created by 
+invoking {\tt Anna.mklib}, and that all the files necessary to create the style
+checker are present in the directory.
+
+The Stanford version of the style checker is currently found in the directory:
+\begin{center}
+\tt /anna/lockheed/style
+\end{center}
+
+As described earlier, the system consists of many different packages, which
+are all linked to form a 1.8 to 2MB executable file (The Stanford
+version including 20 rules takes approximately 1.84MB in version \version).
+
+The style checker is divided into several packages:
+
+\begin{itemize}
+\item {\bf List\_Package Package:} The list package specification is given in {\tt list.Anna} 
+and the body in {\tt list\_.Anna}.
+
+\item {\bf Voc Package:} The package specification is found in
+{\tt voc\_v.Anna}, and the body in {\tt voc\_b.Anna}. 
+
+\item {\bf Style\_Rules Package:} The package is found in {\tt style\_rules.Anna}.
+
+\item {\bf Style\_Checker Package:} The specification of the package is found
+in {\tt style\_v.Anna} and the body in {\tt style\_b.Anna}.
+
+\item {\bf Style\_Driver Procedure:} The package is found in {\tt
+style\_driver.Anna}.
+
+\item {\bf Dummy Packages:} In order to run the Anna transformer,
+several dummy packages/stubs have been made to cover packages that the 
+Anna transformer should not transform, {\em e.g.}, Text\_IO, Command\_Line, SYSTEM, etc.
+These dummy packages are found in the files {\tt dummies1.Anna} and {\tt
+dummies2.Anna}.
+\end{itemize}
+
+A 'makefile' has been made to ease the transformation, compiling and linking.
+
+The following files are required to recompile the complete style checker from
+scratch:
+{\tt list.Anna},
+{\tt list\_.Anna},
+{\tt dummies1.Anna},
+{\tt dummies2.Anna},
+{\tt voc\_v.Anna},
+{\tt voc\_v.a},
+{\tt voc\_b.Anna},
+{\tt voc\_b.a},
+{\tt style\_v.Anna},
+{\tt style\_rules.Anna},
+{\tt style\_b.Anna},
+{\tt style\_driver.Anna},
+the correct make file ({\tt Makefile}).
+
+Furthermore, all paths needed to execute the Ada compiler should be set up.
+
+The following stages are needed in order to produce the executable file:
+
+\begin{itemize}
+\item [1.] Transforming the Anna files into Ada files by running the
+ Stanford Anna Transformer on the {\tt .Anna} file. Note that this does not
+apply to voc\_v.Anna and voc\_b.Anna. These files are only used as dummy 'stubs',
+{\em i.e.}, they contain only the information necessary to make the Anna Transformer
+transform the subsequent packages correctly. {\bf Thus, care should be taken to
+save a copy of the vocabulary package, since running the transformer causes
+voc\_?.a to be overwritten.} We have saved a copy in the files voc\_?.back.
+
+\item [2.] Compiling each package using the Ada compiler. (Now remember to
+compile the correct copies of voc\_v.a and voc\_b.a.)
+\item [3.] Repeating step 1 and 2 until all packages have been compiled,
+and then
+\item [4.] Linking the packages and producing the executable file.
+\end{itemize}
+
+The end result is now an executable file, which can be activated from the
+command line (See Chapter~\ref{usage}).
+
+The whole process of transforming, compiling, and linking is then invoked by
+issuing the following command line call:
+
+{\center {\tt make style}}
+
+As shown above, the order of processing should be as follows:
+
+\begin{itemize}
+\item [1.] {\tt list.Anna}
+\item [2.] {\tt list\_.Anna}
+\item [3.] {\tt dummies1.Anna}
+\item [4.] {\tt dummies2.Anna}
+\item [5.] {\tt voc\_v.Anna}
+\item [6.] {\tt voc\_b.Anna}
+\item [7.] {\tt voc\_b.Anna}
+\item [8.] {\tt style\_v.Anna}
+\item [9.] {\tt style\_rules.Anna}
+\item [10.] {\tt style\_b.Anna}
+\item [11.] {\tt style\_driver.Anna}
+\item [12.] Linking using {\tt a.ld}
+\end{itemize}
+
+If only the programmatic interface is needed, the file {\tt style\_driver.Anna}
+is substituted with the new file and everything is compiled and linked
+as before.

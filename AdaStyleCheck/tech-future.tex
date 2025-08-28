@@ -1,0 +1,79 @@
+The current version, as it is presented in this report, is not fully
+implemented. More work has to be done in order to complete the system.
+
+The following chapter lists, in order of priority, the different areas where
+future work would be beneficial.
+
+\section{The Style Checker Generator}
+The style checker is working, using the rules that
+we have included and supported in the Stanford version of the
+vocabulary package.
+However, the style checker generator, which should be able to produce the
+style rules package based on style rules specified in SSL, is not yet
+implemented.
+
+Using the syntax described in Section~\ref{ssl}, ALEX can be used to
+generate a parser for the style specification language.
+
+AYACC can then be used to generate the style checker generator, such that
+SSL style rules directly can be translated into
+Anna annotations. The output of the style checker generator should be in the
+file named {\tt `style\_rules.Anna'}. The package in this file contains the
+ {\bf Style\_Rules} package, which contains the 2 files: {\bf Init\_Style\_Rules}
+and {\bf Apply\_Style\_Rules}. 
+
+Examples of how conversion of SSL statements to Anna annotations should
+ be performed is given in appendix~\ref{stanford}.
+
+\section{Using the Mitre Primitives}
+As described in the systems overview chapter, because
+ the time frame for the style checker project has been relatively narrow,
+it has been difficult to apply the division of the vocabulary package into
+several abstraction layers. 
+However,
+research at Mitre has produced an Ada query language described
+in~\cite{MITRE},
+which includes an implementation of 350 primitives to describe Ada programs.
+Including these primitives as lower level operations in the style checker
+would allow the functions available to the system manager to use these
+lower level functions, and thereby enforce the division of the vocabulary 
+package into different layers of abstraction.
+
+However, this will require a modification of the higher level functions,
+since they do not make use of these primitives.
+
+\section{Turning Style Rules Off}
+Since the user might not want all of the style rules to be invoked, when
+the style checker is activated, it would be convenient for the user, if
+the system allowed him to specify the rules, which should be turned
+off. This should include both the command line interface and the 
+programmatic interface. 
+
+In order to implement this feature in the programmatic interface, another
+list has to be declared. This list could hold the style rule IDs for the 
+style rules, that the user would like to deactivate. 
+
+The command line interface should allow the user to either specify
+the number of the style rule or the ID at the command line.
+
+\section{With'ed Packages}
+An Ada compilation unit can refer to other packages by including a
+`with'-statement. The current version of the style checker only
+checks the input program specified by the user. However, future versions
+of the style checker should support the possibility of checking all
+with'ed compilation units, before the input unit is checked.
+
+Switches for the command line interface and arguments for the programmatic
+interface are already provided in the current version.
+
+\section{X-Windows Environment}
+Providing the user with an X-Windows Environment would greatly enhance
+the user-friendliness of the system. The environment could allow
+incremental style checking, and on-line changes of the Ada program.
+
+\section{Using Webster's Dictionary}
+By providing an interface to the on-line Webster dictionary, the system
+manager will be able to write style specifications that pertain to the
+English-ness of names used in Ada programs.  For example, the system
+manager may specify that portions of names between underscores have to
+be English words.

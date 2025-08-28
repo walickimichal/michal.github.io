@@ -1,0 +1,1330 @@
+%\documentstyle[a4wide,njcarticle]{article}
+\documentstyle[a4wide]{article}
+%\makeatletter
+%\voffset -2cm
+\input defs
+\input xypic
+\begin{document}
+%\title{\\[-3cm]}
+\title{Structured Specifications and Implementation of \\ Nondeterministic Data Types}
+\author{{\em Micha{\l}\ Walicki} \\
+%\ \thanks{The author gratefully acknowledges the %financial support received from the Norwegian Research Council (NFR).} \\ 
+\small Universitetet i Bergen \\[-.5ex] 
+\small Institutt for Informatikk \\[-.5ex] 
+\small HiB, 5020 Bergen, Norway \\[-.5ex] {\scriptsize michal@ii.uib.no} 
+\and {\em Manfred Broy} \\
+\small Technische Universit\"{a}t M\"{u}nchen \\[-.5ex] 
+\small Institut f\"{u}r Informatik, Arcisstr.21 \\[-.5ex] 
+\small 80290 M\"{u}nchen, Germany \\[-.5ex] {\scriptsize broy@informatik.tu-muenchen.de} }
+\date{}
+\maketitle
+\begin{abstract}\noindent The use of nondeterminism in specifications, as distinct from underspecification, is
+motivated by an example in the context of data refinement. A simple formalism for specifying nondeterministic data types is introduced. Its semantics is given in terms of the existing formalisms of relations, multialgebras, sets of
+functions and oracles by means of appropriate translation rules. Nondeterministic data refinement is studied from the syntactic and semantic perspective, and the correctness of the suggested proof obligations is proved.
+A more general implementation relation and parameterisation of nondeterministic data types are discussed and the standard theorems of vertical and horizontal composition are generalized to the
+nondeterministic case.
+\end{abstract}
+
+\section{Introduction}
+Mathematicians never saw a reason to deal with something called ``nondeterminism''. In mathematics we work with values, functions, sets, relations.
+In computing science nondeterminism has been an issue from the beginning. 
+It is often suggestive to consider models of computation where for certain operations\footnote{We reserve the word {\em function} for deterministic operations. {\em Operation} may refer both to a function and
+to a nondeterministic operator.} we leave some freedom of choice. We then speak
+about {\em sets of possible outcomes} rather than just {\em the value} returned
+by
+such an operation. Clearly, we then have to distinguish carefully between a deterministic program which computes a set of values, and a nondeterministic one which computes a single data element out of a set of possible values every time it is executed. 
+
+Many reasons for considering choices in computations may be gathered under the
+common name {\em ``abstraction''}. In terms of modeling, nondeterminism may be considered a purely operational notion. But in the context of specification,
+which interests us here, appropriate abstraction is the central issue. Typically, we prefer to
+work with models which do not include all details of the physical environment of computation such as timing, temperature, representation by hardware etc. Since
+we do not want to model all these complex dependencies, we rather map such aspects by nondeterministic choices. 
+
+Furthermore, when developing a software system in a number of refinement steps,
+we are often interested in specifying the functionality of the system not uniquely,
+but only with respect to some required properties. We then speak of {\em underspecification}. Later in the development process we may add more properties, whenever we find this appropriate. The conceptual difference between underspecification and nondeterminism does not
+contradict the fact that both arise as natural abstraction mechanisms and, sometimes, may be supported by similar modeling techniques. 
+
+In an axiomatic specification setting, the reasons for distinguishing the two are not only conceptual but, as the paper will illustrate, also technical. Roughly speaking, the difference consists in that underspecification corresponds to choices between models while nondeterminism to choices within one model. Working with the concept of loose specifications, we associate with a given specification a class of models. If some of these models are not isomorphic, we speak also of underspecification. Nondeterminism, on the other hand, is represented within each model by specific constructs such as relations, set-valued functions, sets of functions.
+This explicit introduction of nondeterminism has also its technical price. While underspecification fits into the concepts of classical logic and model theory smoothly, the treatment of nondeterminism leads to complications. Classical concepts of logical calculi such as substitutivity might no longer be valid.
+This was treated in full detail in \cite{top}, \cite{adt}, and will be taken into account in the following.
+
+Of course, we may (and in this paper we do) work with a specification method that supports both
+nondeterminism and underspecification. Since, on the one hand, underspecification is a simple, commonly used abstraction mechanism in deterministic
+context and, on the other hand, nondeterminism helps to handle some classical problems, we do not see any reason to choose between them. 
+
+The refinement concepts for underspecification and for nondeterminism are rather similar.
+We work with loose specifications and a refinement step amounts to resolving underspecification
+by adding more axioms and yielding a more restricted class of models. Analogously, nondeterminism may be removed by restricting the set of possible outcomes of a nondeterministic operation. In fact, this latter restriction (of nondeterminism of some operations) is just a special case of the former one. It amounts to selecting, by means of additional axioms restricting nondeterminism of the operations, 
+only those models that satisfy the extended set of axioms. 
+
+\subsection{Algebraic Specification of Nondeterminism} 
+In the algebraic framework, nondeterminism has been treated by several authors
+introducing non-standard models, such as rewriting logic \cite{Mes}, 
+or unified algebras \cite{Mos}. Their common feature is that nondeterministic 
+operations do not, in general, correspond to {\em sets of possible results,}
+but are modeled by means of special new constructs. One of the main motivations for these approaches is the interest in the initial semantics and the above mentioned approaches guarantee the existence of initial models. 
+
+We are interested in preserving the intuition of a nondeterministic operation as returning an element from some set of possible outcomes. In this tradition, one may distinguish
+two further branches. On the one hand, there are attempts to equate nondeterminism and
+underspecification, typically, by modeling the former as a collection of deterministic entities. Here, we can mention \begin{itemize}\MyLPar
+\item oracles
+\item sets of functions.
+\end{itemize}
+The other approach does not involve the implicit assumption that nondeterminism
+is just a lack of information about a computational entity which, at a sufficiently detailed
+level of description, is deterministic. It chooses model structures which may be used both when nondeterminism is eventually resolved into deterministic components and, on the other hand, when it is treated as a phenomenon {\em per
+se}, not necessarily reducible to determinism. Here we have, for instance \begin{itemize}\MyLPar
+\item multialgebras
+\item relations.
+\end{itemize}
+We will analyze and compare all these four possibilities and present an approach allowing the specifier to apply his favorite formalism for nondeterminism.
+
+We aim at a minimal extension of the standard (equational) specifications allowing
+us to specify {\em possibly} nondeterministic operations. We say ``possibly'' because we will not see any examples where nondeterminism is required by the specification. Saying ``nondeterministic'' we mean ``possibly nondeterministic''
+(and possibly not). Although we will introduce a formalism where 
+one can
+require an operation to be nondeterministic, our general assumption is that nondeterminism is primarily an {\em abstraction concept}. It is used to describe the operations at a given level of abstraction where the possible parameters determining the exact (and ultimately, perhaps, deterministic) behavior are unknown or irrelevant. In this sense, it is similar to underspecification but, as it will turn out, requires a different treatment. Just as we do not assume that an operation, treated at the given level of abstraction as nondeterministic, is actually so, we neither assume that it is deterministic.
+
+Furthermore, we consider it to be a realistic scenario that nondeterminism occurs
+only locally in a specification. The main part of the specification consists of the classical functions and only some (minor) parts are described as if
+they were nondeterministic. In particular, we think of a program as working on a deterministic basis -- the set of function symbols is always assumed to be non-empty and we do not allow nondeterministic constructor operations. 
+
+\subsection{Implementation}
+We study the development of nondeterministic data types by stepwise refinement and, as remarked above, look at nondeterminism primarily as an abstraction tool. For these reasons, we will focus on loose semantics. 
+
+However, the methodological postulate ``nondeterminism is abstraction'' does not necessarily imply that we never intend to reach a nondeterministic implementation.
+If a specification indicates an operation to be nondeterministic -- how can we
+implement
+it? Say, we have two axioms, \(a\Incl c\) and \(b\Incl c\), requiring that both $a$ and $b$ are among the possible results returned by different invocations of $c$. In order to implement this, $c$ must ``remember'' what values
+it has returned on previous calls to ensure that it does not forever ignore one of them. This seems to be the main issue of implementing nondeterminism -- it requires that one considers not only what happens in a single application of an operation but, potentially, what happens in an arbitrarily long series of such applications. 
+
+One might consider a restricted version of a specification formalism which allows
+one to specify only a single application of an operation but not, like in the above axioms, a set of such applications. On the other hand, one might restrict the formalism so that nondeterminism in the implementation would be admissible but could not be required by the specification.
+
+However, there are situations when one would like to ensure some liveness properties which would be expressed by a requirement of a certain amount of
+nondeterminism. Specifying a fair merge which does not ignore any of its input channels forever, provides a good example. But even then,
+one may still recourse to a deterministic implementation which ensures that all possibilities will be actualized in the consecutive calls of the function implementing a fair nondeterministic operation.
+
+Finally, one can think of a target programming language which contains nondeterministic constructs (like random number generators, or choice operations). In such a case, the responsibility for ``implementing'' nondeterminism is delegated to the implementor of the language. The specification formalism only helps developing programs 
+in such a target language.
+
+In any case, it seems reasonable to admit a restricted degree of nondeterminism in an implementation of a nondeterministic data type as long as such a restriction remains consistent with the original specification. 
+
+In this paper, we are interested in extending the classical notions of structural specifications to nondeterministic context. We apply the basic notion of the inclusion of the model classes (with identical signatures)
+as the implementation relation.
+It turns out that several notions
+generalize trivially. Extending the set of axioms, forgetting or renaming some sorts or operations, yield implementations by an obvious analogy
+to the deterministic case. The central problem is {\em data refinement} and we study this issue in more detail. We will not consider behavioral equivalence or abstractor implementations (in the sense of \cite{ST}). 
+
+The paper is organized as follows: in section \ref{se:choiceproblem} we motivate the need for nondeterministic data types by refering the known problem of implementing sets with a choice operation by sequences. 
+Traditionally, to verify this implementation one introduced the notion of behavioral equivalence and implementation. We achieve the same effect by considering the underspecified choice operation as nondeterministic. In section
+\ref{se:general} the general setting for writing specifications of nondeterministic data types and its intuitive semantics are introduced. Section \ref{se:various} illustrates how various formalisms for dealing with nondeterminism may be utilized in this setting, focusing on the aspect of data refinement. Section \ref{se:impl} discusses the verification of the implementation
+of nondeterministic data types in greater generality. Section \ref{se:parameter} introduces the notion of parameterisation as a particular specification-building operation illustrating it with an example. 
+
+\section{The Choice Problem}\label{se:choiceproblem} The relevance of data refinement for the problem of implementation of nondeterministic data types is the result of the fact that nondeterminism at the abstract level may be a reflection of the existence of different concrete representations of one abstract value. Implementing the abstract value by several concrete representations, one may, simultaneously, restrict the nondeterminism of an abstract operation. In \cite{Sub} such implementations are called {\em pseudo-nondeterministic}. Schematically, we may express such a relationship in the following diagram: \begin{center}
+\input{ref.latex}
+\end{center}
+This interaction of simultaneous data refinement (of the abstract values) and restricting nondeterminism (of the abstract operations) causes verification problems.
+One of its classical examples is the attempt to implement sets with a
+choice operation by sequences with the function $\fst$ returning the head of 
+the list (Figure \ref{fig:spec}). 
+\begin{figure}[hbt] \centering
+%\begin{center}
+\( \begin{array}{rrcl|c|rrcl}
+\multicolumn{3}{c}{{\bf SET(E)}} & & &
+\multicolumn{4}{c}{{\bf SEQ(E)}} \\ \cline{1-9} \multicolumn{3}{c}{\Sorts=\{E,Set(E)\}} & & & 
+\multicolumn{4}{c}{\Sorts'=\{E,Seq(E)\}} \\ \cline{1-9} \multicolumn{3}{c}{\Funcs} & & \sigma & \multicolumn{4}{c}{\Funcs'} \\ \es:& &\into& Set(E) & \Seq &	\epsilon:& &\into & Seq(E)\\
+\ap :&Set(E)\times E&\into &Set(E) & \Seq & \lap\ :& Seq(E)\times E& \into & Seq(E)\\
+\cup: & Set(E)\times Set(E) & \into & Set(E) & \Seq & \&: & Seq(E)\times Seq(E)
+& \into & Seq(E) \\
+\in\ : & E\times Set(E) & \into & Bool & \Seq & \in\ : & E\times Seq(E) & \into & Bool \\
+\setminus : & Set(E)\times E & \into & Set(E) & \Seq & \setminus : & Seq(E)\times E & \into & Seq(E) \\
+\ch: & Set(E) & \into & E & \Seq &	\fst: & Seq(E) & \into & E\\
+\Eq: & Set(E)\times Set(E) & \into & Bool& \Seq & 
+\equiv\ : & Seq(E)\times Seq(E) & \into & Bool\\
+& & & &	&	\Eq : & Seq(E)\times Seq(E) & \into & Bool
+% & & & &	&	\sqsubset\ : & SeqE\times SeqE & \into & Bool
+\end{array} \)
+%\end{center}
+
+%\begin{center}
+\label{'setseq'} \(
+\begin{array}{rclr|lrcl}
+\multicolumn{3}{c}{\cal A} & & & \multicolumn{3}{c}{\cal A'} \\ \cline{1-8} 
+S\ap x\ap y & \Eq & S\ap y\ap x & A1.& A1'.& S\lap x\lap y & \equiv & S\lap y\lap x \\
+S\ap x\ap x & \Eq & S\ap x & A2.& A2'. & S\lap x\lap x & \equiv & S\lap x \\ 
+S\cup\es & \Eq & S & U1. & U1'. &	S\&\epsilon &\Eq &S\\
+S\cup (T\ap x)& \Eq & (S\cup T)\ap x & U2.&U2'.& S\& (T\lap x)& \Eq &(S\& T)\lap x \\
+S\cup T & \Eq & T\cup S & U3. & U3'.& S\& T & \equiv & T\& S \\ x\in\es & \Eq & \false & M1.& M1'. & x\in\epsilon & \Eq & \false \\ x\in(S\ap y) & \Eq & (x\Eq y\ \lor x\in S) & M2. & M2'. & x\in(S\lap y) & \Eq 
+&
+(x\Eq y\ \lor\ x\in S) \\
+\es\setminus x&\Eq& \es & D1. & D1'.& \epsilon\setminus x &\Eq& \epsilon\\ S\ap x\setminus x&\Eq& S & D2. & D2'.& S\lap x\setminus x &\Eq& S\setminus x\\
+x\Not\Eq y & \then & (S\ap y)\setminus x \Eq (S\setminus x)\ap y & D3. & D3'. 
+& x\Not\Eq y & \then & (S\lap y)\setminus x \Eq (S\setminus x)\lap y\\ \ch(S)\in S&\lor& S\Eq\es & C. & C1'.& \fst(\epsilon\lap x) &\Eq& x\\ & & & & C2'. & \fst(S\lap x\lap y)& \Eq & \fst(S\lap x)\\ & & & & E0.& Q\Eq S & \then & Q\equiv S \\ S&\Eq &S &\multicolumn{2}{c}{E1.}& Q& \equiv& Q \\ Q\Eq S&\then &S\Eq Q &\multicolumn{2}{c}{E2.}& Q\equiv S & \then & S\equiv Q \\
+Q\Eq S, S\Eq P&\then &Q\Eq P &\multicolumn{2}{c}{E3.}& Q\equiv S,S\equiv P & \then & Q\equiv P \\ \cline{1-8}
+Q\Eq S &\then &f(...Q...)\Eq f(...S...) &\multicolumn{2}{c}{E4.}& Q\equiv S & \then & f(...Q...)\equiv f(...S...)
+\end{array} \)
+%\end{center}
+\caption{Specifications of sets and sequences with the intended implementation relation}
+\label{fig:spec}\label{'spec'}
+\end{figure}
+Axioms $U3, U3'$ follow from the rest of the respective axiom sets only by induction. Therefore we have included them explicitly. 
+
+The crucial problem of the choice function $ \ch $ is as follows: while identity $\Eq$ is a congruence on Set(E), the relation $\equiv$, expressing that two sequences represent the same set, is not a congruence on Seq(E). If we insisted on keeping the axiom $E4$, we would obtain:
+\begin{equation}\label{problem}
+S\& T\equiv T\& S\ \then\ \fst(S\& T)\equiv \fst(T\& S) \end{equation}
+which leads to an inconsistency. In fact, it is impossible to define a congruence on Seq(E) which would make
+SEQ(E) an implementation of SET(E).
+
+The problem has nothing to do with the fact that the choice function $\ch$ may be thought of as nondeterministic.
+In fact, it is exactly the postulated congruence: $S\Eq Q\impl \ch(S)\Eq\ch(Q)$
+which leads to the undesirable
+effect: \( S\cup T\Eq T\cup S\ \then\ \ch(S\cup T)\Eq\ch(T\cup S)\). Thus, the problem
+arises rather because $\ch$ is considered deterministic and underspecified. %\end{QREMARK}
+
+To get rid of this problem, we
+\begin{itemize}\MyLPar
+\item need a syntactic means of distinguishing between deterministic and {\em possibly} nondeterministic operations, and \item restrict the congruence requirement $E4$ to deterministic operations. \end{itemize}
+This was suggested already in \cite{QG} and will apply to all different approaches which we will consider in the following sections. Notice that the second
+point implies that we introduce a distinction between underspecified and (possibly) nondeterministic operations -- the former ones respect congruence. 
+
+In the present example, we will consider $\ch$ as a nondeterministic operation which is not referentially transparent. In other words, we do not postulate the 
+validity of $E4: S\Eq Q\impl \ch(S)\Eq\ch(Q).$ 
+Even the equality $\ch(S)\Eq\ch(S),$ is not required to hold!
+This releases us from the obligation to prove that $\equiv$ is a congruence with
+respect to $\fst$.
+But then, although $\fst(S)\Eq \fst(S)$, it is not the case that $\ch(S)\Eq
+\ch(S)$. On the other hand, two occurrences of $\ch(S)$ may be seen as equivalent
+in the sense that they have the same sets of possible results: $\ch(S)\Seteq\ch(S).$
+Verification of data refinement will have to consider the fact that nondeterminism of an abstract operation is modeled by the multiple concrete representations of data. For instance, the formula $\ch(S\cup T)\Seteq \ch(T\cup S)$ will be verified not by the equality $\fst(S\&T)\Eq \fst(T\&S)$ (which does no hold), but by the set-equality
+$\bigcup_{X\equiv S\& T}\fst(X) \Seteq \bigcup_{X\equiv T\& S}\fst(X).$ 
+
+\section{The General Set-up}\label{se:general} In this section we introduce the syntax and give an intuitive semantics for specifications with nondeterministic operations. We also indicate the general procedure for interpreting such specifications using some available formalism dealing with nondeterminism. 
+The precise semantics of the specification will depend on the choice of such a 
+formalism, and will be discussed in the next section. 
+Finally, we indicate the procedure for verifying data refinement.
+
+First, we extend the signature $\Sigma$ to a triple $\<\Sorts,\Funcs,\cal N\>$,
+where $\cal N$ is a set of operations symbols which may be (and are treated as) nondeterministic. We always assume that $\Funcs$ is non-empty. This reflects the intuition that nondeterminism may occur in a specification but, typically, will be only a minor part of it -- most of the operations will still be deterministic and defined in the usual fashion. The congruence axiom $E4$ applies only to functions in $\Funcs$ but not to the operations from $\cal N$. These operations are defined in the usual (equational) manner. For instance, the specification of sets with a choice 
+operation is obtained by taking the set axioms but changing the signature and the choice axiom $C$ as follows: 
+
+\Spec{SET(E)} {\multicolumn{2}{c}{(...as\ before\ except\ for\ C...)}} 
+{}
+{\\ {\cal N} :&}{\ch : & Set(E) & \into & E} {\\ \Axs : &} { \Bre\ch(S) \in S & & \lor & S\Eq \es} 
+
+\noindent The axiom is intended to mean
+that {\em any} result of a choice from a non-empty set $S$ belongs to $S$. We will present the general strategy, common to all the approaches considered in the later sections, using the informal relation $r\isres f$ expressing that ``$r$ is a possible result of $f$''. Thus, the above axiom says: $\forall r\isres \ch(S):r\in S\lor S\Eq \es.$\footnote{We use this abbreviation for bounded quantification $\forall r: r\isres \ch(S)\impl
+r\in S...$ Similarly, we will write $\forall r\equiv s :\Phi(r)$. For existential
+quantifiers, the abbreviation $\exists r\equiv s : \Phi(r)$ stands for $\exists r: r\equiv s\land \Phi(r).$}
+
+There is an important distinction between the {\em set of all} results and a {\em particular} one. Typically, one defines a nondeterministic operation in terms of another one, that is, {\em defines any} possible result of
+one operation by {\em using one particular} result of another one. For instance, an operation $rem(S)$ removing an arbitrary element from a set $S$ could be
+defined using the choice operation as follows: {\em any} result of $rem(S)$ is
+obtained by choosing {\em some} element $x$ from $S$ and removing it from $S$.
+This distinction between the occurrences of nondeterministic operations 
+being {\em defined} and those being {\em used} will be reflected in using 
+the subscripts: $\Bre \_$ for the former and $\Bree \_$ for the
+latter. The defined occurrences correspond to the universal and the used occurrences to the existential quantification over the possible results returned by
+the operation. Writing $\Bre f$ we are referring to the whole set of possible results (or more precisely, to an {\em arbitrary} element of this set), 
+while $\Bree f$ refers to a particular element of this set. 
+
+The general rules for translating the specifications are then as follows: \begin{equation}\label{eq:isresult}
+\begin{array}{rcl}
+\Bre f(x) \Eq t & \TTo{\nu} & \forall r\isres f(x) : r\Eq t\\ \Bree f(x) \Eq t & \TTo{\nu} & \exists r\isres f(x) : r\Eq t \\ \Bre f(x) \Eq \Bree g(x) & \TTo{\nu} & \forall r_1\isres f(x)\ \exists r_2\isres g(x): r_1\Eq r_2
+\end{array}
+\end{equation}
+These rules (as well as all other translation schema given in the following) are defined only for atomic equations and may be applied
+to any equation-based specification language: for equational specifications,
+for conditional equations, for sequents, clauses, etc. In all our examples,
+the variables in the original specifications are (implicitly) universally
+quantified. We will also assume that 
+any term, occurring in a formula, contains either only universal or only
+existential occurrences (of its subterms), in particular, that
+universal and existential occurrences are not nested within each other.
+\begin{SREMARK}{Remark.}
+It seems straightforward to formulate these and the following rules allowing such a nesting.
+For instance, one would translate $\Bree f(\Bre g(\Bree h(x)))...$ into $\exists r_1\isres h(x)\ \forall r_2\isres g(r_1)\ \exists r_3\isres f(r_2)...$
+
+However, this would make all the formulations more intricate and, more
+importantly, we have not encountered any examples where such a nesting would
+be necessary. Therefore we make this simplifying assumption. 
+
+We are also adopting the notational convention to index only the occurrences of
+nondeterministic operations from $\cal N$. For instance, given an
+ $f\in\Funcs, g\in \cal N$, we would write $\Bre g(x)\Eq
+ f(\Bree\ch\{a,x\})$. However, having made this simplifying assumption,
+ we may sometimes write it as $\Bre g(x)\Eq \Bree f(\ch\{a,x\})$
+ and recover the actually quantified occurrences from the fact that
+ $f\in\Funcs$ and $\ch \in \cal N$. 
+
+Furthermore, we could write our formulae, like those in the left hand
+sides of \re{eq:isresult}, using inclusions: $t\subseteq f(x)$,
+ $f(x)\subseteq t$, and $g(x)\subseteq f(x)$. This is a standard convention
+ in the literature on specification of nondeterminism \cite{HusB},
+ \cite{Mos}, \cite{top}. We refrain from doing so -- it will be
+ easier to follow the translation of the specifications since only the
+ nondeterministic terms are transformed. 
+\end{SREMARK}
+If $t$ is a deterministic term, the first formula in \re{eq:isresult} expresses determinacy of $f(x)$.
+It is only the second formula which may be used to demand that a
+nondeterministic operation is truly nondeterministic. For instance, writing
+two axioms $\Bree g(a)\Eq 1$ and $\Bree g(a)\Eq 2$, we make an explicit demand that
+both 1 and 2 should be among the possible results of $g(a)$. The third
+formula allows us to make the defined operation {\em at most} as
+nondeterministic as the used one. $\Bre f(a)\Eq \Bree g(a)$ does not force
+$f(a)$ to return both 1 and 2, but only one of the two. This setting reflects
+our interest in
+describing the ``upper bound'' of nondeterministic operations without
+introducing any implicit assumptions (typically, of a semantic nature) which
+would imply a kind of ``maximal nondeterminacy by default'', as it happens in
+the initial approach to the semantics of nondeterminism \cite{HusB},
+\cite{Mos}, \cite{Mes}. 
+\begin{SREMARK}{Remark.}
+Alternatively, we could choose to interpret all occurrences of $f$ existentially. But this would be too permissive -- axiom 1., for instance, would then mean: $\exists s: s\isres \ch(S)\land s\in S$. We want to ensure that $s\in S$ holds for all $ s $ results of $\ch(S)$. \end{SREMARK}
+As a more elaborate example, illustrating also the full use of this language, consider a definition of the depth-first traversal of a directed graph, which returns a $\DFS$-tree. Let a graph be given (we assume it to be fixed for an instance of $\DFS$ to avoid repeating inessential arguments) as a set of edges (each edge $E$
+being a pair of vertices $V\times V$), with a function $ch:V\into SET(V)$ which, for each vertex $v$, returns the set of its children (adjacent vertices).
+The (nondeterministic) operation $\dfs$ starting from a vertex $v$ calls the auxiliary operation $tr$ (ax.2) which traverses the graph from $v$ by visiting
+recursively all vertices in $ch(v)$. Its last argument $T$ is the tree built so far, which is returned as the result in the moment when the second argument
+(the set of children remaining to be visited) becomes empty (ax.3). The vertex to be visited next among the children in the second argument, is chosen nondeterministically. If it has been visited before (the Boolean test $x\lin T$ returns $\true$, if $x$ is a vertex in the graph $T$), it is removed
+from the set (ax.4). Otherwise, $tr$ descends recursively and continues traversing the graph from this vertex, removing it from the current set 
+and adding the corresponding edge to the result tree (ax.5). 
+
+\Spec{\DFS}
+{\multicolumn{2}{l}{{\bf enrich\ }SET(V), SET(E)\ {\bf by}}} {} {\\ {\cal N} :&} {\dfs: & V & \into & Set(E) \\ 
+tr: & V\times Set(V)\times Set(E) & \into & Set(E) } {\\ \Axs : &} {&\Bre{\dfs}(v) & \Eq & \Bree {tr}(v,ch(v),\es)\\ 
+& \Bre{tr}(v,\es,T)& \Eq & T \\
+& S\Not\Eq\es\land x\Eq\Bree \ch(S)\land x\lin T & \impl 
+& \Bre{tr}(v,S,T) \Eq \Bree {tr}(v,S\setminus x,T) \\ & S\Not\Eq\es\land x\Eq\Bree \ch(S)\land x\Not\lin T & \impl & \Bre{tr}(v,S,T)\ \Eq \\
+\multicolumn{4}{r}{\Bree {tr}(v,S\setminus x, 
+\Bree {tr}(x,ch(x),T\ap\<v,x\> )) }}\label{'\dfs'} 
+
+\noindent We allow one to use the $\Bree f$ expressions like usual functions and
+compose them with other operations. We may write $\es\ap \Bree \ch(S)$ -- a set with one element chosen from $S$, or $\Bree \ch(S\setminus \Bree \ch(S))$ -- an element chosen arbitrarily from the set $S$ without an arbitrary element. Although we do not assume, in general, that these operations satisfy the congruence axiom, one may still express such a claim: $x\Eq y\impl \Bre f(x)\Eq\Bre f(y).$ As was explained above, such an axiom would force $f(x)$ to be deterministic, since it
+amounts to saying: $x\Eq y\impl \forall r\isres f(x)\ \forall s\isres f(y): r\Eq s.$
+
+Observe that the above specification follows exactly the natural prescription to be found in any standard algorithm book. This naturalness, however, is heavily dependent on the fact that the operation $\dfs$ is treated as nondeterministic. It does not return {\em the} $\DFS$-tree but {\em an arbitrary} $\DFS$-tree. If we tried to make $\dfs, tr$ deterministic, we would obtain an unsound result -- the 
+equation $\Bre{\dfs}(v)\Eq \Bre{\dfs}(v)$ would identify
+all possible $\DFS$-trees. This problem is discussed in more detail in \cite{adt}. \\[2ex]
+Our general strategy is now to transform axioms of the specifications written 
+with the above formalism into
+formulae of standard (first- or higher-order) logic and to carry out the 
+verification of implementation at this level.
+Applying the scheme \re{eq:isresult}, we obtain the following interpretation of the choice and $\DFS$-axioms:
+\begin{equation} \label{eqTrans}
+\begin{array}{rrcl}
+1.& \forall S: (\forall r\isres \ch(S) : r \in S)& \lor& S\Eq\es\\ 2.& \forall v,\ \forall r_1\isres \dfs(v)\ \exists r_2\isres tr(v,ch(v),\es) & :
+& r_1 \Eq r_2 \\
+3.& \forall v,T,\ \forall r\isres tr(v,\es,T)& : & r\Eq T \\ 4.& \forall S,T,x,v: S\Not\Eq\es\land (\exists r\isres\ch(S):x\Eq r) 
+\land x\lin T & \impl
+& \forall r_1\isres tr(v,S,T)\\
+& & &\exists r_2\isres tr(v,S\setminus x,T): r_1\Eq r_2 \\ 5.& \forall S,T,x,v : S\Not\Eq\es\land (\exists r\isres\ch(S):x\Eq r) 
+\land x\Not\lin T & \impl
+& \forall r_1\isres tr(v,S,T)\\
+& & & \exists r_2\isres tr(x,ch(x),T\ap\<v,x\>)\\ & & & \exists r_3\isres tr(v,S\setminus x,r_2): r_1\Eq r_3 \end{array}
+\end{equation} 
+This procedure still presupposes that
+we have syntactic means to describe the relation $\isres$ which, in turn, requires means of talking about the sets occurring on the right-hand side of $\isres$.
+All four approaches mentioned in the introduction provide such means which
+yield results corresponding to \re{eqTrans}. 
+Thus, instead of fixing some particular way of doing that, we will examine all of them indicating the associated translation scheme. In this way, we obtain a two level translation: first from our specification to one of the known formalisms, and then to the standard logic, as illustrated in the upper part of Figure \ref{fig:nutau} below. 
+\begin{figure}[hbt] %\centering
+\diagram 
+&  \Text{ original\\   specification}\ \rto^<<<<<\nu & 
+        \Text{ a formalism for\\  nondeterminism}\ \rto^>>>>>\delta &
+        \Text{ standard logic} \\
+&  SP\ \rto^\nu \dto^\im &  \nu(\Axs) \rto^\delta & \delta(\nu(\Axs)) \dto^\impl \\
+&  SP'\ \rto^\nu \dto^{\imm\equiv} & \nu(\Axs') \rto^\delta & 
+	\delta(\nu(\Axs')) \drto^\impl \\
+&  SP''\ \rto^\nu &  \nu(\Axs'') \rto^\delta & 
+	\delta(\nu(\Axs''))  \rto^\tau & \tau(\delta(\nu(\Axs''))) 
+\enddiagram
+\caption{Translation of nondeterminism into standard logic} \label{fig:nutau}\label{'nutau'}
+\end{figure}
+%\\[1ex]
+The translation $\tau$ is used when verifying data refinement. Because refinement of nondeterministic data types may resolve some amount of nondeterminism in favor of a (more) deterministic implementation, verification
+of abstract axioms has to take this fact into account. 
+
+In all cases the translation procedure is quite analogous (although the results are not), and follows the lines of \re{eq:isresult}. We may think of it as being parameterised by a particular formalism for treating nondeterminism. We only have to assume that the translation $\nu$ is compositional with respect to the logical operators which we are using in our
+specifications, and that so is $\delta$. 
+
+The advantage of such an approach is that in the cases when the intermediary formalism provides some means of verifying implementations, we will be free to use it. Of course, since various approaches to nondeterminism we are considering are not semantically equivalent, we assume the choice being fixed for the
+whole development process.
+
+\subsection{Nondeterministic Data Refinement} Before giving the translation rules for the different formalisms, we indicate the main
+idea of verification of data refinement, using the intuitive relation $\isres$.
+We formulate the proof obligations in terms of some standard logical formalism on the basis of a translation $\tau$ of the abstract axioms. Although
+such a translation may lead to rather complicated formulas, we still consider it
+a fruitful approach. Its main focus is on the easy to use the top-level formalism,
+which provides the basis for nondeterminism without interfering with the standard parts of the specification.
+In a practical development process, verification is carried out only in some, most critical cases. Formulating the verification conditions in a standard (for the most first-order) logic, makes it possible to apply all existing tools
+for (semi-)automatic verification of these critical steps. 
+
+For the rest of this and the next section we focus on the data refinement. A more general implementation relation is studied in section \ref{se:impl}. We restrict our attention to the $SET(E)$ with choice operation (axiom 1. above) which is to be implemented by $SEQ(E)$ with function $\fst$. 
+
+Because nondeterministic operations in $\cal N$ do not respect the congruence with respect to element-equality $\Eq$, we will not require their implementations to
+satisfy the congruence axiom $E4$ with respect to the implementation $\equiv$ of
+$\Eq$.
+$\equiv$ will be a congruence only with respect to the implementation of deterministic functions.
+However, we have to consider the fact that nondeterministic operations respect
+congruence with respect to set-equality. For instance, we have: 
+\[ S\Eq T\land x\Eq \Bree \ch(S)\ \impl\ x\Eq \Bree \ch(T) \] 
+This is not a congruence with respect to element-equality $\Eq$ but with respect
+to
+set-equality $\Seteq$. Translating it with $\nu$ from \re{eq:isresult}, we get
+\begin{equation}\label{eq:setcong}
+S\Eq T\land (\exists r_1\isres\ch(S):x\Eq r_1)\ \impl\ 
+\exists r_2\isres\ch(T): x\Eq r_2
+\end{equation}
+which means: $S\Eq T \impl \ch(S)\Seteq\ch(T)$. 
+
+The problematic point in this context is that data refinement may remove some nondeterminism. Since one set $S$ may have multiple representations as sequences, the nondeterminism of $\ch$ may best be understood as a ``lack of knowledge'' as to which, among the equivalent representations of $S$, is being
+used at the moment. At the abstract level a possible result of an operation is modeled by the nondeterminism of the operation. At the level of implementation a possible result may reflect either (some left) nondeterminism or a particular choice of the representation for the abstract argument.
+Verification of the above formula should not take the form \(S\equiv T\land x\Eq \fst(S)\impl x\Eq \fst(T)\). Instead, we should consider the
+possible results returned by $\fst$ when applied to the whole equivalence class
+of $S$:
+\begin{equation}\label{eq:seqcong}
+S\equiv T\land (\exists S'\equiv S: x\Eq \fst(S'))\ \impl\ \exists T'\equiv T : x\Eq \fst(T')
+\end{equation}
+Notice the similarity between the formulas \re{eq:seqcong} and \re{eq:setcong}.
+
+The verification of the implementation of $SET(E)$ by $SEQ(E)$ boils then down to the standard verification of the implementation of the deterministic
+functions, and checking that axioms of $SEQ(E)$ imply the formula: \[\forall S,S',x:S\equiv S'\land x\Eq \fst(S)\impl x\in S'\] 
+
+To verify a data refinement, we have to show that the implementation implies the
+abstract
+axioms transformed with a translation function $\tau$ which replaces 
+each term of the refined sort by its equivalence class, and where the quantification over elements of such classes reflects the quantification from \re{eq:isresult}. Each occurrence of $\Bree f:\ldots S\ldots\into T$, where $S$ is the refined sort is replaced according to the following scheme:
+\begin{equation}\label{eq:isverify}
+\begin{array}{rcl}
+\Bre f(...x...) \Eq t & \TTo{\tau} & \forall y\equiv x\ 
+\forall r\isres f(...y...) : r\equiv t\\ \Bree f(...x...) \Eq t & \TTo{\tau} & \exists y\equiv x\ \exists r\isres f(...y...)
+: r\equiv t \\
+\Bre f(...x...) \Eq \Bree g(...x...) & \TTo{\tau} & \forall y\equiv x\ 
+\forall r_1\isres f(...y...)\ \exists z\equiv x\ \exists r_2\isres g(...z...): r_1\equiv r_2 \end{array}
+\end{equation}
+Occurrences of (sub)terms of the refined sort in $\Bree f$ will be called {\em existential} (for instance, $x$ in the second line, the second occurrence of $x$ in the third line); occurrences in $\Bre f$ are called {\em universal}. Because of our convention, we do not have mutual nesting of universal and existential occurrences, and hence
+it is the whole side of an equation which is either universal or existential. 
+
+Also, notice that $x$, which occurs free in the LHS (left-hand side), remains free in the RHS. If there are $n$ occurrences of a term $t$ of refined sort in the scope of a nondeterministic operation in the LHS, we will introduce $n$ new variables $t_1...t_n$ which all are appropriately quantified and equivalent to $t$ in the RHS. 
+
+The above rules illustrate only the replacement of immediate subterms but, of course, $\tau$
+requires replacement of all refined subterms of nondeterministic terms. If we have an operation $f:S\times E\into S$ and an axiom involving $\Bree f(\Bree f(s,x),y)...$, we will get $\exists s_0\equiv s\ \exists r_1\isres f(s_0,x)\ \exists s_1\equiv r_1\ \exists r_2\isres f(s_1,y):r_2...$. In general, let $[x]=\{y:y\equiv x\}$. 
+Since $\equiv$ is not a congruence for nondeterministic
+operations, $[f([t])]\Not=[f(t)],$ we have to keep the parantheses $[\_]$ at all subterms of the refined sort. Translation $\tau$ will introduce a new (quantified) variable for each subterm embraced by $[\_]$ occurring within a nondeterministic term.
+This is summarized in the table below (Figure \ref{ta:tau}). % on page~\pageref{'tabela'}
+\begin{figure}[hbt]
+\centering
+\( \begin{array}{c|c|c}
+\tau & $is of a refined sort$ & $is not of a refined sort$ \\ \cline{1-3} x\in {\cal V}	& [x]	& x \\
+c:\into S	& [c]	& c \\
+f(t_1\ldots t_n) & [f(\tau(t_1)\ldots\tau(t_n))] & f(\tau(t_1)\ldots\tau(t_n))
+\end{array} \) \caption{Replacement of nested terms of refined sort} \label{ta:tau}\label{'tabela'}
+\end{figure}
+Then, each $[t]$ within the scope of a nondeterministic operation in an atomic
+$\phi$ is replaced by $Q x\equiv t : \phi_x^t$ (where $Q$ is an appropriate quantifier), respectively by $Q x\isres t,Q x_1\equiv x: \phi_{x_{1}}^t$ if $t$ is nondeterministic. 
+
+\section{Using Various Formalisms for Nondeterminism}\label{se:various} In this section we show how we can translate our specifications into various formalisms designed for
+an explicit treatment of nondeterminism. To give the full flavor, we show the
+translation of all choice and $\DFS$-axioms. To illustrate the resulting proof obligations for data refinement, we use only the example of sets with the choice operation.
+
+The following subsections (treating, respectively, relations, multialgebras, sets of
+functions and oracles) have all the same structure including: 1) the definition of the
+interpretation function $\nu$ and the $\DFS$ example, 2) the proof obligations
+for data refinement expressed in terms of the translation $\tau$, and 3) the semantic construction (quotient) together with the theorem stating the correctness of the verification criteria with respect to this construction. The last part is missing in the case of oracles for the reasons explained in the last subsection.
+
+
+\subsection{Relations}
+The relational approach to specification is not very widely used. The works like \cite{Brnc}, \cite{Brbpl}, \cite{Stark} point in this direction and \cite{Hoog}, \cite{Pers} propose a formalism based on the 
+relations as the fundamental concept. The relational specifications tend to be very unreadable, albeit concise, and we would not try to apply a full, abstract
+relational language but make only very simple use of relations in this section.
+
+$x\isres f(y)$ defines a relation between $x$ and $y$, and is represented directly in the relational language as $\Pre Rf(y,x).$ In general, an operation $f:S_1\times ...\times S_n\into S$ is modeled as a relation
+$\Pre Rf\subseteq S_1\times ...\times S_n\times S$, that is, one implicitly assumes that the last argument of the relation corresponds to the result returned by the operation. Hence, we need a special definition of relational composition which would reflect the composition of operations. Given two relations $R_1\subseteq S_1\times ...\times S_n\times S$ and $R_2\subseteq S\times T_1\times ...\times T_m\times T$, we denote by $R_2(R_1)$
+their relational composition on the $S$ argument. More precisely, $R_2(R_1)=\{\<s_1...s_n,t_1...t_m,t\>:\exists s: R_1(s_1...s_n,s)\land 
+R_2(s,t_1...t_m,t)\}.$
+
+Then, the translation $\nu$ into relational specifications looks as follows:
+\begin{equation}\label{eq:relsnu}
+\begin{array}{rcl}
+\Bre f(s) \Eq t & \TTo{\nu} & \forall x: \Pre Rf(s,x)\impl x\Eq t \\ \Bree f(s) \Eq t & \TTo{\nu} & \exists x: \Pre Rf(s,x)\land x\Eq t\\ \Bre f(s) \Eq \Bree g(s) & \TTo{\nu} & \forall x\ \exists y : 
+\Pre Rf(s,x)\impl (\Pre Rg(s,y)\land x\Eq y) \\ \end{array}
+\end{equation}
+\begin{SREMARK}{Remark.}
+Instead, in the second and third line we could dispense with the quantifiers and get $\Pre Rf(s,t)$, respectively, $\forall x:\Pre Rf(s,x)\impl\Pre Rg(s,x).$
+Then, the
+only case when existential quantifiers have to be retained would be existential
+equality:
+$\Bree f(x)\Eq \Bree g(x)$, which corresponds to $\exists r_1\isres f(x) \exists r_2\isres g(x): r_1\Eq r_2$, is translated as $\exists r_1,r_2 : \Pre Rf(x,r_1)\land \Pre Rg(x,r_2)\land r_1\Eq r_2.$ We do not focus on this kind of equality because its use and importance seem to be very limited.
+On the other hand, because the axioms may involve nested applications of $\Bree
+f$,
+the translation may involve relational composition as defined above, which introduces additional existential quantifiers. 
+
+We will keep the quantifiers as in \re{eq:relsnu} because this will make the definition of the translation $\tau$ for data refinement depend only on the result of $\nu$. Otherwise, we would have to refer back to the original specification in order to identify existential and universal occurrences. \end{SREMARK}
+The translated axioms for choice and $\DFS$ look as follows:\\[1ex] \(\begin{array}{rrcl}
+1.& (\forall x:\Pre R\ch(S,x) \impl x\in S) &\lor & S\Eq\es \\ 2. & \Pre R{\dfs}(v,r) & \impl & \Pre R{tr}(v,ch(v),\es,r) \\ 3. & \Pre R{tr}(v,\es,T,r) & \impl & r\Eq T \\ 4. & S\Not\Eq\es\land\Pre R\ch(S,x)\land x\lin T & \impl & 
+\Pre R{tr}(v,S,T,r)\impl\Pre R{tr}(v,S\setminus x,T,r) \\ 5. & S\Not\Eq\es\land\Pre R\ch(S,x)\land x\Not\lin T & \impl & 
+\Pre R{tr}(v,S,T,r)\impl
+\exists M: \Pre R{tr}(x,ch(x),T\ap\<v,x\>,M)\\ \multicolumn{4}{r}{\land\ \Pre R{tr}(v,S\setminus x,M,r)} \end{array} \)\\[1ex]
+\noindent
+Equivalently, we can gather all the defined occurrences of a relation into one
+formula:\\[1ex]
+\(\begin{array}{rrcl}
+3. & \Pre R{tr}(v,S,T,r) & \impl & (S\Eq \es \impl r\Eq T)\ \ \land \\ 
+4. & & & (S\Not\Eq\es\land\Pre R\ch(S,x)\land x\lin T)\ \impl 
+\Pre R{tr}(v,S\setminus x,T,r)\ \ \land \\ 
+5. & & & (S\Not\Eq\es\land\Pre R\ch(S,x)\land x\Not\lin T)\ \impl 
+\exists M: \Pre R{tr}(x,ch(x),T\ap\<v,x\>,M) \\ & \multicolumn{3}{r}{\land\ \Pre R{tr}(v,S\setminus x,M,r)} \end{array} \)\\[1ex]
+\noindent However, we do not define the relation fully, since the above translation introduces implications from the defined occurrences, and we do not replace them by the equivalence relation. This reflects the intended
+interpretation described in \re{eq:isresult}. Of course, among the models of
+the above specification there will be the ones where the equivalence, and not
+only the implication holds, e.g., where $\Pre R\ch(S,x)\iff x\in
+S.$
+
+\subsubsection{The Proof Obligations for Data Refinement} Relational specifications introduce directly the language of first-order logic in which we intend to formulate the refinement conditions. Thus we have $\delta = id$. 
+
+The translation $\tau$ of the abstract axioms is defined according to \re{eq:isverify}. We indicate the translation as if all (sub)terms were of the refined sort. The first line gives the general schema and the second (tiny) one the special case when $\Pre Rf$ is a function $f$: \begin{equation}\label{eq:relstau}
+\begin{array}{rcl}
+\forall x: \Pre Rf(s,x)\impl x\Eq t & \TTo{\tau} & \forall s_1\equiv s\ \forall x,x_1\equiv x : \Pre Rf(s_1,x_1)\impl x\equiv t \\
+& & {\scriptstyle \forall s_1\equiv s\ :\ f(s_1)\equiv t }\\ 
+\exists x: \Pre Rf(s,x)\land x\Eq t & \TTo{\tau} & \exists s_1\equiv s\ \exists x,x_1\equiv x:\Pre Rf(s_1,x_1)\land x\equiv t \\ & & {\scriptstyle \exists s_1\equiv s\ :\ f(s_1)\equiv t} \\ 
+\forall x\ \exists y :\Pre Rf(s,x)\impl (\Pre Rg(s,y)\land x\Eq y) & \TTo{\tau} &
+\forall x,x_1\equiv x,s_1\equiv s\ \exists y,y_1\equiv y\ \exists s_2\equiv s :
+\\
+\multicolumn{3}{r}{ \Pre Rf(s_1,x_1)\impl (\Pre Rg(s_2,y_1)\land x\equiv y) }\\
+& & {\scriptstyle \forall s_1\equiv s\ \exists s_2\equiv s\ :\ f(s_1)\equiv g(s_2)} \\
+\end{array}
+\end{equation}
+Instead of $t$ in the first two formulas, we should have used $\forall t_1\equiv t ... t_1$. But this is not necessary since $\equiv$ is an equivalence relation. Notice, however, that since we assumed the result sort (variables $x$ and $y$) to be refined, we cannot dispense with the introduction and quantification over the respective new variables $x_1$ and $y_1$.
+For instance, the first formula is not equivalent to $\forall s_1\equiv s\ \forall x : \Pre Rf(s_1,x)\impl x\equiv t$. As emphasized after the schema \re{eq:isverify}, {\em each} (sub)term of the refined sort
+within the scope of a nondeterminisitic operation, will give rise to a new variable. This rule applies also to the whole nondeterministic term which after translation $\nu$ corresponds to the result variable ($x$ in this formula).
+
+\subsubsection{Semantics}
+The semantics of relations may be given in the standard way by (first-order) structures with predicates. The semantics of quotient construction with respect
+to
+an equivalence $\equiv$ is a direct generalization of the standard case where $\equiv$ is a congruence.
+\begin{DEFINITION}\label{de:relquot}
+Given a (relational) $\Sigma$-structure $A$ and an equivalence relation $\equiv$, let
+$[x]$ for an $x\in |A|$ denote the equivalence class $\{y:y\equiv x\}.$ The {\em quotient structure} $\quot A\equiv$ is defined as follows: \begin{itemize}\MyLPar
+\item $|\quot A\equiv| = \{[x]:x\in |A|\}$ \item $c^{\quot A\equiv} = [c]$ for each $c\in\Funcs$ \item $f^{\quot A\equiv}([x_i]) = [f^A(x_i)]$ for each $f\in\Funcs$ \item $R^{\quot A\equiv}([x_i])\iff \exists x'_i\in [x_i]: R^A(x'_i)$ for each
+$R\in \cal N$
+\end{itemize}
+\end{DEFINITION}
+\noindent Because $\equiv$ is a congruence with respect to deterministic operations, the
+third point gives a well-defined $f^{\quot A\equiv}$. The last point corresponds
+to the homomorphism condition: even if $x,y$ are such that $\neg R^A(x,y)$, then
+the existence of $x'\equiv x$ and $y'\equiv y$ such that $R^A(x',y')$ suffices
+to make $R^{\quot A\equiv}([x],[y]).$\footnote{It is easy to check that the mapping defined by $x\Seq [x]$ is a homomorphism from $A$ to $\quot A\equiv.$}
+This latter relation embodies the full
+nondeterminism of different representations. Since a function is just a special
+case of relation the definition makes sense also in the situations when a relation is implemented by a function.
+
+Given an (implementing) specification with axioms $\Axs'$ and the (implemented)
+specification with axioms $\Axs$, we want to verify that the quotients of models of $\Axs'$ are models of $\Axs :$ if $A\models \Axs'$ then $\quot A\equiv\models \Axs$. This is verified following the schema from Figure \ref{fig:nutau} (page \pageref{'nutau'}) by checking that the models of
+$\Axs'$ satisfy $\tau(\Axs)$, i.e. that $\Axs'\impl\tau(\Axs).$ The correctness of these verification criteria defined by $\tau$ is expressed in the following theorem. 
+
+\begin{THEOREM}\label{th:relcorrect}
+$A\models \tau(\Axs)\ \ \ifff\ \ \quot A\equiv\models \Axs.$ \end{THEOREM}
+\begin{PROOF}
+If we forget the relation part, the quotient construction and verification for the functions are the same as in the deterministic case. We show the theorem for the atomic formulas $\phi$ affected by $\tau$. \begin{enumerate}\MyLPar
+\item Let $\phi = \forall x:\Pre Rf(s,x)\impl x\Eq t:$ 
+
+$A\models \tau(\phi) \ifff
+A\models \forall x, x_1\equiv x, s_1\equiv s : \Pre Rf(s_1,x_1)\impl x\equiv t
+\ifff $\\
+$A\models \forall x:(\exists x_1\equiv x,s_1\equiv s : \Pre Rf(s_1,x_1))\impl x\equiv t \ifff
+\quot A\equiv\models \forall [x]:\Pre Rf([s],[x])\impl [x]\Eq [t] \ifff \quot A\equiv\models \phi$
+\item Let $\phi = \exists x:\Pre Rf(s,x)\land x\Eq t:$ 
+
+$A\models \tau(\phi) \ifff A\models \exists x, x_1\equiv x, s_1\equiv s: \Pre
+Rf(s_1,x_1) \land x\equiv t \ifff $\\ $\quot A\equiv \models \exists [x]:\Pre
+Rf([s],[x])\land [x]\Eq [t] \ifff \quot A\equiv \models \phi$
+\item Let $\phi = \forall x\ \exists y : 
+\Pre Rf(s,x)\impl (\Pre Rg(s,y)\land x\Eq y):$ 
+
+$A\models \tau(\phi) \ifff $\\
+$A\models \forall x,x_1\equiv x,s_1\equiv s\ \exists y,y_1\equiv y\ \exists s_2\equiv s :
+\Pre Rf(s_1,x_1)\impl (\Pre Rg(s_2,y_1)\land x\equiv y) \ifff $\\ $A\models \forall x\ \exists y :(\exists x_1\equiv x,s_1\equiv s : \Pre Rf(s_1,x_1))\impl \exists y_1\equiv y,s_2\equiv s : \Pre Rg(s_2,y_1)\land
+x\equiv y \ifff $\\
+$\quot A\equiv \models \forall x\ \exists y : \Pre Rf([s],[x])\impl 
+(\Pre Rg([s],[y])\land [x]\Eq [y]) \ifff \quot A\equiv \models \phi $
+\end{enumerate}
+\end{PROOF}
+Relations may be the most suggestive concept for modeling nondeterministic operations.
+
+\subsection{Multialgebras}
+Multialgebras have been used by several authors, for instance, in \cite{PS1}, \cite{HusB}, \cite{adt}. Here we are following this last work and \cite{Mich},
+\cite{taps}.
+Multialgebras work with set-valued functions. 
+Set-valued functions are isomorphic to relations, and so much of the arguments in the 
+current section are similar to those in the previous one.
+Existential quantifiers correspond in the language of multialgebras to the right-hand side of the inclusion relation $\Incl$. $a\Incl b$ reads as ``$a$ is a possible result of $b$'' (or in general, the results of $a$ are among the results of $b$).
+This means that the existential equality is not expressible in this language. In the full version of the language
+\cite{KW} one has the operation expressing non-empty intersection which is the exact counterpart of existential equality. 
+
+The translation into the multialgebraic language is given by the following rules:
+\begin{equation}\label{eq:multnu}
+\begin{array}{rcl}
+\Bre f(x) \Eq t & \TTo{\nu} & f(x)\Eq t\\ t \Eq \Bree f(x) & \TTo{\nu} & t\Incl f(x) \\ \Bre f(x) \Eq \Bree g(x) & \TTo{\nu} & f(x)\Incl g(x) \end{array}
+\end{equation}
+The specification of choice and $\DFS$ reads then as follows: \[\begin{array}{rrcl}
+1.& \ch(S) \in S & \lor & S\Eq\es \\
+2.&\dfs(v) & \Incl & tr(v,ch(v),\es)\\
+3. & tr(v,\es,T) & \Eq & T \\
+4. & S\Not\Eq\es\land x\Incl\ch(S)\land x\lin T & \impl 
+& tr(v,S,T) \Incl tr(v,S\setminus x,T) \\ 5. & S\Not\Eq\es\land x\Incl\ch(S)\land x\Not\lin T & \impl 
+& tr(v,S,T)\ \Incl tr(v,S\setminus x,
+tr(x,ch(x),T\ap\<v,x\> ))
+\end{array} \]
+The nondeterministic terms in a multialgebraic language are interpreted as (non-empty) sets
+of possible results, and hence may be treated as predicates over individual values of a given interpretation (carrier of an algebra) $A$. A term $t$ is understood as a predicate $t^A(\Ul r)\iff \Ul r\isres t^A\iff \Ul r\in t^A$.
+A non-ground term $f(x)$ is a ``parameterised'' predicate: for each value $x$, $f^A(x)(\Ul r)\iff \Ul r\in f^A(x).$ Thus, terms are translated into formulas (predicates), equality $\Eq$ corresponds to the equivalence of the predicates which, in addition, are satisfied by a unique element, and inclusion $\Incl$ corresponds to 
+implication. The translation $\delta$ is: \begin{equation}\label{eq:multdelta}
+\begin{array}{rcl}
+f(x)\Eq t & \TTo{\delta} & \forall \Ul z: f(x)(\Ul z)\impl \Ul z\Eq t\\ t\Incl f(x) & \TTo{\delta} & f(x)(t) \\
+f(x)\Incl g(x) & \TTo{\delta} & \forall \Ul z:f(x)(\Ul z)\impl g(x)(\Ul z)\\ \end{array}
+\end{equation}
+As in the case of relations, the last two lines may be given more elaborate formulations: $\exists \Ul z:f(x)(\Ul z)\land \Ul z\Eq t$ and $\forall\Ul z\ \exists\Ul v:f(x)(\Ul z)\impl (g(x)(\Ul v)\land\Ul z\Eq\Ul v)$.
+The reason for not making such a simplification for relations does not apply here, because the translation $\tau$ is defined not from the result of $\delta$ \re{eq:multdelta} but of $\nu$ \re{eq:multnu} which contains the necessary information about existential vs. universal occurrences. 
+
+If some $f(x)$ happens to be a function, we may dispense with the introduction
+of the result variable $\Ul z$, and obtain simple equalities in all cases. 
+
+Remember that terms with nondeterministic subterms are also nondeterministic. If $f$ and $g$ are, respectively, nondeterministic and deterministic, then $g(f(x))$ will also be considered as a predicate: $g(f(x))(\Ul z)\iff \eor\forall\exists \Ul z_1:f(x)(\Ul z_1)\eor\impl\land g(\Ul z_1)=\Ul z$, where quantification depends on whether the occurrence of the whole term is universal or existential.
+\subsubsection{The Proof Obligations}
+Let $[x]=\{y:y\equiv x\}$ and extend this notation to sets: $[t]=\{[x]:x\in t\}.$ We adapt this notation to the predicates (terms) writing
+$[t]$ for the set of equivalence classes of the elements satisfying the predicate $t$. That is, if $f$ is nondeterministic (a predicate $f(\Ul z)$), we define the lifted predicate for:
+\begin{equation}\label{eq:lift}
+\begin{array}{rrcrcl}
+1. & f(\Ul z) & : & [f]([\Ul z]) & \ifff & \exists \Ul z_1\equiv \Ul z: f(\Ul 
+z_1) \\
+2. & f(x)(\Ul z) & : & f([x])(\Ul z) & \ifff & \exists x_1\equiv x: f(x_1)(\Ul
+z) \\
+3. & f(x)(\Ul z) & : & [f([x])]([\Ul z]) & \ToT{1} & \exists \Ul z_1\equiv \Ul z: f([x])(\Ul z_1) \\ 
+& & & & \ToT{2} & \exists \Ul z_1\equiv \Ul z, x_1\equiv x: f(x_1)(\Ul z_1) \end{array}
+\end{equation}
+The translation $\tau$
+is obtained by combining the translation $\delta$ with \re{eq:lift}. If a predicate $f(x)(\Ul z)$ happens to be a function, we may remove $\Ul z$ and quantification over it, and substitute $f(x)$ for all occurrences of $\Ul z$ in the translated formula. This is indicated in the last (tiny) line
+of each case.
+\begin{equation}\label{eq:multtau}
+\begin{array}{rcl}
+f(x)\Eq t & \TTo{\tau} & [f([x])] \Eq [t] \ 
+\TTo{\delta} \ \forall [\Ul z]:[f([x])]([\Ul z])\impl [z]\Eq [t] \\ & \TTo{\re{eq:lift}} & \forall \Ul z:
+(\exists \Ul z_1\equiv \Ul z, x_1\equiv x: f(x_1)(\Ul z_1)) \impl \Ul z\equiv 
+t\\
+& \ifff & \forall \Ul z, \Ul z_1\equiv z, x_1\equiv x : 
+f(x_1)(\Ul z_1) \impl \Ul z\equiv t \\
+& & {\scriptstyle \forall x_1\equiv x\ :\ f(x_1)\equiv t} \\ t\Incl f(x) & \TTo{\tau} & [t]\Incl [f([x])] \ 
+\TTo{\delta} [f([x])]([t]) \\
+& \TTo{\re{eq:lift}} & \exists \Ul z\equiv t, x_1\equiv x: f(x_1)(\Ul z) \\ 
+& & {\scriptstyle \exists x_1\equiv x\ :\ t\equiv f(x_1)} \\ f(x)\Incl g(x) & \TTo{\tau} & [f([x])]\Incl [g([x])] \ 
+\TTo{\delta} \ \forall [\Ul z]:[f([x])]([\Ul z])\impl [g([x])]([\Ul z])\\ & \TTo{\re{eq:lift}} & \forall \Ul z :
+(\exists \Ul z_1\equiv \Ul z, x_1\equiv x: f(x_1)(\Ul z_1))\ \impl\ 
+(\exists \Ul z_2\equiv \Ul z, x_2\equiv x: g(x_2)(\Ul z_2)) \\ & \ifff & \forall \Ul z, \Ul z_1\equiv \Ul z, x_1\equiv x\ \exists \Ul z_2\equiv \Ul z, x_2\equiv x: f(x_1)(\Ul z_1)\impl g(x_2)(\Ul z_2)\\
+& & {\scriptstyle \forall x_1\equiv x\ \exists x_2\equiv x\ :\ f(x_1)\equiv 
+g(x_2)}
+\end{array}
+\end{equation}
+The above definition considers only the topmost terms of the refined sort. As indicated in the table \ref{ta:tau}, one has to introduce new variables and quantifiers for all subterms of the refined sort. 
+
+\subsubsection{Semantics}
+We define the multialgebraic semantics of specifications following \cite{adt}.
+\begin{DEFINITION}
+Given $\Sigma=\<\Sorts,\Funcs\>$, a $\Sigma$-multialgebra $M$ is defined by:
+\begin{itemize}\MyLPar
+\item a carrier $S^M$ for each $S\in\Sorts$ \item a set valued function $f^M:S_1^M\ldots S_n^M\into \Psett(S^M)$, for each $f:S_1\ldots S_n\into S\ \in\Funcs$. \end{itemize}
+For an assignment $\beta:X\into M$, $M\models_\beta\phi$ for $\phi$: \begin{itemize}\MyLPar
+\item $s\Eq t$ iff $\beta[s]=\beta[t]=\{\alpha\}$, for some $\alpha\in |M|$, \item $s\Incl t$ iff $\beta[s]\subseteq\beta[t]$, \end{itemize}
+\end{DEFINITION}
+\noindent Variables are assigned individuals -- not sets. The definition implies
+that
+$\Eq$ is a {\em partial equivalence}: $t\Eq t$ is a tautology only when $t$ is a variable, and is false when $t$ is nondeterministic. 
+
+The quotient construction is defined analogously to the quotient of usual (deterministic) algebras:
+\begin{DEFINITION}\label{de:multquot}
+Given a multialgebra $M$ and an equivalence $\equiv$, the quotient $\quot M\equiv$ is defined as:
+\begin{itemize}\MyLPar
+\item $|\quot M\equiv| = \{[x] : x\in |M|\}$ \item $c^{\quot M\equiv} = \{[s] : s\in c^M\}$ \item $f^{\quot M\equiv}([x_1],...,[x_n]) = \{[f^M(y_1,...,y_n)] : y_i\in [x_i]
+\}$
+\end{itemize}
+\end{DEFINITION}
+\noindent Notice that, since $\equiv$ is not a congruence, it is not generally
+the case that $[f([x])] = [f(x)]$. Therefore, in the last point, we have to gather the equivalence classes $[f(y_i)]$ for all $y_i\in [x].$ As in the case of relations, one can easily verify that the mapping $x\Seq [x]$
+defines a (multi)homomorphism from $A$ to $\quot A\equiv.$ In fact, relations are isomorphic to multialgebras and the following 
+counterpart of theorem \ref{th:relcorrect}, expressing correctness of the 
+verification criteria defined by $\tau$ in \re{eq:multtau}, should not be a surprise.
+We give an independent proof because the multialgebraic language is slightly different from the relational one.
+\begin{THEOREM}\label{th:multcorrect}
+$M\models \tau(\Axs)\ \ \ifff\ \ \quot M\equiv\models \delta(\Axs)$. \end{THEOREM}
+\begin{PROOF}
+We proceed by induction on the complexity of the formula $\phi\in\cal A$ and show the theorem for the atomic (sub)formulas. Verification of the statement for the terms of non-refined sorts is obvious, and so it is for the deterministic terms. We consider only the case where all subterms are refined. \begin{enumerate}
+\item $\phi = f(x)\Eq t:$
+
+$M\models\tau(\phi) \ifff
+M\models \forall \Ul z, \Ul z_1\equiv \Ul z,x_1\equiv x: f(x_1)(\Ul z_1) \impl \Ul z\equiv t \ifff $\\
+$M\models \forall \Ul z:(\exists \Ul z_1\equiv z,x_1\equiv x: f(x_1)(\Ul z_1))
+\impl \Ul z\equiv t
+\ToT{\re{eq:lift}} $\\
+$M\models \forall \Ul z: [f([x])([\Ul z]) \impl [\Ul z]\Eq [t] \ifff \quot M\equiv\models \forall \Ul z: f(x)(\Ul z) \impl \Ul z\Eq t \ifff 
+\quot M\equiv\models \delta(\phi)$
+\item $\phi = t\Incl f(x):$
+
+$M\models \tau(\phi)\ifff
+M\models \exists \Ul z\equiv t, x_1\equiv x: f(x_1)(\Ul z) \ToT{\re{eq:lift}} M\models [f([x])]([t]) \ifff $\\
+$\quot M\equiv\models f(x)(t) \ifff
+\quot M\equiv\models t\Incl f(x) \ifff \quot M\equiv\models \delta(\phi)$ \item $\phi = f(x)\Incl g(x):$
+
+$M\models \tau(\phi)\ifff M\models
+\forall \Ul z, \Ul z_1\equiv \Ul z, x_1\equiv x\ \exists \Ul z_2\equiv \Ul z, x_2\equiv x: f(x_1)(\Ul z_1)\impl g(x_2)(\Ul z_2)
+\ifff $\\
+$M\models
+\forall \Ul z : (\exists \Ul z_1\equiv \Ul z, x_1\equiv x : f(x_1)(\Ul z_1)) \impl \exists \Ul z_2\equiv \Ul z, x_2\equiv x: g(x_2)(\Ul z_2) \ToT{\re{eq:lift}} $\\
+$M\models \forall\Ul z:[f([x])]([\Ul z])\impl [g([x])]([\Ul z]) \ifff
+\quot M\equiv\models \forall \Ul z: f(x)(\Ul z)\impl g(x)(\Ul z) \ifff \quot M\equiv\models \delta(\phi)$
+\end{enumerate}
+\end{PROOF}
+%
+\subsection{Predicates on Functions}
+A nondeterministic operation is here represented by a set of functions (see [Broy93]). A
+possible result of $f(x)$ corresponds to picking a function $h$ which satisfies the predicate $\Pre Pf(h)$ and applying it to $x$. 
+
+\begin{equation}\label{eq:predsnu}
+\begin{array}{rcl}
+\Bre f(s) \Eq t & \TTo{\nu} & \Pre Pf(h)\impl h(s)\Eq t \\ \Bree f(s) \Eq t & \TTo{\nu} & \exists h: \Pre Pf(h)\land h(s)\Eq t\\ \Bre f(s) \Eq \Bree g(s) & \TTo{\nu} &
+\Pre Pf(h)\impl \exists h_1 :\Pre Pg(h_1)\land h(s)\Eq h_1(s) \\ \end{array}
+\end{equation}
+Notice that, unlike in the relational or multialgebraic case, the last formula does not correspond to an implication between the respective predicates $\Pre Pf(h)\impl \Pre Pg(h)$. 
+
+The specification looks now as follows:\\[1ex] \(\begin{array}{rrcl}
+1.& (\Pre P\ch(h) \impl h(S)\in S)& \lor & S\Eq\es \\ 2. & \Pre P{\dfs}(h) & \impl
+&\exists h_1: \Pre P{tr}(h_1)\land h(v)\Eq h_1(v,ch(v),\es)\ \ \\ 3. & \Pre P{tr}(h) & \impl & h(v,\es,T)\Eq T \\ 4. & S\Not\Eq\es\land (\exists h :\Pre P\ch(h)\land x\Eq h(S))\land x\lin T & \impl & \Pre P{tr}(h)\impl\ \exists h_1 :\Pre P{tr}(h_1)\ \land \\ \multicolumn{4}{r}{ h(v,S,T)\Eq h_1(v,S\setminus x,T)} \\ 5.& S\Not\Eq\es\land (\exists h :\Pre P\ch(h)\land x\Eq h(S))\land x\Not\lin T
+& \impl & \Pre P{tr}(h) \impl\ \exists h_1,h_2 : \Pre P{tr}(h_1)\land\Pre 
+P{tr}(h_2)\ \land \\
+\multicolumn{4}{r}{h(v,S,T)\Eq h_1(v,S\setminus x,h_2(x,ch(x),T\ap\<v,x\>))} \end{array} \)\\[1ex]
+\noindent
+As for relations, we can give an equivalent formulation collecting the universal occurrences:\\[1ex]
+\(\begin{array}{rrcl}
+3. & \Pre P{tr}(h) & \impl & h(v,\es,T)\Eq T\ \\ 
+4.& &\land&(S\Not\Eq\es\land (\exists h :\Pre P\ch(h)\land x\Eq h(S))\land x\lin T)\
+\impl\ \exists h_1:\Pre P{tr}(h_1)\ \land \\ \multicolumn{4}{r}{ h(v,S,T)\Eq h_1(v,S\setminus x,T)} \\ 
+5.& &\land & (S\Not\Eq\es\land (\exists h :\Pre P\ch(h)\land x\Eq h(S))\land x\Not\lin T)\ \impl\ \exists h_1,h_2: \Pre P{tr}(h_1)\land\Pre P{tr}(h_2)\ \land \\
+\multicolumn{4}{r}{h(v,S,T)\Eq h_1(v,S\setminus x,h_2(x,ch(x),T\ap\<v,x\>))} \end{array} \)\\[1ex]
+\noindent
+This is a translation in conventional higher order logic. 
+
+\subsubsection{The Proof Obligations for Data Refinement} As in the case of relations, the translation $\nu$ yields formulas in a standard (higher order) language and we may take $\delta = id.$ Following \re{eq:isverify}, the refinement translation $\tau$ is obtained simply by adding respective quantifier over the (refined) argument: \begin{equation}\label{eq:predstau}
+\begin{array}{rcl}
+\Pre Pf(h)\impl h(s)\Eq t & \TTo{\tau} & 
+\forall s_1\equiv s: \Pre Pf(h)\impl h(s_1)\equiv t \\ \exists h: \Pre Pf(h)\land h(s)\Eq t & \TTo{\tau} & \exists s_1\equiv s\ \exists h: \Pre Pf(h)\land h(s_1)\equiv t\ \ \ \ \ \ \ \ \
+\\
+\Pre Pf(h)\impl \exists h_1 :\Pre Pg(h_1)\land h(s)\Eq h_1(s) & \TTo{\tau} & \Pre Pf(h)\impl \forall s_1\equiv s\ \exists s_2\equiv s\ \exists h_1 :\\ \multicolumn{3}{r}{ \Pre Pg(h_1)\land h(s_1)\equiv h_1(s_2)} \end{array}
+\end{equation}
+If the predicate $\Pre Pf(h)$ determines a unique function $f$, we may remove all the occurrences of $\Pre Pf(h)$ and quantification over $h$,
+and replace the occurrences of
+$h$ by $f$. The result will be then the same as in the case of relations (second line in \re{eq:relstau}).
+
+\subsubsection{Semantics}\label{subsub:problem} The semantics is straightforward by associating a set of functions with each nondeterministic function symbol.
+\begin{DEFINITION}
+Given $\Sigma = \<\Sorts,\Funcs,\cal N\>$, a multifunctional $\Sigma$-structure
+$A$ is defined by:
+\begin{itemize}\MyLPar
+\item a carrier $S^A$ for each $S\in\Sorts$ \item a function $f^A:S^A\into T^A$ for each $f:S\into T\ \in\Funcs$ \item a set of functions $P^A_f =\bigcup_i f_i:S^A\into T^A$ for each $\Pre Pf:(S\into T)\into Bool\ \in \cal N$. \end{itemize}
+\end{DEFINITION}
+\noindent The satisfaction of axioms, in particular those of the form \re{eq:predsnu}, is defined in the standard way. 
+
+By analogy with \re{eq:isverify} and the two previous examples, the translation
+\re{eq:predstau} should appear quite plausible. However, in the current 
+semantic apparatus there seems to be no natural construction corresponding to the quotient. We may take the quotient on the underlying domain of individuals but
+not over sets of functions interpreting nondeterministic operations. Using the more abstract (relational or multialgebraic) view, which considered only input-output relation, we could start with the function $\fst$, a sequence
+$S$ and its equivalence class $[S]$, and map $\fst(S)\Seq \fst([S])$. This image defined then the input-output relation in the quotient structure. But having a (set of) function(s) $F'$, we cannot, in general, map it onto another set $F$ of which $F'$ should be an implementation. The simplest reason is that,
+when an implementation is more deterministic than the abstract specification, the set $F$ will contain more elements than $F'$. 
+
+An apparent solution would be not to define any corresponding semantic construction. Having a set of axioms $\nu(\Axs)$ and its model class $\Mod$, one
+could say that the model class $\Mod'$ of the axiom set $\tau(\Axs)$ is {\em defined}
+to be an implementation of $\Mod$. In this case the correctness of the verification condition is trivial. However, we lose the basic notion of implementation as the subset relation on the model classes. Not only $\Mod'\Not\subseteq \Mod$, but there is no construction $\kappa$ such that $\kappa(\Mod')\subseteq \Mod.$ Thus, for instance, transitivity of the implementation relation has to be proved in a much more cumbersome way than in the presence of such a simple semantic definition. 
+
+To cope with this problem, we will ``simulate'' the abstract quotient constructions as defined for relations and multialgebras by constructing, given a (set of) concrete function(s) $F'$, an appropriate set of abstract functions $F$
+which satisfy the defining predicate and model the intended input-output relation.
+$F$ is only one among the possible realizations of the relation determined by $F'$. However, showing that it satisfies the abstract axioms, provided that $F'$ satisfies their $\tau$-translation, we ensure correctness of the implementation. Notice that this does not correspond to any notion of homomorphism with respect to the functions contained in the respective sets $F',F.$
+The natural definition of a homomorphism could be only derived from the multialgebra homomorphism by the requirement that $h:F'\Seq F$ and that the result set $h(F'(x))\subseteq F(h(x)).$
+
+\begin{DEFINITION}\label{de:predquot}
+Given a (multifunctional) $\Sigma$-structure $A$ and an equivalence relation $\equiv$,
+the {\em quotient structure} $\quot A\equiv$ is defined as follows: \begin{itemize}\MyLPar
+\item $|\quot A\equiv| = \{[x]:x\in |A|\}$ \item $c^{\quot A\equiv} = [c]$ for each $c\in\Funcs$ \item $f^{\quot A\equiv}([x_i]) = [f^A(x_i)]$ for each $f\in\Funcs$ \item for each $P:(S\into T)\into Bool \in \cal N$, we have a set of functions $P^A=\bigcup_i p_i:S^A\into T^A$. 
+Let $p_i([x]) = \bigcup_{y\in [x]}p_i(y)$ and $p([x])=\bigcup_i p_i([x]).$ This last set may be seen as a set of pairs $\bigcup_{i,y\in[x]}\<y,p_i(y)\>$.
+Let $Pp=\prod_{x\in S}p([x])$ be the cartesian product of $p([x])$ over all $x\in S^A$. Each element of $Pp$ has the form $\<\<y_1,p_{i1}(y_1)\>,\<y_2,p_{i2}(y_2)\>,\<y_3,p_{i3}(y_3)\>...\>$ where $m\Not = n\impl y_m\Not\equiv y_n$.
+Thus it defines a function from $S^{\quot A\equiv}$ to $T^{\quot A\equiv}$ and
+we let $P^{\quot A\equiv}=Pp$.
+\end{itemize}
+\end{DEFINITION}
+\begin{THEOREM}\label{th:predcorrect}
+$A\models \tau(\Axs)\ \ \ifff\ \ \quot A\equiv\models \Axs.$ \end{THEOREM}
+\begin{PROOF}
+If we forget the predicate part, the quotient construction and verification for the functions are the same as in the deterministic case. We show the theorem for the atomic formulas $\phi$ affected by $\tau$. The following two facts are obvious from the construction in definition \ref{de:predquot}:
+\begin{equation}\label{eq:hlp}
+\begin{array}{rcl}
+A\models \exists s_1\equiv s\ \exists h:P(h)\land h(s_1)\equiv t & \ifff & \quot A\equiv\models\exists h:P(h)\land h(s)\Eq t \\ A\models \forall s_1\equiv s:P(h)\impl h(s_1)\equiv t & \ifff & \quot A\equiv\models P(h)\impl h(s)\Eq t \end{array}
+\end{equation}
+\begin{enumerate}\MyLPar
+\item Let $\phi = \Pre Pf(h)\impl h(s)\Eq t:$ \\[-1ex] $A\models \tau(\phi) \ifff
+A\models \forall s_1\equiv s: \Pre Pf(h)\impl h(s_1)\equiv t \ToT{\re{eq:hlp}}
+\quot A\equiv\models \Pre Pf(h)\impl h(s)\Eq t \ifff \quot A\equiv\models \phi$
+
+\item Let $\phi = \exists h: \Pre Pf(h)\land h(s)\Eq t :$\\[-1ex] $A\models \tau(\phi) \ifff
+A\models \exists s_1\equiv s\ \exists h: \Pre Pf(h)\land h(s_1)\equiv t 
+\ToT{\re{eq:hlp}}
+\quot A\equiv\models \exists h: \Pre Pf(h)\land h(s)\Eq t \ifff $\\ $\quot A\equiv \models \phi $
+
+\item Let $\phi =\Pre Pf(h)\impl\exists h_1 :\Pre Pg(h_1)\land h(s)\Eq h_1(s):$
+\\[-1ex]
+$A\models \tau(\phi)\ifff A\models
+\Pre Pf(h)\impl \forall s_1\equiv s\ \exists s_2\equiv s\ \exists h_1 : \Pre Pg(h_1)\land h(s_1)\equiv h_1(s_2) \ToT{\re{eq:hlp}} $\\ $ \quot A\equiv\models
+\Pre Pf(h)\impl \exists h_1 :\Pre Pg(h_1)\land h(s)\Eq h_1(s)\ifff \quot A\equiv \models \phi $
+\nopagebreak \end{enumerate}\nopagebreak \end{PROOF}
+\begin{SREMARK}{Remark.}
+The equivalences \re{eq:hlp} hold only for the specific kinds of formulas. For instance, the fact (*): $SEQ(E)\models \Pre P{\fst}(h)\impl h(\epsilon\lap x\lap y)\Eq x$ does not mean that $\quot{SEQ(E)}\equiv \models \Pre P{\fst}(h)\impl h([\epsilon\lap x\lap y])\Eq x$, where $\equiv$ is as defined
+in the implementation of $SET(E)$ (axioms $A1',A2',U3',E0-E3$). However, (*) implies
+$SEQ(E)\models \exists s\equiv \epsilon\lap x\lap y\ \exists h:\Pre P{\fst}(h)
+\land h(s)\Eq x$, from which we can conclude that $\quot{SEQ(E)}\equiv \models \exists h:\Pre P{\fst}(h)\land h([\epsilon\lap x\lap y])\Eq x$. \end{SREMARK}
+\subsection{Oracles}
+In the context of algebraic specifications, the oracle semantics of nondeterminism is studied, for instance, in \cite{Mich}, \cite{top}. It models a nondeterministic 
+operation by a function with an additional parameter called {\em oracle} or {\em index}. A possible result of $f(x)$ corresponds to picking a particular value $i$ of the oracle argument and evaluating $f(i,x).$ 
+
+\begin{equation}\label{eq:oraclenu}
+\begin{array}{rcl}
+\Bre f(s) \Eq t & \TTo{\nu} & \forall i: f(i,s)\Eq t \\ \Bree f(s) \Eq t & \TTo{\nu} & \exists i: f(i,s)\Eq t\\ \Bre f(s) \Eq \Bree g(s) & \TTo{\nu} &
+\forall i\ \exists j : f(i,s)\Eq g(j,s) \\ \end{array}
+\end{equation}
+\noindent The specification looks now as follows:\\[1ex] \(\begin{array}{rrcl}
+1.& \forall i : \ch(i,S)\in S & \lor & S\Eq\es \\ 2. & \forall i\ \exists j & : & \dfs(i,v)\Eq tr(j,v,ch(v),\es)\ \ \\ 3. & \forall i : tr(i,v,\es,T) & \Eq & T \\ 4. & S\Not\Eq\es\land (\exists i: x\Eq \ch(i,S))\land x\lin T & \impl & \forall i\ \exists j :tr(i,v,S,T)\Eq tr(j,v,S\setminus x,T) \\ 5. & S\Not\Eq\es\land (\exists i: x\Eq \ch(i,S))\land x\Not\lin T & \impl & \forall i\ \exists j,k :tr(i,v,S,T)\Eq 
+tr(j,v,S\setminus x,\ \ \ \ \ \ \ \ \\
+\multicolumn{4}{r}{tr(k,x,ch(x),T\ap\<v,x\>))} \end{array} \)\\[1ex]
+\noindent
+Note that the model using sets of functions is very close to the idea of oracles.
+\subsubsection{The Proof Obligations for Data Refinement} Again, the translation $\nu$ yields formulas in a standard language and we may take $\delta = id.$ Following \re{eq:isverify}, the refinement translation $\tau$ is obtained simply by adding respective quantifier over the (refined) argument: \begin{equation}\label{eq:oracletau}
+\begin{array}{rcl}
+\forall i: f(i,s)\Eq t & \TTo{\tau} &
+\forall i\ \forall s_1\equiv s: f(i,s)\Eq t \\ \exists i: f(i,s)\Eq t & \TTo{\tau} &
+\exists i\ \exists s_1\equiv s: f(i,s_1)\Eq t\\ \forall i\ \exists j : f(i,s)\Eq g(j,s) & \TTo{\tau} & \forall i\ \forall s_1\equiv s\ \exists j\ \exists s_2\equiv s:f(i,s_1)\Eq g(j,s_2)
+\end{array}
+\end{equation}
+In contrast to the model using sets of functions with oracles we do not use higher order logic.
+\subsubsection{Semantics}
+A similar problem with the semantic counterpart of the logical refinement notion as indicated in subsection \ref{subsub:problem} will occur here. If a nondeterministic operation
+is implemented by a function -- which therefore does not depend on the oracle parameter -- the standard quotient construction would not work. If we attempt to gather the results of the function on all values equivalent to the given one in order to obtain a nondeterministic operation, then there is no direct way to express this new operation as an oracle-dependent function, since one has to find the correlation between the (new) oracle values and the required results. We could attempt to give a new quotient construction analogously to the construction in subsection \ref{subsub:problem} but now we would have to construct not only a new function but also a new oracle sort -- since the concrete structure may have only one element of the oracle sort, if all its operations are deterministic, and we have to produce at least as many oracle elements in the abstract structure as the cardinality of ``the most nondeterministic set''. For the same reason, even if we manage such a construction, it certainly would not
+correspond to any homomorphism.
+
+Therefore, in the following, we will focus on the three other approaches but not on the oracles.
+
+
+
+
+\section{Implementation of Nondeterministic Data Types}\label{se:impl} 
+
+
+We have considered data refinement as a special -- and particularly problematic -- case of implementation of nondeterministic data types. Now, we will consider a couple of other specification-building operators and the general notion of implementation. Unlike quotient, these concepts generalize easily to the nondeterministic context.
+
+Given a specification $SP$, its model class (however it is defined), is denoted $\Mod(SP)$.
+We write $SP\im SP'$ if $\Mod(SP')\subseteq \Mod(SP)$, and consider the following specification-building operations:\\[1ex] \(\begin{array}{lll}
+(\quot{SP}\equiv) & {\bf quotient\ } SP\ {\bf by}\equiv\ : 
+& Spec(\Sigma)\into Spec(\Sigma)\ where \\ & & \Mod(SP') = \{\quot M\equiv : M\in \Mod(SP)\} \\[.5ex] (SP|_\sigma) & {\bf derive}\ SP\ {\bf by\ }\sigma : 
+& Spec(\Sigma)\into Spec(\Sigma')\ where \\ & & \sigma: \Sigma'\into\Sigma \\
+& & \Mod(SP') = \{ M|_\sigma : M\in \Mod(SP)\} \\[.5ex] %\end{array} \)\\
+%\(\begin{array}{lll}
+\multicolumn{2}{l}{\enrich{SP}{\Sorts',\Funcs', {\cal N}',\Axs'}:} 
+& Spec(\Sigma)\into Spec(\Sigma') \ where\\ & & Sig(\enrich{SP}{\Sorts',\Funcs', {\cal N}',\Axs'}) = \Sigma' \\ & & \Mod(\enrich{SP}{\Sorts',\Funcs', {\cal N}',\Axs'}) = 
+\Mod(\<\Sigma',\Axs\cup\Axs'\>)
+\end{array} \) \\[1ex]
+
+
+
+Without loss of generality, we can assume that, in the quotient construction, the signature morphism $\sigma$ is an identity except for the equality symbol, for which $\sigma(\Eq)=\ \equiv$. Composing {\bf quotient} with {\bf derive} yields the appropriate relation.
+
+Generally, in {\bf derive}, $\sigma$ is a standard signature morphism which does
+not (necessarily)
+distinguish between the $\cal N$ and $\Funcs$ operations, that is, it maps $\cal N' \cup \Funcs'$ into $\cal N \cup \Funcs,$ under the usual restrictions
+on signature morphisms. However, since the operations in $\Funcs$ respect the congruence while those in
+$\cal N$ do not, it is natural to restrict immediately the class of the relevant morphisms to such $\sigma$'s that $\sigma(f)\in\Funcs\impl f\in\Funcs'.$
+
+The use of notation in {\bf enrich} is subject to the following restrictions: $SP =\<\Sigma,\Axs\>$, where $\Sigma =
+\<\Sorts,\Funcs, {\cal N}\>$, $\Sorts'\cap\Sorts =\es$ is a new set of sorts, $(\Funcs'\cup {\cal N}')\cap (\Funcs\cup {\cal N}) =\es$ 
+a set of new operation symbols sorted over $\Sorts\cup\Sorts'$, $\Sigma'= \Sigma\cup\<\Sorts',\Funcs', {\cal N}'\>$, and $\Axs'$ is a set of axioms over $\Sigma'$.
+
+We do not introduce an operator returning reachable restrictions of models. Under the assumption from the introduction that all constructors are deterministic, such an operator may be defined in exactly the same way as for deterministic 
+specifications: {\bf reachable} $SP$ {\bf on} $S$ {\bf with} $T$, assumes that $T$ are deterministic terms. A generalization admitting also nondeterministic terms in $T$ is not straightforward, since it has to consider various possible notions of reachability with such terms. This issue is discussed in \cite{taps}.
+
+Following \cite{ST}, we say that a specification-building operation $\kappa$ is
+a {\em constructor} if it is defined as an operation on models, i.e., if $Mod(\kappa(SP)) = \{\kappa(A):A\in Mod(SP)\}$. All three cases of the quotient construction which we have given (definitions \ref{de:relquot}, \ref{de:multquot}, \ref{de:predquot}), yield a constructor. The standard definition of reduct in our case makes it a constructor, too. We consider 
+{\em constructor
+implementations} and write $SP\imm{\kappa}SP'$ if $SP\im \kappa(SP')$. For instance:
+\[\begin{array}{ccc}
+SP\imm{\sigma} SP'\ if\ SP\im SP'|_\sigma & SP\imm{\equiv} SP'\ if\ SP \im \quot{SP'}\equiv & SP\imm{\sigma,\equiv} SP'\ if\ SP\imm{\sigma} \quot{SP'}\equiv \end{array} \]
+\noindent
+The proof of the following vertical composition lemma is trivial: 
+
+\begin{LEMMA}\label{le:trans}. \begin{tabular}[t]{ll} (1) & {\bf quotient}, {\bf derive} and {\bf enrich} are monotonic. \\ (2) & $\imm{*}$ is transitive -- for constructors $\alpha, \beta $ we have:\\ 
+& $ SP\imm{\alpha}SP'\land
+SP'\imm{\beta}SP''\impl SP\imm{\alpha,\beta}SP''.$ \end{tabular}
+\end{LEMMA}
+\begin{PROOF} (1) for {\bf enrich} is trivial. Since $\_/_\equiv$ and $\_|\sigma$ are
+constructors, the rest of (1) and (2) is just theorem 4.14 from \cite{ST}. \end{PROOF}
+
+
+
+\subsection{Verification of the Implementation Relation} 
+
+
+As indicated before, in order to verify the specifications we translate the axioms into some standard logic. Typically, the translation will yield rather complicated formulas, but we have chosen this approach because verification can now utilize the (semi-)automatic tools designed for proofs in a standard logical setting.
+
+Let $SP=\<\Sigma,\Axs\>, SP'=\<\Sigma',\Axs'\>$ be the implemented and the implementing specifications, respectively. To verify the implementation we have to show for
+\begin{equation}\label{eq:oblig}
+\begin{array}{rcl}
+SP\im SP' & : &\Axs'\vdash\Axs \\
+& & \delta(\nu(\Axs'))\vdash \delta(\nu(\Axs)) \\ SP\imm{\sigma} SP' & : & \Axs'\vdash \sigma(\Axs) \\ 
+& & \delta(\nu(\Axs'))\vdash \delta(\nu(\sigma(\Axs))) \\ SP\imm{\equiv} SP' & : & \Axs'\vdash \tau(\Axs) \\ 
+& & \delta(\nu(\Axs'))\vdash \tau(\nu(\Axs)) \\ \end{array}
+\end{equation}
+In the first two cases, verification is exactly as for the deterministic
+specifications. (If specifications are written in the abstract language of
+section \ref{se:general}, we apply the translation schemata for the intended
+semantics.) The last case has been studied in the preceding
+sections. $\delta$ is missing in the right hand side of $\vdash$ in the last
+line because: for multialgebras $\tau$ was defined (\ref{eq:multtau}) directly from the target
+of $\nu$, while for the other cases $\delta$ was $id$.
+
+We illustrate this verifying that $SET\imm{\sigma,\equiv}SEQ$, where the respective specifications and $\sigma$, $\equiv$ are given in section \ref{se:choiceproblem}. We let $SET,SEQ$ stand for the $\nu$-translated versions of the respective specifications as they have been given in the earlier sections. For $SEQ$, we have $\nu(SEQ)=SEQ$, since it is deterministic.
+For the implementation step, we have to show $\quot{SEQ}\equiv\models \sigma(SET)$, and the whole proof obligation is to show $\delta(SEQ)\vdash \tau(\sigma(SET)).$ For relations and sets of functions we have $\delta=id$. For multialgebras, since $SEQ$ is deterministic and contains only equations, the result will be $\delta(SEQ)=SEQ$.
+Thus, in all three cases, we have to show that $SEQ\vdash\tau(\sigma(SET)).$ 
+
+We list the respective $SET$ axioms for choice and their $\tau\circ\sigma$-translation for each of the three considered cases. Since $\fst$ is a function, we
+immediately simplify the translated axioms as indicated in the respective definitions of $\tau$:
+\[
+\begin{array}{lcl}
+\forall S:(\forall x: \Pre R\ch(S,x)\impl x\in S)\lor S\Eq\es & \TTo{\sigma}& \forall S:(\forall x: \Pre R{\fst}(S,x)\impl x\in S)\lor S\equiv\epsilon \\ & \TTo{\re{eq:relstau}}&
+\forall S\ \forall S_1\equiv S : \fst(S_1)\in S \lor S\equiv\epsilon \\ \forall S : (\Pre P\ch(h)\impl h(S)\in S)\lor S\Eq\es & \TTo{\sigma} & \forall S : (\Pre P{\fst}(h)\impl h(S)\in S)\lor S\equiv\epsilon \\ & \TTo{\re{eq:predstau}} &
+\forall S\ \forall S_1\equiv S : \fst(S_1)\in S \lor S\equiv\epsilon \\ \forall S: \ch(S)\in S\lor S\Eq\es & \TTo{\sigma}& \forall S: \fst(S)\in S\lor S\equiv\epsilon \\ & \TTo{\re{eq:multtau}}&
+\forall S\ \forall S_1\equiv S : \fst(S_1)\in S \lor S\equiv\epsilon \end{array}
+\]
+Incidentally, due to the determinacy of the whole $SEQ$, and $\fst$ in particular,
+all the cases yield identical proof obligations. Verification of the fact $SEQ\vdash\forall S\ \forall S_1\equiv S : \fst(S_1)\in S \lor S\equiv\epsilon$
+is an easy exercise.
+
+
+\section{Parameterisation}\label{se:parameter} One of the central tenets of specification-in-large is the modularity of specifications and verification. Having identified two component specifications
+$SP1$ and $SP2$ which are composed using a specification-building operator $R$
+into a specification $R(SP1,SP2)$, we are interested in the possibility of refining the two components independently from
+each other, in such a way that the resulting specifications $SP1'$ and $SP2'$ can be composed using $R$ and yield $R(SP1',SP2')$ which implements $R(SP1,SP2).$
+For instance, if $SP1$ is some basic
+specification which is used by $SP2$, we would like to implement $SP1$ and be able to use this implementation in $SP2$ instead of the original $SP1$. The general framework should guarantee that the result $SP2\ using\ SP1'$ is a correct implementation of $SP2\ using\ SP1$. Similarly, we would like an implementation $SP2'$ of $SP2$ to yield an implementation $SP2'\ using\ SP1'$
+of $SP2\ using\ SP1'$. The results of this section allow us to do this. 
+
+The issue of modularity is captured by the classical notion of parameterised specifications.
+We consider it as
+a just another specification-building operation with the semantics defined not as a function (or push-out) but along the same lines as, for instance, the semantics of {\bf enrich} or {\bf derive}. It corresponds to the fact that
+one specification may ``use'' another one yielding a hierarchical structure of the specification components. The aspect of ``parameterisation'' is reflected in the definition of implementation which takes into account the structure of the specification, and in the restrictions (subsection \ref{sub:ver}) on the form of such 
+specifications, which correspond to the standard requirements of protecting the used component (actual parameter protection). The first part of this section does not rely on such restrictions and is merely an adaptation of basic notions and results from \cite{ST}.
+
+Again, we consider relations, multialgebras, and predicates on functions. 
+The following definitions and lemmas
+apply uniformly without further generalization to all three cases. 
+
+\begin{DEFINITION}\label{de:param}
+Given specifications $SP_p\subseteq SP_r$ over signatures $\Sigma_p\subseteq\Sigma_r$,
+$\lambda X:SP_p.SP_r(X)$ is a parameterised specification with the formal parameter $SP_p$,
+%if $SP_r$ is a conservative extension of $SP_p$. It is defined by:
+\begin{itemize}\MyLPar
+\item $Sig(\lambda X:SP_p.SP_r(X)) = \Sigma_r$ \item $\Mod(\lambda X:SP_p.SP_r(X)) = \Mod(SP_r(^{SP_p}\!/\!_X))$ \end{itemize}
+\end{DEFINITION}
+\noindent Notice that the second point defines the semantics of a parameterised
+specification as the semantics of a non-parameterised specification. The $\lambda$-notation is a mere abbreviation 
+for $\enrich{SP_p}{P}$ where $P=SP_r\setminus SP_p$, which is applied to indicate that the implementation relation is defined differently (below). 
+%Typically, For $P=SP_r\setminus SP_p$, we may view the notation $\lambda X:SP_p.SP_r[X]$ as a shorthand for $\enrich{SP_p}{P}$. 
+Notice that the formal parameter is a specification. The actual parameter is required to satisfy this specification. We say that $SP$ is a {\em legal} (actual) parameter iff $SP_p\im SP$.\footnote{The ``fitting'' morphism is then not just a signature morphism
+but a specification morphism $\sigma:\<\Sigma_p,\Axs_p\>\into \<\Sigma,\Axs\>$, where, for each $A\in\Axs_p : \Axs\models\sigma(A).$ Since we are considering only the case where the formal and the actual parameters have the same signature, we only require that $\forall A\in\Axs_p : \Axs\models A$.} 
+
+Let $SET(E)$ be the specification from section \ref{se:choiceproblem} (Figure \ref{fig:spec}, with the modified choice signature and axiom) viewed as a parameterised specification
+$\lambda X:\<E,\{\Eq\},\es\>\ .\ SET(X)$. By definition, its parameter must have the signature $\Sigma_p=\<E,\{\Eq\}\>$, and the resulting specification has the signature $\Sigma_r=\<\{E,Set(E)\},\{\es,\ap,\cup,\in,\ch,\setminus,\Eq\}\>$. To instantiate with $NAT=\<Nat,\{0,s,+,\Eq\},\es\>$, we need a ``fitting'' 
+morphism $\sigma:E\into NAT$ and the signature of the resulting specification does not contain $0,s,+$ ! As a matter of fact, this parameter passing does not yield $SET(NAT)$, but $SET(NAT|_\sigma)$. The other way around, it is illegal to pass $NAT$ as a parameter since it does not have the signature $\Sigma_p$. 
+
+However, before passing $NAT$ (or after passing $NAT|_\sigma$) we may rename the sort $E$ to $Nat$. More generally, we need to show the following fact:
+if $E\imm{\sigma} NAT$ then $SET(E)\pimp{}{\sigma} SET(NAT)$, where the latter relation is written so to emphasize that it concerns implementation of the parameter in a parameterised specification -- the notation
+$P(E)\pimp{}{\kappa}P(E')$ stands for $P(E)\pim P(\kappa(E'))$ and $\pim$ is defined below.\footnote
+{To be quite precise, we would have to identify which parameter is concerned (if there are more than one), and what fitting morphism is used. We refrain from cluttering
+notation in this way since it does not seem necessary for our example.} 
+
+\vspace{1ex}\hspace{12em}\diagram
+E \dto^{\imm\sigma} \rto|<\hole|<<\ahook & SET(E) \dto^{\pimp{}\sigma} \\ %NAT|_\sigma \dto^{\imm{\sigma}} \rto|<\hole|<<\ahook %	& SET(NAT|_\sigma) \dto^{\im} \\
+NAT \rto & SET(NAT)
+\enddiagram \\[1ex]
+The signature of $SET(NAT|_\sigma)$ is still $\Sigma_r$. If $SP_p\imm{*}SP_a$,
+the
+notation $SP_r(SP_a)$
+implicitly indicates an appropriate renaming of formal parameter, as for $Sig(SET(NAT))=\<\{Nat,
+Set(Nat)\},\{...\}\>.$ The lower arrow in the diagram represents the corresponding partial signature morphism. 
+
+Implementation of one parameterised specification by another is defined pointwise:
+
+\begin{DEFINITION}\label{de:par}
+Let $P,P'$ be parameterised specifications over the same parameter specification $SP_p$: \begin{itemize}
+\item $P\pim P'$ iff, for all legal $SP_p$ parameters $SP$ : $P(SP)\im P'(SP)$;
+\item for $P = \lambda X:SP_p.SP_r(X)$, and a specification building operator $\kappa:Spec(\Sigma_r)\into Spec(\Sigma)$, $\kappa(P)$ is defined as $\lambda X:SP_p.\kappa(SP_r(X))$; \item $P\pimm{\kappa} P'$ iff $P\pim \kappa(P')$. \end{itemize}
+\end{DEFINITION}
+\noindent Since there is no difference between passing an actual parameter and
+implementing the formal one, and the latter yields a parameterised specification, we will write the parameterised specifications simply as $SP_r(SP_p)$.
+
+According to the definition, $\Sigma_p$ remains unchanged, but since $\Sigma_p\subseteq \Sigma_r$, it does not imply that implementation of a parameterised specification affects only the body, but not the parameter part. A possible way of ensuring
+the actual parameter protection will be discussed in the following subsection.
+
+Definition \ref{de:par} introduces an implementation relation and it may seem that,
+since this relation is defined pointwise with reference to the implementation of non-parameterised specifications, it is really a new relation. The following lemma shows that the two actually coincide and for this reason we can dispense with the additional symbol $\pim$. 
+
+\begin{LEMMA}\label{le:onlybody}
+Let $P= SP_r(SP_p)$ and $P'=SP'_r(SP_p)$ be two parameterised specifications. Then $P\imm\kappa P' \impl P\pimm{\kappa} P'.$ \end{LEMMA}
+\begin{PROOF}
+Consider first the case $\kappa=id.$ Let $SP_p\im SP$ be an arbitrary legal parameter.
+By lemma \ref{le:trans}, $\Mod(SP'_r(SP))\subseteq \Mod(SP_r(SP_p)).$ So, $\forall M\in \Mod(SP'_r(SP)):M\models SP_r(SP_p) \cup SP$. We have that
+$\Mod(SP_r(SP_p)\cup SP)=\Mod(SP_r\cup SP_p\cup SP)=\Mod(SP_r\cup SP)= \Mod(SP_r(SP)),$
+which implies $M\in \Mod(SP_r(SP)).$
+The same argument with $SP'_r$ replaced by $\kappa(SP'_r)$ shows the general statement.
+\end{PROOF}
+The following lemma makes the required diagram above commute: 
+
+\begin{LEMMA}\label{le:parismon}
+For a parameterised specification $P$:
+\begin{enumerate}\MyLPar
+\item\label{c:1} if $SP\im SP'$ then $SP_r(SP)\im SP_r(SP')$, \item\label{c:2} if $SP\imm{\kappa} SP'$ then $SP_r(SP)\imp{}{\kappa} SP_r(SP')$,
+\end{enumerate}
+\end{LEMMA}
+\begin{PROOF}
+\ref{c:1} is proved by a trivial induction on $SP_r$ (instantiated $SP_r(SP)$ is $\enrich{SP}{SP_r}$, and specification-building operations are monotonic). \ref{c:2} follows then, since $SP\imm{\kappa}SP'$ means $SP\im \kappa(SP')$. \end{PROOF}
+\noindent This lemma applies in general to nested parameterisation and several parameters. For instance, given a parameterised specification $S1(S2(S3)),$ we have
+$S3\imm\kappa S3'\TTo{\ref{c:2}.} S2(S3)\imp{}{\kappa} S2(S3') \ToT{def} S2(S3)\im S2(\kappa(S3')) \TTo{\ref{c:1}.} S1(S2(S3))\im S1(S2(\kappa(S3'))),$ which, abusing 
+the notation a little bit, we also write as $S1(S2(S3))\imp{}{\kappa} S1(S2(S3')).$ %A similar result follows when we implement $S2\imm{\mu}S2'.$ 
+
+Transitivity of the implementation relation for parameterised specifications is obtained by a pointwise application of the vertical composition of non-parameterised specifications from lemma \ref{le:trans}. 
+
+\begin{LEMMA}\label{le:ptrans}
+For parameterised specifications $P,P',P''$ over the same parameter: if $P\imm\alpha P'$ and $P'\imm\beta P''$ then $P\imm{\alpha;\beta} P''$. \end{LEMMA}
+The main result concerning horizontal composition follows now easily. %from the definition and vertical composition of nonparameterised %specifications (lemma \ref{le:trans}).
+
+\begin{THEOREM}\label{th:horizontal}
+If $P\imm{\kappa} P'$ and $SP\imm{\mu} SP'$, then $P(SP)\imp{\kappa}{\mu} P'(SP')$.
+\end{THEOREM}
+\begin{PROOF}
+\( \begin{array}[t]{rl}
+\left . \begin{array}{r}
+P\imm{\kappa} P'\ \ovr\Longrightarrow{D.\ref{de:par}}\ 
+P(SP)\imm{\kappa}P'(SP) \\
+SP\im\mu(SP')\ \ovr\Longrightarrow{L.\ref{le:parismon}}\ P'(SP)\im P'(\mu(SP'))
+\end{array} \right \} &
+\ovr\Longrightarrow{L.\ref{le:ptrans}}\ P(SP)\imm{\kappa}P'(\mu(SP')). \end{array} \)
+\end{PROOF}
+\noindent As for lemma \ref{le:parismon}, this theorem generalizes trivially to the case of several and nested parameters. 
+
+Actually, this is not horizontal composition as formulated in \cite{GB}
+but, as argued in \cite{ST}, it is perfectly satisfactory. It allows us to do a series of refinement steps on the parameter specification $SP\imm{\mu_1}SP_1\imm{\mu_2}\ldots\imm{\mu_n}SP_n$, and, independently, on the parameterised one $P\imm{\kappa_1}P_1\imm{\kappa_2}\ldots\imm{\kappa_m}P_m$, yielding $P(SP)\immc{\kappa_1\ldots\kappa_m}P_m(\mu_1\ldots\mu_n(SP_n))$, or $P(SP)\impc{\kappa_1\ldots\kappa_m}{\mu_1\ldots\mu_n}P_m(SP_n)$. 
+
+\begin{EXAMPLE}\label{ex:nonper}
+Consider the following specifications $CH,CH1$, and the parameterised specification $M(X)$, where: \\
+\Spec {CH} {\Sorts : &} {D}
+{\\ \cal N : &}{\ch:&D\times D&\into & D} {\\ \Axs : &}{C: & z\Eq \Bree \ch(x,y) & \impl & z\Eq x \lor z \Eq y} % \Large$\im$\ \normalsize
+\Spec {CH1} {\Sorts : &} {...}
+{\\ \cal N : &}{...}
+{\\ \Axs : &}{C1: & \Bre\ch(x,y) & \Eq & x} \PSpec {M}{\Body{\Sorts_p : &}{D}
+{\\ {\cal N}_p : &}{\ch:& D\times D& \into &D} {}{}}
+{\Body {}{}
+{\cal N : &}{m:&D\times D&\into & D}
+{\\ \Axs : &}{m1: & \Bre m(x,y)& \Eq & \Bree \ch(x,y) \\ 
+m2: & x & \Eq & \Bree m(x,y) \\
+m3: & y & \Eq & \Bree m(x,y)}}\\[6pt]
+Obviously, $CH\im CH1$ and hence, by theorem \ref{th:horizontal}, $M(CH)\im M(CH1)$. However, the axioms of $M(CH1)$ collapse the sort $D$. $m3$ and $m1$ yield $y\Eq \Bree \ch(x,y)$, which combined with $C1$ gives $y\Eq x.$
+\end{EXAMPLE}
+$CH$ admits both
+nondeterministic and deterministic implementations (such as $CH1$) while $M(X)$ requires $m(x,y)$ to return both its arguments, i.e., to be 
+nondeterministic. Thus narrowing the range of nondeterminism in the implementation of the parameter is incompatible with the requirement of full nondeterminism in the body of the parameterised specification.
+
+However, it is easy to see that the problem has nothing to do with (the admissible) nondeterminism of $\ch$ in $CH$. If we required in $CH$ full nondeterminism, $CH1$ would not be a correct implementation. The problem is exactly the same
+as in the case of classical deterministic specifications where parameterisation may be non-persistent. Exactly the same requirement as in the standard case is needed here.
+%, and definition \ref{de:param}
+%requires that $SP_r$ be a conservative extension of $SP_p$. 
+
+Since we adopt loose semantics, parameterisation is not a constructor.
+The parameter part may be extracted from a $PA\in \Mod(P(SP))$ by $par(PA)=PA|_{\Sigma_p}$. And, obviously, for a given $A$, there may be several $PA$ such that $par(PA)=A$. Writing $\inter{ SP_r(SP_p)}$ for $\Mod(SP_r(SP_p))$, passing an algebra $A$ as an actual parameter yields: \begin{equation}\label{eq:apass}
+\inter{SP_r(SP_r)}(A) = \{PA\in \Mod(SP_r(SP_p)) : 
+PA|_{\Sigma_p}\simeq A \}
+\end{equation}
+Viewing parameter passing in this way automatically ensures {\em actual parameter protection}. However, this happens only because it excludes some $SP$ models as actual parameters when $P(SP)$ is not persistent. In example \ref{ex:nonper}, only
+$CH1$ models with 1-element carrier would be possible parameters since only such ones can be recovered as reducts of $M(CH1)$ models. The usual persistence condition amounts in this setting to admitting {\em all} models of $SP_p$ as legal parameters, i.e., \begin{equation}\label{eq:pers}
+\forall A\in \Mod(SP_p) : \inter{SP_r(SP_p)}(A) \Not= \es \end{equation}
+The advantage of this definition of parameterised specifications is that it essentially reduces their implementation to implementation of non-parameterised specifications. One should observe, however, that we are using definition \ref{de:par} -- an arbitrary
+specification $P$ with $\Mod(P)\subseteq \Mod(SP_r(SP_p))$ would not necessarily be considered as an implementation. 
+
+The definition makes also {\em passing compatibility} trivial. Passing an actual algebra $A$ according to \re{eq:apass} amounts to restricting the class $\Mod(SP_r(SP_p))$ to these elements $PA$ for which $par(PA)\simeq A$, i.e., selecting only a ``subset'' of the semantics of the parameterised specification. If \re{eq:pers} does not hold, this subset may happen to be empty. 
+
+\begin{SREMARK}{Remark.}
+Alternatively to definition \ref{de:param}, 
+we might view the semantics of a parameterised specification as $\inter{SP_r(SP_p)}\subseteq \Mod(SP_p)\times \Mod(SP_r(SP_p))$. In the extreme case, we would take the whole class. Persistence would require for all $\<A,PA\>\in\inter{SP_r(SP_p)} : 
+PA|_{\Sigma_p} \simeq A$, which is the usual condition of actual parameter protection \[
+\inter{SP_r(SP_p)} = \{\<A,PA\>: A\in \Mod(SP_p), PA\in \Mod(P(SP_r)), 
+PA|_{\Sigma_p}\simeq A\}
+\]
+Passing an algebra $A$ as an actual parameter yields the subclass with pairs having the first component equal to $A$: \[
+\inter{SP_r(SP_p)}(A) = \{\<A,PA\>:PA\in \Mod(SP_r(SP_p)), 
+PA|_{\Sigma_p}\simeq A\}
+\]
+As in our definition, this last set may be empty if $SP_r$ is not persistent.
+This also makes passing compatibility trivial since the semantics of actual parameter passing is a ``subset'' of the semantics of parameterised specification.
+
+However, here the semantics of parameterised and non-parameterised specifications differ. As we cannot see any direct advantages of this procedure, we accept definition \ref{de:param}. \end{SREMARK}
+\subsection{A Note on Verification}\label{sub:ver} The two problems to be addressed here concern persistence and verification of the first point in definition \ref{de:par}. 
+
+As in the case of deterministic specifications, persistence is not decidable. An obvious condition would be that $SP_r(SP_p)$ 
+does not imply any
+new formulas affecting the models of the parameter, i.e., $SP_r$ is a conservative extension of $SP_p$:
+\begin{equation}\label{eq:conservative}
+\forall \Phi\ over\ Sig(SP_p) :
+SP_r(SP_p)\vdash \Phi\impl SP_p\vdash \Phi \end{equation}
+If a parameterised specification satisfies this condition we say that it is {\em conservative} and write $SP_p\cons SP_r$. By the result from standard logic: % DOES IT HOLD FOR HOL ??? Preds on funcs 
+\begin{equation}\label{eq:cons}
+SP_p\cons SP_r\ \iff\
+\forall M\in \Mod(SP_p)\ \exists N\in \Mod(SP_r(SP_p)): M\eleq N|_{\Sigma_{p}},
+\end{equation}
+where $\eleq$ is elementary equivalence.\footnote{$M\eleq N$ iff for all closed
+formulas $\phi: M\models\phi\iff N\models\phi$.} An equivalent condition says that $\forall M\in \Mod(SP_p)\ \exists N\in \Mod(SP_r(SP_p)) : M\preceq N,$ where $\preceq$ denotes elementary extension.\footnote{$M\preceq N$ iff $|M|\subseteq |N|$ and for all formulas $\phi(\overline x)$ and $\overline a \in |M|: M\models \phi(\overline a) \iff N\models\phi(\overline a).$}
+This does not guarantee that \re{eq:pers} holds, since $M$ may be only a submodel of some $N|_{\Sigma_{p}}$. But this means that, in the worst case, there will appear new elements of (some) sorts from $\Sigma_p$ and that the parameter before passing is logically indistinguishable from the one after passing.
+\begin{SREMARK}{Remark.}
+We know \re{eq:cons} as the result from first order logic and may doubt whether 
+this is applicable to specifications with predicates on functions which are 
+second-order. For this case, we can apply the Mostowski collapsing theorem
+to obtain first order structures where each predicate $\Pre Pf(h):(S\into T)\into Bool$ defines a (subset of a) ``functional sort'' $(S\into T)$ equipped
+with the additional function $apply_f:(S\into T)\times S\into T$. If $\Phi$ is the formula defining $\Pre Pf$, $apply_f$ is defined by the formula $\Phi_{apply_{f}(h,\overline s)}^{\ \ \ \ h(\overline s)}$. \end{SREMARK}
+We have that conservativity with respect to the formal parameter ensures conservativity with respect to all actual parameters: \begin{LEMMA}\label{le:conservative}
+If $SP_p\cons SP_r$ and $SP_p\imm{\kappa} SP$, then $\kappa(SP)\cons SP_r.$
+\end{LEMMA}
+\begin{PROOF}
+Consider first the case $\kappa=id.$
+Since $\Mod(SP)\subseteq \Mod(SP_p)$, using \re{eq:cons} we obtain:
+\[\forall M\in \Mod(SP)\ \exists N\in \Mod(SP_r(SP_p)): M\eleq N|_{\Sigma_{p}},\]
+We have to show, that such an $N$ is in $\Mod(SP_r(SP))$ and $M\eleq N|_\Sigma.$
+The latter conjunct is trivial since $SP_p\im SP$ implies $\Sigma=\Sigma_p.$ But then, we have that $N\models SP_r(SP_p)$ and $N|_\Sigma\models SP$. Thus, since $\Mod(SP_r(SP_p)\cup SP)=\Mod(SP_r\cup SP_p\cup SP)=\Mod(SP_r\cup SP)= \Mod(SP_r(SP)),$
+$N\models SP_r(SP_p)\cup SP$ implies $N\in \Mod(SP_r(SP)).$ 
+
+The general case of $\kappa$ follows now trivially, since $SP_p\imm\kappa SP$ means $SP_p\im \kappa(SP).$
+\end{PROOF}
+Concerning the verification of the implementation of parameterised specifications,
+definition \ref{de:par} requires checking the relation for all actual parameters. However, lemma \ref{le:onlybody} tells us that this is not 
+necessary.
+%But under assumption
+%\re{eq:conservative} it is enough to verify it for the formal parameter only.
+It means that in order to verify a parameterised implementation $P\pim P'$, we
+only have to verify the (non-parameterised) implementation of $P\im P'.$ Since $P$ and $P'$ have the same formal parameter, this essentially means that we only have to verify that body of $P'$ implements the body of $P$.
+
+\subsection{A Parameterised Specification of $\DFS$} To illustrate the use of
+our formalism we give an example specifying a depth-first-search algorithm, $\DFS$,
+which returns a depth-first-tree of a given graph, starting from a given node.
+ The $\DFS$ specification is considered as a
+parameterised specification over the parameters corresponding, respectively,
+to the sort of vertices, the pair representation of edges, and the set
+representation of a graph. Implementing sets by sequences (as it has been
+done in the preceding sections) we will obtain an implementation of $\DFS$
+which works on graphs represented by sequences of edges. 
+
+Assuming the earlier specifications $SET(E),SEQ(E)$, and a specification $PAIR(E)$ with constructor $\<\_,\_\>:E\times E\into Pair(E)$, the full version of the $\DFS$-specification is parameterised as follows:\\[2ex]
+\noindent \DFS\ \ {\bf is\ } $\lambda X:\<\{E\},\es,\es\>, Y:SET(X), 
+Z:PAIR(X), W:SET(Z) $ \nopagebreak \\
+\indent{\bf enrich\ } $X,Y,Z,W$\ {\bf by} \nopagebreak \\ \indent\BodyN{let :& }{Gr=Set(Pair(E))} 
+{\\ \Funcs :&} {\lin\ : & E\times Gr & \into & Bool \\ 
+ch: & Gr\times E & \into & Set(E)}
+{\\ \cal N :&} {\dfs:& Gr\times E & \into & Gr \\ 
+tr:& Gr\times E\times Set(E)\times Gr & \into & Gr} 
+{\\ \Axs :&} 
+{1. & v\lin \es & \Eq & \false \\ 
+2.& v\lin S\ap \<x,y\> & \Eq & (v\Eq x\lor v\Eq y\lor v\lin S)\\ 
+3. & ch(\es,v) & \Eq & \es \\
+4. & ch(G\ap \<v,x\>,v) & \Eq & ch(G,v)\ap x \\ 
+5. & v\Not\Eq y & \impl & ch(G\ap \<y,x\>,v) \Eq ch(G,v) \\ 
+6. & \Bre{\dfs}(G,v) & \Eq & \Bree {tr}(G,v,ch(G,v),\es) \\ 
+7. & \Bre{tr}(G,v,\es,T) & \Eq & T \\
+8. & S\Not\Eq\es\land x\Eq\Bree \ch(S)\land x\lin T & \impl & \Bre{tr}(G,v,S,T) \Eq \Bree {tr}(G,v,S\setminus x,T)\ \ \ \ \ \ \ \ \ 
+\ \ \ \\
+9. & S\Not\Eq\es\land x\Eq\Bree \ch(S)\land x\Not\lin T & \impl 
+& \Bre{tr}(G,v,S,T)\ \Eq \\
+\multicolumn{4}{r}{\Bree {tr}(G,v,S\setminus x, 
+\Bree {tr}(G,x,ch(x),T\ap\<v,x\> ))}}\\[2ex] 
+The $let...$ below {\bf enrich} introduces convenient abbreviations for sorts
+coming from the parameters. 
+\begin{REMARKno}{Remark} \label{re:detDFS}
+An additional axiom, the reverse of 6., 
+ $\Bree{\dfs}(G,v)  \Eq  \Bre {tr}(G,v,ch(G,v),\es)$, would not change the
+ following development. It would, however, require additional verification
+ being itself rather redundant. It would only imply that not only any result
+ of $\dfs$ can be obtained by an appropriate call to $tr$, but also that
+ anything that is obtained by such calls to $tr$ returns a $dfs$. In other
+ words, it would make $\dfs$ necessarily nondeterministic -- returning all
+ possible $\DFS$-trees -- provided that $tr$ is so. A determinisitc
+ implementation of both operations (with equality between them) would
+ automatically satisfy this additional axiom.
+
+Similarly, introduction of the axiom $\Bre{\dfs}(G,v)  \Eq  \Bre{\dfs}(G,v)$,
+would not change much. It would only imply that, from the very beginning, we
+are excluding nondeterminisitc implementations of $\dfs$. We could as well let
+ $\dfs\in\Funcs$.  
+
+What would cause problems, however, would be the requirement of determinacy
+for $tr$. This would imply removal of all the quantified occurrences of $tr$ from (or,
+equivalently, replacing the existential ones by the universal ones in)  the
+above specification except for the occurrences of $\ch$ in axioms 8. and
+9. Thus, we would be forced to identify all possible trees returned by $tr$
+irrespectively of the order in which the children of various nodes have been
+chosen for traversal (see \cite{adt}). Of course, the determinacy requirement
+for the choice operation $\ch$ would bring us back to the problems discussed
+in the very begining, making implementation of sets by sequences impossible.
+\end{REMARKno}
+Having established that $SET(E)\imm{\sigma,\equiv} SEQ(E)$, lemma \ref{le:parismon}
+allows us to conclude $\DFS\imp{}{\sigma,\equiv} \DFS'$, where $\DFS'$ is $\DFS(E,SEQ(E),PAIR(E),SET(PAIR(E))).$ Since $\Bree \ch\in \cal N$ in $SET(E)$ is
+implemented by the function $\fst\in\Funcs$ in $SEQ(E)$, we may make the obvious simplifications (which depend only on the signature):\\[1ex]
+\noindent \DFS'\ \ {\bf is\ } $\lambda X:\<\{E\},\es,\es\>, Y:SEQ(X), 
+Z:PAIR(X), W:SET(Z) $ \nopagebreak \\
+\indent{\bf enrich\ } $X,Y,Z,W$\ {\bf by} \nopagebreak \\ \indent\BodyN{let :& }{Gr=Set(Pair(E))} 
+{\\ \Funcs :&} {\lin\ : & E\times Gr & \into & Bool \\ 
+ch: & Gr\times E & \into & Seq(E)}
+{\\ \cal N :&} {\dfs:& Gr\times E & \into & Gr \\ 
+tr:& Gr\times E\times Seq(E)\times Gr & \into & Gr} {\\ \Axs :&} {1.& v\lin \es & \Eq & \false \\ 2.& v\lin S\ap \<x,y\> & \Eq & (v\Eq x\lor v\Eq y\lor v\lin S)\\ 3. & ch(\es,v) & \equiv & \epsilon \\
+4. & ch(G\ap \<v,x\>,v) & \equiv & ch(G,v)\lap x \\ 5. & v\Not\Eq y & \impl & ch(G\ap \<y,x\>,v) \equiv ch(G,v) \\ 6. & \Bre{\dfs}(G,v) & \Eq & \Bree {tr}(G,v,ch(G,v),\es) \\ 7. & \Bre{tr}(G,v,\epsilon,T) & \Eq & T \\ 8. & S\Not\equiv\epsilon\land \fst(S)\lin T & \impl & \Bre{tr}(G,v,S,T) \Eq \Bree {tr}(G,v,S\setminus \fst(S),T)\ \ \ \ \ \ 
+\ \ \ \ \ \ \ \ \ \ \\
+9. & S\Not\equiv\epsilon\land \fst(S)\Not\lin T & \impl 
+& \Bre{tr}(G,v,S,T)\ \Eq \\
+\multicolumn{4}{r}{\Bree {tr}(G,v,S\setminus \fst(S), 
+\Bree {tr}(G,\fst(S),ch(\fst(S)),T\ap\<v,\fst(S)\> ))}}\\[1ex]
+Observe one subtle point concerning this implementation. Implementing $SET(E)\imm{\sigma,\equiv}
+SEQ(E)$ means that $ch'$ in $\DFS'$ will return elements of sort $Seq(E)$. Since $ch$ in $\DFS$ is a function, $ch'$ must be a function too: 
+for a given graph $G$ (of sort $Set(Pair(E))$) and vertex $v$, $ch'(G,v)$ must return a unique sequence of $v$'s children. However, this issue is easier than the implementation of $\ch$ because $ch$ returns a sequence, so that it suffices that results on equivalent arguments are equivalent (and not necessarily equal): 
+for two equal graphs (sets!) we must only have $G\Eq H\impl ch'(G,v)\equiv ch'(H,v)$.
+
+In order to give a more constructive
+definition of $ch'$ we implement (refine) the sort $Gr$ by sequences. 
+From $E\imm{\overline\sigma}PAIR(E)$ (with the obvious signature 
+morphism $\overline\sigma$), and $SET(E)\imm{\sigma,\equiv}SEQ(E)$, theorem \ref{th:horizontal} yields
+$SET(PAIR(E))\imp{\sigma,\equiv}{\overline\sigma}SEQ(PAIR(E))$, which gives $\DFS'\imp{}{\overline\sigma;\sigma,\equiv}\DFS'' :$ \\[1ex] \noindent \DFS''\ \ {\bf is\ } $\lambda X:\<\{E\},\es,\es\>, Y:SEQ(X), 
+Z:PAIR(X), W:SEQ(Z) $ \nopagebreak \\
+\indent{\bf enrich\ } $X,Y,Z,W$\ {\bf by} \nopagebreak \\ \indent\BodyN{let :& }{Gr=Seq(Pair(E))} 
+{\\ \Funcs :&} {\lin\ : & E\times Gr & \into & Bool \\ 
+ch: & Gr\times E & \into & Seq(E)}
+{\\ \cal N :&} {\dfs:& Gr\times E & \into & Gr \\ 
+tr:& Gr\times E\times Seq(E)\times Gr & \into & Gr} {\\ \Axs :&} {1.& v\lin \epsilon & \Eq & \false \\ 2.& v\lin S\lap \<x,y\> & \Eq & (v\Eq x\lor v\Eq y\lor v\lin S)\\ 3. & ch(\epsilon,v) & \equiv & \epsilon \\ 4. & ch(G\lap \<v,x\>,v) & \equiv & ch(G,v)\lap x \\ 5. & v\Not\Eq y & \impl & ch(G\lap \<y,x\>,v) \equiv ch(G,v) \\ 6. & \Bre{\dfs}(G,v) & \equiv & \Bree {tr}(G,v,ch(G,v),\epsilon) \\ 7. & \Bre{tr}(G,v,\epsilon,T) & \equiv & T \\ 8. & S\Not\equiv\epsilon\land \fst(S)\lin T & \impl & \Bre{tr}(G,v,S,T) \equiv \Bree {tr}(G,v,S\setminus \fst(S),T)\ \ \ \ \ 
+\ \ \ \ \ \ \ \ \ \ \ \\
+9. & S\Not\equiv\epsilon\land \fst(S)\Not\lin T & \impl 
+& \Bre{tr}(G,v,S,T)\ \equiv \\
+\multicolumn{4}{r}{\Bree {tr}(G,v,S\setminus \fst(S), 
+\Bree {tr}(G,\fst(S),ch(\fst(S)),T\lap\<v,\fst(S)\> ))}} \\[1ex]
+Apparently, we have obtained a deterministic specification, so we might attempt to replace all $\Bree f$ by corresponding functions. But to do that we would have to prove that $\DFS''$ is deterministic. Instead, we only show that the above specification is implemented by the corresponding deterministic specification $\DFS'''$ obtained by 
+replacing all $\equiv$ by $\Eq$ and $\Bree f$ by $f$. This step is verified using the relational language -- according to \re{eq:oblig}, we have to show $\DFS'''\vdash \nu(\DFS'')$. The $\nu$ translation \re{eq:relsnu} of the last four $\DFS''$ axioms looks as follows (axioms 1.-5. remain unchanged):\\[1ex] \noindent\Axioms {} {
+\nu(6.) &\forall r\ \exists r_1: \Pre R{\dfs}(G,v,r) & \impl 
+& \Pre R{tr}(G,v,ch(G,v),\epsilon,r_1)\land r\equiv r_1 \\ \nu(7.) & \forall r: \Pre R{tr}(G,v,\epsilon,T,r) & \impl & r\equiv T \\ \nu(8.) & S\Not\equiv\epsilon\land \fst(S)\lin T & \impl & \forall r\ \exists r_1:\Pre R{tr}(G,v,S,T,r)\impl \Pre R{tr}(G,v,S\setminus 
+\fst(S),T,r_1)\land r\equiv r_1 \\
+\nu(9.) & S\Not\equiv\epsilon\land \fst(S)\Not\lin T & \impl 
+& \forall r\ \exists r_1,r_2 : \Pre R{tr}(G,v,S,T,r)\ \impl \\ \multicolumn{4}{r}{\Pre R{tr}(G,v,S\setminus \fst(S),r_1,r_2)\land 
+\Pre R{tr}(G,\fst(S),ch(\fst(S)),T\lap\<v,\fst(S)\>,r_1)\land r_2\equiv r}}\\[1ex]
+\noindent The axioms of the $\DFS'''$ specification are:\\[1ex] %\noindent \DFS'''\ \ {\bf is\ } $\lambda X:\<\{E\},\es,\es\>, Y:SEQ(X), %	Z:PAIR(X), W:SEQ(Z) $ \\
+%\indent{\bf enrich\ } $X,Y,Z,W$\ {\bf by} \\ %\indent\Body{let :& }{Ed=Pair(E), Gr=Seq(Pair(E))} % {\\ \Funcs :&} {\lin\ : & E\times Gr & \into & Bool \\ %	ch: & Gr\times E & \into & Seq(E) \\
+%	\dfs:& Gr\times E & \into & Gr \\
+%	tr:& Gr\times E\times Seq(E)\times Gr & \into & Gr}
+\Axioms {} {1d.& v\lin \epsilon & \Eq & \false \\ 2d.& v\lin S\lap \<x,y\> & \Eq & (v\Eq x\lor v\Eq y\lor v\lin S)\\ 3d. & ch(\epsilon,v) & \Eq & \epsilon \\ 4d. & ch(G\lap \<v,x\>,v) & \Eq & ch(G,v)\lap x \\ 5d. & v\Not\Eq y & \impl & ch(G\lap \<y,x\>,v) \Eq ch(G,v) \\ 6d. & \dfs(G,v) & \Eq & tr(G,v,ch(G,v),\epsilon) \\ 7d. & tr(G,v,\epsilon,T) & \Eq & T \\
+8d. & S\Not\Eq\epsilon\land \fst(S)\lin T & \impl & tr(G,v,S,T) \Eq tr(G,v,S\setminus \fst(S),T)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
+\ \ \ \ \ \ \ \ \ \ \\
+9d. & S\Not\Eq\epsilon\land \fst(S)\Not\lin T & \impl 
+& tr(G,v,S,T)\ \Eq \\
+\multicolumn{4}{r}{tr(G,v,S\setminus \fst(S), 
+tr(G,\fst(S),ch(\fst(S)),T\lap\<v,\fst(S)\> ))}} \\[1ex] The axiom $E0:Q\Eq S\impl Q\equiv S$ makes the verification of the axioms $1.-5,\nu(6.),\nu(7.)$ trivial. Notice that this fact is not so much ``borrowed'' from $SEQ(E)$ as it is a general requirement on any implementation of $\Eq$. Consequently, its use does not violate the modularity of proofs.
+Now, the antecedents of axioms $\nu(8.),\nu(9.)$ imply the antecedents of the respective axioms $8d.,9d.$
+The succedent of $8d.$ implies $\forall r: tr(G,v,S,T)\Eq r\impl tr(G,v,S\setminus \fst(S),T)\Eq r$, which obviously implies the succedent of $\nu(8.).$ Similarly, the succedent of $9d.$ implies $$\forall r\ \exists r_1: tr(G,v,S,T)\Eq r\impl tr(G,\fst(S),ch(\fst(S)),T\lap\<v,\fst(S)\>) \Eq r_1\land tr(G,v,S\setminus \fst(S),r_1)\Eq r,$$ which trivially implies the succedent of $\nu(9.).$
+
+By lemma \ref{le:onlybody} we may conclude that $\DFS''\im \DFS'''$ (as parameterised specifications). Using the two previous implementations and lemma \ref{le:trans}, we get $\DFS\impd{}{\sigma,\equiv;\overline\sigma;\sigma,\equiv}\DFS'''.$ 
+
+\section{Conclusion}\label{se:conclusion} 
+The paper illustrates the need for
+distinguishing between underspecification and nondeterminism by two
+examples. Considering the choice operation in the specification of sets as
+underspecified excludes some desired implementations (section \ref{se:choiceproblem}).
+Considering an operation ($tr$) defined in terms of an iteration over
+unordered structure (set) as deterministic, makes a natural specification (of
+the $\DFS$ algorithm) yield undesired, in fact incorrect, results (remark
+\ref{re:detDFS}).
+These problems have been hinted at in \cite{QG} and \cite{adt}, but were not
+treated there in sufficient detail.
+
+We have adapted the well known notions suggested for implementation of deterministic
+data types to the context of nondeterminism, in particular, the basic notion of implementation as model class inclusion. Since nondeterminism is specified by means of the axioms, this implies the possibility of restricting nondeterminism of some operations as a special case of the implementation relation.
+
+We have also extended the notion of hierarchical (parameterised) specifications to 
+nondeterministic data types, and shown the adequacy of the method on the example where a nondeterministic $\DFS$ specification parameterised by a specification of sets was implemented by a deterministic specification parameterised by sequences. 
+
+The main contribution lies in the introduction of a method for implementation of nondeterministic data types. This method has been equipped with the verification strategy based on the translation of the high level specifications
+with nondeterminism into standard language, where one can apply existing tools
+supporting (semi)automatic theorem proving. In this way the verification burden becomes essentially the same as for deterministic specifications, modulo the 
+necessity of translating the abstract axioms. 
+This, however, can easily be mechanized. 
+
+We have shown how various existing formalisms for nondeterminism can be incorporated into our framework. For the semantics based on relations, multialgebras and sets of functions we have defined appropriate quotient constructions and demonstrated correctness of the introduced verification criteria for data refinement. We have also observed that the methods
+relying on the identification of nondeterminism with underspecification, in particular the oracle semantics, pose particular difficulties when applied in the context of data refinement.
+
+The introduced technique is {\em non-intrusive} in the sense that it affects
+only the nondeterministic parts of the specification. If the specification
+happens to describe only deterministic operations, both the specification and
+the verification technique reduce to the standard (equational) case.\\[1ex] 
+\begin{REMARK}{Acknowledgments}\\[1ex]
+Oscar Slotosch deserves our thanks for reading, commenting and preparing 
+the manuscript of this paper.
+
+The first author gratefully acknowledges the financial support received from the Norwegian Research Council (NFR).
+\end{REMARK}
+
+\begin{thebibliography}{BGW80} \MyLPar
+\bibitem[BGW80]{Brnc}M.~Broy, R.~Gnatz, M.~Wirsing. {\em Semantics of 
+  Nondeterministic and Noncontinuous Constructs.} LNCS vol. 69, (1980). 
+\bibitem[Broy93]{Broy93}M.~Broy. Functional Specification of Time Sensitive 
+  Communicating Systems. 
+  ACM Transactions on Software Engineering and Methodology 2:1, Januar 1993, 1-46.
+\bibitem[BW81]{Brbpl} M.~Broy, M.~Wirsing. On the Algebraic Specification of 
+   Nondeterministic Programming Languages. {\em CAAP'81}, LNCS vol. 112, (1981). 
+\bibitem[GB80]{GB} J.~Goguen, R.~Burstall. {\em CAT: a system for the structured 
+  elaboration of correct programs from structured specifications.} 
+  Tech. Rep. CSL-118, SRI International, (1980). 
+\bibitem[Hes88]{PS1} W.H.~Hesselink. A Mathematical Approach to Nondeterminism
+  in Data Types. {\em ACM ToPLaS}, vol.~10, pp.87-117, (1988).
+%\bibitem[Hus92]{Hus} H.~Hussmann. Nondeterministic algebraic % specifications and nonconfluent term rewriting. {\em Journal of Logic % Programming}, 12, pp.237-235, (1992).
+\bibitem[Hoo92]{Hoog} P.~Hoogendik. Relational programming laws in Boom 
+hierarchy of types. {\em Proc. of Mathematics of Program Construction}, Springer, (1992).
+\bibitem[Hus93]{HusB} H.~Hussmann.
+{\em Nondeterminism in Algebraic Specifications and Algebraic Programs.} Birkh\"auser Boston, (1993).
+\bibitem[KW94]{KW} V.~Kriau\v ciukas, M.~Walicki. Reasoning and Rewriting 
+with Set-Relations I: Ground Completeness, {\em Proceedings of CSL'94},
+LNCS~vol.~933, (1994). 
+\bibitem[Mes92]{Mes} J.~Meseguer. Conditional Rewriting Logic as a 
+Unified Model of Concurrency, {\em TCS}, vol. 96, (1992). [also Tech. Rep. SRI-CSL-90-02, SRI International (1990)] 
+\bibitem[Mos89]{Mos} P.D.~Mosses. Unified Algebras and Institutions, 
+{\em Proc. of LICS`89}, (1989).
+\bibitem[QG93]{QG} X.~Qian, A.~Goldberg. Referential Opacity in 
+Nondeterministic Data Refinement. {\em ACM LoPLaS}, vol. 2, no. 1-4: 233-241, (1993).
+\bibitem[ST88]{ST} D.~Sannella, A.~Tarlecki. 
+Toward Formal Development of Programs from Algebraic Specifications: Implementations Revisited. {\em Acta Informatica}, 25, pp.233-281, (1988).
+\bibitem[Sta89]{Stark} E.~Stark. Compositional relational semantics for indeterminate dataflow networks. {\em Category Theory and Computer Science}, 
+LNCS vol. 389, (1989).
+\bibitem[Sub81]{Sub} P.~Subrahmanyam. Nondeterminism in Abstract Data Types. 
+{\em LNCS} vol. 115, (1981).
+\bibitem[Voe91]{Pers} E.~Voermans. Pers as types, inductive types and types with
+laws. {\em Proc. of PHOENIX Seminar and Workshop on Declarative Programming}, Springer, (1991).
+\bibitem[Wal93]{Mich} M.~Walicki.
+{\em Algebraic Specifications of Nondeterminism.} Ph.D. thesis, Institute of Informatics, University of Bergen, (1993). 
+\bibitem[WM95a]{top} M.~Walicki, S.~Meldal. A Complete Calculus for 
+  Multialgebraic and Functional Semantics of Nondeterminism. 
+  {\em ACM ToPLaS}, vol.~17, no.~2, (1995).
+\bibitem[WM95b]{adt} M.~Walicki, S.~Meldal. Multialgebras, Power Algebras 
+and Complete Calculi of Identities and Inclusions. In
+{\em Recent Trends in Data Type Specification}, LNCS vol. 906, (1995).
+\bibitem[WM95c]{taps} M.~Walicki, S.~Meldal. Generated Models and the $\omega$-rule:
+the nondeterministic case. {\em Proc. of  TAPSOFT'95}, LNCS~vol.~915, (1995).
+ \end{thebibliography}
+
+\end{document}

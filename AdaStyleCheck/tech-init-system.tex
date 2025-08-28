@@ -1,0 +1,100 @@
+As described in Chapter~\ref{ssl}, the
+system manager can specify the style guidelines using language objects
+(which denote some language construct) and operations on these objects.
+In contrast to the syntax of SSL, the collections of 
+objects and operations are considered to be dynamic entities, which can
+be modified several times during the life cycle of the style checker. This can
+occur for instance
+when new operations are needed in order to express a new style guideline.
+
+This chapter gives the reader a brief overview of the system
+and shows how it is affected by modifying the objects and the operations.
+
+\section{The System Structure}
+	
+\begin{figure}[htbp]
+
+\vspace{4.1in}
+
+\special{psfile=system.ps}
+
+\caption{System Architecture}\label{System}
+
+\end{figure}
+
+The following is a brief high-level description of each element of the system.
+The numbers refer to the numbers on Figure~\ref{System}.
+
+\begin{enumerate}
+
+\item
+The system manager creates a style specification, using the SSL (1).
+
+\item
+The parser (2) parses the system manager's style specification based on the 
+BNF grammar described in Chapter~\ref{ssl} and an executable version of style
+checker is constructed (5,6).
+
+
+\item
+This executable image (7) will then take Ada programs as input and 
+produce violation indications as output.
+This program will depend heavily on the set of Anna Tools used for parsing,
+semanticizing and manipulating the DIANA representation of the input program
+(see~\cite{evans:diana-lrm}).
+
+\end{enumerate}
+
+\section{Modifications}
+We consider the collection of objects and the collection of operations to
+be dynamic entities, {\em i.e.}, they are subject to change during the lifetime of
+the system. Because the system structure must allow modifications to take place 
+easily, our system
+allows modification of the collection of 
+objects or the collection of operations simply 
+by modification of the vocabulary package (3) and the mapping (4).
+For example, adding an operation can be done in the following way: a function is 
+declared and formally specified in the visible part of the vocabulary package
+and implemented in the body of the vocabulary package. This will of course 
+require some 
+knowledge of the implementation. A mapping is also defined between the 
+actual function/procedure in the vocabulary package and the operation
+in the system manager's view. The vocabulary package is then transformed
+using the Anna tools and is compiled using the Ada compiler to a 
+separate module. At this point, the function is ready
+for use by the system manager in his style specification.
+
+The functions and procedures in the package can be divided into several
+layers of abstraction, {\em i.e.}, functions on higher levels of abstraction
+can use lower level functions in their implementation. This approach will
+ease the modifications of the package.
+
+\begin{figure}[htbp]
+
+\vspace{1.9in}
+
+\special{psfile=rings.ps}
+
+\caption{Layers of the Vocabulary Package}\label{Layers}
+
+\end{figure}
+
+The system manager and the people maintaining the functions at different
+levels of abstraction all have a different view (see Figure~\ref{Layers}). The
+system manager will view the functions and procedures as operations on
+the Ada language entities, without knowing anything about the implementation
+of the system. The system manager's style specification will only be based 
+on knowledge of the Ada language ({\em e.g.}, notions of nested language 
+constructs, if-then-else statements, package bodies and specifications, and the
+like).
+
+The person maintaining the the functions and procedures at the highest level 
+of abstraction must have some knowledge about the underlying abstract
+syntax tree, but need not know the details. A higher level function can
+be implemented using the low level functions. A system manager would
+ typically get one of his software engineers to maintain these higher level
+functions and procedures, while
+maintaining the lower level functions and procedures will require an intimate
+knowledge of the underlying DIANA tree. An example of people maintaining
+these is members of the Stanford Anna group or others familiar with the Anna
+Tools.

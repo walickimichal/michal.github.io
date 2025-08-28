@@ -1,0 +1,40 @@
+\begin{thebibliography}{LvHBO87}
+
+\bibitem[Ada83]{*:ada-lrm}
+{\it The {A}da Programming Language Reference Manual}.
+\newblock US Department of Defense, US Government Printing Office, February
+  1983.
+\newblock ANSI/MIL-STD-1815A-1983.
+
+\bibitem[Byr89]{MITRE}
+C.~M. Byrnes.
+\newblock A {DIANA} query language for the analysis of {Ada} software.
+\newblock The Mitre Corporation, 1989.
+
+\bibitem[EBGW83]{evans:diana-lrm}
+A. Evans, K.~J. Butler, G. Goos, and W.~A. Wulf.
+\newblock {\it {DIANA} Reference Manual, Revision 3}.
+\newblock Tartan Laboratories, Inc., Pittsburgh, PA, 1983.
+
+\bibitem[LvHBO87]{luckham:anna-lrm}
+David~C. Luckham, Friedrich~W. von~Henke, {Bernd Krieg-Br\"{u}ckner}, and Olaf
+  Owe.
+\newblock {\it {ANNA, A} Language for Annotating {Ada} Programs}.
+\newblock Volume~260 of {\it Lecture Notes in Computer Science},
+  Springer-Verlag, 1987.
+
+\bibitem[San89]{sankar:thesis}
+S. Sankar.
+\newblock {\it Automatic Runtime Consistency Checking and Debugging of Formally
+  Specified Programs}.
+\newblock PhD thesis, Stanford University, August 1989.
+\newblock Also Stanford University Department of Computer Science Technical
+  Report No.~STAN--CS--89--1282, and Computer Systems Laboratory Technical
+  Report No.~CSL--TR--89--391.
+
+\bibitem[SC88]{SPC88}
+M. Skalko and P. Cohen.
+\newblock {Ada} style guide, {Software Productivity Consortium}.
+\newblock SPC-TR-88-003, 1988.
+
+\end{thebibliography}

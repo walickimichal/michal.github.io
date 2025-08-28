@@ -1,0 +1,44 @@
+\setlength{\unitlength}{0.012500in}%
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined
+% extract first six characters in \fmtname
+\def\x#1#2#3#4#5#6#7\relax{\def\x{#1#2#3#4#5#6}}%
+\expandafter\x\fmtname xxxxxx\relax \def\y{splain}%
+\ifx\x\y   % LaTeX or SliTeX?
+\gdef\SetFigFont#1#2#3{%
+  \ifnum #1<17\tiny\else \ifnum #1<20\small\else
+  \ifnum #1<24\normalsize\else \ifnum #1<29\large\else
+  \ifnum #1<34\Large\else \ifnum #1<41\LARGE\else
+     \huge\fi\fi\fi\fi\fi\fi
+  \csname #3\endcsname}%
+\else
+\gdef\SetFigFont#1#2#3{\begingroup
+  \count@#1\relax \ifnum 25<\count@\count@25\fi
+  \def\x{\endgroup\@setsize\SetFigFont{#2pt}}%
+  \expandafter\x
+    \csname \romannumeral\the\count@ pt\expandafter\endcsname
+    \csname @\romannumeral\the\count@ pt\endcsname
+  \csname #3\endcsname}%
+\fi
+\fi\endgroup
+\begin{picture}(290,80)(5,755)
+\thinlines
+\put(106,755){\framebox(52,16){}}
+\put(178,755){\framebox(117,16){}}
+\put( 82,819){\framebox(116,16){}}
+\put(214,819){\framebox(53,16){}}
+\put(128,772){\vector( 1,-1){0}}
+\multiput( 85,815)(2.12500,-2.12500){20}{\makebox(0.1111,0.7778){\SetFigFont{5}{6}{rm}.}}
+\put(152,772){\vector(-1,-1){0}}
+\multiput(195,815)(-2.12500,-2.12500){20}{\makebox(0.1111,0.7778){\SetFigFont{5}{6}{rm}.}}
+\put(182,772){\vector(-1,-1){0}}
+\multiput(225,815)(-2.12500,-2.12500){20}{\makebox(0.1111,0.7778){\SetFigFont{5}{6}{rm}.}}
+\put(288,772){\vector( 1,-1){0}}
+\multiput(245,815)(2.12500,-2.12500){20}{\makebox(0.1111,0.7778){\SetFigFont{5}{6}{rm}.}}
+\put(  9,823){\makebox(0,0)[lb]{\smash{\SetFigFont{8}{9.6}{rm}abstract level}}}
+\put(  5,759){\makebox(0,0)[lb]{\smash{\SetFigFont{8}{9.6}{rm} concrete level}}}
+\put(226,823){\makebox(0,0)[lb]{\smash{\SetFigFont{8}{9.6}{rm}value}}}
+\put(118,759){\makebox(0,0)[lb]{\smash{\SetFigFont{8}{9.6}{rm}function}}}
+\put(206,759){\makebox(0,0)[lb]{\smash{\SetFigFont{8}{9.6}{rm}representations}}}
+\put( 85,825){\makebox(0,0)[lb]{\smash{\SetFigFont{8}{9.6}{rm}nondeterministic operation}}}
+\end{picture}

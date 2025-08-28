@@ -1,0 +1,271 @@
+We begin by describing the interface language for specifying style 
+constraints --- {\em the style specification language (SSL)}.
+We hope that the description of SSL can give the reader a high-level 
+understanding of the system needed by the system manager --- an idea
+ of the intended functionality and of the motivations for its various parts.
+
+SSL is a language for describing both the syntactic and the semantic
+properties of programs. It may be thought of as consisting of sentences
+which we will call the {\em style guidelines}.  A style guideline is
+specified by selecting three types of arguments:
+
+\begin{itemize}
+\item
+the language objects which are to be constrained
+({\em e.g.}, {\it procedure\_declaration, variable, if\_statement};
+these are called object {\em types}),
+\item
+the context which is relevant for the constraint
+({\em e.g.}, {\it in function}, meaning that one wants to constrain only
+the objects appearing within functions; the default context being the
+whole program),
+\item
+the actual constraint, that is, a boolean expression over some objects
+and operations on these objects.
+\end{itemize}
+
+The first two kinds of arguments relate directly to the language
+objects, the last to their properties.  The object types and their
+properties may be added whenever functionality of the system needs to
+be extended.
+
+\section{SSL Syntax and Semantics}
+
+A style specification written out in SSL comprises a sequence of SSL
+statements.  Each statement describes a constraint, and a scope over
+which this constraint applies.  The constraint can be any arbitrary
+Anna boolean expression.  A name ({\tt id}) is provided
+for each statement, and an optional explanatory string may
+be provided as an error message to display in the event of a style
+violation with respect to this statement.
+
+\begin{verbatim}
+Style_Specification ::= { Statement }
+
+Statement ::= Scope : Constraint ( id [ , explanation ] ) ;
+
+Constraint ::= Anna_Boolean_Expression
+\end{verbatim}
+
+The scope is defined by defining a logical variable and quantifying
+it in a particular manner.  There are two aspects to this quantification:
+(1)~specifying the kind or type of this variable, and (2)~specifying
+where the variable can occur in the program being analyzed.
+
+\begin{verbatim}
+Scope ::= FOR ALL variable : Kind [ Context ]
+\end{verbatim}
+
+The kind or type of the variable is specified as being any one from a
+set of language objects.
+
+\begin{verbatim}
+Kind ::= language_object { OR language_object }
+\end{verbatim}
+
+The context specifies where the variable can occur in the program being
+analyzed.  It is specified by describing the block structure within which
+the variable can occur --- {\it e.g.}, that it is immediately within a
+procedure, or that it is immediately within a task which in turn is within
+a library package.  Various different contexts can be specified and these
+can be combined using the logical operators {\tt AND}, {\tt OR}, and
+{\tt NOT}.
+
+\begin{verbatim}
+Context ::=   Context OR Context
+            | Context AND Context
+            | ( Context )
+            | NOT Context
+            | Single_Context_Def
+
+Single_Context_Def ::= IN [..] Language_Object { [..|, ] Language_Object } [..]
+\end{verbatim}
+
+{\tt Single\_Context\_Def} defines a particular context.  The language
+objects in this definition have to be entities that define scopes
+({\it e.g.}, procedure body, package specification, etc.).  The special
+symbols ({\tt ,} and {\tt ..}) have the following meanings:
+
+\begin{description}
+\item[{\tt ,}:]
+This symbol indicates that the scoping unit to its left is immediately
+nested within the scoping unit to its right.
+\item[{\tt ..}:]
+This symbol indicates that the scoping unit to its left is nested at
+some arbitrary level within the scoping unit to its right.  If the
+scoping unit to the right of this symbol is omitted, it is considered
+to be the outermost scope (the library level).  Similarly, if the
+scoping unit to the left of this symbol is omitted, it is considered
+to be the current scoping unit.  The examples below will clarify this.
+\end{description}
+
+Examples:
+
+\begin{enumerate}
+\item
+{\tt IN function,package\_body} :\\
+Any scope that is immediately within a function, which in turn is
+immediately within a library package body.
+\item
+{\tt IN procedure,package\_body..} :\\
+Any scope that is immediately within a procedure, which in turn is
+immediately within a package body, which in turn is nested within an
+arbitrary number of scoping units.
+\item
+{\tt IN ..function..task\_body..} :\\
+Any scope that is nested somewhere within a function, which in turn
+is nested somewhere within a task body, which in turn is nested within
+an arbitrary number of scoping units.
+\end{enumerate}
+
+More detailed examples of style specifications written in SSL
+are provided in Appendix~\ref{app:reference-guide}.
+
+\section{The Vocabulary Package}
+
+The Vocabulary Package implements the SSL vocabulary. The
+functions used in the style specifications reside here together with
+the language object definitions.
+
+All functions and objects used in the specification are defined
+here as corresponding Ada functions and objects. Modifying the SSL
+vocabulary is done 
+by modifying the vocabulary package. For instance, adding an extra
+function to the vocabulary will require adding an extra Ada function.
+
+This section describes the objects and functions currently implemented.
+
+\subsection{Language Objects}
+
+The language objects represent all the different language
+constructs found in Ada, such as if-statements, package-bodies, etc.
+The object names are chosen to resemble the corresponding language
+constructs as much as possible.
+
+The language objects defined in the vocabulary package are listed in
+Table~\ref{objects}.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|lll|} \hline
+package\_decl & package\_body & generic\_package\_decl\\
+function\_body & entry\_call & entry\_decl\\
+exception\_raise & exception\_decl & with\\
+use & constant\_decl & deferred\_constant\_decl\\
+derived\_type\_decl & private\_l\_type\_decl & private\_type\_decl\\
+incomplete\_type\_decl & subtype\_decl & var\_decl\\
+task\_decl & task\_body & if \\
+else & elsif & case \\
+loop & goto & abort \\
+pragma & attribute & in\_parameter \\
+and & or & main\_ob \\ \hline
+\end{tabular}
+\caption{Language Objects}
+\label{objects}
+\end{center}
+\end{table}
+
+In some situations, it is advantageous to talk about classes of
+language objects rather than the individual language objects themselves.
+For this purpose, a few {\it derived objects} have been defined,
+each of which represents a class of language objects.
+The derived objects implemented in the vocabulary package are listed
+in Table~\ref{Derived}.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{|ll|} \hline
+nil & a DIANA node which does not correspond to any language construct\\
+any & any language construct\\
+declaration & any type of declaration (object with \_decl suffix in its
+name)\\
+nested\_stm & if-, case-, or loop-statement\\
+subprogram\_call & function\_call or procedure\_call\\
+subprogram\_decl & function\_decl or procedure\_decl\\
+subprogram\_body & function\_body or procedure\_body\\ \hline
+\end{tabular}
+\caption{Derived Objects}
+\label{Derived}
+\end{center}
+\end{table}
+
+\subsection{Functions}
+
+The functions currently implemented are described below.  The parameter
+{\it program part} corresponds to the DIANA AST node where the tree
+traversal routine is currently at.
+
+{\bf Function:} Count\_1\\
+{\bf Parameters:} {\it program part}, language object\\
+Returns the number of objects of the specified language object
+kind at the first nesting level of the program part.
+
+{\bf Function:} Count\_All\\
+{\bf Parameters:} {\it program part}, language object\\
+Returns the number of objects of the specified language object kind
+encountered in the program part.
+
+{\bf Function:} Self\_Nesting\\
+{\bf Parameters:} {\it program part}\\
+Returns the number of objects of the same kind as
+the program part nested within each other.
+
+{\bf Function:} Object\_Nesting\\
+{\bf Parameters:} {\it program part}, language object\\
+Returns the number of nested levels within the program part in which
+the language object occurs.
+
+{\bf Function:} Logic\_Nesting\\
+{\bf Parameters:} {\it program part}, language object\\
+The language object denotes a set of compound statements.
+This function returns the number of levels to which these
+statements are nested within each other in the given program part.
+
+{\bf Function:} Named\_Stm\\
+{\bf Parameters:} {\it program part}\\
+Returns true if the program part is a named statement.
+
+{\bf Function:} Named\_Par\_Assoc\\
+{\bf Parameters:} {\it program part}\\
+Returns false if the program part is a subprogram
+call or an entry call and at least one of the actual
+parameters has no formal parameter name associated with
+it.
+
+{\bf Function:} Is\_Predefined\\
+{\bf Parameters:} {\it program part}\\
+Returns true if program part is defined with package Standard, {\it i.e.},
+the program part denotes a predefined entity.
+
+{\bf Function:} Refers\_Predefined\\
+{\bf Parameters:} {\it program part}, predefined type name\\ 
+Returns true if the program part contains references to the specified
+predefined type.
+
+{\bf Function:} With\_Default\\
+{\bf Parameters:} {\it program part}\\
+Returns false if the program part corresponds to a parameter
+and has no default value.
+
+{\bf Function:} Separate\_Comp\\
+{\bf Parameters:} {\it program part}\\
+Program part has to denote a compilation (a file).  This function returns
+true if either: (1)~the compilation contains only bodies ({\it e.g.},
+package bodies, subprogram bodies); or (2)~the compilation contains
+exactly one specification ({\it e.g.}, a package specification, or a
+generic unit specification).
+
+{\bf Function:} Is\_Within\_Private\\
+{\bf Parameters:} {\it program part}\\
+Returns true if the program part is within the private part of
+a package.
+
+{\bf Function:} Source\_Pos\\
+{\bf Parameters:} {\it program part}\\
+This function is used for returning the position of a
+given language construct in the source code.
+
+\vspace{4pt}
+
+Examples of use and more detailed description of these functions can
+be found in Appendix~\ref{stanford}.

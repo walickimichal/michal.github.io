@@ -1,0 +1,373 @@
+This is TeX, Version 3.14159 (Web2C 7.3.1) (format=latex 2000.2.2)  22 JUN 2000 12:33
+**ca04final
+(ca04final.tex
+LaTeX2e <1999/12/01> patch level 1
+Babel <v3.6Z> and hyphenation patterns for american, french, german, ngerman, d
+anish, norsk, swedish, nohyphenation, loaded.
+(mscs.cls
+Document Class: mscs 1999/04/08 v1.26 Mathematical Structures in Computer 
+Science document class
+\oneem=\dimen102
+\proofbox=\box26
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@table=\count85
+\c@figure=\count86
+) (/local/teTeX/share/texmf/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 1996/11/03 v2.2b
+
+(/local/teTeX/share/texmf/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 1997/09/17 v2.2e
+\@emptytoks=\toks14
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 133.
+))
+(/local/teTeX/share/texmf/tex/latex/base/latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 42.
+) (defs.tex
+\c@CLAIM=\count87
+\c@AXIOM=\count88
+\c@SP=\count89
+\c@POINTS=\count90
+)
+(/local/teTeX/share/texmf/tex/generic/xypic/xypic.tex
+(/local/teTeX/share/texmf/tex/generic/xypic/xyv2.tex
+(/local/teTeX/share/texmf/tex/generic/xypic/xy.tex Bootstrap'ing: catcodes,
+docmode, (/local/teTeX/share/texmf/tex/generic/xypic/xyrecat.tex)
+(/local/teTeX/share/texmf/tex/generic/xypic/xyidioms.tex)
+
+ Xy-pic version 3.7 <1999/02/16>
+ Copyright (c) 1991-1998 by Kristoffer H. Rose <krisrose@ens-lyon.fr>
+ Xy-pic is free software: see the User's Guide for details.
+
+Loading kernel: messages; fonts; allocations: state,
+\X@c=\dimen103
+\Y@c=\dimen104
+\U@c=\dimen105
+\D@c=\dimen106
+\L@c=\dimen107
+\R@c=\dimen108
+\Edge@c=\toks15
+\X@p=\dimen109
+\Y@p=\dimen110
+\U@p=\dimen111
+\D@p=\dimen112
+\L@p=\dimen113
+\R@p=\dimen114
+\Edge@p=\toks16
+\X@origin=\dimen115
+\Y@origin=\dimen116
+\X@xbase=\dimen117
+\Y@xbase=\dimen118
+\X@ybase=\dimen119
+\Y@ybase=\dimen120
+\X@min=\dimen121
+\Y@min=\dimen122
+\X@max=\dimen123
+\Y@max=\dimen124
+\lastobjectbox@=\box27
+\zerodotbox@=\box28
+\almostz@=\dimen125
+ direction,
+\d@X=\dimen126
+\d@Y=\dimen127
+\K@=\count91
+\KK@=\count92
+\Direction=\count93
+\K@dXdY=\dimen128
+\K@dYdX=\dimen129
+\xyread@=\read1
+\xywrite@=\write3
+\csp@=\count94
+\quotPTK@=\dimen130
+
+utility macros; pictures: \xy, positions,
+\swaptoks@@=\toks17
+\connectobjectbox@@=\box29
+ objects,
+\styletoks@=\toks18
+ decorations;
+kernel objects: directionals, circles, text; options; algorithms: directions,
+edges, connections;  Xy-pic loaded)
+ Xy-pic option: Version 2 Compatibility v.3.4
+
+Xy-pic Warning: `\stop' redefined.
+
+(/local/teTeX/share/texmf/tex/generic/xypic/xyframe.tex
+ Xy-pic option: Frame and Bracket extension v.3.7 loaded)
+(/local/teTeX/share/texmf/tex/generic/xypic/xymatrix.tex
+ Xy-pic option: Matrix feature v.3.4
+\Row=\count95
+\Col=\count96
+\queue@=\toks19
+\queue@@=\toks20
+\qcount@=\count97
+\qcount@@=\count98
+\matrixsize@=\count99
+ loaded)
+(/local/teTeX/share/texmf/tex/generic/xypic/xyarrow.tex
+ Xy-pic option: Arrow and Path feature v.3.5 path, \ar, loaded) loaded))
+(/local/teTeX/share/texmf/tex/generic/xypic/xygraph.tex
+ Xy-pic option: Graph feature v.3.7 loaded)
+(/local/teTeX/share/texmf/tex/generic/xypic/xyframe.tex
+ Xy-pic option: Frame and Bracket extension v.3.7 not reloaded) (ca04final.aux)
+\openout1 = `ca04final.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Try loading font information for U+msa on input line 41.
+(/local/teTeX/share/texmf/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 1995/01/05 v2.2e AMS font definitions
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 41.
+
+(/local/teTeX/share/texmf/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 1995/01/05 v2.2e AMS font definitions
+)
+LaTeX Font Info:    Try loading font information for U+lasy on input line 41.
+
+(/local/teTeX/share/texmf/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2eLaTeX symbol font definitions
+)
+! Missing } inserted.
+<inserted text> 
+                }
+l.41 \maketitle
+               
+? r
+OK, entering \nonstopmode...
+! Missing { inserted.
+<inserted text> 
+                {
+l.41 \maketitle
+               
+I've put in what seems to be necessary to fix
+the current column of the current alignment.
+Try to go on, since this might almost work.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.41 \maketitle
+               
+I've put in what seems to be necessary to fix
+the current column of the current alignment.
+Try to go on, since this might almost work.
+
+! Missing { inserted.
+<inserted text> 
+                {
+l.41 \maketitle
+               
+I've put in what seems to be necessary to fix
+the current column of the current alignment.
+Try to go on, since this might almost work.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.41 \maketitle
+               
+I've put in what seems to be necessary to fix
+the current column of the current alignment.
+Try to go on, since this might almost work.
+
+! Missing { inserted.
+<inserted text> 
+                {
+l.41 \maketitle
+               
+I've put in what seems to be necessary to fix
+the current column of the current alignment.
+Try to go on, since this might almost work.
+
+[1] [2] [3] [4] [5] <xymatrix 12x5 1234> <xymatrix 13x5 1018> (AA.xyc) (BB.xyc)
+[6] <xymatrix
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.500 }
+       
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.500 }
+       
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.500 }
+       
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.500 }
+       
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.500 }
+       
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.500 }
+       
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+30x3 1110>
+Overfull \hbox (67.64468pt too wide) detected at line 501
+[]
+ []
+
+[7] [8] <xymatrix 19x6 1180> [9]
+Overfull \hbox (2.63754pt too wide) in paragraph at lines 726--730
+[]\OT1/cmr/bx/n/10 [Computation ho-mo-mor-phisms][] \OT1/cmr/m/n/10 An $(\OT1/c
+mss/m/n/10 A\OML/cmm/m/it/10 ; \OT1/cmss/m/n/10 D\OT1/cmr/m/n/10 )$-computation
+ \OT1/cmr/m/it/10 ho-mo-mor-
+ []
+
+[10] (Chom.xyc) [11]
+
+LaTeX Warning: Command \O invalid in math mode on input line 808.
+
+<xymatrix 10x7 726> <xymatrix 5x7 677>
+Overfull \hbox (9.88966pt too wide) in paragraph at lines 867--872
+\OT1/cmr/m/n/10 vi-ous point-wise com-po-si-tion). When talk-ing about the en-t
+ire cat-e-gory $[]([](^^F)\OML/cmm/m/it/10 ; []\OT1/cmr/m/n/10 (^^F))$,
+ []
+
+[12] [13] <xymatrix 13x7 2374> [14] <xymatrix 13x6 1522> <xymatrix 11x9 2252>
+(IDhom.xyc
+
+LaTeX Font Warning: Command \Large invalid in math mode on input line 244.
+
+) [15] [16] (Method.xyc) [17] <xymatrix 4x3 245> [18] (FibM.xyc
+Overfull \hbox (0.11316pt too wide) detected at line 281
+[] []
+ []
+
+
+Overfull \hbox (0.11316pt too wide) detected at line 281
+[] []
+ []
+
+) [19]
+Overfull \hbox (6.33417pt too wide) in paragraph at lines 1423--1429
+[]\OT1/cmr/m/n/10 It is split: we have $[](\OML/cmm/m/it/10 d[]\OT1/cmr/m/n/10 
+) = \OML/cmm/m/it/10 d[]$\OT1/cmr/m/n/10 , so the nat-u-ral trans-for-ma-tion $
+\OML/cmm/m/it/10 id[] \U/msa/m/n/10 ^^S
+ []
+
+(Sum.xyc) [20] [21] [22] (FibCR.xyc)
+Underfull \vbox (badness 2818) has occurred while \output is active []
+
+ [23]
+[24] <xymatrix 10x5 1936> <xymatrix 9x7 1258>
+Missing character: There is no   in font cmr10!
+ [25] (rowsAll.tex) [26]
+
+! LaTeX Error: Counter too large.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1941 ...injective signature morphisms.\footnote{
+                                                  We restrict
+You've lost some text.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Counter too large.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1949 ...se one alternative rather than another.}
+                                                  
+You've lost some text.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[27] <xymatrix 3x3 268>
+Underfull \vbox (badness 1584) has occurred while \output is active []
+
+ [28]
+<xymatrix 6x3 853> [29] <xymatrix 7x3 608> [30] <xymatrix 2x2 174> [31]
+<xymatrix 5x4 510>
+
+LaTeX Warning: Command \O invalid in math mode on input line 2382.
+
+
+LaTeX Warning: Command \O invalid in math mode on input line 2384.
+
+[32] <xymatrix 15x4 845> <xymatrix 3x2 124> [33] <xymatrix 15x4 767> [34]
+(Chomn.xyc) [35]
+Overfull \hbox (10.1118pt too wide) in paragraph at lines 2678--2682
+\OT1/cmr/m/n/10 bras. One such class -- the al-ge-bras with com-pat-i-ble de-pe
+n-dency mor-phisms, $[](\OT1/cmss/m/n/10 A\OML/cmm/m/it/10 ; []\OT1/cmr/m/n/10 
+(\OT1/cmss/m/n/10 A\OT1/cmr/m/n/10 ))$
+ []
+
+[36] (Broad.xyc)
+Overfull \hbox (21.35733pt too wide) detected at line 2761
+[]
+ []
+
+[37] [38]
+Underfull \vbox (badness 2119) has occurred while \output is active []
+
+ [39]
+[40] [41] (ca04final.aux) ) 
+Here is how much of TeX's memory you used:
+ 2931 strings out of 10888
+ 27014 string characters out of 71831
+ 208793 words of memory out of 263001
+ 5832 multiletter control sequences out of 10000+0
+ 18930 words of font info for 75 fonts, out of 400000 for 1000
+ 14 hyphenation exceptions out of 1000
+ 27i,16n,26p,853b,655s stack positions out of 300i,100n,500p,50000b,4000s
+
+Output written on ca04final.dvi (41 pages, 291612 bytes).

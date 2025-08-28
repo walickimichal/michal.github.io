@@ -1,0 +1,59 @@
+%% \documentclass[10pt]{article}
+%% \usepackage{latexsym}
+
+%% \makeatletter
+%% \input{a4wide}
+%% \makeatother
+
+%\input{defs}
+
+%% \title{States as non-monotonic logic}
+
+%% \begin{document}
+%% \maketitle
+
+\begin{itemize}\MyLPar
+\item language with: program formulae $\prf$ ($x=x+1$, if\_then\_else), and logic formulae
+$\lrf$ ($x=5$); ?
+$\lrf\subseteq\prf$ ? $\Vars{\lrf}\subseteq\Vars{\prf}$ ?
+\item forms: $\Gamma\pr{} \phi$, where $\Gamma$ -- a {\em sequence} of
+$\prf$, $\phi\in\lrf$
+\item the notion of a (program?) formula $B$ interfereing another (logical?)
+formula $\phi: B\intf \phi$ (not necessarily symmetric), e.g.,
+$B\is x=...\Impl x\not\in\Vars\phi$
+\end{itemize}
+Basic idea -- see structural rules
+
+\noindent
+We have some standard logic $\slog$, and program logic $\plog$:
+\[\begin{array}{l|l|l}
+\multicolumn{3}{c}{{\rm Rules}} \\
+\multicolumn{1}{c|}{{\rm structural}} & \multicolumn{1}{c|}{{\rm logical}\
+    \slog;\ T\subseteq\lrf} & \multicolumn{1}{c}{{\rm program}\ \plog} \\ \hline
+\PROOFRm{\Gamma;A\prp\phi}{\Gamma;A\pr\phi}  
+ & \PROOFRm{\Gamma\pr T\ ;\ T\prl \phi}{\Gamma\pr\phi} 
+  & \PROOFRm{\Gamma\pr x=?}{\Gamma;z\as f(x)\prp 
+        z=f(?)}\scon{$z\not\in\Vars ?$} \\[3ex] 
+\PROOFRm{\Gamma\pr\phi}{\Gamma;B\pr\phi}\scon{$B\not\intf\phi$}   
+& & \PROOFRm{\pr y=y}{\Gamma;x\as y\prp x=y}\scon{should be special case of above}\\[3ex]
+%  & & \PROOFRm{\Gamma;B\pr\phi}{\Gamma;\ifte\alpha{B}{C}\prp 
+%  \alpha\impl\phi}\scon{no side-effects   
+% in $\alpha$; not invertible} \\[3ex]   %wrong!
+  & & \PROOFRm{\Gamma\pr\alpha\ ;\ %invertible
+ \Gamma;B\pr\phi}{\Gamma;\ifte\alpha{B}{C}\prp\phi}\scon{no 
+ side-effects in $\alpha$} \\[3ex]
+   & & \PROOFRm{\Gamma\pr\neg\alpha\ ;\ %invertible
+ \Gamma;C\pr\phi}{\Gamma;\ifte\alpha{B}{C}\prp\phi} \\[3ex]
+% & & \PROOFRm{\Gamma;C\pr\phi}{\Gamma;\ifte\alpha{B}{C}\prp 
+%  \neg\alpha\impl\phi}\scon{no side-effects
+% in $\alpha$} \\[3ex]
+ & & \PROOFRm{\Gamma\pr\iota\ ;\ X\pr\iota\land\alpha \Impl X;B\pr\iota}
+   {\Gamma;\wh\alpha{B}\prp\iota\land\neg\alpha}\scon{???}  \\[3ex] 
+   \hline\hline
+& & \PROOFRm{}{\Gamma;x\as\ch.S\prp x\in S}\\[3ex]
+& & \PROOFRm{B\pr\phi(x)}{\Gamma;\fore{z\in S}B\prp x\in S\impl 
+\phi(x)}
+\end{array}
+\]
+
+%% \end{document}

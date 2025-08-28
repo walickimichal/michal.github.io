@@ -1,0 +1,128 @@
+\documentstyle[a4wide,leqno,11pt]{article}
+%\makeatletter
+%\show\label
+%\makeatother
+\input{defs}
+\begin{document}
+
+\section*{Specification of depth-first search in directed reflexive graphs}
+
+Specification of graph theory problems and algorithms is an interesting
+application area for nondeterminism. One reason for this is
+that graphs are defined as set, while their presentation in computer memory
+uses deterministic data structures, such as lists. To abstract from this
+inessential determinism we need some ``set-oriented''
+specification language, like the presented one. The problem in the example
+consists in finding traverse order through all vertices of a given graph
+following the well known, in the algorithmic graph theory, procedure called {\em
+depth-first search}. The presented specification is very abstract and it is
+not easy to see (without comments) that a tree (defined by a function)
+$T$ satisfying the specification is actually a DFS-tree.
+
+The signature of the  specification contains
+\begin{description}\MyLPar
+\item[\(\cal V\)] --- the sort of vertices of graphs;
+\item[\(V:\ \to \cal V\)] --- a nondeterministic constant, defining the set of
+vertices of the given graph; 
+\item[\(A:\cal V\to\cal V\)] --- a nondeterministic function defining sets
+of neigbours of vertices, \(u\Incl A(v)\) means that the pair \(\<v,u\>\) is
+an arc in the given graph;
+\item[\(V_0:\ \to\cal V\)] --- a deterministic constant denoting the vertex
+where the search begins;
+\item[\(M:\cal V\to\cal V\)] --- a function defining vertices which were
+visited before a vertex is visited. This corresponds to marking of graph
+vertices, usually used in this procedure; 
+\item[\(T:\cal V\to\cal V\)] --- a function defining a resulting DFS-tree,
+like $A$ defines the given graph.
+\end{description}
+
+The specification of initial data contains such clauses:
+\clause{G1}{ax:graph}{$A(V)\Incl V$,} 
+   -- the pair \(\<V,A\>\) is a directed graph;
+\clause{G2}{ax:refl-A}{$v\Incl A(v)$,} 
+   -- reflexivity of the graph; it ensures both
+   non-emptness of \(A(v)\) for each \(v\Incl V\), and totality of \(A(v)\) on
+the sort \(\cal V\); 
+\clause{V1} {ax:det-V0} {$V_0\Eq V_0$,} 
+   -- uniqueness of \(V_0\);
+\clause{V2}{ax:vert-V0}{\(V_0\Incl V\),}
+   -- \(V_0\) is a vertex of the graph.
+
+The following clauses determine some properties of the marking function $M$. This
+function linearly orders all vertices because marked vertices never become
+unmarked. The order relation ``a vertex $x$ is visited before $y$ 
+(or \(x\Eq y\)'' is
+written as \(x\Incl M(y)\). Clauses M1-M4 express the well-known properties
+of linear order.
+\clause{M1}{ax:refl-M}{\(v\Incl M(v)\) \quad (reflexivity);}
+\clause{M2}{ax:trans-M}{\(x\notIncl M(y),y\notIncl M(z),x\Incl M(z)\) \quad
+  (transitivity); }
+\clause{M3}{ax:asym-M}{\(x\notIncl M(y),y\notIncl M(x),x\Eq y\) \quad
+  (antisymmetricity);}
+\clause{M4}{ax:lin-M}{\(x\Incl M(y),y\Incl M(x)\)\quad (linearity).}
+
+The following three clauses relate $M$ to a given graph structure.
+\clause{M5}{ax:M-V0}{\(M(V_0)\Eq V_0\) \quad (the search begins from $V_0$);}
+\clause{M6}{ax:M-V}{\(M(V)\Incl V\) \quad (everything remains inside of $V$);}
+\clause{M7}{ax:M-A}{\(u\Incl A(M(v)),A(M(v))\Incl M(u)\),}
+   -- expresses some locality of $M$: if one reaches a vertex $u$ and
+there are some neigbours of visited vertices which have not
+been visited yet, then $u$ is also
+one of such vertices -- one cannot leave a part of the graph before
+all accessible vertices have been visited.
+
+The following clauses describe $T$ and a complex interaction between $T$ and
+$M$.   
+\clause{T1}{ax:TinA}{\(T(v)\Incl A(v)\),}
+  -- resulting tree is a subset of the graph's arcs;
+\clause{T2}{ax:Tsuf}{\(A(M(v))\Incl T(M(v))\),}
+  -- $T$ has enough arcs to reach all the neighbours of marked vertices;
+%  \ref{ax:M-A};
+\clause{T3}{ax:Tleaf}{\(A(v)\Incl M(v), T(v)\notIncl v\),}
+  -- describes the conditions for $v$ to be a leaf (i.e., \(T(v)\Eq v\)) of the
+  tree $T$: all neighbours of $v$ must be marked before $v$;
+\clause{T4}{ax:Tnew}{\(u\notIncl T(v), v\Incl M(u)\),}
+  -- monotonicity of $M$ along arcs of $T$; together with
+  \ref{ax:asym-M} it says that $T(v)$ and $M(v)$ have only one common value
+  $v$;
+\clause{T5}{ax:Tmin}{\(u\notIncl T(v), z\Incl M(u),z\Incl M(v), A(z)\Incl
+  M(u)\).} Refines the locality condition \ref{ax:M-A} to an optimality
+requirement on $v$ and $u$:
+all neighbours of any $z$ between them (in the
+order defined by $M$) are visited before $u$.  
+
+We will define an {\em ancestor} function $C$, which allows easy
+formulation of the properties we want to express. The function $C$ is a
+transitive closure of \(T^{-1}\). The following clauses relate $C$ and $T$.
+
+\clause{C1}{ax:C-V0}{\(C(V_0)\Eq V_0\),}
+   -- again, everything begins from $V_0$;
+\clause{C2}{ax:C-T}{\(v\notIncl T(u),C(u)\Incl C(v)\),}
+   -- monotonicity of $C$;
+\clause{C3}{ax:tight-C}{\(u\notIncl T(v), z\notIncl C(u), z\Incl C(v), z\Eq u\),}
+   -- $C$ cannot be ``too large''.
+
+We should prove now that $C$ is transitive and antisymmetric:
+\clause{C4}{th:trans-C}{\(x\notIncl C(y),y\notIncl C(z),x\Incl C(z)\),}
+\clause{C5}{th:asym-C}{\(x\notIncl C(y),y\notIncl C(x),x\Eq y\).}
+
+The more interesting property is that $C$ defines a tree-order
+\clause{C6}{th:tree-C}{\(x\notIncl C(v), y\notIncl(v), x\Incl C(y), y\Incl
+C(x)\),} i.e., $T$ defines a forest, not only an acyclic graph
+(acyclicity is the same as antisymetricity).
+
+For the case of non-oriented graphs, i.e., when the condition of symmetricity
+for $A$
+\clause{NO}{ax:sym-A}{\(x\notIncl A(y),y\Incl A(x)\)}
+holds, the characteristic property of DFS-trees (forests, in general) can
+be formulated as
+\clause{CH}{th:DFS}{\(x\notIncl A(y),x\Incl T(y),x\Incl C(y),y\Incl C(x)\).}
+It says that any edge from $A$ not used in $T$ connects some vertex and its
+ancestor. 
+
+Unfortunately, we can not prove either \ref{th:trans-C} or
+\ref{th:asym-C} (nor some other properties). What we get in the proof search are
+infinitely growing formulas. Properties like \ref{ax:C-T} or
+\ref{ax:tight-C} localy relate $T$ and $C$ but do not say enough about the global
+properties of $C$.  
+\end{document}

@@ -1,0 +1,164 @@
+In this chapter, we will show how the style checker can be activated 
+at the command line and provide an example. We assume,
+that the style checker has been installed in the correct directory, 
+search paths set up, etc.
+
+The style checker is activated by running the program named 'style'.
+
+In order to run, the user has to specify the name of the Ada file to
+be style checked.
+
+For instance, typing at the command line:
+
+\begin{center} {\tt style test} \end{center}
+
+will cause the style checker to check the compilation unit 'test.a', using the
+default option values (see below).
+
+However, the user is also allowed to provide options when activating
+the style checker. The command line format is as follows:
+
+
+\begin{center}
+style \{-[c$|$e$|$v$|$s$|$l$|$n\#]\} $<$file name $>$
+\end{center}
+
+where:
+
+\begin{itemize}
+\item[] {\bf -c :} {\it Current compilation unit only, NOT with'ed packages (default
+false).} If this option is not specified (false), all the packages with'ed in the
+compilation unit will be checked before the current compilation unit. Note, that
+this may cause many compilation units to be checked by the style checker, since the with'ed 
+compilation units may also have with'ed packages themselves.
+ {\bf This option is not 
+implemented in the current version. In the version implemented by the date
+of this publication, only the current
+compilation unit will be checked}.
+\item[] {\bf -e :} {\it Suppress explanation in output (default false).} 
+If the option is not specified (false), the style violation will only
+appear with a source position and a name, both on the screen and in the 
+{\tt .vio}-file (see below). The explanation is currently hard-coded into the
+program. However, the planned style checker generator is intended to include 
+the option of allowing the system manager to specify the explanation himself.
+\item[] {\bf -v :} {\it Verbose mode. Log to screen. (default false).} If this 
+switch is specified (true), output will be sent to the standard output during the style
+checking, {\em i.e.}, the violations that are detected will be sent to the output device. 
+\item[] {\bf -s :} {\it Continue on semantic error (default is to abort style
+checking when semantic error occurs).} Semantic checking
+of the input program is performed before the style checking takes place. If a
+semantic error occurs, the style checking will halt, since all semantic 
+information needed to perform the style checking properly might not be present.
+However, some semantic errors might not influence the style checking. A warning will be
+displayed, if style checking continues despite a semantic error.
+\item[] {\bf -l} {\it : Suppress .vio log file.} The style checker will
+by default dump a list of violations detected into a file with the postfix `{\tt .vio}'. The user can suppress this by providing this option at the command line.
+\item[] {\bf -n\#} {\it  : Stop at violation number \# (default 0).} If not specified, 
+style checking will be performed until the end of the input file is reached. 
+However, if the user for some reason would like the style checking to stop after
+a certain number of style violations, this can be specified using this flag. 
+The number 0 will cause the style checker to report all violations detected. 
+\item[] {\bf $<$file name$>$ :} {\it File name with .a omitted.}
+\end{itemize}
+
+Activating the style checker without any parameters at all will produce a listing
+of the command line format and the options allowed.
+
+\section{Example}
+
+Consider the following package stored in the the file `ex1.a':\\
+\apebegin\bhinge
+\Package Example1 \Is
+\End Example1;
+
+\Package \Body Example1 \Is
+  x: Integer;
+  b: Boolean;
+\Begin
+  b := b \And (x = 0);
+\End Example1;
+\apeend
+
+Using the style rules, that 
+have been included in the style checker so far (see Appendix~\ref{stanford}), 
+activation of the style checker by the command {\tt style -v ex1}
+yields the following output on the screen:
+
+\begin{verbatim}
+Stanford Ada Style Checker Version 1.20, Rev. 4/30/90
+
+Source file: ex1.a
+List   file: ex1.vio
+Output file: ex1.sty
+
+Loading parse table . . . . . . parse tables loaded
+Parsing source file . . . . . . parsing complete. No syntax errors.
+Checking semantics  . . . . . . semantic OK - output in .sem file
+Checking source file for style guideline conformance . . .
+*** ERROR: STYLE VIOLATION Line  1, Column  1:
+Package Specifications And Bodies [SPC-88 5.6.2]
+This compilation unit contains specification and body for the same package.
+Separate them in different files
+
+*** ERROR: STYLE VIOLATION Line  5, Column  6:
+Types Integer, Natural and Positive [SPC-88 6.3.2]
+Do not use predefined types (Integer, Natural and Positive)
+
+*** ERROR: STYLE VIOLATION Line  8, Column  10:
+Short Circuit Control Forms [SPC-88 4.2.1]
+And not allowed. Use short-circuit forms instead (and then, etc.)
+
+----------------------------------
+
+ 3 errors detected
+ 0 warnings detected
+\end{verbatim}
+
+The option '{\tt -v}' (verbose mode) specifies that we want output from
+the style checker on the standard output while it is executing.
+
+Two files have now been created: A '{\tt .vio}' file and a '{\tt .sty}'
+file. The {\tt .vio}-file contains a dump of the violations, 
+corresponding to the output shown above, and the {\tt .sty}-file is a
+copy of the original source code with the style violations inserted.
+
+The file {\tt ex1.sty} now has the following contents after the style
+checker has been activated:
+
+\begin{verbatim}
+package Example1 is
+^
+-- *** ERROR: STYLE VIOLATION Line  1, Column  1:
+-- Package Specifications And Bodies [SPC-88 5.6.2]
+-- This compilation unit contains specification and body for the same package.
+-- Separate them in different files
+
+end Example1;
+
+package body Example1 is
+  x: Integer;
+-----^
+-- *** ERROR: STYLE VIOLATION Line  5, Column  6:
+-- Types Integer, Natural and Positive [SPC-88 6.3.2]
+-- Do not use predefined types (Integer, Natural and Positive)
+
+  b: Boolean;
+begin
+     b := b and (x = 0);
+----------^
+-- *** ERROR: STYLE VIOLATION Line  8, Column  10:
+-- Short Circuit Control Forms [SPC-88 4.2.1]
+-- And not allowed. Use short-circuit forms instead (and then, etc.)
+
+end Example1;
+
+----------------------------------
+
+--  3 errors detected
+--  0 warnings detected
+\end{verbatim}
+
+Note that a reference to SPC's Ada Style Guide is provided for each 
+style violation. For instance, the style rule causing the first style
+violation shown above is described in chapter 5.6.2 in the style guide.
+

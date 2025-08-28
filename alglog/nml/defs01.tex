@@ -1,0 +1,48 @@
+
+\newcommand{\prf}{{\cal{PF}}}
+\newcommand{\lrf}{{\cal{LF}}}
+\newcommand{\intf}{\leadsto}
+%\newcommand{\intf}{\rightsquigarrow}
+\newcommand{\slog}{{\cal L}}
+\newcommand{\plog}{{\cal P}}
+
+\newcommand{\proves}[1]{\mathrel{\vdash_{\!\!{\scriptscriptstyle \cal #1}}} }
+\newcommand{\prp}{\proves P}
+\newcommand{\prl}{\proves L}
+\newcommand{\pr}{\proves{}}
+
+\newcommand{\is}{\equiv}
+\newcommand{\isnot}{\not\equiv}
+\newcommand{\Vars}[1]{{\cal V}(#1)}
+\newcommand{\impl}{\mathrel\rightarrow}
+\newcommand{\into}{\mathrel\rightarrow}
+\newcommand{\Impl}{\mathrel\Rightarrow}
+
+\newcommand{\as}{:=}
+\newcommand{\ch}{\sqcup}
+\newcommand{\ifte}[3]{{\bf ife}(#1:#2,#3)}
+\newcommand{\ift}[2]{{\bf if}(#1:#2)}
+\newcommand{\wh}[2]{{\bf wh}(#1:#2)}
+\newcommand{\fore}[2]{{\bf for}(#1:#2)}
+
+
+\newcounter{ITEM}
+\newcommand{\PROOFRULE}[2]{\refstepcounter{ITEM}%\lab{\thesection.\arabic{ITEM}}
+\trivlist\item[\hskip\labelsep {(\arabic{ITEM})}] \quad \(
+{\displaystyle #1 \strut \over \strut \displaystyle #2}\) 
+ \vspace{2ex}\noindent\ignorespaces}
+
+\newcommand{\TABRULE}[2]{\refstepcounter{ITEM}%\lab{\thesection.\arabic{ITEM}}
+\noindent{(\arabic{ITEM})\ }  %\(
+{\displaystyle #1 \strut \over \strut \displaystyle #2} %\) 
+}
+\newcommand{\PROOFRm}[2]{{\displaystyle #1 \strut \over \strut \displaystyle #2} 
+\noindent\ignorespaces}
+
+\newcommand{\PROOFR}[2]{\({\displaystyle #1 \strut \over \strut \displaystyle #2}\) 
+\noindent\ignorespaces}
+
+\newcommand{\scon}[1]{\ \mbox{{\footnotesize{(#1)}}}}
+%%%%%%%
+\newcommand{\MyLPar}{\parsep -.2ex plus.2ex minus.2ex\itemsep\parsep
+   \vspace{-\topsep}\vspace{.5ex}}

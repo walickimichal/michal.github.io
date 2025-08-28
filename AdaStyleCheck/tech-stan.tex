@@ -1,0 +1,670 @@
+\section{Implemented rules}
+
+The current version of the style checker checks for style violations
+according to the style rules (specified in English) shown in the following.
+The numbers correspond to the section numbering in SPC's Ada Style Guideline.
+
+
+\begin{itemize}
+\item [2.3.1:] {\bf Associate names with loops when they are deeply nested.}
+Names must be associated with loops which are nested more than 3 times.
+
+\item [2.3.6:] {\bf Use named parameter association in a subprogram call}
+
+\item [2.3.7:] {\bf Use default parameters when expanding or reducing functionality.} 
+Actually, all subprogram parameters are required to have default value.
+
+\item [3.3.3:] {\bf Use derived types to re-use building blocks and enhance program maintainability.}
+
+\item [3.3.5:] {\bf Use private types in preference to explicitly exported types.}
+The kind of each type declaration is checked. Whenever it is not declaration of a private type a warning is issued.
+
+\item [3.4.5:] {\bf Restrict the depth of nested expressions and control structures.}
+Nesting of loops, if and case statements cannot be deeper than 3.
+
+\item [3.6.11:] {\bf Nest packages in the bodies not in the specification.}
+
+\item [3.7.2:] {\bf No declarations of objects in package specification.}
+Only subprograms, private types, (deferred) constants, and exceptions can be declared in the (visible part of) package specification. Note, that this
+rule is a stronger version of the rule shown in section 3.5.2.
+
+\item [3.7.3:] {\bf Minimize the number of the use clause.}
+Any occurrence of the ``use clause'' will cause violation of the above rule  and will be reported.
+
+\item [3.7.7:] {\bf Do not include task entries in package specifications.}
+Any entry declaration appearing in package specification is reported as violation of the constraint.
+
+\item [4.2.1:] {\bf Use short-circuit forms}
+
+\item [4.3.1:] {\bf Create user-defined exceptions instead of explicitly raising predefined exceptions.}
+None of the explicitly raised exceptions may be predefined.
+
+\item [4.4.7:] {\bf Do not suppress exception checks.}
+Pragma ``Suppress'' is not allowed.
+
+\item [4.5.3:] {\bf Avoid aborting tasks.}
+Each abort statement will cause violation of the rule.
+
+\item [4.5.6:] {\bf Do not relay on the attributes ``CALLABLE'' or ``TERMINATED''.}
+
+\item  [5.3.6:] {\bf Use shallow nesting of packages.}
+
+\item [5.6.2:] {\bf Always compile package specifications and bodies separately.}
+
+\item [6.3.2:] {\bf Do not use predefined types (INTEGER, NATURAL, POSITIVE).}
+
+\end{itemize}
+
+\section{Rules Not Implemented}
+
+For various reasons (see below), the following rules have not been
+implemented so far. We have divided them up into 3 groups, depending
+on the reason for not implementing them.
+
+\subsection*{Group I}
+
+\begin{itemize}
+\item [2.1.1:] {\bf Use underscore to separate more than one word within a name.}
+\item [3.4.4:] {\bf Avoid names that rely on use of double negatives.}
+\end{itemize}
+
+Implementing these two rules would require access to a dictionary, which is not provided.
+
+\subsection*{Group II}
+
+\begin{itemize}
+\item [3.5.2:] {\bf Clarify large record structures by grouping related components 
+into separate records.}
+\item [4.4.3:] {\bf Do not share variables.}
+\item [4.4.8:] {\bf Initialize all objects prior to use.} This requires data flow
+analysis, which might be time consuming to execute. Since the Verdix Ada compiler
+already performs this analysis, we have not given this rule a high priority.
+\item [5.5.5:] {\bf Force default initialization by using records for exported 
+types.}
+\item [6.7.1:] {\bf Use the package facility to encapsulate implementation
+dependencies.}
+
+\item [6.11.2:] {\bf Do not use implementation-defined exceptions.}
+\item [6.13.4:] {\bf Avoid the use of package SYSTEM constants.}
+\item [6.14.1:] {\bf Avoid the use of additional I/O features provided by 
+particular vendor.}
+\end{itemize}
+
+The rules in this  have not been implemented merely because of the time constraints. They fall naturally within our paradigm of representing 
+style guidelines as predicates on the language objects and do not require 
+any additional resources. Few of the predicates and objects involved may 
+present some problems but  there seems to be no fundamental difficulty in 
+implementing them within the current framework.
+
+\subsection*{Group III}
+
+\begin{itemize}
+\item [6.14.3:] {\bf Close all files explicitly.}
+\end{itemize}
+
+This rule can be verified only at run-time and, therefore requires a 
+different approach to style checking. It is still easy to express it using 
+Anna, {\em e.g.}, by means of objects like ``file'' and predicate ``file\_closed''. But 
+one would have to ``modify'' the program itself by introducing into it 
+appropriate annotations. The Anna run time system would then check, while 
+running the program, that eventually all files are being closed by explicit 
+statements in the program. Since we did not consider annotating the checked 
+ADA program, the rule has not been implemented.
+
+\section{Reference Guide}
+\label{app:reference-guide}
+
+This section describes in details each implemented rule and shows its internal representation and intended SSL form.
+
+\begin{stylerule}{2.3.1}{Warning}
+
+\guideline{Associate names with loops when they are deeply nested.}
+
+\ssl{
+For all x:loop : self\_nesting(x) > 3 -> named\_stm(x);
+}
+
+\internal{ 
+--$|$ object\_OK(T, loop\_ob) and then self\_nesting(T) > 3 ->\\
+--$|$ \hspace*{1cm} named\_stm(T);
+}
+
+\descr{
+Signals violation whenever a loop statement is found which is nested more 
+then twice, {\em e.g.},}
+
+\apebegin
+\Loop
+   \Loop
+      \Loop
+\apeend
+
+where the outermost loop has no name.  If only the inner loops have no 
+names, {\em e.g.}, 
+
+\apebegin
+Outer_Loop:
+   \Loop
+      \Loop
+         \Loop
+\apeend
+
+no violation is signaled.
+
+\end{stylerule}
+
+\begin{stylerule}{2.3.6}{Error}
+
+\guideline{ 
+Use named parameter association in a subprogram call
+}
+
+\ssl{
+For all x:subprogram\_call : named\_par\_assoc(x);
+}
+
+\internal{ 
+--$|$ object\_OK(T,subprogram\_call\_ob) ->\\
+--$|$ \hspace*{1cm} named\_par\_assoc(T);
+}
+
+\descr{
+``subprogram\_call\_ob'' matches procedure and function calls but not entry 
+calls.  
+The predicate named\_par\_assoc(T) will, however, work also if T corresponds 
+to an entry call. Therefore, if entry calls need be included in the scope 
+of this rule one only has to add a new rule:
+
+object\_OK(T,entry\_call\_ob) $->$ named\_par\_assoc(T);
+
+The predicate ``named\_par\_assoc'' returns true only if all parameters of the 
+subprogram are named in the call.
+}
+
+\end{stylerule}
+
+\begin{stylerule}{2.3.7}{Warning}
+
+\guideline{ 
+Use default parameters when expanding or reducing functionality.
+}
+
+\ssl{
+For all x:in\_parameter : with\_Default(x);
+}
+
+\internal{ 
+--$|$ object\_OK(T,in\_parameter\_ob) ->\\
+--$|$ \hspace*{1cm} with\_Default(T);
+}
+
+\descr{
+The rule affects the parameters of subprogram declarations, generic 
+declarations, and entry declarations, but not record discriminants.  In the 
+example below, \ap{D1}, \ap{Gg}, and \ap{Gg1} will be reported
+as violating the rule.}
+
+\apebegin\bhinge
+\Procedure Def (D1: Integer; D2 : Integer := 2) \Is
+   Gg: Integer;
+   \Function Sq (Gg1: Integer) \Return Integer;
+   \vdots
+\apeend
+
+\end{stylerule}
+
+\begin{stylerule}{3.3.3}{Warning}
+
+\guideline{ 
+Use derived types to re-use building blocks and enhance program maintainability.
+}
+
+\ssl{
+For all x:type\_decl :\\
+ \hspace*{1cm} is\_a(x,private\_type\_decl) or\\
+ \hspace*{1cm} is\_a(x,incomplete\_type\_decl) or \\
+ \hspace*{1cm} is\_a(x,derived\_type\_decl);
+}
+
+\internal{ 
+--$|$ object\_OK(T, type\_decl\_ob)  ->\\
+--$|$ \hspace*{1cm} object\_OK(T,private\_type\_decl\_ob) or\\
+--$|$ \hspace*{1cm} object\_OK(T,incomplete\_type\_decl\_ob) or\\
+--$|$ \hspace*{1cm} object\_OK(T,derived\_type\_decl\_ob);
+}
+
+\descr{
+The kind of each type declaration is checked. Whenever it is not declaration 
+of a derived type a warning is issued. Incomplete type declarations and 
+declarations of the private types in the visible part of package 
+specification are not reported.
+}
+
+\remarks{
+The Style Checker is unable to find out the semantic information needed for 
+deciding whether it is possible or reasonable to use a derived type instead 
+of some other type. Therefore here, and in similar cases, only a warning
+ is issued and it is up to the manager to make a decision concerning 
+semantic reasons for using or not using derived type.
+}
+
+\end{stylerule}
+
+\begin{stylerule}{3.3.5}{Warning}
+
+\guideline{ 
+Use private types in preference to explicitly exported types.
+}
+
+\ssl{
+For all x:type\_decl : is\_a(x,private\_type\_decl);
+}
+
+\internal{ 
+--$|$ object\_OK(T, type\_decl\_ob) ->\\
+--$|$ \hspace*{1cm} object\_OK(T, private\_type\_decl\_ob) or is\_within\_private(T);
+}
+
+\descr{
+The kind of each type declaration is checked. Whenever it is not declaration 
+of a private type a warning is issued.
+Note that not all type declarations occurring within the private part of a 
+package are considered as declarations of private types. {\em E.g.}, in the 
+following program both \ap{T2} and \ap{T4} will be classified as private
+types by the Checker but \ap{T3} will not.}
+
+\apebegin\bhinge
+\Package P1 \Is
+   \Type T2 \Is \Private;
+\Private
+   \Type T2 \Is \New Integer;
+   \Package P2 \Is
+      \Type T3 \Is \New Integer;
+      \Type T4 \Is \Private;
+      F: Boolean;
+   \End P2;
+\End P1;
+\apeend
+
+\end{stylerule}
+
+\begin{stylerule}{3.4.5}{Warning}
+
+\guideline{ 
+Restrict the depth of nested expressions and control structures.
+}
+
+\ssl{
+For all x:nested\_stm : logic\_nesting(x) < 3;
+}
+
+\internal{ 
+--$|$ object\_OK(T, nested\_stm\_ob) ->\\
+--$|$ \hspace*{1cm} logic\_nesting(T, nested\_stm\_ob) < 3;
+}
+
+\descr{
+``nested\_stm\_ob'' matches ``if\_ob'', ``case\_ob'' and ``loop\_ob''.
+Consequently, the rule restricts mutual nesting of such statements
+to 3 levels.}
+
+\apebegin\bhinge
+\While \ldots \Loop
+   \If \ldots \Then
+      \ldots \Loop
+         \For \ldots \Loop
+         \End \Loop;
+      \End \Loop;
+   \Else \ldots
+   \End \If;
+\End \Loop;
+
+\While \ldots \Loop
+   \If \ldots \Then \ldots \End \If;
+      \For \ldots \Loop
+         \If \ldots \Then \ldots \End \If;
+      \End \Loop;
+   \If \ldots \Then \ldots \End \If;
+\End \Loop;
+\apeend
+
+The first example illustrates a possible violation of the rule
+(logic\_nesting=3).  The second construct, however, will be
+legal (logic\_nesting=2);
+
+\remarks{
+The predicate ``logic\_nesting'' may be used for restricting nesting of 
+particular statements . {\em E.g.}, ``logic\_nesting(T, if\_ob)'' will count only 
+nesting of if-statements within the construct corresponding to T. Thus one 
+might put restrictions on nesting of if-statements only  by saying 
+	 object\_OK(T, if\_ob) -$>$ 
+			logic\_nesting(T, if\_ob) $<$ 4;
+Inclusion of other statements (like for instance case-statement) into the 
+category of ``nested\_stm\_ob'' is a straightforward extension.
+Nested expressions are not supported.
+}
+
+\end{stylerule}
+
+\begin{stylerule}{3.6.11/5.3.6}{Error}
+
+\guideline{ 
+Nest packages in the bodies not in the specification.
+ Use shallow nesting of packages.
+}
+
+\ssl{
+For all x:package\_decl : count\_all(x,package\_decl) < 1;\\
+ For all y:package\_body : object\_nesting(y,package\_body) < 2;
+}
+
+\internal{ 
+--$|$ object\_OK(T, package\_decl\_ob) -> \\
+--$|$ \hspace*{1cm} count\_all(T,package\_decl\_ob) < 1;\\
+--$|$ object\_OK(T,package\_body\_ob) ->\\
+--$|$ \hspace*{1cm} object\_nesting(T,package\_body\_ob) < 2;
+}
+
+\descr{
+For a given package specification T, counts all occurrences of package 
+specifications within it.  For a given package body T, counts the level
+of nesting of package bodies within it.}
+
+\end{stylerule}
+
+\begin{stylerule}{3.7.2}{Warning}
+
+\guideline{ 
+No declarations of objects in package specification.
+}
+
+\ssl{
+For all x:package\_decl :\\
+\hspace*{1cm} count\_1(visible\_of(x), declaration) =\\
+\hspace*{1cm} count\_1(visible\_of(x), subprogram\_decl) +\\
+\hspace*{1cm} count\_1(visible\_of(x), private\_type\_decl) +\\
+\hspace*{1cm} count\_1(visible\_of(x), exception\_decl) +\\
+\hspace*{1cm} count\_1(visible\_of(x), deferred\_constant\_decl);
+}
+
+\internal{ 
+--$|$ object\_OK(T, package\_decl\_ob) or -> \\
+--$|$ \hspace*{1cm} count\_1(visible\_of(T),declaration\_ob) = \\
+--$|$ \hspace*{1cm} count\_1(visible\_of(T),subprogram\_decl\_ob) +\\
+--$|$ \hspace*{1cm} count\_1(visible\_of(x),private\_type\_decl) +\\
+--$|$ \hspace*{1cm} count\_1(visible\_of(x), exception\_decl\_ob) +\\
+--$|$ \hspace*{1cm} count\_1(visible\_of(x), deferred\_constant\_decl\_ob);
+}
+
+\descr{
+``declaration\_ob'' matches declaration of
+	exception, type, task, entry, variable, package, subprogram, subtype
+and constant.
+``object'' in the Guideline refers to the static objects, {\em i.e.}, variable, 
+package, type, entry, task, subtype, constant but we assume that it is usual to have declaration of exceptions and deferred constants in the visible part of package specification. The rule therefore says (SSL and internal form)
+that all declaration 
+objects occurring in the visible part of the package spec should be 
+declarations of subprograms, exceptions, private types or deferred constants. ``visible\_of'' restricts the search space of the 
+function ``count\_1'' to the visible part of the package spec. (And the
+analogous function ``private\_of''  returns the private part of package 
+spec.) Thus all object declarations may be included in the private part of 
+the package spec without violating the above rule.
+Using ``count\_1'' makes sure that only first level declarations are counted.
+If a procedure declared within the package spec contains 10 declarations, 
+these declarations will not affect the result of the above call to count\_1.
+}
+
+\end{stylerule}
+
+\begin{stylerule}{3.7.3}{Warning}
+
+\guideline{ 
+Minimize use of the use clause.
+}
+
+\ssl{
+No (use);
+}
+
+\internal{ 
+--$|$ not object\_OK(T, use\_ob);
+}
+
+\descr{
+Any occurrence of the ``use clause'' will cause violation of the above rule (the 
+result will be FALSE) and will be reported.
+}
+
+\end{stylerule}
+
+\begin{stylerule}{3.7.7}{Error}
+
+\guideline{ 
+Do not include task entries in package specifications.
+}
+
+\ssl{
+For all x:package\_decl: count\_all(x,entry\_decl) = 0;
+}
+
+\internal{ 
+--$|$ object\_OK(T, package\_decl\_ob) -> \\
+--$|$ \hspace*{1cm} count\_all(entry\_decl\_ob) = 0;
+}
+
+\descr{
+Any entry declaration appearing in package specification is reported as 
+violation of the constraint.
+}
+
+\end{stylerule}
+
+\begin{stylerule}{4.2.1}{Warning}
+
+\guideline{ 
+Use short-circuit forms.
+}
+
+\ssl{
+No (and);
+No (or);
+}
+
+\internal{ 
+--$|$ not object\_OK(T,and\_ob);\\
+--$|$ not object\_OK(T,or\_ob);
+}
+
+\descr{
+``or\_ob'' and ``and\_ob'' match all the application of functions ``or'' and ``and''. 
+The short-circuit forms ``and then'' and ``or else'' are not such applications.
+Therefore, only the presence of the two former objects, ``or'' and ``and'',
+will be reported by the rules.
+}
+
+\end{stylerule}
+
+\begin{stylerule}{4.3.1}{Error}
+
+\guideline{ 
+Create user-defined exceptions instead of explicitly raising predefined 
+exceptions.
+}
+
+\ssl{
+For all x:exception\_raise : not is\_predefined(x);
+}
+
+\internal{ 
+--$|$ object\_OK(T, exception\_raise\_ob) ->\\
+--$|$ \hspace*{1cm} not is\_predefined(T);
+}
+
+\descr{
+The predicate ``is\_predefined'' is true if its argument
+is declared in the package 
+STANDARD. The rule says that none of the explicitly raised exceptions may be 
+predefined.
+}
+
+\remarks{
+One may still raise the predefined exceptions by means of the alternative 
+``when others =$>$ raise''.  The predefined exceptions may also appear in the 
+alternative choices of the exception handlers. The rule only ensures that a 
+predefined exception is not raised by a raise statement.
+}
+
+\end{stylerule}
+
+\begin{stylerule}{4.4.7}{Error}
+
+\guideline{ 
+Do not suppress exception checks.
+}
+
+\ssl{
+No (pragma(SUPPRESS));
+}
+
+\internal{ 
+--$|$ not object\_OK(T, pragma\_ob, "SUPPRESS");
+}
+
+\descr{
+Pragma ``Suppress'' is not allowed.
+}
+
+\remarks{
+The third argument to the function ``count\_all'' is the name provided for particular language objects like pragmas and attributes. It may be provided to any functions in the Vocabulary package which handle such language objects. Thus one may call 
+	count\_all(T, attribute\_ob, ``CALLABLE'') 
+as well as
+	count\_all(T, attribute\_ob, ``TERMINATED'').
+
+One may also abstract from the name differences and call, {\em e.g.}, 
+	count\_all(T, attribute\_ob)
+if it is attribute as such, and not any particular attribute which counts.
+}
+
+\end{stylerule}
+
+\begin{stylerule}{4.5.3}{Warning}
+
+\guideline{ 
+Avoid aborting tasks.
+}
+
+\ssl{
+No (abort);
+}
+
+\internal{ 
+--$|$ not object\_OK(T, abort\_ob);
+}
+
+\descr{
+Each abort statement will cause violation of the rule.
+}
+
+\end{stylerule}
+
+\begin{stylerule}{4.5.6}{Warning}
+
+\guideline{
+Do not relay on the attributes ``CALLABLE'' or ``TERMINATED''.
+}
+
+\ssl{
+No (attribute(CALLABLE));
+No (attribute(TERMINATED));
+}
+
+\internal{
+--$|$ not object\_OK(T, attribute\_ob, "CALLABLE");\\
+--$|$ not object\_OK(T, attribute\_ob, "TERMINATED");
+}
+
+\descr{
+Each use of attribute ``Callable'' (``Terminated'') will be reported as a violation
+ of the rule.
+}
+
+\end{stylerule}
+
+\begin{stylerule}{5.6.2}{Error}
+
+\guideline{ 
+Always compile package specifications and bodies separately.
+}
+
+\ssl{
+For all x:Compilation : separate(x);
+}
+
+\internal{
+--$|$ object\_OK(T, main\_ob) -> separate\_comp(T);
+}
+
+\descr{
+Each compilation is checked for a package specification.
+(NB! Only compilation units of the given compilation are checked, {\em i.e.}, only 
+package specifications at the outermost level are checked.) If, with
+ exception of a package specification, there are other compilation units 
+(not necessarily the body for the same package!) a violation is reported.
+Thus, the rule allows several 
+ subprograms or package bodies in one file but only one (and alone) package specification. \\
+The same applies to generic packages.
+}
+
+\end{stylerule}
+
+\begin{stylerule}{6.3.2}{Error}
+
+\guideline{ 
+Do not use predefined types (INTEGER, NATURAL, POSITIVE). 
+}
+
+\ssl{
+For all x:Any : not refers\_predefined(x,"INTEGER");
+}
+
+\internal{ 
+--$|$ object\_OK(T,any\_ob) -> not refers\_predefined(T,"INTEGER");
+}
+
+\descr{
+The rule forbids use of the above types by checking all the objects
+ for their presence - whether as explicitly declared variable, parameters of 
+the subprograms, result of functions, as array elements, in the declarations
+ of other types, or when occurring implicitly in array range or for-loop iterations.
+}
+
+\remarks{
+The predicate ``refers\_predefined'' allows one to specify the type as
+the string argument. By default this argument is ``INTEGER''. The
+predicate then checks, for any node T, whether it, or any of its
+children which do not correspond to any actual language object (but is
+a merely structural node in DIANA), contain reference to some type,
+the base type of which is\_predefined ({\em i.e.}, defined in the
+package STANDARD; cf. rule 4.3.1). Since POSITIVE and NATURAL are
+subtypes of INTEGER, they will be included in the check for INTEGER.\\
+Notice that the rule does not preclude the use of the constants of the
+type Universal\_Integer.  This distinction is made by the Ada rules
+and we had to conform to it. Thus in the following program}
+
+\apebegin\bhinge
+\Function Def(D1: Integer) \Return Positive \Is
+   Aa: \Array (1 \. 5) \Of Natural;
+\Begin
+   \If 1 = 2 \Then \ldots
+   \Elsif D1 = 3 \Then \ldots
+   \vdots
+\End Def;
+\apeend
+
+Parameter \ap{D1} (both in the specification and when used in
+\ap{D1 = 3}), result type (Positive), array element (Natural)
+as well as the array range \ap{(1 \. 5)} will all be 
+reported as violations. 1, 2, 3 after \Begin, however, will not
+because their base type is not predefined Integer, but Universal\_Integer.
+
+\end{stylerule}

@@ -1,0 +1,755 @@
+\documentclass[leqno]{article}
+\makeatletter
+%\show\label
+\input{a4wide}
+\makeatother
+
+\usepackage{amssymb}
+\input{defs}
+
+\newcommand{\ky}[1]{{\tt #1}}
+\newcommand{\ina}{\hspace*{1em}}
+\newcommand{\inb}{\hspace*{2em}}
+\newcommand{\inc}{\hspace*{3.5em}}
+\newcommand{\ind}{\hspace*{4.5em}}
+\newcommand{\ine}{\hspace*{5em}}
+\newcommand{\func}[1]{\mbox{\sc #1}}
+\newcommand{\f}[1]{\func{#1}}
+\newcommand{\srt}[1]{{\cal #1}}
+%\newcommand{\ret}{\mbox{\ky{:}$\!\!$\ky{:}\ }}
+\newcommand{\ret}{\mbox{$\ \rightarrow\ $}}
+%\newcommand{\aft}{\f{Aft}}
+\newcommand{\aft}[3]{[#1<#2:#3]}
+
+\newcommand{\itr}[1]{\vec{#1}} % iterate over
+\newcommand{\arskip}{\hspace*{.6em}} % adjust indent if an array starts in the next line
+
+\newcommand{\sz}[1]{|#1|} % size complexity
+
+\newcommand{\by}[2]{\ \stackrel{#2}{#1}\ }
+
+\newcommand{\ogA}[2]{[#1\cdot #2]} % \ogA MA
+\newcommand{\onM}[3]{#1(#2)(#3)}  % \onM AxM
+
+\newenvironment{itez}{\begin{itemize}\MyLPar}{\end{itemize}}
+\input xypic
+
+\newcommand{\vv}{\dlline\drline}
+\newcommand{\sdc}[1]{\spreaddiagramcolumns{#1}}
+\newcommand{\sdr}[1]{\spreaddiagramrows{#1}}
+\newcommand{\DT}[1]{\Drop{\Text{#1}}}
+\newcommand{\dst}[1]{\displaystyle{#1}}
+\newcommand{\who}{\mbox{?}}
+
+\newcommand{\dgar}[1]{\begin{array}{c} #1 \end{array}}
+
+\begin{document}
+
+\begin{itemize}
+\item an ordered pair: $\<x,y\>$ (directed edges, written also $xy$)
+ \begin{itemize}
+ \item more generally: just an ADT with two observers/destructors: $first$ and $second$
+ \end{itemize}
+\item for a set/collection/function $E$: 
+ \begin{itemize}
+  \item  $\upd Eon$ -- replace $o$ by $n$ (i.e. $E\setminus\{o\}\cup\{n\}$);
+  \item $\rem Eo$ -- remove $o$;
+  \item $\add En$ -- add $n$ (sometimes, just $E+n$).
+  \item $\mv FEx$ -- move $x$ from $F$ to $E$ ($=\rem Fx$ ; $\add Ex$)
+ \end{itemize}
+\item DAG is a pair $\<E,V\>$ where $E$ is the set of (directed) edges $xy$.
+\item sorts are written $\srt E,\srt V, \srt D, \srt G$..., 
+ \begin{itemize}
+ \item $e:\srt E$ is a variable $e$ of sort $\srt E$ (edge)
+ \item $E:Set(\srt E)$ is a variable $E$ over sets of $\srt E$-elements (edges)
+ \item $\srt D = \<Set(\srt E),Set(\srt V)\>$ -- sort of DAG's 
+ \item $\srt G = Set(\<\srt V,set(\srt V)\>)$ -- sort of DAG's \\
+% represented by the predecessors of each vertex
+ A DAG $\<E,V\>$ corresponds to a set $G=\{\<x,P\>:x\in V\}$ where for each 
+vertex $x\in V$, we have $\<x,P\>$ with 
+$P$ being the set of vertices $y$ such that $yx\in E$.
+(This conversion amounts to initialization of the Indegree's for all vertices.)
+ \end{itemize}
+\end{itemize}
+
+\newpage
+\section{Topological sort}
+
+\noindent
+$\f{Ts}:\srt D \ret Seq(\srt V)$ \ \ -- input DAG is $\<E:Set(\srt E),V:Set(\srt V)\>$
+\\[2ex]
+\begin{tabular}[t]{ll}
+ \f{Initialize}$:\srt D \ret \srt G\times Set(\srt V)$ & 
+ $G:= $ each vertex with the (set of its) predecessors $\<x,x.\f{Fr}\>$  \\
+ &  $Z:= $ the set of 0-vertices (removed from $G$) \\
+ & $S:= \estr$ the result sequence is initially empty
+\end{tabular} \\[2ex]
+%\setlength{\unitlength}{1cm} \line(0,6){5}
+\inb\fbox{\parbox{5.5cm}{
+ $G:=\es$ ; \\
+ \ky{for each} $v\in V$ \\
+   \ina\fbox{\parbox{4cm} {$v.\f{Fr}:=\es$ ; \\
+      \ky{for each} $zx\in E$ \\
+         \ina\ky{if} $x=v$ \ky{then} $\add{v.\f{Fr}}z$ ; \\
+      \ky{end} for ;  }} \\
+   \ina $\add Gv$ ; \\
+ \ky{end} for ; \\[-.5ex]  \setlength{\unitlength}{1cm} \line(6,0){5.5} \\
+%
+%\fbox{\parbox{5.2cm}{
+ $Z:=\es$ ; \\
+ \ky{for each} $v\in G$ \\
+   \ina\ky{if} $v.\f{Fr}=\es$ \ky{then} $\add Zv$ ; $\rem Gv$ ; \\
+ \ky{end} for ; %}}
+\\[-.5ex]  %\setlength{\unitlength}{1cm} 
+ \line(6,0){5.5} \\
+$S:=\estr$ ;
+}} \\[5ex]
+%
+$\f{Ts}\ (\<E;V\>:\srt D) \ret Seq(\srt V)$ \\
+\ina $\<G,Z\>:= \f{Initialize}(E,V)$ ; \\
+\ina\ky{while} $Z\not=\es$ \\
+\ina\ \begin{tabular}[t]{ll}
+ $z:= \ch.Z$ ; & choose any $z\in Z$ \\ 
+ $\rem Zz$ ;  & remove it from $Z$ \\ 
+ $\add Sz$ ;  & add it to the sequence 
+ \end{tabular} \\
+%$\{$ mark $z$ as the next in the sequence $\}$ ; \\
+\inb\ky{for each} vertex $x\in G$ \\
+\inc\ky{if} $z\in x.\f{Fr}$ \ky{then} $\rem{x.\f{Fr}}z$ ; \\
+\inc\fbox{\ky{if} $x.\f{Fr}=\es$ \ky{then} $\add Zx$ ; $\rem Gx$ ; }\\
+\inb\ky{end} for ; \\
+\inb\rule{1cm}{0.15cm} \\
+\ina\ky{end} while ; \\
+\ina\ky{return} $S$ ; \\
+\ky{end} \f{Ts}   \\[-26ex]
+%
+\hspace*{23em}\parbox{10cm}{
+$\f{Tsb}\ (\<E;V\>:\srt D) \ret Seq(\srt V)$ \\
+\ina $\<G,Z\>:= \f{Initialize}(E,V)$ ; \\
+\ina\ky{while} $Z\not=\es$ \\
+\inb $z:= \ch.Z$ ; \\ \inb $\rem Zz$ ; \\ \inb $\add Sz$ ; \\
+\inb\ky{for each} vertex $x\in G$ \\
+\inc\ky{if} $z\in x.\f{Fr}$ \ky{then} $\rem{x.\f{Fr}}z$ ; \\
+  \inc\rule{1cm}{0.15cm} \\
+\inb\ky{end} for ; \\
+\inb\fbox{\parbox{5.2cm}{
+ $Z:=\es$ ; \\
+ \ky{for each} $v\in G$ \\
+   \ina\ky{if} $v.\f{Fr}=\es$ \ky{then} $\add Zv$ ; $\rem Gv$ ; \\
+ \ky{end} for ; }} \\
+\ina\ky{end} while ; \\
+\ina\ky{return} $S$ ; \\
+\ky{end} \f{Tsb}   }
+
+\newpage
+\section*{{\sc{Initialize}} $:\srt D\ret\srt G\times Set(\srt V)$
+\hfill{\normalsize{
+  $\begin{array}[t]{l}\srt D\subset Set(\srt E)\times Set(\srt V)\\[.5ex]
+       \srt G \subset Set(\ \srt V\times Set(\srt V)\ )\end{array}$ }} }
+
+\begin{center}
+\(\begin{array}{ll}
+\arskip G:=\es\ ; \\[.5ex]
+\left. \begin{array}{l} 
+ \ky{for\ each}\ v\in V \\
+    \ina\arskip v.\f{Fr}:=\es\ ; \\[.5ex]
+     \left. \begin{array}{l} 
+        \ina\ky{for\ each}\ zx\in E \\
+           \inb\ky{if}\ x=v\ \ky{then}\ \add{v.\f{Fr}}z\ ; \\
+         \ina\ky{end}\  ; 
+      \end{array} \right\}\f{Fr}:\itr E,v\ \ \  \\[.5ex]
+   \ina\arskip \add Gv\ ; 
+ \end{array} \right\}\f{Ini}:\itr V  \\[.5ex]
+ \arskip \ky{end}\ ; \\[2ex]
+\arskip Z:=\es\ ; \\[.5ex]
+  \left. \begin{array}{l} 
+ \ky{for\ each}\ v\in G \\
+   \ina\ky{if}\ v.\f{Fr}=\es\ \ky{then}\ \add Zv\ ;\ \rem Gv\ ; \\
+ \ky{end}\  ;
+ \end{array} \right\}\f z:\itr G  %\\ \ %\\[2ex]
+% \\ \ \\[-1ex]
+% \arskip S:=\estr\ ;
+\end{array}
+\) \end{center}
+ \dotfill  \\[3ex]
+%
+\noindent\hspace*{-1.5em}
+\begin{tabular}{ll}
+\begin{tabular}[b]{l} 
+$\f{Fr}(E:Set(\srt E), v:\srt V)$ \ret $Set(\srt V)$  \\[2ex]
+ \ina $T:=\es$ ; \\
+ \ina\ky{while} $E\not=\es$ \\
+   \inb $zx:=\ch.E$ ; \\
+   \inb\ky{if} $x=v$ \ky{then} $\add Tz$ ; \\[.5ex]
+   \ine\ina\ky{else}\ \ skip ; \\
+   \inb $\rem E{zx}$ ; \\
+% \ina\ky{end} while ; \\
+ \ina\ky{return} $T$ ; \\
+\ky{end} \f{Fr}
+\end{tabular} & 
+\hspace*{-1em}{\raisebox{12ex}{
+\bit
+\itt{Fr1}{}{\f{Fr}(\es,v)\Incl \es}
+\itt{Fr2}{zx\Incl \ch.E, x\Eq v}{\f{Fr}(E,v)\Incl \f{Fr}(\rem E{zx},v) +z}
+\itte{Fr3}{zx\Incl \ch.E, x\notEq v}{\f{Fr}(E,v)\Incl \f{Fr}(\rem E{zx},v)}
+%% \itteqc{Fr?}{\f{Fr}(E,v)}{\{z:zv\in E\}} 
+%% \itteqq{}{\cp(\f{Fr}(E,v))}{|E|*\cp(\rem E{})} 
+\eit
+} }
+\end{tabular} \vspace*{3ex}
+
+\noindent
+$\f{Ini}(\<E,V\>:\srt D)$ \ret $\srt G$ \\[1ex]
+\ina $G:=\es$ ; \\
+\ina\ky{while} $V\not=\es$ \\
+\inb $v\in V$ ; \\
+\inb $G:=G+ \f{Fr}(E,v)$ ; \\
+\inb $\rem Vv$ ; \\
+\ina\ky{return} $G$ ; \\
+\ky{end} Ini ; \\[-16ex]
+\hspace*{13em}{\mbox{
+\bit
+\itt{In1}{}{\f{Ini}(E,\es)\Incl \es}
+\itte{In2}{v\Incl\ch.V}{\f{Ini}(E,V)\Incl \f{Ini}(E,\rem Vv)\ +\  \<v,\f{Fr}(E,v)\>}
+%%\itteqc{In?}{\f{Ini}(E,V)}{\{\<v,\f{Fr}(E,v)\>:v\in V\}}
+%%\itteqq{}{\cp(\f{Ini}(E,V))}{|V|*\cp(\f{Fr}(E,v))} \\
+%%\itteq{}{\cp(\f{Ini}(E,V))}{|V|*|E|*\cp(\rem E{})}
+\eit
+}} 
+\\[5ex]
+\hspace*{10em}{\mbox{$\f{z}:\srt G \ret Set(\srt V)$
+\bit
+\itt{z1}{}{\f z(\es)\Incl \es}
+\itt{z2}{\<v,P\>\Incl \ch.G, P\notEq\es}{\f z(G)\Incl \f z(\rem G{\<v,P\>})}
+\itte{z3}{\<v,P\>\Incl \ch.G, P\Eq\es}{\f z(G)\Incl \f z(\rem G{\<v,P\>})+ v}
+%%\itteqc{z?}{\f z(G)}{\{v:\<v,\es\>\in G\}}
+%%\itteqq{}{\cp(\f z(G))}{|G|*\cp(\rem G{}),\ \ \ |G|=|V|} \\[-1ex]
+\eit }} \vspace*{3ex}
+\begin{itez}
+\item Give it multialgebra/evolving-algebra/imperative semantics ?
+\item Would like to get, (semi)automatically
+ \begin{itemize}\MyLPar
+ \item complexity of the algorithm
+ \item static properties of functions
+ \item usual logical means to reason about the formulae
+ \end{itemize}
+\end{itez}
+
+\newpage\section{Operational ``interpretation''}
+{\large{
+\[\begin{array}{rccccl}
+& x_1:=C_1; & x_i:=C_i; & \&T_n & \impl & \f L(y) := \f r(\ldots) \\[1ex] \cline{2-6}
+1.&  & & s_1(y)\ \mbox{?}_1\ t_1(y) & \impl & \f L(y) \Incl \f r(y) \\[1ex]
+2.& x\Incl\ch.Y &x_i\Incl C_i &s_2(y,\ovr x)\ \mbox{?}_2\ t_2(y,\ovr x) 
+    &\impl &\f L(y)\Incl \f r_1(y,\ovr x)\\[1ex]
+3.& \ret & \ret &s_3(y,\ovr x)\ \mbox{?}_3\ t_3(y,\ovr x)
+    &\impl &\f L(y)\Incl \f r_2(y,\ovr x)\\[1ex]
+4.& \ret & \ret & \ret &\impl &\f L(y)\Incl \f r_3(y,\ovr x) 
+\end{array}
+\] }}
+%Let $\f r(y,x)|_y$ denote the update value of $y$, e.g., $\f r(\rem yz,x)|_y = \rem yz$.
+
+\noindent
+\hspace*{4em}
+$\f L(y)\ =$ \\  \hspace*{4em}
+\ina\ky{if} ?$_1$ \ky{then return} $\f r(y)$ \\  \hspace*{4em}
+\ina\ky{else} \\  \hspace*{4em}
+\inb $x:=\ch.y$ ; \ina $x_i:= C_i$ ; \\  \hspace*{4em}
+\inb\ky{if} ?$_2$ \ky{then return} $\f r_1(y,\ovr x)$ \\  \hspace*{4em}
+\inb\ky{else} \\ \hspace*{4em}
+ \inc\ky{if} ?$_3$ \ky{then return} $\f r_2(y,\ovr x)$ \\  \hspace*{4em}
+ \inc\ky{else} \ky{return} $\f r_3(y,\ovr x)$ \\  \hspace*{4em}
+%\inb\ky{end} if ; \\  \hspace*{4em}
+%\ina\ky{end} if ; \\  \hspace*{4em}
+\ky{end} ;
+
+\begin{enumerate}\MyLPar
+\item 
+To compute $\f L(y)$ -- at a given line and for given (free) $y$'s -- compute 
+ \begin{enumerate}
+  \item compute $C_1$, then $C_i$, etc.,
+  \item  test all $T_n$,
+  \item if all is fine -- all $C_i$'s are OK and all $T_n$'s true -- compute $\f r$.
+ \end{enumerate}
+To compute $\f L(y)$ try, in order, $\f L_1, \f L_2...$, i.e. repeat (a)-(c) until 
+ \begin{itemize}
+\item[(1?)] for each line: either some $C_i$ can't be performed or some $T_n$ is false, 
+\item[(2?)] no recursive call is reached in $\f r$,
+%\item[(3?)] (specified) termination condition has been reached. 
+\end{itemize}
+Tests at all lines should (but need not) be mutually exclusive and 
+exhaust the whole space. 
+\item The order of ``axioms'' matters -- test ?$_2$ may succeed more often than ?$_3$\\
+ $x$'s, e.g. in line 2., are computed once and kept when passing to line 3.
+\item All terms are computed inside-out: \vspace*{-1ex}
+\begin{center}
+$\f s(\f t_1(\ldots)\ldots \f t_k(\ldots))$ means
+\ina first compute all $y_k:=\f t_k(\ldots)$, and then $\f s(y_1\ldots y_k)$.\vspace*{-1ex}
+\end{center}
+Arguments are passed by call-by-value.
+\item Free variables are only $y$'s.
+ \begin{itemize}
+ \item $x_i\Incl C_i$ is a binding of $x_i$
+ \item Variables in $C_i$ are either $y$'s or $x_j$'s for some $j<i$.
+%       must have been bound in some eralier $C_j$, for $j<i$.
+ \item The same for all variables in $T_n$'s
+ \item The same for all variables in $\f r$.
+ \end{itemize}
+\item
+Consequently, the order of $C_i$'s matters! So do the repetitions.
+\begin{equation}
+\begin{array}{r@{\ \ \impl\ \ }l}
+ & \f L(y) \Incl \f r(g(y), h(g(y))) \\[1ex] %\hspace*{3em} and \hspace*{3em}
+x\Incl g(y) & \f L(y) \Incl \f r(x,h(x)) \end{array}
+\end{equation}
+are different computations.
+\end{enumerate}
+%
+
+\newpage
+\section{Complexity}
+%
+\begin{itez}
+\item
+Variable/constant $x$ has 
+ \begin{itez} \item complexity $\cp(x)=1$ and \item its size $\sz x$.\end{itez}
+\item
+A {\em basic} (undefined) function $\f f$ %, where $x$ is a variable/constant, 
+has 
+ \begin{itez}
+  \item some given complexity $\cp(\f f(x))$ and 
+  \item result of a size dependinmg
+    functionally on the size of the argument $:\sz{\f f(x)}=\f f_{\sz{}}(\sz x)$.
+  \end{itez}
+\item
+A (nested) functional term $\f f(x)= f( g(...(x)...))$ has 
+\begin{itez}
+ \item complexity $\cp(\f f(x))=\cp(f(\ \sz{g(...x...)}\ ))$, and
+ \item size $\sz{\f f(x)} = f_{\sz{}}(\ \sz{g(...x...)}\ )$
+ \end{itez}
+\item A line with $i$ assignments and $n$ tests: 
+ $x_i\Incl f_i, \mbox{?}_n\ \impl\ \f f(x)\Incl g(x)$ gives:
+ \begin{itez}
+  \item $\cp(\f f(x)) = \sum_i\cp(f_i) + \sum_n\cp(\mbox{?}_n) + \cp(g(x))$
+  \item $\sz{\f f(x)} = \sz{g(x)}$
+ \end{itez}
+\item Iteration defining  $\f f(x)$ is kind of sum
+  \ldots (recursive calls need not be outermost)\\
+For each of $z$ lines $:x_i\Incl f_i, \mbox{?}_n\ \impl\ \f f(x)\Incl \f f(g_k(x))$ 
+ \begin{itez}
+  \item $\cp(\f f_z) = \sum_i\cp(f_i) + \sum_n\cp(\mbox{?}_n) + \sum_k\cp(g_k(y))$ and
+ avarage (?) $\cp(\f f_\Sigma)=(\sum_z \f f_z)/z$ \\
+ count number $r$ of iterations relatively to $x$ and $\cp(\f f(x))=r*\cp(\f f_\Sigma)$.
+ \item Similarly for size ?
+ \end{itez}
+\item We let, comparison $\Eq$, {\em arbitrary} choice $\ch$, {\em arbitrary} 
+   add-element $+$, \ldots 
+to have $\cp(\_)=1$.
+\end{itez}
+
+
+
+\noindent
+$\f{Fr}(E:Set(\srt E), v:\srt V)$ \ret $Set(\srt V)$  \\
+%
+\noindent{\small{
+$\begin{array}{r@{\ \ \ \ }cccl|c|c}
+   & & & &   & \f{Fr}_{\sz{}}(E) & \cp \\ \cline{6-7}
+{\bf Fr1.}&  & & \impl & \f{Fr}(\es,v)  \Incl  \es  & 0 & 1\\[1ex]
+{\bf Fr2.}&  zx\Incl \ch.E, & x\Eq v & \impl & \f{Fr}(E,v) \Incl  \f{Fr}(\rem E{zx},v)+z & \f{Fr}_{\sz{}}(\rem E{})+1 & 2+\cp(\rem E{})+1\\[1ex]
+{\bf Fr3.}  & & \into & \impl &\f{Fr}(E,v)  \Incl  \f{Fr}(\rem E{zx},v)
+ & \f{Fr}_{\sz{}}(\rem E{}) & \cp(\rem E{}) \\ \hline
+{\bf ?} & & & & & \leq\ \sz E &  \sz E * (\cp(\rem E{})+2)
+\end{array}
+$  }} \\[2ex]
+%\itteqc{Fr?}{\f{Fr}(E,v)}{\{z:zv\in E\}} 
+%\itteqq{}{\cp(\f{Fr}(E,v))}{|E|*\cp(\rem E{})} 
+%Terminates -- when $E=\es$ and in each recursive call $E:= \rem E{}$. \\[2ex]
+
+\noindent
+$\f{Ini}(\<E,V\>:\srt D)$ \ret $\srt G$ \\
+%
+{\small{
+$\begin{array}{r@{\ \ \ \ }rcl|c|c}
+ & & & & \f{Ini}_{\sz{}}(E,V) & \cp \\ \cline{5-6}
+{\bf In1}& & \impl & {\f{Ini}(E,\es)\Incl \es} & 0 & 1 \\[1ex]
+{\bf In2} &{v\Incl\ch.V}& \impl & {\f{Ini}(E,V)\Incl \f{Ini}(E,\rem Vv)}\ \ \  & \f{Ini}_{\sz{}}(\rem V{})\ \  & 1+\cp(\rem V{})  \\
+& & & \multicolumn{1}{r|}{\ +\  \<v,\f{Fr}(E,v)\>} & 
+   \multicolumn{1}{|r}{+1} & 
+  \multicolumn{1}{|r}{+\cp(\f{Fr}(E))+1}
+\\ \hline
+{\bf ?} & & & & \sz V & \sz V*\cp(\rem V{}+\f{Fr}(E)+2) \\[1ex]
+& & & & \multicolumn{2}{r}{\sz V*(\cp(\rem V{})+ \sz E*\cp(\rem E{})+2)}
+\end{array}
+$ }}  \\[1ex]
+%Terminates -- when $V=\es$ and in each recursive call $V:=\rem V{}$ 
+%(and $\f{Fr}$ always terminates). \\[2ex]
+\noindent
+$\f{z}:\srt G \ret Set(\srt V)$ \\
+$\begin{array}{r@{\ \ \ \ }r@{\ \ \impl\ \ }l}
+{\bf z1} & {} & {\f z(\es)\Incl \es} \\[.5ex]
+{\bf z2}&{\<v,P\>\Incl \ch.G, P\notEq\es} & {\f z(G)\Incl \f z(\rem G{\<v,P\>})} \\[.5ex]
+{\bf z3} & {\into\ \ } & {\f z(G)\Incl \f z(\rem G{\<v,P\>})+ v} \\[.5ex] \hline
+{\bf ?} & \multicolumn{2}{r}{\cp(\f z(G)) = |G|*(\cp(\rem G{})+1)}
+%\itteqq{z?}{\f z(G)}{\{v:\<v,\es\>\in G\}}
+\end{array}
+$ \\[1ex]
+% Terminates -- when $G=\es$ and in each recursive call $G:= \rem G{}$. 
+
+\newpage
+\section{Correctness -- static}
+\subsection{Data structures -- ADT}
+A (multi)algebra  underlying computations
+\begin{itemize}
+\item $Set(X)$, $Seq(X)$, $\<\_,\_\>$, \ldots 
+\[ \hspace*{-3em}\begin{array}{l@{\hspace*{3em}}l}
+\begin{array}[t]{rrcl}
+\es : & & \into & Set(X) \\
+(\add Sx)\ \ + : & Set(X)\times X & \into & Set(X) \\
+\in\ : & X \times Set(X) & \into & \bool \\
+\ch: & Set(X) & \into & X \\[1ex]
+\multicolumn{2}{r} { (S+x)+y } & \Eq & (S+y)+x \\
+\multicolumn{2}{r}{ (S+x)+x } & \Eq & S+x \\[1ex]
+\multicolumn{2}{r}{ x\in\es } & \Eq & \false \\
+\multicolumn{2}{r}{ x\in S+x } & \Eq & \true \\
+%x\notEq y\ \impl & 
+\multicolumn{2}{r}{ x\in S+y }& \Eq & x\in S \\[1ex]
+\multicolumn{2}{r}{ x\Incl \ch.S} & \Iff & x\in S\Eq\true 
+\hspace*{4em} (x\notEq y)
+\end{array}
+&
+\end{array}
+\]
+%% \item 
+%% $\ch.(\es+x)  \Eq x$ and 
+%% $S\notEq\es\ \land\ z\Incl \ch.(S+x)  \impl  z\Eq x\ \lor\ 
+%% z\Incl\ch.S$ requires induction to show $\prI x\Incl\ch.S \Iff x\in S\Eq\true$.
+%
+\item
+Not necessarily with the same -- dynamic -- semantics. \\
+Complexity/size of the operations is needed (possibly just as the basis).
+\end{itemize}
+\subsection{... extended with (recursive) definitions}
+%
+\begin{tabular}{r@{\ \ }rcll@{\hspace*{2em}}l}
+\itt{Fr1}{}{\f{Fr}(\es,v)\Incl \es}
+\itte{Fr2}{zx\Incl \ch.E, x\Eq v}{\f{Fr}(E,v)\Incl \f{Fr}(\rem E{zx},v) +z}  \\[1ex]
+%%       &  & $\leads\  \f{Fr}(E,v)\ni z$ \\[1ex]
+\itte{Fr3}{zx\Incl \ch.E, x\notEq v}{\f{Fr}(E,v)\Incl \f{Fr}(\rem E{zx},v)} 
+%   & & $\leads\ \f{Fr}(E,v)\ni z \Leftarrow z\in\f{Fr}(\rem E{zx},v)$ 
+%% \\[.5ex] \cline{1-4}
+%% \itteqq{Fr?}{\f{Fr}(E,v)}{\{z:zv\in E\}} 
+%%       &  & $\leads\  \f{Fr}(E,v)\supseteq  \{z:zv\in E\}$
+\vspace*{1ex}\end{tabular} \\
+%
+\begin{center}\fbox{
+\begin{tabular}{ll@{\hspace*{4em}}ll}
+1. & $\PRULE{\Gamma\impl\Delta\ \ ;\ \ t\Eq t}{\Gamma^x_t\impl\Delta^x_t}$
+& 3. & $\PRULE{\Gamma\impl\Delta,p\Incl r\ \ ;\ \ \Gamma'\impl s\Incl t}{\Gamma,\Gamma'\impl\Delta,p_s^t\Incl r}$ \\[2ex]
+2. & $\PRULE{\Gamma\impl\Delta}{\Gamma^x_t\impl\Delta^x_t}$\ \ \  at most one $x$ 
+& 3'. & $\PRULE{\Gamma\impl\Delta,p\Eq r\ \ ;\ \ \Gamma'\impl s\Incl t}{\Gamma,\Gamma'\impl\Delta,p_s^t\Eq r_s^t}$ \\
+ & & &  $t$ not in LHS of $\Incl$ \\
+\end{tabular}
+}\end{center}
+%$E=\{ab,ac, cb\},\ \ \ v=b,\ \ \ \f{Fr}(E,v)$
+\[\begin{array}{rlcl}
+Ax & \ z\in S+z \\ \cline{2-2}
+%ab\in S+ ab \\ \cline{2-2} \strut
+2.& z\in \f{Fr}(\{ac,cb\},b)+z & & 
+zx\Incl\ch.\{ab,ac,cb\},x\Eq b\ \ \impl\ \ \f{Fr}(\{ab,ac,cb\},b)\Incl \f{Fr}(\{ac,cb\},b)+z \\[1ex] \cline{2-4} \strut
+3.& \multicolumn{3}{c}{zx\Incl\ch.\{ab,ac,cb\},x\Eq b\ \ \impl\ \ z\Incl\ch.\f{Fr}(\{ab,ac,cb\},b)} \\ \cline{2-4}
+%& \multicolumn{3}{c}{zx\in\{ab,ac,cb\},x\Eq b\ \ \impl\ \ z\in\f{Fr}(\{ab,ac,cb\},b)}
+& \multicolumn{3}{c}{\begin{array}{r@{\ \ \impl\ \ }l}
+       zx\in\{ab,ac,cb\},x\Eq b & z\in\f{Fr}(\{ab,ac,cb\},b) \\[1ex]
+ab\in\{ab,ac,cb\},b\Eq b &  a\in \f{Fr}(\{ab,ac,cb\},b) \\
+cb\in\{ab,ac,cb\},b\Eq b &  c\in \f{Fr}(\{ab,ac,cb\},b) 
+ \end{array} } \\[1ex]
+\mbox{?}& \multicolumn{3}{l}{\{z:zx\in E\} \subseteq \f{Fr}(E,x)} \\[1ex]
+& \multicolumn{3}{l}{ac\in\{ab,ac,cb\},c\notEq b\ \impl\  \f{Fr}(\{ab,ac,cb\},b) \Incl 
+                                            \f{Fr}(\{ab,cb\},b)}  
+\end{array}
+\]
+%
+%%% is OK:
+%%% \noindent\begin{tabular}{r@{\ \ }rcll@{\hspace*{2em}}l}
+%%% \itt{In1}{}{\f{Ini}(E,\es)\Incl \es}
+%%% \itte{In2}{v\Incl\ch.V}{\f{Ini}(E,V)\Incl \f{Ini}(E,\rem Vv)\ +\  \<v,\f{Fr}(E,v)\>}
+%%%        &  & $\leads\ \f{Ini}(E,V)\ni \<v,\f{Fr}(E,v)\>$ \\[.5ex] \cline{1-4}
+%%% \itteqq{In?}{\f{Ini}(E,V)}{\{\<v,\f{Fr}(E,v)\>:v\in V\}} 
+%%%        &  & \hspace*{-4.2em}$\leads\  \f{Ini}(E,V)\supseteq  \{\<v,\f{Fr}(E,v)\>:v\in V\} $\\[1ex]
+%%% \itteqq{i.e}{\f{Ini}(E,V)}{\{\<v,\{z:zv\in E\}\>:v\in V\}}
+%%% \vspace*{1ex}\end{tabular} \\
+%
+%%% 
+%
+ \noindent\begin{tabular}{r@{\ \ }rcll@{\hspace*{2em}}l}
+ \itt{z1}{}{\f z(\es)\Incl \es}
+ \itt{z2}{\<v,P\>\Incl \ch.G, P\notEq\es}{\f z(G)\Incl \f z(\rem G{\<v,P\>})}
+ \itte{z3}{\<v,P\>\Incl \ch.G, P\Eq\es}{\f z(G)\Incl \f z(\rem G{\<v,P\>})+ v}
+        &  & $\leads\  \f{z}(G)\ni v$ \\[.5ex] \cline{1-4}
+ \itteqq{z?}{\f z(G)}{\{v:\<v,\es\>\in G\}} & & $\leads \f z(G)\supseteq \{v:\<v,\es\>\in G\}$
+%
+ \vspace*{1ex}\end{tabular} \\
+%
+
+\newpage
+\section{Operational vs. static}
+
+\[\definemorphism{pluses}{\dottedwith{\scriptstyle{+}}}{}{}
+\diagram
+M \rrpluses  &
+& A \xto[rrr]^{\ogA{\_}A}_{static} \xto[dd]_{\onM Ax{\_}}^{operational} &&& 
+         \ogA MA \xdotted[dd]|>>\hole \\ \ \\
+& & \onM AxM  \xdotted[rr] &&& 
+\DT{$\forall x:$\hspace*{5em} \\ 
+    $\onM AxM\ \stackrel{\mbox{\large{?}}}\in\ A^{\ogA MA}(x)$}
+\enddiagram
+\]
+\begin{itemize}
+\item[$M:$] standard (multi)algebra with pairs, sets, ... probably always generated\\[1ex]
+\hspace*{-2em}and adding the definition:
+\item[$A:$]
+$\begin{array}[t]{r@{\ \ }cc@{\ \ \ \impl\ \ \ }ll@{\hspace*{2em}}l}
+{\bf Fr1} &  & &    {\f{Fr}(\es,v)\Incl \es} \\[1ex]
+{\bf Fr2} & {zx\Incl \ch.E} & {x\Eq v} & {\f{Fr}(E,v)\Incl \f{Fr}(\rem E{zx},v) +z}\\[1ex]
+%       &  & \leads\  \f{Fr}(E,v)\ni z \\[1ex]
+{\bf Fr3} & \into & {x\notEq v} & {\f{Fr}(E,v)\Incl \f{Fr}(\rem E{zx},v)} 
+% \\[.5ex] \cline{1-4}
+% \itteqq{Fr?}{\f{Fr}(E,v)}{\{z:zv\in E\}} 
+%       &  & \leads\  \f{Fr}(E,v)\supseteq  \{z:zv\in E\}
+\vspace*{1ex}\end{array}$ 
+%
+\item[$\ogA MA:$] {\bf Static semantics.} Is it ?
+\begin{enumerate}
+\item simply a model of the logical theory for $M$ extended with the axioms $A$\\[1ex]
+$\f{Fr}(\{ab,cb,ac\},b)^{\ogA M{\f{Fr}}} \supseteq \{a,c\}$ 
+\item an extension of $M$ -- solutions of the new (recursive) axioms $A$
+%:\\[1ex]
+(for $E=\{ab,cb,ac\}$):
+\[\hspace*{-3em}\sdc{-.5pc}\sdr{-.5pc}\diagram
+\f{Fr}(E,b): \rrto^{\dst{cb}} && \bot+c \rrto^{\dst{ac}} && \bot+c \rrto^{\dst{ab}}  &&
+  \bot+a+c \rrto^\es  &&   \es+a+c \\
+\bot  && 
+  \Drop{\sdc{-1.7pc}\sdr{-1pc}\diagram{ & +\vv & \\ \bot & & c}\enddiagram}  &&
+  \Drop{\sdc{-1.7pc}\sdr{-1pc}\diagram{ & +\vv & \\ \bot & & c}\enddiagram}  &&
+  \Drop{\sdc{-1.7pc}\sdr{-1pc}\diagram{&& \\ && +\vv & \\ & +\vv && c\\ \bot & & a}\enddiagram}  &&
+  \Drop{\sdc{-1.7pc}\sdr{-1pc}\diagram{&& \\ && +\vv & \\ & +\vv && c\\ \es & & a}\enddiagram} 
+\enddiagram  \vspace*{-2ex}
+\]
+$\f{Fr}(\{ab,cb,ac\},b)^{\ogA M{\f{Fr}}} = \{a,c\}$  \\[-1ex]
+\item[?]unfolding the definition in some CPO over $M$ 
+\item[?] can we ensure the existence of the solutions -- for our special 
+  forms of equations ?
+\end{enumerate}
+%
+\item[$\onM AEM:$] {\bf Operational semantics.} Is it Gurevich (multi)Machine ? 
+\[\hspace*{-2em}\sdr{-1pc}\diagram
+ & M & M_1 & M_2 & M_3 & M_4 \\
+\Drop{\dgar{E \\ zx \\ \f{Fr}(E,b) }} & 
+  {\dgar{\{ab,cb,ac\}\\  \_ \\ \who} } \framed<5pt>
+          \rto_{\dst{cb}}^>>>{2} 
+  & {\dgar{\{ab,ac\}\\   \\ \who+c}} \framed<5pt> 
+          \rto_{\dst{ac}}^>>>{3} 
+  & {\dgar{\{ab\}\\  \\ \ \who+c}} \framed<5pt> 
+          \xto[r]_{\dst{ab}}^>>>{2} 
+  & {\dgar{\es\\ \\ \ \who+c+a}} \framed<5pt> \xto[r]^1 
+  & {\dgar{\es\\ \\ \ \es+c+a}} \framed<5pt> 
+\enddiagram
+\]
+$\onM {\f{Fr}}{\{ab,cb,ac\},b}M\ \ \leads\ \ \{a,c\}$ 
+\item $\f{Fr}(E,v)$ terminates when $E=\es$ 
+ -- in each recursive call $E:= \rem E{}$.
+\end{itemize}
+
+
+\newpage
+\section{\f{Ts}}
+$\f{Ts}$ \\ %\ (\<E;V\>:\srt D) \ret Seq(\srt V)$ \\
+\ina $G:= \f{Ini}(E,V)$ ; $Z:= \f{z}(G)$ ; $S:= \estr$ ;\\
+\ina\ky{while} $Z\not=\es$ \\
+\ina\ \begin{tabular}[t]{ll}
+ $z:= \ch.Z$ ; & choose any $z\in Z$ \\ 
+ $\rem Zz$ ;  & remove it from $Z$ \\ 
+ $\add Sz$ ;  & add it to the sequence 
+ \end{tabular} \\
+\inb\fbox{\parbox{5.5cm}{
+\ky{for each} vertex $x\in G$ \\
+\ina\ky{if} $z\in x.\f{Fr}$ \ky{then} $\rem{x.\f{Fr}}z$ ; \\
+\ina\ky{if} $x.\f{Fr}=\es$ \ky{then} $\add Zx$ ; $\rem Gx$ ; \\
+%\inb
+\ky{end} for ; }} \\
+%%\inb\rule{1cm}{0.15cm} \\
+\ina\ky{end} while ; \\
+\ina\ky{return} $S$ ; % \\  \ky{end} \f{Ts}   
+\\ %[-35ex]
+%
+
+\bit
+\itt{T1}{G\Incl \f{Ini}(\<E,V\>)}{\f{Ts}(\<E,V\>)\Incl \f h(\f z(G),G)}
+\itteqc{}{\cp(\f{Ts}(\<E,V\>))}{\cp(\f{Ini}(\<E,V\>))+\cp(\f z(G)) + \cp(\f h(Z,G))}
+\itcoe{}{}{{\rm where\ }G=\f{Ini}(\<E,V\>),\ Z=\f z(G)}
+\eit
+$\f{h}(Z:Set(\srt V), G:\srt G) \ret Seq(\srt V)$
+% with $Z$ -- the current (sub)set of 0-vertices, i.e., 
+where $x\in Z\Iff \<x,\es\>\in G$. 
+\bit
+\itt{h1}{}{\f h(\es,G)\Incl\estr}
+\itt{h2}{z\Incl\ch.Z}{\f h(Z,G)\Incl \f h(\f u(\rem Zz,\rem G{\<z,\es\>},z))\app z}
+\itteq{h?}{\cp(\f h(Z,G))}{\ ?\ \sz Z*\cp(\f u(Z,G,z))\ {\rm -\ dynamic\ }Z\ ?} \\[-1ex]
+\eit
+%
+$\f u:Set(\srt V)\times \srt G\times \srt V\into \<Set(\srt V),\srt G\>
+$ removes $zx$ from $G$ and updates the 0-vertices: \\[1ex]
+%
+$\begin{array}{rccl@{\ \ \impl\ \ }l}
+{\bf u1.} &&& & {\f u(Z,\es,z)\Incl \<Z,\es\>} \\[.5ex]
+{\bf u2.} & \<x,P\>\Incl\ch.G & z\in P & \{z\}\Eq P  &  \f u(Z,G,z) \Incl
+       \f u(Z, \rem G{\<x,P\>},z) +\<x,\_\> \\[1ex]
+{\bf u3.} & \into & \into & \{z\}\notEq P  & \f u(Z,G,z) \Incl 
+       \f u(Z,\rem G{\<x,P\>},z) +\<\_,\<x,\rem Pz\>\>\\[1ex]
+{\bf u4.} & \into  & z\not\in P & & \f u(Z,G,z)\Incl 
+      \f u(Z,\rem G{\<x,P\>}, z) +\<\_,\<x,P\>\> \\[.5ex]
+&\multicolumn{4}{l}{[{\rm The\ initial\ call\ is\ for}: Z=\f z(G), z\in Z.]} \\[.5ex] \hline
+{\bf u?} &\multicolumn{3}{r@{\ \ \impl\ \ }}{\f u(Z,G,z)=\<Z',G'\>} & Z'=\f z(G')\ \ 
+     \&\ \ G'=G\setminus (z\times V)\setminus (Z'\times V) \\[.5ex]
+  &\multicolumn{4}{r}{\cp(\f u(Z,G,z))=\sz G*(\cp(\in P)+\cp(\rem G{}))} \\[-1ex] \ & \ 
+\end{array}
+$
+
+\newpage{\f{Tsb}}
+\hspace*{23em}\parbox{10cm}{
+$\f{Tsb}$ \\ %\ (\<E;V\>:\srt D) \ret Seq(\srt V)$ \\
+\ina $G:= \f{Ini}(E,V)$ ; $Z:= \f{z}(G)$ ; $S:= \estr$ ;\\
+\ina\ky{while} $Z\not=\es$ \\
+\inb $z:= \ch.Z$ ; \\ \inb $\rem Zz$ ; \\ \inb $\add Sz$ ; \\
+\inb\ky{for each} vertex $x\in G$ \\
+\inc\ky{if} $z\in x.\f{Fr}$ \ky{then} $\rem{x.\f{Fr}}z$ ; \\
+  \inc\rule{1cm}{0.15cm} \\
+\inb\ky{end} for ; \\
+\inb\fbox{\parbox{5.2cm}{
+ $Z:=\es$ ; \\
+ \ky{for each} $v\in G$ \\
+   \ina\ky{if} $v.\f{Fr}=\es$ \ky{then} $\add Zv$ ; $\rem Gv$ ; \\
+ \ky{end} for ; }} \\
+\ina\ky{end} while ; \\
+\ina\ky{return} $S$ ; %\\ \ky{end} \f{Tsb}  
+ }
+
+\newpage
+
+\begin{itemize}
+\item $x\in S\Iff x\Incl \ch.S$ 
+\item Termination ... 
+\item
+\(\begin{array}[t]{rrcl@{\hspace*{4em}}rrcl}
+\estr: & & \into & Seq(X) & |\_|: & Seq(X) & \into & Set(X) \\
+\app\ : & Seq(X)\times X & \into & Seq(X) 
+      & \aft{\_}{\_}{\_}: & X\times X\times Seq(X) & \into & \bool  \\
+\in\ : & X \times Seq(X) & \into & \bool  & %\f{ft}: & X\times Seq(X) & \into & Seq(X) 
+\end{array}\)\[
+\begin{array}{rrcl@{\ \ \ \ }l}
+a) & \aft zx\estr & \Eq & \false  
+    & Q=\estr\app x_{n+1}\app x_n\app...\app x_2\app x_1: \aft{x_i}{x_{i+1}}Q\\
+b) & \aft zx{S\app x} & \Eq & \false \\
+c) & \aft zx{S\app z} & \Eq & y\in|S| \\
+d) & \aft zx{S\app y} & \Eq & \aft zxS & (x\notEq y, x\notEq z, y\notEq z)
+%% {\f{ft}(x,\estr)} & \Eq & \estr \\
+%% {\f{ft}(x, S\app x)} & \Eq & S \\
+%% {\f{ft}(x, S\app y)} & \Eq & \f{ft}(x,S)\\[.5ex]
+%% {\aft xyS} & \Eq & y\in|\f{ft}(x,S)| \hspace*{4em}
+%\\ \ \\ & \multicolumn{3}{l}{(x\notEq y, x\notEq z, y\notEq z)}
+\end{array}
+\]
+\item To show things, define (let $D=\<E,V\>,\ G\Incl \f{Ini}(D)$): 
+ \begin{itemize}
+\item 
+$\f{Fr}:\srt V\times\srt G \ret Set(\srt V)$\hfill %  \\[1ex]
+$\f{Fr}(x,G)=P \Iff \<x,P\>\in G$ -- $\f{Fr}(x,\f{Ini}(E,V))=\f{Fr}(E,x)$
+ % which we write as $G(x)=P$.
+\item $\f{Tc}:\srt V\times\srt G \ret Set(\srt V)$\hfill   -- 
+$\f{Tc}(x,G)$ all path-starts to $x$ in $G$ % from which $x$ is reachable:
+\bit
+\itt{Tc1}{}{\f{Tc}(x, G)\Incl \f t(x,\f{Fr}(x,G),G)}
+\itt{Tc2}{P\Eq\es}{\f{t}(x,P, G)\Incl \es}
+\itte{Tc3}{y\Incl \ch.P}{\f{t}(x,P, G)\Incl \f{t}(x,\rem Py,G)\ \cup\ \f{t}(y,\f{Fr}(y),G)\ \cup\ y}
+\eit
+\item 
+ $\f{Pth}:\srt V\times \srt V\times\srt G \ret \bool$\hfill  -- $\f{Pth}(x,y,G)$ 
+ if $G$ contains a path from $x$ to $y$
+\bit
+\itte{Pth}{}{\f{Pth}(x,y,G)\Incl x\in \f{Tc}(y,G)}
+\eit
+\item 
+$\f{Pth}:\srt V\times\srt V\times\srt D \ret \bool$\hfill %\\[1ex]  
+  $\f{Pth}(x,y,D)\Incl \f{Pth}(x,y,\f{Ini}(D))$
+\end{itemize}
+\end{itemize}
+%
+%Show: \\
+{\bf A)} Some  lemmas: 
+ \begin{enumerate}
+  \item $x,y\in|S| \impl \aft xyS \lor \aft yxS$
+  \item\label{zfr} 
+     $z\in \f z(G)\impl \f{Fr}(z,G)\Eq\es$\ \ $(\f z(G)=\{z:\<z,\es\>\in G\})$
+  \item $\f{Pth}(x,y,G)\Eq x\in\f{Tc}(y,G)$,\hfill
+ $\neg\f{Pth}(x,y,G)\Eq x\not\in\f{Tc}(y,G)$
+\item 
+$x\in \f z(G)\ \impl\ \neg \f{Pth}(z,x,G)$\ \ -- contrapositively, for some $z$ \\
+\[\begin{array}{r@{\ \ \impl\ \ }l@{\ \ \ }l}
+\f{Pth}(z,x,G) & z\in \f{Tc}(x,G) & {\bf Pth.} \\[1ex]
+       & z\in \f{t}(x,\f{Fr}(x,G),G) & {\bf Tc1.} \\[1ex]
+       & \f{Fr}(x,G)\notEq\es & {\bf Tc2.} \\[1ex]
+       & x\not\in \f z(G) & \ref{zfr}
+\end{array}
+\]
+ \end{enumerate}
+{\bf B)} Main algorithm:
+%\begin{enumerate} \item 
+1. $\aft zx{\f{Ts}(D)}\impl \neg \f{Pth}(x,z,D)$ and 
+ %$\f{Pth}(x,y,D) \impl  \aft yx{\f{Ts}(D)}$ 
+%\item 
+2. $|\f{Ts}(E,V)|  =  V $
+%\end{enumerate}}
+\\[1ex]
+1. By induction on the length $n$ of the prefix of $Q=\f{Ts}(D)$ in which 
+  $x$ and $y$ occur!  -- smth. WRONG \\
+\fbox{$n=2$} with both $x,z\in|Q|$ and $\aft zxQ$, i.e., $Q=\estr\app x\app z$ and $Z\Incl \f z(G)$
+\[\estr\app x\app z =\f{Ts}(D) \by\Incl{T1} \f h(\f Z,G) \by\Incl{h2} \f h(\f u(\rem Zz,\rem G{\<z,\es\>},z))\app z
+\by\impl{\who h2} z\in Z = \f z(G) \by\impl{4.}\neg\f{Pth}(z,x,G) \]
+%
+\fbox{$n+1$} i.e., $Q=S\app y
+ = \f{Ts}(D) \by\Incl{T1} \f h(Z,G) \by\Incl{h2} \f h(\f U(...))\app y$, 
+and $|\f h(\f u(...))|=n$. If 
+
+a) $y=z$, then $z\in Z=\f z(G)\by\impl 4 \neg\f{Pth}(z,x,G)$ 
+
+b) $y=x \by\impl{b} \neg\aft zx{S\app x}$ 
+
+c) $y\not=x, y\not=z \by\impl{d}\aft zxS$ and by IH (?) $\neg\f{Pth}(z,x,G)$ ?
+
+
+\newpage
+\section{Conclusions?}
+\begin{itemize}
+\item LOGIC: since $\Incl$ is $:=$, its LHSs have 
+ \begin{itemize}
+  \item variables $:x\Incl\ldots z\Incl\ldots\impl\ldots$, or
+  \item function to be computed $:\ldots \impl F(x)\Incl\ldots$ (-- with variables?)
+ \end{itemize}
+\item Generatedness -- any universal assumption of? Shouldn't all stuff involve explicit
+distinction destructors vs. constructors -- Ds for observation, Cs for construction? 
+E.g., \begin{itemize}
+\item[{\bf Z3.}] $x\Incl \ch.V(G),\ I(G,x)\Eq 0\impl Z(G)\Incl Z(RemV(G,x))\cup x$
+\item[{\bf U3.}] $ zy\Incl \ch.E(G),\ z\notEq x\impl U(G,x)\Incl 
+   AddE(U(RemE(G, zy)),\  zy)$
+  \end{itemize}
+\item Isn't it just 
+ \begin{itemize}\MyLPar
+ \item recursion (show it?): {\tt if} and {\tt while}?
+ \item {\tt Prolog}?
+ \item rewriting? (What are the differences?)
+ \item constructive specifications? (We need not be executable?)
+ \item algorithmic logic (dynamic l., etc.)
+ \end{itemize}
+\end{itemize}
+\end{document}

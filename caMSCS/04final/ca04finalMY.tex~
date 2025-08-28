@@ -1,0 +1,3265 @@
+%%%%%%%%%%%%%% LaTeX reports some errors, also when formatting 
+%%%%%%%%%%%%%% some Xy-pic figures - just type r and let it continue
+%%%%%%%%%%%%%%
+
+%\documentclass{article}
+\documentclass{mscs}
+\usepackage{amssymb}
+\usepackage{latexsym}
+
+\input defs
+
+\makeatletter
+\input a4wide.tex
+\makeatother
+
+\input xypic
+\xyoption{graph}
+\xyoption{frame}
+
+\title[Computation Algebras]{Computation Algebras}
+\author{{Micha{\l} Walicki\thanks{The authors gratefully acknowledge the financial support received
+from the Norwegian Research Council (NFR).}\\ 
+\small University of Bergen\\[-.5ex] 
+\small Department of Informatics\\[-.5ex] 
+\small 5020 Bergen, Norway\\[-.5ex] 
+\small michal@ii.uib.no}
+\and {Magne Haveraaen$^*$\\ 
+\small University of Bergen\\[-.5ex] 
+\small Department of Informatics\\[-.5ex]  
+\small 5020 Bergen, Norway\\[-.5ex] 
+\small magne@ii.uib.no}
+\and {Sigurd Meldal$^*$\\ 
+\small CalPoly\\[-.5ex] 
+\small Computer Science Department\\[-.5ex] 
+\small San Luis Obispo, CA 93407, USA\\[-.5ex] 
+\small sigurd@calpoly.edu}
+} 
+
+\date{{}} 
+
+\begin{document}
+\maketitle 
+
+\begin{abstract}
+\noindent
+We introduce a framework which
+generalizes algebraic specifications by equipping algebras
+with descriptions of {\em evaluation strategies\/}. The resulting abstract
+mathematical description  allows one to model the
+{\em implementation\/} of algebras on various platforms in a way independent
+of the function-oriented specifications.
+
+We are studying
+algebras with associated data dependencies.  The
+latter provide separate means for modeling computational aspects apart from
+the functional specifications captured by an algebra.  
+The formalization of evaluation strategies 
+(1) introduces increased portability among different hardware
+platforms, and (2) allows a potential increase in execution
+efficiency, since a chosen evaluation strategy may be tailored to a
+particular platform. We present the development process where
+algebraic specifications are equipped with data dependencies, the
+latter are refined and, finally, mapped to actual hardware architectures.
+\end{abstract}
+
+\section{Introduction}
+The creed of algebraic specification is {\em abstraction}: one models
+programs as algebras, thus abstracting from the operational details and
+focusing on the abstract functionality of the system.  A single such
+specification may be implemented on different platforms.  The
+implementation design, as well as the particular platform on which it is
+realized, need not be the primary issues.  It is one of the central tenets
+of the algebraic specification that the designer may initially model his
+system at a high level of abstraction without involving himself in low
+level implementation details, only introducing implementation concerns as
+appropriate, much later in the development process.  At some point during
+the development process the choice of the set of constructors, the
+computation strategy, the target language, and, perhaps, the hardware
+platform begin to play a more important role. In particular, because of
+its intentional abstraction from the operational aspects, the standard
+algebraic approach to specification has difficulties when faced with the
+possibilities of parallel implementations.  It is at this point that our
+proposed method comes into successful play.
+
+We propose a framework of {\em computation algebras\/} addressing the
+issue of how to incorporate computation-related aspects within the
+framework of classical algebraic semantics.  
+%%%%% Added
+Computation algebras allow the developer to transform abstract requirements
+(expressed in an algebraic specification) into designs by adding
+implementation-specific information concerning the order and dependency
+between various subcomputations. 
+%%%%% end Added
+Though occasionally tempting,
+we would like to avoid rebuilding the theory from scratch -- we want to
+take advantage of the existing theoretical and tool-oriented results of
+algebraic specifications.  Our aim is only to {\em extend\/} the classical
+framework with  constructs which in an algebraic way addresses the choice
+of computational strategies.
+
+This is achieved by associating additional structures, {\em data
+dependency} graphs, with standard algebras.  The data depency graphs carry
+information about evaluation strategies for the operations of the algebras.
+We have to warn the reader that our data dependencies are not exactly
+what is meant by that in the literature, especially on imperative 
+programs, e.g.
+\cite{MW83,FOW,KK}.
+We proceed from the algebraic, that is, functional descriptions and 
+dependencies
+relate functional terms and not program statements.
+In particular, a variable
+is only a (sub)term denoting a specific value -- it is not an actual program
+variable of a program capable of storing various values at different points
+of computation.
+
+We   mainly address the semantic issues of this approach, without
+entering into a discussion of possible specification {\em formalisms\/}.
+Thus we will assume that data dependencies are given along with algebras,
+and study their interaction.  Since data dependencies are standard
+algebraic objects we expect that they can easily be described in a standard
+algebraic fashion.  (We intentionally refrain from including
+an analysis of control dependencies -- unlike data dependencies, they
+seem to be inherent features of actual programs rather than of abstract
+data types.)
+  In some cases data dependencies may be recovered directly from
+an algebraic specification and section~\ref{se:cr} describes a way to do it.
+
+By allowing computational structures into the semantics of a specification
+we provide the means  not only for development of programs, but for the
+development of {\em efficient\/} programs.  We will show that data
+dependencies provide such a means, enabling one to assess the time/space
+resources required and to pursue optimization strategies such as syntactic
+and semantic memoisation.  Above all, the computational structures carry
+the information necessary to achieve {\em parallel\/} implementations:
+the identification of dependencies among various parts of a computation
+enables us to determine its possible parallel distributions.  In addition to
+algebras and data dependencies, we will introduce a representation
+of (parallel) machine architectures and show how mappings from dependencies
+to architectures may be utilized to yield parallel implementations.  The
+framework enables us then to {\em port the implementations of computation
+algebras\/} along the morphisms between various hardware architectures.  It
+should be emphasized, however, that we are {\em not} concerned with a
+general theory of concurrency.  In this context, we view concurrency
+merely as a means of increasing the efficiency of the implementation.
+
+Section \ref{se:defs} introduces the basic notions of computation
+algebras and their implementations and illustrates them on a simple
+example. It also gives a general view of the envisaged development process
+using computation algebras.
+Section~\ref{se:cr} addresses the issue of constructing dependencies 
+for a function
+defined by a set of recurrence equations over a given algebra.
+It  illustrates the ideas of the
+programming language {\sc Sapphire} developed at the University of Bergen
+for which computation algebras provide the semantic framework.
+
+Section~\ref{se:difSign} refines the picture of development sketched in
+section~\ref{se:defs} -- its results suggest a more
+specific  metodology for development using computation
+algebras. Section~\ref{se:nd} shows how nondeterminism can be included into
+the proposed framework. 
+Section \ref{se:conclusion} summarizes the results and indicates some
+  directions for future work.
+
+The paper focuses on the description of the {\em concepts\/}; its technical
+content is limited to definitions and a few results.
+It gives an improved version of the results from \cite{WHM96}.
+The more technical aspects  assume some elementary knowledge of the category
+theory (e.g., \cite{BW90,RB88,McL}) with particular emphasis on fibrations.
+
+\section{The Framework of Computation Algebras}\label{se:defs}
+This section introduces the framework of computation algebras. We
+define first some basic notions in Section \ref{sub:basic}, then data dependencies in
+Section \ref{sub:dd},
+computation algebras in Section \ref{sub:ca}, and their implementation in
+Section \ref{sub:imp}. Section~\ref{sub:dev} summarizes these pieces presenting the
+view of the development process using computation algebras.
+%
+\subsection{Signatures, Algebras and Graphs}\label{sub:basic}
+
+We use the standard notion of a signature $\Sigma$ as a pair
+$\<\Sorts,\Funcs\>$ of sort and operation symbols.  In Section
+\ref{sub:difSign} we will use the category $\Sig$ with signatures as
+objects and {\em injective} signature morphisms.
+
+  For a signature $\Sigma$, $\AlgS$ will denote a category of
+  $\Sigma$-algebras.  It is ``{\em a} category'' because we do not make any
+  assumptions as to what the algebras are, except that they are objects
+  where one can interpret the $\Sigma$-terms.  One may think of standard
+  $\Sigma$-algebras with $\Sigma$-homomorphisms defined in the usual
+  way.  But one may as well think of the category of multiagebras with
+  various multihomomorphisms, power algebras, unified algebras, etc.  We
+  will define various notions relatively to an arbitrary full subcategory
+  $\Aclass\subseteq\AlgS$.\footnote{Using the {\Cat {different font}} for
+  categories, we hope that the use of the subset symbol $\subseteq$ also for
+  subcategory won't create any confusion.}
+
+The primary objects of our
+interest will be {\em simple directed acyclic graphs} which
+\begin{itemize}\MyLPar
+\item have at most one edge between any pair of nodes, and
+\item have no isolated nodes (each node has at least one incident edge).
+\end{itemize}
+We call them {\em simple DAGs}.
+We will, however, need a more general notion of a mapping of such graphs than
+a simple graph homomorphism.
+Mapping an edge of the source graph to a {\em path} in the target graph
+corresponds to splitting the computation into several steps. On the other hand,
+mapping an edge to a {\em set} of edges (or paths) corresponds to
+distributing the computation.
+
+To define this concept of a morphism, we introduce three categories:
+$\DAG$ -- of DAGs, $\DAG^\ecomp$ -- of path closures, and
+$\pat\DAG$ -- of distributed paths (or just sets of paths). The 
+latter two categories are
+used merely for the purpose of defining more general morphisms between
+$\DAG$-objects. An object in  $\DAG^\ecomp$ contains, in addition to the
+underlying graph $G$, also all the paths over $G$ -- we will want to map an
+edge of one graph  onto a path in a target graph.\footnote{The symbol
+`$\ecomp$' is used for (sequential) composition in diagrammatic order -- not
+for functional composition.}
+ An object in
+$\pat\DAG$ contains, in addition, ``parallel composition'' of
+paths which, too, will be possible images of edges.
+%%%% Added
+The construction described in the rest of this subsection starts with 
+the category $\DAG$: the free functor $F^\ecomp$
+adds freely to each object all the paths and then, the free functor
+$\patt F$ adds all the sets of paths. The resulting composition $\pat
+F=\Comp{F^\ecomp}{\patt F}$ has left adjoint and our morphisms are Kleisli
+morphisms obtained from this adjunction.
+
+
+\begin{DEFINITION}{}\label{de:Gr}
+$\DAG$ is the category of {\em directed acyclic graphs} where
+\begin{enumerate}\MyLPar
+\item objects are {\em DAGs} -- algebras over signature
+$\CSig= \<I, E; s,t:E\into I\>$, where
+\begin{itemize}\MyLPar
+\item $I$ is a set of nodes and $E$ a set of
+edges;
+\item $s/t$ return the source/target node of an edge;
+\item $E$ viewed as a relation ($\subseteq I\times I$) is acyclic;
+\item there are no isolated nodes: for each node $v$, there is an edge $e$
+with $s(e)=v$ or $t(e)=v$.
+\end{itemize}
+\item morphisms are $\CSig$-homomorphisms. \vspace*{-4.5ex}
+\end{enumerate}
+\end{DEFINITION}
+\noindent
+We will often write $i\ddep j$ to indicate the existence of an edge 
+$e$ from $i$
+to $j$ (i.e., with $s(e)=i$ and $t(e)=j$). A $\CSig$-algebra is a DAG 
+(an object of \DAG)
+if the transitive closure $\tc{\ddep}$ of this relation is irreflexive.
+
+A DAG may have several edges between a pair of nodes. Of particular
+importance to us will be {\em simple} DAGs -- the ones with at most one
+edge between a pair of nodes.
+\begin{DEFINITION}
+A {\em simple DAG} is a $DAG$ satisfying:\ 
+$s(e_1)=s(e_2)\land t(e_1)=t(e_2) \impl e_1=e_2$;
+\end{DEFINITION} \vspace*{-4ex}
+
+\begin{DEFINITION}{}\label{de:pathcl}
+$\DAG^\ecomp $ is the category of {\em path closures} of DAGs where
+\begin{enumerate}\MyLPar
+\item objects are  algebras over signature $\CSig^\ecomp =\CSig\cup
+\{\_\ecomp \_ :E\times E\into E\}$ whose $\CSig$-reducts belong to
+$\DAG$ -- for any $P\in\Obj{\DAG^\ecomp}:P|_\CSig\in\Obj{\DAG}$.
+$\_\ecomp \_$ is a partial operation of path formation
+defined for any edges $e_1, e_2$ with $t(e_1)=s(e_2)$, and satisfying
+\begin{itemize}\MyLPar
+\item $e_1\ecomp (e_2\ecomp e_3)= (e_1\ecomp e_2)\ecomp e_3$
+\item $s(e_1\ecomp e_2)=s(e_1)$ and  $t(e_1\ecomp e_2)=t(e_2)$;
+\end{itemize}
+\item morphisms are $\CSig^\ecomp$-homomorphisms.
+\end{enumerate} \vspace*{-4.5ex}
+\end{DEFINITION}
+
+\newpage
+\noindent
+Thus, a $\DAG^\ecomp$-morphism $f:G\into H$  maps an edge $\dep xy$ from
+$G$ onto en edge from $f(x)$ to $f(y)$ in $H$ -- this latter edge, however,
+may correspond to a path obtained by composition of several edges in $H$.
+The following fact is easy to verify:
+\begin{CLAIM}\label{cl:adj1}
+Let
+\begin{itemize}\MyLPar
+\item $F^\ecomp:\DAG\into\DAG^\ecomp$ be the free functor sending a
+$G\in\Obj{\DAG}$ onto its {\em path closure} $G^\ecomp$ by adding freely
+all possible compositions of edges from $G$; for a $\DAG$-morphisms $h$, we
+let $F^\ecomp(h)=h$~\footnote{Strictly speaking, $F^\ecomp(h)$ is $h$ extended to
+paths: $F^\ecomp(h)(e_1\ecomp e_2) = h(e_1)\ecomp h(e_2)$.}
+\item
+$U^\ecomp:\DAG^\ecomp\into \DAG$ be the forgetful functor sending a 
+graph $G^\ecomp$
+onto its $\CSig$-reduct $G^\ecomp|_\CSig$;  for a 
+$\DAG^\ecomp$-morphisms $h:U^\ecomp(h)=h$.
+\end{itemize}
+There is an adjunction
+$F^\ecomp\adj U^\ecomp$ with the unit being the inclusion of the 
+source graph into
+its path closure.
+\end{CLAIM}
+%
+The objects in the next category will allow two nodes to be connected not
+only by paths but also by all finite, non-empty sets of paths.
+\begin{DEFINITION}{}\label{de:distpath}
+$\pat\DAG$ is the category of {\em distributed} path closures of DAGs where
+\begin{enumerate}\MyLPar
+\item objects are  algebras over signature $\pat\CSig=\CSig^\ecomp \cup
+\{\_\oplus\_ :E\times E\into E\}$ whose $\CSig^\ecomp$-reducts belong to
+$\DAG^\ecomp$ -- for any 
+$P\in\Obj{\pat\DAG}:P|_{\CSig^{\ecomp}}\in\Obj{\DAG^\ecomp}$.
+$\_\oplus\_$ is a partial operation of parallel composition
+  defined for any edges $e_1, e_2$ with $s(e_1)=s(e_2)$
+and $t(e_1)=t(e_2)$, which is associative, commutative and idempotent
+\begin{itemize}\MyLPar
+\item $e_1\oplus(e_2\oplus e_3)=(e_1\oplus e_2)\oplus e_3$
+\item $e_1\oplus e_2=e_2\oplus e_1$
+\item $e\oplus e=e$
+\end{itemize}
+composition distributes over $\oplus$:
+\begin{itemize}\MyLPar
+\item
+$e_1\ecomp (e_2\oplus e_3)= (e_1\ecomp  e_2)\oplus(e_1\ecomp e_3)$
+\item
+$(e_1\oplus e_2)\ecomp e_3= (e_1\ecomp e_3)\oplus (e_2\ecomp e_3)$;
+\end{itemize}
+and since $\oplus$ is defined only for edges with the same source and target:
+\begin{itemize}\MyLPar
+\item $s(e_1\oplus e_2)=s(e_1)=s(e_2)$ and 
+$t(e_1\oplus e_2)=t(e_1)=t(e_2)$;
+\end{itemize}
+\item morphisms are $\pat\CSig$-homomorphisms
+\end{enumerate} \vspace*{-4.5ex}
+\end{DEFINITION}
+
+\noindent
+The first three axioms allow formation of sets of edges (which here may be
+paths from the ``underlying'' DAG); the next two ensure that composition of
+sets of paths corresponds to forming sets of composite paths.
+Canonically, an edge $\dep xy$ is a non-empty set of edges (paths in the
+``underlying'' DAG) from $x$ to $y$.
+Hence, a morphism $f:G\into H$ maps en edge $\dep xy$ from $G$ onto a 
+non-empty set
+of paths between $f(x)$ and $f(y)$ in $H$.
+Again, we have an easy fact:
+\begin{CLAIM}\label{cl:adj2}
+Let
+\begin{itemize}\MyLPar
+\item $\patt F:\DAG^\ecomp\into\pat\DAG$ be the free functor sending a
+$G^\ecomp\in\Obj{\DAG^\ecomp}$ onto  $\pat G\in\Obj{\pat{\DAG}}$ by 
+adding freely
+all possible parallel ($\oplus$) compositions of edges from 
+$G^\ecomp$ subject to the
+restrictions and axioms from the above Definition;
+\item
+$\patt U:\pat\DAG\into\DAG^\ecomp$ be the forgetful functor  sending 
+a  graph $\pat G$
+onto its $\CSig^\ecomp$-reduct $\pat G|_{\CSig^{\ecomp}}$;
+\item both functors map morphisms onto identical morphisms in their
+respective target categories.
+\end{itemize}
+There is an adjunction $\patt F\adj \patt U$ with the unit being the
+inclusion of the source graph into its closure under parallel composition.
+\end{CLAIM}
+Now define two functors
+\Func{\pat F = \Comp{F^\ecomp}{\patt F}:\DAG\into\pat\DAG\ \ {\rm
+and}\ \ \pat U = \Comp{\patt U}{U^\ecomp}:\pat\DAG\into\DAG.}
+The two adjunctions
+  from Propositions~\ref{cl:adj1} and \ref{cl:adj2} give an adjunction 
+$\pat F\adj \pat U$. The
+morphisms we are looking for can be now defined as
+Kleisli morphisms between objects of $\DAG$ induced by this last adjunction.
+The resulting category is given by: the objects are simple DAGs, a
+morphism $f:G\into H$ is a \DAG-morphisms $f:G\into \pat U({\pat
+F}(H))$. Morphisms are composed pointwise: for $f:A\into B$ and $g:B\into C$,
+$f$ maps an edge $e=\depo Axy$ onto a set of paths 
+$f(e)=\{p_1,p_2...p_n\}$ from
+$f(x)$ to $f(y)$ in $B$. Then, $g$ maps each path $p_i$ onto a set of
+paths $g(p_i)=\{r_{i1},r_{i2}...r_{ik}\}$ from $g(f(x))$ to $g(f(y))$ in $C$,
+obtained by mapping each edge of $p_i$ onto a set of paths and composing
+these paths along the $p_i$. The composition is then
+$g(f(e))=\bigcup_{p_{i}\in f(e)}g(p_i)$. Formally
+%
+\begin{DEFINITION}{}\label{de:clgr}
+The category $\Gr$ is the full subcategory -- with simple DAGs as objects
+-- of the Kleisli category induced by the adjunction
+$\pat F\adj \pat U$. \footnote{This concise formulation expresses what we
+have described above. For the construction of Kleisli category see 
+e.g. \cite{McL}.}
+\end{DEFINITION}
+\noindent
+Since we will be working with the category \Gr,
+in the sequel, we will use the notation $\pat G$ -- where $G\in\Obj{\Gr}$ --
+as an abbreviation for $\pat U(\pat F(G))$.
+%
+\begin{EXAMPLE}\label{ex:morGr}
+Three examples of \Gr-morphisms are given in Figures~\ref{fi:Demb} and
+\ref{fi:exCCC}. The former maps edges onto paths  while the latter
+maps an edge onto distributed paths.
+\end{EXAMPLE} \vspace*{-3ex}
+%
+
+\begin{figure}[hbt]
+\spcol{-.5}
+\sprow{-1}
+\def\objectstyle{\scriptstyle}
+\def	\c#1{
+	\save \go[r]\merge\go+C\merge\go="c#1"
+	\restore}
+\hspace*{4em}
+\diagram %compileto{Demb}
+4 & & & & & \bullet & \bullet
+    &&&& 4  & \bullet \\
+& 3\ulto\morphism\solid{}{}[u] &&&& \bullet\uto\urto & \bullet\uto\ulto 
+    &&&& \bullet \uto \xdotted[ur] & 3 \morphism\solid{}{}[u] \ulto \\
+2 \uuto \urto & & & & & \bullet \uto \urto & \bullet \uto \ulto  
+   &&&& 2 \morphism\solid{}{}[u] \urto & \bullet \uto \xdotted[ul] \\
+& 1 \ulto \uuto	&&&& \bullet \uto \urto & \bullet \uto \ulto
+   &&&& \circ \udotted \xdotted[ur] & 1 \morphism\solid{}{}[u] \ulto \\
+ & D & & & & & W 
+      & & & & f:D \rto & W \\
+\enddiagram
+\caption{A \Gr-morphism from $D$ to $W$.}\label{fi:Demb}
+\end{figure}
+
+\begin{figure}[hbt]
+\spcol{-0.5}
+\sprow{-1}
+\def\objectstyle{\scriptstyle}
+\hspace*{3em} \diagram %compileto{RefA}
+2 && &  \bullet &  &&&  2 & &&& 2 \\
+   && \bullet \urto && \bullet \ulto  && \bullet\urto && \bullet\ulto
+     && \bullet\urto && \circ \xdotted[ul] \\
+   && \bullet \uto && \bullet \uto  && \bullet \uto && \bullet \uto
+     && \bullet \uto && \circ \xdotted[u] \\
+1\xto[uuu] && & \bullet \ulto \urto \xto[uuu] &&& & 1 \ulto \urto 
+\xdotted[uuu]
+    &&& & 1 \ulto \xto[uuu] \xdotted[ur] \\
+G && & H & &&  g:G\rto & H & && h:G\rto & H
+\enddiagram
+{\small \caption{Two $\Gr$-morphisms from $G$ to $H$.}\label{fi:exCCC}}
+\end{figure} \vspace*{-2ex}
+
+\noindent
+A \Gr-morphism $h:A\into B$ expresses the fact that $B$ can {\em
+simulate} $A$ -- edges of $A$ are represented in $B$ not necessarily as
+edges, but possibly as paths, or even {\em sets\/} of paths. $B$ may 
+also contain
+additional edges not in the image of $h$.
+%
+\begin{SREMARK}{Remark.}
+  $\DAG$-embedding of $A$ into $B$ is a special case of a $\Gr$-morphism
+$A\into B$. One
+might expect that a surjective (on the nodes) $\DAG$-morphism $B\into A$
+would yield a simpler notion.
+However, it would require our graphs to be reflexive (this is not a big
+problem) and,
+more importantly, would exclude many cases where $B$ is a richer structure
+than $A$.
+For instance, there is no surjective $\DAG$-morphism from
+$B= \spcol{-1.2}\sprow{-1.6}
+\def\objectstyle{\scriptstyle}\def\labelstyle{\scriptstyle}
+\diagramcompileto{AA}
+& \bullet \ddto \dlto \\ \bullet \drto \\ & \bullet
+\enddiagram $
+onto
+$A=\spcol{-1.2}\sprow{-1.8}
+\def\objectstyle{\scriptstyle}\def\labelstyle{\scriptstyle}
+\diagramcompileto{BB}
+\bullet \rto & \bullet \rto & \bullet
+\enddiagram $.
+But we would like to say that $B$ does reflect the
+edges of $A$ (and introduces
+some more) -- and so there is a $\Gr$-morphism $A\into B$.
+\end{SREMARK}
+
+\noindent
+ From now on, we will treat ``graph'' as a synonym for ``DAG'' since
+DAGs are the only graphs we are going to deal with.
+Also, our graphs are primarily connected {\em simple} DAGs, in which case we
+will often identify a graph $G$ and its edge relation $E^G$, written 
+also $\ddepo G$.
+Then, we say that $G$ is {\em well-founded\/} when the relation 
+$\ddepo G$ is, and
+denote by $\tc G$ the transitive closure $\tc{\ddepo G}$.
+Notice that, in general, $G^\ecomp\not=\ \tc G\not=\pat G$. The following
+example (suggested by an anonymous referee) illustrates the difference between the three:
+\[
+\xymatrix@C=0.15cm@R=0.4cm{
+   &&& \bullet &&  &&         
+   &&& \bullet &&  &&
+   &&& \bullet &&  &&
+   &&& \bullet &&&  && \\
+G= & \bullet \ar[rru] &&&& \bullet \ar[llu] && 
+   G^\ecomp= & \bullet \ar[rru] &&&& \bullet \ar[llu] &&
+   \pat{G} = & \bullet \ar[rru] &&&& \bullet \ar[llu] && 
+   \tc{G} = & \bullet \ar[rru] &&&& \bullet \ar[llu] && \\
+& && \bullet \ar[llu]\ar[rru] &&  && 
+   \Drop{F^\ecomp(G)} & && \bullet \ar[llu]\ar[rru] \ar@<-3pt>[uu] \ar@<3pt>[uu]&&  && 
+   \Drop{\patt F(F^\ecomp(G))}& && \bullet \ar[llu]\ar[rru] \ar@<-3pt>[uu] \ar@<3pt>[uu] \ar[uu] &&  && 
+   & && \bullet \ar[llu]\ar[rru] \ar[uu] &&  && 
+}
+\]
+Occasionally, we may use the following terms:
+\begin{itemize}\MyLPar
+\item A graph is {\em sequential} if $\tc\ddep$ is a total ordering of the
+nodes.
+\item A {\em partitioning} of a graph is a partitioning of the set of nodes
+${I = \bigcup_{k=1}^{k=n} I_k}$ with $1 < n < \omega$ such
+that each $I_k$ is sequential.
+\item An {\em st-graph} (``space-time'') is a simple DAG with nodes indexed by
+pairs $\<s,t\>\in
+  S\times \Nat$, such that:
+  \begin{enumerate}\MyLPar
+   \item $\forall s,t: \dep {\<s,t\>}{\<s,t+1\>}$~;
+   \item $\forall s, s', t, t': \dep{\<s,t\>}{\<s',t'\>} \impl t'=t+1$~;
+   \item $\exists k\in\Nat_+: \forall s, s', t: \dep{\<s,t\>}{\<s',t+1\>} \iff
+\dep{\<s,t+k\>}{\<s',t+k+1\>}$.
+  \end{enumerate}
+\end{itemize}
+
+\noindent
+The $st$-graphs are singled out because they will be used as the
+{\bf s}pace-{\bf t}ime representation of hardware architectures
+\cite{MW83}.  The $s$ component identifies a processor and the $t$
+component a time-point during a computation.  Edges represent possible
+communications.  The first condition says that each processor performs a
+sequential computation with the possibility of maintaining its local data
+from one step of the computation to the next one.  The second condition
+requires all elementary communications to happen in a single time-step.
+The last condition says that the communication topology is fixed throughout
+the whole computation, i.e., the graph is actually a repetition of the
+pattern of the $k$-steps communications (for some fixed $k>0$).
+
+We note the following characterization:
+%
+\begin{CLAIM}\label{pr:mono}
+Let $k:A\into B \in \Mor{\Gr}$. $k$ is mono
+$\iff$ $k$ is injective on the edges.
+\end{CLAIM}
+\begin{PROOF} Let $T$ be an arbitrary object and
+$f,g:T\into A$ two arbitrary morphisms.
+\begin{itemize}\MyLPar
+\item[$\impl )$]
+If $k$ is mono, then for any $f,g:T\into A$, $\Comp
+fk=\Comp gk \impl f=g$.
+In particular, for any edge $e\in E^T : k(f(e))=k(g(e))\impl f(e)=g(e)$.
+Taking $T$ as a one-edge
+graph and considering all $f,g:T\into A$, implies that $k$ must be
+injective on the edges.
+\item[$\Leftarrow )$]
+Suppose $k$ is injective on the edges and $\Comp fk = \Comp gk$.  For each
+edge $e\in E^T$ we then have $k(f(e))=k(g(e))\impl f(e)=g(e)$.  To verify
+that $f=g$, we have to check that also for each node $i$ in $T$,
+$f(i)=g(i)$.  Assume that for some node $f(i)\not=g(i)$. Since $T$ is a DAG
+(according to Definition~\ref{de:Gr} it has no isolated nodes),
+there is an edge $e$ incident to $i$ and then we would have
+$f(e)\not=g(e)$. Because of the injectivity on the edges, we then get
+$k(f(e))\not=k(g(e))$, contrary to the assumption $\Comp fk=\Comp gk$.
+\end{itemize} \vspace*{-4ex}
+\end{PROOF}
+
+\subsection{Data Dependencies}\label{sub:dd}
+As remarked in introduction, our data dependencies are intended to capture
+the information concerning what resources are going to be used in performing
+new steps of computation. Resources in this context refer exclusively to the
+values of some functions and computations compute such values. Thus 
+our data dependencies
+relate functional terms and not program
+statements. For instance, computation of the value of the term $f(s(x),2)$
+may depend on the value of $s(x)$ which,
+in turn, may depend on $x$. $x$, however
+is just a term -- a mathematical variable which, in any instance, has 
+some specific value.
+It never depends on itself, as it might do if it was a program
+variable occurring  in  a statement $x:=x+1$.
+%
+
+For a signature $\Sigma$, a $\Sigma$ {\em data dependency} is a
+graph (simple DAG) with nodes labeled by ground $\Sigma$-terms 
+$\GTerms$.  The only
+requirement we put on the morphisms between such graphs is that they 
+respect the sorting of
+labels.
+
+\begin{DEFINITION}{[Data dependencies]}\label{de:DDS}
+$\DDS$ is the category of $\Sigma$ {\em data dependencies} where:
+%($\Gamma$ is as in definition \ref{de:Gr}):
+\begin{enumerate}\MyLPar
+\item objects are  $\Sigma$ data dependencies -- pairs $\<G,lab\>$ where
+$G\in\Obj\Gr$ is a simple DAG and $lab:I^G\into\GTerms$ is a function
+labeling nodes of this graph with ground $\Sigma$-terms;
+\item a $\DDS$-morphism $m:\dd C=\<C,lab_{\dd C}\>\into \dd 
+D=\<D,lab_{\dd D}\>$ is a \Gr-morphism between the
+	underlying graphs $m:C\into D$, such that $\forall i\in
+I^C:Sort(lab_{\dd D}(m(i))) =
+	Sort(lab_{\dd C}(i))$.\footnote{For a signature 
+$\Sigma=\<\Sorts,\Funcs\>$, the
+function
+$Sort:\Ter{\Sigma,X}\into\Sorts$ returns the sort of the argument term.}
+\end{enumerate}\vspace*{-3.5ex}
+\end{DEFINITION}
+\noindent
+In the sequel, $\Dclass$ will denote an arbitrary subcategory of 
+$\DDS$. The functor
+\Func{Gr:{\DDS}\into \Gr\label{fu:gr}} is the obvious forgetful 
+functor which, for a given
+  $\Sigma$ data dependency $\dd D=\<D,lab\>$, returns its underlying 
+graph $D$. We
+call such a graph  the {\em shape of $\dd D$}.
+
+The relation $\dep ij$ (in the shape $Gr(\dd D)$ of $\dd 
+D=\<D,lab\>$) indicates
+that the computation at node $j$
+depends on the computation at node $i$. If $lab(i)=s$ and $lab(j)=t$ this means
+that the result of the evaluation of $t$ at $j$ depends on the result of
+the evaluation of $s$ at $i$.
+%
+\begin{EXAMPLE}\label{ex:Fib}
+To give a flavor of our aims, consider a specification
+of the Fibonacci function:\\[1ex]
+$ \Spec{Fib}{\Sorts:}{& Nat}
+	{\\ \Funcs:&}{\multicolumn{4}{c}{{\rm \ldots the\ usual\ functions\
+for\ }Nat}\\
+		 F: & Nat & \into & Nat}
+	{\\ \Axs:&}{ & F(0) & = & 1 \\ & F(1) & = & 1 \\
+		& F(n+2) & = & F(n) + F(n+1)} $
+
+\noindent
+Ignoring for the moment details (to be discussed later), we may
+easily recognize the
+dependency given by the tree of recursive calls $\dd R$ in Figure~\ref{fi:rec}.
+Certainly, Definition~\ref{de:DDS} allows us to map this tree, for instance,
+  onto a linear order (respecting the ordering in the tree and avoiding loops).
+In the following subsection we will couple dependencies with algebras and thus
+specify the means of avoiding uninteresting morphisms admitted, in 
+principle, by
+Definition~\ref{de:DDS}.
+In Figure~\ref{fi:rec} we have indicated two
+dependency morphisms: $d'$ corresponding to syntactic memoisation (identifying
+the nodes with identical labels), and $d''$
+corresponding to semantic memoisation (identifying $F(0)$ with $F(1)$)
+given the above
+specification.\footnote{In Section~\ref{sub:compatible}, we suggest
+a more specific notion of a dependency morphism {\em compatible} with a given
+class of algebras of which $d''$ is an example.}
+
+Here, we may consider the dependency $\dd D$ as a refinement (improvement)
+of $\dd R$.
+Notice that $\dd D$ is sequential under the ordering $F(n) < F(m)$ for $n<m$.
+Nevertheless, the partitioning of $\dd D$ indicated  by the vertical
+arrows implies serious savings of storage space, even if the
+computations along both lines
+are heavily synchronized and far from independent.
+\end{EXAMPLE}\vspace*{-2ex}
+
+\begin{figure}[hbt]
+\def\objectstyle{\scriptstyle}
+  \spcol{-1.5}
+  \sprow{-1.3}
+  \diagram
+  & & & F(4) & & & & 		& & & & 			F(4) & & & & & & F(4) & \\
+  & & F(3) \urto&  & & & &       & & & & 			& F(3) \ulto \udotted
+							& & & & & & F(3) \ulto \udotted \\
+  & F(2) \urto&  & & & F(2) \xto[uull] & \xto[rrr]^{d'} & 	& & & &
+	F(2) \uuto \urto
+					& &\xto[rrr]^{d''} & & &  & F(2) \uuto \urto &  \\
+  F(1) \urto &  & & F(1) \uulto & F(1) \urto & &  &
+			& & & & 		& F(1) \ulto \uuto
+						& & & & & & F(1) \ulto \uuto \\
+  & & F(0) \uulto & & & & F(0) \uulto  & 	& & & & F(0) \uuto			 & \\
+  & & & \text{{\normalsize $\dd R$}} & & & &
+			& & & & 			\text{{\normalsize
+  $\dd D'$}} &
+							& & & & &
+  \text{{\normalsize $\dd D$}}
+  \enddiagram
+\caption{The recursive tree dependency $\dd R$, together with the ``actual''
+dependencies for computation of Fibonacci, $\dd D'$ and $\dd D$, and the
+dependency morphism $d=\Comp{d'}{d''}$.}\label{fi:rec}
+\end{figure}
+%
+\begin{SREMARK}{Remark.}
+As a matter of fact, there is also a dependency morphisms $g:
+\dd D\into \dd R$
+which embeds $\dd D$ into the leftmost branch of $\pat{\dd R}$. This
+illustrates the
+fact that refinement of data dependencies is not necessarily an
+``improvement'' in the narrow
+sense of memoisation -- it rather reflects the relation of one dependency
+being able to
+perform the computations of which another one is capable.
+\end{SREMARK}
+%
+\subsection{Computation Algebras}\label{sub:ca}
+A $\Sigma$-computation algebra is a $\Sigma$ algebra with an associated
+$\Sigma$-dependency.
+The latter provides a clue for how various operations of the algebra are to
+be computed.
+In general, for $\Aclass\subseteq\AlgS$, $\Dclass\subseteq\DDS$, an
+$\AD$-computation algebra
+is an $\Aclass$-algebra with an associated $\Dclass$-dependency.
+%
+\begin{DEFINITION}{[Computation algebra]}\label{de:CA}
+An $\AD$-{\em computation algebra} $C$ is a triple $\<A,\dd B,ev\>$ where
+\begin{enumerate}\MyLPar
+\item $A\in\Obj{\Aclass}$ ;
+\item $\dd B\in\Obj{\Dclass}$ ;
+\item $\ev:I^{Gr(\dd B)}\into A$ is an evaluation function
+such that $lab_{\dd B}(i)=t \impl \ev(i)=t^A$.
+\end{enumerate}\vspace*{-4ex}
+\end{DEFINITION}
+\noindent
+The $\ev$ function is uniquely determined by the algebra $A$ and the 
+labeling of
+$\dd B$, so we will
+usually write a computation algebra as a pair $\<A,\dd B\>$.
+When $\AD$ does not matter or is clear from the context, we will simply
+write
+  {\em computation algebra\/} (instead of
+  $\AD$-computation algebra).
+
+Dependencies may (and will) be interpreted as the requirements on the
+communications between different space-time points on an actual
+architecture.  Consequently, we will refer to the dependency part
+$\dd B$ of a computation algebra $\<A,\dd B\>$ as its {\em 
+communication} part.
+%
+\begin{DEFINITION}{[Computation homomorphisms]}\label{de:Chom}
+An $\AD$-computation {\em homomorphism} $m:\<A,\dd A,ev_A\>\into 
+\<B,\dd B,ev_B\>$ is
+a pair $\<h,g\>$ such that
+\begin{enumerate}\MyLPar
+\item $h : A\into B\ \in\Mor{\Aclass}$ ;
+\item $g : \dd B\into \dd A\ \in \Mor{\Dclass}$, and
+\item $h(\ev_A(g(i))) = \ev_B(i)$, for all $i\in I^{Gr(\dd 
+B)}$.\footnote{The diagram in Figure \ref{fi:homC} commutes, but not in a 
+category (at
+least none we
+have defined explicitly), and so we write the composition of functions
+explicitly as $a(b(i))$.}
+
+\begin{figure}[hbt]
+\spreaddiagramcolumns{1pc}\spreaddiagramrows{1pc}
+\diagramcompileto{Chom}
+& & & \dd A \save\go[0,1]\merge\framed<5pt>\restore \rdotted|{\ev_A}|>\tip
+		& A \dto^{\textstyle h} \comr{-3}{-6} & \<A,\dd A,ev_A\> 
+\dto^{\textstyle m} \\
+& & & \dd B \uto^{\textstyle g}
+	\save\go[0,1]\merge\framed<5pt>\restore \rdotted|{\ev_B}|>\tip & B &
+	\<B,\dd B,ev_B\>
+\enddiagram
+\caption{A homomorphism between two computation algebras.}\label{fi:homC}
+\end{figure} \vspace*{-5ex}
+\end{enumerate}
+\end{DEFINITION}
+
+\noindent
+As with computation algebras,
+when $\AD$ does not matter, or is clear from the context, we will speak
+about {\em computation homomorphisms\/}.
+
+The primary intuition behind this definition of homomorphism is that it is to
+be used to model a refinement process -- in the above definition, we would say
+that $\<A,\dd A\>$ refines $\<B,\dd B\>$. Refinement concerns both the
+algebra and dependency part. The usual algebra homomorphism $h:A\into B$
+corresponds to the classical notion of data refinement -- $A$ may have
+multiple representations for a single value from $B$. The (contravariant)
+homomorphism $g:\dd B\into \dd A$ represents the possible improvement  of the
+dependency $\dd B$ by the dependency $\dd A$ (cf. Figure~\ref{fi:rec}) --
+$\dd A$ may introduce paths, even sets of paths, in the place of single edges
+in $\dd B$.
+
+In the example~\ref{ex:Fib},
+the standard algebra of natural numbers $\Nata$ with function $F$, may give rise
+to three different computation algebras
+$\<\Nata,\dd R\>$,
+$\<\Nata,\dd D'\>$ and $\<\Nata,\dd D\>$. The respective morphisms obtained from Figure~\ref{fi:rec}, e.g.
+$\<id_{\Nata},d\>:\<\Nata,\dd D\>\into\<\Nata,\dd R\>$, will represent gradual refinements
+of $\<\Nata,\dd R\>$. On the other hand, a 
+dependency morphism which
+sends, for instance, a node labeled with $F(2)$ to a node labeled with $F(4)$
+will not yield a computation homomorphism unless algebra $\Nata$ satisfies some additional 
+(and here, unintended) equations.
+
+Thus, refinement corresponds to a standard (data) refinement on the algebra
+part, while dependencies may be refined by ``stretching'' (to paths),
+``distributing'' (to sets of paths) or augmenting with new dependencies. 
+The following two examples illustrate these aspects of refinement.
+
+\begin{EXAMPLE}
+We let $\hc C$ and $\hc D$ be as in Figure~\ref{fi:exC}, with $\hc h(a) = a$, $\hc h(b)=d$, and $\hc h(f)=f$.
+
+The commutativity requirement, $\ha h(\ev_C(\hc h(i)))=\ev_D(i)$, restricts
+the legal
+combinations of $\hc h$ and $\ha h$. In particular, the labels in $\hc C$
+may differ from
+those in $\hc D$ like with $\hc h(b)=d$ (taking, for simplicity, the names of
+the nodes in the Figure to be
+their labels), only if $d$ evaluates in $\ha C$
+to a value
+$\ev_C(d)=x$ representing $\ev_D(b)$, i.e., such that $\ha h(x)=\ev_D(b)$.
+
+Also, refinement ``does not care'' about what is computed in $C$ at the
+nodes which are not in the image of $\hc h(\GGr(D))$.  There may be new nodes
+and dependencies, also on nodes labeled by terms not occurring in the
+labeling of $\hc D$ (like $\dep cf$ in $\hc C$).  In particular, if we
+admit a computation algebra with an empty dependency part (i.e., empty
+carriers in the category $\Dclass$), a standard algebra $\ha A$ may be
+considered a computation algebra with empty communication part, $A=\<\ha
+A,\es\>$.  Then any algebra $B$ with non-empty communication part will be a
+refinement of $A$ provided there is a homomorphism $\ha h:\ha B \into
+\ha A$. 
+\end{EXAMPLE}\vspace*{-3ex}
+%
+\begin{figure}[hbt]
+\spcol{-1}
+\sprow{-1.5}
+\def\objectstyle{\scriptstyle}
+\hspace*{12em}\diagramcompileto{Ref}
+& \hc C:& f & & & & \\
+& \bullet \dear{\urto} & c \dear{\uto} & \bullet \dear{\ulto}
+&\morphism\dotted\tip{}[rrr]^{\ev_C}
+& & & \ha C \xto[dddd]^{\ha h} & & C \xto[dddd]^h \\
+a \dear{\urto} & & & & d \dear{\ulto} \\ \\
+& & \uuto^{\hc h} \\
+& \hc D:  & f &\morphism\dotted\tip{}[rrrr]^{\ev_D}  & & & & \ha D & & D \\
+& a \dear{\urto} & & b \dear{\ulto} & & &
+\enddiagram
+{\small \caption{Refinement of a computation algebra by adding new dependencies.}\label{fi:exC}}
+\end{figure}\vspace*{-3ex}
+%
+\begin{EXAMPLE}
+As an example of possible ``distribution'', consider an
+  algebra $D$ with the sorts $S, S_1, S_2$, and the
+  dependency $\dep t{f(t)}$ for two terms of sort $S$ (Figure~\ref{fi:exCC}).  Furthermore, let the
+  sort $S$ be the Cartesian product of the two other sorts $S=S_1\times S_2$,
+  with the obvious projections $\pi_i:S\into S_i$ and pairing function
+  $\<\_,\_\>:S_1\times S_2\into S$.  Let $\ha D$ satisfy the ordinary
+  equalities for these functions and, in addition, let $\ha D\models t =
+  \<t_1,t_2\>$, and $\ha D\models f(t) = \<f_1(t_1),f_2(t_2)\>$.  This
+  allows us to design the refinement of the dependency
+  structure illustrated in Figure~\ref{fi:exCC} (cf. Figure~\ref{fi:exCCC})
+which together with the
+identity on $\ha D$ yields a computation homomorphism $\<id_{\ha D},\hc h\>$.
+The morphism $\hc h$ refines the dependency $\dep t{f(t)}$ in
+$\hc D$  to {\em both\/} paths (through $t_1$ and $t_2$).
+\end{EXAMPLE}\vspace*{-3ex}
+%
+\begin{figure}[hbt]
+\spcol{-1}
+\sprow{-1.2}
+\def\objectstyle{\scriptstyle}
+\hspace*{12em}\diagramcompileto{RefA}
+& \ha D \xto[rrr]^{id_{\ha D}} & & & \ha D \\ \\
+& \<f_1(t_1),f_2(t_2)\> \uudotted_{ev}|>\hole|>\tip & & & f(t)
+\uudotted_{ev}|>\hole|>\tip \\
+f_1(t_1) \dear{\urto} & & f_2(t_2) \dear{\ulto} & &  \\
+  & & & & \llto_{\hc h} \\
+t_1 \dear{\uuto} & & t_2 \dear{\uuto} \\
+& t \dear{\ulto}^{\pi_1} \dear{\urto}_{\pi_2} & & & t \dear{\xto[uuuu]}
+\enddiagram
+{\small \caption{Refinement of a computation algebras by distributing dependencies.}\label{fi:exCC}}
+\end{figure}\vspace*{-2ex}
+
+\noindent
+Computation algebras and their homomorphisms form a category.
+\begin{DEFINITION}{[Category of computation algebras]}
+$\CA\AD$ is the category with objects being $\AD$-algebras and morphisms
+being $\AD$-homomorphisms (and obvious pointwise composition).  When
+talking about the entire category $\CA(\AlgS,\DDS)$, we will instead write
+$\CAS$.
+\end{DEFINITION}
+%
+We define two obvious functors:
+\Func{\hc{\_}:\op{\CA\AD}\into \Dclass \label{fu:dep}}
+projects computation algebras onto
+their communication part, i.e., $\hc{\<A,\dd A\>}=\dd A$ and
+$\hc{\<h,g\>}=g$ with the notation from 
+Definition~\ref{de:Chom}.\footnote{Of course, each $\AD$ has its own 
+functor
+$\hc{\_}_{\AD}$.  But we may as well view each such a functor as a restriction
+of $\hc{\_}_{\CAS}$ to the respective source subcategory.}
+Similarly
+\Func{\ha{\_}:\CA\AD\into \Aclass \label{fu:alg}}
+projects computation algebras onto their algebra part ($\ha{\<A,\dd A\>}=A$
+and $\ha{\<h,g\>}=h$).
+
+We will now use these functors to simplify the notation for the 
+components of a computation
+algebra: $A$ representing such an algebra will denote the triple $\comA A$,
+and a computation homomorphism $h$ a pair $\<\ha h,\hc h\>$.
+
+
+\subsection{Machines and Distribution}\label{sub:imp}
+We introduce the model of machine architectures and their mappings 
+(simulations)
+in Section \ref{sub:march}, and then define mappings of a computation algebra
+to a given architecture called ``distributions'', Section~\ref{sub:impl}.
+
+\subsubsection{Machine architectures}\label{sub:march}
+In order to relate the dependencies to hardware architectures we will
+consider the latter as space-time unfoldings of the actual inter-processor
+communication structure \cite{MW83}.  Thus, an 
+architecture is
+simply an $st$-graph, where each node represents a unique time-point
+at a given processor and edges represent the possible single-step
+communications.  This perspective may be extended to cover dynamically
+changing architectures as well (it would merely require graphs rather
+than the $st$-graphs) but here we restrict our attention to
+the static case.
+
+A morphism between two architectures
+  expresses the possibility of using one architecture, $Z$, to {\em
+simulate} another, $W$, i.e., that each communication of which $W$ is
+capable can be simulated by a set of chains of communications in $Z$.  This is
+captured by the existence of a mapping of $W$ into the (possibly
+  distributed) path closure of
+$Z$, that is, a ${\Gr}$-morphism $W\into Z$.  Consequently, we
+define:
+\begin{DEFINITION}{[Machine architectures]}\label{de:Arch}
+The category of {\em machine architectures} is ${\Gr}$.
+\end{DEFINITION}
+\noindent
+Thus, similarly to the dependency morphisms, an architecture morphisms
+$W\into Z$ tells us that, and how, $Z$ can simulate communications of $W$.
+
+We might have given a more restrictive definition of machine 
+architectures.  For instance, the
+unfoldings of actual processor-architectures will be $st$-graphs
+which are simply repeating patterns of one-step communications.  Also,
+simulation morphisms might be restricted to $\Gr$-monomorphisms.
+Nevertheless, we choose this more generous definition because it will
+result in a more uniform treatment -- it will allow us to consider also
+shapes of data dependencies as objects, and distributions as morphisms of
+the same category $\Gr$.
+%
+\begin{EXAMPLE}
+An $n$-dimensional vector $W$ has $n$ processors connected so that each
+processor, except for $W_1$ and $W_n$, has two-ways communication channels
+to its left and right neighbor: $W_1\rl W_2\rl\cdots\rl W_n$.  A
+space-time unfolding for a 2-dimensional vector is illustrated in Figure
+\ref{fi:ZW}.a).  The vertical arrows $\dep
+{(W_i,k)}{(W_i,k+1)}$ are added to represent the fact that each processor
+can carry its local data from one computation step to the next.
+
+A ring $Z$ with 3 processors where, in each step,
+processor $Z_1$ can communicate to $Z_2$, $Z_2$ to $Z_3$, and $Z_3$ to $Z_1$
+is given in Figure \ref{fi:ZW}.b).
+  This architecture may simulate the 2-dimensional
+vector $W$ by the morphism $m$ indicated in Figure \ref{fi:ZW}.c).
+\end{EXAMPLE}\vspace*{-3ex}
+%
+\begin{figure}[hbt]
+\spcol{-0.6}
+\sprow{-1}
+\def\objectstyle{\scriptstyle}
+\hspace*{2em}
+\diagram %compileto{ZW}
+\bullet & & \bullet & &  &
+	\bullet & \bullet & \bullet & &	&
+	\bullet & \circ & \bullet \\
+& & & & & \bullet \uto \urto & \bullet \uto \urto & \bullet \uto \ullto & & &
+	\bullet \uto \urdotted & \bullet \udotted \urto & \bullet \uto \ullto \\
+\bullet \uuto \uurrto & & \bullet \uuto \uullto & & &
+	\bullet \uto \urto & \bullet \uto \urto & \bullet \uto \ullto & & &
+	\bullet \morphism\solid{}{}[u] \morphism\solid{}{}[ur] & \circ \udotted
+\urdotted &
+		\bullet \morphism\solid{}{}[u]\ulldotted \\
+& & & & & \bullet \uto \urto & \bullet \uto \urto & \bullet \uto \ullto & & &
+	\bullet \uto \urdotted & \bullet \udotted \urto & \bullet \uto \ullto \\
+% bottom line
+\bullet \uuto \uurrto & & \bullet \uuto \uullto & & &
+	\bullet \uto \urto & \bullet \uto \urto & \bullet \uto \ullto & & &
+	\bullet \morphism\solid{}{}[u] \morphism\solid{}{}[ur] & \circ \udotted
+\urdotted &
+		\bullet \morphism\solid{}{}[u] \ulldotted \\
+W_1\rrto<.5ex>& & W_2\llto<.5ex>& & & Z_1 \rto & Z_2 \rto & Z_3
+\lltod^{\text{\normalsize b)}}
+		& & & &	\save [0,0]\Drop{m:W\into Z} \restore \\
+& \text{{\normalsize a)}} & & & & & &
+	& & & & \text{{\normalsize c)}}
+%
+\enddiagram
+\caption{Space-time representations of a) 2-dimensional vector $W$, b)
+3-processor ring $Z$,
+and c) a simulation $m$ of $W$ by $Z$.}\label{fi:ZW}
+\end{figure}\vspace*{-3ex}
+%
+\subsubsection{Distribution}\label{sub:impl}
+Assume that we would like to implement a computation algebra on 
+some specific machine
+architecture. {\em Distribution} is what, in our abstract setting, 
+represents an
+implementation. It certainly does not capture all aspects of an actual
+implementation, and for this reason we have chosen to call it
+``distribution''. This term reflects the intuition of distributing the
+dependencies of an algebra onto the communication structure of a 
+given architecture.
+
+The composition of functors (\ref{fu:gr}) and (\ref{fu:dep}) 
+$\Comp{\hc{\_}}{Gr}:
+\op{\CA\AD}\into{\Dclass}\into\Arch$ applied to an algebra returns the
+underlying graph of its communication part. We will write this composition as
+$\GGr$, i.e., $\GGr(X)= Gr(\hc X)$, for an object or morphism $X$ in $\CAS$.
+
+Distribution of an algebra $\shcomA C$ on a given architecture $W$
+amounts to a simulation of the (shape of the) dependency structure given
+by $Gr(\hc{C})$ on the communication structure $W$.
+%
+\begin{DEFINITION}{[Distribution]}\label{de:implem}
+A {\em distribution} $\imca CmW$ of a computation algebra $C$ on an architecture
+$W$is a
+  $\Arch$-morphism $m:{\GGr}(C)\into W$.
+\end{DEFINITION}
+%
+\begin{EXAMPLE}
+The dependency $\dd D$ (with the shape $Gr(\dd D)$ from  Figure~\ref{fi:rec})
+is mapped onto a
+2-processors vector $W$ as it was illustrated in example~\ref{ex:morGr},
+Figure~\ref{fi:Demb}.
+Figure~\ref{fi:Dembb} is just a repetition of this earlier example:
+a) is the data dependency $\dd D$ with the shape $Gr(\dd D)$,
+b) is a 2-processors vector $W$ and c) is a distribution  $f$ of $\dd D$
+on $W$.
+\end{EXAMPLE}\vspace*{-3ex}
+%
+\begin{figure}[hbt]
+\spcol{-.5}
+\sprow{-1}
+\def\objectstyle{\scriptstyle}
+\def	\c#1{
+	\save \go[r]\merge\go+C\merge\go="c#1"
+	\restore}
+\hspace*{4em}
+\diagram %compileto{Demb}
+F(4) & & & & & \bullet & \bullet & 4 & & & & F(4)  & \bullet \\
+  & F(3) \ulto \morphism\solid{}{}[u]	& & & & \bullet \uto \urto & 
+\bullet \uto
+\ulto   & 3 & &
+	& & \bullet \uto \xdotted[ur] & F(3) \morphism\solid{}{}[u] \ulto \\
+F(2) \uuto \urto		& & & & & \bullet \uto \urto & \bullet \uto 
+\ulto & 2 & &
+	& & F(2) \morphism\solid{}{}[u] \urto & \bullet \uto \xdotted[ul] \\
+  &F(1) \ulto \uuto	& & & & \bullet \uto \urto & \bullet \uto \ulto   &
+				1 \xto '[u]'[uu][uuu]  & &
+	& & \circ \udotted \xdotted[ur] &F(1) \morphism\solid{}{}[u] \ulto \\
+\c1 &  & & & & W_1 \rto<.5ex>& W_2 \lto<.5ex> & & & & & \c2 & \\
+\c3 &  & & & & & \text{{\normalsize b)}} & & & & & \c4 &
+\save \go"c2" \Drop{f:Gr(\dd D)\into W} \restore
+\save \go"c1" \Drop{\dd D} \restore
+\save \go"c3" \Drop{\text{\normalsize a)}} \restore
+\save \go"c4" \Drop{\text{\normalsize c)}} \restore
+\enddiagram
+\caption{a) Data dependency $\dd D$, b) space-time
+representation of a
+2-dimensional vector $W$, and c) a distribution $f$ of $\dd D$ on $W$.}\label{fi:Dembb}
+\end{figure}\vspace*{-2ex}
+
+
+\noindent
+Combining such distribution morphisms with the simulation morphisms
+between various architectures, leads to the possibility of porting the
+distributions.
+
+\begin{EXAMPLE}
+The mapping $f$ from Figure \ref{fi:Dembb}.c) is a
+distribution of
+a computation algebra $D=\<N,\dd D\>$ (with $N$  a $\Sigma_{\mbox{\small\sc
+Fib}}$-algebra satisfying
+{\sc{Fib}}) on the vector $W$.
+Then, the mapping $m$ (Figure \ref{fi:ZW}.c) gives a ported distribution of $D$
+on the ring $Z$.
+The results are shown in Figure \ref{fi:port}.
+\end{EXAMPLE}\vspace*{-3ex}
+%
+\begin{figure}[hbt]
+\sprow{-1.5}
+\spcol{-0.5}
+\def\objectstyle{\scriptstyle}
+\def	\k#1{
+	\save \go[r]\merge\go+C\merge\go="k#1"
+	\restore}
+\hspace*{4em}
+\diagram %compileto{Port}
+F(4) & & & & F(4)  & \bullet & & & F(4)  & \circ  & 	\bullet  \\
+% 4
+& & & & & & & & \bullet \uto\urdotted & \circ \udotted\urdotted &
+	\bullet\morphism\solid{}{}[u] \ullto\\
+% 5
+& F(3) \uulto \morphism\solid{}{}[uu] & & &
+	\bullet \uuto \uurdotted & F(3) \uulto \morphism\solid{}{}[uu] & & &
+	\bullet \morphism\solid{}{}[u] \urdotted & \circ \udotted \urdotted &
+		F(3) \morphism\solid{}{}[u] \ulldotted \\
+% 6
+& & & & & & & & \bullet \morphism\solid{}{}[u] \urdotted & \bullet \udotted
+\urto &
+	\bullet \uto \ulldotted \\
+% 7
+F(2) \morphism\solid\tip{}[uuuu] \uurto & & & &
+	F(2) \morphism\solid{}{}[uu] \uurto & \bullet \uuto \uuldotted & & &
+	F(2) \morphism\solid{}{}[u] \morphism\solid{}{}[ur] & \circ \udotted
+\urdotted &
+		\bullet \morphism\solid{}{}[u] \ulldotted \\
+% 4-8
+& & & & & & & & \circ \udotted\urdotted & \circ\udotted\urdotted &
+	\bullet\morphism\solid{}{}[u] \ullto\\
+% 5-9
+& F(1) \uulto \morphism\solid\tip{}[uuuu] & & &
+	\circ \uudotted \uurdotted & F(1) \uulto \morphism\solid{}{}[uu] & & &
+	\circ \udotted \urdotted & \circ \udotted \urdotted &
+		F(1) \morphism\solid{}{}[u] \ulldotted \\
+\k1 & & & & \k2 & & & & & \save [0,0]\Drop{\Comp fm:Gr(\dd D)\into Z}
+\restore \\
+\k3 & & & & \k4 & & & & & \text{{\normalsize c)}}
+\save \go"k1" \Drop{\dd D} \restore
+\save \go"k2" \Drop{{f:Gr(\dd D)\into W}} \restore
+\save \go"k3" \Drop{\text{\normalsize a)}} \restore
+\save \go"k4" \Drop{\text{\normalsize b)}} \restore
+\enddiagram
+\caption{a) Data dependency $\dd D$, b) the distribution $f$ of $\dd D$ on a 2-dimensional
+vector $W$,
+and c) distribution $f$ ported to the ring $Z$.}\label{fi:port}
+\end{figure}\vspace*{-2ex}
+
+\noindent
+A morphism between two distributions is defined as follows:
+\begin{DEFINITION}{[Morphisms of distributions]}\label{de:imor}
+A morphism  between two $\AD$ distributions,
+$m:\imca AfW \into \imca BgZ$, is a pair $\<h,h'\>$,
+where:
+\begin{enumerate}\MyLPar
+\item $h:A\into B \in \Mor{\CA\AD}$ ;
+\item $h':Z\into W \in \Mor{\Arch}$, and 
+\item $\Comp{\GGr(h)}f = \Comp g{h'}$.
+\end{enumerate}\vspace*{-4.5ex}
+\end{DEFINITION}
+The situation is depicted in Figure \ref{fi:homid}. The third condition is
+the requirement of the commutativity of the rightmost square in
+$\Gr$.\footnote{We let the distribution morphisms go in the opposite 
+direction as
+the respective $\Gr$-morphisms between the distributions. This choice is to
+keep with the convention that morphisms between structures reflect some form
+of ``refinement'' of the target by the source.}
+
+\begin{figure}[hbt]
+\spreaddiagramcolumns{1pc}\spreaddiagramrows{1pc}
+\hspace*{4em}
+\diagramcompileto{IDhom}
+& \ha A \save\go[0,1]\merge\framed<5pt>\restore \dto_{\textstyle \ha h} &
+    \hc{A} \ldotted|{\ev_A}|>\tip 
+	& Gr(\hc{A}) \rto^f  \symb{\stackrel{\GGr}{\Large\Longrightarrow}}{-3}{-6}
+	& W \coml{-3}{-6} && \imca AfW \dto^{\<h,h'\>} \\
+& \ha B \save\go[0,1]\merge\framed<5pt>\restore &
+   \hc{B} \ldotted|{\ev_B}|>\tip \uto^{\textstyle \hc{h}} 
+& Gr(\hc{B}) \uto|{Gr(\hc h)} \rto_g & Z \uto_{h'}  && \imca BgZ
+\enddiagram
+\caption{A morphism $\<h,h'\>$ of distributions.}\label{fi:homid}
+\end{figure}
+\begin{DEFINITION}{}
+We let $\IM\AD$ be the category
+\begin{itemize}\MyLPar
+\item objects -- distributions of $\AD$ computation algebras (Definition
+\ref{de:implem}),
+\item morphisms given in Definition \ref{de:imor} and pointwise
+composition.\footnote{This works because the commutativity of the square in
+Figure \ref{fi:homid} -- i.e., for each edge $e$ in $\GGr(B)$, the (sets
+  of) paths
+obtained in $W$ by $h'(g(e))$ and by $f(\GGr(h)(e))$ are identical --
+implies commutativity for each (set of) paths in $\GGr(B)$.  Hence 
+composition with
+another such commuting square, given by $\GGr(n):\GGr(C)\into \GGr(B)$,
+$n':Y\into Z$, and $k:Gr(\hc C)\into Y$, will yield a commuting
+square $\Comp{(\Comp{\GGr(n)}{\GGr(h)})}f = \Comp k{(\Comp{n'}{h'})}$.}
+\end{itemize} \vspace*{-4.5ex}
+\end{DEFINITION}
+%
+The forgetful functor 
+\Func{\ArchF:\IM\AD\into\op\Arch\label{fu:march}} is the obvious
+projection of distributions onto their architecture part, i.e. $\ArchF(\imca
+AfW)=W$ and $\ArchF(\<h,h'\>)=h'$.
+\footnote{Again,
+we may view each $\ArchF_{\IM\AD}$ as a restriction of 
+$\ArchF_{\IM{(\CAS)}}$ to
+$\IM{(\CA\AD)}$.}
+
+\subsection{The Development Process}\label{sub:dev}
+The introduced framework is motivated by the view of
+the development of (possibly parallel) implementations by means of
+computation
+algebras.  We envision the process starting with the usual refinement of
+algebraic specifications which proceeds through a series of subclasses of
+$\AlgS$ and results in one class of isomorphic algebras (an algebra $\ha A$
+in Figure \ref{fi:method} is a chosen representative from this 
+resulting class).
+At this point, when the specification has become sufficiently concrete, one
+introduces the dependencies, i.e., constructs a computation algebra
+$\chom B$.  Dependencies can then be refined along with a further
+refinement of the algebra itself or, perhaps, keeping the algebra fixed.
+%
+\begin{SREMARKno}{Remark.}\label{re:some}
+Since there is no surjectivity requirement on $\ev$, the communication part
+$\hc A$ need not contain the full information about all operations of the
+algebra $\ha A$.  (In the extreme case, the shape of $\hc A$ might be the
+empty graph.)  There are several reasons for the lack of such a
+requirement.  Firstly, it allows us to consider a standard algebra $\ha A$ as
+a computation algebra with empty communication part.  More importantly,
+it allows us to model the development process in which more and more
+operations of the algebra are gradually equipped with more detailed
+computational information.  Furthermore, we may imagine a specification of
+computation algebras as a kind of algebraic specification with 
+hidden functions: only
+the visible operations are of interest to the implementation, and the
+resulting computation algebra need only provide the dependency 
+structure for these
+operations.
+Finally, we can use this setting in  situations where (parts of) an algebra
+are implemented on some machine (e.g. all built-in types constitute a
+given algebra), and one need to compute some additional, newly defined
+functions -- the communication part will then be needed only for 
+these new functions.
+\end{SREMARKno}
+%
+When all the required operations of the algebra have been associated with
+the satisfactory dependencies, $\shcomA C$, one may choose an architecture
+on which to distribute the dependencies $\hc C$,  $\imca CfW$.
+Once this is done, there remains only the question of portability, that is,
+of moving the distribution to other architectures.
+
+One may tend to imagine that a transition from one level (category) to the
+next means that the structure resulting from the development at the
+previous level is complete and remains fixed for the rest of the process.
+Thus, having reached the algebra $\ha B$ we begin to introduce and refine
+dependencies while $\ha B$ remains unchanged (and so, $\ha C$ is actually
+$\ha B$).  Similarly, having designed $\shcomA C$ and distributing it on
+$W$, we may move to another architecture $Z$ but $\shcomA C$ will be kept
+fixed (i.e., $\shcomA D = \shcomA C$).  Although this is probably the most
+natural scenario, Figure \ref{fi:method} illustrates the process in its full
+generality, where {\em all\/} the aspects may change at {\em all\/} levels.
+
+\begin{figure}[hbt]
+\spcol{-0.5}
+\sprow{-0.5}
+\diagramcompileto{Method}
+& & &  & \rline^{\textstyle \IM\AD} &  & & \rline^{\textstyle \CA\AD}
+	& & & \rline^{\textstyle \Aclass} & \\
+& & \op\Aclass &\ha{D} & \lto|<\hole|>\hole \rdotted|<\hole|>\hole
+& & \lto|<\hole|>\hole \ha{C} & \lto|<\hole|>\hole \rdotted|<\hole|>\hole
+& & \lto|<\hole|>\hole \ha{B} & \lto|<\hole|>\hole \rdotted|<\hole|>\hole
+& & \lto|<\hole|>\hole \ha{A}\\
+& & \Dclass & \hc{D} \uto|<\hole|>\hole_{\ev_{D}} \dto|<\hole|>\hole^g
+    & \lto|<\hole|>\hole  \rdotted|<\hole|>\hole
+    & & \lto|<\hole|>\hole  \hc{C} \uto|<\hole|>\hole_{\ev_{C}} 
+\dto|<\hole|>\hole^f
+      & \lto|<\hole|>\hole \rdotted|<\hole|>\hole
+    & & \lto|<\hole|>\hole \hc{B}\uto|<\hole|>\hole_{\ev_{B}} \\
+& & \Arch &  Z & \lto|<\hole|>\hole  \rdotted|<\hole|>\hole
+	& & \lto|<\hole|>\hole  W
+\enddiagram
+\caption{The development process.}\label{fi:method}
+\end{figure}
+%
+Although the technical results below
+are rather straightforward and hardly surprising, they provide a sound
+justification for the above methodology as well as a clue as to how it may
+be applied.  They yield a pleasing conceptual structure in which algebras can
+be thought of as indexed by various dependencies, and computation
+algebras by machine architectures.  More importantly, they give us the
+possibility of modularizing the implementation process and reusing its
+results.
+
+The simulation mappings between architectures (the $\Arch$-morphisms) may be
+defined and stored independently of the actual programs implemented on them.
+Suppose that we have distributed a computation algebra $D$ on an
+architecture $W$, $\imca DdW$ (Definition~\ref{de:implem}). In order to
+distribute $D$ on another architecture $Z$, we need to define an appropriate
+distribution $\imca DcZ$. However, if we have a $\Arch$-morphism $h:W\into
+Z$, it will tell us how $Z$ can simulate any computation on $W$. Thus it will
+allow us to port the distribution $\imca DdW$ by just using this 
+general simulation $h$.
+
+Such a reuse of (stored) simulation morphisms between architectures for
+porting distributions will be formalized by
+  showing that the functor $\ArchF$ from (\ref{fu:march})
+yields a {\em fibration}. Intuitively, this means that we can view the category
+$\IM\AD$ as classes of
+computation algebras indexed by machine architectures -- the {\em fiber}
+  over a given architecture $W$ represents all computation
+algebras which can be distributed on $W$. Then, given an architecture
+morphism $h:W\into Z$ and an algebra $D$ distributed on $Z$ (in $Z$'s
+fiber), there is a canonical way of defining a {\em cleavage}: an algebra
+$C$ and its distribution $\imca CcZ$  on $Z$ together with a distribution
+morphism $cl(h,D):\imca CcZ\into \imca DdW$ which is ``compatible''
+with the simulation $h$.  As a
+matter of fact, the triviality of the proof (that $\ArchF$ is a fibration)
+coincides with the desired fact that $D=C$. Thus, cleavage gives explicitly
+the distribution resulting from porting
+a distribution of $D$ from $W$ to $Z$ ``along'' a given simulation $h$.
+
+The concept of fibration seems a very natural model for porting
+distributions and we will encounter it again later on. We now recall the
+notion of fibration, 
+Definition~\ref{de:fib},
+(for more on  fibrations, see \cite{Ben, Her, Jac}) and show that
+$\ArchF$ is a fibration in Proposition \ref{le:MAr}.
+\begin{DEFINITION}{[Fibration]}\label{de:fib}
+Given two categories $\Cat A$ and $\Cat X$ and a functor $F:\Cat A\into \Cat
+X$:
+
+\hspace*{7em}
+\spcol{0.3}
+%\sprow{-0.9}
+\diagram%compileto{FibM}
+& A \dto_f \drto^g  & &  \\
+\Cat A \dto^{F} & B \rto^h  & C & \\
+\Cat X & Y  \rto^{u} & X  &
+\enddiagram
+
+\begin{itemize}\MyLPar
+\item
+A morphism $h:B\into C$ in $\Cat A$ is {\em cartesian} if for any
+morphism $g:A\into C$ with $F(g)=F(h)$, there exists a unique $f:A\into B$
+such that $\Comp fh=g$.
+\item A functor $F$ is a {\em fibration} if for every $C\in\Obj{\Cat
+A}$ and $u:Y\into F(C)\in\Mor{\Cat X}$, there exists a cartesian morphism
+$h:B\into C$, and
+the composite of two cartesian morphisms is cartesian.
+\item $F$ is a {\em cofibration} if $F^{op}:\Cat A^{op}\into \Cat X^{op}$ is
+a fibration; it is {\em bifibration} if it is both fibration and cofibration.
+\item An  $A\in\Obj{\Cat A}$ is {\em over} $Y$ if $F(A)=Y$; a
+morphism $g\in\Mor{\Cat A}$ is {\em over} $u$ if $F(g)=u$. For an object
+$Y\in\Obj{\Cat X}$, {\em the fiber} over $Y$, $\fibre FY$, is the 
+subcategory of $\Cat A$
+with objects all those over $Y$ and morphisms all those over $id_Y$.
+\item A particular choice of a
+cartesian lifting for every appropriate morphism $u\in\Mor{\Cat X}$ is called
+a {\em cleavage} for $F$. Given a cleavage $cl$, a morphism $u:Y\into 
+X\in\Mor{\Cat
+X}$ and an object $C\in\Obj{\Cat A}$ over $X$, we denote by $cl(u,C)$ the
+cartesian lifting of $u$ whose codomain is $C$.
+\end{itemize}
+We will mention {\em split} fibrations:
+\begin{itemize}\MyLPar
+\item Given a fibration $F$ with a cleavage $cl$, any $u:Y\into X$ in $\Cat
+X$ determines a reindexing functor $\reind u:\fibre FX\into\fibre FY$ 
+as follows:
+  \begin{itemize}\MyLPar
+  \item for an object $C$ in $\fibre FX$, $\reind u(C)$ is the domain 
+of $cl(u,C)$
+  \item for a morphism $f:D\into C$ in $\fibre FX$, $\reind u(f)$ is the unique
+  morphism in $\fibre FY$ making $\Comp{\reind u(f)}{cl(u,C)} = 
+\Comp{cl(u,D)}f$.
+  \end{itemize}
+\item For every $Y\in\Obj{\Cat X}$ there is a natural isomorphism
+$\nattr{id_{\fibre F{Y}}}{\reind{(id_Y)}}$, determined by the universal
+property of $cl(id_Y,A)$ for each $A\in\Obj{\Cat A}$. For all $u:Y\into X$ and
+$w:X\into W$ there is a natural isomorphism $\nattr{\Comp{\reind w}{\reind
+u}}{\reind{(\Comp uw)}}$, determined by $cl(\Comp uw,A)$. If these isomorphisms
+are identities then the fibration
+is {\em split}.
+\end{itemize} \vspace*{-4ex}
+\end{DEFINITION}
+%
+\begin{CLAIM}\label{le:MAr}
+For any $\AD$, $\ArchF:\IM\AD\into\op\Arch$ is a (split) fibration.
+\end{CLAIM}
+\begin{PROOF}
+The diagram to the left illustrates the fibration situation and the one to
+the right gives details for the present context (dashed arrows indicate
+the directions in the $\_^{op}$ categories):
+
+\noindent
+\hspace*{1em}
+\spcol{0.3}
+\sprow{-0.9}
+\def	\a#1{ \ddotted|<{\rotate\tip}
+	\save \go[d]\merge\go+C\merge\go="a#1"\framed<5pc>
+	\restore}
+\diagramcompileto{FibM}
+& & &  					& \a1 \ha B \\
+& \imca BbZ \ddto_f \ddrto^g  & &  	& \hc B \xto[ddddr]_b \\
+& &  & 					& &  \a2 \ha{D} & \a3 \ha{D}  \\
+\IM\AD \ddto^{\ArchF} & \imca CcZ \rto^h  & \imca DdW &
+					& &\hc{D} \ddto^{\Comp d{h'}} & \hc{D} \ddto^d \\ \\
+\op\Arch & Z  \rdashed^{\op{h'}}|>\tip & W  &  	& & Z  & W  \lto^{h'}
+\save \go"a1" \xto"a2"^{f} \xto"a3"^{g}\restore
+\save \go"a2" \xto"a3"_{id_D} \restore
+\enddiagram
+%
+\pp{1ex}
+For an $\op\Arch$-morphism $\op{h'}:Z\dinto W$ and distribution
+$d=\imca DdW$, the
+cleavage is defined as
+\begin{equation}\label{eq:clM}
+cl(\op{h'},\imca DdW) \Def h:\imca DcZ\into \imca DdW\ where
+	\left\{ \begin{array}[h]{l}
+	h= \<id_D,{h'}\> \\
+	\imca DcZ = \Comp d{h'} 
+	\end{array}\right .\
+\end{equation}
+%
+\noindent
+It is trivially a morphism in $\Mor{\IM\AD}$ since
+$\Comp{id_{\GGr(D)}}c = \Comp d{h'}$.
+
+Let $g:\imca BbZ\into \imca DdW$ be $\<\chom g,h'\>$ -- a distribution over
+$\op{h'}$.
+The unique $f:b\into c$ with
+$\ArchF(f)=id_{Z}$ making $\Comp{f}{h}=g$ is then $\<\chom g, id_Z\>$.
+$f\in\Mor{\IM\AD}$
+because $\Comp{\hc g}b=\Comp d{h'} = \Comp c{id_Z}$, where the first
+equality
+holds since $g\in\Mor{\IM\AD}$.
+
+Composition of cleavages is a cleavage: for $h':W\into Z$, $g':Z\into V$
+and $\imca DdW\in \fibre{\ArchF}{W}$ we have
+$cl(\op{h'}, \imca DdW)=\<id_D,h'\>$, $cl(\op{g'},\imca D{(\Comp 
+d{h'})}Z)=\<id_D,g'\>$, so
+
+$\Comp{cl(\op{g'},\imca D{(\Comp d{h'})}Z)}{cl(\op{h'},\imca DdW)}
+= \<id_D,\Comp{h'}{g'}\> = cl(\Comp{\op{g'}}{\op{h'}},\imca DdW).$ \\
+Hence $\ArchF$ is a fibration.
+
+It is split:
+we have $\reind{(id_{W})}(\imca DdW)= \imca DdW$, so the natural transformation
+$\nattr{id_{\fibre{\ArchF}{W}}}{\reind{(id_W)}}$ is identity.
+Composition of cleavages gives a cleavage,
+so we get $\Comp{\reind{(\op{h'})}}{\reind{(\op{g'})}} =
+\reind{(\Comp{\op{g'}}{\op{h'}})}$.
+\end{PROOF}
+\noindent
+%
+\begin{EXAMPLE}
+The collection of our examples so far illustrates this idea
+of development. In example~\ref{ex:Fib} we designed a dependency $\dd 
+R$ which was
+then refined to $\dd D$ by the morphism $d:\dd R\into \dd D$ -- assuming
+standard algebra for natural numbers $\Nata$. The dependency $\dd
+D$ was then distributed on a vector $W$ by $\imca DfW$ (Figure~\ref{fi:Dembb})
+and ported to $Z$ (Figure \ref{fi:port}) using the simulation $m:W\into Z$
+from Figure~\ref{fi:ZW}.
+Provided that the simulation
+$m$ and distribution $f$ were available from a library, all the work 
+we had to do was to
+design the mapping $d$.
+%
+\end{EXAMPLE}\vspace*{-3ex}
+\begin{figure}[hbt]
+\hspace*{16em}
+\diagramcompileto{Sum}
+\Nata   \ar@{-}[r]^{id_\Nata}    & \Nata \ar@{-}[r]^{id_\Nata}  & \Nata \\
+\dd D  \ar[d]_{\Comp fm}  \udotted|{ev}|>\hole|>\tip &
+	\dd D \ar@{-}[l]_{id_D} \ar[d]^f
+	\udotted|{ev}|>\hole|>\tip &
+\dd R \lto_d  \udotted|{ev}|>\hole|>\tip \\
+Z 	& W \ar[l]^m
+\enddiagram
+\caption{The summary of the example.}\label{fi:sum}
+\end{figure}\vspace*{-3ex}
+
+\section{Constructing dependencies for recursive functions}\label{se:cr}
+So far we have considered relationships between various aspects --
+functional specification (algebra), dependencies (communication part) and
+distribution -- given independently from each other.
+In this section we show how -- under certain conditions -- dependencies can
+be derived from specifications using grammars. 
+Although the described construction may
+indicate the possibilities of reconsidering implementation techniques for
+functional languages, it should be emphasized that we are here concerned only
+with {\em a particular example} of utilizing computation algebra framework for desigining
+efficient implementations of algebraic specifications. 
+
+
+We recall that a 
+  \emph{context free grammar} $G$ is given by a 4-tuple 
+$(T,N,\prd,S)$ where
+	$T$ is a set of terminal symbols, $N$ is a set of non-terminal
+	symbols auch that 
+	$N\cap T=\emptyset$, the set of production rules is 
+	$\prd\subseteq N\times (T\cup N)^{*}$, and
+	$S\in N$ is the start symbol.
+     From the grammar $G$ we get the \emph{derives} relation
+     $\Longrightarrow\subseteq (N\cup T)^{*}\times (N\cup T)^{*}$ by
+     $vXw \Longrightarrow vuw$ for strings $v,w\in (N\cup T)^{*}$ and
+     productions $X \prd u$.
+     The grammar defines the \emph{language}, the set of strings,
+     ${\cal L}(G) = \{w\in T^{*} | S\Longrightarrow^{*} w\}$ where
+     $\Longrightarrow^{*}$ is the reflexive, transitive closure of
+     $\Longrightarrow$.
+
+In terms of Figure~\ref{fi:method}, we are at the transition point from
+$\Aclass$ to $\CA(\Aclass,\Dclass)$: we 
+have obtained a specific algebra $A$ and introduce a new recursive 
+function to be
+computed over $A$. For this new function, we construct the
+dependency relatively to the algebra $A$. The difference from the general
+setting described in Section \ref{sub:dev} is
+that we want to compute a new
+function over a given algebra and not construct a dependency for the whole
+algebra (cf. Remark~\ref{re:some}).
+This is quite a common scenario in practice and we will
+give a few examples.
+
+Let $\Sigma$ be a signature, $S_1...S_n,S$ be some sorts from
+$\Sigma$,
+and $R:S_1\times...\times S_n\into S$ a new function symbol not in $\Sigma$.
+A {\em generalized $\Sigma$-term recurrence} for $R$
+is given by a set of equations of the form
+\begin{eqnarray}\label{def:recur}
+  R(\ovl{\tau_0}(X)) = \Phi_{\ovl{\tau_{0}}(X)}
+(\  X,R(\ovl{\tau_{1}}(X)),R(\ovl{\tau_{2}}(X)),\ldots,
+    R(\ovl{\tau_{{z}}}(X))\ )
+\end{eqnarray}
+where $X$ is a (sequence of) variable(s), for each $0\leq k\leq
+z:\ovl{\tau_{k}}(X)$ is a sequence
+of terms $t_{1,k}(X)...t_{n,k}(X)$ of appropriate sorts, i.e.,
+$t_{i,k}(X) \in\Ter{\Sigma}(X)_{S_{i}}$, and
+$\Phi_{\ovl{\tau_{0}}(X)}(X,y_1...y_n)\in \Ter{\Sigma}(X,y_1...y_n)_S$
+with all $y_i$ of sort $S$. $R$ is typically given by a {\em set} of such
+equations, i.e.,
+different equations for different (sequences of) term(s)
+$\ovl{\tau_0}(X)$. (This form of generalized recurrence was studied in
+\cite{Hav90,Hav93,CH95,HS98} as a definition schema for
+``constructive recursive functions''.)
+
+Given a recurrence \re{def:recur} and a $\Sigma$-algebra $A$, we take 
+as the set of
+nodes for the shape of the dependency, the domain of $R$ in $A$, i.e.,
+the cartesian
+product $V=S_1^A\times...\times S_n^A$.
+
+We now construct a collection of context free grammars 
+$G_{\Sigma,V}$, which will define the data
+dependency. As the non-terminal symbols of the grammar, we take the set
+$N=\{N_v:v\in V\}$ of distinct symbols indexed by the nodes ($N_u=N_v\impl
+u=v$).
+Treating the non-terminals $N_{v}$ as place-holders of type $S$, we may
+now define substitution rules from (\ref{def:recur}).
+For each variable assignment $\alpha:X\into A$, let $\alpha_i\in V$ denote the
+interpretation
+of $\ovl{\tau_i}(X)$ under $\alpha$, i.e., $\alpha_i =
+\ovl{\tau_i}^A(\alpha(X)) =
+\<t_{1,i}^A(\alpha(X)),...,t_{n,i}^A(\alpha(X))\>$.
+For every expression form ${\ovl{\tau_{0}}}$ (from the set of equations
+(\ref{def:recur})) and every assignment $\alpha:X\into A$, we get the 
+production:
+\begin{eqnarray}\label{eq:recur}
+  N_{\alpha_{0}} \prd_{G_{\Sigma,V}}
+\Phi_{\alpha_{0}}^A(\alpha(X),N_{\alpha_{1}},N_{\alpha_{2}},\ldots,N_{{\alpha
+_{z}}})
+\end{eqnarray}
+Thus, for each node $v$, we obtain a node-specific grammar
+$G_{\Sigma,v}=\<\Funcs,N,\prd_{G_{\Sigma,V}},N_v\>$, i.e., where
+terminals are the function symbols $\Funcs$ from $\Sigma$,
+non-terminals are the $N$'s,
+productions are given by~(\ref{eq:recur}), and the start symbol is $N_v$.
+
+We define the shape of the dependency $\ddepo{G_{\Sigma,V}}$ by 
+introducing an edge for all
+pairs $u,v\in V$, according to the rule:
+\equ{\label{eq:dep}
+         u \ddepo{G_{\Sigma,V}} v\ \ \ \iff\ \ \
+         N_v \prd_{G_{\Sigma,V}} r N_u t, \ \ {\rm for\ some\ }r,t\ 
+{\rm with\ }rN_ut\in\Ter{\Sigma}(N).
+}
+This gives us a graph
+structure on $V$, and we can define a ``compatible'' $lab$eling function by
+requiring that
+\equ{\label{eq:uni}
+\forall v\in V : lab_{G_{\Sigma,V}}(v)\in {\cal L}(G_{\Sigma,v})
+}
+where ${\cal L}(G_{\Sigma,v})$ is the language generated by the grammar
+$G_{\Sigma,v}$ of node $v$.
+
+The result may not be a data dependency: the
+graph $\<V,\ddepo{G_{\Sigma,V}}\>$ obtained from \re{eq:dep} may be cyclic,
+or else
+the labeling \re{eq:uni} may not be unique, problems
+often due to the recurrence \re{def:recur} not being well-defined to begin
+with.
+The following  conditions on $G_{\Sigma,V}$ ensure that the result will be a
+data dependency -- a (simple) DAG with unique labeling.
+\begin{CLAIM}\label{cl:uniq}
+If a collection of node-specific grammars $G_{\Sigma,V}$ is such that
+\begin{enumerate}\MyLPar
+\item\label{it:onerule}
+for every non-terminal
+$N_v$ there is exactly one rule $N_v\prd_{G_{\Sigma,V}}t$, and
+\item\label{it:welf}
+the resulting graph
+$\Gamma_{G_{\Sigma,V}}=\<V,\ddepo{G_{\Sigma,V}}\>$ is well founded,
+\end{enumerate}
+then $G_{\Sigma,V}$ determines a unique $\Sigma$ data dependency.
+\end{CLAIM}
+\begin{PROOF}
+Point 2.\ implies that $\Gamma_{G_{\Sigma,V}}$ is acyclic.  For every $v\in V$, the
+language  ${\cal L}(G_{\Sigma,v})$ is a one-element set
+since by Point 1.\ we have exactly one $N_v\prd_{G_{\Sigma,V}} t$ for each $v$,
+and, since $\Gamma_{G_{\Sigma,V}}$ is well founded, each path from $t$ will
+uniquely lead to a terminal node.  Thus the unique data dependency is
+$D_{G_{\Sigma,V}}=\<V,\ddepo{G_{\Sigma,V}},lab_{G_{\Sigma,V}}\>$ where
+$lab_{G_{\Sigma,V}}(v)=q$, where $q$ is the unique string in 
+${\cal L}(G_{\Sigma,v})$.
+\end{PROOF}
+\noindent
+In each particular case of a given recurrence \re{def:recur} and an algebra
+$A$, the well-definedness of the resulting dependency has to be checked, for
+instance, by verifying the conditions of the above proposition. \vspace*{-.5ex}
+
+Another obvious fact following from the assumptions of 
+Proposition~\ref{cl:uniq}
+is that if $\depo{G_{\Sigma,V}}uv$
+then $lab_{G_{\Sigma,V}}(u)$ is a subterm of $lab_{G_{\Sigma,V}}(v)$.
+
+\begin{SREMARK}{Remark.}
+The described construction obviously subsumes primitive recursion for 
+which we have
+$\Sigma=\<Nat,\Funcs\>$,
+the only model $\Nata$ being that of the naturals such that $\Funcs$ 
+are the basic
+  primitive recursive operations on naturals.
+Given recursive equation schema for an $R$ with $n+1$ variables
+\begin{eqnarray*}
+         R(0,y_1,\ldots,y_n) &=& g(y_1,\ldots,y_n) \\
+         R(\suc(i),y_1,\ldots,y_n) &=& h(i,y_1,\ldots,y_n,R(i,y_1,\ldots,y_n)),
+\end{eqnarray*}
+where $g$ and $h$ are primitive recursive operations, we get
+the set of nodes $V=\Nat^{n+1}$, nodes of the form 
+$y=\<y_0,y_1,\ldots,y_n\>$, and the
+  productions for any fixed values of $y_1...y_n:$
+\begin{eqnarray*}
+    N_{\<0,y_1,\ldots,y_n\>} &\prd & g(y_1,\ldots,y_n) \\
+    N_{\<i+1,y_1,\ldots,y_n\>} &\prd &
+h(i,y_1,\ldots,y_n,N_{\<i,y_1,\ldots,y_n\>}) \vspace*{-8ex}
+\end{eqnarray*}
+\end{SREMARK}
+\noindent
+	This approach to the recursive programming of functions is a
+	derivative of the semantic (i.e. $\mu$-recursive) approach to
+	computability. 
+Most functional languages, on the other hand, are compiled using (parallel)
+	graph reduction techniques \cite{PJ87} or, more generally, a 
+	syntax-oriented computability model based on term substitution,
+	e.g. $\lambda$-calculus. Unlike these substitution
+	based approaches, the construction described here leads often
+	immediately to an efficient dependency structure which is amenable to
+	a direct translation to efficient code on (parallel) machine
+	hardware. The two following subsections illustrate this claim on two examples. 
+
+\subsection{A simple example -- the Fibonacci function}
+Take again the Fibonacci function from
+example~\ref{ex:Fib}, which we want to compute in a standard algebra $\Nata$ of
+natural numbers. That is, we have the signature
+$\Sigma=\<\{Nat\},\{s:Nat\into Nat, \oplus:Nat\times Nat\rightarrow 
+Nat,z:Nat\}\>$, and $\Nata$
+is given by $Nat^\Nata=\Nat$, the set of natural numbers,
+$s^\Nata=$ the successor function, $\oplus^\Nata=$ addition, and $z^\Nata=0$.
+
+The recursive specification of the Fibonacci function  $F:Nat\into
+Nat$ is:
+\begin{eqnarray}
+F(z) & = & s(z) \nonumber \\
+F(s(z)) & = & s(z) \label{eq:fib} \\
+F(i\oplus ss(z)) & = & F(i) \oplus F(i\oplus s(z)) \nonumber
+\end{eqnarray}
+We choose $\Nat$ as the set of nodes $V$ (corresponding to the arity of $F$),
+i.e., $V=\Nat$.
+With $N_{k}$, for $k\in \Nat$, as non-terminal symbols, we now obtain the
+production rules for the set of node-specific grammars (using that
+$z^{\Nata}=0$, $s(z)^{\Nata}=1$ and $ss(z)^{\Nata}=2$ for the indices):
+%
+\begin{eqnarray}
+N_{0} &\prd  & s(z) \nonumber \\
+N_{1} &\prd  & s(z) \label{eq:fibG} \\
+N_{i+2} &\prd  &( N_{i} \oplus N_{i+1}) \nonumber
+\end{eqnarray}
+\noindent
+Each non-terminal has only one production and so
+each node will be labeled by a unique ground term generated by the
+corresponding grammar.
+The resulting graph  and labeling (with parentheses added for readability)
+are shown in Figure~\ref{fi:recsp}.
+\begin{figure}[hbt]
+\def\objectstyle{\scriptstyle}
+  \spcol{-.5}
+  \sprow{-1.5}
+\[ \diagramcompileto{FibCR}
+    N_4 &               & & & &       (1\oplus 1)\oplus((1\oplus 
+1)\oplus 1) & \\
+    & N_3\ulto \udotted & & & &       & (1\oplus 1)\oplus 1 \ulto \udotted \\
+    N_2 \uuto \urto &   & & & &       1\oplus 1 \uuto \urto &  \\
+    & N_1 \ulto \uuto   & & & &       & 1 \ulto \uuto \\
+    N_0 \uuto &         & & & &       1 \uuto \\
+\save \Drop{\text{{\normalsize $\Gamma_{\mathit{Fib}}$ with non-terminals}}}
+    \restore&     & & & &
+\save \Drop{\text{{\normalsize $\Gamma_{\mathit{Fib}}$ with labels}}} \restore
+  \enddiagram  \]
+\caption[Fibonacci graph]{The graph derived from the Fibonacci recurrence
+(\ref{eq:fib}): on the left with the non-terminals, on the right with
+the language derived for each node (abbreviating $s(z)$ by $1$).}
+\label{fi:recsp}
+\end{figure}
+
+\noindent
+Notice that although labeling uses fully unfolded terms, the graph itself is
+not the usual tree of recursive calls as, e.g. $\dd R$ in
+Figure~\ref{fi:rec}, but a much more efficient graph $\Gamma_{\mathit{Fib}}$.
+
+\subsection{An example of parallelization - Fast Fourier Transform}\label{se:parallel}
+To illustrate the application to actual parallelization of
+programs, we review the technique of the fast Fourier Transform, FFT, due to
+\cite{CT65}. We first present the background problem and its solution given
+by a recurrence. The dependency for this recurrence obtained by our technique  turns out to have
+the well known shape of the {\em butterfly graph}. We then show a standard
+distribution of the butterfly on a hypercube architecture.
+
+\subsubsection{The numerical problem}
+In many areas, computing of  $n$-order polynomials $p(x) =
+\sum^{n}_{k=0} p_k x^k$, $0\le n$, for certain argument values
+$x=x_1,\ldots,x_k$ is important. These areas include, for instance,
+signal processing,
+where evaluation of the polynomials for the {\em complex roots of unity\/}
+plays a central role.
+
+An $n$'th complex root of unity is a complex number $\omega$ such that
+$\omega^n=1$.  For every $n\ge 1$ there are $n$ distinct complex roots,
+spread at $n$ regular intervals along the unit circle in complex
+space, numbered counterclockwise starting at the number 1 which is
+root number 0. The $j$'th such root is
+denoted $\omega^j_n$, and satisfies
+\[    \omega^0_n = 1 \hspace*{3em}
+       \omega^{j+1}_n = \omega^{j}_n \omega^1_n \hspace*{3em} 
+       \omega^j_n     = \omega^{j \bmod n}_n
+\]
+Useful facts about these roots are that $(\omega^j_{2n})^2=
+\omega^{2j}_{2n}= \omega^j_n$ and $\omega^{j+n}_{2n}= -\omega^j_{2n}$.
+The roots may be computed by $\omega^{j}_{n}= e^{(2\pi i/n)*j} = cos(2\pi j/n)
+  + sin(2\pi j/n) i$, where $i=\omega^1_4$ is the imaginary unit, i.e.,
+  $i^2 = -1$.
+
+Cooley and Tukey \cite{CT65} discovered a very efficient algorithm, the FFT,
+for computing an $n$-order polynomial for {\em all} $n$'th complex roots of unity.
+Let us consider this method for the case where $n=2^M$, i.e., the
+one-dimensional binary version. Then the polynomial $p(x)$ can be split into
+``even'' $p_{e}$ and ``odd'' $p_{o}$ parts such that 
+$p(x)=p_e(x^2)+x*p_o(x^2)$, where
+$p_e(x)=\sum^{2^{n-1}}_{k=0} p_{2k} * x^k$ and $p_o(x)=\sum^{2^{n-1}}_{k=0}
+p_{2k+1} * x^k$.  Taking into account the properties of the roots of
+unity, we get
+\begin{eqnarray*}
+         p(\omega^j_{2^m})
+                 &=& p_e(\omega^{j}_{2^{m-1}})
+                 + \omega^{j}_{2^{m}}  p_o(\omega^{j}_{2^{m-1}})
+\\      p_e(\omega^{j}_{2^{m-1}})
+                 &=& p_{e,e}(\omega^{j}_{2^{m-2}})
+                 + \omega^{j}_{2^{m-1}}  p_{e,o}(\omega^{j}_{2^{m-2}})
+\\      p_o(\omega^{j}_{2^{m-1}})
+                 &=& p_{o,e}(\omega^{j}_{2^{m-2}})
+                 + \omega^{j}_{2^{m-1}}  p_{o,o}(\omega^{j}_{2^{m-2}})
+\end{eqnarray*}
+This can be formulated as a recurrence equation
+\begin{eqnarray}
+%         p(\omega^j_{2^M}) &=& F(j,M) \nonumber \\      
+     F(j,0) &=& p_j, \label{eq:roots} \\
+F(j,m+1) &=& F(s_0(j,m+1),m) + \omega^{j}_{2^{m+1}}F(s_1(j,m+1),m)   \nonumber
+\end{eqnarray}
+where $s_0(j,m)= j - (j \bmod 2^m) + (j \bmod 2^{m-1})$ sets the $m$'th bit of
+  $j$ to $0$ and $s_1(j,m)= j - (j \bmod 2^m) + 2^m + (j \bmod 2^{m-1})$ sets
+the $m$'th bit of $j$ to $1$. Bits are the 0's and 1's in the binary
+representation of a number, and are counted with the least significant bit
+as number 1. The value of the polynomial at the $j$-th complex root of unity
+equals then $p(\omega^j_{2^{M}})=F(j,M)$.
+
+\subsubsection{Constructing a dependency}
+Applying our strategy we start with the
+equations \re{eq:roots} defining the recurrence.
+We work with the algebra of natural and complex numbers, and as the set of
+nodes $V$ we take the cartesian product
+$\{\<j,m\>\in\Nat\times\Nat\mid 0\le j < 2^M, 0\le m\le M\}$ -- since $F$
+has two natural number arguments which are within these limits.
+The grammar resulting from the equations \re{eq:roots} is
+then (using $\oplus$ as the complex addition operation and $\otimes$
+as the complex multiplication):
+\begin{eqnarray}
+\ \ \ \ \ \ \ \         N_{\<j,0\>} &\prd & p_j \nonumber\\
+N_{\<j,m+1\>} &\prd & N_{\<s_{0}(j,m+1),m\>} \oplus
+(\omega^j_{2^{m+1}} \otimes N_{\<s_{1}(j,m+1),m\>}) \label{eq:fft}
+\end{eqnarray}
+with the coefficients $p_j$ of the polynomial treated as input since the roots
+of unity $\omega^j_{2^{m+1}}$ are fixed once $M$ is known.
+The resulting shape of the data dependency for $M=3$ is given
+in Figure~\ref{fi:bbf}.
+Again, observe how this method leads directly to an ``efficient'' graph
+instead of generating
+the full tree of recursive calls.
+
+\begin{figure}[hbt]
+\def\objectstyle{\scriptstyle}
+\spcol{-.5}
+\sprow{-.7}
+%\everyentry={\bullet}
+\hspace*{6em}\diagramcompileto{Butterfly}
+3& & \bullet & \bullet & \bullet & \bullet & \bullet
+   & \bullet & \bullet & \bullet \\
+2 \uto^{\textstyle m} & &
+\bullet \uline \xline[urrrr]
+& \circ \uline \xline[urrrr]
+& \bullet \uline \xline[urrrr]
+& \bullet \uline \xline[urrrr]
+& \bullet \uline \xline[ullll]
+& \bullet \uline \xline[ullll]
+& \bullet \uline \xline[ullll]
+& \bullet \uline \xline[ullll] \\
+1 \uto & &
+\bullet \uline \urrline
+& \bullet \urrline \uline
+& \bullet \ullline \uline
+& \bullet \ullline \uline
+& \bullet \uline \urrline
+& \bullet \urrline \uline
+& \bullet \ullline \uline
+& \bullet \ullline \uline \\
+0 \uto  & &
+\bullet \uline \urline
+& \bullet \uline \ulline
+& \bullet \uline \urline
+& \bullet \uline \ulline
+& \bullet \uline \urline
+& \bullet \uline \ulline
+& \bullet \uline \urline
+& \bullet \uline \ulline \\
+& & 0 \rline & 1 \rline & 2 \rrto^{\textstyle j} & & &
+\enddiagram
+\caption{The butterfly pattern of the recurrence $F$.}\label{fi:bbf}
+\end{figure}
+\noindent
+Columns correspond to the $j$ and rows to the $m$ arguments with the leftmost
+column and bottom row numbered 0.  The bottom row will be labeled with
+$p_0,p_1,p_2,...$ according to the first kind of productions from
+\re{eq:fft}. The labels in the upper rows will be generated using the 
+second kind of
+productions from \re{eq:fft}. We do not write it explicitly (lengthy 
+labeling can be
+easily recovered from the grammar) but only observe that the label at node
+$\<j,m\>$ will represent the value of $F(j,m)$. For instance, the 
+node at row 2, column
+1 (marked with the circle instead of bullet on the drawing) will represent
+the value of $F(1,2)$.
+
+\subsubsection{Distribution on a hypercube}
+The shape from Figure~\ref{fi:bbf} is known as a {\em butterfly graph}.
+Increasing $M$ by one, i.e., taking $n=2^{M+1}$, amounts to
+putting two butterflies of height $M$ side by side, adding a new set of
+nodes on top (row $M+1$), and connecting
+uppermost nodes (in the $M$'th row) of the one butterfly to its own
+and to the respective
+nodes of the other
+in the row $M+1$.
+
+Now, Figure \ref{hc.hw} shows the topology of hypercubes of dimension
+$M=$ 3 and 4. Each of
+the  $2^M$ processors has $M$ bidirectional communication channels. A
+hypercube of dimension $M+1$ is obtained from two hypercubes of dimension $M$
+by connecting each node of one hypercube to corresponding node of the other.
+
+\begin{figure}[hbt]
+\sprow{-2}
+\spcol{-1.2}
+\hspace*{10em}\diagramcompileto{Hyper}
+& & &  & &     & \bullet \xline[ddd] \xline[dl] \xline[drr] & & \\
+% 2
+& \bullet \xline[ddd] \xline[dl] \xline[drr] \xdotted[urrrrr] & &   & &
+\bullet \xline[ddd] \xline[drr] & & & \bullet \xline[ddd] \xline[dl] \\
+% 3
+\bullet \xline[ddd] \xline[drr] \xdotted[urrrrr] & & & \bullet \xline[ddd]
+         \xline[dl] \xdotted[urrrrr] & &
+& & \bullet \xline[ddd] & \\
+% 4
+& & \bullet \xline[ddd] \xdotted[urrrrr] & & &
+& \bullet \xline[dl] \xline[drr] & & \\
+% 5
+& \bullet \xline[dl] \xline[drr] \xdotted[urrrrr] & &  & &
+\bullet \xline[drr] & & & \bullet \xline[dl] \\
+% 6
+\bullet \xline[drr] \xdotted[urrrrr] & & & \bullet \xline[dl]
+      \xdotted[urrrrr] & &
+& & \bullet & \\
+& & \bullet \xdotted[urrrrr] &
+\enddiagram
+\caption{Connections for hypercubes of dimension 3 (solid), and 4 (solid
+and dotted). }\label{hc.hw}
+\end{figure}
+
+The hypercube parallel program will then, on hypercube node $j$
+	at time-step $m+1$, compute $F(j,m+1)$ using input data supplied
+	by nodes $s_0(j,m+1)$ and $s_1(j,m+1)$ at time-step $m$. One of the
+	data supplying nodes will be the same as the node $j$, the other will be 
+	its neighbor along dimension $m$. 
+
+The  Figure
+\ref{hc.sta} shows a distribution of the butterfly dependency of height 3
+from Figure
+\ref{fi:bbf} on the $st$-graph of the hypercube of dimension
+3 from Figure \ref{hc.hw}. (Thicker arrows indicate the embedded edges of
+the butterfly; thinner lines the remaining edges of the hypercube.)
+Using the regularity in building a butterfly and a
+hypercube of higher dimensions, an analogous distribution is obtained for a
+butterfly of arbitrary height $M$ into a hypercube of dimension $M$.
+
+\input{rowsAll}
+
+\section{More about development process}\label{se:difSign}
+This section adds a few results concerning the development process using
+computation algebras. First, in Section~\ref{sub:difSign}, we show the counterpart of
+the standard result allowing one to view computation algebras over
+different signatures as objects of one category. Thus we obtain the 
+means of refining
+the picture of the development process from Figure \ref{fi:method} by also
+admitting transitions between computation algebras over different
+signatures.
+Section \ref{sub:specific} identifies then two subcategories of $\CAS$
+with more specific morphisms which make the coupling of the algebra- and the
+communication-part tighter than in the general case of computation
+homomorphisms from Definition~\ref{de:Chom}. The latter of these
+subcategories was used in the design of the actual specification formalism
+{\sc Sapphire}.
+Section \ref{sub:general} states two further properties of the category of
+computation algebras which are of relevance for the methodology of
+development.
+
+\subsection{Computation Algebras over Different
+Signatures}\label{sub:difSign}
+So far we have only considered computation algebras over one given signature.  Thus,
+the development process illustrated in Figure \ref{fi:method} is not quite
+realistic since it is rather certain that such a process will involve
+change of signatures.  We will now extend the standard way of
+flattening the categories of algebras indexed by signatures to the
+computation algebras and their distributions.  
+
+Let $\Sig$ be the category of
+signatures with injective signature morphisms.\footnote{We restrict
+ourselves to the
+injective
+signature morphisms for one main reason: defining a reduct functor over
+data dependencies
+for non-injective morphisms implies several choices which seem slightly
+arbitrary. We
+therefore prefer to postpone such a decision until we have more experience and
+reasons to choose one alternative rather than another.}
+%
+We write a dependency $\dd D$ as a triple $\<I^D,\ddepo D,lab_{\dd D}\>$.
+\begin{DEFINITION}{[$\sigma$-reduct]}
+Let $\sigma:\Sigma'\into\Sigma\in\Mor{\Sig}$ and $\dd D\in\DD(\Sigma)$. The
+{\em $\sigma$-reduct} of
+$\dd D$, $\reduct {\dd D}\sigma\in\DD(\Sigma')$, is defined in two steps
+ (we assume the ordinary extension of $\sigma$ to $\sigma:\GTerms\into \Ter{\Sigma'}$): \\
+\noindent
+1. let $\dd X$ be $\dd D$ with restricted re-labeling $:I^X=I^D$, $\ddepo X\ =\
+\ddepo D$ and
+  $lab_X(i)=\sigma^-(lab_{\dd D}(i))$, where $\sigma^-:\GTerms\into
+  \Ter{\Sigma'}$ is given by $\sigma^-(t) = \left\{\begin{array}{ll} t' &
+  {\rm such\ that\ }\sigma(t')=t\ {\rm if\ it\ exists}\\
+   \bot & {\rm otherwise} \end{array}\right.$ \\
+\noindent
+2. $\reduct {\dd D}\sigma$ is then given by
+\begin{itemize}\MyLPar
+	\item $I^{\reduct D\sigma} = \{i\in I^D: \sigma^-(lab_X(i))\not = \bot\}$,
+	\item $lab_{\reduct D\sigma}(i)=lab_X(i)$, and
+	\item $\depo {\reduct D\sigma}ij \iff \left \{
+	\begin{array}{l} \depo Dij \ \ \ or \\
+	\exists\ {\rm path\ }\depo Xi{k_1} \cdots \depo X{k_z}j\ {\rm 
+and\ } 1\leq n\leq z \impl
+lab_X(k_n)=\bot
+	\end{array}\right .$
+\end{itemize} \vspace*{-5ex}
+\end{DEFINITION}
+
+\newpage
+\noindent In the first step, we remove all the labels from $D$ which are
+not in the image of $\sigma$, and re-label the remaining ones to their
+$\sigma$ pre-image.  In the second we convert paths with unlabeled ($\bot$-labeled)
+intermediary nodes into edges between the labeled end-points.
+
+For $A\in\AlgS$ and $\sigma:\Sigma'\into\Sigma\in\Mor{\Sig}$, we let
+$\reduct A\sigma$
+denote the usual reduct. We then have the extension of the standard result:
+%
+\begin{CLAIM}
+$\sigma:\Sigma'\into\Sigma\in\Mor{\Sig}$ induces the functor $\reduct{\_}\sigma
+:\CA(\Sigma)\into\CA(\Sigma').$
+\end{CLAIM}
+\begin{PROOF}
+For an $A\in\CA(\Sigma)$,
+define $\reduct A\sigma=\<\reduct{\ha A}\sigma,\reduct{\hc A}\sigma\>$.
+For a morphism $h:A\into B\in\Mor{\CA(\Sigma)}$, $\reduct h\sigma
+=\<\reduct{\ha h}\sigma,\reduct{\hc h}\sigma\>$
+where $\reduct{\ha h}\sigma$ is the image of $\ha h$ under the usual reduct
+functor
+for algebras, while $\reduct{\hc h}\sigma$ is the restriction of $\hc h$ to
+$\reduct{\hc B}\sigma$ under changed labeling:
+each node $i$ of $\reduct{\hc B}\sigma$ is sent to the node $\reduct{\hc
+h(i)}\sigma=\hc h(i)$,
+and edge $e$ of $\reduct{\hc B}\sigma$ onto the edge (path/set of paths)
+$\reduct{\hc h(e)}\sigma$ in
+$\reduct{\hc A}\sigma$.
+This is a well defined $\DD(\Sigma')$-morphism: commutativity
+$\Comp{\hc h}{\Comp{\ev_A}{\ha h}}=\ev_B$ implies the corresponding
+commutativity in the
+reduct, since the latter operations are restrictions of their pre-images.
+\end{PROOF}
+\noindent Thus $\reduct{\_}{\_}:\op{\Sig}\into{\Cat {CAT}}$ sending
+$\Sigma$ to $\CA(\Sigma)$ and $\sigma$ to $\reduct{\_}\sigma$ is an indexed
+category.  By the standard application of the Grothendieck construction we
+may define the flattened category $\CA$ with 1) objects $\<\Sigma,A\>$
+where $A\in\Obj{\CA(\Sigma)}$, 2) morphisms of the form
+$\<\sigma,f\>:\<\Sigma',A\>\into\<\Sigma,B\>$, where $\sigma\in\Mor{\Sig}$
+and $f:A\into\reduct B\sigma\in\Mor{\CA(\Sigma')}$, and 3) composition
+$\Comp{\<\sigma,f\>}{\<\rho,g\>}=\<\Comp\sigma\rho, \Comp f{\reduct
+g\rho}\>$.
+
+Quite an analogous construction yields an indexed category
+$\rreduct{\_}{\_}:\op\Sig\into \Cat{CAT}$ which sends $\Sigma$ to
+$\IM(\Sigma)$.  For $\sigma:\Sigma'\into\Sigma$, the induced functor
+$\rreduct{\_}\sigma:\IM(\Sigma')\into\IM(\Sigma)$, sends a distribution
+$\imca AfW\in\IM(\Sigma)$ onto $\imca {\reduct A\sigma}{(\rreduct
+f\sigma)}W\in\IM(\Sigma')$, where $\rreduct f\sigma$ is the restriction of
+$f$ to $\reduct{\hc A}\sigma$.  The result of the flattening is the category
+$\IM$.  We do not dwell on this general category, because we consider 
+the categories
+$\IM(\Sigma)$ for particular $\Sigma$ more central -- porting {\em 
+distributions\/} does not
+typically involve changes of signature.
+
+
+
+\subsection{More specific dependency morphisms}\label{sub:specific}
+The class $\CAS$ provides the general framework for possible specializations.
+Arbitrary dependency morphisms in $\DDS$ make the
+connection between
+the algebra- and the communication-part of the objects in $\CAS$ rather loose
+and indefinite. We mention two possible restrictions.
+
+\subsubsection{Computation algebras with compatible
+$\Dclass$-morphisms}\label{sub:compatible}
+Let $\Aclass$ be a fixed class of
+$\Sigma$-algebras.  It is natural to think of it as a model class of some
+(equational) specification.  One may postulate that such a choice of
+$\Aclass$ should restrict the relevant dependency morphisms.  In
+particular, if $\Aclass\not\models s=t$, the $\Dclass$-morphisms should not
+be allowed to map nodes labeled by $s$ to ones labeled by $t$ (nor vice
+versa), since such mappings are not compatible with the algebras in
+$\Aclass$.  Thus, compatibility of a $\DDS$ morphism $h: \dd C\into \dd
+D$ wrt.  an algebra $A$ means that $h$ does not effect a re-labeling
+which is inconsistent with valuation in $A$.  More precisely:
+\begin{DEFINITION}{}\label{de:compat}
+Let $h:\dd C\into \dd D\in\Mor{\DDS}$ and $A\in\Aclass\subseteq\AlgS$.
+\begin{enumerate}\MyLPar
+\item $h$ is {\em $A$-compatible} iff $\forall i\in I^{C} :
+(lab_{\dd D}(h(i)))^A =
+(lab_{\dd C}(i))^A$~;
+\item $h$ is $\Aclass${\em -compatible\/} iff it is $A$-compatible for all
+$A\in\Obj{\Aclass}$~;
+\item $\DD(\Aclass)$ is a wide subcategory of $\DDS$ with
+$\Aclass$-compatible morphisms.
+\end{enumerate}\vspace*{-4.5ex}
+\end{DEFINITION}
+\noindent
+Alternatively, $h:\dd C\into \dd D$ is $\Aclass$-compatible iff for each
+$A\in\Obj{\Aclass}$,
+  $\<id_{A}, h\>$ is a computation homomorphism $\<A, \dd D\>\into 
+\<A, \dd C\>$.
+We have the obvious
+\begin{CLAIM}
+Suppose that $\Aclass$ has an initial object $T_\Aclass$, and let
+  $h: \dd C\into \dd D \in \Mor{\DDS}$.\\ $h$ is $\Aclass$-compatible
+  $\iff$ $h$ is $T_\Aclass$-compatible.
+\end{CLAIM}
+\begin{PROOF}
+($\impl$) is obvious. For ($\Leftarrow$) assume $h$ is
+$T_\Aclass$-compatible.
+This means that the lower
+triangle of the following diagram commutes,
+$\Comp h{ev_{T_{\Aclass}}^{\dd D}}=ev_{T_{\Aclass}}^{\dd C}$, where
+  $\ev_X^{\dd Y}$ assigns the values
+from an algebra $X$ to
+the nodes of a dependency $\dd Y$ according to their labels (i.e. $ev_X^{\dd
+Y}(i)=(lab_{\dd Y}(i))^X$).
+
+\hspace*{12em}
+\spcol{.6}
+\diagramcompileto{TK}
+& A \\
+& T_\Aclass \uto_<<<<a \\
+\dd C \uurto^{\ev_A^{\dd C}} \urto_{ev_{T_{\Aclass}}^{\dd C}} \rrto_{h} & &
+\dd D \uulto_{\ev_A^{\dd D}}
+\ulto^{ev_{T_{\Aclass}}^{\dd D}}
+\enddiagram
+
+\noindent
+Since $T_\Aclass$ is initial, for each $A\in\Aclass$ and dependency $\dd Y$,
+$\ev_A^{\dd Y}=\Comp{\ev_{T_{\Aclass}}^{\dd Y}}a$
+where $a$ is the
+unique homomorphism $T_\Aclass\into A$. But then $\Comp
+{h}{\ev_{T_{\Aclass}}^{\dd D}}=\ev_{T_{\Aclass}}^{\dd C} \impl
+\Comp{\Comp{h}{\ev_{T_{\Aclass}}^{\dd D}}}a=\Comp{\ev_{T_{\Aclass}}^{\dd
+C}}a \impl \Comp {h}{\ev_A^{\dd D}}=\ev_A^{\dd C}$.
+\end{PROOF}
+\noindent
+As a special case, the morphisms compatible with $\Aclass=\AlgS$ are the ones
+which do not change the labeling at all, since they have to be compatible
+with the
+initial word algebra $T_\Sigma$.
+
+For computation algebras with compatible dependency morphism, we also have
+the following fact about the restriction of the functor $\hc{(\_)}$ 
+from (\ref{fu:dep}):
+%
+\begin{CLAIM}\label{le:Dep}
+$\hc{(\_)}:\op{\CA(\Aclass,\DD(\Aclass))}\into {\DD(\Aclass)}$ is a 
+split fibration.
+\end{CLAIM}
+%
+\begin{PROOF}
+We use the notation from the diagram to the right
+which illustrates the fibration situation in the present context (the dashed
+arrows indicate the directions in $\_^{op}$ categories):
+\pp{1ex}
+\hspace*{1em} \spreaddiagramcolumns{1pc}
+\diagramcompileto{FibC}
+& B\framed<5pt>   \ddashed<.5ex>|>\tip  \drdashed<0.5ex>|>\tip
+   &  & \ha{B}  \drrdashed<.5ex>|>\tip  \drdashed<0.5ex>|>\tip  \\
+\op{\CA(\Aclass,\DD(\Aclass))} \dto^{\hc{(\_)}} & C\framed<5pt>
+\rdashed<-.5ex>|>\tip_{cl(d,D)}  \uto<.5ex>^f
+    &  D\framed<5pt> \lto<-.5ex> \ulto<-1.5ex>_g
+    &  & \ha{D} \rdashed<0.5ex>|>\tip  \ulto<.5ex>^<<<<{\ha{f}}
+    & \ha{D} \lto<0.5ex>^{id_{\ha{D}}} \ullto<-1.5ex>_{\ha{g}} \\
+\DD(\Aclass) & \dd{C}\rto_{d} & \dd{D}
+    &  & \dd{C} \save\go[u]\merge\framed<5pt>\restore
+    \uuldotted<.5ex>|<<<<<<<<{\ev_{B}}|>\tip \udotted|{\ev_{C}}|>\tip
+\rto_{d} & \dd{D} \save\go[u]\merge\framed<5pt>\restore
+	\udotted|{\ev_{D}}|>\tip
+\enddiagram
+\pp{1ex}
+For a $\DD(\Aclass)$-morphism $d:\dd{C}\into\dd{D}$ and $D=\<\ha 
+D,\dd D,ev_D\>$,
+the cleavage is defined as
+\begin{equation}\label{eq:ccl}
+cl(d,D) \Def \<id_{\ha{D}}, d\>:C\dinto D,\ {\rm
+where\ }C=\<\ha D,\dd C,\ev_C\>
+\end{equation}
+with $\ev_C$ given by the last point of Definition \ref{de:CA}. Since
+$d$ is $\Aclass$-compatible,
+$\Comp{\Comp{d}{\ev_D}}{id_{\ha
+D}}=ev_C$, and so the cleavage is a morphism in
+$\op{\CA(\Aclass,\DD(\Aclass))}$.
+
+If $g:D\into B$ is over $d$ ($\hc{\op g}=d$), the unique $f:C\into B$ over
+$id_{\dd{C}}$ making $\Comp{cl(d,D)}{f}=g$ is $\<\ha g, id_{\dd{C}}\>$ (i.e.,
+  $\Comp{\<id_{\ha{D}}, d\>}{\<\ha g, id_{\dd{C}}\>}=\<\ha g, d\>$).
+
+Obviously, the cleavages compose:
+for $c:\dd B\into \dd C$ and $d:\dd C\into\dd D$, we have $cl(d,D)=\<id_{\ha
+D},d\>$ and $cl(c,\<\ha D,\dd C\>)=\<id_{\ha D},c\>$. So $\Comp{cl(c,\<\ha
+D,\dd C\>)}{cl(d,D)}= \Comp{\<id_{\ha D},c\>}{\<id_{\ha D},d\>}={\<id_{\ha
+D},\Comp cd\>}=cl(\Comp cd,D)$. Hence $\hc{(\_)}$ is a fibration.
+
+It is split:
+  $\reind{(id_{\dd D})}(\<\ha D,\dd D\>)=\<\ha D,\dd D\>$, so the 
+natural transformation
+$\nattr{id_{\hc{(\dd D)}^{-1}} } {\reind{(id_{\dd D})}}$ is identity
+($\hc{(\dd D)}^{-1}$ denotes the fiber over $\dd D$).
+Also, since cleavages compose :
+$\Comp{\reind{(d)}}{\reind{(c)}} = \reind{(\Comp{c}{d})}$.
+\end{PROOF}
+\noindent
+For the compatible dependency morphisms, we also have the additional fact:
+
+\begin{CLAIM}\label{le:coDep}
+  $\hc{(\_)}:\op{\CA(\Aclass,\DD(\Aclass))}\into {\DD(\Aclass)}$ is a 
+cofibration.
+\end{CLAIM}
+\begin{PROOF}
+The proof and definition of cocleavage are essentially the same as in the
+Proposition \ref{le:Dep}.
+We have the following picture:
+
+\hspace*{1em}
+\spcol{1}
+\diagramcompileto{CoFibC}
+  & B\framed<5pt>   \dto_f \drto^g   &
+  & & \ha{B} \drrto^{\ha{g}} \drto|{\ \ \ha{f}=\ha g} \\ 
+\CA(\Aclass,\DD(\Aclass)) \dto^{\op{\hc{(\_)}}} & C\framed<5pt>
+    \rto_{ccl(\op d,D)}  & D\framed<5pt>
+  & &  & \ha{D} \rto_{id_{\ha{D}}} & \ha{D}  \\
+\op{\DD(\Aclass)} & \dd{C}  \rdashed^{\op d}|>\tip & \dd{D}
+  & & & \dd{C} \save\go[u]\merge\framed<5pt>\restore
+		\uuldotted|{\ev_{B}}|>\tip \udotted|{\ev_C}|>\tip
+  & \dd{D} \save\go[u]\merge\framed<5pt>\restore \udotted|{\ev_{D}}|>\tip
+\lto_{d}
+\enddiagram
+\pp{1ex}
+For a $\op{\DD(\Aclass)}$-morphism $\op d:\dd{C}\dinto\dd{D}$ and
+$D=\<\ha{D},\dd{D},\ev_D\>$, the
+cocleavage is defined as
+\begin{equation}\label{eq:cl}
+ccl(\op d,D) \Def \<id_{\ha D},d\>:C\into D\ {\rm where\ }
+	C = \<\ha{D},\dd{C},\ev_C\>,
+\end{equation}
+with $\ev_C$ induced by $lab_{\dd C}$ according to Definition
+\ref{de:CA}.3.
+Trivial repetition of the arguments from the proof of Proposition \ref{le:Dep}
+yields the conclusion.
+\end{PROOF}
+%
+\noindent
+This, together with the Proposition \ref{le:Dep}, means that $\hc{(\_)}$ is a
+bifibration and gives
+\begin{COROLLARY}
+Reindexing functors induced by $(\hc{(\_)},cl)$ have left adjoints.
+\end{COROLLARY}
+\noindent
+Finally, we may
+refer back to Section~\ref{sub:difSign} and observe that,
+for an injective signature morphism $\sigma:\Sigma'\into\Sigma$,
+  if $d:\dd C\into \dd D\in\Mor{\DDS}$ is $A$-compatible for
+an $A\in\Obj{\AlgS}$, then $\reduct{d}\sigma$ is $\reduct 
+{A}\sigma$-compatible.
+Hence, the image under $\reduct{\_}\sigma$ of a $\CA(\Aclass,\DD(\Aclass))$
+is a category $\CA(\reduct{\Aclass}\sigma,\Dclass)$ where
+$\Obj{\reduct\Aclass\sigma} =
+\{\reduct A\sigma:A\in\Obj{\Aclass}\}$ and morphisms in $\Dclass$ are
+$\reduct{\Aclass}\sigma$-compatible. (In general, $\Dclass$ may be only a
+subcategory of $\DD(\reduct\Aclass\sigma)$.)
+
+\subsubsection{Graph-morphisms}\label{sub:Saphire}
+We believe that refinement of data dependencies -- at least as expressed by
+the compatible dependency morphisms in Definition~\ref{de:compat} -- may be
+a practical notion for the development of implementations and, perhaps, more
+abstract algorithms.  Nevertheless, one could argue that it is not needed in
+such generality since data dependencies are quite concrete objects
+introduced towards the very end of the development process.  In particular,
+passing from one computation algebra to another should not imply the
+introduction of new dependencies, only (and at most) purely syntactic
+memoisation.  It is only the distribution morphisms which adjust the
+dependency graph to match it to the communication structure of a given
+architecture.
+
+Accepting this view, one could work with a class of
+computation algebras $\AD$ where $\Aclass\subseteq\AlgS$ and the
+dependencies in $\Dclass$ are restricted so that the target of the
+forgetful functor $Gr$ projecting dependencies onto their graph-part
+(cf.~\re{fu:gr} after Definition~\ref{de:DDS}),
+is no longer the category $\Gr$ but its wide subcategory $\Gr^\ecomp$:
+morphisms in $\Gr^\ecomp$ may map edges on paths but not
+on ``parallel compositions'' of paths. ($\Gr^\ecomp$ can be defined as $\Gr$
+in Definition~\ref{de:clgr} but with the adjunction
+${F^\ecomp}\adj{U^\ecomp}$ from Proposition~\ref{cl:adj1} instead of 
+${\pat F}\adj{\pat U}$.)
+Thus objects in $\Dclass$ are simple DAGs and
+morphisms  are the $\Aclass$-compatible dependency morphisms $h$ such that
+$Gr(h)$ is a $\Gr^\ecomp$-morphism.
+
+In fact, restricting our attention to merely syntactic memoisation, we restrict
+further the morphisms in $\Dclass$ to those which do not perform any
+relabeling but can, at most, identify some nodes from the source graph with
+identical labels. Thus, the morphisms are in fact $\AlgS$-compatible.
+Let us denote this class of computation algebras by
+$(\Aclass,\DSaph)$.
+Since $\DSaph$-morphisms do not perform any relabeling
+whatsoever, so in this class, any pair
+$h \in \Mor{\DSaph}$ and $g \in \Mor{\Aclass}$ will give rise to a
+$(\Aclass,\DSaph)$-computation morphism.
+
+Since $\Mor{\DSaph}\subset\Mor{\DD(\Aclass)}$, we can trivially repeat the
+constructions from Propositions \ref{le:Dep} and \ref{le:coDep}, to see that
+  $\hc{(\_)}:\op{(\Aclass,\DSaph)}\into {\DSaph}$ is a bifibration.
+
+The class $(\Aclass,\DSaph)$, although theoretically perhaps not the most
+fascinating one, deserves to be mentioned because it was used in practical
+applications and underlies the design of the specification formalism {\sc
+Sapphire} \cite{CH95,HS98} (see section~\ref{se:cr}).
+
+\subsection{Two more facts about 
+$\CA(\Aclass,\Dclass)$.}\label{sub:general} The following two facts show
+further properties of $\CA(\Aclass,\Dclass)$ which can be relevant in the
+development process. The one in Section \ref{sub:dc} allows us to treat refinement
+along the algebra- and communication-part relatively independently from each
+other. This indicates the possibility that once developed chains of refinements of, say,
+dependency structures, could be reused in new contexts by coupling them with
+new actual algebras. The second one, Section \ref{sub:init}, gives (some) conditions
+for the existence of initial computation algebras relatively to the
+exisitence of initial objects in $\Aclass$ and $\Dclass$.
+
+\subsubsection{$\CA(\Aclass,\Dclass)$ as a double category.}\label{sub:dc}
+A morphism between computation algebras consists of a pair of one
+standard
+algebra-morphism and one dependency-morphism (with additional compatibility
+criterion, Definition~\ref{de:Chom}). Yet, the coupling of the two is
+loose enough to allow us to separate them in a development
+process. More precisely, any morphism in $\CA\AD$ can be seen as applying an
+algebra morphism and then a dependency morphism (or vice versa).
+In a sense, $\CA\AD$ ``consists of'' two categories:
+the ``horizontal'' one being
+$\Aclass$ and the ``vertical'' one $\Dclass$.
+
+Expressing this relative independence categorically, we can show that
+computation algebras form  a double category
+with horizontal and vertical arrows, respectively, of the form  $\<\ha h,
+id\>$ and $\<id, \hc h\>$ (and cells being the commuting squares
+\(\def\objectstyle{\scriptstyle}\spcol{-1}\sprow{-1}\diagram 
+A\rto_{h}\dto_{v} & B\dto^{u}\\
+C\rto^{g}&D\enddiagram\), where $h,g$ are horizontal and $u,v$ vertical
+arrows).
+
+We will not spell out the details of this construction which is rather
+straightforward (for double categories, the reader may consult 
+\cite{Ehr63, McL}).
+We only show the simple proposition illustrating that any morphism in
+$\CA\AD$ can be seen as
+consisting of two, relatively independent steps: one mapping the algebra-part
+and another mapping the communication-part.
+The nice implication of this is
+that we can work relatively independently with the algebra- and the
+communication-part of the objects in $\CA\AD$.
+%
+\begin{CLAIM}\label{pr:factorC}
+Each morphism $h:C\into D$ in $\CA\AD$ can be factored so that
+\begin{enumerate}\MyLPar
+\item $h=\Comp{\<\ha h, id_{\hc{C}}\>}{\<id_{\ha{D}}, \hc h\>}$,
+\item $h=\Comp{\<id_{\ha{C}}, \hc h\>}{\<\ha h, id_{\hc{D}}\>}$.
+\end{enumerate}
+\end{CLAIM}
+\begin{PROOF}
+The following diagram details the first case:
+
+\hspace*{8em}
+\sprow{-0.3}
+\spcol{-1}
+\diagramcompileto{FactorC}
+\hc{C} \save\go[d]\merge\framed<5pt>\restore \ddotted|{\ev_C}|>\tip
+	& & & &	\hc{D} \save\go[d]\merge\framed<5pt>\restore   \xto[llll]_{\hc{h}}
+		\ddotted|{\ev_D}|>\tip  \xto[ddll]^>>>>>{\hc{h}} \\
+\ha{C} \xto[ddrr]_{\ha{h}} \xto '[r]'[rrr]^{\ha{h}}[rrrr] & & &  & \ha{D} \\
+  & & \hc{C} \save\go[d]\merge\framed<5pt>\restore \ddotted|{\ev}|>\tip
+	\xto[uull]^<<<<<<{id_{\hc{C}}}  \\
+  & & \ha{D} \xto[uurr]_{id_{\ha{D}}}
+\enddiagram
+
+The intermediary computation algebra is as shown in the Figure with $\ev =
+\Comp{\ev_C}{\ha h}$.  This makes $\<\ha h, id_{\hc C}\>$ a 
+computation homomorphism
+$\comA C \into \<\ha D,\hc C, \ev\>$.  Also, since $h$ is a 
+computation homomorphism,
+we have for all $i\in I^{\hc D}: \ha h(\ev_C(\hc h(i))) = \ev_D(i)$, 
+i.e., $ev(\hc h(i))=ev_D(i)$ which means that
+$\<id_{\ha D}, \hc h\>$ is a
+computation homomorphism $\<\ha D, \hc C, \ev\>\into \comA D$.
+The second case is entirely analogous with the intermediary algebra being
+$\<\ha C, \hc D, \Comp{\hc h}{\ev_C}\>$.
+\end{PROOF}
+\vspace*{-6ex}
+
+\subsubsection{Initial objects}\label{sub:init}
+Define functor $\hcop{(\_)}:\CA\AD\into\op\Dclass$ analogously to
+$\hc{(\_)}$ in
+  \re{fu:dep}, i.e., $\hcop{A} = \hc A$ and $\hcop{\<f,g\>}=g$ (the
+  communication part $g$ of a morphism $\<h,g\>$ in $\CA\AD$ is contravariant
+  to the whole morphism). We then have the following general fact:
+\begin{CLAIM}\label{pr:adj}
+If $\Aclass$ has an initial object $T_\Aclass$, then the functor
+$F:\op\Dclass\into{\CA\AD}$ defined by $F(\dd C)=\<T_\Aclass,\dd C\>$ and
+$F(g)=\<id_{T_{\Aclass}},g\>$ is left adjoint to $\hcop{({\_})}$,
+$F\adj \hcop{(\_)}$, with identity as unit.
+\end{CLAIM}
+  %
+\noindent Thus, if $\op\Dclass$ has an initial object, so does $\CA\AD$.
+However, in general, this will not be the case since interesting subcategories
+of $\DDS$ do not have terminal objects ($\op\Dclass$ do not have initial
+objects).  In particular $\es$ is initial in $\Gr$ and in $\DDS$, but
+there are no terminal objects there.  (If $Z_\Aclass$ is terminal in
+$\Aclass$, then $\<Z_\Aclass,\es\>$ is terminal in $\CA(\Aclass,\DDS)$.)
+
+We do not focus on the notion of initiality and the relevance of
+empty communication part is probably limited to the fact that it
+allows us to treat standard algebras as computation algebras with an empty
+dependency.
+
+Nevertheless, the proposition gives us useful information in a slightly more
+restricted context. Typically, initial object in a model class $\Aclass$ of a
+specification is obtained as (or from) a term model. Then, given a particular
+(non-empty) dependency, the proposition provides an ``initial'' evaluation
+strategy over such a term model.
+
+
+\section{Nondeterminism}\label{se:nd}
+Since parallelism and distributed programs often are a source of nondeterminism, we suggest here how
+this phenomenon can be incorporated into the present framework.
+There are at least two ways to do it.
+  The first, in Section \ref{sub:ndB}, utilizes
+the notion of multialgebras, which are designed for incorporating
+nondeterminism into algebraic specification as an abstraction
+mechanism \cite{Hus,ADT,Survey}.
+The second, Section \ref{sub:ndA}, is biased
+towards the operational view, according to which nondeterminism is
+  something which arises only during the actual computations.
+
+\subsection{The multialgebraic view}\label{sub:ndB}
+Revisiting the Definition~\ref{de:CA} of computation algebras and the
+subsequent constructions, one can observe that we have not made any
+significant assumptions about the underlying category of
+$\Sigma$-algebras. The only essential requirement was that $ev$-function
+assigns values from an algebra to each node of the dependency in a way
+respecting the $lab$eling of the node. In fact,
+instead of the usual $\Sigma$-algebras,
+we can work with  a different category for $\AlgS$.
+
+For modeling nondeterminism, a natural choice is (some) category of
+multialgebras with multihomomorphisms, \cite{WB97}.  A multialgebra is an
+algebra where operations applied to single arguments may return {\em sets} of
+elements, corresponding to the possible results of a nondeterministic
+operation.  Composition of operations is defined pointwise.  A (ground) term
+is interpreted in a multialgebra as the set (of its possible results).  The
+notion of a homomorphism $h:A\into B$ may be generalized in various ways
+(\cite{WB97} surveys the possibilities), but the most common one replaces the
+usual homomorphism condition by the requirement $h(f(x)^A) \subseteq
+f^B(h(x))$, for each function symbol $f\in\Sigma$.  There is also a choice of
+the primitive operations for writing specifications. The most common
+approaches use a primitive predicate, $s\Incl t$ (interpreted in an algebra $A$
+as set inclusion $s^A\subseteq t^A$, i.e., as $t$ being at least as
+nondeterministic as $s$), and/or the nondeterministic binary choice
+$\_\choice\_:S\times S\into S$, for some/every sort $S$. We do not discuss
+the specification languages here, and in the examples to follow we will use
+the above, most common, definition of multihomomorphism.
+
+The change of the category of algebras is the only modification needed.
+The computation homomorphism $h$
+(with $\ha h$
+being a multihomomorphism) allows us, for instance,
+to refine an algebra $B$ to a more deterministic algebra $A$
+  as illustrated in Figure \ref{fi:ndB}.
+All operations except $\choice$ are deterministic.  $\hc
+h$ may relabel
+  $s\choice t$ to $s$ because both terms have the same sort
+  and, furthermore, because $\ha A$ is more deterministic than
+  $\ha B$: for $i\in I^B$ with $lab(i)= s\choice t$, we have
+that
+  $\ha h(\ev_A(\hc h(i))) = \ha h(s^A)= s^B \subseteq s^B\cup t^B =
+(s\choice t)^B=ev_B(i)$, i.e., $\ha h$ is a multihomomorphism. 
+
+\begin{figure}[hbt]
+\def\objectstyle{\scriptstyle}
+\spcol{-1.5}
+\sprow{-.5}
+\hspace*{7em}
+\diagram %compileto{NonD}
+& \ha A & \xto[rrrr]^{\ha h} & & & & 	& \ha B & & & & &
+\xto[llll]_{\ha g} & \ha C \\
+& f(s) & & & & & 			& f(s)\choice f(t) & & & & & 	& f(t) \\
+& s \dear\uto &  & & & & \xto[llll]_{\hc h}	& s \choice t \dear\uto  &
+\xto[rrrr]^{\hc g} & & & & 	& t \dear\uto \\
+s \dear\urto & & t \dear\ulto & & & & 		s \dear\urto & & t \dear\ulto & & &
+& 	s \dear\urto & & t \dear\ulto
+\enddiagram
+\caption{}\label{fi:ndB} 
+\end{figure}
+
+
+\subsection{The operational view}\label{sub:ndA}
+One source of nondeterminism is purely operational -- the differences in
+relative speed of various processors on various machines being
+unpredictable.  A paradigmatic example of this is a processor $P$ waiting
+for an input from one of several other processors.  $P$ processes the data
+which arrives first -- without discriminating against any of the sources --
+and discards any later arrivals.
+The dependency
+$\def\objectstyle{\scriptstyle}\spcol{-1.5}\sprow{-1.5}\diagram & 
+s\choice t \\ s
+\dear\urto & & t\dear\ulto \enddiagram$ from Figure~\ref{fi:ndB} can be read
+as expressing just that: the value at the
+topmost node depends on the values at the other two nodes -- it will simply
+be the one arriving first.
+Multialgebras provide an abstract model for this kind of phenomena.
+We will now sketch a more detailed, low-level way of including them into
+  computation algebra framework.
+
+The computation related information for a computation algebra 
+$A=\shcomA A$ is
+represented by its communication part.  Thus we may retain the
+standard notion of algebra $\ha A$ and try to model nondeterminism in $\hc A$.
+We simply allow for labeling the nodes of $\hc A$ by {\em sets of terms},
+rather than unique terms.  The set labeling a node represents the possible
+values computed at the node.  The source of the evaluation function $\ev_A$
+is then a set of pairs $\<i,t\>$ where $i$ is some node and $t$ one of the
+terms labeling $i : \bigcup_{i\in {I^{\GGr(A)}}} \{\<i,t\>:t\in lab^A(i)\}$.
+The nodes act as oracles -- in an actual computation each one will produce
+a unique value.  But this value is not known in advance, and so the
+labeling  merely indicates the range of
+possibilities.
+%
+\begin{DEFINITION}{}\label{de:DDSn}
+$\DDSn$ is the category where ($\CSig$ is as in Definition \ref{de:Gr}):
+\begin{enumerate}\MyLPar
+\item objects are $\Sigma$ n-data dependencies -- pairs $\dd G=\<G,lab\>$
+where $G\in\Obj\Gr$ is a simple DAG and $lab:I^G\into\Psett(\GTerms)$ is a
+function labeling each node of this graph with a non-empty set of ground
+$\Sigma$-terms of the same sort, i.e., $\forall i\ \forall s,t\in
+lab(i):Sort(s)=Sort(t)$~;
+\item an $\DDSn$-morphism $h:\dd B\into \dd A$ is a pair $\<\hcg h, 
+\hcl h\>$ where
+	\begin{itemize}\MyLPar
+	\item $\hcg h$ is a (sort compatible) $\Gr$-morphism
+	$\hcg h:Gr(\dd B)\into Gr(\dd A)$,
+	\item $\hcl h$ is a family $\{h_i:lab_{\dd A}(\hcg h(i))\into
+lab_{\dd B}(i)\}_{i\in{I^B}} $.
+	\end{itemize} \vspace*{-5ex}
+\end{enumerate}
+\end{DEFINITION}
+\noindent
+Sort compatibility means that the morphisms have to respect the sorting of
+labels:
+if labels of $i$ are of
+sort $S$, then so must be the labels of $\hcg h(i)$. The $\hcl h$ mapping
+(which we can treat as a partial function
+$I^{A}\times\GTerms\into\GTerms$ with the domain given by all the pairs
+$\<\hcg h(i),t\>$ for all $i\in I^{B}$ with $t\in lab_{\dd A}(\hcg h(i)$)
+picks the subset of
+labels of $lab_{\dd B}(i)$ which is the pre-image of the label set 
+$lab_{\dd A}(\hcg h(i))$.
+For instance, in Figure \ref{fi:nd}, $\dd B$ is a dependency for
+nondeterministic choice between
+  $s$ and $t$ which is then propagated as the argument to the function
+  $f$. (The relabeling is merely a restriction and $\hcl h$ is the obvious
+inclusion.)
+
+\begin{figure}[hbt]
+  \def\objectstyle{\scriptstyle}
+\spcol{-1.5}
+\sprow{-1}
+\hspace*{7em}
+\diagram %compileto{NonD}
+& \dd A &  & & & & 	                &  \dd B & & & & &             &  \dd C \\
+& f(s) & & & & & 			& \{f(s),f(t)\} & & & & & 	& f(t) \\
+& s  \dear{\uto} & & & & & \xto[llll]_{h} 	& \{s,t\} \dear{\uto}  &
+\xto[rrrr]^{g} & & & &	& s \dear{\uto} \\
+s \dear\urto & & t \dear\ulto & & & & 		s \dear\urto & & t \dear\ulto & & &
+& 	s \dear\urto & & t \dear\ulto
+\enddiagram
+\caption{}\label{fi:nd}
+\end{figure}
+
+The node $i$ in $\dd B$ with the label $\{s,t\}$ may compute $s$ or $t$.
+Similarly, the topmost
+node $j$ may compute $f(s)$ or $f(t)$. The dependency $\dep ij$ says that
+when $i$ computes
+one of $s$ or $t$, $j$ will compute one of $f(s)$ or $f(t)$.
+A possible deterministic refinement of $\dd B$ which always chooses $s$ and
+computes only $f(s)$ is given in $\dd A$ with the morphism $h$.
+
+Observe, however, that the definitions of an n-dependency and an
+$\DDSn$-morphism do not take
+into account the
+possible semantic information about {\em how} the computation at $j$
+depends on the
+result delivered by $i$. In principle, it admits the situations like $\dd C$,
+where we obtain $\dep s{f(t)}$.
+  The morphism
+only captures the preservation of dependencies (in terms of the underlying
+graphs) and the non-increasing nondeterminism.
+That the computation of $f(t)$ at $j$
+may result only if the node below produces $t$ is the kind of semantic
+information -- {\em how}
+the computation at $j$ depends on the input from $i$ --
+which might (should) be incorporated into the specification of dependencies.
+In short, if the dependency $\dep s{f(t)}$ in $\dd C$ is not of the intended
+kind, it should be
+prohibited by the specification (this topic is to be explored more fully in
+a future paper).
+%
+\begin{DEFINITION}{}\label{de:CAn}
+Given $\Aclass\subseteq\AlgS$ and $\Dclass\subseteq\DDSn$; an $\AD$
+{\em n-computation algebra}
+$C$ is $\comA C$ where
+\begin{enumerate}\MyLPar
+\item $\hc{C}\in\Obj{\Dclass}$~;
+\item $\ha{C}\in\Obj{\Aclass}$~;
+\item $\ev_C:\hc{C}\times\GTerms\into \ha{C}$ is a (partial)
+function
+such that $\forall t\in lab_{\hc{C}}(i) : \ev_C(i,t)=t^{\ha{C}}$.
+\end{enumerate} \vspace*{-5ex}
+\end{DEFINITION}
+\noindent
+As for computation algebras, $\ev$ is uniquely determined by $\ha C$ and
+the labeling of $\hc C$.
+\begin{DEFINITION}{}
+An $\AD$ {\em n-computation homomorphism} $h:C\into D$ is 
+$\<\ha h, \<\hcg h, \hcl
+h\>\>$ where
+\begin{enumerate}\MyLPar
+\item $\ha h: \ha C\into \ha D \in \Mor{\Aclass}$ ;
+\item $\<\hcg h, \hcl h\>: \hc D\into \hc C \in \Mor{\Dclass}$, and
+\item for each $i\in I^{\GGr(D)}$ and $t\in lab_{\dd C}(\hcg
+h(i))$, we have $\ha h(ev_{\dd C}(\hcg h(i),t))=ev_{\dd D}(i,\hcl 
+h(\hcg h(i),t))$.
+\end{enumerate} \vspace*{-3ex}
+\end{DEFINITION}
+%
+The last condition (illustrated in Figure \ref{fi:homCn}) is a
+generalization of the
+commutativity condition for the computation homomorphisms from the 
+Definition \ref{de:Chom}.
+In the deterministic case, the two coincide since then $\hcl h$ is uniquely
+determined by
+$\hcg h$.
+
+\begin{figure}[hbt]
+\spreaddiagramcolumns{1pc}\spreaddiagramrows{1pc}
+\diagramcompileto{Chomn}
+& & & \hc{C}\times\GTerms \save\go[0,1]\merge\framed<5pt>\restore 
+\rdotted|{\ev_{\dd C}}|>\tip
+		\dto<.1ex>^{\textstyle {\hcl h}}
+		& \ha{C} \dto^{\textstyle \ha{h}}
+     & C \dto^{\textstyle h} \\
+& & & \hc{D}\times\GTerms \uto<2.5ex>^{\textstyle \hcg{h}}
+	\save\go[0,1]\merge\framed<5pt>\restore \rdotted|{\ev_{\dd 
+D}}|>\tip & \ha{D} & D
+\enddiagram
+\caption{An n-computation homomorphism.}\label{fi:homCn}
+\end{figure}
+
+\noindent
+The category $\CAn\AD$ has $\AD$ n-computation algebras as objects and $\AD$
+n-computation homomorphisms as morphisms.
+Distributions of $\CAn\AD$ are defined as before (Definition
+\ref{de:implem}), and
+so are the projection functors $\hc{(\_)}$ and $\ArchF$.
+The Proposition~\ref{le:MAr} generalizes trivially to the nondeterministic
+context by an entirely analogous proof using the construction \re{eq:clM}.
+Modifying the first point of Definition \ref{de:compat} to the requirement
+$\forall i\in I^{Gr(\dd C)}, t\in lab_{\dd D}(\hcg h(i)): t^A= (\hcl h(\hcg
+h(i),t))^A$,
+we may
+define the class $\CAn(\Aclass,\DDn(\Aclass))$ of n-algebras with
+compatible dependency
+morphisms. The Lemma \ref{le:Dep} generalizes then equally easy to this
+class by a
+construction analogous to \re{eq:cl}.
+We therefore do not do it explicitly here but only emphasize
+that the earlier results remain valid when we put $\Cat n$-'s
+at all relevant places.
+
+
+\section{Conclusions and further work}\label{se:conclusion}
+We have introduced a general notion of computation algebras which
+extends the standard algebraic semantics with additional structures, data
+dependencies, carrying information concerning the evaluation strategy.
+The dependency morphisms can be used to design more efficient
+implementations, in particular, by syntactic memoisation.  The combination of
+dependencies with actual algebras and the notion of computation 
+homomorphisms allows
+us to perform semantic memoisation as well.
+
+The explicit information about the computation structure
+opens the possibility for constructing parallel implementations from
+algebraic specifications.
+Dependency and distribution morphisms express, respectively, 
+two  aspects of parallelization: (a) the
+logical dependency decomposition and (b) partitioning and routing on a
+physical medium.
+We have shown how indexing computation algebras with
+machine architectures yields a fibration.  Its explicitly defined cleavage
+provides a way of porting distributions between various (parallel)
+architectures.
+
+
+The general framework admits the definition of various subclasses of
+computation algebras.  One such class -- the algebras with compatible
+dependency morphisms, $\CA(\Aclass,\DD(\Aclass))$ -- has been singled out
+and studied in more detail.
+
+Extending algebra(s) with the computation and control information 
+resembles the otherwise widely studied attempts of adding such an
+information to term rewriting systems \cite{ELANa, ELANb, Maude, Maudeb, Stratego}. In this
+respect the main difference is that we are not con\-sider\-ing executable
+specifications (like term rewriting systems) and their efficiency or
+capabilities for modeling computations, but
+efficiency of an actual implementation of a (low level, detailed)
+specification. In particular, dependencies can be adjusted to actual
+(parallel) machine architectures which are included as a part of the overall
+picture in our model of development process.
+
+In Section \ref{se:cr} we have suggested a method allowing one to construct data dependency from a
+given specification of recursive function to be computed in a given algebra.
+A special case of this method, combined with a subcategory $(\Aclass,
+\DSaph)$ of computation algebras (cf. Section~\ref{sub:Saphire}) 
+and embedded in
+the programming language {\sc Sapphire}, has been worked out in more detail
+and used in practical applications for parallelization of programs
+\cite{Hav93,CH95,HS98,Hav99}.
+This construction of efficient data dependencies for recursive functions
+leads towards
+consideration of efficient implementations of functional programming
+languages, in particular, of basing such implementations on the semantic
+($\mu$-recursive), rather then syntactic (substitution oriented)
+computational model. This, however, is an open question for future research
+which falls outside the scope of the present paper. 
+
+\subsection*{Open issues}
+Computation algebras offer a
+mathematical framework for modeling efficient implementation of algebras.
+Application of this framework to actual architectures and
+(parallel) programming languages is the main topic deserving further study. 
+We mention here three issues of more detailed character.
+
+\paragraph{1. Space-time representation does not capture all aspects of parallel
+architectures.} For instance, the simulation $m$ of 2-dimensional vector on a
+3-processor ring from Figure~\ref{fi:ZW}.c) assumes that multiple data can be
+sent along the channels. (The third node in the rightmost column in
+Figure~\ref{fi:ZW}.c) receives
+two pieces of data which {\em both} have to be passed to the node above it.)
+In general, this may be precluded on machines where sending multiple data
+requires several computation steps. Thus actual simulation morphisms
+have to respect such additional restrictions.
+
+Similar issue concerns the
+kind of allowed communications. Figure~\ref{fi:broad}.b) shows
+identical space-time representation of two different
+architectures: $B$ -- with broadcats, and $S$ with stepwise communication
+(i.e., a processor can communicate only along one channel at a
+time). The distribution c) of $\dd D$ on $B$ is not meaningful on $S$ which
+can be achieved in two steps as illustrated in d).%\vspace*{-3ex}
+
+\begin{figure}[hbt]
+\spcol{-1.5}
+\sprow{-1.5}
+%\hspace*{6em}
+\[
+\diagramcompileto{Broad}
+j_1 & j_2 & j_3 & &&
+ \bullet & \bullet & \bullet & &&
+	j_1 & j_2 & j_3 & &&
+	j_1 & j_2 & \circ \\
+& & & &&
+  & & & && 	& & & &&
+	\circ \udotted \urdotted \urrdotted & \bullet \uto \ulto \urdotted &
+		j_3 \ulldotted \uldotted \udotted \\
+ & i \uulto \uuto \uurto &  & &&
+  \bullet \uuto \uurto \uurrto & \bullet \uulto \uuto \uurto & \bullet
+  \uullto \uulto \uuto & &&
+	\circ \uudotted \uurdotted \uurrdotted & i \uulto \uuto \uurto &
+		\circ \uulldotted \uuldotted \uudotted & &&
+	\circ \udotted \urdotted \urrdotted & i \uldotted \morphism\solid{}{}[u]
+\urto &
+		\circ \ulldotted \udotted \uldotted \\
+& \dd D & & && 
+& B\ and\ S & & & && \dd D\into B & & & && \dd D\into S  \\
+& \text{{\normalsize a)}} & & & && \text{{\normalsize b)}} & & & &&
+\text{{\normalsize c)}} & & & &&\text{{\normalsize d)}}
+\enddiagram
+\]
+\caption{a) Data dependency $\dd D$, b) space-time representation of a broadcast, $B$, and a stepwise,
+$S$, architecture,
+c) distribution of $\dd D$ on $B$, and d) on $S$.}\label{fi:broad}
+\end{figure}
+
+%\noindent
+Distribution morphisms can distinguish between these situations but since
+this information is not part of the st-representation, this is
+something that has to be done when designing actual
+morphisms. One should verify that space-time graphs, together with the simulation and distribution
+morphisms,  offer sufficient representational power.
+
+\paragraph{2. Portability vs. Efficiency.}
+Another issue concerns the efficiency of the ported implementations
+(distributions).  For instance, the implementation achieved in Figure
+\ref{fi:port}.c) as the result of porting an implementation from a vector to
+a ring, is certainly not the most efficient one.  There is, for instance, the
+unnecessary step from $(Z_3,1)$ -- holding $F(1)$ -- to $(Z_3,2)$.  This delay occured because we have used
+a {\em generic} simulation $m$ of $W$ by $Z$ (from Figure \ref{fi:ZW}.c), i.e., one that
+allows us to port {\em any} implementation from $W$ to $Z$.  Even if such a
+simulation is generically optimal (i.e., uses minimum time on the target
+architecture for all possible simulations from the source architecture), for a particular
+case it may be possible to find a more efficient mapping.  However, though
+efficiency of computation always is a concern, general portability and
+re-usability of software is at least equally important.  What we have
+proposed is a sound methodology which guarantees {\em correctness
+preservation} of an implementation which is ported from one platform to
+another.  We expect that the possible loss in computational efficiency will,
+hopefully, be richly compensated by increased {\em engineering efficiency\/}.
+And, having successfully ported an implementation, there is nothing
+precluding some final optimization in order to achieve a more efficient
+product.
+
+\paragraph{3. Code generation.}
+The most important issue concerns generation of actual code.
+It is not at all obvious that the communication
+dependencies and the data dependencies should have the same or similar
+interpretation in terms of evaluation strategies.
+We may imagine that the hardware dependency $\dep ij$ reflects the fact
+that $j$ has to wait for a piece of data from $i$ -- once it is produced and
+received, $j$ begins its computation.  But we may also imagine a different scenario in which $j$
+ignores the input from $i$ and simply evaluates whatever it is supposed to
+as soon as it has sufficient information to do so (i.e., a non-strict
+interpretation of the dependency which is determined at run-time).  
+A unifying view is to think of the nodes (in a dependency) as 
+``active agents'' who make
+their local decisions as to how to treat the incoming information.  Then
+the presence of an edge identifies a {\em potential\/} dependency. 
+ As a particularly interesting case, if we
+admit nondeterminism in computations, it
+may turn out that the dependencies are introduced exactly in order to allow
+non-strict evaluations where the relative speed of processing and
+communication determines which dependencies are realized.  The resulting
+implementation may turn out to be more time-efficient, allowing
+simultaneous computation of possible inputs.
+
+Although not sufficiently detailed,
+our notion of distribution (Definition \ref{de:implem}) does capture several
+aspects of parallelization.  Firstly, different ``columns'' in the
+$st$-graph (the sets of nodes $\{\<s,t\>:t\in\Nat\}$ for different $s$)
+of a given architecture  will represent
+different processors and so a distribution mapping amounts to {\em
+partitioning} of the code onto these processors.
+Furthermore, the links between different components (``columns'') of the partition
+correspond to possible communications between processors.  Mapping a
+particular edge of a data dependency onto a path in a space-time graph
+amounts then to a particular choice of {\em routing}.  (This is why we want
+to work with the path, and not transitive closures of graphs.)
+Finally, distribution morphisms represent (part of) the generation of the actual
+code which consists of two parts: the communication part and the
+computation part.  The shapes of dependencies serve as the source only of
+the first part which is related to the communication structure, while their
+labeling indicates distribution of the actual code.  $\dep ij$ could
+correspond to the following commands being executed at $i$ and $j$,
+respectively: ``$i:$ {\tt compute X;} {\bf send to} {\tt j;}'', and ``$j:$
+{\bf wait for} {\tt i; compute Y;}''\footnote{The directions of
+sending/receiving will often be identified not by the (name of) 
+another processor but by
+the local (name of a) channel. This is another specific distinction,
+depending on the actual machine and programming language, which we did not
+address at all.}, where $X,Y$ are
+the pieces of code resulting from the labeling of $i$ and $j$. 
+
+Our model comprises only the abstract notion, not such a
+concrete view of implementation. Code generation for a special class of 
+computation algebras
+specified equationally with the explicit specification of the dependency
+structures was studied in connection with the {\sc Sapphire}
+methodology for development of parallel programs,
+\cite{Hav93,HS98}. 
+
+\subsubsection*{Other questions for further research}
+\begin{itemize}
+\item
+Although we did not discuss any specification formalism, it
+should be obvious that all the aspects of our setting are amenable to a
+description using algebraic techniques.  In particular, data dependencies,
+architectures, and morphisms between them are standard algebraic objects. 
+Future research should integrate description of
+data dependencies into an actual specification framework.
+\item
+An interesting alternative would be to investigate the
+possibilities of extracting data
+dependencies from a given algebraic specification.
+Section~\ref{se:cr} opens a way in this direction.
+Open questions concern, in particular, the syntactic
+conditions on the recursive definitions such as (\ref{def:recur}) 
+which would ensure
+well-definedness of the resulting function in specific algebras. 
+General construction of graphs and
+labelings from specifications is a broader issue worth closer investigation.
+\item
+A variety of dependency and, especially, simulation morphisms between existing
+architectures could be defined and stored for the future use in
+concrete applications.  It would be desirable to develop such a library and
+the tools for its use.
+\item
+We have indicated how the operational and
+multialgebraic notions of nondeterminism may be included into the
+framework.  However, the role of nondeterminism will be explored further.
+\item
+We would like to  make a closer study of the notion of
+dependency refinement and its possible use for the development of
+algorithms.  It is possible that the techniques of graph transformation
+might be relevant for this purpose.
+\end{itemize}
+
+\subsection*{Acknowledgments}
+We thank Andrzej Tarlecki and Eric Wagner for interesting suggestions and
+comments on earlier versions of this paper. An anonymous referee suggested to
+extend the definition of $\DAG^\ecomp$-morphisms by equipping graphs with the
+``parallel composition'' using Kleisli construction. We also thank another anonymous
+referee for suggesting improvements of the structure of the paper. Kristoffer Rose deserves thanks
+for designing and making available the {\tt XY-pic} package for drawing
+nice diagrams.
+
+
+\begin{thebibliography}{MW95}\MyLPar
+\bibitem[Ben85]{Ben} J.~B{\'e}nabou. Fibred Categories and the Foundation
+   of Naive Category Theory. {\em Journal of Symbolic Logic}, 50, (1985).
+
+\bibitem[BKK98a]{ELANa} P. Borovansky, C. Kirchner, H. Kirchner. A
+functional view of rewriting and strategies for a semantics of ELAN. In {\em The
+Third Fuji International Symposium on Functional and Logic Programming},
+pp. 143-167, Kyoto (Japan), World Scientific, (1998). 
+\bibitem[BKK98b]{ELANb} P. Borovansky, C. Kirchner, 
+H. Kirchner. Rewriting as a Unified Specification Tool for Logic and Control:
+The ELAN Language. In {\em Second International Workshop on the Theory and
+Practice of Algebraic Specifications ASF+SDF'97}, Electronic Workshops in
+Computing, eWiC web site: http://ewic.springer.co.uk/, Amsterdam (The
+Netherlands), Springer, (1998). 
+
+\bibitem[BGT91]{BGT91} R.~Burstall, J.~Goguen, A.~Tarlecki.
+   Some Fundamental Algebraic Tools for the Semantics of Computation. Part 3:
+   Indexed Categories. {\em TCS}, 91:239-264, (1991).
+\bibitem[BW90]{BW90} M.~Barr, C.~Wells. {\em Category Theory for Computing
+Science}.  Prentice Hall, (1990).
+\bibitem[CDEM99]{Maudeb} M.~Clavel, F.~Dur\'{a}n, S.~Eker, J.~Meseguer,
+M.-O.~Stehr. Maude as a Formal Meta-Tool. In the {\em Proceedings of FM'99}, The
+World Congress On Formal Methods In The Development Of Computing
+Systems, Toulouse (France), (1999).
+
+\bibitem[CELM96]{Maude} M.~Clavel, S.~Eker, P.~Lincoln and
+J. Meseguer. Principles of Maude.  In Proc. 1st Intl. Workshop on Rewriting Logic
+and its Applications, Electronic Notes in Theoretical Computer Science,
+Elsevier Sciences, (1996).
+
+\bibitem[CT65]{CT65}
+         J.~W.~Cooley, J.~W.~Tukey. An algorithm for the machine computation
+         of complex Fourier series, {\em Math. Comp.} vol. 19, pp. 297-301,
+         (1965).
+\bibitem[\v CH95]{CH95} V.~\v Cyras, M.~Haveraaen. Modular Programming
+of Recurrencies: a Comparison of Two Approaches, {\em Informatica}, vol.~6,
+no.~4, (1995).
+\bibitem[Ehr63]{Ehr63} C.~Ehresmann. {\em Cat\'{e}gories Structur\'{e}es,}
+Ann.Sci.Ecole Norm.Sup. 80, (1963).
+\bibitem[FOW87]{FOW} J.~Ferrante, K.J.~Ottenstein, J.D.~Warren. The Program
+Dependence Graph and its use in Optimization. {\em ACM ToPLaS}, vol.~9, no.~3,
+(1987).
+\bibitem[Hav90]{Hav90} M.~Haveraaen. Distributing Programs on Different
+Parallel Architectures. {\em Proceedings of the International Conference on
+Parallel Processing, Software}, vol. II, (1990).
+\bibitem[Hav93]{Hav93} M.~Haveraaen. {\em How to Create a Parallel Program
+without Knowing it.}
+   Proceedings of the $4^{th}$ Nordic Workshop on Program Correctness,
+Tech.~Rep. no. 78,
+   University of Bergen, Department of Informatics, (1993).
+\bibitem[Hav99]{Hav99} M. Haveraaen: {An algebra of data dependencies and
+	embeddings for parallel programming}. To appear in
+	{\em Formal Aspects of Computing}, 1999.
+\bibitem[HS98]{HS98} M. Haveraaen, S. S\o reide: {\em Solving recursive
+	problems in linear time using Constructive Recursion}.
+	Proceedings of {\em Norsk Informatikk
+	Konferanse NIK'98\/}, Tapir, Norway, 1998, pp.~310--321.
+\bibitem[Her93]{Her} C.A.~Hermida. {\em Fibrations, Logical Predicates and
+   Indeterminates.} Technical Report~DAIMI PB-462, Computer Science
+   Department, Aarhus University, (1993).
+\bibitem[Hus93]{Hus} H.~Hu{\ss}mann. {\em Nondeterminism in Algebraic
+Specifications
+   and Algebraic Programs.} Birkh\"{a}user, (1993).
+\bibitem[Jac91]{Jac} B.~Jacobs. {\em Categorical Type Theory.} PhD thesis,
+   University of Nijmegen, (1991).
+\bibitem[KK90]{KK} K.~Kennedy, K.~McKinley, Loop Distribution with Arbitrary
+  Control Flow, {\em Supercomputing}, (1990).
+\bibitem[MacL71]{McL} S.~Mac Lane. {\em Categories for the Working
+Mathematician}, Springer, (1971).
+
+\bibitem[MW83]{MW83} W.L.~Miranker, A.~Winkler. Spacetime Representations of
+   Computational Structures. {\em Computing}, vol.~32, (1984).
+\bibitem[PJ87]{PJ87} J.~Peyton, L.~Simon.
+	{\em The Implementation of Functional Programming Languages},
+	Prentice-Hall, (1987).
+\bibitem[RB88]{RB88} D.~Rydeheard, R.~Burstall. {\em Computational Category
+Theory}.
+   Prentice Hall, (1988).
+
+\bibitem[Vi99]{Stratego} E. Visser. Strategic Pattern Matching, in {\em
+Rewriting Techniques and Applications (RTA'99)}, LNCS vol. 1631, pp. 30-44, Springer, (1999).
+
+\bibitem[WB97]{WB97} M.~Walicki, M.~Bia{\l}asik. Categories of Relational
+Structures.  In {\em Recent Trends in Data
+Type Specification,} LNCS, vol.~1376, (1997).
+\bibitem[WHM96]{WHM96} M.~Walicki, M.~Haveraaen, S.~Meldal, {\em Communication
+   Algebras}, Tech. Rep. no~117, Dept. of Informatics, University of Bergen,
+(1996).
+\bibitem[WM94]{ADT} M.~Walicki, S.~Meldal. Multialgebras, Power Algebras and
+Complete Calculi of Identities and Inclusions. In {\em Recent Trends in Data
+Type Specification,} LNCS, vol.~906, (1994).
+\bibitem[WM97]{Survey} M.~Walicki, S.~Meldal. Algebraic Approaches to
+Nondeterminism -- an Overview. {\em ACM Computing Surveys,} 29, 1, (1997).
+
+\end{thebibliography}
+
+
+\end{document}
+
+\section{Actual Machines and Parallel Code}\label{se:implem}
+This section discusses some issues concerning actual implementation on actual
+machine architectures which are not addressed by the general framework. These
+issues need further study and we are including this discussion primarily to
+suggest the required development and the abstract character of the framework
+developed so far. 
+
+Simulation, modeled by the $\Gr$-morphisms, plays a crucial role in 
+defining appropriate
+ways of porting implementations. Although the category of machine
+architectures (i.e. $\Gr$, Definition~\ref{de:Arch}) allows arbitrary
+$\Gr$-morphisms, in practice they will have to reflect more detailed
+properties of the actual architectures. Such properties may be directly
+expressible by
+the space-time representations but, in many cases, will appear as
+additional restrictions
+on the admissible morphisms -- the space-time representation does not always
+capture all the relevant information concerning the possible computations on a
+given architecture. The first two subsections comment on this issue.
+
+\subsection{Sending Multiple Data}
+Recall the morphism $m:W\into Z$ from Figure \ref{fi:ZW}.c simulating
+a 2-dimensional
+vector $W$ by a 3-processor ring $Z$.
+An alternative simulation $n$ is illustrated in Figure \ref{fi:alt}.
+\begin{figure}[hbt]
+\sprow{-1}
+\spcol{-0.5}
+\hspace*{14em}
+\diagramcompileto{Alt}
+5 & \bullet & \circ & \bullet  \\
+4 \uto & \bullet \xdouble[u]|>\hole|>\tip \urdotted & \bullet \udotted\urto &
+	\bullet \uto \ulldotted\\
+3 \morphism\solid{}{}[u]
+	&  \bullet \morphism\solid{}{}[u] \morphism\solid{}{}[ur] & \circ \udotted
+\urdotted &
+	\bullet \morphism\solid{}{}[u] \ullto \\
+2 \morphism\solid{}{}[u]
+	& \bullet \xdouble[u]|>\hole|>\tip \urdotted & \bullet \udotted \urto &
+	\bullet \uto \ulldotted \\
+1 \morphism\solid{}{}[u]
+	& \bullet \morphism\solid{}{}[u] \morphism\solid{}{}[ur] & \circ \udotted
+\urdotted &
+	\bullet \morphism\solid{}{}[u] \ullto \\
+& Z_1 & Z_2 & Z_3
+\enddiagram
+\caption{An alternative simulation $n:W\into Z$.}\label{fi:alt}
+\end{figure}
+
+\noindent
+The simulation $n$ maps distinct edges of $W$ onto distinct but 
+non-disjoint paths of $Z$.
+This will yield an adequate simulation provided that $Z$ allows
+us to join the data received from multiple sources and send them in one
+package at the time.
+The double arrows from the nodes $(Z_1,2)$ and $(Z_1,4)$ indicate
+that, at these
+points, data sent from different sources (e.g., from $(Z_1,1)$ and
+$(Z_3,1)$) have to be
+collected and sent together in one step. Of course, the same happens in
+Figure \ref{fi:ZW}.c)
+at the points $(Z_3,3)$ and $(Z_3,5)$. Whether this is possible, and how,
+will depend on the
+actual architecture. Consequently, the simulation morphisms have to take
+this phenomenon into
+account.
+This does not seem to cause
+any problems in this example
+because the collected data are not communicated to another processor but
+kept at the one
+receiving them.
+
+\subsection{Broadcast vs. Stepwise Communication}
+A similar distinction will have to be made when a dependency is distributed
+on an architecture
+with broadcast vs. one where each processor can perform at most one
+communication at each
+time step (let's call the latter 1-ctp:
+one-{\bf c}ommunication-(at-){\bf t}ime-(per-){\bf p}rocessor).
+
+For the sake of the example, let's consider 3-processor architectures:
+broadcast allows arbitrary communications between arbitrary
+processors at each time step, while 1-ctp allows each processor to send data in
+at most one direction at each time step (but at each step, any of the
+communications is possible.)
+
+Suppose that a dependency $\dd D$ in question has point(s), $i$, such
+that there are several $j_n$ with $\dep i{j_n}$ for, let say, $n=3$.
+It may be trivially distributed on a broadcast architecture $U$ with 3
+processors as
+illustrated in Figure \ref{fi:broad}.b).
+A graphical space-time representation of a 3-processor 1-ctp $V$ will be
+the same
+as that of $U$ (\ref{fi:broad}.a).
+However, for a given processor, $V$ allows at most one communication at a time,
+and so
+distribution
+of $\dd D$ on $V$ cannot look like in \ref{fi:broad}.b) but will require at
+least two time steps,
+as exemplified in \ref{fi:broad}.c).
+
+\begin{figure}[hbt]
+\spcol{-1.5}
+\sprow{-1}
+\hspace*{6em}
+\diagramcompileto{Broad}
+\bullet & \bullet & \bullet & &
+	j_1 & j_2 & j_3 & &
+	j_1 & j_2 & \circ \\
+  & & & & 	& & & &
+	\circ \udotted \urdotted \urrdotted & \bullet \uto \ulto \urdotted &
+		j_3 \ulldotted \uldotted \udotted \\
+\bullet \uuto \uurto \uurrto & \bullet \uulto \uuto \uurto & \bullet
+\uullto \uulto \uuto & &
+	\circ \uudotted \uurdotted \uurrdotted & i \uulto \uuto \uurto &
+		\circ \uulldotted \uuldotted \uudotted & &
+	\circ \udotted \urdotted \urrdotted & i \uldotted \morphism\solid{}{}[u]
+\urto &
+		\circ \ulldotted \udotted \uldotted \\
+& U / V & & & & \dd D\into U & & & & \dd D\into V  \\
+& \text{{\normalsize a)}} & & & & \text{{\normalsize b)}} & & & &
+\text{{\normalsize c)}}
+\enddiagram
+\caption{a) Space-time representation of a broadcast $U$ and a 1-ctp $V$,
+b) distribution of $\dd D$ on $U$, and c) on $V$.}\label{fi:broad}
+\end{figure}
+
+\noindent
+It is easier to think in terms of broadcast and so one may expect that
+distributions
+of dependencies will be made in terms of such architectures.
+Having a simulation $m:U\into V$, we will be able to port such a
+distribution to
+a 1-ctp architecture. The only point is that such an $m$ must respect the
+fact that
+a space-time graph does not provide a complete representation of the
+communication
+structure.\footnote{The same problem will occur in many other cases. For
+instance, if we take
+the ring $Z$ in Figure \ref{fi:ZW}.b) to be
+a token ring (only one processor ``holding the token'' can send data at a
+time passing,
+simultaneously, token to the receiving processor, which so can send data and
+the token to the next one). In spite of the same space-time representation,
+$m$ would not then be a correct
+simulation of $W$ since the full communication history on a token ring must
+form a path,
+which is not the case in \ref{fi:ZW}.c).}
+
+\subsection{Portability and Efficiency}
+Another issue concerns the efficiency of the ported
+implementations (distributions).  For instance, the implementation 
+achieved in Figure
+\ref{fi:port}.c) as the result of porting an implementation from a vector
+to a ring, is certainly not the most efficient one.  There is, for
+instance, the unnecessary step from $(Z_3,1)$ to $(Z_3,2)$ and, in general,
+from $(Z_3,1+(4*n))$ to $(Z_3,2+(4*n))$.  $Z_3$ does not have to wait at
+the point $1+(4*n)$ to send data to $Z_1$, but can do it immediately.  This
+delay occurs here because we have used a generic simulation $m$ of $W$ by
+$Z$.  It is generic in the sense that it allows us to port {\em any}
+implementation from $W$ to $Z$.  In each particular case, such as the present
+one, it may be possible to find a more efficient mapping which is tailored
+for this particular application.  However, though efficiency of computation
+always is a concern,
+general portability and re-usability of software is at least equally 
+as important
+an issue.
+What we have proposed is a sound methodology which
+guarantees {\em correctness preservation} of an implementation which is ported
+from one platform to another.  We expect that the possible loss in
+computational efficiency will, hopefully, be richly compensated by
+increased {\em engineering efficiency\/}.  And, having successfully ported
+an implementation, there is nothing precluding some final optimization in
+order to achieve a more efficient product.
+
+\subsection{Code generation}
+We called ``distribution'' a
+mapping from a data dependency to an architecture.
+We chose this, rather specific, term because we
+do not want to claim that what we have
+obtained is an actual implementation.
+
+It is not at all obvious that the communication
+dependencies and the data dependencies should have the same or similar
+interpretation in terms of evaluation strategies.
+We may imagine that the hardware dependency $\dep ij$ reflects the fact
+that $j$ has to wait for a piece of data from $i$ -- once it is produced and
+received, $j$ begins its computation.  This view is more data dependency
+oriented -- as exemplified by the Fibonacci function in Figure
+\ref{fi:rec}.  But we may also imagine a different scenario in which $j$
+ignores the input from $i$ and simply evaluates whatever it is supposed to
+as soon as it has sufficient information to do so (i.e., a non-strict
+interpretation of the dependency).  The latter is often the approach used
+in many parallel implementations.
+
+A unifying view is to think of the nodes (in a dependency) as 
+``active agents'' who make
+their local decisions as to how to treat the incoming information.  Then
+the presence of an edge identifies a {\em potential\/} dependency.  If a
+term is evaluated in a strict manner, where all the data being referenced
+have to be gathered before evaluation can proceed, then the edge identifies
+the actual dependencies.  But if the evaluation is non-strict, e.g., it is
+determined dynamically during actual computation whether a particular piece
+of data is required or not, then the computation will realize a subset
+of the data dependency edges.  As a particularly interesting case, if we
+admit nondeterminism in computations, it
+may turn out that the dependencies are introduced exactly in order to allow
+non-strict evaluations where the relative speed of processing and
+communication determines which dependencies are realized.  The resulting
+implementation may turn out to be more time-efficient, allowing
+simultaneous computation of possible inputs.
+
+Although not sufficiently detailed,
+our notion of distribution (Definition \ref{de:implem}) does capture several
+aspects of parallelization.  Firstly, different threads in the $st$-graph
+of a given architecture ($\{\<s,t\>:t\in\Nat\}$) will represent
+different processors and so a distribution mapping amounts to {\em
+partitioning} of the code onto these processors.
+
+Furthermore, the links between different components of the partition
+correspond to possible communications between processors.  Mapping a
+particular edge of a data dependency onto a path in a space-time graph
+amounts then to a particular choice of {\em routing}.  (This is why we want
+to work with the path, and not transitive closures of graphs.)
+
+Finally, distribution morphisms represent the generation of the actual
+code which consists of two parts: the communication part and the
+computation part.  The shapes of dependencies serve as the source only of
+the first part which is related to the communication structure, while their
+labeling indicates distribution of the actual code.  $\dep ij$ could
+correspond to the following commands being executed at $i$ and $j$,
+respectively: ``$i:$ {\tt compute X;} {\bf send to} {\tt j;}'', and ``$j:$
+{\bf wait for} {\tt i; compute Y;}''.\footnote{The directions of
+sending/receiving will often be identified not by the (name of) 
+another processor but by
+the local (name of a) channel. This is another specific distinction,
+depending on the actual machine and programming language, which we did not
+address at all.} $X$ and $Y$ are
+the pieces of code resulting from the labeling of $i$ and $j$, together
+with the semantics of these labels implied by the specification.  Notice,
+however, that the separation is not absolute since the semantics of $Y$
+may, in addition, indicate that the successful completion of the ``{\bf
+wait for} {\tt i;}'' is either necessary or else merely optional for the
+execution of $Y$.  In the former case the {\bf wait} will be strict, in the
+latter, it may be time dependent.
+
+Of course, our model comprises only the abstract notion, not such a
+concrete view of implementation.  For instance, the actual code for each
+processor has to be generated by ``sequentializing'' the pieces of code
+assigned to the subsequent nodes on the path corresponding to the
+processor.  Also, data dependencies contain explicit information about what
+is computed at each node, but this obviously does not apply to the
+communicating processors.  The sending node $i$ knows what the value of $X$
+it is sending, but $X$ remains unknown to the recipient $j$ until it has
+received it.  Although one can imagine how this transition from a data
+dependency to the actual code might be accomplished, it certainly warrants
+a closer analysis.  Code generation for a special class of 
+communication algebras
+specified equationally with the explicit specification of the dependency
+structures was studied in connection with the {\sc Sapphire}
+methodology for development of parallel programs,
+\cite{Hav93,HS98}.  A more detailed
+investigation of both the specification formalism and parallel code
+generation is required to demonstrate the general applicability of the
+present theory.
+

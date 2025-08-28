@@ -1,0 +1,383 @@
+% file name: `njcdoc.tex'
+\documentstyle{njcarticle}
+
+\titlehead{Instruction to us njc style files}
+\authorhead{Raatikainen}
+
+\title{INSTRUCTIONS TO USE NJC STYLE FILES}
+
+\author{KIMMO E.~E. RAATIKAINEN\\
+University of Helsinki, Department of Computer Science\\
+P.O.~Box 26 (Teollisuuskatu 23), FIN-00014 University of Helsinki, Finland\\
+{\tt Kimmo.Raatikainen@cs.Helsinki.FI}}
+
+\usenjcepsmacros
+\njccitationstyle
+\dates{Received August 1994. Revised September, October 1994.}
+\twolevelnumbering{equation,figure}
+\draft
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Each paper must include an abstract that summarizes the paper.
+Recommended length is at most 150 words.
+The abstract should not contain any references or displayed equations.
+\LaTeX-environment is \verb|abstract|.
+\end{abstract}
+
+\begin{keywords}
+List of keywords (4--6) is optional. \LaTeX-environment is \verb|keywords|.
+\end{keywords}
+
+\begin{subject}
+Each paper should provide the CR Classification
+(see the appropriate issue of {\it Computing Reviews\/}).
+\LaTeX-environment is \verb|subject|.
+\end{subject}
+
+\section{Introduction}
+
+{\sc Nordic Journal of Computing} encourages 
+the authors to use \LaTeX\ in preparing the manuscripts with the
+\LaTeX\  style file \verb|njcarticle.sty| and the
+Bib\TeX\ style file \verb|njcarticle.bst|.
+The figures must be either in the \LaTeX\ {\tt picture} environment
+or in Encapsuled Postscript.
+
+This document describes how the \LaTeX\ style file {\tt njcarticle.sty}
+and the Bib\TeX\ style file {\tt njcarticle.bst} are to be used.
+The files can be obtained through anonymous {\tt ftp}, as follows:
+\begin{verbatim}
+   %ftp ftp.cs.Helsinki.FI
+   Name: anonymous
+   Password: <your email address>
+   ftp> cd pub/Nordic_Journal_of_Computing/Style_Files
+   ftp> get njcarticle.sty
+   ftp> get njcepsmacros.sty
+   ftp> get njcarticle.bst
+   ftp> get njcdoc.tex
+   ftp> get njcdoc.bib
+   ftp> get njclogo.ps
+   ftp> quit
+\end{verbatim}
+
+The \LaTeX-file of an accepted paper, in the final form, should
+be send through email to \verb|njc@cs.Helsinki.FI|.
+If the paper contains Encapsuled Postscript files
+and/or Bib\TeX\ is used send the files separately and an email
+that explains the files sent.
+
+\section{General}
+
+The \LaTeX\ style file {\tt njcarticle.sty} does not accept
+any options.
+In \verb|\documentstyle|-command all options given in brackets
+are simply omitted.
+The layout of page should not be changed.
+
+Redundant spaces ought to be minimized
+by careful arrangement of tables and figures.
+Read your {\tt .log} file carefully.
+There should be no \verb!Overfull \hbox! (as here)
+and certainly no visible one (more than {\tt 1pt}).
+If necessary, reword the text.
+The preamble command \verb|\draft| can be used to produce
+a visible overfullrulebox in the margin.
+
+The style file provides macros to create running heads.
+The \verb!\authorhead!\ contains the authors' surnames as ``Author'',
+``Author1, Author2'', and
+``Author1, Author2, Author3'' for up to three authors,
+and ``Author1 et~al.'' for four or more authors.
+The \verb!\titlehead!
+contains a short form of the title, not more than 30 characters.
+
+The argument of \verb|title|-command must be written in capitals.
+When the paper has more than one author, the authors in the argument of
+\verb|author|-command are separated by usual \verb|\and|-command or 
+by \verb|\AND|-command that inserts vertical glue between the blocks
+of authors'  names, affiliations, etc.
+
+Neither footnotes nor appendices should be used.
+However, if appendices are really necessary, their place
+is after {\bf Acknowledgements} and before {\bf References}.
+
+\section{Sectioning, numbering, etc.}
+
+\subsection{Sectioning}
+
+The following three \LaTeX-sectioning commands are available:
+\verb|\section|, \verb|\subsection|, and \verb|\subsubsection|.
+
+\subsection{Numbering}
+\label{numbering}
+
+The numbering of displayed equations, theorems,
+figures, tables, and other ``numbered'' environments
+follows one of two styles:
+either consecutive in each section,
+or consecutive through the whole paper (default).
+If you prefer the first style, the style file provides
+\verb|\twolevelnumbering|-command.
+The argument of the command is a list of environments that are
+numbered consecutively in each section, e.g.
+\begin{verbatim}
+    \twolevelnumbering{figure,equation,theorem}
+\end{verbatim}
+
+Tables should be referred to ``Table I''.
+Equations and figures should be referred to in abbreviated forms:
+``\eqnref{eqn:example}'' and ``\figref{fig:example}''.
+Use macros \verb|\eqnref{|{\em eqn-label\/}\verb|}|,
+\verb|\figref{|{\em fig-label\/}\verb|}|, and
+\verb|\tableref{|{\em tab-label\/}\verb|}|
+to generate the references.
+
+\subsection{Lists of items}
+
+The depths of \LaTeX-environments \verb|itemize| and \verb|enumerate|
+are restricted to two.
+
+\subsection{Spacing before and after environments}
+
+Extra space is added at the top of list if the input file
+has a blank line before any list-making environment.
+The vertical space after the environment is the same as the
+one preceding it.
+The list-making environments are: {\tt quote}, {\tt quotation},
+{\tt verse}, {\tt itemize}, {\tt enumerate}, {\tt description},
+{\tt center}, {\tt flushleft}, and {\tt flushright},
+as well as the theorem-like environments.
+
+\subsection{Tabbing environment}
+
+The style file defines \verb|\tabbingstretch| to specify the strut
+to be used in the {\tt tabbing} environment. The functionality of
+\verb|\tabbingstretch| is the same as that of \verb|\arraystretch|
+in {\tt array} and {\tt tabular} environments.
+\section{Theorem-like environments}
+
+The style file defines the following theorem-like environments:
+\begin{center}
+\begin{tabular}{llll}
+\verb|theorem|	& \verb|proposition|	& \verb|claim|	& \verb|fact| \\
+
+\verb|lemma|	& \verb|definition|	& \verb|problem|& \verb|remark| \\
+
+\verb|corollary|& \verb|conjecture|	& \verb|example|&  \verb|observation|
+\end{tabular}
+\end{center}
+These are ``numbered'' environments.
+The style file also defines the corresponding ``unnumbered''
+environments: \verb|theorem*|, ..., \verb|observation*|.
+The proofs can be typed within the environment \verb|proof|.
+
+For example, the \LaTeX\ source
+\begin{verbatim}
+\begin{theorem}[Chebychev's Inequality]
+If $X$ is any random variable, then
+\begin{equation}
+\Pr[|X|\ge a] \le \mbox{\rm E}(X^2)/a^2\;.
+\label{eqn:example}
+\end{equation}
+\end{theorem}
+\end{verbatim}
+produces
+\begin{theorem}[Chebychev's Inequality]
+If $X$ is any random variable, then
+\begin{equation}
+\Pr[|X|\ge a] \le \mbox{\rm E}(X^2)/a^2\;.
+\label{eqn:example}
+\end{equation}
+\end{theorem}
+
+
+\begin{proof}
+If $F(x)$ denotes the distribution function of the random variable $X$,
+then
+\[
+\Pr[|X|\ge a] = \int_{|x|\ge a} \;d\:F(x)\;.
+\]
+Since in the region of integration $|x|/a\ge1$, it follows that
+\[
+\int_{|x|\ge a} \;d\:F(x) \le \frac{1}{a^2}
+\int_{|x|\ge a} x^2\;d\:F(x)\;.
+\]
+By extending the integration to all values of $x$,
+we merely strengthen the inequality:
+\[
+\int_{|x|\ge a} \;d\:F(x) \le
+\frac{1}{a^2} \int_{|x|\ge a} x^2\;d\:F(x) \le
+\frac{1}{a^2} \int x^2\;d\:F(x) = 
+\mbox{\rm E}(X^2)/a^2\:.\; \qed
+\]
+% The following empty line is necessary
+
+\end{proof}
+
+When a proof ends with a displayed equation as above,
+the box ``\qed'' should be at the right end of the formula
+rather than at the beginning of the next line.
+In this case, the box must be inserted through
+\verb|\qed| at the end of the equation, and a blank line
+must be left between the closing of the equation and the \verb|\end{proof}|.
+(See the source of these instructions.)
+
+\section{Figures and tables}
+
+\begin{figure}[t]
+\makeepsbox{njclogo.ps}
+\caption{An example.}
+\label{fig:example}
+\end{figure}
+
+Figures and tables are to be inserted in the text nearest their first reference.
+They should be arranged so as not to cause an excessive amount of
+blank space on the remainder of the page. 
+
+The captions are centered below the figures and above the tables.
+If a table needs to extend over to a second page, the continuation of the
+table should have a caption: ``Table II {\em (cont.)}''.
+Macro \verb|\continued| generates this caption.
+Example:
+\begin{quote}
+   \verb|\begin{table}|\\
+   \verb|\continued   % Instead of \caption|\\
+   \verb|   ...|\\
+   \verb|\end{table}|
+\end{quote}
+
+\figref{fig:example} is an example of inserting an Encapsuled Postscript file.
+The style file provides the command \verb|\usenjcepsmacros| to read
+the option file {\tt njcepsmacros.sty}.
+The Encapsuled Postscript file is inserted using the command:
+\begin{quotation}\em
+\verb|\makeepsbox[|pos\/\verb|]{|filename\/\verb|}[|scaling\verb|]|
+\end{quotation}
+The optional argument {\em pos\/} tells how the box is placed on the page:\\
+\begin{tabular}{cl}
+\tt c &  centered (default)\\
+\tt l & leftmargin justified \\
+\tt r & rightmargin justified
+\end{tabular}
+
+The optional argument {\em scaling\/} tells
+how the eps-file is to be scaled.
+The possible values of the argument are:\\
+\begin{tabular}{ll}
+\tt scale=<factor> &  scaling factor = {\tt<factor>/1000}\\
+\tt width=<dimen> & scaling factor = {\tt<dimen>/<natural\_width>} \\
+\tt height=<dimen> & scaling factor = {\tt<dimen>/<natural\_height>} 
+\end{tabular}
+
+Since the \TeX-command \verb|\special| is used, all device drivers
+may not understand the format.
+If your driver has problems, you can use \verb|\epsdraft|-com\-mand
+in the preamble.
+This command changes the \verb|\makeepsbox|-com\-mand
+to omit the \verb|\special|-com\-mand.
+In this case the only visible effect is reservation of space.
+
+Observe that an Encapsuled Postscript file must begin with
+``\verb|%!|'' and must contain a commentline
+\begin{verbatim}
+   %%BoundingBox: llx lly urx ury
+\end{verbatim}
+If the BoundingBox-comment is not found, the file is omitted.
+
+Remember that {\bf previously published material must be accompanied by written
+permission from the author and publisher!}
+
+\section{References}
+The preferred style of referring to the bibliography is:
+``\cite{Raatikainen-1993} proposed to use the Bonferroni inequality
+[see \shortcite[pp.~41--43]{Kleijnen-1987};
+\shortcite[Ch.~9.4]{Law-Kelton-1991}].''
+
+Note that the
+years are in brackets in the running text, but without brackets if the
+reference itself is in brackets.
+For three or more authors, use {\em et~al.}
+Several papers in the same year are distinguished
+as ``\shortcite{Raatikainen-1994a}, \shortcite{Raatikainen-1994b}''.
+
+The second possible style is to use numbered references
+and the standard \LaTeX-environment \verb|thebibliography|.
+
+The style file provides the command \verb|\njccitationstyle|
+to activate the preferred citation style.
+The following macros are defined to simplify the preferred style:
+\begin{center}\begin{tabular}{ll}
+ macro & procudes\\ \hline
+ \verb|\cite{bibreflabel}| & ``Author [Year]''\\ 
+ \verb|\cite[note]{bibreflabel}| & ``Author [Year, note]''\\ 
+ \verb|\shortcite{bibreflabel}| & ``Author Year''\\ 
+ \verb|\shortcite[note]{bibreflabel}| & ``Author Year, note''\\ 
+ \verb|\citeauthor{bibreflabel}| & ``Author''\\ 
+ \verb|\citeyear{bibreflabel}| & ``Year''\\ 
+ \verb|\bracketcite{bibreflabel}| & ``[Author Year]''\\ 
+ \verb|\bracketcite[note]{bibreflabel}| & ``[Author Year, note]''\\ 
+ \verb|\citemul{bibreflabel1,bibreflabel2}| & ``Author [Year1, Year2]''\\ \hline
+\end{tabular}\end{center}
+
+The macros above assume that your bibliography items are written as
+\begin{verbatim}
+   \bibitem[{Author}{Year}]{bibreflabel}
+   \bibitem[{Author}{Year1}]{bibreflabel1}
+   \bibitem[{Author}{Year2}]{bibreflabel2}
+\end{verbatim}
+The Bib\TeX\ style file {\tt njcarticle.bst} generates
+the bibliography items in the format above.
+
+{\sc Observe} that the \verb|\citemul|-command assumes that
+the authors of the references are one person (or same persons):
+\citemul{Raatikainen-1993,Raatikainen-1994a,Raatikainen-1994b}.
+
+\section{Use of the style files}
+
+{\sc Nordic Journal of Computing} provides the following files:
+\begin{enumerate}
+\item
+{\tt njcarticle.sty} contains the \LaTeX\ code for producing camera-ready
+	output accepted by {\sc Nordic Journal of Computing}.
+\item
+{\tt njcepsmacros.sty} contains the \LaTeX\ code for including Encapsuled
+	Postscript in the camera-ready output.
+\item
+{\tt njcarticle.bst} contains the Bib\TeX\ code for producing a reference list
+suitable for {\sc Nordic Journal of Computing}.
+\item
+{\tt njcdoc.tex} contains the \LaTeX-source of these instructions.
+\item
+{\tt njcdoc.bib} contains the Bib\TeX-source of these instructions.
+\item
+{\tt njclogo.ps} contains the Encapsuled Postscript file used in
+	these instructions.
+\end{enumerate}
+
+To format the document, type:
+\begin{verbatim}
+     latex njcdoc 
+     bibtex njcdoc
+     latex njcdoc
+     latex njcdoc
+\end{verbatim}
+ 
+\section{Disclaimer}
+The macros are not guaranteed to be free of errors.
+Any bugs, inconsistencies, suggestions, and other comments
+should be reported to {\sc Nordic Journal of Computing} by
+email to {\tt njc@cs.Helsinki.FI}.
+
+\begin{acknowledgements}
+This section comes before the References and is unnumbered.
+\LaTeX-en\-viron\-ment is \verb|acknowledgements|.
+\end{acknowledgements}
+
+\bibliographystyle{njcarticle}
+\bibliography{njcdoc}
+
+\end{document}
+

@@ -1,0 +1,114 @@
+\documentclass[leqno]{article}
+\makeatletter
+%\show\label
+\input{a4wide}
+\makeatother
+
+\usepackage{amssymb}
+\input{defs}
+
+\newcommand{\ky}[1]{{\tt #1}}
+\newcommand{\ina}{\hspace*{1em}}
+\newcommand{\inb}{\hspace*{2em}}
+\newcommand{\inc}{\hspace*{3.5em}}
+\newcommand{\ind}{\hspace*{4.5em}}
+\newcommand{\ine}{\hspace*{5em}}
+\newcommand{\func}[1]{\mbox{\sc #1}}
+\newcommand{\f}[1]{\func{#1}}
+\newcommand{\srt}[1]{{\cal #1}}
+%\newcommand{\ret}{\mbox{\ky{:}$\!\!$\ky{:}\ }}
+\newcommand{\ret}{\mbox{$\ \rightarrow\ $}}
+%\newcommand{\aft}{\f{Aft}}
+\newcommand{\aft}[3]{[#1<#2:#3]}
+
+\newcommand{\itr}[1]{\vec{#1}} % iterate over
+\newcommand{\arskip}{\hspace*{.6em}} % adjust indent if an array starts in the next line
+
+\newcommand{\sz}[1]{|#1|} % size complexity
+
+\newcommand{\by}[2]{\ \stackrel{#2}{#1}\ }
+
+\newcommand{\ogA}[2]{[#1\cdot #2]} % \ogA MA
+\newcommand{\onM}[3]{#1(#2)(#3)}  % \onM AxM
+
+\newenvironment{itez}{\begin{itemize}\MyLPar}{\end{itemize}}
+\input xypic
+
+\newcommand{\vv}{\dlline\drline}
+\newcommand{\sdc}[1]{\spreaddiagramcolumns{#1}}
+\newcommand{\sdr}[1]{\spreaddiagramrows{#1}}
+\newcommand{\DT}[1]{\Drop{\Text{#1}}}
+\newcommand{\dst}[1]{\displaystyle{#1}}
+\newcommand{\who}{\mbox{?}}
+
+\newcommand{\dgar}[1]{\begin{array}{c} #1 \end{array}}
+
+\begin{document}
+
+{\large{
+\[\sdr{-1.4pc}\sdc{1.5pc} 
+\diagram
+ TCS   \rdouble|>\Tip \morphism\Solid\Tip{}[ddd]  
+  \morphism{\dottedwith{\text{\small{?}}}}{\hole\Tip}{}
+ [dddddddddrrr]|<<<<<<<<<<<<<<<<{\Text{\ \\ computations\\ \ }}|{\Text{\ \\ programs\\ \ }}|>>>>>>>>>>>>>>>{\Text{\ \\ data types\\ \ }} & 
+  \Text{{\bf Correct}} \rto^{abs} & 
+  \Text{Static: \\ properties} \rto^{abs} \ddldashed|>\tip  &  
+  \Text{Logic,\\ Algebra} \xdotted[r]^{abs}|>\tip
+\morphism\dashed\tip{}[ddddl]|{\text{refinement}} & \infty \morphism\dashed\tip{}[ddddddl] \\
+ & & & & \\     & & & & \\
+\Text{{\bf Efficient}} \xto[ddd]_{N\!D} & & & & \\
+ & & & & \\   & & & & \\
+\Text{Dynamic: \\ Algorithms}\xto[ddd]_{\cp} 
+  \morphism\dashed\tip{}[ur]_{\Text{proof\ of\\ correctness}} & & & & \\
+ & & & & \\   & & & & \\
+\Text{Complexity} \morphism\dashed{\tip}{}[uur]
+  \morphism\dashed{}{}[r] & 
+  \morphism\dashed{\tip}{}[uur]^<<<<<<{\Text{formal\\ proof of ...\ }} & & & 
+\enddiagram
+\]
+}}
+\hfill{
+$\begin{array}{rrcl}
+\multicolumn{4}{l}
+{{\sf gcd}(x,y)= z : x|z\land y|z \land (x|w\land y|w \impl z\geq w)} \\[1ex]
+& x=y & \impl & {\sf gcd}(x,y)=x \\
+& x< y & \impl & {\sf gcd}(x,y)= {\sf gcd}(x,y-x) \\
+& x> y & \impl & {\sf gcd}(x,y)= {\sf gcd}(x-y,y) \\[3ex]
+\multicolumn{4}{l}{\sqrt x = z: z^2=x} \\[1ex]
+& \who & \impl & \who \\[3ex]
+\multicolumn{4}{l}{{\sf DNF}(F) = (L_{11}\land...\land L_{1n})\lor...\lor(L_{k1}\land...\land L_{kn})} \\[1ex]
+& \neg(A\lor B) & \impl & \neg A\land \neg B \\
+& A\land(B\lor C) & \impl & (A\land B)\lor (A\land C) \\
+& \who & {\ldots} & \who
+\end{array}
+$}
+
+\begin{itemize}
+\item an ordered pair: $\<x,y\>$ (directed edges, written also $xy$)
+ \begin{itemize}
+ \item more generally: just an ADT with two observers/destructors: $first$ and $second$
+ \end{itemize}
+\item for a set/collection/function $E$: 
+ \begin{itemize}
+  \item  $\upd Eon$ -- replace $o$ by $n$ (i.e. $E\setminus\{o\}\cup\{n\}$);
+  \item $\rem Eo$ -- remove $o$;
+  \item $\add En$ -- add $n$ (sometimes, just $E+n$).
+  \item $\mv FEx$ -- move $x$ from $F$ to $E$ ($=\rem Fx$ ; $\add Ex$)
+ \end{itemize}
+\item DAG is a pair $\<E,V\>$ where $E$ is the set of (directed) edges $xy$.
+\item sorts are written $\srt E,\srt V, \srt D, \srt G$..., 
+ \begin{itemize}
+ \item $e:\srt E$ is a variable $e$ of sort $\srt E$ (edge)
+ \item $E:Set(\srt E)$ is a variable $E$ over sets of $\srt E$-elements (edges)
+ \item $\srt D = \<Set(\srt E),Set(\srt V)\>$ -- sort of DAG's 
+ \item $\srt G = Set(\<\srt V,set(\srt V)\>)$ -- sort of DAG's \\
+% represented by the predecessors of each vertex
+ A DAG $\<E,V\>$ corresponds to a set $G=\{\<x,P\>:x\in V\}$ where for each 
+vertex $x\in V$, we have $\<x,P\>$ with 
+$P$ being the set of vertices $y$ such that $yx\in E$.
+(This conversion amounts to initialization of the Indegree's for all vertices.)
+ \end{itemize}
+\end{itemize}
+
+
+\end{document}

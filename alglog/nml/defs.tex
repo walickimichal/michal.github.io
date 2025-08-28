@@ -1,0 +1,81 @@
+\newcommand{\preq}[1]{\begin{equation} #1\end{equation}}
+\def\theequation{\Roman{equation}}
+
+\newcommand{\prf}{{\cal{PF}}}
+\newcommand{\lrf}{{\cal{LF}}}
+\newcommand{\intf}{\leadsto}
+%\newcommand{\intf}{\rightsquigarrow}
+\newcommand{\slog}{{\cal L}}
+\newcommand{\plog}{{\cal P}}
+
+\newcommand{\proves}[1]{\mathrel{\vdash_{\!\!{\scriptscriptstyle \cal #1}}} }
+\newcommand{\prp}{\proves P}
+\newcommand{\prl}{\proves L}
+\newcommand{\pr}{\proves{}}
+
+\newcommand{\tproves}[1]{\mathrel{\Vdash_{\!\!{\scriptscriptstyle \cal #1}}}
+} %AMS
+\newcommand{\tprp}{\tproves P}
+\newcommand{\tprl}{\tproves L}
+\newcommand{\tpr}{\tproves{}}
+
+\newcommand{\timpl}{\dashrightarrow}
+\newcommand{\timpld}{\dashleftarrow}
+\newcommand{\tii}{\dashleftarrow\!\!\!\!\!\!\dashrightarrow}
+
+\newcommand{\og}{\ \ \&\ \ }
+\newcommand{\is}{\equiv}
+\newcommand{\isnot}{\not\equiv}
+\newcommand{\Vars}[1]{{\cal V}(#1)}
+\newcommand{\impl}{\mathrel\rightarrow}
+\newcommand{\into}{\mathrel\rightarrow}
+\newcommand{\Impl}{\mathrel\Rightarrow}
+\newcommand{\impld}{\mathrel\leftarrow}
+\newcommand{\Impld}{\mathrel\Leftarrow}
+\newcommand{\ii}{\mathrel\leftrightarrow}
+\newcommand{\subs}[3]{#1^{#2}_{#3}}
+
+\newcommand{\as}{:=}
+\newcommand{\ch}{\sqcup}
+\newcommand{\ifte}[3]{{\bf ife}(#1:#2,#3)}
+\newcommand{\ift}[2]{{\bf if}(#1:#2)}
+\newcommand{\wh}[2]{{\bf wh}(#1:#2)}
+\newcommand{\fore}[2]{{\bf for}(#1:#2)}
+\newcommand{\se}{\mathrel{;}}
+
+%PROGRAMs:
+\newcommand{\iftp}[2]{{\bf if}\ (#1):\{#2\} }
+\newcommand{\ind}[1]{\hspace*{#1em}}
+\newcommand{\inde}{\hspace*{1em}}
+%first line is indented n from before; the first parameter should then be n:
+\newcommand{\iftep}[4]{{\bf ife}\ (#2): \{ \\ \ind{#1}\inde #3\\ \ind{#1}{\bf
+else}\ #4\ \} }
+\newcommand{\whp}[3]{{\bf wh}\ (#2): \{\\ \ind{#1} \inde #3 \\ \ind{#1}\}}
+\newcommand{\forep}[3]{{\bf for}\ (#2): \{ \\ \ind{#1}\inde #3\\ \ind{#1}\} }
+\newcommand{\cond}[2]{\ind{#1}\bullet\ #2}
+
+\newcounter{ITEM}
+\newcommand{\PROOFRULE}[2]{\refstepcounter{ITEM}%\lab{\thesection.\arabic{ITEM}}
+\trivlist\item[\hskip\labelsep {(\arabic{ITEM})}] \quad \(
+{\displaystyle #1 \strut \over \strut \displaystyle #2}\) 
+ \vspace{2ex}\noindent\ignorespaces}
+
+\newcommand{\TABRULE}[2]{\refstepcounter{ITEM}%\lab{\thesection.\arabic{ITEM}}
+\noindent{(\arabic{ITEM})\ }  %\(
+{\displaystyle #1 \strut \over \strut \displaystyle #2} %\) 
+}
+% \newcommand{\PROOFRm}[2]{\mbox{\refstepcounter{ITEM}
+% \trivlist\item[\hskip\labelsep {(\arabic{ITEM})}] \quad 
+% ${\displaystyle #1 \strut \over \strut \displaystyle #2}$ }
+% \noindent\ignorespaces}
+\newcommand{\PROOFRm}[2]{\refstepcounter{ITEM}
+ (\arabic{ITEM}) \quad 
+ {\displaystyle #1 \strut \over \strut \displaystyle #2}}
+
+\newcommand{\PROOFR}[2]{{\displaystyle #1 \strut \over \strut \displaystyle
+ #2} }  %\noindent\ignorespaces}
+
+\newcommand{\scon}[1]{\ \mbox{{\footnotesize{(#1)}}}}
+%%%%%%%
+\newcommand{\MyLPar}{\parsep -.2ex plus.2ex minus.2ex\itemsep\parsep
+   \vspace{-\topsep}\vspace{.5ex}}
