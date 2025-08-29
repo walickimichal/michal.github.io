@@ -1,0 +1,143 @@
+\begin{thebibliography}{}
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:28}
+\bibsc{Dahl, O.}
+\newblock \bibemph{Verifiable Programming}.
+\newblock Prentice Hall. \bibyear{(1992)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:44}
+\bibsc{Guttag, J.}
+\newblock The specification and application to programming of adt.
+\newblock Technical Report CSR6-59, Computer Systems Research Group, University
+  of Toronto. \bibyear{(1975)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:53}
+\bibsc{Hesselink, W.}
+\newblock A mathematical approach to nondeterminism in data types.
+\newblock \bibemphic{ACM ToPLaS}~\bibemph{10}. \bibyear{(1988)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:Hes}
+\bibsc{Hesselink, W.}
+\newblock \bibemph{Programs, Recursion and Unbounded Choice}.
+\newblock Cambridge. \bibyear{(1992)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:60}
+\bibsc{Huet, G. and Hullot, J.}
+\newblock Proofs by induction in equational theories with constructors.
+\newblock \bibemphic{J. of Computer and System Sciences}~\bibemph{25},
+  239--266. \bibyear{(1981)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:58}
+\bibsc{Hu{\ss}mann, H.}
+\newblock \bibemph{Nondeterministic algebraic specifications}.
+\newblock Ph.\ D. thesis, Fak. f. Mathematik und Informatik, Universitat
+  Passau. \bibyear{(1990)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:59}
+\bibsc{Hu{\ss}mann, H.}
+\newblock \bibemph{Nondeterminism in Algebraic Specifications and Algebraic
+  Programs}.
+\newblock Birkhauser. \bibyear{(1993)}, [revised version of \cite{c:58}].
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:64}
+\bibsc{Kapur, D.}
+\newblock \bibemph{Towards a Theory of Abstract Data Types}.
+\newblock Ph.\ D. thesis, Laboratory for CS, MIT. \bibyear{(1980)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:69}
+\bibsc{Kriau\u{c}iukas, V. and Walicki, M.}
+\newblock Reasoning and rewriting with set-relations i: ground case.
+\newblock In \bibemphic{CSL'94}. LNCS vol.~933. \bibyear{(1995)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:69a}
+\bibsc{Kriau\u{c}iukas, V. and Walicki, M.}
+\newblock \bibemph{Reasoning and rewriting with set-relations II: the
+  non-ground case}.
+\newblock LNCS vol.~1130, Springer. \bibyear{(1996)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:76}
+\bibsc{Mahr, B. and Makowsky, J.}
+\newblock Characterizing specification languages which admit initial semantics.
+\newblock In \bibemphic{CAAP'93}, pp.\  300--316. LNCS vol.~159, Springer.
+  \bibyear{(1983)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:77}
+\bibsc{Maibaum, T.}
+\newblock The semantics of nondeterminism.
+\newblock Technical Report CS-77-30 (December), University of Waterloo,
+  Ontario, Canada. \bibyear{(1977)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:78}
+\bibsc{Makowsky, J.}
+\newblock Why horn formulas matter in computer science.
+\newblock \bibemphic{J. of Computer and System Sciences}~\bibemph{34}.
+  \bibyear{(1987)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:87}
+\bibsc{Meseguer, J.}
+\newblock Conditional rewriting logic as a unified model of concurrency.
+\newblock \bibemphic{Theoretical Computr Science}~\bibemph{96}, 73--155.
+  \bibyear{(1992)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:92}
+\bibsc{Mosses, P.}
+\newblock Unified algebras and action semantics.
+\newblock In \bibemphic{STACS'89}. LNCS vol.~349, Springer. \bibyear{(1989)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:91}
+\bibsc{Mosses, P.}
+\newblock Unified algebras and institutions.
+\newblock In \bibemphic{LICS'89, 4-th Annual Symposium}. \bibyear{(1989)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:122}
+\bibsc{Tarlecki, A.}
+\newblock Free constructions in algebraic institutions.
+\newblock In \bibemphic{MFCS'84}. LNCS vol.~176, Springer. \bibyear{(1984)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:127}
+\bibsc{Walicki, M.}
+\newblock \bibemph{Algebraic Specifications of Nondeterminism}.
+\newblock Ph.\ D. thesis, Dept. of Informatics, University of Bergen.
+  \bibyear{(1993)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{BW97}
+\bibsc{Walicki, M. and Bia{\l}sik, M.}
+\newblock Relations, multialgebras and homomorphisms.
+\newblock Technical Report 838, Institute of Computer Science, Polish Academy
+  of Sciences. \bibyear{(1997)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:132}
+\bibsc{Walicki, M. and Broy, M.}
+\newblock Structured specifications and implementation of nondeterministic data
+  types.
+\newblock \bibemphic{Nordic Journal of Computing}~\bibemph{2}, 358--395.
+  \bibyear{(1995)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:126}
+\bibsc{Walicki, M. and Meldal, S.}
+\newblock A complete calculus for the multialgebraic and functional semantics
+  of nondeterminism.
+\newblock \bibemphic{ACM ToPLaS}~\bibemph{17},~2. \bibyear{(1995)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:133}
+\bibsc{Walicki, M. and Meldal, S.}
+\newblock Generated models and the omega-rule: the nondeterministic case.
+\newblock In \bibemphic{TAPSOFT'95}. LNCS vol.~915, Springer. \bibyear{(1995)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:130}
+\bibsc{Walicki, M. and Meldal, S.}
+\newblock \bibemph{Multialgebras, power algebras and complete calculi of
+  identities and inclusions}.
+\newblock LNCS vol.~906, Springer. \bibyear{(1995)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{survey}
+\bibsc{Walicki, M. and Meldal, S.}
+\newblock Algebraic approaches to nondeterminism -- an overview.
+\newblock \bibemphic{ACM Computing Surveys}. \bibyear{(1997)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:137}
+\bibsc{Wolter, U. and Loewe, M.}
+\newblock Beyond conditional equations.
+\newblock In \bibemphic{CAAP'92}. LNCS vol.~581, Springer. \bibyear{(1992)}.
+
+\end{thebibliography}

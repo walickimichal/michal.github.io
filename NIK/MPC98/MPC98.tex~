@@ -1,0 +1,1080 @@
+\documentclass[11pt]{article}
+\usepackage{amssymb}
+
+\makeatletter
+%\voffset -2cm
+\input{a4wide}
+\makeatother
+
+\input defs
+\newcommand\der{{\,\Rightarrow\,}}
+\newcommand{\togo}[1]{{\tiny{#1}}\normalsize}
+\newcommand{\leadto}{\mathrel{\rightsquigarrow}}
+
+\newcounter{BIB}
+\newcommand{\bibyear}[1]{#1}
+\newcommand{\bibemph}[1]{{\em #1}}
+\newcommand{\bibemphic}[1]{{\em #1}}
+\newcommand{\bibsc}[1]{{\sc{#1}}}
+
+\input xypic
+%\xyoption{graph}
+\xyoption{frame}
+
+\title{Nondeterminism, Underspecification, \\ Initiality and \ldots Junk}
+\author{Micha{\l} Walicki
+\and Sigurd Meldal}
+
+
+\begin{document}
+
+\maketitle
+\abstract{\noindent
+This paper indicates how nondeterministic operators supply a useful (and
+even {\em necessary\/}) abstraction mechanism, and how the common
+alternative, {\em underspecification\/} is insufficient even in quite
+simple examples.  As an example we show various approaches to specifying
+unordered structures and iteration over such structures as sets.
+
+Having established the utility (and {\em need\/}) for nondeterministic
+operators, we go on to discuss the challenges of retaining the benefits of
+initial semantics  (no ``junk'', no ``confusion'') in the
+presence of nondeterministic operators. We show how nondeterminism is
+{\em no worse\/} than underspecification in that regard, but that they both
+result in the introduction of ``intuitive junk'' into the models. In
+conclusion we point out how {\em quasi-\/}initial semantics retain the
+desirable attributes of initial semantics while still allowing for
+nondeterminism (and underspecification).
+
+}
+
+
+\section{Introduction}
+{\em Initial models\/} have established themselves as a key ingredient in
+any algebraic specification toolkit, and there is no call for an argument
+in opposition to its plausibility.  Initial semantics has immediate
+intuitive appeal in that it establishes a very close relation between the
+syntax of a specification and its semantics -- initial semantics is
+essentially syntactic, as reflected in the names ``term model'' or ``word
+model''.  Initiality implies that the semantic changes induced by syntactic
+changes in a specification are minimal, and so reflect the latter in the
+natural and expected manner.  For instance, adding a new sort and a
+constant of this sort to an existing specification have no exotic influence
+on the model.  The model will be extended with a new sort and just the one
+element needed for interpretation of the new constant.  Furthermore, from a
+methodological point of view, when writing distinct terms one usually
+intends them to be distinct entities unless they are explicitly equated
+with other terms.
+
+The two slogans summarizing these properties of initial models are ``{\em no
+junk\/}'' and ``{\em no confusion\/}'' -- no element appears in the
+model whose
+existence is not required by the interpretation of terms introduced in the
+specification, and distinct terms are interpreted as distinct elements
+unless their identity are required by the equations of the specification.  In
+short, initiality is nice because it results in intuitive models, and the
+two slogans make the notion of ``intuitive'' more precise.
+
+A limitation of the initial approach is that not all theories have initial
+models.  It is well known \cite{c:76, c:78, c:122} %[10,8,14]
+that Horn theories are the most general theories that can be guaranteed
+always to possess initial models.  As the interest in initial semantics was
+carried over to the domain of {\em non\/}deterministic
+specifications, so was the
+interest in Horn theories.
+
+In the first part of the paper we present the argument motivating the use
+of nondeterminism in specification, even when the systems (datastructures,
+algorithms) specified are intended to be implemented deterministically.  In
+particular, we emphasize the difference between {\em nondeterminism\/} and
+{\em underspecification\/}.  Roughly, the example used to argue the case
+boils down to the observation that unordered structures (in particular {\em
+sets\/}) are very common and often very convenient abstract data structures
+-- both in specification and programming.  Equally common is the need for
+an {\em iteration\/} mechanism over such structures.  But (deterministic)
+iteration introduces implicit ordering!  We show by means of an example
+that the correct iterator over unordered structures should be specified as
+nondeterministic choice and that iteration along some implicitly assumed
+ordering, in spite of apparent plausibility, can easily lead to unintended
+results, collapsing otherwise non-equal data structures into identity.
+
+As a vehicle for exploring these issues we shall make use of a choice
+operator $\ch$. Its intuitive meaning is simple: The result of $a \ch b$ is
+either $a$ or $b$ -- no more, no less. In general, $\ch(S)$ should
+denote {\em some\/}
+member of $S$, and we do not care which one.  This should allow us to
+discuss whether $c = a \ch b$ is valid or not, the consequences of
+introducing the equation as part of a specification, etc. Since the notion
+of {\em choice\/} is such a simple and intuitive one, we are striving for a
+semantic system which allows us to state its properties (and consequences
+of use) in a similarly straightforward and uncomplicated manner.
+
+Having argued the utility and necessity of nondeterministic operators as an
+abstraction mechanism, we go on to illustrate the consequences of applying
+the theory of initiality to the domain of nondeterminism.  We present two
+general ways
+of introducing nondeterminism into specification and exemplify them by means of
+multialgebras \cite{c:53, c:Hes, c:58, c:59, c:64} %[3,4,7]
+and unified algebras \cite{c:91, c:92}. %[11,12].
+A simple, yet illustrative, example is worked out in these formalisms
+leading to some general observations\footnote{The example itself was used
+in \cite{c:91}, but has certainly been contemplated by anybody devoting a
+few minutes' thought to nondeterminism.  We are particularly thankful to
+Vladimir Antimirov for his comments and discussion of it in the context of
+unified algebras.}: since nondeterminism subsumes underspecification, the
+initial models of nondeterminism introduce ``intuitive {\em junk\/}'' and,
+furthermore, that treating nondeterministic specifications not merely as
+underspecification but as specification of (truly) nondeterministic
+operations does not make the situation worse.  As a possible alternative to
+initial semantics we suggest {\em quasi-initial\/} semantics of nondeterminism.
+
+The presentation focuses on the concepts and general phenomena rather than
+technicalities.  We give the definitions of multialgebraic and unified
+algebra semantics but the paper aims at rather informal presentation.  More
+technical details can be found in \cite{survey,BW97}.  In particular, the
+issue of formal reasoning with the specifications of nondeterminsm is not
+addressed at all -- the reader is referred to \cite{c:130,c:69, c:69a}.
+% Then we suggest that the way to avoid the
+%implausibilities is simply to allow the specifier to say what he
+intends to say.
+
+\section{Why Nondeterminism?}\label{se:why}
+One of the aims of specifying a program is to express its functionality at a
+proper abstraction level, avoiding complications more properly
+addressed at a later
+stage in the operational and implementation refinement process.
+Abstract properties of the intended structure may (and should) allow different
+implementations, and one should avoid overspecifying the problems as this may
+exclude some, otherwise acceptable, attractive or even optimal,
+implementations.
+
+The traditional means of abstraction in algebraic specifications is the use
+of {\em under\/}specification, which is often confused with nondeterminism
+or else meant to be a sufficient surrogate.  We'll open with a few remarks on
+this issue and then proceed to an example illustrating how
+nondeterminism may be an appropriate abstraction mechanism in writing a
+specification, and where underspecification cannot achieve the same (and
+reasonable) goals.
+
+%\section{Underspecification vs. nondeterminism}
+\subsection{Underspecification vs. nondeterminism}\label{sub:underA}
+% Limiting a language to Horn
+% formulae may restrict the possibility of assuming such a ``don't care''
+attitude.
+The choice operation may serve as a (paradigmatic) example: assume that we
+want an
+operation $\ch:S\times S\into S$ which, for arguments $x,y$, should equal
+either $x$ or $y$. A possible underspecification might be:
+%The only way
+%to capture this intention without using disjunction is to leave $c$ partly
+specified
+%or unspecified. For instance:
+\[\begin{array}{rrrr@{\ \into\ }l}
+SP= & \Sorts: & \multicolumn{2}{l}{S} \\
+ & \Funcs: &  a,b: & & S \\
+ &   & \ch: & S\times S & S \\
+ & \Ax: & \multicolumn{3}{l}{
+ \begin{array}[t]{rrcl}
+1.& x\ch x& = & x \\
+2.& x\ch y& = & y\ch x \\
+3.& x\ch (y\ch z)& = & (x\ch y)\ch z
+\end{array} }
+\end{array}
+\]
+where $a, b$ are the two intended elements of sort $S$.  Axioms 1.-3.
+assert the general properties of $\ch$ as a join operator.  The
+underspecification
+results in several nonisomorphic models for the specification, and the
+collection of models is taken as being the (``loose'') semantics of
+the specification.
+
+$SP$ will allow models where $a\ch b = a$, and others where $a\ch b = b$.
+In general, loose semantics will allow structures which violate the
+demands of ``no junk'' and ``no confusion.''  Not only will $SP$ admit
+models where $a=b$, but also such where $a\ch b$ returns {\em
+neither\/} $a$ nor
+$b$.
+
+As specified, the operation $\ch$ has only a remote resemblance to
+the choice operation. To get something closer to choice, one might add
+the axiom $(x\ch y= x)\lor (x\ch y= y)$. However, that would exclude the
+possibility of defining initial semantics (we shall address this issue in the
+subsequent section).
+
+But there are other problems arising from disallowing nondeterminism
+and replacing it
+with mere underspecification.  Consider for instance an abstract datatype
+{\em set,\/} with a choice operation. A natural implementation of such a
+datatype would be to represent sets as {\em lists\/}, and let the choice
+operation be implemented as the head function. However, in  \cite{c:132}
+it was shown how such an implementation would violate even the most
+minimal of set specifications, and how the problem finds a natural
+resolution by allowing for nondeterminism.  In this paper we will
+illustrate another general point indicating the insufficiency of
+deterministic specifications when dealing with sets.  To do that, we first
+introduce a few basic concepts from the multialgebraic framework for
+specification of nondeterminism.
+
+The challenge in allowing nondeterminism consists in essence in defining
+precisely the relationship between the arguments $x$ and $y$ and the result
+of $x\ch y$ -- the latter, to be a choice, {\em must} equal one of the two,
+and should certainly not introduce new elements into the semantic models.
+
+This leads to multiagebras, where nondeterministic
+operations are modeled by set-valued function.
+
+
+\subsection{Multialgebras}\label{sub:multA}
+A {\em multialgebra\/} (over some signature $\Sigma$) is a
+$\Sigma$-algebra where
+operations return sets (possibly singleton) of elements.
+Following \cite{c:127, c:126}, we introduce two primitive predicates
+for building
+atomic formulae: $s\Eq t$ (element identity -- {\em equality\/})
+requires that $s$ and $t$ denote the same, {\em
+one-element} set,
+and $s\Incl t$ ({\em inclusion\/}) that the set interpreting $s$ is
+included in that
+interpreting $t$.
+\begin{DEFINITION}\label{de:mult}
+A $\Sigma$-multialgebra $A$ is given by:
+\begin{enumerate}\MyLPar
+\item for each sort symbol $S$, the carrier set $S^A$
+\item for each operation symbol $f:S_1...S_n \into S$, an operation
+$f^A:S_1^S...S_N^A\into \PSet(S^A)$
+\end{enumerate}
+Given a $\Sigma$-term $t$ (with variables $X$), any assignment
+$\alpha:X\into A$
+of {\em individual} elements from the
+carrier of $A$ to $X$, induces a unique interpretation $\ovl\alpha(t)$ of
+$t$ in $A$.
+
+The formulae of specifications are constructed from the atomic equalities and
+inclusions, and
+are of the form $a_1,...,a_n\Seq b_1,...,b_m$, with atomic $a_i$ and $b_j$.
+$A$ satisfies a formula $\phi$ under assignment $\alpha$
+\begin{enumerate}\setcounter{enumi}{2}\MyLPar
+\item $A\models_\alpha s\Eq t$ iff $\ovl\alpha(s)=\ovl\alpha(t)=\{e\}$ for some
+$e\in A$;
+\item $A\models_\alpha s\Incl t$ iff $\ovl\alpha(s)\subseteq\ovl\alpha(t)$;
+\item $A\models_\alpha a_1,...,a_n \Impl b_1,...,b_m$ iff $\exists
+1\leq i\leq n : A\not\models a_i$ or $\exists 1\leq j\leq m:A\models b_m$.
+\end{enumerate}
+$A\models\phi$ iff $A\models_\alpha\phi$ for all $\alpha$.
+\end{DEFINITION}
+
+\noindent
+$\PSet(X)$ denotes the set of non-empty subsets of $X$.  2.  makes it
+possible for a constant $c:\ \into S$ to denote a {\em set} of elements
+from $S^A$.  Also, according to 3.  $s\Eq t$ holds iff both terms denote
+the same 1-element set and not just the same set.  Variables are assigned
+{\em individual} and not sets.\footnote{Motivations for these choices can
+be found in \cite{c:132, c:126}.}
+
+
+Now, consider the following specification
+\[\begin{array}{rrrr@{\ \into\ }l}
+SPN= & \Sorts: &\multicolumn{2}{l}{E} \\
+ & \Funcs: & a,b,c: & & E \\
+ &   & \ch: & E\times E & E \\
+ & \Ax: & \multicolumn{3}{l}{
+ \begin{array}[t]{rrcl@{\hspace*{5em}}rrcl}
+1.& z\Incl x\ch y & \Impl & z\Eq x \lor z\Eq y  &  3.& a & \Eq & a  \\
+2.& c & \Incl & a\ch b  &  4.& b & \Eq & b  \\
+&  &  &  &  5.& c & \Eq & c
+\end{array} }
+\end{array}
+\]
+Note the distinctions between $c$ and $z$.  Axioms 3.-5.  merely ensure
+that the constants (an in particular $c$) are deterministic, i.e., denote
+individual elements.  In $SPN$ $x\ch y$ is a nondeterministic operation
+which returns either $x$ or $y$: whenever $z$ is a result of $x\ch y$, then
+{\em either\/} $z\Eq x$ {\em or\/} $z\Eq y$.  On the other hand the
+constant $c$ is {\em deterministic\/} (axiom 5), but {\em underspecified\/}
+-- in any model $c$ will denote one element, either the same as denoted by
+$a$ or the one denoted by $b$.
+
+
+\subsection{Nondeterministic choice is the iterator for sets}\label{sub:iter}
+Consider {\em graphs\/} as an example of an eminently practical
+abstraction.  Graphs are typically presented as sets of vertices and sets
+of edges, and graph algorithms are rife with expressions such as ``for each
+edge $e$ from a vertex $v$ do \dots''. The algorithms usually do {\em not\/}
+depend on the order in which the set of edges are traversed, leaving this
+choice to the implementor of either the set abstraction or the graph
+abstraction.
+
+As an example, let us consider the problem of constructing the {\em
+depth-first traversal tree\/} of nodes reachable from a particular node of
+a directed, irreflexive graph.  We assume that a (connected) graph $g$ is
+represented as a {\em set\/} $G$ of edges, each edge being a pair $\<x,y\>$
+identifying the source and target vertices.  (The set $V$ of all vertices
+in a graph can be easily obtained from $G$.)
+%as a pair $\<V,N\>$, where $V$ is a set of vertices and
+Assume further that given a graph $g$, the function $N:V\into\PSet(V)$
+returns, for every vertex $v$ the set of its neighbours in $g$.  Working
+with sets, we also assume some standard specification thereof, in
+particular, operations {\em empty set\/}, $\es:\ \into S$, {\em adding an
+element\/} to a set, $+:S\times E\into S$ and {\em removing\/} an element
+$\setminus: S\times E\into S$.
+%(We will allow ourselves to apply these to single
+%elements, treating them as 1-element sets.)
+
+A textbook presentation of the {\em DFS\/} algorithm is the following pair
+of procedures:
+%%%%%%%%
+%%
+%% Michal <- Sigurd:
+%% This needs formatting (bold for keywords, indents etc.)
+%% The correct symbols for EmptySet etc.
+%% I left it as verbatim to maintain the structure I intended for
+%% the final result (and as a fallback in case we runshor on time)
+%%
+%%%%%%%%
+\begin{verbatim}
+	DFS (G, v) is
+	begin
+	    T := EmptySet();
+	    Traverse (G, v, T);
+	    return T;
+	end;
+
+	Traverse (G, v, T) is
+	begin
+	    mark v;
+	    for all edges <v, x> do
+	        if x is unmarked then
+	            Traverse (G, x, T);
+	            T := T+<v,x>;
+	        endif;
+	    end for;
+	end Traverse;
+\end{verbatim}
+
+The $DFS$ algorithm as stated is simple, and we should hope for a similar
+simplicity and level of abstraction when we give an algebraic specification
+for it. (Note in particular the use of the set iterator in the loop of
+{\em Traverse\/}.)
+
+The following attempts to give an algebraic version of the specification of
+the standard algorithm for $DFS(g,v)$
+starting from the vertex $v$ in a graph $g$ and constructing the DFS-tree
+by recursive calls to the operation $Tr:Gr\times V\times Gr\into Gr$, where
+the second $Gr$-argument is a set of edges representing the tree (graph)
+constructed so far.
+\[\begin{array}{rrcl}
+1.& & & DFS(g,v) = Tr(g,v,\es) \\
+2.& N(g,v)=\es & \Impl & Tr(g,v,t)=t \\
+3.& N(v)=S+x, x\in |t| & \Impl & Tr(g,v,t)= Tr(g\setminus\<v,x\>,v,t) \\
+4.& N(v)=S+x, x\not\in |t| & \Impl & Tr(g,v,t)=
+  Tr(g\setminus\<v,x\>,v,\  Tr(g\setminus\<v,x\>,x,t+\<v,x\>)\ )
+\end{array}
+\]
+The construction starts with the empty tree (axiom 1).  $Tr$
+backtracks if $v$ has no
+neighbours (either because all were visited (marked by removing them from
+$g$) or because $v$ is a leaf) (axiom 2).  If the set
+$N(v)$ is not empty, i.e., it is $S+x$ for some set $S$ and vertex $x$,
+then there are two possibilities for each element of this set.  If $v$'s
+neighbour $x$ is marked (indicated by $x\in |t|$, i.e., $x$ is among the
+vertices included in $t$) then the edge $\<v,x\>$ is simply removed
+from further
+consideration (axiom 3).  If, on the other hand the neighbour $x$ was not
+visited before, then the edge $\<v,x\>$ added to $t$ as well as being
+removed from $g$, and the construction proceeds recursively down through
+$x$ (axiom 4).
+
+
+This hopefully corresponds to the intuitive understanding of the algorithm and
+may look plausible -- but only as long as we do not inspect the definition
+of the sort of sets.
+Sets are unordered and consequently adding elements to a set is
+always considered a
+commutative operation:
+\begin{equation}
+ S+x+y  =  S+y + x
+\end{equation}
+is a standard axiom of set specifications.
+
+However, from this and the specification of the $DFS$ and $Tr$ functions
+we obtain the following:
+\begin{equation}
+Tr(g+\<v,b\>+\<v,a\>, v,\es) = Tr(g+\<v,a\>+\<v,b\>, v, \es)
+\end{equation}
+In other words, for a graph:
+
+$g = \vcenter{\xymatrix @R=2ex @C=1ex{
+% & \save*{v}*\cir<5pt>{}\restore \ar[dl]\ar[dr] \\
+& v \ar[dl]\ar[dr] \\  a\ar[rr] & &  b}}$
+we have that the specification of the $DFS$ and $Tr$ functions result in
+the collapse of (intuitively) distinct trees into one:
+$\vcenter{\xymatrix @R=2ex @C=1ex{ & v \ar[dl]\ar[dr] \\ a & &  b}}\ =\
+ \vcenter{\xymatrix @R=2ex @C=1ex{ & v \ar[dl] \\ a\ar[rr] & &  b}}$.
+
+\noindent
+The problem is that the internal structure of the set values intrudes into
+the specification.  The definition of $Tr$ in terms of adding elements to a
+set tries, on the one hand, to respect the representation of graphs in
+terms of sets (of neighbours of each vertex) and, on the other hand, use
+the ordering of sets, implicit in their definition by means of adding
+elements.  One might avoid the problem by choosing a {\em particular set
+representation\/} when specifying the $DFS$ function, e.g., letting the
+neighbours $N(v)$ be represented as a sequence instead of as a set.
+However, this is quite contrary to the central tenet of (algebraic)
+specifications -- it forces us into making representational or operational
+decisions when there is no conceptual need to do so: our abstract
+specification formalism forces us to abandon a key abstraction!
+
+An abstract definition of $DFS$ should {\em not} assume any such particular
+representation of the sets of neighbours.  It also should {\em not} force
+the implementor to construct a  {\em particular\/} DFS-tree but, on the
+contrary, determine only the necessary requirements, leaving the choice of a
+particular strategy (here particular way of ordering a set) to the
+implementor.
+
+This objective can be achieved by the following, nondeterministic variant
+of the above specification.  We assume the same representation of graphs
+and specification of sets as before.  In addition, we assume a
+nondeterministic choice operation
+$\ch:S\into E$. There are a number of ways to specify choice, for
+instance, by an axiom
+$z\Incl \ch.(S+x)\Impl (z\Eq x)\lor (z\Incl \ch.S)$, or, perhaps,
+$S\Eq\es\lor\ch(S)\in S$. The former can be read as ``If we add an element
+$x$ to a set $S$, then applying the choice operator to the resulting set we
+either get $x$ or we get one of the values possible when applying choice
+to $S$.''
+\[\begin{array}{rrcl}
+1.& & & DFS(g,v) \Incl Tr(g,v,\es) \\
+2.& N(g,v)\Eq \es & \Impl & Tr(g,v,t)\Eq t \\
+3.& x\Incl \ch(N(v)), x\in |t| & \Impl & Tr(g,v,t)\Incl
+Tr(g\setminus\<v,x\>,v,t) \\
+4.& x\Incl \ch(N(v)), x\not\in |t| & \Impl & Tr(g,v,t)\Incl
+  Tr(g\setminus\<v,x\>,v,\  Tr(g\setminus\<v,x\>,x,t+\<v,x\>)\ )
+\end{array}
+\]
+Axiom 1. indicates that $DFS$ will return one of the trees $Tr$ is capable
+of returning. Axiom 2. takes care of the backtracking case (which is
+deterministic). Axioms 3. and 4. picks an arbitrary neighbour, and requires
+that $Tr$ must allow for the edge to that neighbour being the next one to
+traverse. But the specification does not {\em require\/} that particular
+neighbour to be the next (except if it is the {\em only\/} neighbour, of
+course).
+
+The operation $Tr$ is now allowed to return any (all) DFS-trees -- depending
+on the choice of $x$ from the set $N(v)$ at each stage (axiom 4).
+Instead of the
+unintended collapse of different trees, we will now have that:
+\[
+Tr( \vcenter{\xymatrix @R=2ex @C=1ex{
+& v \ar[dl]\ar[dr] \\  a\ar[rr] & &  b}}, v,\es)\ \Incl\ \{
+\vcenter{\xymatrix @R=2ex @C=1ex{ & v \ar[dl]\ar[dr] \\ a & &  b}},\
+ \vcenter{\xymatrix @R=2ex @C=1ex{ & v \ar[dl] \\ a\ar[rr] & &  b}}\ \}
+\]
+i.e., the set of possible results of applying $Tr$ to the graph is
+constrained by the set of two trees on the right-hand side of the
+inclusion.
+
+The example illustrates the point that deterministic specifications may,
+unavoidably, amount to {\em overspecification} thus violating the central
+objective of algebraic specifications. As we said, this is just one
+example of a situation which is likely to occur whenever the involved
+data structures are inherently unordered.
+
+\section{Initiality + Nondeterminism $\Impl$ Junk}\label{se:junk}
+Having argued the utility of nondeterministic operators, what are the
+consequences for our models when we attempt to carry over the notion of
+initiality. In particular, what happens to the ``no junk'' slogan which
+is at the basis of the argument in favor of initial models in standard
+algebraic specifications of deterministic operators?
+
+A conservative approach would use nondeterminism merely for the purpose of
+underspecification and hope that initiality in classes of models of such
+specifications would retain the purity expected of traditional initial
+models.  However, we will demonstrate that from the point of view of the
+initial semantics the sole problem of nondeterminism is caused by the fact
+that {\em nondeterminism subsumes underspecification\/}.  Nondeterminism in
+itself does not cause much harm -- it is the fact that deterministic
+operations can be underspecified by means of nondeterministic ones that
+leads to some challenges in the initial models.
+
+The initial model $\ini$ of $SP$ from \ref{sub:underA} will contain
+\[\begin{array}{c@{\ }|@{\ \ }c@{\ \ \ \ }c}
+x       & \ini(x) \\ \hline
+a       & a   \\
+b       & b   \\
+a\ch b	& a\ch b  \\
+a\ch a	& a   \\
+\multicolumn{2}{c}{\ldots}
+\end{array}
+\]
+The problematic point is the presence of the element $a\ch b$.  Formally,
+this is quite correct since the corresponding term exists in the
+specification and is not provably equal to $a$ or $b$.  However, with
+respect to the original intention it represents {\em junk\/}, since
+$a$ and $b$
+were supposed to generate all the elements of the sort $S$.  We may call
+this ``intuitive junk'' to distinguish it from unreachable elements
+corresponding to (formal) junk.  It may appear in a carelessly written
+specification, but here it appears because of the insufficiently expressive
+language.
+
+Initial semantics requires one to restrict the language to Horn clauses.
+Hence, one cannot add the axiom $(x\ch y = x) \lor (x\ch y= y)$ to get rid
+of the unintended element $a\ch b$.  Thus, due to the limitations of the
+language, underspecification gives us a choice between an imprecisely
+defined class of models or intuitive junk, both of which are rather
+unsatisfactory.
+
+Nondeterminism can be introduced into a language basically in two ways: either
+by means of some new primitive relation/predicate (e.g., set membership,
+inclusion) allowing specification of nondeterministic operations, or else
+by including some primitive operation (e.g., choice) with a
+predefined semantics
+reflecting the intended nondeterminism.  The former is exemplified by
+multialgebras and in \ref{sub:multB} we make some further remarks on this
+approach.  As an example of the latter, we have chosen unified algebras and
+present them in \ref{sub:ua}.
+
+
+\subsection{Multialgebras}\label{sub:multB}
+If we want to be sure of always obtaining initial models then we are
+restricted to the language to conditional formulae (or, if
+necessary, Horn clauses), unlike in
+definition~\ref{de:mult}. \cite{c:58, c:59} investigated the constraints
+to be satisfied in order to obtain initial models for nondeterministic
+operators -- we will merely summarize those points of this approach
+required to make the relevant observations.
+
+The specification
+$SPN$ from \ref{sub:multA} used disjunction to specify the choice
+operation.  If we remove the constant $c$ and axioms 2.  and 5., then the
+specification will have an initial multialgebraic model. {\em But
+this is just a
+lucky coincidence.\/}  In general, the presence of disjunction does not admit
+initial models.  Let us therefore attempt to do without disjunctions --
+a corresponding specification might be as follows:
+\[\begin{array}{rrrr@{\ \into\ }l}
+SPNI= & \Sorts: &\multicolumn{2}{l}{E} \\
+ & \Funcs: & a,b,c: & & E \\
+ &   & \ch: & E\times E & E \\
+ & \Ax: & \multicolumn{3}{l}{
+ \begin{array}[t]{rrcl@{\hspace*{5em}}rrcl}
+1.& x &\Incl & x\ch y  &  3.& a & \Eq & a  \\
+2.& x &\Incl & x\ch y   &  4.& b & \Eq & b  \\
+3.& c & \Incl & a\ch b &  5.& c & \Eq & c
+\end{array} }
+\end{array}
+\]
+It has an initial model, constructed from the term multistructure $T_\Sigma:$
+\[\begin{array}{r@{\ =\ }l@{\hspace*{4em}}r@{\ =\ }l}
+ \ini(a) & \{a\}  & \ini(a\ch b) & \{a,b,c\} \\
+\ini(b) & \{b\} & \ini(a\ch c)& \{a,c\} \\
+\ini(c) & \{c\} & \ini(b\ch c) & \{b,c\} \\
+{\rm for\ other\ }s,t\in T_\Sigma: \ini(s\ch t) & \ini(s)\cup\ini(t)
+\end{array}
+\]
+As we can see, $\{c\}$ appears in the initial model as an additional
+element.  As far as choice is concerned, the axioms 1.  and 2.  do make it
+into set union (in the initial model), but the underspecified $c$ gives
+rise to the ``intuitive junk''.  This phenomenon is by no means limited
+to this particular way of using multialgebras -- it is the {\em unavoidable\/}
+side-effect of marrying nondeterminsm (with the possibility of
+underspecification) with initiality.
+
+In fact, to guarantee the existence of initial multimodels the restriction
+to Horn clauses is not sufficient.  Hu{\ss}mann \cite{c:59} specified
+other, sufficient (and slightly restrictive but not unreasonable)
+conditions.  Since they do not make the `'intuitive junk'' disappear, we
+will not elaborate on them here.
+
+\subsection{Unified algebras}\label{sub:ua}
+Unified algebras have been introduced by Peter Mosses in
+\cite{c:92, c:91}. %[11,12].
+In the following discussion the definitions and notation for unified algebras
+ have been modified to be consistent with the rest of the paper.
+
+Every unified signature $\Sigma$ contains the subsignature $\Omega$  with the
+operations
+% $\{{\sf nothing}, \_|\_, \_\&\_\}$ and predicates
+% $\{\_=\_, \_\leq\_, \_:\_\}$. For the sake of
+% notational compatibility we will use the notation
+$\{\bot, \_\sqcap\_, \_\ch\_\}$ and binary predicates $\{=, \Incl, :\}$.
+Formulae of the specifications can be (universal) Horn clauses. A unified
+$\Sigma$-algebra A is a structure (with one sort) such that:
+\begin{itemize}\MyLPar
+\item $A$ is a distributive lattice with $\sqcap^A$ as join, $\ch^A$ as meet,
+   and $\bot^A$ as bottom.
+\item There is a distinguished set $E^A\subseteq A$ - the {\em
+individuals\/}  of $A$.
+\item $=^A$ is the identity on the elements of the lattice (not only on the
+individuals).
+\item $\Incl^A$ is the partial order of the lattice, i.e.,
+   $x\Incl^A y\Iff x\ch^Ay=^Ay$.
+\item For every $f\in\Sigma$, $f^A$ is monotone w.r.t. $\Incl$.
+\item $x:^Ay$ holds iff $x\in E^A$ and $x\Incl^A y$
+\end{itemize}
+``Unified'' refers to the fact that sorts (just like individuals) are
+elements of the lattice (and not sets of the elements as in the case of
+multialgebras).  The partial order of the lattice corresponds to set
+inclusion, and nondeterministic choice is interpreted as joins.  Thus
+nondeterministic choice is here a predefined operation -- join -- whose
+semantics is built into the framework.
+
+The operations from $\Omega$ can be specified using Horn clauses alone, and
+it is shown
+that specifications with Horn clauses always possess initial unified models.
+The example specification becomes:
+\[\begin{array}{rrrr@{\ \into\ }l}
+SPU= & \Funcs: & \multicolumn{3}{l}{a,b,c} \\
+ & \Ax: & \multicolumn{3}{l}{
+ \begin{array}[t]{rrcl@{\hspace*{5em}}rrcl}
+1.& a & : & a  \\
+2.& b & : & b   \\
+3.& c & : & a\ch b
+\end{array} }
+\end{array}
+\]
+(Since unified algebras have only one sort there is no need to specify
+profiles
+of the operations, except for the number of arguments they take.)
+The first axioms make $a$ and $b$ individuals.
+The third one makes $c$ an individual which, in addition, lies below the join
+$a\ch b$. The intended meaning of this is to have two individuals,
+$a$ and $b$, and to let $c$ be a result of choosing non-deterministically
+between
+the two.
+But again, having $c$ as a constant in the signature, one may expect to
+find it also
+in the initial model. However, since any model must be a (distributive)
+lattice,
+there are more surprises than that. The initial unified algebra for
+$SPU$ is given in the following figure:
+\[
+\xymatrix @R=2.5ex @C=2ex {
+ & & a\ch b \ar@{-}[dl] \ar@{-}[dr] \ar@{-}[dd]\\
+& a\ch c \ar@{-}[dl] \ar@{-}[dr] & & b\ch c \ar@{-}[dl] \ar@{-}[dr]  \\
+a \ar@{-}[d] & & % \save*{(a\meet c)\ch(b\meet c)}*\frm<5pt>{-}\restore
+(a\ch c)\meet(b\ch c)
+  \ar@{-}[dll]\ar@{-}[drr]\ar@{-}[dl]\ar@{-}[dd]
+     & & b \ar@{-}[d] \\
+a\meet(b\ch c) \ar@{-}[dr]\ar@{-}[drr] & c\ar@{-}[d]\ar@{-}[drr] &  & &
+     (a\ch c)\meet b \ar@{-}[dl] \ar@{-}[dll] \\
+& a\meet c \ar@{-}[dr] & a\meet b \ar@{-}[d] & b\meet c \ar@{-}[dl] & \\
+& & a\meet b\meet c \ar@{-}[d] & & \\
+& & \bot & &
+}
+\]
+Most of the elements of this model are surprises which we would not expect, and
+definitely did not intend, when writing the specification $SPU$.
+ They have to appear because the lattice model requires all joins and meets
+to be
+present and they are irreducible with the lattice axioms
+alone.\footnote{For the
+purpose of modeling nondeterminism the meets are not needed and the upper
+semi-lattice would provide sufficient structure. This would give a
+significantly more
+intuitive model - see (the upper part of) the next figure. Nevertheless,
+even for
+such a simple example, junky $c$ and its joins would remain.}
+We can get rid of some of such ``vacuous sorts'' by introducing additional
+axioms.
+In the present case, the axiom
+\begin{equation}
+a\meet b =\bot  \label{eq:addua}
+\end{equation}  will identify most of the
+redundant elements leading to the following, more intuitive model:
+\[
+\xymatrix @R=2.5ex @C=2ex {
+ & & a\ch b \ar@{-}[dl] \ar@{-}[dr] \ar@{-}[dd]\\
+& a\ch c \ar@{-}[dl] \ar@{-}[dr] & & b\ch c \ar@{-}[dl] \ar@{-}[dr]  \\
+a \ar@{-}[dr] & & [c]  \ar@{-}[dl]\ar@{-}[dr]\ar@{-}[dl]\ar@{-}[dd]
+     & & b \ar@{-}[dl] \\
+& [a\meet c] \ar@{-}[dr] &  & [b\meet c] \ar@{-}[dl] & \\
+& & [\bot] & &
+}
+\]
+Here, $c$ is still a separate element which cannot be set equal to $a$ nor
+$b$.
+Consequently, the respective joins and meets must be present as well, although
+we intended that one from each pair will actually collapse (e.g., if $c$ is
+equal to $a$
+then $a\ch c=a\meet c=a$).\footnote{We can give some plausibility to the
+presence of
+joins -- not knowing
+whether $c$ is $a$ or $b$, we do not know whether $a\ch c$ is going to be
+$a$ or $a\ch b$, i.e., we
+have to keep both. It is more difficult to give a natural interpretation of
+meets, in
+particular, meets of individuals.}
+Thus, in general, even after spending time and effort on
+finding out which additional axioms are needed to remove irrelevant
+elements, we
+will be left with some redundant objects in the initial model.
+As in the case of multialgebras, the removal of the axiom $c:a\ch b$
+underspecifying $c$ would lead to
+the intended  initial model with the elements $\{\bot, a,b,a\ch b\}$ (but
+it would remove the intended use of choice).
+
+There is another aspect of the ``redundancy'' in the context of unified
+algebras.
+Even if we do not specify the choice operator explicitly, it will be
+present in the
+model. In the above example we only said that $c$ should be a result of
+$a\ch b$ and
+the elements corresponding to $a\ch c$ and $b\ch c$ have been included in
+the model,
+so to speak, automatically. This is, of course, a consequence of the fact that
+choice is a primitive operator and  appears in all the approaches we have seen
+where its semantics is built into the general framework.
+
+\section{Comparison}
+We emphasize some points concerning the relations between the models we
+have examined. One should keep in mind that these particular models were
+chosen
+merely as examples of two ways of approaching nondeterminism, the one
+insisting
+on the interpretation in terms of sets and their elements (multialgebras),
+the other
+attempting to fix the semantics of choice in an appropriate mathematical
+structure
+(unified algebras). The remarks apply to these respective classes.
+
+It is easy to see that the upper part of the second lattice
+from~\ref{sub:ua} is
+essentially the same as the initial multimodel from~\ref{sub:multB},
+where the partial order is specialized to set inclusion.
+In particular, the ``redundant'' elements $c, \{a,c\}, \{b,c\}$ are present in
+the multimodel as they are in the unified algebra. Certainly, the advantage
+of the multimodel is that it is obtained directly, while unified algebras
+required an additional axiom (\ref{eq:addua}).
+On the other hand, unified algebras guarantee the existence of initial
+models for
+all specifications with Horn clauses, while only a subclass of Horn
+specifications
+possesses initial multimodels.
+Nevertheless, even these ``natural'' models involve elements which are
+superfluous
+when compared to the intentions of the specifier.
+
+Treating choice as a primitive of the language with a predefined semantics is
+plausible in
+so far as choice is a very natural nondeterministic operation which will
+typically
+be present in specifications using nondeterminism. Although in the initial
+multimodel
+of $SPNI$ choice happens to be join, this will not be the case in general.
+In other
+(non-generated) multimodels $a\ch b$ may return all other kinds of elements
+besides
+ $a$ and $b$.  Thus, all models of $SPNI$ will satisfy
+$a\ch c\Incl a\ch (a\ch b)$, but not necessarily $a\ch c\Incl a\ch b$.
+The latter simply does not hold in the
+models where $a\ch c$ returns some elements not returned by $a\ch b$.
+This, of course, does not happen in the unified algebra models for which
+nondeterminism cannot be (re-)defined by the user.
+
+Nevertheless, it is precisely this
+predefined meaning of $\ch$ in unified algebras which is responsible for the
+occurrence of ``junk'' which, to some extent, can be eliminated by
+additional axioms.
+Multialgebras, on the other hand, do not restrict the user in this respect
+but give him the possibility of explicitly specifying the join operator if
+there
+is a need for it. This gives increased flexibility
+since each nondeterministic operator can be specified directly - in
+particular, when no such operations are present, multialgebra reduces
+essentially to a standard algebra. In unified algebras, on the other hand,
+all nondeterminism must be referred back to the primitive choice operator
+which is always present in the model.
+
+The superfluous objects may or may not have some intuitive plausibility but
+are not
+among the objects usually intended by the writer of the specification.
+This is only an empirical statement and we do not claim to have proved that
+all
+initial models which can possibly be produced in the future are doomed to
+contain
+``junk''. But, as a matter of fact, all approaches of this kind, including
+unified
+algebras, rewriting logic \cite{c:87} and other models based on partial
+orders, e.g. \cite{c:77},
+do share this feature.
+% It is reasonable to expect that a high degree of sophistication may be
+needed in
+% order to cope with the problems indicated by the above examples. Even if
+one succeeds
+% in eliminating junk, the result may lack the simplicity of the original
+initial
+% semantics of deterministic specifications.
+Concluding our examples we can just repeat the sequence of ``implications'':
+\begin{center}
+nondeterminism $+$ initiality\  $\leadto$\  underspecification $+$
+initiality\ $\leadto$\  junk.
+\end{center}
+The examples indicate that the amount of redundancy is less in
+multialgebras than in
+the other models. However, the existence of initial multialgebras is
+guarded by
+ restrictive conditions. Unified algebras specified with Horn formulae always
+ possess initial models, but the occurrence, and the character, of redundant
+elements
+in such models is difficult for a human being to determine from the
+specification
+text alone.
+Initiality is certainly a virtue, but an even greater virtue is the
+adequacy of
+the model. It seems that, in the case of nondeterminism, the intuitive
+appeal of the ``no junk'' property
+of initial models gets lost. Even worse --
+initiality becomes a powerful ally of intuitive junk in the semantics of
+nondeterministic specifications.
+
+\section{Disjunction \& Quasi-Initiality}
+The constructions motivated by the search for the initial semantics attempt
+to indicate that $c$ is equal to $a$ or $b$, as is the intention of the
+specification,
+without actually identifying $c$ with any of the two: the source of
+``intuitive junk''
+in all the
+examples was the underspecified element $c$. One wants to model the fact that
+$c=a$ or $c=b$ without
+spelling it clearly out.  This fear originates, of course, in the knowledge
+that
+disjunctive equations do not, in general, allow initial models.
+
+The source of evil lies in the fact that nondeterminism allows us to
+underspecify $c$, while one still insists on using initial models of such
+specifications.
+As exemplified by the initial model of $SP$ in the beginning of section
+\ref{se:junk}, deterministic
+underspecifications give rise to similar problems. However, in the
+deterministic
+case underspecification is an optional tool for handling exceptional
+situations rather
+than the standard procedure. Typically, one tries to apply some strategy,
+such as
+generator induction \cite{c:28, c:44,c:60}, %[1,2,5],
+resulting in specifications with intended initial models.
+Nondeterminism, on the other hand, implies disjunction and, with it,
+underspecification.
+
+Another drawback is that the nondeterministic operations themselves
+ are not adequately specified. In all  cases, underspecification of the
+ $c$ element, combined with initiality,
+destroyed $a\ch b$ as binary choice and turned it into an operation
+capable of
+returning, besides $a$ and $b$, some $c$. These observations make us argue
+that making a
+clear distinction between nondeterminism and underspecification and admitting
+disjunctive formulae, such as in $SPN$ in \ref{sub:multA}, to handle the
+latter is
+more advantageous than it is dangerous.
+Above all, it allows us to restore the intended simplicity of the model.
+
+Introducing the lattice structure in unified algebras, one avoids
+disjunction and
+models it with the help of the join operation. It might seem that, since
+disjunction
+is the join operation (in the Boolean algebra of propositions), the two
+will lead to
+similar results. However, the obvious differences are quite significant:
+\begin{center}
+\begin{tabular}{c@{\ \ }|@{\ \ }c}
+Lattice/Joins & Disjunctive specification \\ \hline
+all joins must be present & only relevant disjunctions are included \\
+introduces ``junk'' & eliminates ``junk'' \\
+allows initial models & disallows initial models
+\end{tabular}
+\end{center}
+%\noindent
+The first point refers to the fact that in the lattice model join is an
+operation (choice) with predefined semantics.  If there are several
+constants in the specification $SPU$, say $d$ besides $a, b$ and $c$, then
+unified algebra is forced to interpret the element $a\ch d$ as join.  But
+if we are interested in a binary operation which is only some variation of
+choice, e.g., chooses nondeterministically merely between $a$ and $b$, and
+for other arguments behaves as, say first projection, then we are forced to
+relate it to the primitive choice operation.  $a\ch d$ will always be
+there.  Disjunction allows us to specify different kinds of
+nondeterministic operations without any reference to some particular,
+basic form of
+nondeterminism.
+
+So, we may treat disjunction as a replacement of the join operation. It
+will not
+lead to the lattice models but, instead, to the standard algebraic models,
+that is, {\em multimodels\/}. The most
+important advantage of this is that it actually removes the unintended
+``junk''
+and produces the models (in the initial coverings) which have an intuitive
+clarity
+comparable to initial models of deterministic specifications. We could
+(under)specify
+our example as it was done in $SPN$ in \ref{sub:multA}.
+To make a final comment on the issue of nondeterminism vs.
+underspecification, let's
+modify it slightly
+\[\begin{array}{rrrr@{\ \into\ }l}
+SPN2= & \Sorts: &\multicolumn{2}{l}{E} \\
+ & \Funcs: & a,b,c: & & E \\
+ &   & \ch: & E\times E & E \\
+ & \Ax: & \multicolumn{3}{l}{
+ \begin{array}[t]{rrcl@{\hspace*{4em}}rrcl}
+1.& z\Incl x\ch y & \Impl & z\Eq x \lor z\Eq y  &  3.& a & \Eq & a  \\
+2.& && c\Eq a  \lor  c\Eq b &  4.& b & \Eq & b  \\
+&  &  &  &                5.& c & \Eq & c
+\end{array} }
+\end{array}
+\]
+% (Compare this to the axiom 2. from $SP$.)
+% Substituting $d, a, b$ for $z,x,y$ and using axiom 1. we will get that
+$d$ equals $a$
+% or $b$.
+Axiom 2. does not make $c$ a nondeterministic operation but merely
+underspecifies it to be either $a$ or $b$.
+Axiom 1., on the other hand, specifies binary choice by underspecifying
+each particular {\em application}
+of it. It reads: if $z$ is a result of (some) application of $x\ch y$ then
+$z$ equals
+$x$ or $y$.
+The difference between an underspecified $c$ and a nondeterministic
+operation $\ch$
+is that the former has a unique value in every model, but these values  may
+vary
+from one model to another. The latter, on the other hand, may also return
+different
+values in one model.
+$a\ch b$ may be thought of as a series of distinct applications, each
+returning
+either $a$ or $b$. That is, $c$ is underspecified, so to speak, once for
+all, while it is every single {\em application} of $a\ch b$ that
+is underspecified! Thus
+\begin{center}
+\begin{tabular}{r@{\ \ }c@{\ \ }l}
+nondeterminism & $\not=$ & underspecification \\
+nondeterminism & $=$  & underspecification of each application
+\end{tabular}
+\end{center}
+% The difference between $d$ and $c$ is that $c$ is underspecified
+independently from
+% $\ch$, while possible interpretations of $d$ in a given model are
+determined by the
+% interpretation of $\ch$.
+%Notice that the choice operator is actually not needed at all. Disjunction
+allows
+%us to distinguish c as underspecified in SPD from d as a result returned by
+%nondeterministic choice in SPD1 below (although we are not going into the
+%details here - see [15]).
+%
+The price is, of course, that $SPN2$ no longer has an  initial model.
+ Nevertheless, disjunction does not spoil
+initiality completely. We have shown that, in the presence of mild
+restrictions,
+disjunctive specifications do possess quasi-initial multialgebra semantics
+\cite{c:127, c:133}, %[15].
+namely:
+\begin{CLAIM}
+Given a specification $SP$ as in definition~\ref{de:mult}.
+If for every ground term $t$, there is a deterministic ground term $s$ such
+that
+$SP\models s\Incl t$, then $SP$ has a quasi-initial semantics.
+\end{CLAIM}
+Quasi-initiality generalizes initiality to situations involving
+``either ... or ...'' \cite{c:137}. For $SPN2$, such a semantics can be
+summarized by saying
+that the model class will consist of two parts: the models where $c$ equals
+$a$ and those where $c$ equals $b$; $a\ch b$ will always contain,
+at least, both $a$ and $b$. The quasi-initial semantics of $SPN2$ is given
+by the
+following two multimodels which are  initial in the
+respective components of the model class:
+\[\begin{array}{c|cc}
+ & A & B  \\ \hline
+a & a & a  \\
+b & b & b  \\
+a\ch b & \{a,b\} & \{a,b\} \\
+c  & a & b
+\end{array}
+\]
+
+\section{Conclusions}
+We have argued that nondeterminism provides adequate means for specifying
+operations on inherently unordered structures. In particular,
+nondeterministic choice is the natural operation for performing iteration
+over sets. In such context, deterministic specifications are bound to
+overspecify the operations and nondeterminism is simply the adequate
+abstraction mechanism.
+
+The traditional abstraction mechanism -- underspecification -- is
+different from nondeterminism and cannot perform its function.
+The former amounts to underspecifying a given operation requiring,
+nevertheless, its result to be unique in every model. Nondeterminism, on
+the other hand, allows one operation to return different results within
+the same model. It can be thought of as underspecification not of an
+operation itself but of its particular applications.
+
+We argued that the suggested initial semantics of
+nondeterminism, although resulting possibly in elegant mathematical
+models, suffer from intuitive flaws -- in the context of
+nondeterminsm such a semantics does not have intuitive purity and appeal
+which made it so convincing in the case of deterministic specifications.
+In particular, it loses the connection between the argument set and the
+results which are supposed to come from this set. This real, and
+intuitive, connection is the crux of nondeterminism and it seems to be
+most adequately represented by multialgebras. The price is that one can
+no longer obtain initial semantics in general situation. As a possible
+alternative, we indicated the quasi-initial semantics.
+
+\bibliographystyle{bibNo}
+\bibliography{my}
+
+
+\end{document}
+
+REFERENCES
+[1]	Dahl, O.J., Verifiable Programming,  Prentice Hall, 1992.
+[2]	Guttag, J.V., The Specification and Application to Programming of
+ADT, Tech. Rep., CSR6-59, Computer Systems Research Group, University of
+Toronto 1975.
+[3]	Hesselink, W.H., ``A Mathematical Approach to Nondeterminism in
+Data Types'', ACM: Transactions on Programming Languages and Systems, vol.
+10, 1988.
+[4]	Huœmann, H., Nondeterministic Algebraic Specifications, Ph.D.
+thesis, Fakultît f½r Mathematik und Informatik, Universitît Passau, 1990.
+[5]	Huet, G., Hullot, J., ``Proofs by Induction in Equational Theories
+with Constructors'', JCSS, vol. 25, 239-266, 1981.
+[6]	Kaplan, S., ``Rewriting with a Nondeterministic Choice Operator'',
+Theoretical Computer Science, vol. 56, 37-57, 1988.
+[7]	Kapur, D., Towards a theory of abstract data types, Ph.D. thesis,
+Laboratory for CS, MIT, 1980.
+[8]	Mahr, B., Makowsky, J.A., ``Characterizing specification languages
+which admit initial semantics'', in Proc. 8th CAAP, vol. 159, LNCS,
+Springer, 1983, pp. 300-316.
+[9]	Maibaum, T.S.E., The Semantics of Nondeterminism, Tech. Rep.,
+CS-77-30, University of Waterloo, Ontario, Canada December 1977.
+[10]	Makowsky, J.A., ``Why Horn Formulas Matter in Computer Science'',
+Journal of Computer and System Science, vol. 34, 266-292, 1987.
+[11]	Mosses, P.D., ``Unified Algebras and Action Semantics'', in
+STACS'89, vol. 349, LNCS, Springer, 1989.
+[12]	Mosses, P.D., Unified Algebras and Institutions, Tech. Rep., DAIMI
+PB-274, CS Dep., Aarhus University 1989.
+[13]	Subrahmanyam, P.A., ``Nondeterminism in Abstract Data Types'', in
+Automata, Languages and Programming, vol. 115, LNCS, Springer, 1981.
+[14]	Tarlecki, A., ``Free constructions in algebraic institutions'', in
+Mathematical Foundation of Computer Science '84, vol. 176, LNCS, Springer,
+1984.
+[15]	Walicki, M., Meldal, S., ``Equality in Specifications of
+Nondeterminism'' [submitted for publication]; also available in Walicki,
+M., Calculii for nondeterministic specifications: three completeness
+results, Tech. Rep., 75, Institutt for Informatikk, Universitetet i Bergen
+December 1992.
+
+
+
+\end{document}
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+\newcommand{\Impl}{\Rightarrow}
+\newcommand{\Iff}{\mathrel{\Leftrightarrow}}
+\newcommand{\impl}{\Rightarrow}
+\newcommand{\into}{\rightarrow}
+
+\newcommand{\Incl}{\prec}
+\newcommand{\Inte}{\frown}
+\newcommand{\Eq}{\doteq}
+\newcommand{\Seq}{\mapsto}
+
+\newcommand{\ch}{\sqcup}
+\newcommand{\meet}{\sqcap}
+\newcommand{\es}{\emptyset}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+
+\newcommand{\Sorts}{{\cal S}}
+\newcommand{\Funcs}{{\cal F}}
+\newcommand{\Ax}{{\cal A}}
+\newcommand{\true}{{\bf t}}
+\newcommand{\false}{{\bf f}}
+\newcommand{\ini}{{\cal I}}
+\newcommand{\PSet}{{\cal P}}
+
+\newcommand{\ovl}[1]{\overline{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\ite}[1]{\item[{\bf #1.}]}
+\newcommand{\app}{\mathrel{\scriptscriptstyle{\vdash}}}
+\newcommand{\estr}{\varepsilon}
+%%%%%%%%%%%%%%%%
+\newtheorem{CLAIM}{Proposition}[section]
+\newtheorem{COROLLARY}[CLAIM]{Corollary}
+\newtheorem{THEOREM}[CLAIM]{Theorem}
+\newtheorem{LEMMA}[CLAIM]{Lemma}
+\newcommand{\MyLPar}{\parsep -.2ex plus.2ex minus.2ex\itemsep\parsep
+   \vspace{-\topsep}\vspace{.5ex}}
+\newcommand{\MyNumEnv}[1]{\trivlist\refstepcounter{CLAIM}\item[\hskip
+   \labelsep{\bf #1\ \theCLAIM\ }]\sf\ignorespaces}
+\newenvironment{DEFINITION}{\MyNumEnv{Definition}}{\par\addvspace{0.5ex}}
+\newenvironment{EXAMPLE}{\MyNumEnv{Example}}{\nopagebreak\finish}
+\newenvironment{PROOF}{{\bf Proof.}}{\nopagebreak\finish}
+\newcommand{\finish}{\hspace*{\fill}\nopagebreak 
+     \raisebox{-1ex}{$\Box$}\hspace*{1em}\par\addvspace{1ex}}
