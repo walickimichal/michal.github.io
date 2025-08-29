@@ -1,0 +1,1895 @@
+
+\section{Introduction}
+The need for structuring of specifications and algebras (programs) is well motivated from  development of complex software systems. We present a solution for this problem in the institution $\inst{MA}$ of multialgebras. One major benefit with our treatment is that we can handle nondeterministic specifications in a structured way. The use of nondeterminism as abstraction give us more persitent functors, it means that data encapsulating (in the clasical way) is preserved in situations where deterministic algebras spoil it.
+
+In section~\ref{se:parameterization} we discuss the general concept of a parameter a (typed) variable. Parameterization is usefull for structuring and especially for reuse of specification and programs. The difference between parameterized specifications and parameterized algebras (programs) is clarified in \cite{para}. One can say that a specification is the weakest syntactical demand for a program, on the other side an algebra can be viewed as an actual program (or a actual semantic for a specification). The development of specifications will be at a higer level in the program development process than the development of programs (algebras). It means that the need for parametrisated algebras is during the implementation phase of the software process, but parametrization of specifications is needed in the specification and analysing phase.
+
+Parameterization of specifications is handled in section~\ref{se:paraspec}, a parameterizated specification $\thr{PSpec}$ is actually a specification that is a function of specification(s), written $\thr{PSpec} = \thr{Spec[X]}$, where $\thr{X}$ is a variable specification (of some type), called the formal parameter specification. The formal parameter specification can be viewed as a (syntactical) schema that all actual parameter specifications has to fit, i.e. an actual parameter specification $\thr{APar}$ is a specification that satisfies $\thr{X}$, (possibly under ``translation and identification'' over a specification morphism). The actual specification is a instantiation of $\thr{Spec[X]}$ by $\thr{APar}$, substituted for $\thr{X}$ i.e. a function application of $\thr{Spec[X]}$ in the ``point'' $\thr{APar}$, formally the parameter passing can be described by a (generalized)pushout diagram of specifications. Since multialgebras has algebraic signatures as signatures we get that multialgebras have pushout of specifications \cite{inst} (actually is the category of multialgebra specifications co-complete). So parameterization of specifications quite straightforward.
+
+As for classical deterministic total (and partial) algebras; it is more
+ problematic with parameterization of algebras.  In section~\ref{se:exact} we
+ show that the model functor $\fu{Mod}_{\inst{MA}}$ sends co-limits in
+ $\cat{Spec}$ to limits in $\cat{Cat}$, i.e. $\inst{MA}$ is an exact
+ institution \cite{statestruct} (called institution with composable
+ signatures in \cite{stateinst}). This mean that there make sense of speaking
+ of parameterized multialgebras as amalgamation of algebras. To construct
+ (correct) parameterized algebras is it natural to demand protection of of
+ the parameter algebra this is usually done by restricting the semantic of
+ the parameterizated datatype to persistent functors/constructions from the
+ model class of the formal parameter to the model class of the parameterized
+ algebra specification. Actually will multialgebras have more persistent
+ constructions than deterministic algebras, we illustrate this fact in
+ section~\ref{se:persistency}. For deterministic algebras is it usual to
+ demand that the persistent functor is free, it is well know that the demand
+ of free and persistent functors is to restrictive; it excludes many
+ interesting examples. Partial algebras have more persistent functors than
+ deterministic total algebras, but the free partial functor will typical be
+ undefined (emptyset) for syntactically added constants and funtions. This is
+ a problem since partial algebras is a strict framework, it means that one
+ need some totalisation of the partial algebra specifcation to implement this
+ specification, i.e. one needs to change semantical framework. Since
+ multialgebras has an additional type of undefindness, nondeterminism, and
+ since multialgebras are non strict on nondeterministic arguments, we propose
+ to use this nondeterminism to get persistent constructions that actually can
+ be refined, see \cite{partial}, to particular error recovery with error
+ constants or refined to total algebras.  The demand that the semantic for a
+ parametrized algebra should be persistent is in many cases to strong, one
+ may e.g. add new constants to an old sort (e.g. $head(emptylist)$, this
+ constants will typically have no interpretation in the actual
+ parameter. This problem is handled in section~\ref{se:paraADT} where we
+ introduce the concept of extension of algebras (and specification). We
+ demand that the parameter algebra is a (tight) subalgebra of the
+ paramerizated algebra. This concept generalize persistency, protection of
+ the parameter is ensured since the carrier of the parameterizated algebra
+ essentially includes the parameter algebra and the behaviour of the
+ operations from the parameter specification is the same on the
+ parameterizated algebra as on the parameter algebra on their common
+ part. The intuition is that we may add new $error$ elements to the old sorts
+ (and we may even add new constants and operations) to the parameterized
+ algebra, but the elements and operations should not interfere with the
+ parameter algebra.  We show some logical consequences for parameterizated
+ deatatyopes in section~\ref{se:paralogic}. In section~\ref{se:pararefin} we
+ introduce refinments of parameterizated datatypes.
+
+Finally we introduce a language for building specifications in section~\ref{se:specbuild} and algebras in section~\ref{se:algbuild}  
+
+\section{Preliminaries}\label{se:pre}
+
+\subsection{Notation}
+We use the notation $|${\cat{C}}$|$ to denote the objects of a category
+\cat{C}. The same notation is used to denote the carrier $|A|$ of an algebra
+$A$. (This shouldn't cause any confusion.)  Institutions are written with
+the script font $\inst{I}$, categories with bold $\cat{Cat}$, and functors with
+Sans Serif $\fu{Func}$.
+
+Since specifications is categories we write $\thr{Spec}$ for ordinary specifications, $\thr{Par[X]}$ denote a specification parametrized by specification$\thr{X}$, note that we us $[]$ as parentheses.
+ Sequences $s_1, \ldots, s_k$ will be often denoted
+by $\overline{s}$. Application of functions are then understood to not
+distribute over the elements, i.e., $f(\ovr s)$ denotes the term
+$f(s_1,\ldots, s_k)$.  
+Occasionally, a sequence $s_1 \ldots s_k$ may be denoted by $s^*$ -- 
+applications of functions are then understood to
+distribute over the elements, i.e., $f(s^*)$ denotes the sequence
+$(f(s_1),\ldots, f(s_k))$. We will denote the disjoint union of sets $A,B$ by $A \uplus B$.
+
+
+\subsection{Multialgebras}
+We will now summarize the relevant notions about multialgebras (for an
+overview, see \cite{multi,catrel}). % In the following sections, we will identify and use various
+%sub institutions of $\inst{MA}$.
+%\fixx{only sub institution?}\\
+Signatures for multialgebras are the same as classical signatures.
+%
+\begin{definition}\label{de:Sign}
+The category of signatures $\Sign$ has:
+\begin{itemize}\MyLPar
+\item signatures as objects: a signature
+$\Sigma$ is a pair of sets $(\Sorts,\Ops)$ of symbols for names of sorts and
+operations. Each operation symbol $\omega\in\Ops$ is a (k+2)-tuple:
+$\omega : s_1 \times \cdots \times s_k \to s$,
+where {$s_1, \ldots , s_k,s \in S$ and $k \geq 0$}.  $\omega$ is the
+{\it name} of the operation and $s_1 \times \ldots \times s_k \to s$ its {\it
+arity}. If $ k=0$ then an operation $c: \to s$ is called a {\it constant} of
+sort $s$.
+\item  signature morphisms as arrows: 
+a signature morphism $\mu: \Sigma \to \Sigma'$ is a pair $\mu = (\mu_S,
+\mu_{\Omega})$ of (total) functions:
+$\mu_S: S \to S'$, $\mu_{\Omega}: \Ops \to \Ops'$, 
+such that 
+$ \mu_{\Omega}(\omega:s_1 \times \cdots \times s_n \to s) =
+\omega':\mu_S(s_1) \times \cdots \times \mu_S(s_n) \to \mu_S(s)$
+\item
+Identities are the identity
+signature morphisms and morphism are composed component wise.
+\end{itemize}
+\end{definition}
+%
+In the standard way, 
+we extend the signature morphism $\mu : \Sigma \to \Sigma'$ to terms, we use the notation $\TermsSX$ for the $\Sigma$ terms with $X$ as variables.
+
+\begin{definition} Extension of a
+signature morphism $\mu$ to terms ${\tilde{\mu}} : \TermsSX \to \Terms{\Sigma',X'}$ is defined by:
+\begin{itemize}\MyLPar
+\item ${\tilde{\mu}} (x_s) = x_{\mu (s)}$, for each variable $x_s \in X_s$
+\item ${\tilde{\mu}} (c) = \mu(c)$
+\item ${\tilde{\mu}} (\omega(t_1, \ldots ,t_n )) = \mu(\omega)({\tilde{\mu}}(t_1), \ldots , {\tilde{\mu}}(t_n))$
+\end{itemize}
+\end{definition}
+%The extra subscript for variables prevents name clash. 
+We will write $\mu(t)$
+instead of ${\tilde{\mu}}(t)$, for terms $t \in \TermsSX$.
+
+A multialgebra for a signature $\Sigma$ is an algebra where operations may be
+set-valued. ${\mathcal{P}}(y)$ denotes the power set of set $y$.
+
+\begin{definition}\label{def:ma}
+(Multialgebra) A multialgebra $A$ for $\Sigma$ is given by:
+\begin{itemize}
+\item  a set $s^A$, the carrier set, for each sort symbol $s\in\Sorts$
+\item  a subset $ c^A \in {\mathcal{P}}(s^A)$, for each constant, $c:\to s$
+\item an operation $\omega^A : s_1^A \times \cdots \times s_k^A \to {\mathcal{P}}(s^A)$
+	for each symbol $\omega : s_1\times\cdots\times s_k \to s \in \Ops$
+\end{itemize}
+\end{definition}
+One sometimes demands that constants and operations are total
+\cite{multi,toplas}, i.e. never return empty set and take values only in
+${\mathcal{P}}^+ (s^A)$, the nonempty subsets of $s^A$. We will not make this
+assumption.% unless else is stated.
+
+Note that for a constant $c \in \Ops$, $c^A$ denotes a (sub)set of the
+carrier $s^A$. This allows us to use constants as predicates as done in \cite{partial}. 
+
+As homomorphisms of multialgebras, we will use weak homomorphisms (see
+\cite{catrel} for alternative notions).
+\begin{definition}Given two multialgebras $A$ and $B$, 
+a function $h: |A| \to |B|$ is a (weak) homomorphism if:
+\begin{enumerate}
+\item $h(c^A) \subseteq c^B$, for each constant $c: \to s$ 
+\item $h(\omega^A(a_1 \ldots a_n)) \subseteq\omega^B(h(a_1) \ldots h(a_n))$,
+for each operation  $\omega:s_1\times\cdots\times s_n\to s\in\Ops$ and for all $a_i \in s_{i}^A$.
+\end{enumerate}
+\end{definition}
+Saying ``homomorphism'' we will always mean weak homomorphism, unless
+something else is stated.
+
+\begin{definition} 
+The category of $\Sigma$-multialgebras, $\MAS$, has $\Sigma$-multialgebras as
+objects and homomorphisms as arrows.  The identity arrows are the identity
+homomorphisms and composition of arrows is obvious composition of
+homomorphisms.
+\end{definition} 
+Multialgebraic specifications are written using the following formulae:
+%
+\begin{definition}
+Formulae of multialgebraic specifications are of the following forms:
+%{\bf{Atomic formula}}:
+\begin{enumerate}\MyLPar
+\item Atomic formulae:
+\begin{itemize}\MyLPar
+\item $t \eleq  t'$ (equality), $t$ and $t'$ denote the same one-element set.
+\item $t \prec t'$ (inclusion), the set interpreting $t$ is included in
+the set interpreting $t'$.
+\end{itemize}
+\item $a_1 \ldots a_n \To b_1 \ldots b_m$, where either $n>0$ or $m>0$ and
+each $a_i$ and $b_j$ is atomic.
+\end{enumerate}
+%The first two are called atomic formulae.
+\end{definition}
+%
+Given a set of variables $X$, an assignment is a function $\alpha: X \to |A|$ 
+assigning {\em individual} elements of the carrier of $A$ to variables. It induces a unique
+interpretation $\overline{\alpha}: T(\Sigma(X)) \to A$ of every term $t$
+(with variables from $X$) in
+$A$.
+\begin{definition} Given a $\Sigma$-multialgebra $A$, an {\it assignment} to 
+variables $X$ is a function $\alpha:X \to |A|$. An assignment induces a
+unique interpretation $\overline{\alpha}(t)$ in $A$ of any term $t \in \TermsSX$ as
+follows:
+\begin{itemize}\MyLPar
+\item $\ovr\alpha(x)=\{\alpha(x)\}$
+\item $\ovr\alpha(c)=c^A$
+\item $\ovr\alpha(\omega(t_1...t_n)) = \bigcup_{a_{i}\in\ovr\alpha(t_{i})}\omega^A(a_1...a_n)$
+\end{itemize}
+\end{definition}
+Keep in mind that variables are assigned not sets but individual
+elements of the carrier. 
+We will write $\alpha(t)$ instead of $\ovr\alpha(t)$.
+ 
+Satisfaction of formulae in a multialgebra is defined as follows:
+\begin{definition}\label{de:sat}
+Given an assignment $\alpha:X\to|A|$:
+\begin{enumerate}
+\item $A \models_\alpha t \eleq  t'\ {\rm iff\ } \ovr{\alpha}(t)
+=\overline{\alpha}(t') = \{e\},\ {\rm fore\ some\ } e \in |A|$
+\item $A \models_\alpha t \prec t'\ {\rm iff\ } \ovr{\alpha}(t) \subseteq \overline{\alpha}(t')$
+\item $ A \models_\alpha a_1 \ldots a_n \To b_1 \ldots b_m\ {\rm iff\ }
+\exists i: 1 \leq i \leq n : A \not\models_\alpha a_i\ {\rm or\ } \exists j: 1 \leq j \leq m : A \models_\alpha b_j$
+\item $A \models \varphi\ {\rm iff\ } A \models_\alpha \varphi\ {\rm for\ all\ } \alpha$
+\end{enumerate}
+\end{definition}
+%
+Putting these definitions together, the multialgebras form an institution
+$\inst{MA}$, ( for a proof of this fact see \cite{partial}).
+\begin{fact} The multialgebras form the institution $\inst{MA}$ with:
+	\begin{itemize}
+	\item the category \Sign\ as signatures,
+	\item the model functor $\fu{MAlg}$,
+	\item the sentence functor $\fu{MSen}$,
+	\item $\models$ from definition~\ref{de:sat} as the satisfaction relation.
+	\end{itemize}
+\end{fact}
+
+
+
+\subsection{Institutions}
+\label{se:inst}
+
+We start this section by recalling some basic notions about institutions.
+ 
+
+\begin{definition}
+An institution is a quadruple $\inst{I} = (\Sign,\Sen,\Mod,\models)$, where:
+	\begin{itemize}
+\item $\Sign$ is a category of signatures.  
+\item $\Sen: \Sign \to \Set$ is a functor which associates a set of {\it sentences} to each signature.
+\item $\Mod:\Sign^{op} \to \cat{Cat}$ is a functor which associates a
+category of {\it models}, whose morphisms are called $\Sigma$-morphisms, to
+each signature $\Sigma$
+\item $\models$ is a satisfaction relation -- for each signature $\Sigma$, a relation
+ $\models_{\Sigma} \subseteq |\Mod(\Sigma)| \times
+\sen(\Sigma)$, such that the following {\it satisfaction condition} holds:
+for any $M' \in \Mod(\Sigma'), \mu: \Sigma \to \Sigma' , \phi \in \sen(\Sigma)$
+ 
+  \[ M' \models_{\Sigma'} \Sen(\mu)(\phi) \mbox{ iff } (\Mod(\mu))(M') \models_{\Sigma} \phi\]
+	\end{itemize}
+\end{definition}
+%
+The definition can be represented as the following diagram:
+
+\[\xymatrix{
+	\Sigma \ar[d]_{\mu}
+		& {\Mod}(\Sigma)
+			& \models_{\Sigma}
+				& \Sen(\Sigma) \ar[d]^{\Sen(\mu)}	\\
+	\Sigma'
+		& {\Mod}(\Sigma') \ar[u]_{{\Mod}(\mu)}
+			& \models_{\Sigma'}
+				& \Sen(\Sigma')			\\
+								}
+\]
+Based on the above satisfaction relation we write: $\Gamma \models_{\Sigma}
+ \varphi \mbox{ iff } \forall M \in \Mod(\Sigma): M \models_{\Sigma} \Gamma
+ \Rightarrow M \models_{\Sigma} \varphi $.  With this in mind we write
+ $\Gamma^{\bullet}$ for the semantical consequences of $\Gamma$
+ i.e. $\Gamma^{\bullet} = \{ \varphi: \Gamma \models \varphi \}$
+ 
+A {\em theory} (specification) in an institution is any pair
+$\thr{Th}=(\Sigma,\Gamma)$ where $\Sigma\in\obj{\Sign}$ and $\Gamma\subseteq
+\sen(\Sigma)$. For a given institution $\inst{I}$, we have the corresponding
+category of theories $\cat{Th_{\inst{I}}}$ with theories as objects and
+theory morphisms $\mu:(\Sigma,\Gamma) \to (\Sigma',\Gamma')$, where
+$\mu:\Sigma \to \Sigma'$, is a signature morphism such that: $\Gamma'
+\models_{\Sigma'} \sen(\mu)(\Gamma)$.  The models for the theory
+$\thr{Th}=(\Sigma,\Gamma)$ is the full sub category
+$\Mod_{\models}(\Sigma,\Gamma)$ of $\Mod(\Sigma)$ where $M \in
+\Mod_{\models}(\Sigma,\Gamma) \mbox{ iff } M \models_{\Sigma} \varphi,
+\forall \varphi \in \Gamma$, we will write $\Mod(\Sigma,\Gamma)$ instead of
+$\Mod_{\models}(\Sigma,\Gamma)$.  The satisfaction condition gives that
+$\Mod(\mu)(\Mod(\Sigma',\Gamma')) \subseteq$ % \thr{Th}
+$\Mod(\Sigma,\Gamma)$, for each morphism $\mu:(\Sigma,\Gamma) \to (\Sigma',\Gamma') \in \thr{Th}$. This means that the functor $\Mod$ can be
+extended to a functor $\Mod_{\models}:\cat{Th}^{op} \to \cat{Cat}$. There is
+a canonic projection functor $\fu{sign}:\thr{Th} \to \cat{Sign}$ and there is
+an embedding functor $\fu{th}: \cat{Sign} \to \thr{Th}$ defined by
+$\fu{th}(\Sigma)= (\Sigma,\emptyset)$ A theory morphism $\mu:(\Sigma,\Gamma)
+\to (\Sigma',\Gamma')$ is called axiom preserving if $\mu(\Gamma) \subseteq
+\Gamma'$. This defines the sub category $\thr{Th_0}$ with theories as objects
+and axiom preserving theory morphisms as morphisms.
+
+%\begin{definition}
+%Given a functor $\fu{\Phi}:\thr{Th_0} \to \thr{Th_0'}$ and a natural
+%transformation $\alpha: \fu{Sen} \Rightarrow \fu{Sen'} \circ \fu{\Phi}$, $\fu{\Phi}$ is
+%$\alpha$-sensible iff:
+%\begin{itemize}
+%	\item There is a functor $\fu{\Phi^{\diamond}}:\fu{Sign} \to \fu{Sign'}$ such that $\fu{sign'} \circ \fu{\Phi} =\fu{\Phi^\diamond}  \circ  \fu{sign}$
+%	\item $(\Gamma')^\bullet = (\emptyset'_{\Sigma} \cup \alpha_{\Sigma}(\Gamma))^{\bullet}$
+%\end{itemize}
+%Where we denote the set of axioms induced by $\fu{\Phi}(\Sigma)$ by $\emptyset'_{\Sigma}$.
+%\end{definition}
+%
+
+
+
+Basic concepts:
+
+\begin{definition} An institution $\inst{I}$ is {\em semi exact} iff $\Sign$ has pushouts and $\Mod$ transforms pushouts in $\Sign$ into pullbacks in $\cat{Cat}$
+\end{definition}
+
+\begin{definition} An institution $\inst{I}$ is {\em exact} iff $\Sign$ has colimits and $\Mod$ transforms colimits in $\Sign$ into limits in $\cat{Cat}$
+\end{definition}
+
+%
+
+
+
+
+\newpage
+\section{$\inst{MA}$ is an exact institution}
+\label{se:exact}
+%We will denote the disjoint union of sets $A,B$ by $A \uplus B$.
+%The technical proofs that $\inst{MA}$ is an exact institution are essentially the same as the proofs for total algebras (see \cite{Alge}).
+
+It is well known that the category of algebraic signatures is co-complete, see e.g. \cite{fundamental1}, where it also is proved(by use of comma categories) that the model functor is continious for classical total algebras. We will first give a concrete construction of the recuired co-limits of algebraic signatures, the actual construction of co-limits will be used to prove that $\inst{MA}$ is an exact institution, by showing that model functor $\Mod$ transform the actual co-limits of signatures to coresponding limits in $\cat{Cat}$.
+
+It is sufficient to have initial object, sums and co-equlizers to construct all co-limits, (see e.g. \cite{cat}).
+
+\begin{fact}
+The empty signature, $\Sigma_{\emptyset}$ is initial in $\cat{Sign}$
+\end{fact}
+
+\begin{fact}
+The sum of two signatures; $\Sigma + \Sigma'$ is the disjoint union(of sorts and operations), with the natural injections.
+\end{fact}
+
+\begin{fact}
+Given two signature morphims $\mu,\nu:\Sigma \to \Sigma'$, let $\kernel{}$ be the least equivalence on $\Sigma'$ induced by the relation with components:
+	\begin{itemize}
+	\item Sorts: $\kernel{S'}= \{ \langle \mu(s),\nu(s) \rangle: s \in \Sigma \}$,
+	\item Operations $\kernel{\Omega'}= \{ \langle \mu(\omega), \nu(\omega) \rangle : \omega \in \Omega \}$
+	\end{itemize} 
+
+Then $\qu{\Sigma'}{\kernel{}}$ is a co-equilizer object, with canonical signature morphim $\iota_{\kernel{}}: \Sigma' \to \qu{\Sigma'}{\kernel{}}$, and we have that $\comp{\mu}{\iota_{\kernel{}}} = \comp{\nu}{\iota_{\kernel{}}}$, by construction.
+
+Note that if $\sigma:\Sigma' \to Z$ is a signature morphism such that $\comp{\mu}{\sigma}= \comp{\nu}{\sigma}$, then the kernel of $\sigma$ has to include $\kernel{}$, so the signature morphism $u_{\sigma}: \qu{\Sigma'}{\kernel{}} \to Z$, defined by $u_{\sigma}([s']_{\kernel{}})= \sigma(s')$ and $u_{\sigma}([\omega']_{\kernel{}})= \sigma(\omega')$ is the unique factorization arrow.
+\end{fact}
+
+
+\begin{fact}, \cite{fundamental1}
+The algebraic signatures ($\cat{Sign}$) has all co-limits
+\end{fact}
+
+The following institution independent result ensures that the category of specifications has all co-limits that the signature category has.
+
+\begin{theorem}, \cite{inst}
+\label{teo:reflects}
+The forgetfull functor  $\fu{Sign}: \thr{Th} \to \thr{Sign}$ reflects colimits, in any institution $\inst{I}$.
+\end{theorem}
+
+Specially the theorem means that:
+Given specifications $\thr{X}=(\Sigma,\Phi)$,$\thr{X^1}=(\Sigma^1,\Phi^1)$,$\thr{X^2}=(\Sigma^2,\Phi^2)$, and specification morphisms $\mu_1:\thr{X} \to \thr{X^1}$ and $\mu_2:\thr{X} \to \thr{X^2}$.
+If the following diagram is a pushout of signatures: 
+\[\xymatrix{
+\label{di:signpushout}
+	\Sigma \ar[d]_{\mu_{2}} \ar[rr]^{\mu_1}
+		&& \Sigma^1 \ar[d]^{{\mu'}_2} \\
+	\Sigma^2 \ar[rr]_{{\mu'}_1}
+		&& \Sigma' \\
+								}
+\]
+
+Is the following diagram a pushout of specifications.
+\[\xymatrix{
+\label{di:specpushout}
+	\thr{X} \ar[d]_{\mu_{2}} \ar[rr]^{\mu_1}
+		&& \thr{X^1} \ar[d]^{{\mu'}_2} \\
+	\thr{X^2} \ar[rr]_{{\mu'}_1}
+		&& \thr{X'} \\
+								}
+\]
+
+Where $\thr{X'}= (\Sigma',\Phi')$ and $\Phi'=  {\mu'}_{1}(\Phi^1) \bigcup {\mu'}_{2}(\Phi^2)$.
+
+
+
+We will now show that the functor $\fu{Mod}:\cat{Sign} \to \cat{Cat}$ is continous, i.e. it maps co-limits in $\cat{Sign}$ into limits in $\cat{Cat}$. Note this is different to show that the category $\Mod(\Sigma)$ has all limits(and co-limits), which is proved in \cite{catrel}.
+
+\begin{lemma}
+\label{le:initialtofinal}
+The model of the empty signature is the unit category, that is final in $\cat{Cat}$
+\end{lemma}
+
+\begin{PROOF}
+A model of the empty signature is an algebra with no carrier (and no operations), i.e. $\Mod(\Sigma_{\emptyset}) = \{ \emptyset \}$ and there is only one function $h: \emptyset \to \emptyset$, the identity homomorphism.
+\end{PROOF}
+
+
+\begin{lemma}
+\label{le:sumtoprod}
+Given a sum of signatures
+
+\[\xymatrix{
+\label{di:signsum}
+	\Sigma \ar[dr]_{\iota_{\Sigma}}
+			&& \Sigma' \ar[dl]^{\iota_{\Sigma'}} \\
+		& {\Sigma + \Sigma'} 	\\
+								}
+\]
+
+
+The following diagram is a product in $\cat{Cat}$
+\[\xymatrix{
+\label{di:modproduct}
+		& \Mod(\Sigma + \Sigma') \ar[dl]_{|_{\iota_{\Sigma}}} \ar[dr]^{|_{\iota_{\Sigma'}}}	\\
+	\Mod(\Sigma)
+			&& \Mod(\Sigma')	\\
+								}
+\]
+\end{lemma}
+
+\begin{PROOF}
+Taking the cartesian product of a $\Mod(\Sigma)$ algebra $A$ and a $\Mod(\Sigma')$ algebra $A'$ we get a $\Mod(\Sigma + \Sigma')$ algebra $A \times A'$, likewise is the cartesian product of a $\Sigma$ homomorphism $h:A \to B$ and a $\Sigma'$ homomorphism $h':A \to B'$ a $\Sigma \times \Sigma'$ homomorphism $h \times h': A \times A' \to B \times B'$, defined by $h \times h'(x,x') = (h(x),h(x'))$.
+
+Moreover is each $\Mod(\Sigma + \Sigma')$ algebra $C$ the product of $C|_{\iota_{\Sigma}}$ and $C|_{\iota_{\Sigma'}}$.
+
+There is a similar argument for homomorphisms.
+
+It remains to show that $\Mod(\Sigma) \times \Mod(\Sigma')$ is the product of $\Mod(\Sigma)$ and $\Mod(\Sigma')$ in $\cat{Cat}$, so given the following diagram:
+\[\xymatrix{
+		& \cat{C} \ar@/_/[ddl]_{\fu{F}} \ar@/^/[ddr]^{\fu{G}} \ar@{-->}[d]^{u_{(\fu{F},\fu{G})}} \\
+		& \Mod(\Sigma + \Sigma') \ar[dl]^{|_{\iota_{\Sigma}}} \ar[dr]_{|_{\iota_{\Sigma'}}}	\\
+	\Mod(\Sigma)
+			&& \Mod(\Sigma')	\\
+								}
+\]
+
+I.e. a cone; $\cat{C}$ with functors $\fu{F}:\cat{C} \to \Mod(\Sigma),\fu{G}:\cat{C} \to \Mod(\Sigma')$, the arrow $u_{(\fu{F},\fu{C})}: \cat{C} \to \Mod(\Sigma) \times \Mod(\Sigma')$, defined by $u_{(\fu{F},\fu{C})}(\cat{C}) = \fu{F}(\cat{C}) \times \fu{G}(\cat{C})$ is the unique factorization arrow.
+\end{PROOF}
+
+
+\begin{lemma}
+\label{le:coequtoequ}
+Given $\mu,\nu:\Sigma \to \Sigma'$ and that $\qu{\Sigma'}{\kernel{}}$, $\iota_{\kernel{}}: \Sigma' \to \qu{\Sigma'}{\kernel{}}$ is a co-equlizer in $\cat{Sign}$ we have that:
+	$\Mod(\qu{\Sigma'}{\kernel{}})$, $|_{\iota_{\kernel{}}}$ is an equlizer for $|_{\mu}$ and $|_{\nu}$, in $\cat{Cat}$  
+\end{lemma}
+
+
+\begin{PROOF}
+We have to show that:
+
+If the following diagram is commuting for any signature $\Sigma''$ and signature morphism $\sigma''$,
+\[\xymatrix@C=1.8cm{
+\label{di:signcoequlizer}
+	\Sigma \ar@/_/[r]_{\nu} \ar@/^/[r]^{\mu}
+		& {\Sigma'} \ar[r]^{\iota_{\kernel{}}} \ar[dr]_{\sigma''}
+			& \qu{\Sigma'}{\kernel{}} \ar@{-->}[d]^{u_{\sigma''}} \\
+			&& \Sigma''
+							}
+\]
+
+Is the following diagram commuting for any cone over a category $\cat{C}$ and functor $\fu{F}$:
+\[\xymatrix@C=1.5cm{
+\label{di:modequlizer}
+	\cat{C} \ar[dr]^{\fu{F}}  \ar@{-->}[d]^{u_{\fu{F}}} \\
+	\Mod(\qu{\Sigma'}{\kernel{}}) \ar[r]_{|_{\iota_{\kernel{}}}}
+		& \Mod(\Sigma') \ar@/_/[r]_{|_\nu} \ar@/^/[r]^{|_\mu}
+			& \Mod(\Sigma) 	\\
+							}
+\]
+
+First we show that the objects of $\Mod(\qu{\Sigma'}{\kernel{}}) \simeq \{ A' \in \Mod(\Sigma'): |_{\mu}(A')= |_{\nu}(A') \}$. 
+Suppose that $|_{\mu}(A')= |_{\nu}(A')$ for a algebra $A' \in \Mod(\Sigma)$ it means that $\mu(s)^{A'} = \nu(s)^{A'}$, for all $s \in S$ and that $\mu(\omega)^{A'} = \nu(\omega)^{A'}$, for all $\omega \in \Omega$ so the algebra $A'$ is isomorph to a algebra $\qu{A'}{\iota_{\kernel{}}}$ in $\Mod(\qu{\Sigma'}{\kernel{}})$, where ${\iota_{\kernel{}}}[s']^{\qu{A'}{\iota_{\kernel{}}}}= s'^{A'}$, for all $s' \in \Sigma'$ and ${\iota_{\kernel{}}}[\omega']^{\qu{A'}{\iota_{\kernel{}}}}= \omega'^{A'}$, for all $\omega' \in \Sigma'$. %, where ${\iota_{\kernel{}}}(\nu(s))^{\qu{A'}{\iota_{\kernel{}}}}= \nu(s)^{A'} = \mu(s)^{A'} = {\iota_{\kernel{}}}(\mu(s))^{\qu{A'}{\iota_{\kernel{}}}}$ and ${\iota_{\kernel{}}}(\nu(\omega))^{\qu{A'}{\iota_{\kernel{}}}}= \nu(\omega)^{A'} = \mu(\omega)^{A'} = {\iota_{\kernel{}}}(\mu(\omega))^{\qu{A'}{\iota_{\kernel{}}}}$
+
+
+The other way around; suppose that $\qu{A'}{\kernel{}} \in \Mod(\qu{\Sigma'}{\kernel{}})$, then is $\qu{A'}{\kernel{}}|_{\iota_{\kernel{}}} \in \Mod(\Sigma')$ and since ${\iota_{\kernel{}}}(\mu(s)) = {\iota_{\kernel{}}}(\nu(s))$, for all $s \in S$ is $\nu(s)^{\qu{A'}{\kernel{}}|_{\iota_{\kernel{}}}} = \mu(s)^{\qu{A'}{\kernel{}}|_{\iota_{\kernel{}}}}$, for all $s$ and simmilary we get that $\nu(\omega)^{\qu{A'}{\kernel{}}|_{\iota_{\kernel{}}}} = \mu(\omega)^{\qu{A'}{\kernel{}}|_{\iota_{\kernel{}}}}$ for all $\omega \in \Omega$, i.e. $\qu{A'}{\kernel{}}|_{(\comp{\mu}\iota_{\kernel{}})} = \qu{A'}{\kernel{}}|_{(\comp{\nu}{\iota_{\kernel{}}})}$
+
+We have to show that the morphisms of $\Mod(\qu{\Sigma'}{\kernel{}}) \simeq \{ h' \in \Mod(\Sigma'): |_{\mu}(h')= |_{\nu}(h') \}$. Suppose that $h': A' \to B'$ and that $h'|_{\mu} = h'|_{\nu}$, it means that $h'_{\mu(s)} = h'_{\nu(s)}$, for all $s$, so $h'$ is isomorph to a homomorphism $\qu{h'}{\iota_{\kernel{}}}:\qu{A'}{\iota_{\kernel{}}} \to \qu{B'}{\iota_{\kernel{}}}$
+
+The other way is similar as for algebras.
+\end{PROOF}
+
+Summing upp we get the following result.
+\begin{proposition}
+$\Mod_{\inst{MA}}$ is a continous functor
+\end{proposition}
+
+
+\begin{PROOF}
+We have that $\Mod$ is continous on signatures by lemma~\ref{le:initialtofinal}, lemma~\ref{le:sumtoprod} and lemma~\ref{le:coequtoequ}. So the result follows by teorem~\ref{teo:reflects}
+\end{PROOF}
+
+
+\begin{corollary}
+$\inst{MA}$ is an exact institution.
+\end{corollary}
+
+
+
+\section{Parametrization}
+\label{se:parameterization}
+
+
+The general concept of a parameter is just a variable. This justifies the following definition.
+
+\begin{definition}
+A parametrisation is a triple:$(\iota,X,P[X])$, where $\iota$ is a inclusion of the (typed) parameter $X$ into $P[X]$
+\end{definition}
+
+The definition means that $X$ is a subobject of $P[X]$.
+
+
+\begin{definition}
+A parameter passing is a substitution of a (typed) object for $X$ in a parametrisation.
+\end{definition}
+
+In \cite{para} is the difference between parametrizated specifications and parameterizated algebras pointed out. The next two definitions are a generalisation of \cite{para}
+
+\begin{definition}
+A parametrizated specification is a triple $(\iota,\thr{X},\thr{P[X]})$, where $\thr{X}$ and $\thr{P[X]}$ are specifications and $\iota$ is a inclusion of specification $\thr{X}$ into $\thr{P[X]}$, we will write $\thr{P[X]}$ as a shortening for this definition.
+\end{definition}
+
+The definition means that $\thr{X}$ is a subspecification of $\thr{P[X]}$
+
+
+\begin{definition}
+The semantic of a parameterizated specification is $\Mod(\thr{SP(X)})$.
+\end{definition}
+
+\begin{definition}
+An actual parameter specification is a specification $\thr{Y}$ togheter with a specification morphism $\mu: \thr{X} \to \thr{Y}$, we will write just $Y$ when $\mu$ is ``obbvious''.
+\end{definition}
+
+Since $\thr{Th_0}^{\inst{MA}}$ has pushout we get the unique result specification given by:
+
+\begin{definition}
+Given a parameterised specification $\thr{SP(X)}$ and an actual parameter $\thr{Y}$ we define the result specification as the pushout in the following diagram:
+\[\xymatrix{
+	\thr{X} \ar[d]_{\mu} \ar@{^{(}->}[rr]^{\iota}
+		&& \thr{SP(X)} \ar[d]^{\mu'}	\\
+	\thr{Y} \ar@{^{(}->}[rr]_{\iota'}
+		&& \thr{SP(Y)} 	\\								}
+\]
+\end{definition}
+
+\begin{fact}
+The definition is well defined since $\thr{Th_0}$ has pushouts.
+\end{fact}
+
+\begin{definition}
+A parameterised algebra is a triple $(\iota,X, P[X])$, where $\iota$ is a inclusion, $X$ and $P[X]$ algebras. 
+\end{definition}
+
+Note that this definition means that $X$ is a subalgebra of $P[X]$.
+\begin{definition}
+An actual parameter algebra is an algebra $A$ such that there exists a theory morphism $\mu:\thr{Th(X)} \to \thr{Th(A)}$, (where $\thr{Th(X)}$ is the specification (theory) of $X$), and $A|_{\mu} = X$
+\end{definition}
+
+%\begin{definition}
+%A parameterised algebra specification is a triple $(\iota,\thr{X}, \thr{SP(X)})$, where $\iota$ is a specification inclusion, $\thr{X}$ and $\thr{SP(X)}$ specifications. 
+%\end{definition}
+
+%This is similar to the syntax for parametrisated specifications, but the difference is the semantic:
+
+%\begin{definition}
+%The semantic of a parameterised algebra specification is all persistent functors $\Mod(\thr{X}) \to \Mod(\thr{SP(X)})$
+%\end{definition}
+
+%This mean that for each algebra in $\Mod(\thr{X})$ exist there an unique algebra in $\Mod(\thr{SP(X)})$ and likewise for homomorphisms. 
+
+%Hva betyr persistens paa dette nivaaet?
+
+
+
+
+\section{Parameterisation of specifications}
+\label{se:paraspec}
+As noted in the introduction, parameterisation of specifications is not the same as specifications of parameterizated datatypes.
+In exact institutions is parameterisation of specifications modelled as pushouts of specifications.
+
+
+
+%We first show that $\thr{Th_{\inst{MA}}}$ ( the category of specifications) has pushouts.
+
+%Note that given two signatures $\Sigma$ and $\Sigma'$ and a signature morphism $\mu:\Sigma \to \Sigma'$, there is an equivalence relation $\kernel{\mu}$ defined on $\Sigma$ by $s \kernel{\mu} s'$ if $\mu(s) = \mu(s')$ and $\omega \kernel{\mu} \omega'$ if $\mu(\omega:\overline{s} \to s) = \mu(\omega':\overline{s'} \to s')$. We can define the quotient of a signature w.r.t. an equivalence relation $\kernel{}$ as $\qu{\Sigma}{\kernel{}}$ by letting:
+%	\begin{itemize}
+%	\item Sorts: $\qu{\Sigma}{\kernel{}}= \{[s]_{\kernel{}}: s \in S\}$,
+%	\item Operations in $\qu{\Sigma}{\kernel{}}= \{[\omega]_{\kernel{}}: \omega \in \Omega \}$  
+%	\end{itemize}
+%\begin{proposition}
+%Given Signatures $\Sigma=(S,\Omega), \Sigma^1=(\mu_1(S) \uplus S^1,\mu_1(\Omega) \uplus \Omega^1), \Sigma_2=(\mu_2(S) \uplus S^2,\mu_2(\Omega) \uplus \Omega^2)$ and signature morphisms $\mu_1: \Sigma \to \Sigma^1, \mu_2:\Sigma \to \Sigma^2$
+%The following diagram is a pushout in $\cat{Sign}$:
+
+%\[\xymatrix{
+%\label{di:signpushout}
+%	\Sigma \ar[d]_{\mu_{2}} \ar[rr]^{\mu_1}
+%		&& \Sigma^1 \ar[d]^{\mu'_2}	\\
+%	\Sigma^2 \ar[rr]_{\mu'_1}
+%		&& \Sigma' 	\\
+%								}
+%\]
+
+%Where:
+%	\begin{itemize}
+%	\item Signature: $\Sigma'=(S',\Omega')$ is given by:
+%		\begin{itemize}
+%		\item $S '= \{ [s]: s \in S \} \uplus S_1 \uplus S_2$, where $[s] = \kernel{\mu_1} \cup \kernel{\mu_1}$ % $\{ s' \in S: \mu_1(s')= s \mbox{ or }  \mu_2(s')= s \}$
+%		\item $\Omega'= \{ [\omega] \} \uplus \Omega_1 \uplus \Omega_2$
+%Where $[\omega] = \{ \omega' \in S: \mu_1(\omega')= \omega \mbox{ or }  \mu_2(\omega')= \omega \} $
+%		\end{itemize}
+
+
+%	\item Sinature morphisms
+%		\begin{enumerate}
+%		\item $\mu'_1$ is defined by: 
+%			\begin{itemize}
+%			\item $\mu'_1(\mu_2(s))= [s]$
+%			\item $\mu'_1(s^2)= s^2$
+%			\item $\mu'_1(\mu_2(\omega:\overline{\mu_2(s)} \to \mu_2(s))= [\omega]:\overline{[s]} \to [s]$
+%			\item $\mu'_1(\omega^2:\overline{s \cup s^2} \to s \cup s^2)= \omega^2:\overline{\mu'_1(s \cup s^2)} \to \mu'_1(s \cup s^2)$
+%			\end{itemize}
+%		\item $\mu'_2$ is defined by 
+%			\begin{itemize}
+%			\item $\mu'_2(\mu_1(s))= [s]$
+%			\item $\mu'_2(s^1)= s^1$
+%			\item $\mu'_2(\mu_1(\omega:\overline{\mu_1(s)} \to \mu_1(s))= [\omega]:\overline{[s]} \to [s]$
+%			\item $\mu'_2(\omega^1:\overline{s \cup s^1} \to s \cup s^1)= \omega^1:\overline{\mu'_2(s \cup s^1)} \to \mu'_2(s \cup s^1)$
+%			\end{itemize}
+%		\end{enumerate}
+%	\end{itemize}
+%\end{proposition}
+
+%\begin{PROOF}
+%$\Sigma'$ is obviouslly a signature, $\mu'_1$ and $\mu'_2$ is signature morphims.
+%The diagram commutes by construction.
+%Given that the outermost arrows in the following diagram is commuting, we have to prove that they factors uniquily through $\nu$:
+
+%\[\xymatrix{
+%\label{di:signpushout}
+%	\Sigma \ar[d]_{\mu_{2}} \ar[rr]^{\mu_1}
+%		&& \Sigma^1 \ar[d]_{\mu'_2} \ar@/^/[ddr]^{\nu_1} \\
+%	\Sigma^2 \ar[rr]^{\mu'_1} \ar@/_/[drrr]_{\nu_2}
+%		&& \Sigma' \ar@{-->}[dr]^{\nu} \\
+%			&&& \Sigma^3
+%								}
+%\]
+
+%I.e. we have to define the unique arrow $\nu:\Sigma' \to \Sigma^3$
+%On sorts is $\nu$ given by:
+%	\begin{itemize}
+%	\item On sorts:
+%		\begin{itemize}
+%		\item $\nu(\mu'_1(\mu_2(s))) = \nu_2(\mu_2(s))$
+%		\item $\nu(\mu'_2(\mu_1(s))) = \nu_1(\mu_1(s))$$\nu(\mu'_2(s)) = \nu_1(s)$
+%		\item $\nu(s^1) = \nu_1(s^1)$
+%		\item $\nu(s^2) = \nu_2(s^2)$
+%		\end{itemize}
+%	\item on opperations:
+%		\begin{itemize}
+%		\item $\nu(\mu'_1(\mu_2(\omega))) = \nu_2(\omega)$
+%		\item $\nu(\mu'_2(\omega)) = \nu_1(\omega)$
+%		\item $\nu(\omega^1) = \nu_1(\omega^1)$
+%		\item $\nu(\omega^2) = \nu_2(\omega^2)$
+%		\end{itemize}
+%	\end{itemize}
+%
+%\end{PROOF}
+
+
+
+%The following result gives a natural way to construct the pushout of specifications:
+
+
+
+%\begin{definition}(Pushout of specifications)
+%Given theory morphisms $\mu_A: \thr{Th_I} \to \thr{Th_A}$ and $\mu_B: \thr{Th_I} \to \thr{Th_B}$, a theory $\thr{Th_P}$ together with theory morphisms $\nu_A:\thr{Th_A} \to \thr{Th_P}$ and $\nu_B:\thr{Th_B} \to \thr{Th_P}$ is called a pushout (of $\mu_A \mbox{ and } \mu_B$) if:
+%	\begin{enumerate}
+%	\item $\nu_A \circ \mu_A = \nu_B \circ \mu_B$ (commutativity)
+%	\item For all theories $\thr{Th_X}$ and theory morphism $\gamma_A:\thr{Th_A} \to \thr{Th_X}$ and $\gamma_B:\thr{Th_B} \to \thr{Th_X}$, with  $\gamma_A \circ \mu_A = \gamma_B \circ \mu_B$ is there a unique theory morphism $\gamma:\thr{Th_P} \to \thr{Th_X}$ with $\gamma \circ \nu_A  = \gamma_A$ and $\gamma \circ \nu_B  = \gamma_B$ (unique factorization)
+%	\end{enumerate}
+%\end{definition}
+
+%The above definition corresponds to the following commuting diagram:
+%\[\xymatrix{
+%	\thr{Th_I} \ar[d]_{\mu_B} \ar[rr]^{\mu_A}
+%		&& \thr{Th_A} \ar[d]_{\nu_A} \ar@/^/[ddr]^{\gamma_A} \\
+%	\thr{Th_B} \ar[rr]_{\nu_B} \ar@/_/[drrr]_{\gamma_B}
+%		&& \thr{Th_P} \ar@{-->}[dr]_{!\gamma}	\\
+%		&&& \thr{Th_X} \\
+%								}
+%\]
+
+
+
+Following \cite{Alge} we define parameter passing for specifications as the following diagram.
+
+\begin{definition}
+Given theories $\thr{Th_{FP}}, \thr{Th_{AP}}, \thr{Th_{FT}}, \thr{Th_{RT}}$, where $\thr{Th_{FP}} =(\Sigma_{FP},\Phi_{FP})$ and $\thr{Th_{FT}}= (\Sigma_{FP},\Phi_{FP}) \uplus (\Sigma_{FT^*},\Phi_{FT^*})$, theory morphism $\mu_{AP}:\thr{Th_{FP}} \to \thr{Th_{AP}}$, and theory inclusion $\nu:\thr{Th_{FP}} \to \thr{Th_{FT}}$ the following diagram is called a parameter passing diagram:
+\[\xymatrix{
+\label{di:parameterpassing}
+	\thr{Th_{FP}} \ar[d]_{\mu_{AP}} \ar@{^{(}->}[rr]^{\nu}
+		&& \thr{Th_{FT}} \ar[d]^{\mu'_{AP}}	\\
+	\thr{Th_{AP}} \ar@{^{(}->}[rr]_{\nu'}
+		&& \thr{Th_{RT}} 	\\
+								}
+\]
+if:
+	\begin{enumerate}
+	\item $\nu$ and $\nu'$ are inclusions of sub specifications
+	\item $\mu'_{AP}$ is defined by:
+		\begin{itemize}
+		\item for all sorts $s \in S_{FP} \uplus S_{FT^*}$ by:\\
+		$\mu'_{AP}(s) = \left\{\begin{array}{ll}
+			s	& , \mbox{ if } s \in S_{FT^*}	\\
+			\mu_{AP}(s) & - \mbox{\rm otherwise, i.e. } s \in S_{FP}
+				\end{array}\right.$
+		\item for all operations $\omega \in \Omega_{FP} \uplus \Omega_{FT^*}$ by: \\
+		$\mu'_{AP}(\omega: \overline{s} \to s)  = \left\{\begin{array}{ll}
+			\omega:\mu'_{AP}({s}^*) \to \mu'_{AP}(s)	& , \mbox{ if } \omega \in \Omega_{FT^*}	\\
+			\mu_{AP}(\omega):\mu_{AP}({s}^*) \to \mu_{AP}(s)	&  - {\rm otherwise} 
+				\end{array}\right.$
+		\item for all axioms $\phi \in \Phi_{FP} \uplus \Phi_{FT^*}$ by: 		\begin{enumerate}
+			\item atoms $a$:
+				\begin{itemize}
+				\item $a = s \eleq t$:\\
+			$\mu'_{AP}(s \eleq t)  = \left\{\begin{array}{ll}
+			\mu'_{AP}(s) \eleq \mu'_{AP}(t)	& , \mbox{ if } a \in \Phi_{FT^*}	\\
+			\mu_{AP}(s \eleq t)	&  - {\rm otherwise} 
+				\end{array}\right.$
+				\item $a = s \prec t$:\\
+			$\mu'_{AP}(s \prec t)  = \left\{\begin{array}{ll}
+			\mu'_{AP} \prec \mu'_{AP}(t)	& , \mbox{ if } a \in \Phi_{FT^*}	\\
+			\mu_{AP}(s \prec t)	&  - {\rm otherwise} 
+				\end{array}\right.$
+				\end{itemize}
+			\item formuli; $\phi = a_1, \ldots ,a_n \to b_1, \ldots ,b_m$:\\
+			$\mu'_{AP}(a_1, \ldots ,a_n \to b_1, \ldots ,b_m)  = \\
+	\ \left\{\begin{array}{ll}
+			\mu'_{AP}(a_1), \ldots ,\mu'_{AP}(a_n) \to \mu'_{AP}(b_1), \ldots ,\mu'_{AP}(b_m)\mu'_{AP} \prec \mu'_{AP}(t)	
+						& , \mbox{ if } \phi \in \Phi_{FT^*}	\\
+			\mu_{AP}(a_1, \ldots ,a_n \to b_1, \ldots ,b_m) 						&  - {\rm otherwise} 
+				\end{array}\right.$
+			\end{enumerate}
+		\end{itemize}
+	\item $\thr{Th_{RT}} = \thr{Th_{AP}} \uplus (S_{RT^*}, \Omega_{RT^*}, \Phi_{RT^*})$, where:
+		\begin{itemize}
+		\item $S_{RT^*} = S_{FT^*}$
+		\item $\Omega_{RT^*} = \mu'_{AP}(\Omega_{FT^*})$ and
+		\item $\Phi_{RT^*} = \mu'_{AP}(\Phi_{FT^*})$
+		\end{itemize}
+	\end{enumerate}
+
+\end{definition}
+
+\begin{proposition}
+The parameter passing diagram~\ref{di:parameterpassing} is a pushout, it means that the theory morphisms $\nu'$ and $\mu'_{AP}$ in diagram~\ref{di:parameterpassing} are uniquely defined up to isomorphism.
+\end{proposition}
+
+\begin{PROOF}
+
+The following diagram must commute:
+\[\xymatrix{
+	\thr{Th_{FP}} \ar[d]_{\mu_{AP}} \ar@{^{(}->}[rr]^{\nu}
+		&& \thr{Th_{FT}} \ar[d]_{\mu'_{AP}} \ar@/^/[ddr]^{\gamma_{FT}} \\
+	\thr{Th_{AP}} \ar@{^{(}->}[rr]^{\nu} \ar@/_/[drrr]_{\gamma_{AP}}
+		&& \thr{Th_{RT}} \ar@{-->}[dr]_{!\gamma} \\
+			&&& \thr{Th_{X}}
+								}
+\]
+
+	\begin{enumerate}
+	\item (commutativity) $\comp{\mu_{}AP}{\nu'} =  \comp{\nu}{\mu'_{AP}}$ since $\nu$ and $\nu'$ is inclusions and $\comp{\mu'_{AP}}{\nu}$ is equal to $\mu_{AP}$ by definition of $\mu'_{AP}$.
+	\item (unique factorization) We must show that any other specification $\thr{Th_X}$ with $\comp{\mu_{AP}}{\gamma_{AP}}= \comp{\nu}{\gamma_{FT}}$ factors uniquely through $\thr{Th_{RT}}$, we define $\gamma:\thr{Th_{RT}} \to \thr{Th_X}$ by:
+		\begin{itemize}
+		\item $\gamma(s) = \left\{ 
+			\begin{array}{ll}
+				\gamma_{AP}(s)	& \mbox{, if } s \in S_{AP}	\\
+				\gamma_{FT}(s)	& \mbox{, if }s \in S_{FT^*}
+			\end{array}\right.$
+		\item $\gamma(\omega: \overline{s} \to s) =
+			  \left\{\begin{array}{ll}
+				\gamma_{AP}(\omega: \overline{s} \to s)	
+					& \mbox{, for } \omega \in \Omega_{AP} \\
+				\gamma_{FT}(\omega': \overline{s'} \to s')
+					&\mbox{, for } \omega \in \Omega_{FT^*} \mbox{, where } \mu'_{AP}(\omega': \overline{s'} \to s')= (\omega: \overline{s} \to s)
+					\end{array}\right.$
+		\end{itemize}
+This is the only way to make $\gamma_{AP}$ and $\gamma_{FT}$ factor through $\thr{Th_{RT}}$ so $\gamma$ is unique, it remains to show well defindness of $\gamma$, i.e. that $\gamma$ is a theory morphism.
+
+		\begin{itemize}
+		\item ($\gamma$ is well defined as function) Since $\mu'_{AP}$ may not be injective we have to show that $\mu'_{AP}(s) =\mu'_{AP}(t)$ gives that $\gamma_{FT}(s) = \gamma_{FT}(t)$, for $s,t \in S_{FP} \uplus S_{FT^*}$. But $\mu'_{AP}(s) =\mu'_{AP}(t)$ gives that $s,t \in S_{FP}$ and $\mu_{AP}(s) =\mu_{AP}(t)$, since $S_{FT^*}$ and $S_{FP}$ is disjoint and $\mu'_{AP}$ is  injective on $S_{FT^*})$. By assumption we have that $\comp{\mu_{AP}}{\gamma_{AP}} = \comp{\nu}{\gamma_{FT}}$ which gives $\gamma_{FT}(s) = \gamma_{FT}(t)$.
+		\item ($\gamma$ is theory morphism) 
+			\begin{enumerate}
+			\item ($\gamma$ distributes over function symbols) $\gamma$ restricted to $AP$ is a theory morphism since on this part is $\gamma$ equal to $\gamma_{AP}$ which is a theory morphism by assumption. For operation symbols $\omega$ in $\Omega_{FP^*}$ we have that $\gamma(\omega:\overline{s} \to s) = \omega':\gamma(s^*) \to \gamma(s)$, since $\gamma_{FT} = \comp{\mu'_{AP}}{\gamma}$, for all $s \in S_{FT^*}$ and for $s \in S_{AP}$ we have that $\comp{\mu_{AP}}{\gamma_{AP}} = \comp{\nu}{\gamma_{FT}}$. 
+			\item ($\thr{Th_X} \models \gamma(\phi)\mbox{, for each } \phi \in \Phi_{RT}$) For each axiom $\phi \in \Phi_{RT^*}$ we have an axiom $\phi' \in \Phi_{FT}$, with $\mu'_{AP}(\phi')= \phi$, since $\gamma_{FT}$ is a specification morphism (by assumption) do we have that $\thr{Th_X} \models \gamma(\phi')$, for each $\phi' \in \Phi_{FT}$. So $\thr{Th_X} \models \gamma(\phi)$ for each $\phi \in \Phi_{RT^*}$, since $\gamma(\phi) = (\comp{\mu'_{AP}}{\gamma})(\phi') = \gamma_{FT}(\phi')$.
+Since $\gamma_{AP}$ is a specification morphism (by assumption) we have that $\thr{Th_X} \models \gamma_{AP}(\phi)$, for each $\phi \in \Phi_{AP}$. So $\thr{Th_X} \models \gamma(\phi)$ for each $\phi \in \Phi_{AP}$, since $\gamma(\phi) = {\gamma}_{AP}(\phi)$. 
+			\end{enumerate} 
+		\end{itemize}
+	\end{enumerate} 
+\end{PROOF}
+
+The parameter passing diagram~\ref{di:parameterpassing} above is typically seen as a parameterizated specification, where $\thr{Th_{FP}}$ is the formal parameter specification, $\thr{Th_{FT}}$ is the formal parameterized specification, $\thr{Th_{AP}}$ is the actual parameter specification and $\thr{Th_{RT}}$ is the result parameterized specification, the pushout means that the result specification is uniquely determined by the actual parameter specification an the formal specification.
+
+%\begin{lemma}
+%\label{le:colimits}
+%A category that has initial object and pushouts have all finite colimits
+%\end{lemma}
+
+%\begin{PROOF}
+%This is dual to proposition 8.3.7 in \cite{cat}.
+%\end{PROOF}
+
+%\begin{fact} The multialgebra specifications, i.e. the category $\thr{{Th_{0}}_{\inst{MA}}}$ has all finite colimits.
+%\end{fact}
+
+%\begin{PROOF}
+%The empty specification $(\emptyset,\emptyset)$ is an initial object in $\thr{{Th_{0}}_{\inst{MA}}}$, by the above proposition has $\thr{{Th_{0}}_{\inst{MA}}}$ pushouts, and the fact follws from the above lemma.
+%\end{PROOF}
+
+
+\begin{definition}(Amalgamation) Given a parameter passing diagram:
+\[\xymatrix{
+	\thr{Th_{FP}} \ar[d]_{\mu_{AP}} \ar@{^{(}->}[rr]^{\nu}
+		&& \thr{Th_{FT}} \ar[d]^{\mu'_{AP}}	\\
+	\thr{Th_{AP}} \ar@{^{(}->}[rr]^{\nu'}
+		&& \thr{Th_{RT}} \\
+}
+\]
+we define:
+	\begin{enumerate}
+	\item For all algebras $AP \in \Mod(\thr{Th_{AP}}), FT \in \Mod(\thr{Th_{FT}})$ and $FP \in \Mod(\thr{Th_{FP}})$ satisfying:
+	\[ AP|_{\mu_{AP}} = FP = FT|_{\nu} \]
+the {\em amalgamated sum} $(RT)$ of $AP$ and $FT$ w.r.t. $FP$ is written as:
+	\[ RT = AP \oplus_{FP} FT \]
+, where $RT$ is the $\Mod(\thr{Th_{RT}})$ algebra defined for all $s \in S_{AP} \uplus S_{FT^*}$ and all $\omega \in \Omega_{AP} \uplus \Omega_{FT^*}$ by:
+		\begin{enumerate}
+		\item $s^{RT} = \left\{\begin{array}{ll}
+				s^{AP}	& , \mbox{ if } s \in S_{AP}	\\
+				s^{FT} & - {\rm otherwise} 
+					\end{array}\right.$
+		\item $\omega(\overline{x})^{RT} = \left\{\begin{array}{ll}
+				\omega(\overline{x})^{AP}	& , \mbox{ if } \omega \in \Omega_{AP}	\\
+				\omega'(\overline{x})^{FT} & - \mbox{\rm otherwise, for the unique } \omega' \in \Omega_{FT^*} \mbox{\rm with } \mu'_{AP}(\omega') = \omega
+					\end{array}\right.$
+		\end{enumerate}
+	\item For all homomorphisms $h_{AP}:AP \to AP' \in \Mod(\thr{Th_{AP}}), h_{FT}:FT \to FT' \in \Mod(\thr{Th_{FT}})$ and $h_{FP}:FP \to FP' \in \Mod(\thr{Th_{FP}})$ satisfying:
+	\[ h_{AP}|_{\mu_{AP}} = h_{FP} = h_{FT}|_{\nu} \]
+the {\em amalgamated sum} $(h_{RT})$ of $h_{AP}$ and $h_{FT}$ w.r.t. $h_{FP}$ written as:
+	\[ h_{RT} = h_{AP} \oplus_{h_{FP}} h_{FT} \]
+, where $h_{RT}:RT \to RT'$ is the $\Mod(\thr{Th_{RT}})$ homomorphism defined for all $s \in S_{AP} \uplus S_{FT^*}$ by:
+	\[{h_{RT}}_s = \left\{\begin{array}{ll}
+				{h_{AP}}_s	& , \mbox{ if } s \in S_{AP}	\\
+				{h_{FT}}_s 	& - {\rm otherwise} 
+						\end{array}\right.\]
+	\end{enumerate}
+\end{definition}
+
+\begin{fact}
+The amalgamation (of algebras and homomorphisms) is well defined. I.e. we have to show that $RT$ is a $\Mod(\thr{Th_{RT}})$ algebra and that $h_{RT}$ is a $\Mod(\thr{Th_{RT}})$ homomorphism.
+\end{fact}
+\begin{PROOF}
+	\begin{enumerate}
+	\item Algebras: The amalgamated sum $AP \oplus_{FP} FT$ is well defined w.r.t:
+		\begin{itemize}
+		\item carrier sets since $S_{AP} \uplus S_{FT^*}$ is the disjoint union of sorts. 
+		\item operations, for $\omega \in \Omega_{AP} \uplus \Omega_{FT^*}$ we have:
+			\begin{itemize}
+			\item  for $\omega \in \Omega_{AP}$ that: $\omega^{AP} = \omega^{RT}$,
+			\item for $\omega \in \Omega_{AP} \cap \Omega_{FP}$ that: $\omega^{AP} = \omega^{RT}={\omega|_{\mu'_{AP}}}^{FT}$,
+			\item  for $\omega \in \Omega_{RT^*}$ we have that: $\omega^{RT} = {\omega|_{\mu'_{AP}}}^{FT}$, it remains now to show that $\mu'_{AP}(s)^{RT}= s^{FT}$ for all $s \in S_{FP} \uplus S_{FT^*}$. But for $s \in S_{FP}$ we have that $\mu_{AP}(s) = \mu'_{AP}(s)$, hence:
+	\[ {\mu'_{AP}(s)}^{RT}= {\mu_{AP}(s)}^{RT} ={\mu_{AP}(s)}^{AP} = s^{FP}= s^{FT} \]
+and for $s \in S_{FT^*}$ we have that ${\mu'_{AP}(s)} = s$ and:
+	\[ {\mu'_{AP}(s)}^{RT}= s^{RT} =s^{FT}. \]
+			\end{itemize}
+			\item $RT \in \Mod(\thr{Th_{RT}})$ since $RT|_{\nu'} \models \Phi_{AP}$ and $RT|_{\mu'_{AP}} \models \Phi_{FT}$, the claim follows from the satisfaction condition, since the axioms of $\thr{RT}$ are $\Phi_{AP} \uplus \mu'_{AP}(\Phi_{FT^*})$.	
+		\end{itemize}
+	\item Homomorphisms: $h_{RT} = h_{AP} \oplus_{h_{FP}} h_{FT}$ is well defined w.r.t. sorts since $S_{AP} \uplus S_{FT^*}$ is a disjoint union, and the algebras $RT$ and $RT'$ is well defined from $1$. Moreover is $h_{RT}$ a $\Mod(\thr{Th_{AP}} \oplus \thr{Th_{FT}})$ homomorphism; since $h_{AP}$ is a $\Omega_{AP}$ homomorphism and $\nu'$ is a  inclusion, so $h_{RT}$ is OK on $\Omega_{AP}$ operations. Moreover we have from the proof of $1$ that $\mu'_{AP}(s)^{RT} = s^{FT}$, for $s \in S_{AP} \uplus S_{FT^*}$. This gives that $h_{RT}$ satisfies the homomorphism condition for all $\Omega_{FT}$ operations, since $h_{FT}$ is a $\thr{Th_{FT}}$ homomorphism.
+	\end{enumerate}
+\end{PROOF}
+
+
+
+Since the multialgebras are an exact institution, we get the amalgamation lemma.
+
+\begin{proposition}(Amalgamation lemma)
+Given a parameter passing diagram:
+\[\xymatrix{
+	\thr{Th_{FP}} \ar[d]_{\mu_{AP}} \ar@{^{(}->}[rr]^{\nu}
+		&& \thr{Th_{FT}} \ar[d]^{\mu'_{AP}}	\\
+	\thr{Th_{AP}} \ar@{^{(}->}[rr]^{\nu'}
+		&& \thr{Th_{RT}} 	\\
+								}
+\]
+the amalgamated sum $AP \oplus_{FP} FT$ has the following properties:
+	\begin{enumerate}
+	\item 
+		\begin{enumerate}
+		\item Given algebras $FP,AP$ and $FT$, with $AP|_{\mu_{AP}} = FP = FT|_{\nu}$; the amalgamated sum $AP \oplus_{FP} FT$ is the unique $\Mod(\thr{Th_{RT}})$ algebra $RT$ satisfying:
+	\[ RT |_{\nu'} = AP \mbox{ and } RT |_{\mu'_{AP}} = FT \]
+		\item Moreover each $\Mod(\thr{Th_{RT}})$ algebra $RT$ has a unique representation as $RT = AP \oplus_{FP} FT$, where:
+	\[ AP = RT |_{\nu'}  \mbox{ and } FT = RT |_{\mu'_{AP}} \]
+		\end{enumerate}
+	\item The following diagram is a pullback in $\cat{Cat}$ (i.e. it is commuting):
+\[\xymatrix{
+	\Mod(\thr{Th_{FP}}) \ar@{<-}[d]_{|_{\mu_{AP}}} \ar@{<-}[rr]^{|_{\nu}}
+		&& \Mod(\thr{Th_{FT}}) \ar@{<-}[d]^{|_{\mu'_{AP}}}	\\
+	\Mod(\thr{Th_{AP}}) \ar@{<-}[rr]_{|_{\nu'}}
+		&& \Mod(\thr{Th_{RT}}) 	\\
+			&&& \cat{C} \ar@{-->}[ul]^{!\fu{F}} \ar@/_/[uul]_{\fu{F_{FT}}} \ar@/^/[ulll]^{\fu{F_{AP}}}
+								}
+\]
+	\end{enumerate}
+
+\end{proposition}
+
+%\begin{PROOF}
+%	\begin{enumerate}
+%	\item 
+%		\begin{enumerate}
+%		\item The amalgamated sum $AP \oplus_{FP} FT$ is a $\Mod(\thr{Th_{RT}})$ algebra $RT$, satisfying:
+%			\begin{enumerate}
+%			\item $RT |_{\nu'} = AP$, since $\nu'$ is an inclusion and by construction is $s^{AP} = s^{RT}, \omega^{AP} = \omega^{RT}$.
+%			\item $RT |_{\mu'_{AP}} = FT$, since ${\mu'_{AP}}(s)^{RT} = s^{FT}$, for all $s \in S_{FP} \uplus S_{FT^*}$, by construction and ${\mu'_{AP}}(\omega)^{RT} = \omega^{FT}$, for all $\omega \in \Omega_{FP} \uplus \Omega_{FT^*}$, by construction. % since $S_{AP}$ and $S_{AT^*} (= S_{FT^*})$ is disjoint by construction of $\thr{Th_{AT}}$.
+%			\end{enumerate}
+% $RT$ is unique\label{RT:unique} since each sort and operation symbol in $\thr{Th_{RT}}$ has a pre image in $\thr{Th_{AP}}$ under $\nu'$ or $\thr{Th_{FT}}$ under $\mu'_{AP}$. 
+%		\item Given $\Mod(\thr{Th_{RT}})$ algebra $RT$, then is $RT = AP \oplus_{FP} FT$, where:
+%	\[ AP = RT |_{\nu'}  \mbox{ and } FT = RT |_{\mu'_{AP}} \]
+%since the corresponding diagram is a pushout, and uniqueness is shown in~\ref{RT:unique}.
+%		\end{enumerate} 
+%	\item Since we have that $\nu' \circ \mu_{AP} =  \mu'_{AP} \circ \nu$ we get that:
+%	\[ |_{\mu_{AP}} \circ |_{\nu'}  = |_{\nu' \circ \mu_{AP}} =  |_{\mu'_{AP} \circ \nu} = |_{\nu} \circ |_{\mu'_{AP}} \]
+%Given functors: $\fu{F_{AP}}: C \to \Mod(\thr{Th_{AP}})$ and $\fu{F_{FT}}: C \to \Mod(\thr{Th_{FT}})$ with: $ |_{\mu_{AP}} \circ \fu{F_{AP}}  =  |_{\nu} \circ \fu{F_{FT}} $ we define $\fu{F}: \cat{C} \to \Mod(\thr{Th_{RT}})$ for all objects $c$ in $\cat{C}$ and all morphisms $h_c:c \to c'$ by:
+%		\begin{itemize}
+%		\item $\fu{F(c)} = \fu{F_{AP}}(c) \oplus_{FP} \fu{F_{FT}}(c)$, where $|_{\mu_{AP}} \circ \fu{F_{AP}}(c) = FP = |_{\nu} \circ \fu{F_{FT}}(c) $ and
+%		\item $\fu{F(h_c)} =  \fu{F_{AP}}(h_c) \oplus_{h_{FP}} \fu{F_{FT}}(h_c)$, where $|_{\mu_{AP}} \circ \fu{F_{AP}}(h_c) = h_{FP} = |_{\nu} \circ \fu{F_{FT}}(h_c) $.
+%		\end{itemize}
+%	 It remains to show that $\fu{F}$ is unique and that $\fu{F}$ is a functor.
+%			\begin{itemize}
+%			\item $\fu{F}$ is unique since given a functor $\fu{F'}$ with the same properties as $\fu{F}$, then is $\fu{F}(c)|_{\nu'} = \fu{F'}(c)|_{\nu'}$ and $\fu{F(c)}|_{\mu'_{AP}} = \fu{F'}(c)|_{\mu'_{AP}}$ so the uniqueness follows from 1.
+%			\item $\fu{F}$ is a functor: $\fu{F}(id_c) = id_{\fu{F}(c)} = id_{RT}$ and $\fu{F}(h'_c \circ h_c) = \fu{F}(h'_c) \circ \fu{F}(h_c)$ by $1$.
+%			\end{itemize}
+%	\end{enumerate}
+%\end{PROOF} 
+
+
+%\begin{definition} An institution $\inst{I}$ is {\it exact (semiexact)} if $\cat{Sign}$ has colimits (pushout) and $\Mod$ transforms finite colimits (pushouts) in $cat{Sign}$ into limits (pullbacks) in $\cat{Cat}$.
+%\end{definition}
+ 
+%\begin{fact}
+%$\inst{MA}$ is an exact institution.
+%\end{fact}
+
+%\begin{PROOF}
+%The amalgamation lemma gives that $\Mod$ transforms pushouts to pullbacks. $\cat{Sign}$ has initial object, the empty signature and $\Mod$ transform the empty signature to the unit category, since there is only one functor from the empty signature to the category of multialgebras and by taking reducts over signature morphisms $:\to \Sigma$ it must be an unique model for the empty signature, moreover is the unit category terminal in $\cat{Cat}$. Every colimit (in $\cat{Cat}$) can be expressed as a pushout, possibly with the initial object, by a standard categorical construction (see lemma~\ref{le:colimits}). Dually every limit (in $\cat{Sign}$) can be expressed as a pullback, possibly with the terminal object, so by the amalgamtion lemma we get that $\Mod$ transforms limits to colimits in $\cat{Cat}$
+%\end{PROOF}
+
+
+
+
+\section{Persistency}
+\label{se:persistency}
+Parameterizated datatypes is traditionally modeled by persistent (and free) constructions.
+In this section we illustrate that the multialgebras has more persistent construction than deterministic algebras, but we argue that persistency in general is to strong assumption for parameterizated datatypes.
+
+
+ 
+The amalgamation lemma make it possible to introduce semantic for parameterized algebras as persistent functors. 
+
+\begin{definition}
+Given a specification morphisms $\mu:(\Sigma, \Phi) \to (\Sigma', \Phi')$; a functor $\fu{F}: \Mod(\Sigma, \Phi) \to \Mod(\Sigma', \Phi')$ is called {\em persistent} (along $\mu$) if:
+	\begin{enumerate}
+	\item $ \comp{\fu{F}}{|_{\mu}}(A) = A$, for all algebras $A \in \Mod(\Sigma, \Phi)$
+	\item $\comp{\fu{F}}{|_{\mu}}(h) = h$, for all homomorphisms $h \in \Mod(\Sigma, \Phi)$
+	\end{enumerate}
+\end{definition}
+
+If one see a persistent construction $\fu{F}: \Mod(\Sigma, \Phi) \to \Mod(\Sigma', \Phi')$ a parameterizated datatype, means persistency protection of the parameter in the sense that parameterizated algebras $\fu{F}(A)$ in $\Mod(\Sigma', \Phi')$ is equal to the parameter algebras $A$ from $\Mod(\Sigma, \Phi)$, on the part $\mu(\Sigma)$.
+
+\begin{fact}
+\label{fa:persistentamalgamation}
+The above definition toghether with the amalgamation lemma ensures
+that given the following parameter passing diagram:
+
+\[\xymatrix{
+	\thr{Th_{FP}} \ar[d]_{\mu_{AP}} \ar[rr]^{\nu}
+		&& \thr{Th_{FT}} \ar[d]^{\mu'_{AP}}	\\
+	\thr{Th_{AP}} \ar[rr]_{\nu'}
+		&& \thr{Th_{RT}} 	\\
+								}
+\]
+
+and a persistent functor $\fu{F}: \Mod(\thr{Th_{FP}}) \to \Mod(\thr{Th_{FT}})$, the following diagram is commuting:
+
+	\[\xymatrix{
+	\Mod(\thr{Th_{FP}}) \ar@{<-}[d]_{|_{\mu_{AP}}} \ar@{<-}[rr]_{|_{\nu}} \ar@<1ex>[rr]^{\fu{F}}
+		&& \Mod(\thr{Th_{FT}}) \ar@{<-}[d]^{|_{\mu'_{AP}}}	\\
+	\Mod(\thr{Th_{AP}}) \ar@{<-}[rr]_{|_{\nu'}} \ar@<1ex>[rr]^{\fu{F'}}
+		&& \Mod(\thr{Th_{RT}}) 	\\
+		}
+	\]
+
+where $\fu{F'}:\Mod(\thr{Th_{AP}}) \to \Mod(\thr{Th_{RT}})$ is defined by:
+	\begin{itemize}
+	\item On algebras $A \in \Mod(\thr{Th_{AP}})$ by:\\
+	 	$\fu{F'}(A) = A \oplus_{A |_{\mu_{AP}}} (\comp{|_{\mu_{AP}}}{\fu{F}}) (A)$
+	\item  and on homomorphisms $h \in \Mod(\thr{Th_{AP}})$ by:\\
+		 $\fu{F'}(h) = h \oplus_{h |_{\mu_{AP}}} (\comp{|_{\mu_{AP}}}{\fu{F}}) (h)$.
+	\end{itemize}
+\end{fact}
+
+The commuting diagram means that given a persistent functor $\fu{F}$ and an actual parameter algebra $A$ will the amalgamation lemma togheter with $\fu{F}$ construct a correct parameterized algebra over the actual parameter, this is a generalization of the technique used in \cite{Alge}, where the functor $\fu{F}$ has to be both free and persistent. Unfortuanatly is the free functor not persistent in general, many interesting cases are excluded, e.g. for the standard total specification of stacks parametrisated by elements is the free functor not persistent.
+By our means ensures persistency a cruicial property for parametrizated daty types, i.e. the concept of encapsulating and protection of the parameter.
+In our view is there only meaningfull to speak about parametrized algebras when there exist functors from the formal paramter to the parametrized specification that protect the parameter algebra, we will in this section see that persistency in some cases is to restrictive so we generalize the concept of persistency in section~\ref{paraADT}. The existence of free functors are ortogonal to the problem of parametrization of datatypes, freeness capture the notion of automatic generation of algebras, this fits well to initial semantic as used in \cite{Alge}, but it has really litle to do with parametrized datatypes.
+
+\begin{definition}
+Given a parameter passing diagram and a persistent functor $\fu{F}: \Mod(\thr{Th_{FP}}) \to \Mod(\thr{Th_{FT}})$ we define a parametrizated algebra (over the diagram) to be the functor $\fu{F'}$ togheter with the actual parameter algebra $A$, where $\fu{F'}(A) = A \oplus_{A |_{\mu_{AP}}} (\comp{|_{\mu_{AP}}}{\fu{F}}) (A)$, for algebras (objects) $A \in \Mod(\thr{Th_{AP}})$  and $\fu{F'}(h) = h \oplus_{h |_{\mu_{AP}}} (\comp{|_{\mu_{AP}}}{\fu{F}}) (h)$, for (homo)morphism $h:A \to A'$, $h \in \Mod(\thr{Th_{AP}})$
+\end{definition}
+
+
+\begin{definition}
+Given a parameter passing diagram we define the semantic (to the diagram) to be the class of all persistent functors $\Mod(X) \to \Mod(SP(X))$
+\end{definition}
+
+
+
+In this section will the parametrizated datatype over a diagram be constructed by using all persistent functors between the formal parameter specification and the parametrizated specification. The above construction can be seen in conection with the way partiality is treated for multialgebras in \cite{partial}, where partial algebra specifications is presented as $\inst{MA}$ specifications, i.e. the models of partial algebra specifications are extended by letting partial functions be nondeterministic on the partial part. Taking parametrizated partial algebra specifications, a persitent functor can typically be nondeterministic where the free functor is undefined. So the multialgebras will have more persistent functors for a parameter passing diagram than the coresponding partial algebra specifications. 
+
+We will now illustrate the flexibility offered by multialgebras by constructing several examples of persistent functors.
+
+\begin{example}
+Specification of stacks parameterized by (arbitrary) elements.
+
+\(
+	\spec{
+	\tit{\mbox{\bf spec\ El}^{\inst{MA}}=} \\
+		\Sorts: El
+	}
+\)
+
+Note that the class of {\bf El} algebras consists of all sets.
+
+
+\( 
+	\spec{
+	\tit{\mbox{\bf spec\ Stack[El]}^{\inst{MA}}=} \\
+		{\bf include\ El}\\
+		\Sorts:	&& Stack \\
+		\Ops:   && empty: \to Stack\\
+			&& top:Stack \to El\\
+			&& pop:Stack \to Stack\\
+			&& push:El \times Stack \to Stack\\
+		{\bf det:} && empty \\
+		{\bf axioms:}			
+			&1.& push(x,s) \eleq push(x,s) \To top(push(x,s)) \eleq x\\
+			&2.& push(x,s) \eleq push(x,s) \To pop(push(x,s)) \eleq s
+	}
+\)
+
+We will denote the specification inclusion from $\thr{El}$ to $\thr{Stack(El)}$ by $\iota$.
+
+Here is a specification for the natural numbers that will be used as an actuall parameter for $\thr{El}$.
+
+
+\(
+	\spec{
+	\tit{\mbox{\bf spec\ Nat}^{\inst{MA}}=} \\
+		\Sorts: && Nat \\
+		\Ops:	&& zero \to Nat\\
+			&& succ: Nat \to Nat\\	
+		{\bf det:} && zero,succ \\
+	}
+\)
+
+The specification morphism $\mu: {\bf El \to \bf Nat}$ is defined by $\mu(El)= Nat$
+The specification of stacks of natural numbers is given by the coresponding pushout i.e. the co-limit of the following commuting diagram:
+
+\[ \xymatrix{
+	\thr{El} \ar[d]_{\mu} \ar[rr]^{\iota}
+		&& \thr{Stack[El]} \ar[d]^{\mu'}	\\
+	\thr{Nat} \ar[rr]_{\iota'}
+		&& \thr{Stack[Nat]} 	\\
+								}
+\]
+It means that the specification $\thr{Stack[Nat]}$ is given by:
+
+\(
+	\spec{
+	\tit{\mbox{\bf spec\ Stack[Nat]}^{\inst{MA}}=} \\
+		{\bf include Nat}\\
+		\Sorts:	&& Stack \\
+		\Ops:   && empty: \to Stack\\
+			&& top:Stack \to Nat\\
+			&& pop:Stack \to Stack\\
+			&& push:Nat \times Stack \to Stack\\
+		{\bf det:} && empty, zero,succ \\
+		{\bf axioms:}			
+			&1.& push(x,s) \eleq push(x,s) \To top(push(x,s)) \eleq x\\
+			&2.& push(x,s) \eleq push(x,s) \To pop(push(x,s)) \eleq s
+	}
+\)
+
+\subsection{Generalization of partial algebras}
+We will first illustrate that actually multialgebras are a generalisation of partial algebras.
+Given the natural numbers $\nat$ as a $\thr{Nat}$ algebra, a $\thr{Stack[Nat]}$ algebra could be defined as the algebra $S[\nat]$ where:
+
+\(
+	\spec{
+	\tit{\mbox{\bf S[$\nat$]}=} \\
+		\Sorts:	&& Stack^{S[\nat]}= empty \cup \{s : s = push(x,s'),  s' \in Stack^{S[\nat]}, x \in \nat \} \\
+			&& Nat^{S[\nat]} = \nat \\
+		\Ops:   && empty^{S[\nat]} = empty\\
+			&& push(x,s)^{S[\nat]}= push(x,s)\\
+			&& top^{S[\nat]} \mbox{ is defined by} 
+				\left\{\begin{array}{ll}
+				top(empty)^{S[\nat]}= \emptyset \\
+				top(push(x,s))^{S[\nat]}= x\\
+				\end{array}\right. \\
+			&& pop^{S[\nat]} \mbox{ is defined by}
+				\left\{\begin{array}{ll}
+				pop(empty)^{S[\nat]}= \emptyset \\
+				pop(push(x,s))^{S[\nat]} = s\\
+				\end{array}\right.
+}
+\)
+\end{example}
+
+
+As noted earlier the semantic of $\thr{Stack[Nat]}$ is not a class of parameterized algebras. The semantic of stacks parameterized by elements is actually a functor $\fu{F} :\Mod(\thr{El}) \to \Mod(\thr{Stack[El]})$, to say that the semantic is correct is it reasonable to demand that the functor $\fu{F}$ is persistent.
+
+Suppose that we are given an $\thr{El}$ algebra $E$, based on the above example, a reasonable semantic could be the following persistent functor $\fu{F}$, where $\fu{F}(E)$ is the $\thr{Stack[El]}$ algebra given by:
+
+\( 
+	\spec{
+	\tit{\mbox{\bf F(E) $\in \Mod{Stack(El)}$}^{\inst{MA}}=} \\
+		& \Sorts: & Stack^{\fu{F(E)}}= empty \cup \{ push(x,s),  s \in Stack^{\fu{F(E)}}, x \in El^E \} \\
+			&& El^{\fu{F(E)}} = El^E \\
+		& \Ops:  & empty^{\fu{F(E)}} = empty\\
+			&& push(x,s)^{\fu{F(E)}}= push(x,s) \\
+			&& top(empty)^{\fu{F(E)}}= \emptyset \mbox{ and } top(push(x,s))^{\fu{F(E)}}= x\\
+			&& pop(empty)^{\fu{F(E)}}= \emptyset \mbox{ and } pop(push(x,s))^{\fu{F(E)}} = s \\
+	}
+\)
+
+So given an actual parameter algebra $A$, the amalgamation lemma gives us an $\thr{Stack[A]}$ algebra $A \oplus_{A|_{\mu}} (\comp{|_{\mu}}{\fu{F}})(A)$, that is a persistent extension of $A$, since $(\comp{|_{\mu}}{\comp{\fu{F}}{|_{\iota}}})(A) = {A|_{\mu}}$. Note that this construction only give a (small) subclass of the $\thr{Stack[Act]}$ algebras, where $\thr{Act}$ is the actual parameter specification.
+
+We have to show that this construction actually can be extended to a functor. Note that a $\thr{El}$ homomorphism $h:E \to E'$ is just a function, between the carrier sets.
+
+so given a homomorphism $h:E \to E'$ we define $\fu{F}(h):F(E) \to F(E')$ as follows:
+	\begin{itemize}
+	\item $(\fu{F}(h))_{El}= h_{El}$		
+	\item $(\fu{F}(h))_{Stack}$ is given by:
+		\begin{enumerate}
+		\item $h_{Stack}(empty^{F(E)})= empty^{F(E')}$
+		\item $h_{Stack}(push(x,s)^{F(E)}) = push(h_{El}(x),h_{Stack}(s))^{F(E')}$
+		\end{enumerate} 
+	\item This definition is OK since:
+		\begin{enumerate} 
+		\item $h_{El}(top(empty)^{F(E)})= h_{El}(\emptyset) = \emptyset =top(empty)^{F(E')} = top(h_{El}(empty))^{F(E')}$
+		\item $h_{Stack}(pop(empty)^{F(E)})= h_{Stack}(\emptyset) = \emptyset= pop(empty)^{F(E')}= pop(h_{Stack}(empty^{F(E)}))$
+		
+		\item $h_{Stack}(push(x,s)^{F(E)}) = push(h_{El}(x),h_{Stack}(s))^{F(E')}$
+		\end{enumerate}
+	\end{itemize}
+So $\fu{F}$ is actually a functor and we can define the semantic of the parameterized algebras as $\fu{F'}$ where $\fu{F'}(A) = A \oplus_{A |_{\mu_{AP}}} (\comp{|_{\mu_{AP}}}{\fu{F}}) (A)$ and $\fu{F'}(h) = h \oplus_{h |_{\mu_{AP}}} (\comp{|_{\mu_{AP}}}{\fu{F}}) (h)$ i.e. $\fu{F'}$ is constructed as in fact~\ref{fa:persistentamalgamation}, by amalgamation.
+
+
+\subsection{Use of nondeterminism}
+Given the natural numbers $\nat$ as a $\thr{Nat}$ algebra, a $\thr{Stack[Nat]}$ algebra could be defined as the algebra $S[\nat]$ where:
+
+\(
+	\spec{
+	\tit{\mbox{\bf S[$\nat$]}=} \\
+		\Sorts:	&& Stack^{S[\nat]}= \{empty \cup s : s = push(x,s'),  s' \in stack^S, x \in \nat \} \\
+			&& Nat^{S[\nat]} = \nat \\
+		\Ops:   && empty^{S[\nat]} = empty\\
+			&& push(x,s)^{S[\nat]}= push(x,s)\\
+			&& top^{S[\nat]} \mbox{is defined by} 
+				\left\{\begin{array}{ll}
+				top(empty)^{S[\nat]}= \nat \\
+				top(push(x,s))^{S[\nat]}= x\\
+				\end{array}\right. \\
+			&& pop^{S[\nat]} \mbox{is defined by}
+				\left\{ \begin{array}{l}
+				pop(empty)^{S[\nat]}= Stack^S \\
+				pop(push(x,s))^{S[\nat]} = s\\
+				\end{array} \right. \\
+}
+\)
+%\end{example}
+
+As noted earlier the semantic of $\thr{Stack[Nat]}$ is not a class of parameterized algebras. The semantic of stacks parameterized by elements is actually a functor $\fu{F} :\Mod(\thr{El}) \to \Mod(\thr{Stack[El]})$, to say that the semantic is correct is it reasonable to demand that the functor $\fu{F}$ is persistent.
+
+Suppose that we are given an $\thr{El}$ algebra $E$, based on the above example, a reasonable semantic could be the following persistent functor $\fu{F}$, where $\fu{F(E)}$ is the $\thr{Stack[El]}$ algebra given by:
+
+\(
+	\spec{
+	\tit{\mbox{\bf F(E) $\in \Mod{Stack(El)}$}^{\inst{MA}}=} \\
+		& \Sorts:& Stack^{\fu{F(E)}}= empty \cup \{ push(x,s),  s \in stack^{\fu{F(E)}}, x \in El^E \} \\
+			&& El^{\fu{F(E)}} = El^E \\
+		& \Ops:	 & empty^{\fu{F(E)}} = empty\\
+			&& push(x,s)^{\fu{F(E)}}= push(x,s) \\
+			&& top(empty)^{\fu{F(E)}}= El^E \mbox{ and } top(push(x,s))^{\fu{F(E)}}= x\\
+			&& pop(empty)^{\fu{F(E)}}= Stack^{\fu{F(E)}} \mbox{ and } pop(push(x,s))^{\fu{F(E)}} = s \\
+	}
+\)
+
+So given an actual parameter algebra $A$, the amalgamation lemma gives us an $\thr{Stack[A]}$ algebra $A \oplus_{A|_{\mu}} (\comp{|_{\mu}}{\fu{F}})(A)$ since $(\comp{|_{\mu}}{\comp{\fu{F}}{|_{\iota}}})(A)= {|_{\mu}}(A)$. Note that this construction only give a (small) subclass of the $\thr{Stack[Act]}$ algebras, where $\thr{Act}$ is the actual parameter specification.
+
+We have to show that this construction actually can be extended to a functor. Note that a $\thr{El}$ homomorphism $h:E \to E'$ is just a function, between the carrier sets.
+
+so given a homomorphism $h:E \to E'$ we define $\fu{F}(h):F(E) \to F(E')$ as follows:
+	\begin{itemize}
+	\item $(\fu{F}(h))_{El}= h_{El}$		
+	\item $(\fu{F}(h))_{Stack}$ is given by:
+		\begin{enumerate}
+		\item $h_{Stack}(empty^{F(E)})= empty^{F(E')}$
+		\item $h_{Stack}(push(x,s)^{F(E)}) = push(h_{El}(x),h_{Stack}(s))^{F(E')}$
+		\end{enumerate} 
+	\item This definition is OK since:
+		\begin{enumerate} 
+		\item $h_{El}(top(empty)^{F(E)})= h_{El}(El^E) \subseteq El^{E'}= top(h_{El}(empty))^{F(E')}$
+		\item $h_{Stack}(pop(empty)^{F(E)})= h_{Stack}(Stack^{F(E)}) = empty^{F(E')}= pop(h_{Stack}(empty^{F(E)}))$
+		
+		\item $h_{Stack}(push(x,s)^{F(E)}) = push(h_{El}(x),h_{Stack}(s))^{F(E')}$
+		\end{enumerate}
+	\end{itemize}
+So $\fu{F}$ is actually a functor and we can define the semantic of the parameterized algebras as $\fu{F'}$ where $\fu{F'}$ is constructed with use of the amalgamation lemma, as in fact~\ref{fa:persistentamalgamation} above.
+This semantics can of coure be refined with possible error recovery in a simmilar way as done in \cite{partial}.
+
+
+\subsection{Some further examples}
+
+\begin{example}
+Specification of stack of stacks of elements.
+
+We get the following commuting diagram for the specification:
+
+\[\xymatrix{
+		&& \thr{El} \ar[d]_{\mu} \ar[rr]^{\iota}
+			&& \thr{Stack[El]} \ar[d]^{\mu'}	\\
+	\thr{El} \ar[rr]^{\nu}
+		&& \thr{Stack[El]} \ar[rr]_{\iota'}
+			&& \thr{Stack[Stack[El]]} 	\\
+								}
+\]
+
+The specification of $\thr{Stack[Stack[El]]}$ will be isomorph to the following specification:
+
+\(
+	\spec{
+	\tit{\mbox{\bf spec\ Stack[Stack[El]]}^{\inst{MA}}=} \\
+		\Sorts:	&& Stack, Stack',El \\
+		\Ops:   && empty: \to Stack\\
+			&& top:Stack \to Stack'\\
+			&& pop:Stack \to Stack\\
+			&& push:Stack' \times Stack \to Stack\\
+			&& empty': \to Stack'\\
+			&& top':Stack' \to El\\
+			&& pop':Stack' \to Stack'\\
+			&& push':El \times Stack' \to Stack'\\
+		{\bf det:} && empty, empty' \\
+		{\bf axioms:}			
+			&1.& push(x,s') \eleq push(x,s') \To top(push(x,s')) \eleq x\\
+			&2.& push(x,s') \eleq push(x,s') \To pop(push(x,s')) \eleq s' \\			&3.& push'(s',s) \eleq push(s',s) \To top(push(s',s)) \eleq s'\\
+			&4.& push(s',s) \eleq push(s',s) \To pop(push(s',s)) \eleq s
+	}
+\)
+
+To make a parameterized algebra over the above specifications we try to precede as above, i.e. construct a persistent functor. So given the $\thr{Stack[El]}$ algebra $S$ defined above we define the $\thr{Stack[Stack[El]]}$ algebra as the amalgamated sum of $\comp{|_{\mu}}{\fu{F}}(S) \oplus_{|_{\mu} (S)} S$.
+
+\[	\xymatrix{
+		&& \Mod(\thr{El}) \ar@{<-}[d]_{|_{\mu}} \ar@{<-}[rr]_{|_{\iota}} \ar@<1ex>[rr]^{\fu{F}}
+			&& \Mod(\thr{Stack[El]}) \ar@{<-}[d]^{|_{\mu'}}	\\
+	\Mod(\thr{El}) \ar@{<-}[rr]_{|_{\nu}}	
+		&& \Mod(\thr{Stack[El]}) \ar@{<-}[rr]_{|_{\iota'}} \ar@<1ex>[rr]^{\fu{F'}}
+			&& \Mod(\thr{Stack[Stack[El]]}) 	\\
+		}
+\]
+
+
+Specification of ordered tuples parametrizated by two sets.
+
+
+\(
+	\spec{\\
+	\tit{\mbox{\bf spec\ Two}^{\inst{MA}}=} \\
+		\Sorts:	&& X,Y \\
+	}
+\)
+
+
+The models of this specification is two sets that is indexed by $X$ and $Y$ respectively.
+
+
+\(
+	\spec{
+	\tit{\mbox{\bf spec\ OrderedTuple[Two]}^{\inst{MA}}=} \\
+	{\bf include Two}\\
+		\Sorts:	&& Pair \\
+		\Ops:   && (_-,_-): X \times Y \to Pair \\
+			&& p_1: Pair \to X \\
+			&& p_2:Pair \to Y \\
+		{\bf det:} && (_-,_-) \\
+		{\bf axioms:}			
+			&1.& p_1(x,y) \eleq x \\
+			&2.& p_2(x,y) \eleq y  
+	}
+\)
+
+
+
+As an actual parameter can we use the following specification:
+
+\(
+	\spec{
+	\tit{\mbox{\bf spec\ Sort}^{\inst{MA}}=} \\
+		\Sorts:	&& Z \\	
+	}
+\)
+
+Where the parameterpassing morphism $\mu$ is given by: $\mu(X) = Z = \mu(Y)$.
+
+Again; the result specification is obtained by the pushout of the following commuting diagram:
+
+
+\[ \xymatrix{
+	\thr{Two} \ar[d]_{\mu} \ar[rr]^{\iota}
+		&& \thr{OrderedTuple[Two]} \ar[d]^{\mu'}	\\
+	\thr{Nat} \ar[rr]_{\iota'}
+		&& \thr{OrderedTuple[Sort]} 	\\
+								}
+\]
+
+I.e. the pushout object is isomorph to the following specification.
+
+
+\( 
+	\spec{
+	\tit{\mbox{\bf spec\ OrderedTuple[Sort]}^{\inst{MA}}=} \\
+	{\bf include Two}\\
+		\Sorts:	&& Z,Pair \\
+		\Ops:   && (_-,_-): Z \times Z \to Pair \\
+			&& p_1: Pair \to Z \\
+			&& p_2:Pair \to Z \\
+		{\bf det:} && (_-,_-) \\
+		{\bf axioms:}			
+			&1.& p_1(x,y) \eleq x \\
+			&2.& p_2(x,y) \eleq y  
+	}
+\)
+
+We can construct a persistent functor $\fu{P}: \thr{Two} \to \thr{Tuple[Two]}$ for a $\thr{Two}$ algebra $A$ by letting $\fu{P}(A)$ be the $\thr{Tuple[Two]}$ algebra where $X^{\fu{P}(A)}= X^A$, $Y^{\fu{P}(A)}= Y^A$, $Pair^{\fu{P}(A)}= \{ (x,y): x \in X, y \in Y \}$, $(x,y)^{\fu{P}(A)}=(x,y)$, $p_1(x,y)^{\fu{P}(A)}=x$ and $p_2(x,y)^{\fu{P}(A)}=y$, this construction respects homomorphisms and it's clearly persistent, this will typical be the same as the free and persistent construction for total algebras.
+\end{example}
+
+\subsection{On the existence of persistent functors}
+We will now give syntactical conditions on the parameter passing diagram that ensures existence of certain persistent functors.
+
+We will first construct a persitent functor that is inspired by partial algebras.
+
+\begin{proposition} Given a formal parameter specification $\thr{X}$ a parametrizated specification $\thr{SP[X]}$ and the inclusion $\nu:\thr{X} \to \thr{SP[X]}$, where $\thr{SP[X]}$ only includes axioms from $\thr{X}$, i.e. if $\thr{X}=(\Sigma,\Phi)$ and $\thr{SP[X]}=(\Sigma',\Phi')$ is $\Phi'= \nu(\Phi)$. Then there exist a persistent functor $\fu{P}:\Mod(\thr{X}) \to \Mod(\thr{SP[X]})$ defined by:
+	\begin{itemize}
+	\item algebras: For each $A \in \Mod(\thr{X})$,
+	$\fu{P}(A) = A'$ where $A'$ is given by:
+		\begin{itemize}
+		\item sorts:\\
+		$\nu(s)^{A'}= s^A$, for $s \in \Sigma$\\
+		$s^{A'} = \emptyset$, else
+		\item operations: \\
+		$\nu(\omega)^{A'}(\overline{x})= \omega^A(\overline{x})$, for $\overline{x} \in |A|$ and $\omega \in \Sigma$\\
+		$\omega^{A'}(\overline{x}) = \emptyset$, else
+		\end{itemize}
+	\item homomorphisms:
+	$\fu{P}(h) = h'$ where $h'$ is given by:\\
+		$h'_{\nu(s)} = h_s$, for $s \in \Sigma$\\
+		$h'_s =$ emptyfunction, else
+	\end{itemize}
+\end{proposition}
+
+\begin{PROOF}
+The functor $\fu{P}$ is welldefined:
+We have to show that $\fu{P}(A)=A'$ is an algebra in $\Mod(\thr{SP[X]})$, for each $A \in \Mod(\thr{X})$.
+$A'$ is obviously a $\Sigma'$ algebra and $A' \models \nu(\phi)$, for each $\phi \in \Phi$, since $A'|_{\nu} = A$, by construction and $A \models \phi$ by assumption so the welldefinedness follows from the satisfaction condition.\\
+
+Suppose that $h:A \to B$ is a $\Mod(\thr{X})$ homomorphism, we have to show that $\fu{P}(h)=h'$ is a $\Mod(\thr{SP[X]})$ homomorphism.
+	\begin{itemize}
+	\item If $\overline{x} \in |A|$ and $\omega \in \Sigma$ is:
+		\[ h'(\omega^{A'}(\overline{x})) = h'(\omega^A(\overline{x})) = h(\omega^A(\overline{x})) \subseteq \omega^B(\overline{h(x)}) = \omega^{B'}(\overline{h'(x)}), \]
+	\item else is: 
+	\[h'(\omega^{A'}(\overline{x})) = \emptyset = \omega^{B'}(\overline{h'(x)}) \]
+	\end{itemize}
+\end{PROOF}
+		
+Note that the construction $\fu{P}$ also holds if we add axioms like $\omega'(\overline{x}) \prec \omega(\overline{x})$ where $\omega'\in \Sigma' \setminus \Sigma$.
+
+
+We will now consider a functor $\fu{N}$ that is dual to $\fu{P}$ in the way that $\fu{N}$ try to make as much as possible completly nondeterministic.
+
+\begin{proposition} Given a formal parameter specification $\thr{X}$ a parametrizated specification $\thr{SP[X]}$ and the inclusion $\nu:\thr{X} \to \thr{SP[X]}$, where $\thr{SP[X]}$ only includes axioms from $\thr{X}$, i.e. if $\thr{X}=(\Sigma,\Phi)$ and $\thr{SP[X]}=(\Sigma',\Phi')$ is $\Phi'= \nu(\Phi)$. Then there exist a persistent functor $\fu{N}:\Mod(\thr{X}) \to \Mod(\thr{SP[X]})$ defined by:
+	\begin{itemize}
+	\item algebras: For each $A \in \Mod(\thr{X})$,
+	$\fu{N}(A) = A'$ where $A'$ is given by:
+		\begin{itemize}
+		\item sorts:\\
+		$\nu(s)^{A'}= s^A$, for $s \in \Sigma$\\
+		$s^{A'} = \emptyset$, for $s \in \Sigma' \setminus \Sigma$
+		\item operations: \\
+		$\nu(\omega)^{A'}(\overline{x})= \omega^A(\overline{x})$, for $\overline{x} \in |A|$ and $\omega \in \Sigma$\\
+		$\omega^{A'}(\overline{x}) = s^{A'}$, else
+		\end{itemize}
+	\item homomorphisms:
+	$\fu{N}(h) = h'$ where $h'$ is given by:\\
+		$h'_{\nu(s)} = h_s$, for $s \in \Sigma$\\
+		$h'_s =$ emptyfunction, for $s \in \Sigma' \setminus \Sigma$
+	\end{itemize}
+\end{proposition}
+
+\begin{PROOF}
+The functor $\fu{N}$ is welldefined:
+We have to show that $\fu{N}(A)=A'$ is an algebra in $\Mod(\thr{SP[X]})$, for each $A \in \Mod(\thr{X})$.
+$A'$ is obviously a $\Sigma'$ algebra and $A' \models \nu(\phi)$, for each $\phi \in \Phi$, since $A'|_{\nu} = A$, by construction and $A \models \phi$ by assumption so the welldefinedness follows from the satisfaction condition.\\
+$\fu{P}(h)=h'$ is a $\Mod(\thr{SP[X]})$ homomorphism, for each $h: A \to B \in \Mod(\thr{X})$. We have that $h'_s(\omega(\overline{x}))= \emptyset \subseteq \omega(h_s'^*(\overline{x}))$ for $s \in \Sigma' \setminus \Sigma$. For $s \in \Sigma$ we have that $h'_s(\omega(\overline{x}))= h'_s(s^{A'}) \subseteq s^{B'} \omega(\overline{h'_{s'}(x)})$, if $\omega \in \Sigma' \setminus \Sigma$ and $h'(\omega(\overline{x}))= h(\omega(\overline{x}))\subseteq \omega(h^*(\overline{x})) = \omega(h^*(\overline{x}))$, for $\omega \in \Sigma$
+
+Suppose that $h:A \to B$ is a $\Mod(\thr{X})$ homomorphism, we have to show that $\fu{P}(h)=h'$ is a $\Mod(\thr{SP[X]})$ homomorphism.
+	\begin{itemize}
+	\item If $\overline{x} \in |A|$ and $\omega:\overline{s} \to s \in \Sigma$ is:
+		\[ h'(\omega)^{A'}(\overline{x})) = h'(\omega)^A(\overline{x})) = h(\omega^A(\overline{x})) \subseteq \omega^B(\overline{h(x)}) = \omega^{B'}(\overline{h'(x)}), \]
+	\item if $\omega:\overline{s} \to s$ and  $ s \not\in \Sigma$: 
+	\[h'(\omega^{A'}(\overline{x})) = h'(\emptyset) = \emptyset = \omega^{B'}(\overline{h'(x)}) \]
+	\item else $\omega:\overline{s} \to s$, $ s \in \Sigma$ and $\overline{x}  \not\in |A|$ : 
+	\[h'(\omega^{A'}(\overline{x})) = h'(s^A) \subseteq s^B = \omega^{B'}(\overline{h'(x)}) \]
+	\end{itemize}
+\end{PROOF}
+		
+Note that the construction $\fu{N}$ also holds if we add axioms like $\omega'(\overline{x}) \prec \omega(\overline{x})$ where $\omega'\in \Sigma' \setminus \Sigma$.
+
+
+
+We will now give an example where nondetreminism give usefull semantics for the specification:
+
+
+\begin{example}
+Specification of set with distinguished subset
+
+\(
+	\spec{
+	\tit{\mbox{\bf spec\ Set}^{\inst{MA}}=} \\
+		\Sorts: && S \\
+	}
+\)
+
+
+
+We will now specify a filter over $Set$:
+
+\( 
+	\spec{
+	\tit{\mbox{\bf spec\ Filter[SSet]}^{\inst{MA}}=} \\
+		{\bf include\ SSet, Bool}\\	
+		\Ops:   && sub: \to S\\
+			&& insub: S \to Bool\\
+		{\bf det:} && insub\\
+		{\bf axioms:}			
+			&1.& s \prec sub \to insub(s) \eleq true \\
+	}
+\)
+
+$sub$ is a subset of $S$ and $insub$ will give true for all elements in $sub$.
+
+We can now let the natural number be the actual parameter set.
+
+\(
+	\spec{
+	\tit{{\mbox{\bf spec\ Nat}{^+}}^{\inst{MA}}=} \\
+		\Sorts: && Nat \\
+		\Ops:	&& zero \to Nat\\
+			&& succ: Nat \to Nat\\
+			&& + : Nat \times Nat \to Nat \\	
+		{\bf det:} && zero,succ \\
+		{\bf axioms:}			
+			&1.& x + zero \eleq x \\
+%			&2.& x + zero \eleq zero + x \\
+			&3.& x + succ(y) \eleq succ(x + y) \\
+	}
+\)
+
+%Note that axiom 2 above actually is redundant.
+The specification morphism $\mu$ sends $S$ to $Nat$.
+
+Based on the three above specifications we make the following pushout diagram:
+\[\xymatrix{
+	\thr{Set} \ar[d]_{\mu} \ar[rr]^{\nu}
+		&& \thr{Filter[Set]} \ar[d]^{\mu'}	\\
+	\thr{Nat^+} \ar[rr]_{\nu'}
+		&& \thr{Filter[Nat^+]} 	\\
+								}
+\]
+
+%This is a perfectly legal parameter passing diagram, where the specification $\thr{Group[Nat]}$ is given by:
+
+%\( 
+%	\spec{
+%	\tit{\mbox{\bf spec\ Group[Nat]}^{\inst{MA}}=} \\
+%		\Sorts: && nat \\
+%		\Ops:	&& zero \to nat\\
+%			&& succ: nat \to nat\\
+%			&& + : nat \times nat \to nat \\
+%			&& (_-)^-: nat \to nat\\
+%		{\bf det:} && zero,succ,(_-)^- \\
+%		{\bf axioms:}			
+%			&1.& x + zero \eleq x \\
+%			&2.& x + zero \eleq zero + x \\
+%			&3.& x + succ(y) \eleq succ(x + y) \\
+%			&4.& x + (y + z) \eleq (x + y) + z \\
+%			&5.& x + x^- \eleq zero \\
+%	}
+%\)
+
+%It is triviall to check that the natural numbers with addition is a model for $\thr{Nat}$, but it is well known that the natural numbers do not consist a group under addition. One way of making the natural numbers with addition into a group is to freely add new inverses for each natural number, i.e. we get somthing ``similar'' to the group of integers under addition. 
+
+%As the above comment says; given the natural numbers with addition $\nat$ as an actual parameter there is no persistent functor from $\nat$ to $\Mod(\thr{Group[Nat]}$, so in general is there no meaning of talking of a group parameterized by a monoid.
+
+%This example shows that not all parameter passing diagrams can be viewed as (syntax for) parameterizated algebras/datatypes, but the parameter passing diagram works perfectly well for parametrisation of specifications. The example ilustrates the difference between parametrisated specifications and parametrisated algebras.
+
+\end{example}
+ 
+
+\subsection{Parameter passing diagram that not specify parameterizatedalgebras}
+It is well known that not all parameter passing diagrams specify parametrizated datatypes, this fact is illustrated by the following example:
+
+\begin{example}
+Specification of monoids
+
+\(
+	\spec{
+	\tit{\mbox{\bf spec\ Monoid}^{\inst{MA}}=} \\
+		\Sorts: && S \\
+		\Ops:   && m: S \times S \to S \\
+			&& e: \to S \\
+		{\bf det:} && m, e \\
+		{\bf axioms:}			
+			&1.& m(e,s) \eleq m(s,e) \\
+			&2.& m(e,s) \eleq s \\
+			&3.& m(a,m(b,c)) \eleq m(m(a,b),c) \\
+	}
+\)
+
+Note that the operation $m$ is usually called multiplication and the constant $e$ is called the unit under multiplication.
+
+
+
+The specification of a group is as follows:
+
+\( 
+	\spec{
+	\tit{\mbox{\bf spec\ Group[Monoid]}^{\inst{MA}}=} \\
+		{\bf include\ Monoid}\\
+		\Ops:   && (_-)^-: S \to S\\
+		{\bf det:} && (_-)^- \\
+		{\bf axioms:}			
+			&1.& m(a,a^-) \eleq e \\
+	}
+\)
+
+Each element $a$ of the group has an inverse element $a^-$ (w.r.t. multiplication), moreover is the multiplication assosative. Note that we can prove that $m(a^-,a) \eleq e$ in the following way:
+	\[ 
+	\begin{array}{l}
+	m(a^-,a) \eleq m(e,m(a^-,a)) \eleq m(m(a^-,a),e)\eleq m(m(a^-,a),m(a^-,(a^-)^-)) \\
+	 \eleq  m(a^-,m(m(a,(a^-),(a^-)^-))) \eleq  m(a^-,m(e,(a^-)^-))) \eleq m(a^-,(a^-)^-) \eleq e
+	\end{array} \]
+
+As an example, i.e. an implemetion, of the monoid specification we take the specification of the natural numbers with addition. 
+
+\(
+	\spec{
+	\tit{\mbox{\bf spec\ Nat}^{\inst{MA}}=} \\
+		\Sorts: && Nat \\
+		\Ops:	&& zero \to Nat\\
+			&& succ: Nat \to Nat\\
+			&& + : Nat \times Nat \to Nat \\	
+		{\bf det:} && zero,succ \\
+		{\bf axioms:}			
+			&1.& x + zero \eleq x \\
+%			&2.& x + zero \eleq zero + x \\
+			&3.& x + succ(y) \eleq succ(x + y) \\
+	}
+\)
+
+%Note that axiom 2 above actually is redundant.
+The specification morphism $\mu$ sends $S$ to $Nat$, $e$ to $zero$ and $m$ to $+$ 
+
+Based on the three above specifications we make the following pushout diagram:
+\[\xymatrix{
+	\thr{Monoid} \ar[d]_{\mu} \ar[rr]^{\nu}
+		&& \thr{Group[Monoid]} \ar[d]^{\mu'}	\\
+	\thr{Nat^+} \ar[rr]_{\nu'}
+		&& \thr{Group[Nat]} 	\\
+								}
+\]
+
+This is a perfectly legal parameter passing diagram, where the specification $\thr{Group[Nat]}$ is given by:
+
+\(
+	\spec{
+	\tit{\mbox{\bf spec\ Group[Nat]}^{\inst{MA}}=} \\
+		\Sorts: && nat \\
+		\Ops:	&& zero \to nat\\
+			&& succ: nat \to nat\\
+			&& + : nat \times nat \to nat \\
+			&& (_-)^-: nat \to nat\\
+		{\bf det:} && zero,succ,(_-)^- \\
+		{\bf axioms:}			
+			&1.& x + zero \eleq x \\
+			&2.& x + zero \eleq zero + x \\
+			&3.& x + succ(y) \eleq succ(x + y) \\
+			&4.& x + (y + z) \eleq (x + y) + z \\
+			&5.& x + x^- \eleq zero \\
+	}
+\)
+
+It is triviall to check that the natural numbers with addition is a model for $\thr{Nat}$, but it is well known that the natural numbers do not consist a group under addition. One way of making the natural numbers with addition into a group is to freely add new inverses for each natural number, i.e. we get somthing isomorph to the group of integers under addition. 
+
+As the above comment says; given the natural numbers with addition $\nat$ as an actual parameter there is no persistent functor from $\nat$ to $\Mod(\thr{Group[Nat]})$, so in general is there no meaning of talking of a group parameterized by a monoid.
+
+This example shows that when restricted to persistent constructions can not all parameter passing diagrams be viewed as (syntax for) parameterizated algebras/datatypes, but the parameter passing diagram works perfectly well for parametrisation of specifications. This example ilustrates the difference between parametrisated specifications and parametrisated algebras in the traditionally way. In the next section will generalize the definition of parameterizated datatype such that this example could be viewd as an parameterizated datatype.
+
+\end{example}
+
+
+
+
+%\section{Signatures with predicate to each sort}
+
+%A signature is an ordinary signature with an added constant to each sort. We will write sorts with a capital first letter and the added constant will have the same name as the sort but will be written with smal first letther.
+
+
+
+
+%\begin{example}
+%Specification for the natural numbers.
+
+%\( 
+%	\spec{
+%	\tit{\mbox{\bf spec\ Nat}^{\inst{MA}}=} \\
+%		\Sorts: && Nat \\
+%		\Ops:   && zero: \to Nat\\
+%			&& succ: Nat \to Nat \\
+%			&& \sort{nat}: \to Nat \\
+%		{\bf det:} && zero,succ \\
+%		{\bf axioms:}			
+%			&1.& x \prec \sort{nat} \\
+%	}
+%\)
+
+%Usikker paa om aksiom 1 skal vaere med eller om det skal legges til p{\aa} semantisk niv{\aa}, men det skal uansett holde semantiskt
+%\end{example}
+
+%A signature morphism is almost as an ordinary signature morphism. For the sort $\mu(S)$ will there be two constants $\sort{\mu(s)_n}$ and $\sort{\mu(s)_o}$ where $\sort{\mu(s)_n}$ is the ``new'' constant for $\mu(s)$ and $\sort{\mu(s)_o}$ is the ``old'' translated constant. The translation of axioms is weakened to hold only for variables of the old kind.
+
+
+
+
+
+%\begin{example}
+%Specification of stacks parameterized by (arbitrary) elements.
+
+%\( 
+%	\spec{
+%	\tit{\mbox{\bf spec\ El}^{\inst{MA}}=} \\
+%		\Sorts: El
+%		\Ops: \sort{el} \to EL
+%	}
+%\)
+
+%Note that the class of {\bf El} algebras consists of all sets.
+
+%\( 
+%	\spec{
+%	\tit{\mbox{\bf spec\ Stack[El]}^{\inst{MA}}=} \\
+%		{\bf include\ El}\\
+%		\Sorts:	&& Stack \\
+%		\Ops:   && empty: \to Stack\\
+%			&& top:Stack \to El\\
+%			&& pop:Stack \to Stack\\
+%			&& push:El \times Stack \to Stack\\
+%			&& \sort{stack} \to Stack\\
+%		{\bf det:} && empty \\
+%		{\bf axioms:}			
+%			&1.& push(x,s) \eleq push(x,s) \To top(push(x,s)) \eleq x\\
+%			&2.& push(x,s) \eleq push(x,s) \To pop(push(x,s)) \eleq s
+%	}
+%\)
+
+%Denne spesifikasjonen burde egentlig se ut noe som denne:
+
+
+%\( 
+%	\spec{
+%	\tit{\mbox{\bf spec\ Stack[El]}^{\inst{MA}}=} \\
+%		{\bf include\ El}\\
+%		\Sorts:	&& Stack \\
+%		\Ops:   && empty: \to Stack\\
+%			&& top:Stack \to El\\
+%			&& pop:Stack \to Stack\\
+%			&& push:El \times Stack \to Stack\\
+%			&& \sort{el_o} \to EL \\
+%			&& \sort{el_n} \to EL \\
+%		{\bf det:} && empty \\
+%		{\bf axioms:}			
+%			&1.& push(x,s) \eleq push(x,s) \To top(push(x,s)) \eleq x\\
+%			&2.& push(x,s) \eleq push(x,s) \To pop(push(x,s)) \eleq s
+%	}
+%\)
+%We will denote the specification inclusion from $\thr{El}$ to $\thr{Stack(El)}$ by $\iota$.
+
+%Here is an specification for the natural numbers that will be used as an actuall parameter for $\thr{El}$.
+
+
+%\( 
+%	\spec{
+%	\tit{\mbox{\bf spec\ Nat}^{\inst{MA}}=} \\
+%		\Sorts: && Nat \\
+%		\Ops:	&& zero \to Nat\\
+%			&& succ: Nat \to Nat\\	
+%		{\bf det:} && zero,succ \\
+%	}
+%\)
+
+%It is a specification morphism $\mu: {\bf El \to \bf Nat}$ defined by $\mu(el)= nat$
+%The specification of stacks of natural numbers is given by the coresponding pushout i.e. the following commuting diagram:
+
+%\[ \xymatrix{
+%	\thr{El} \ar[d]_{\mu} \ar[rr]^{\nu}
+%		&& \thr{Stack[El]} \ar[d]^{\mu'}	\\
+%	\thr{Nat} \ar[rr]_{\nu'}
+%		&& \thr{Stack[Nat]} 	\\
+%								}
+%\]
+%It means that $\thr{Stack[Nat]}$ is given by:
+
+%\( 
+%	\spec{
+%	\tit{\mbox{\bf spec\ Stack[Nat]}^{\inst{MA}}=} \\
+%		{\bf include Nat}\\
+%		\Sorts:	&& Stack \\
+%		\Ops:   && empty: \to Stack\\
+%			&& top:Stack \to nat\\
+%			&& pop:Stack \to Stack\\
+%			&& push:nat \times Stack \to Stack\\
+%		{\bf det:} && empty \\
+%		{\bf axioms:}			
+%			&1.& push(x,s) \eleq push(x,s) \To top(push(x,s)) \eleq x\\
+%			&2.& push(x,s) \eleq push(x,s) \To pop(push(x,s)) \eleq s
+%	}
+%\)
+
+%We will first illustrate that actually multialgebras are a generalisation of partial algebras.
+%Given the natural numbers $\nat$ as a $\thr{Nat}$ algebra, a $\thr{Stack[Nat]}$ algebra could be defined as the algebra $S$ where:
+
+%\( 
+%	\spec{
+%	\tit{\mbox{\bf S}=} \\
+%		\Sorts:	&& stack^S= \{empty \cup s : s = push(x,s'),  s' \in stack^S, x \in nat \} \\
+%			&& nat^S = \nat \\
+%		\Ops:   && empty^S = empty\\
+%			&& push(x,s)^S= push(x,s)\\
+%			&& top^S \mbox{is defined by} 
+%				\left\{\begin{array}{ll}
+%				top(empty)^S= \emptyset \\
+%				top(push(x,s))^S= x\\
+%				\end{array}\right. \\
+%			&& pop^S \mbox{is defined by}
+%			\left\{\begin{array}{ll}
+%				pop(empty)^S= \emptyset \\
+%				pop(push(x,s))^S = s\\
+%				\end{array}\right. \\
+%	}
+%\)
+%\end{example}
+
+%\newpage
+%\section{Forgetfull reduct}
+
+%We will change the notion of reduct over a theory morphism to specify parameterizated data types. By our means is protection of the parameter a fundamental aspect of parameterization.
+
+%The idea is that if we have a free functor $\fu{F}$ then the forgetfull reduct of $\fu{F}(A)$ should be a algebra isomorphic to $A$. Any functor that satisfies that the forgetfull reduct of the functor is the identity is a legal semantic for a parameterizated datatype.
+%The forgetfull reduct is a partial construction, this is defended by that not all algebras can be viewed as paramtrizated algebras.
+
+%\begin{example}
+%\( 
+%	\spec{
+%	\tit{\mbox{\bf spec\ Nat}^{\inst{MA}}=} \\
+%		\Sorts: && Nat \\
+%		\Ops:	&& zero \to Nat\\
+%			&& succ: Nat \to Nat\\	
+%	}
+%\)
+
+
+%The specification of stacks of natural numbers is given by the coresponding pushout i.e. the following commuting diagram:
+
+%\[ \xymatrix{
+%	\thr{El} \ar[d]_{\mu} \ar[rr]^{\nu}
+%		&& \thr{Stack[El]} \ar[d]^{\mu'}	\\
+%	\thr{Nat} \ar[rr]_{\nu'}
+%		&& \thr{Stack[Nat]} 	\\
+%								}
+%\]
+%It means that $\thr{Stack[Nat]}$ is given by:
+
+%\( 
+%	\spec{
+%	\tit{\mbox{\bf spec\ Stack[Nat]}^{\inst{MA}}=} \\
+%		{\bf include Nat}\\
+%		\Sorts:	&& Stack \\
+%		\Ops:   && empty: \to Stack\\
+%			&& top:Stack \to nat\\
+%			&& pop:Stack \to Stack\\
+%			&& push:nat \times Stack \to Stack\\
+%		{\bf axioms:}			
+%			&1.& \To top(push(x,s)) \eleq x\\
+%			&2.& \To pop(push(x,s)) \eleq s
+%	}
+%\)
+
+%for each $\Mod(\thr{Nat})$ algebra $N$, we have the free functor $\fu{F}:\Mod(\thr{Nat})\to \Mod(\thr{Stack[Nat]})$, defined by:
+%$Nat^{\fu{F}(N)}= Nat^N \union top{empty}, top(top(empty)),...$ and, $Stack^{\fu{F}(N)}= push(empty,x), x \in Nat^{\fu{F}(N)}$, the forgetfull reduct is the algebra $N$
+
+%\end{example}
+
+%\begin{definition}
+%The forgetfull reduct of an $\Mod(\thr{Sp'})$ algebra $A'$ along a specification morphism $\mu: \thr{Sp} \to \thr{Sp'}$ is the $\thr{Sp}$ structure $A' \dagger_{\mu}$ defined by $s^{A' \dagger_{\mu}} = \{ x \in \mu(s)^{A'}: x = \mu(t)^{A'}, \mbox{ for some } t \in T(\Sigma)\}$, $\omega(\overline{x})^{A' \dagger_{\mu}}= \mu(\omega)(\overline{x})^{A'} $
+%\end{definition}
+
+%Note that the forgetfull reduct is a junk free algebra.
+
+%Alternativ og forsj{\aa}vidt tullete definisjon
+%\begin{definition}
+%The forgetfull reduct of an $\Mod(\thr{Sp'})$ algebra $A'$ along a specification morphism $\mu: \thr{Sp} \to \thr{Sp'}$ is the $\thr{Sp}$ structure $A' \dagger_{\mu}$ defined by $s^{A' \dagger_{\mu}} = \mu(s)^{A'} \setminus \{x \in \mu(s)^{A'}: x \neq \mu(t), \mbox{ for some } t \in T(\Sigma) \mbox{ and } x = t \mbox{ for some } t \in T(\Sigma' \setminus \Sigma) \}$, $\omega(\overline{x})^{A' \dagger_{\mu}}= \mu(\omega)(\overline{x})^{A'} $
+%\end{definition}
+
+%\begin{fact}
+%The forgetfull reduct along $\mu:\thr{SP} \to \thr{Sp'}$ is a $\Mod(\thr{Spec})$ algebra.
+%\end{fact}
+
+%\begin{PROOF}
+%When $A' \in \Mod(\thr{Sp'})$ and $SP= (\Sigma,\Phi)$, is $A' \dagger_{\mu}$ obviously a $\Sigma$ algebra. 
+% $A' \dagger_{\mu} \models \phi$, for each $\phi \in \Phi$. Supose that $\phi$ is the axiom: $\omega(\overline{x})= \xi(\overline{y})$, since $\mu$ is a theory morphism and $A' \in \Mod(\thr{Sp'})$ we have that:
+%	\[ \begin{array}{ll}
+%			& A' \models \mu(\phi)\\
+%		\Leftrightarrow
+%			& A' \models \mu(\omega)(\overline{x})= \mu(\xi)(\overline{y}) \\
+%		\Leftrightarrow
+%			& \mu(\omega)(\overline{x})^{A'}= \mu(\xi)(\overline{y})^{A'}, \forall \overline{x}, \overline{y} \in A' \\
+%		\Rightarrow
+%			& \mu(\omega)(\overline{x})^{A'}= \mu(\xi)(\overline{y})^{A'}, \forall \overline{x}, \overline{y} \in A'\dagger_{\mu} \\
+%		\Leftrightarrow
+%			& \omega(\overline{x})^{A'\dagger_{\mu}}= \xi(\overline{y})^{A'\dagger_{\mu}} \\
+%		\Leftrightarrow
+%			& A'\dagger_{\mu} \models \phi \\
+%	\end{array} \]
+%\end{PROOF}
+
+
+
+%\begin{definition} A partametrizated datatype over a specification morphism $\mu: \thr{Sp} \to \thr{Sp'}$ is a functor $\fu{F}:\Mod(\thr{Sp}) \to \Mod(\thr{Sp'}$, satisfying $\fu{F}(A) \dagger_\mu = A, \forall A \in \Mod(\thr{Sp})$
+%\end{definition}
+
+
+%Given a parameter passing diagram and a parametrizated datytype we define parameter passing a along the diagram by the functor $F'$:
+
+%\[ \xymatrix{
+%	\thr{X} \ar[d]_{\mu} \ar[rr]^{\nu}
+%		&& \thr{Sp[X]} \ar[d]^{\mu'}	\\
+%	\thr{Y} \ar[rr]_{\nu'}
+%		&& \thr{Sp[Y]} 	\\
+%								}
+%\]
+
+%\[ \xymatrix{
+%	\Mod(\thr{X}) \ar[rr]^{\fu{F}}
+%		&& \Mod(\thr{Sp[X]}) \\
+%	\Mod(\thr{Y}) \ar[rr]_{\fu{F}'} \ar[u]^{|_\mu}
+%		&& \Mod(\thr{Sp[Y]}) \ar[u]_{|_\mu'} 	\\
+%								}
+%\]
+
+%	\begin{enumerate}
+%	\item For all algebras $Y \in \Mod(\thr{Y})$ by $SP[Y]$, where $SP[Y]$ is the $\thr{Sp[Y]}$ algebra defined by:
+%	\item For all...
+%	\end{enumerate}
+
+%\begin{definition} The class of partameterizated algebras over a specification morphism $\mu: \thr{Spec} \to \thr{Spec'}$ is the subclass $\{A \in \Mod(\thr{Spec'}):A \dagger_{\mu} \in \Mod(\thr{Spec})\}$
+%\end{definition}
+
+
+%We may demand that all sorts of $Y$ is in the image of $\mu$
+
+
+

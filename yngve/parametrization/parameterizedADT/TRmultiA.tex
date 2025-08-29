@@ -1,0 +1,865 @@
+
+\section{Introduction}
+The concept of institutions \cite{inst} has become the standard framework for presenting
+model-theoretic aproaches to logic and, in particular, to algebraic
+specification. 
+
+In this paper we show that the multialgebras form an exact institution
+$\inst{MA}$.  We prove that $\inst{MA}$ is an institution in
+section~\ref{se:instMA}.  In section~\ref{se:exact} we show that the model
+functor for multialgebras $\fu{Mod}_{\inst{MA}}$ sends finite co-limits in
+$\cat{Th}$ (category of specifications) to limits in $\cat{Cat}$,
+i.e. $\inst{MA}$ is an exact institution \cite{statestruct} (called
+institution with composable signatures in \cite{stateinst}). We also mention
+the well known fact that every exact institution satisfies the amalgamation
+lemma. The results are not used in this paper but they form a basis for
+subsequent work on structuring multialgebras and their specifications, in
+particular, on amalgamation and parameterized multialgebras. 
+In study of
+parameterizated specifications the co-limits (actually pushouts)
+are used for defining parameter instantiation. The exactness of the model
+functor (actually the amalgamation lemma) ensures that corresponding
+instantiation can be performed at the semantic level.
+
+We begin, in section~\ref{se:pre}, by presenting the background definitions of
+multilagebras and collecting the relevant definitions and results about institutions.
+
+\section{Preliminaries}\label{se:pre}
+
+\subsection{Notation}
+We use the notation $|${\cat{C}}$|$ to denote the objects of a category
+\cat{C}. The same notation is used to denote the carrier $|A|$ of an algebra
+$A$. (This shouldn't cause any confusion.)  Institutions are written with
+the script font $\inst{I}$, categories with bold $\cat{Cat}$, and functors with
+Sans Serif $\fu{Func}$.
+
+Since specifications is categories we write $\thr{Spec}$ for ordinary specifications.
+%, $\thr{Par[X]}$ denote a specification parametrized by specification$\thr{X}$, note that we us $[]$ as parentheses.
+ Sequences $s_1, \ldots, s_k$ will be often denoted
+by $\overline{s}$. Application of functions are then understood to not
+distribute over the elements, i.e., $f(\ovr s)$ denotes the term
+$f(s_1,\ldots, s_k)$.  
+Occasionally, a sequence $s_1 \ldots s_k$ may be denoted by $s^*$ -- 
+applications of functions are then understood to
+distribute over the elements, i.e., $f(s^*)$ denotes the sequence
+$(f(s_1),\ldots, f(s_k))$. We will denote the disjoint union of sets $A,B$ by $A \uplus B$.
+
+\subsection{Algebraic Signatures}
+
+ % In the following sections, we will identify and use various
+%sub institutions of $\inst{MA}$.
+%\fixx{only sub institution?}\\
+Signatures for multialgebras are the same as classical {\it algebraic signatures}.
+%
+\begin{definition}\label{de:Sign}
+The category of signatures $\Sign$ has:
+\begin{itemize}\MyLPar
+\item signatures as objects: a signature
+$\Sigma$ is a pair of sets $(\Sorts,\Ops)$ of symbols for names of sorts and
+operations. Each operation symbol $\omega\in\Ops$ is a (k+2)-tuple:
+$\omega : s_1 \times \cdots \times s_k \to s$,
+where {$s_1, \ldots , s_k,s \in S$ and $k \geq 0$}.  $\omega$ is the
+{\it name} of the operation and $s_1 \times \ldots \times s_k \to s$ its {\it
+arity}. If $ k=0$ then an operation $c: \to s$ is called a {\it constant} of
+sort $s$.
+\item  signature morphisms as arrows: 
+a signature morphism $\mu: \Sigma \to \Sigma'$ is a pair $\mu = (\mu_S,
+\mu_{\Omega})$ of (total) functions:
+$\mu_S: S \to S'$, $\mu_{\Omega}: \Ops \to \Ops'$, 
+such that 
+$ \mu_{\Omega}(\omega:s_1 \times \cdots \times s_n \to s) =
+\omega':\mu_S(s_1) \times \cdots \times \mu_S(s_n) \to \mu_S(s)$
+\item
+Identities are the identity
+signature morphisms and morphism are composed component-wise.
+\end{itemize}
+\end{definition}
+%
+In the standard way, 
+we extend the signature morphism $\mu : \Sigma \to \Sigma'$ to terms, we use the notation $\TermsSX$ for the $\Sigma$ terms with $X$ as variables.
+
+\begin{definition} Extension of a
+signature morphism $\mu$ to terms ${\tilde{\mu}} : \TermsSX \to \Terms{\Sigma',X'}$ is defined by:
+\begin{itemize}\MyLPar
+\item ${\tilde{\mu}} (x_s) = x_{\mu (s)}$, for each variable $x_s \in X_s$
+\item ${\tilde{\mu}} (c) = \mu(c)$
+\item ${\tilde{\mu}} (\omega(t_1, \ldots ,t_n )) = \mu(\omega)({\tilde{\mu}}(t_1), \ldots , {\tilde{\mu}}(t_n))$
+\end{itemize}
+\end{definition}
+In general variables can be renamed too, but (without loss of generality) we simplify the presentation. 
+%The extra subscript for variables prevents name clash. 
+We will write $\mu(t)$
+instead of ${\tilde{\mu}}(t)$, for terms $t \in \TermsSX$.
+
+\subsubsection{Algebraic signatures have all finite co-limits}\label{sub:sign}
+It is well known that the category of algebraic signatures is co-complete,
+see e.g. \cite{fundamental1}. We are merely restating here this standard fact.
+ Limiting our
+attention to finite co-limits, 
+it is sufficient to consider the existence of initial object, co-products (sums) and co-equlizers
+(see e.g. \cite{cat}).
+Since
+multialgebras use algebraic signatures all these results will also hold
+for multialgebric signatures, $\cat{Sign_{\inst{MA}}}$.
+
+\begin{fact}
+The empty signature, $\Sigma_{\emptyset}$ is initial in $\cat{Sign}$
+\end{fact}
+
+\begin{fact}
+The sum of two signatures; $\Sigma + \Sigma'$ is the disjoint union (of sorts
+and operations), with the natural injections.
+\end{fact}
+
+\begin{fact}
+Given two signature morphims $\mu,\nu:\Sigma \to \Sigma'$, let $\kernel{}$ be the least equivalence on $\Sigma'$ induced by the relation with components:
+	\begin{itemize}
+	\item Sorts: $\kernel{S'}= \{ \langle \mu(s),\nu(s) \rangle: s \in \Sigma \}$,
+	\item Operations $\kernel{\Omega'}= \{ \langle \mu(\omega), \nu(\omega) \rangle : \omega \in \Omega \}$
+	\end{itemize} 
+
+Then $\qu{\Sigma'}{\kernel{}}$ is a co-equalizer object, with canonical
+signature morphim $\iota: \Sigma' \to \qu{\Sigma'}{\kernel{}}$,
+and we have that $\comp{\mu}{\iota} =
+\comp{\nu}{\iota}$, by construction.
+
+Note that if $\sigma:\Sigma' \to Z$ is a signature morphism such that
+$\comp{\mu}{\sigma}= \comp{\nu}{\sigma}$, then the kernel of $\sigma$ has to
+include $\kernel{}$, so the signature morphism $u_{\sigma}:
+\qu{\Sigma'}{\kernel{}} \to Z$, defined by $u_{\sigma}([s']_{\kernel{}})=
+\sigma(s')$ and $u_{\sigma}([\omega']_{\kernel{}})= \sigma(\omega')$ is the
+unique factorization arrow.
+\end{fact}
+
+\begin{fact} \cite{fundamental1}
+The category $\cat{Sign}$ of algebraic signatures  has all (finite) co-limits.
+\end{fact}
+
+\subsection{Multialgebras}
+We will now summarize the relevant notions about multialgebras (for an
+overview, see \cite{multi,catrel}).
+
+A multialgebra for a signature $\Sigma$ is an algebra where operations may be
+set-valued. ${\mathcal{P}}(y)$ denotes the power set of set $y$.
+
+\begin{definition}\label{def:ma}
+(Multialgebra) A multialgebra $A$ for $\Sigma$ is given by:
+\begin{itemize}
+\item  a set $s^A$, the carrier set, for each sort symbol $s\in\Sorts$
+\item  a subset $ c^A \in {\mathcal{P}}(s^A)$, for each constant, $c:\to s$
+\item an operation $\omega^A : s_1^A \times \cdots \times s_k^A \to {\mathcal{P}}(s^A)$
+	for each symbol $\omega : s_1\times\cdots\times s_k \to s \in \Ops$
+\end{itemize}
+\end{definition}
+One sometimes demands that constants and operations are total
+\cite{multi,toplas}, i.e. never return empty set and take values only in
+${\mathcal{P}}^+ (s^A)$, the nonempty subsets of $s^A$. We will not make this
+assumption.% unless else is stated.
+
+Note that for a constant $c \in \Ops$, $c^A$ denotes a (sub)set of the
+carrier $s^A$. This allows one to use constants as predicates as was done,
+for instance, in \cite{partial}. 
+
+As homomorphisms of multialgebras, we will use weak homomorphisms (see
+\cite{catrel} for alternative notions).
+\begin{definition}Given two multialgebras $A$ and $B$, 
+a function $h: |A| \to |B|$ is a (weak) homomorphism if:
+\begin{enumerate}
+\item $h(c^A) \subseteq c^B$, for each constant $c: \to s$ 
+\item $h(\omega^A(a_1 , \ldots , a_n)) \subseteq\omega^B(h(a_1), \ldots ,h(a_n))$,
+for each operation  $\omega:s_1\times\cdots\times s_n\to s\in\Ops$ and for all $a_i \in s_{i}^A$.
+\end{enumerate}
+\end{definition}
+Saying ``homomorphism'' we will always mean weak homomorphism.
+%, unless something else is stated.
+
+\begin{definition} 
+The category of $\Sigma$-multialgebras, $\MAS$, has $\Sigma$-multialgebras as
+objects and homomorphisms as arrows.  The identity arrows are the identity
+homomorphisms and composition of arrows is obvious composition of
+homomorphisms.
+\end{definition} 
+Multialgebraic specifications are written using the following formulae:
+%
+\begin{definition}\label{def:masen}
+Formulae of multialgebraic specifications are of the following forms:
+%{\bf{Atomic formula}}:
+\begin{enumerate}\MyLPar
+\item Atomic formulae, suppose $t, t' \in \TermsSX$:
+\begin{itemize}\MyLPar
+\item $t \eleq  t'$ (equality), $t$ and $t'$ denote the same one-element set.
+\item $t \prec t'$ (inclusion), the set interpreting $t$ is included in
+the set interpreting $t'$.
+\end{itemize}
+\item $a_1 , \ldots ,a_n \To b_1 , \ldots ,b_m$, where either $n>0$ or $m>0$ and
+each $a_i$ and $b_j$ is atomic.
+\end{enumerate}
+%The first two are called atomic formulae.
+\end{definition}
+%
+Given a set of variables $X$, an assignment is a function $\alpha: X \to |A|$ 
+assigning {\em individual} elements of the carrier of $A$ to variables. It induces a unique
+interpretation $\overline{\alpha}: T(\Sigma(X)) \to A$ of every term $t$
+(with variables from $X$) in
+$A$.
+\begin{definition} Given a $\Sigma$-multialgebra $A$, an {\it assignment} to 
+variables $X$ is a function $\alpha:X \to |A|$. An assignment induces a
+unique interpretation $\overline{\alpha}(t)$ in $A$ of any term $t \in \TermsSX$ as
+follows:
+\begin{itemize}\MyLPar
+\item $\ovr\alpha(x)=\{\alpha(x)\}$
+\item $\ovr\alpha(c)=c^A$
+\item $\ovr\alpha(\omega(t_1 , \ldots ,t_n)) = \bigcup_{a_{i}\in\ovr\alpha(t_{i})}\omega^A(a_1 , \ldots ,a_n)$
+\end{itemize}
+\end{definition}
+Keep in mind that variables are assigned not sets but individual
+elements of the carrier. 
+We will write $\alpha(t)$ instead of $\ovr\alpha(t)$.
+ 
+Satisfaction of formulae in a multialgebra is defined as follows:
+\begin{definition}\label{de:sat}
+Given an assignment $\alpha:X\to|A|$:
+\begin{enumerate}
+\item $A \models_\alpha t \eleq  t'\ {\rm iff\ } \ovr{\alpha}(t)
+=\overline{\alpha}(t') = \{e\},\ {\rm fore\ some element\ } e \in |A|$
+\item $A \models_\alpha t \prec t'\ {\rm iff\ } \ovr{\alpha}(t) \subseteq \overline{\alpha}(t')$
+\item $ A \models_\alpha a_1 , \ldots ,a_n \To  b_1 , \ldots ,b_m\ {\rm iff\ }
+\exists i: 1 \leq i \leq n : A \not\models_\alpha a_i\ {\rm or\ } \exists j: 1 \leq j \leq m : A \models_\alpha b_j$
+\item $A \models \varphi\ {\rm iff\ } A \models_\alpha \varphi\ {\rm for\ all\ } \alpha$
+\end{enumerate}
+\end{definition}
+%
+Putting these definitions together, we show (in section~\ref{se:instMA}) that
+the multialgebras form an institution $\inst{MA}$. Before that we recall the
+standard concepts of institution and some results which will be relevant for
+us in investigating the institution of multialgebras.
+
+ 
+
+\subsection{Institutions}\label{se:inst}
+
+\begin{definition}\label{de:inst} \cite{inst} 
+An institution is a quadruple $\inst{I} = (\Sign,\Sen,\Mod,\models)$, where:
+	\begin{itemize}
+\item $\Sign$ is a category of signatures.  
+\item $\Sen: \Sign \to \Set$ is a functor which associates a set of {\it sentences} to each signature.
+\item $\Mod:\Sign^{op} \to \cat{Cat}$ is a functor which associates a
+category of {\it models}, whose morphisms are called $\Sigma$-morphisms, to
+each signature $\Sigma$
+\item $\models$ is a satisfaction relation -- for each signature $\Sigma$, a relation
+ $\models_{\Sigma} \subseteq |\Mod(\Sigma)| \times
+\sen(\Sigma)$, such that the following {\it satisfaction condition} holds:
+for any $M' \in \Mod(\Sigma'), \mu: \Sigma \to \Sigma' , \phi \in \sen(\Sigma)$
+ 
+  \[ M' \models_{\Sigma'} \Sen(\mu)(\phi) \mbox{ iff } \Mod(\mu)(M') \models_{\Sigma} \phi\]
+	\end{itemize}
+\end{definition}
+%
+The definition can be represented as the following diagram:
+
+\[\xymatrix{
+	\Sigma \ar[d]_{\mu}
+		& {\Mod}(\Sigma)
+			& \models_{\Sigma}
+				& \Sen(\Sigma) \ar[d]^{\Sen(\mu)}	\\
+	\Sigma'
+		& {\Mod}(\Sigma') \ar[u]_{{\Mod}(\mu)}
+			& \models_{\Sigma'}
+				& \Sen(\Sigma')			\\
+								}
+\]
+
+The following subsections review
+institution independend concepts and results which will be
+used in the later section.
+
+
+
+\subsubsection{Category of specifications}\label{sub:catspec}
+Based on the above satisfaction relation for institutions (definition~\ref{de:inst}) we write: $\Gamma \models_{\Sigma}
+ \varphi \mbox{ iff } \forall M \in \Mod(\Sigma): M \models_{\Sigma} \Gamma
+ \Rightarrow M \models_{\Sigma} \varphi $.  With this in mind we write
+ $\Gamma^{\bullet}$ for the semantical consequences of $\Gamma$
+ i.e. $\Gamma^{\bullet} = \{ \varphi: \Gamma \models \varphi \}$
+ 
+A {\em theory} (specification) in an institution is any pair
+${Th}=(\Sigma,\Gamma)$ where $\Sigma\in\obj{\Sign}$ and $\Gamma\subseteq
+\sen(\Sigma)$. For a given institution $\inst{I}$, we have the corresponding
+category of theories $\cat{Th}$ (possibly indexed by the institution,
+$\cat{Th_{\inst{I}}}$) with theories as objects and theory morphisms
+$\mu:(\Sigma,\Gamma) \to (\Sigma',\Gamma')$, where $\mu:\Sigma \to \Sigma'$,
+is a signature morphism such that: $\Gamma'
+\models_{\Sigma'} \sen(\mu)(\Gamma)$.  The models for the theory
+${Th}=(\Sigma,\Gamma)$ is the full sub category
+$\Mod_{\models}(\Sigma,\Gamma)$ of $\Mod(\Sigma)$ where $M \in
+\Mod_{\models}(\Sigma,\Gamma) \mbox{ iff } M \models_{\Sigma} \varphi,
+\forall \varphi \in \Gamma$, we will write $\Mod(\Sigma,\Gamma)$ instead of
+$\Mod_{\models}(\Sigma,\Gamma)$.  The satisfaction condition gives that
+$\Mod(\mu)(\Mod(\Sigma',\Gamma')) \subseteq$ % \thr{Th}
+$\Mod(\Sigma,\Gamma)$, for each morphism $\mu:(\Sigma,\Gamma) \to (\Sigma',\Gamma') \in \thr{Th}$. This means that the functor $\Mod$ can be
+extended to a functor $\Mod_{\models}:\cat{Th}^{op} \to \cat{Cat}$. There is
+a canonic projection (forgetful) functor $\fu{Sign}:\thr{Th} \to \cat{Sign}$ and there is
+an embedding functor $\fu{th}: \cat{Sign} \to \thr{Th}$ defined by
+$\fu{th}(\Sigma)= (\Sigma,\emptyset)$.
+% A theory morphism $\mu:(\Sigma,\Gamma) \to (\Sigma',\Gamma')$ is called axiom preserving if $\mu(\Gamma) \subseteq \Gamma'$. This defines the sub category $\thr{Th_0}$ with theories as objects and axiom preserving theory morphisms as morphisms.
+
+%\begin{definition}
+%Given a functor $\fu{\Phi}:\thr{Th_0} \to \thr{Th_0'}$ and a natural
+%transformation $\alpha: \fu{Sen} \Rightarrow \fu{Sen'} \circ \fu{\Phi}$, $\fu{\Phi}$ is
+%$\alpha$-sensible iff:
+%\begin{itemize}
+%	\item There is a functor $\fu{\Phi^{\diamond}}:\fu{Sign} \to \fu{Sign'}$ such that $\fu{sign'} \circ \fu{\Phi} =\fu{\Phi^\diamond}  \circ  \fu{sign}$
+%	\item $(\Gamma')^\bullet = (\emptyset'_{\Sigma} \cup \alpha_{\Sigma}(\Gamma))^{\bullet}$
+%\end{itemize}
+%Where we denote the set of axioms induced by $\fu{\Phi}(\Sigma)$ by $\emptyset'_{\Sigma}$.
+%\end{definition}
+%
+
+\subsubsection{Construction of co-limits of specifications}
+The following institution independent result ensures that the category of
+specifications has all co-limits if the signature category has.  This
+result is used to create co-limits of specifications by first creating the
+co-limit for the coresponding signatures.
+
+
+\begin{theorem} \cite{inst}
+\label{teo:reflects}
+The functor  $\fu{Sign}: \thr{Th} \to \thr{Sign}$ reflects co-limits, in any institution $\inst{I}$.
+\end{theorem}
+As a particular case, the theorem means that:
+Given specifications $\thr{X}=(\Sigma,\Phi)$, $\thr{X^1}=(\Sigma^1,\Phi^1)$, $\thr{X^2}=(\Sigma^2,\Phi^2)$, and specification morphisms $\mu_1:\thr{X} \to \thr{X^1}$ and $\mu_2:\thr{X} \to \thr{X^2}$.
+If the  diagram to the left is a pushout of signatures than the diagram to
+the right is a pushout of specifications:
+\[\xymatrix@R=0.3cm{%\label{di:signpushout}
+\Sigma \ar[dd]_{\mu_{2}} \ar[rr]^{\mu_1}&& \Sigma^1 \ar[dd]^{{\mu'}_2} &&&&
+   \thr{X} \ar[dd]_{\mu_{2}} \ar[rr]^{\mu_1} && \thr{X^1} \ar[dd]^{{\mu'}_2}
+   \\
+      && &&& \ar@{=>}[ll]_{\fu{Sign}} &\\
+\Sigma^2 \ar[rr]_{{\mu'}_1}		&& \Sigma' &&&&
+\thr{X^2} \ar[rr]_{{\mu'}_1}		&& \thr{X'} \\
+}
+\]
+where $\thr{X'}=
+(\Sigma',\Phi')$ and $\Phi'=  {\mu'}_{1}(\Phi^2) \cup
+{\mu'}_{2}(\Phi^1)$.
+
+
+
+\subsubsection{Continuity of \fu{Mod} and amalgamation}
+Construction on specifications can be ``carried over'' to the respective
+constructions on their model classes provided that the \fu{Mod} functor has
+some desired properties. Typical constructions on specifications are co-limits
+and the desired property of \fu{Mod} is that it transforms co-limits in
+$\cat{Th}$ to limits in $\cat{Cat}$.
+
+\begin{definition} An institution $\inst{I}$ is 
+\begin{enumerate}
+\item {\em semi exact} iff $\Sign$
+has pushouts and $\Mod$ sends pushouts in $\Sign$ to pullbacks in
+$\cat{Cat}$,
+\item {\em exact} iff $\Sign$ has finite co-limits and $\Mod$ sends
+finite co-limits in $\Sign$ to limits in $\cat{Cat}$.
+\end{enumerate}
+\end{definition}
+Of course, any exact institution is also semi exact. The importance of this
+notion is exemplified by the following lemma which indicates the construction
+for instantiation of parameterized specifications.
+%\begin{definition} An institution $\inst{I}$ is {\em exact} iff $\Sign$ has finite co-limits and $\Mod$ transforms finite co-limits in $\Sign$ into limits in $\cat{Cat}$
+%\end{definition}
+%
+%
+%
+\begin{lemma}(Amalgamation Lemma).\\
+In any semi exact institution $\inst{I}$, for every pushout of
+signatures (on the left):
+\[\xymatrix@R=0.3cm@C=0.6cm{
+%\label{di:specpushout}
+\Sigma \ar[dd]_{\mu_{2}} \ar[rr]^{\mu_1} && {\Sigma^1} \ar[dd]^{{\mu'}_2}  &&&& 
+  \Mod(\Sigma) && \Mod(\Sigma^1) \ar[ll]_{\_|_{\mu_{1}}}  \\
+&&  &\ar@{=>}[rr]^{\Mod} &&&\\
+{\Sigma^2} \ar[rr]_{{\mu'}_1}	&& {\Sigma'} &&&&
+   \Mod(\Sigma_2) \ar[uu]^{\_|_{\mu_{2}}} && \Mod(\Sigma')
+   \ar[uu]_{\_|_{\mu'_{2}}} \ar[ll]^{\_|_{\mu'_{1}}}  
+}
+\]
+we have that: for any two models $M_1 \in \Mod({\Sigma^1})$ and $M_2 \in
+\Mod({\Sigma^2})$ satisfying $M_1|_{{\mu}_1} = M_2|_{{\mu}_2}$, there exists 
+a unique model $M' \in \Mod({\Sigma'})$, such that $M'|_{{\mu'}_1} = M_2$ and
+$M'|_{{\mu'}_2} = M_1$.
+\end{lemma}
+%
+The corresponding amalgamation property holds also for homomorphisms. 
+In fact, the amlgamation lemma tells that the model class of a
+pushout $\Sigma'$ of signatures along $\mu_1,\mu_2$ is a pullback (in $\cat{Cat}$) of the respective
+morphisms $\_|_{\mu_{1}}$, $\_|_{\mu_{2}}$. The model $M'$ is the {\em
+amalgamated union} of $M_1$ and $M_2$. 
+
+By
+theorem~\ref{teo:reflects}, the amalgamation lemma holds then also for pushouts of
+specifications, since these are constructed from pushouts of signatures.
+
+\section{Institution of multialgebras, $\inst{MA}$}
+\label{sec:multi}
+We now define and prove that the multialgebras form
+an institution $\inst{MA}$ (subsection~\ref{se:instMA}) and that this
+institution is exact (subsection~\ref{se:exact}).
+
+\subsection{Multialgebras form an institution}\label{se:instMA}
+%To relate algebras of different specifications one have the reduct construction, the reduct is the semantical ``inverse'' of a signature morphism.
+First we apply the standard concept of reduct to multialgebras.
+\begin{definition}
+Let $\mu: \Sigma \to \Sigma'$ be a signature morphism.\\
+Reduct of an algebra: The $\mu$-reduct
+of a $\Sigma'$-multialgebra $A'$, is the $\Sigma$-multialgebra $A'|_\mu$
+defined by:
+\[ \begin{array}{ll} 
+	s^{{A'}|_\mu} = \mu(s)^{A'} 		&\mbox{, for all $s \in S$,} \\
+ 	\omega^{{A'}|_\mu} = \mu(\omega)^{A'} 	&\mbox{, for all $\omega \in \Omega$,}\\
+\end{array} \]
+Reduct of assignment:
+For a set of variables $X$, $t$ a $\Sigma'$ term, $A'$ a $\Sigma'$ algebra
+and $\alpha': \mu(X) \to A'$ an assignment for $A'$, the $\mu$-reduct of
+$\alpha'$, $\alpha' |_\mu:X\to A'|_\mu$ is defined by:
+\[	\begin{array}{l}
+%	\alpha' |_\mu : X \to A' |_\mu \mbox{ and}\\  
+	(\alpha' |_\mu)_{s}(x) = \alpha'_{\mu(s)}(\mu(x))
+	\end{array}
+\]
+Reduct of a homomorphism: The $\mu$ reduct of a weak $\Sigma'$ homomorphism
+$h':A' \to B'$, is the weak $\Sigma$ homomorphism $h'|_\mu: A'|_\mu \to  B'|_\mu$ defined by:
+\[ \begin{array}{l} 
+%	h'|_\mu : A'|_\mu \to  B'|_\mu \mbox{ and}\\
+ 	(h'|_\mu)_s = h'_{\mu(s)}
+\end{array} \]
+\end{definition}
+If one wants to allow possible renamings of variables $X$ along the signature
+morphisms, the definition would be entirely analogous -- we omit this technicality.
+%
+\begin{fact} The reduct of a multialgebra is a multialgebra, the reduct of an
+assignment is an  assignment to the reduct algebra, the reduct of a weak
+homomorphism is a weak homomorphism between the reduct of two algebras.%, likewise is the reduct of a tight
+%homomorphism a tight homomorphism between the reduct of two algebras.
+\end{fact}
+The proof of this fact is analogous to the classical case. 
+
+We are now ready to define the model functor $\fu{Mod_{\inst{MA}}}:\Sign^{op}\to\cat{Cat}$ which
+maps each $\Sigma\in\obj{\Sign}$ to the category of all $\Sigma$-multialgebras $\MAS$.
+ 
+\begin{definition}\label{de:MAlg}
+The functor $\fu{Mod_{\inst{MA}}}: \Sign^{op} \to \cat{Cat}$ is defined by:
+\begin{itemize}\MyLPar
+\item objects: $\fu{Mod_{\inst{MA}}}(\Sigma) = \MAS$
+\item arrows: $\fu{Mod_{\inst{MA}}}(\mu:\Sigma \to \Sigma') = \fu{Mod_{\inst{MA}}}_\mu :
+\MA{\Sigma'} \to \MAS$, where the functor $\fu{Mod_{\inst{MA}}}_\mu$ is given by:
+	\begin{enumerate}\MyLPar
+	\item $\fu{Mod_{\inst{MA}}}_\mu(A') = A'|_\mu$
+	\item $\fu{Mod_{\inst{MA}}}_\mu(h') = h'|_\mu$
+	\end{enumerate}
+\end{itemize}
+\end{definition}
+
+\begin{lemma}(Reduct theorem)
+If $\mu:\Sigma \to \Sigma'$ is a signature morphism, $X$ a set of variables, $t$ a $\Sigma'$ term, $A'$ a $\Sigma'$ algebra and $\alpha': \mu(X) \to A'$ an assignment for $A'$ then we have that:
+\[ \alpha' |_{\mu}(t) ^{{A'} |_{\mu}} = \alpha'(\mu(t))^{A'} \]
+\end{lemma}
+%{\bf proof}
+\begin{PROOF}
+The proof goes by induction on the complexity of the term $t$.
+\begin{enumerate}
+\item $t = x \in X_s$.
+	\begin{eqp}
+%	\comment{}{assumption}
+		\alpha' |_{\mu}(x)^{{A'} |_\mu} 
+	\comment{=}{assignment}
+		(\alpha' |_{\mu})_s(x)
+	\comment{=}{def. $\alpha' |_\mu$}
+		(\alpha' _{\mu(s)})(\mu(x))
+	\comment{=}{assignment}
+		\alpha'(\mu(x))^{A'}
+	\end{eqp}
+\item $t = c, (c: \to s)$
+	\begin{eqp}
+%	\comment{}{assumption}
+		\alpha' |_{\mu}(c)^{{A'} |_\mu}
+	\comment{=}{no assignment for constants}
+		c^{{A'} |_\mu}
+	\comment{=}{def. $A' |_\mu$}
+		\mu(c)^{A'}
+	\comment{=}{no assignment, for constants}
+		\alpha'(\mu(c))^{A'}
+	\end{eqp}
+\item $t = \omega(t_1, \ldots ,t_n), (\omega: s_1 \times \cdots \times s_n \to s)$
+	\begin{eqp}
+%	\comment{}{assumption}
+		\alpha' |_{\mu}(\omega(t_1, \ldots ,t_n)^{{A'} |_\mu}
+	\comment{=}{assignment on function}
+		\bigcup_{a_{i}\in\alpha' |_{\mu}(t_{i})} \omega^{{A'} |_\mu}(a_1, \ldots ,a_n)
+	\comment{=}{ind. hyp. and def reduct}
+		\bigcup_{a_{i}\in\alpha'({\mu}(t_{i}))} \mu(\omega)^{A'}(a_1, \ldots ,a_n)
+	\comment{=}{assignment on function}
+		\alpha'(\mu(\omega)(\mu(t_1), \ldots ,\mu(t_n))^{A'}
+	\end{eqp}
+\end{enumerate}
+\end{PROOF}
+%{\bf end proof}
+The following lemma leads immediately to the satisfaction condition.
+\begin{lemma}\label{le:masat}
+For any signature morphism $\mu: \Sigma \to \Sigma'$ and $\Sigma'$ algebra
+$A'$, given assignment
+\begin{itemize}\MyLPar
+\item $\alpha:X \to A'|_\mu$, define  $\alpha':\mu(X) \to A'$ by:
+ $\alpha'_{\mu(s)}(\mu(x)) = \alpha_s(x)$, and
+\item $\alpha':\mu(X) \to A'$, define $\alpha:X \to A' |_\mu$ by:
+ 			$\alpha_s(x) = \alpha'_{\mu(s)}(\mu(x))$, i.e. $\alpha=\alpha'|_\mu$
+\end{itemize}
+Then for any $\Sigma$-formula
+$\varphi$ and for any $\Sigma'$ multialgebra $A'$ we have that:
+\[ (A' |_\mu) \models_\alpha \varphi \Iff A' \models_{\alpha'} \mu(\varphi) \]
+\end{lemma}
+\begin{PROOF}
+By induction on the formulas:
+\begin{enumerate}
+ 
+\item For atomic formulae $t_1 \eleq  t_2$ and $t_1\prec t_2$, the reduct theorem
+gives $\alpha'|_\mu(t_i)^{A'|_{\mu}}=\alpha'(\mu(t_i))^{A'}$, which yields
+the result.
+
+\item $a_1, \ldots ,a_n \rightarrow b_1, \ldots b_m$ \label{it:conditional}\\
+There are two cases:\\
+a) for some $a_i: (A' |_\mu) \not\models_\alpha a_i \by{IH}{\Iff}
+A' \not\models_{\alpha'} \mu(a_i)$, or\\
+b) for some $b_k: (A' |_\mu) \models_\alpha b_k
+  \by{IH}{\Iff} A' \models_{\alpha'} \mu(b_k)$
+\end{enumerate}
+\end{PROOF}
+%
+\begin{lemma}\label{th:masat}(Satisfaction condition)
+The satisfaction condition is fullfiled for multialgebras, i.e. for any
+signature morphism $\mu: \Sigma \to \Sigma'$, for any $\Sigma$-formula
+$\varphi$ and for any $\Sigma'$ multialgebra $A'$ we have that:
+\[ (A' |_\mu) \models_\Sigma \varphi \Iff A' \models_{\Sigma'} \mu(\varphi) \]
+\end{lemma}
+\begin{PROOF} Let $\varphi$ be an arbitrary formula.\\
+``$\Leftarrow$'': let $\alpha:X \to A'|_\mu$ be arbitrary and let $\alpha'$
+ be as in lemma~\ref{le:masat}. Then, by assumption, $A' \models_{\Sigma'}
+ \mu(\varphi)$ and, in particular, $A' \models_{\alpha'} \mu(\varphi)$. By
+ lemma~\ref{le:masat}, $(A' |_\mu) \models_\alpha \varphi$. Since $\alpha$
+ was arbitrary, we obtain $(A' |_\mu) \models_\Sigma \varphi$.\\
+``$\Rightarrow$'': let $\alpha':\mu(X) \to A'$ be arbitrary, and let $\alpha$
+ be as in lemma~\ref{le:masat}. By assumption, $(A' |_\mu) \models_\Sigma
+ \varphi$, in particular, $(A' |_\mu) \models_\alpha \varphi$. By
+ lemma~\ref{le:masat}, $A' \models_{\alpha'} \mu(\varphi)$. Since $\alpha'$
+ was arbitrary, we obtain $A' \models_{\Sigma'} \mu(\varphi)$.
+\end{PROOF}
+%\fixx{All the details in this proof}\\
+%
+Finally, the functor assigning to each signature the set of sentences is
+defined as in definition~\ref{def:masen}:
+\begin{definition}\label{de:form}
+The sentences functor $\fu{Sen_{\inst{MA}}}: \Sign\to\Set$ is given by:
+\begin{itemize}
+\item objects: $\fu{Sen_{\inst{MA}}}(\Sigma) =$ {the set of all $\Sigma$
+formulae} (def.~\ref{def:masen})
+\item $\fu{Sen_{\inst{MA}}}(\mu: \Sigma \to \Sigma') = \fu{Sen_{\inst{MA}}}_{\mu}:\fu{Sen_{\inst{MA}}} \to \fu{Sen_{\inst{MA}}}(\Sigma')$ { defined by}:
+		\begin{enumerate}
+		\item $\fu{Sen_{\inst{MA}}}_{\mu}(t \eleq  t') = {\tilde{\mu}}(t) \eleq {\tilde{\mu}}(t')$
+		\item $\fu{Sen_{\inst{MA}}}_{\mu}(t \prec  t') = {\tilde{\mu}}(t) \prec {\tilde{\mu}}(t')$
+		\item $\fu{Sen_{\inst{MA}}}_{\mu}(a_1, \ldots ,a_n \to b_1, \ldots ,b_n) \\ = 
+ \fu{Sen_{\inst{MA}}}_{\mu}(a_1), \ldots ,\fu{Sen_{\inst{MA}}}_{\mu}(a_n) \to \fu{Sen_{\inst{MA}}}_{\mu}(b_1), \ldots ,\fu{Sen_{\inst{MA}}}_{\mu}(b_n)$
+		\end{enumerate}
+	\end{itemize}
+\end{definition}
+%
+With these definitions, lemma \ref{th:masat} yields the following:
+\begin{fact}\label{fa:mainst}
+The multialgebras form the institution $\inst{MA}$ with:
+	\begin{itemize}
+	\item the category \Sign\ as signatures (def.~\ref{de:Sign}),
+	\item the model functor $\fu{Mod_{\inst{MA}}}$ (def.~\ref{de:MAlg}),
+	\item the sentence functor $\fu{Sen_{\inst{MA}}}$ (def.~\ref{de:form}),
+	\item $\models$ from def.~\ref{de:sat} as the satisfaction relation.
+	\end{itemize}
+	\end{fact}
+
+
+\subsection{$\inst{MA}$ is an exact institution}
+\label{se:exact}
+It is well known that the category of algebraic signatures is co-complete,
+see e.g. \cite{fundamental1}, where it also is proved (by use of comma
+categories) that the model functor for classical total algebras is
+continuous. 
+Using the constructions of the required
+co-limits of algebraic signatures from \ref{sub:sign}, we now show that
+that $\inst{MA}$ is an exact institution -- that
+ the model functor for multialgebras
+$\fu{Mod_{\inst{MA}}}:\cat{Sign}^{op} \to \cat{Cat}$ is continuous, i.e. it
+maps finite co-limits in $\cat{Sign}$ into limits in $\cat{Cat}$. (Note that this
+is different from showing that the category $\Mod_{\inst{MA}}(\Sigma)$ has all
+limits (resp. co-limits), which is proved in \cite{catrel}.)
+%
+\begin{lemma}
+\label{le:initialtofinal}
+The model of the empty signature is the unit category, that is final in $\cat{Cat}$.
+\end{lemma}
+\begin{PROOF}
+The model of the empty signature is an algebra $\emptyset$ with no carrier (and no
+operations), i.e. $\Mod_{\inst{MA}}(\Sigma_{\emptyset}) = \{ \emptyset \}$.
+There is only one function (homomorphism) $h: \emptyset \to \emptyset$ -- the identity
+homomorphism. This is obviously a final object in \cat{Cat}.
+\end{PROOF}
+
+
+\begin{lemma}\label{le:sumtoprod}
+\Mod\ sends sums to products:
+\[\xymatrix@C=0.5cm@R=0.3cm{
+\Sigma \ar[ddr]_{\iota_{\Sigma}} && \Sigma' \ar[ddl]^{\iota_{\Sigma'}} &&&&
+   \Mod_{\inst{MA}}(\Sigma) && \Mod_{\inst{MA}}(\Sigma')	\\ && &\ar@{=>}[rrr]^{\Mod}&&& \\
+& {\Sigma + \Sigma'} & &&&&	
+   & \Mod_{\inst{MA}}(\Sigma + \Sigma') \ar[uul]^{|_{\iota_{\Sigma}}} \ar[uur]_{|_{\iota_{\Sigma'}}}	
+								}
+\]
+\end{lemma}
+\begin{PROOF}
+Since the reduct $\_|_\mu$ is a functor for any signature morphism $\mu$ the
+diagram to the right is a cone in \cat{Cat} -- 
+%\[\xymatrix{
+%& \Mod_{\inst{MA}}(\Sigma + \Sigma') \ar[dl]_{|_{\iota_{\Sigma}}} \ar[dr]^{|_{\iota_{\Sigma'}}}	\\
+%\Mod_{\inst{MA}}(\Sigma)&& \Mod_{\inst{MA}}(\Sigma')	\\
+%}
+%\]
+we have to show that it %$\Mod_{\inst{MA}}(\Sigma + \Sigma')$ 
+is a product
+cone.
+% of $\Mod_{\inst{MA}}(\Sigma)$ and $\Mod_{\inst{MA}}(\Sigma')$ in $\cat{Cat}$. 
+
+Suppose that $(\cat{C}, \fu{F}:\cat{C} \to
+\Mod_{\inst{MA}}(\Sigma),\fu{G}:\cat{C} \to \Mod_{\inst{MA}}(\Sigma'))$ is a
+cone in $\cat{Cat}$.  
+\[\xymatrix{
+& \cat{C} \ar@/_/[ddl]_{\fu{F}} \ar@/^/[ddr]^{\fu{G}} \ar@{-->}[d]^{!u_{(\fu{F},\fu{G})}} \\
+& \Mod_{\inst{MA}}(\Sigma + \Sigma') \ar[dl]^{|_{\iota_{\Sigma}}} \ar[dr]_{|_{\iota_{\Sigma'}}}	\\
+\Mod_{\inst{MA}}(\Sigma) && \Mod_{\inst{MA}}(\Sigma')
+}
+\]
+Given two multialgebras $A\in\Mod_{\inst{MA}}(\Sigma)$
+and  $A'\in\Mod_{\inst{MA}}(\Sigma')$, we get an algebra $A\oplus A'\in
+\Mod_{\inst{MA}}(\Sigma+\Sigma')$ by taking the $\Sigma$-part from $A$ and
+the $\Sigma'$-part from $A'$ -- it is defined as follows: 
+ for any sort symbol $s\in\Sigma:s^{A\oplus A'}=s^A$ (and $s\in\Sigma':s^{A\oplus
+ A'}=s^{A'}$), and  for any operation symbol $f\in\Sigma:f^{A\oplus A'}=f^A$ (and $f\in\Sigma':f^{A\oplus
+A'}=f^{A'}$). This works because $\Sigma+\Sigma'$ is disjoint union.
+
+Likewise, given a $\Sigma$-homomorphism $h:A \to B$ and a
+$\Sigma'$-homomorphism  $h':A' \to B'$,  the $\Sigma \oplus \Sigma'$-homomorphism $h \oplus
+h': A \oplus A' \to B \oplus B'$, is defined by $(h \oplus h')_s = h_s \mbox{ if
+} s \in \Sigma$, and $h'_s$ otherwise (when $s\in\Sigma'$). 
+%%
+%%Taking the disjoint union (of the carrier sets and the
+%%interpretation of the operations) of a $\Mod_{\inst{MA}}(\Sigma)$ algebra $A$
+%%and a $\Mod_{\inst{MA}}(\Sigma')$ algebra $A'$ we get a
+%%$\Mod_{\inst{MA}}(\Sigma + \Sigma')$ algebra $A \oplus A'$. 
+%%Likewise the
+%%disjoint union of a $\Sigma$ homomorphism $h:A \to B$ and a $\Sigma'$
+%%homomorphism $h':A' \to B'$ is a $\Sigma \oplus \Sigma'$ homomorphism $h \oplus
+%%h': A \oplus A' \to B \oplus B'$, defined by $(h \oplus h')_s = h_s \mbox{ if
+%%} s \in \Sigma$, and $h'_s$ otherwise (when $s\in\Sigma'$). 
+Then $\oplus$ yields the unique objects/morphisms satisfying:
+\eq{\begin{array}{ccc}(A\oplus A')|_{\iota_{\Sigma}}=A & and & (A\oplus
+A')|_{\iota_{\Sigma'}}=A'\\
+(h\oplus h')|_{\iota_{\Sigma}}=h & and & (h\oplus
+h')|_{\iota_{\Sigma'}}=h'
+\end{array}
+\label{eq:prod}
+}
+We define the functor $u_{(\fu{F},\fu{C})}: \cat{C} \to
+\Mod_{\inst{MA}}(\Sigma + \Sigma')$ by $u_{(\fu{F},\fu{C})}({C})
+= \fu{F}({C}) \oplus \fu{G}({C})$ (and analogously for morphisms in
+\cat{C}). It
+is a factorization, i.e., $\comp{u_{(\fu F,\fu
+G)}}{|_{\iota_{\Sigma}}}=\fu F$, similarly for $|_{\iota_{\Sigma'}}$ and
+$\fu G$.
+
+$u_{(\fu F, \fu G)}$ is unique since each pair of algebras
+(resp. homomorphisms)  
+$A\in\Mod_{\inst{MA}}(\Sigma)$ and $A'\in\Mod_{\inst{MA}}(\Sigma')$, has a unique preimage
+$(A\oplus A')\in\Mod_{\inst{MA}}(\Sigma + \Sigma')$, satisfying (\ref{eq:prod}).
+
+Thus the image of a co-product diagram from \cat{Sign} is a product diagram in \cat{Cat}.
+%I.e. a cone; $\cat{C}$ with functors $\fu{F}:\cat{C} \to \Mod(\Sigma),\fu{G}:\cat{C} \to \Mod(\Sigma')$, the arrow $u_{(\fu{F},\fu{C})}: \cat{C} \to \Mod(\Sigma) \times \Mod(\Sigma')$, defined by $u_{(\fu{F},\fu{C})}(\cat{C}) = \fu{F}(\cat{C}) \times \fu{G}(\cat{C})$ is the unique factorization arrow.
+\end{PROOF}
+
+%\vfill
+%\pagebreak
+
+\begin{lemma}\label{le:coequtoequ}
+\Mod\ sends co-equalizers to equalizers.
+\end{lemma}
+\begin{PROOF}
+Let $\mu,\nu:\Sigma \to \Sigma'$ be two morphisms in \cat{Sign} and  $\qu{\Sigma'}{\kernel{}}$,
+	$\iota: \Sigma' \to \qu{\Sigma'}{\kernel{}}$ their
+	co-equalizer. 
+We have to show that
+	$\Mod_{\inst{MA}}(\qu{\Sigma'}{\kernel{}})$, $|_{\iota}$
+	is an equlizer for $|_{\mu}$ and $|_{\nu}$, in $\cat{Cat}$.
+%If the following diagram is commuting for any signature $\Sigma''$ and signature morphism $\sigma''$,
+So assume that for any $\sigma''$ such that
+$\comp\mu{\sigma''}=\comp\nu{\sigma''}$, there is a unique $u_{\sigma''}$
+with $\sigma''=\comp{\iota}{u_{\sigma''}}:$
+\[\xymatrix@C=1.8cm{ %\label{di:signcoequlizer}
+\Sigma \ar@/_/[r]_{\nu} \ar@/^/[r]^{\mu}
+	& {\Sigma'} \ar[r]^{\iota} \ar[dr]_{\sigma''}
+	& \qu{\Sigma'}{\kernel{}} \ar@{-->}[d]^{u_{\sigma''}} \\
+&& \Sigma''
+}
+\]
+Let $\cat{C}$ and $\fu{F}:\cat{C}\to\Mod_{\inst{MA}}(\Sigma')$ be arbitrary
+in \cat{Cat} such that $\comp{\fu F}{|_\mu}=\comp{\fu{F}}{|_\nu}$. We have to show the
+existence of a unique $u_{\fu{F}}$ satisfying
+$\comp{u_{\fu{F}}}{|_{\iota}}=\fu F:$
+\[\xymatrix@C=1.5cm{
+\label{di:modequlizer}
+	\cat{C} \ar[dr]^{\fu{F}}  \ar@{-->}[d]^{!u_{\fu{F}}} \\
+	\Mod_{\inst{MA}}(\qu{\Sigma'}{\kernel{}}) \ar[r]_{|_{\iota}}
+		& \Mod_{\inst{MA}}(\Sigma') \ar@/_/[r]_{|_\nu} \ar@/^/[r]^{|_\mu}
+			& \Mod_{\inst{MA}}(\Sigma) 	\\
+							}
+\]
+1. First, we show that $\comp{|_\iota}{|_\mu}=\comp{|_\iota}{|_\nu}$, i.e. $\Mod_{\inst{MA}}(\qu{\Sigma'}{\kernel{}})$ is a cone.
+
+Let $A''\in\Mod_{\inst{MA}}(\qu{\Sigma'}{\kernel{}})$ be arbitrary and let $s$ be any
+sort symbol in $\qu{\Sigma'}{\kernel{}}$. We have $s^{(A''|_{\iota})|_{\mu}}
+= \mu(s)^{(A''|_{\iota})}= \iota(\mu(s))^{A''}$, and similarly $s^{(A''|_{\iota})|_{\nu}}
+= \nu(s)^{(A''|_{\iota})}= \iota(\nu(s))^{A''}$. But since $\iota$ is
+equalizing $\mu$ and $\nu$, we have $ \iota(\mu(s))= \iota(\nu(s))$, so that
+$\iota(\mu(s))^{A''} =  \iota(\nu(s))^{A''}$. In the same way, we show the
+equality $\iota(\mu(\omega))^{A''} =  \iota(\nu(\omega))^{A''}$ for any
+operation symbol $\omega\in\qu{\Sigma'}{\kernel{}}$. 
+\\[1ex]
+2. We now show that $\Mod_{\inst{MA}}(\qu{\Sigma'}{\kernel{}})$ is a limit cone.
+\\[1ex]
+a. Given an $A'\in\Mod_{\inst{MA}}(\Sigma')$ with $A'|_\mu=A'|_\nu$ we construct an
+$A^-\in\Mod_{\inst{MA}}(\qu{\Sigma'}{\kernel{}})$ satisfying $A^-|_\iota=A'$.
+
+Since $\iota$ is surjective, any symbol $x''\in\qu{\Sigma'}{\kernel{}}$ is in
+its image, i.e., $x''=\iota(x')$ for some $x'\in\Sigma'$. We then let
+$\iota(x')^{A^{-}}=x'^{A'}$. This is in fact well defined algebra. For suppose
+that there are two different symbols $s'\not= t'\in\Sigma'$ such that
+$\iota(s')=\iota(t')=x''$. Then, from the construction of $\iota$ and
+$\qu{\Sigma'}{\kernel{}}$, we know that there exists an $x\in\Sigma$ such that
+$s'=\mu(x)$ and $t'=\nu(x)$. But then, since 
+$A'|_\mu=A'|_\nu$, we obtain the middle of the following equalities:
+$s'^{A'}=x^{A'|_{\mu}}=x^{A'|_{\nu}}=t'^{A'}$. Thus
+$\iota(s')=\iota(t')\To s'^{A'}=t'^{A'}$, and $A^{-}$ is well defined.
+
+Obviously, $A^{-}|_\iota = A'$, since for each symbol $x'\in\Sigma'$ we have
+$x'^{A^{-}|_{\iota}} = \iota(x')^{A^{-}} = x'^{A'}$.
+\\[1ex]
+b. In fact $A^{-}$ is the unique $\qu{\Sigma'}{\kernel{}}$-algebra satisfying
+   $A^{-}|_\iota=A'$. 
+
+For if $B''\in\Mod_{\inst{MA}}(\qu{\Sigma'}{\kernel{}})$ is such that
+   $B''|_\iota=A'$ then we must have for any symbol
+   $\iota(x')=x''\in\qu{\Sigma'}{\kernel{}}: x''^{B''}=\iota(x')^{B''} =
+   x'^{B|_{\iota}} = x'^{A'} = x'^{A^{-}|_{\iota}} = \iota(x')^{A^{-}}=
+   x''^{A^{-}}$, i.e., $B''=A^{-}$.
+\\[1ex]
+c. We extend the definition of $A^-$ from 2a. to homomorphisms between the
+respective objects. That is, for a (homo)morphism $h':A'\to B'$ in $\Mod_{\inst{MA}}(\Sigma')$ where both
+$A'|_\mu=A'|_\nu$ and $B'|_\mu=B'|_\nu$, $h^-:A^-\to B^-$ is a (homo)morphism
+in $\Mod_{\inst{MA}}(\qu{\Sigma'}{\kernel{}})$ defined by $h^-_{\iota(s')}(a)=h'_{s'}(a)$
+for all sort symbols $\iota(s')=s''\in\qu{\Sigma'}{\kernel{}}$ and $a\in
+s'^{A'}$. Obviously, this is a unique $h^-$ such that $h|_\iota = h'$.
+\\[1ex]
+d. Now, given an $\fu F:\cat C\to \Mod_{\inst{MA}}(\Sigma')$ satisfying $\comp{\fu
+F}{|_\mu}=\comp{\fu F}{|_\nu}$, we define $u_{\fu F}:\cat
+C\to \Mod_{\inst{MA}}(\qu{\Sigma'}{\kernel{}})$:
+\begin{itemize}\MyLPar
+\item for any object $C\in\cat C:u_{\fu F}(C) = (\fu F(C))^-$ (as in point 2a.)
+\item for any morphism $h:C\to D\in \cat C: u_{\fu F}(h) = (\fu F(h))^-$ (as
+in point 2c.)
+\end{itemize}
+It is trivial to verify that $u_{\fu F}$ is a functor and, indeed, one that
+makes $\comp{u_{\fu F}}{|_\iota}=\fu F$. By uniqueness of $A^-$ and $h^-$,
+this is also a unique functor satisfying this equality.
+\end{PROOF}
+%
+%%%%%%% OLD and insufficient:
+%%%First we show that the objects of $\Mod_{\inst{MA}}(\qu{\Sigma'}{\kernel{}})
+%%%\simeq \{ A' \in \Mod_{\inst{MA}}(\Sigma'): A'|_{\mu}= A'|_{\nu} \}$.
+%%%Suppose that $A' \in
+%%%\Mod_{\inst{MA}}(\Sigma')$ and $A'|_{\mu}= A'|_{\nu}$. 
+%%%This means that $\mu(s)^{A'} = \nu(s)^{A'}$, for all
+%%%$s \in \Sigma$ and that $\mu(\omega)^{A'} = \nu(\omega)^{A'}$, for all $\omega \in
+%%%\Sigma$. 
+%%%
+%%%We construct an $A''\in \Mod_{\inst{MA}}(\qu{\Sigma'}{\kernel{}})$ by
+%%%letting: 
+%%%$\iota(s')^{{A''}}= s'^{A'}$, for all $s'
+%%%\in \Sigma'$ and ${\iota}(\omega')^{{A''}}=
+%%%%%%\omega'^{A'}$, for all $\omega' \in \Sigma'$. %, where
+%%%Since $\iota$ is surjective, this indeed defines a
+%%%$\qu{\Sigma'}{\kernel{}}$-algebra. 
+%%%
+%%So $A'$ is isomorphic to a multialgebra
+%%${A''}$ in $\Mod_{\inst{MA}}(\qu{\Sigma'}{\kernel{}})$, where
+%%
+%%${\iota}[s']^{{A''}}= s'^{A'}$, for all $s'
+%%\in \Sigma'$ and ${\iota}[\omega']^{{A''}}=
+%%\omega'^{A'}$, for all $\omega' \in \Sigma'$. %, where
+%%${\iota}(\nu(s))^{{A''}}= \nu(s)^{A'} =
+%%\mu(s)^{A'} = {\iota}(\mu(s))^{{A''}}$ and
+%%${\iota}(\nu(\omega))^{{A''}}=
+%%\nu(\omega)^{A'} = \mu(\omega)^{A'} =
+%%{\iota}(\mu(\omega))^{{A''}}$.
+%%
+%%The other way around; suppose that $\qu{A'}{\kernel{}} \in
+%%\Mod_{\inst{MA}}(\qu{\Sigma'}{\kernel{}})$, then is
+%%$\qu{A'}{\kernel{}}|_{\iota_{\kernel{}}} \in \Mod_{\inst{MA}}(\Sigma')$ and
+%%since ${\iota_{\kernel{}}}(\mu(s)) = {\iota_{\kernel{}}}(\nu(s))$, for all $s
+%%\in S$ is $\nu(s)^{\qu{A'}{\kernel{}}|_{\iota_{\kernel{}}}} =
+%%\mu(s)^{\qu{A'}{\kernel{}}|_{\iota_{\kernel{}}}}$, for all $s$ and simmilary
+%%we get that $\nu(\omega)^{\qu{A'}{\kernel{}}|_{\iota_{\kernel{}}}} =
+%%\mu(\omega)^{\qu{A'}{\kernel{}}|_{\iota_{\kernel{}}}}$ for all $\omega \in
+%%\Omega$, i.e. $\qu{A'}{\kernel{}}|_{(\comp{\mu}\iota_{\kernel{}})} =
+%%\qu{A'}{\kernel{}}|_{(\comp{\nu}{\iota_{\kernel{}}})}$
+%%
+%%We have to show that the morphisms of
+%%$\Mod_{\inst{MA}}(\qu{\Sigma'}{\kernel{}}) \simeq \{ h' \in
+%%\Mod_{\inst{MA}}(\Sigma'): |_{\mu}(h')= |_{\nu}(h') \}$. Suppose that $h': A'
+%%\to B'$ and that $h'|_{\mu} = h'|_{\nu}$, it means that $h'_{\mu(s)} =
+%%h'_{\nu(s)}$, for all $s$, so $h'$ is isomorph to a homomorphism
+%%$\qu{h'}{\iota_{\kernel{}}}:\qu{A'}{\iota_{\kernel{}}} \to
+%%\qu{B'}{\iota_{\kernel{}}}$
+%%
+%%The other way is similar as for algebras.
+%%
+%%So given a cone $\cat{C},\fu{F}:\cat{C} \to \Mod_{\inst{MA}}(\Sigma')$ we
+%%	define the factorization arrow $\fu{u_{F}}:\cat{C} \to
+%%	\Mod_{\inst{MA}}(\qu{\Sigma'}{\kernel{}})$ by: \begin{itemize} \item
+%%	Objects: $\fu{u_{F}}(O)= \fu{{F}}(O)$ \item Morphisms:
+%%	$\fu{u_{F}}(M)= \fu{{F}}(M)$ \end{itemize} Since
+%%	$\comp{\fu{F}}{|_{\mu}} = \comp{\fu{F}}{|_{\nu}}$ by asumption we get
+%%	by definition that $\fu{{F}} =
+%%	\comp{\fu{u_{F}}}{|_{\iota_{\kernel{}}}}$. $\fu{u_{F}}$ is unique
+%%	since $\Mod_{\inst{MA}}(\qu{\Sigma'}{\kernel{}}) \simeq \{ A' \in
+%%	\Mod_{\inst{MA}}(\Sigma'): |_{\mu}(A')= |_{\nu}(A') \}$.
+%
+Summing upp we get the following result.
+\begin{proposition}
+$\Mod_{\inst{MA}}$ is a finitely continuous functor.
+\end{proposition}
+\begin{PROOF}
+We have that $\Mod_{\inst{MA}}$ is finitely continous on signatures by
+lemma~\ref{le:initialtofinal}, lemma~\ref{le:sumtoprod} and
+lemma~\ref{le:coequtoequ}. So the result follows by teorem~\ref{teo:reflects}.
+\end{PROOF}
+
+
+\begin{corollary}
+$\inst{MA}$ is an exact institution.
+\end{corollary}
+
+
+\begin{corollary}
+The amalgamation lemma holds for $\inst{MA}$.
+\end{corollary}

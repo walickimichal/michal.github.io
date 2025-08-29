@@ -1,0 +1,14 @@
+\begin{thebibliography}{}
+
+\stepcounter{BIB}\bibitem[\theBIB]{Gratzer}
+\bibsc{Gr{a}tzer, G.}
+\newblock \bibemph{Universal Algebra}.
+\newblock Springer. \bibyear{(1968)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{ObsLogic}
+\bibsc{Hennicker, R. and Bidoit, M.}
+\newblock Observational logic.
+\newblock In \bibemphic{AMAST'98}, pp.\  263--277. LNCS vol.~1548.
+  \bibyear{(1999)}.
+
+\end{thebibliography}

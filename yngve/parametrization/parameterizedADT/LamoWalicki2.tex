@@ -1,0 +1,65 @@
+\documentclass{llncs}
+
+\title{Specification of parameterized data types}
+
+\begin{document}
+\author{Yngve Lamo\inst{1}%\thanks{Email: \texttt} \\*[1ex] 
+\and Micha{\l} Walicki\inst{2}}%\thanks{Email: \texttt{michal@ii.uib.no}} \\*[1ex]
+\institute{Department of Engineering, Bergen College\\ N-5020 Bergen, Norway\\
+\email{yla@hib.no}
+\and
+ Department of Informatics, University of Bergen\\ N-5020 Bergen, Norway\\
+	\email{michal@ii.uib.no}}
+
+\maketitle
+
+We revisit the concept of persistent functor pointing out its (well known)
+limitations for the purpose of describing the semantics of specifications of
+parameterized data types (PDTs). We introduce a more general notion of a
+functor $F$ which requires only that the parameter algebra $A$ is a subalgebra of
+its image $F(A)$. We illustrate the flexibility and advantages of the proposed
+construction by examples.  
+
+The main part of the presentation concerns then the syntactic restrictions on
+the specifications which allow one to define the semantics of PDTs in this
+way. One obtains the possibilities to: 
+\begin{enumerate}
+\item preserve the carriers of the parameter algebras (corresponding to
+classical persistency), or
+\item extending (some) carriers of the parameter algebras.
+\end{enumerate}   
+The later situation means that one can, typically, use free functor
+semantics. In this case, one also has two further options:
+\begin{itemize}
+\item[2a.] either to restrict the validity of the axioms from the parameter
+specification to apply to the ``old'' elements (from the carriers of the
+parameter algebras),
+\item[2b.] or to extend them to apply also to the ``new'' elements added to
+the carrier.
+\end{itemize}
+The former case applies typically in situations when  a (carrier of a) data type is extended
+with special kind of elements (like ``error'' values), while the latter in
+situations when the added elements (if any) are ``essentially'' of the same
+kind (e.g., when extending a monoid to a group by adding necessary inverse
+elements).
+
+The sufficient assumptions for application of the presented framework are that one is working in a
+semi-exact institution (the presence of amalgamation lemma) and that
+signatures can express predicates (plus minor technicalities). 
+
+We compare our work with the work of Axel Poigne \cite{paramPoigne}. The way of thinking of parameterized datatypes is quite similar, the difference is mainly the technical solutions. We use predicates to identify the parameter algebras, while this is solved by ordersorting in \cite{paramPoigne}, moreover our framework is more general, actually the case 2b above is excluded by \cite{paramPoigne}. We also discuss our work with CASL
+specifications, but emphasize also the possibilities for applications under
+these general assumptions.
+
+We show the counterparts of the classical vertical and horisontal composition
+theorems and identify a general concept of refinement of PDTs which amounts not to
+model class inclusion but to introduction of additional structure into the
+specified data types. We thus obtain a specific case of ``architectural
+specifications'' from CASL and of ``constructor implementations''.
+We suggest possible advantages of specializing
+these  general concepts in the presented way.
+
+
+\bibliography{biblo}
+\bibliographystyle{plain}
+\end{document}

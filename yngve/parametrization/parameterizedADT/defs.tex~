@@ -1,0 +1,193 @@
+%%%% need amssymb
+
+
+\newtheorem{example}{Example}[section]
+\newtheorem{definition}[example]{Definition}
+\newtheorem{theorem}[example]{Theorem}
+\newtheorem{lemma}[example]{Lemma}
+\newtheorem{fact}[example]{Fact}
+\newtheorem{proposition}[example]{Proposition}
+\newtheorem{corollary}[example]{Corollary}
+
+%equalities
+\newcommand{\eequal}{\stackrel{e}{=}}%existential equality
+\newcommand{\sequal}{\stackrel{s}{=}}%strong equality
+\newcommand{\wequal}{\stackrel{w}{=}}%weak equality
+\newcommand{\eleq}{\mathrel{\dot{=} }}%element equality
+\newcommand{\seq}{\mathrel{\asymp}}% set equality 
+
+
+%different symbols
+\newcommand{\exist}{\downarrow}% defindnes in partial algebra
+\newcommand{\st}{\ast}% extra star element
+\newcommand{\union}{\cup}% set union
+\newcommand{\cons}{\star}% extra constant to mark the carrier
+\newcommand{\Cons}{\mbox{\Large{$\star$}}}% the set of all stars
+\newcommand{\allcons}{S^\cons}
+\newcommand{\subcons}{C^\cons}
+
+\newcommand{\extax}[1]{^{\uparrow #1}} % adds guard to sort s
+\newcommand{\eax}{^{\extax}} % adds guards to all sorts
+\newcommand{\restrax}[1]{^{\downarrow #1}} % remove guard from sort s
+\newcommand{\rax}{^{\restrax}} % remove guards from all sorts
+\newcommand{\change}{^{\uparrow\downarrow}} %doing extensions/restrictions on spec
+\newcommand{\nured}{|}% modified reduct
+\newcommand{\Modax}{\Gamma}% extra axioms for modified specifications
+\newcommand{\weak}{-} %mapping that forget guards
+\newcommand{\strong}{+} %mapping that sharpens guards
+\newcommand{\guard}{\gamma} % guard in axioms
+\newcommand{\Guard}{\Gamma} % set of all guards
+\newcommand{\amalgam}{\oplus} % amalgamation
+\newcommand{\defeq}{\stackrel{\mathrm{def}}{=}} % defined equal
+\newcommand{\refinesto}{\leadsto} % refinment of specifications
+
+
+%different Categorical, arrows...
+\newcommand{\embd}{\hookrightarrow}% embedding of institutions 
+\newcommand{\pfunc}{\hookrightarrow}% partial function
+\newcommand{\ring}{\circ}% composition of arrows
+
+\newcommand{\comp}[2]{#1;#2} %composition - instead of \ring
+\newcommand{\comb}[2]{#1!#2} % special composition for parameterization morphisms - instead of \ring
+
+\newlength{\listskip}\setlength{\listskip}{1ex plus .2ex minus .5ex}
+\newlength{\eqpskip}\setlength{\eqpskip}{.5ex plus .2ex minus .2ex}
+\newenvironment{eqp}{\par %\topsep\eqpskip \parskip 0ex
+   \begin{tabbing}
+   \quad\=\+\quad\=$\{$\ \=\kill\(}{\)\end{tabbing}
+   \addvspace{-1ex plus.2ex minus.3ex}} 
+\newcommand{\comment}[2]{\)\-\\[\eqpskip]$#1$\>\>$\{$\>\+\+\ignorespaces#2$\}$\-\\[\eqpskip]\(}
+\newcommand{\nline}{\)\\\(\mbox{}}
+
+%%%%%%% MICHAL
+
+%%% comments to be removed eventually
+\newcommand{\fix}{\par\noindent\hspace*{-2em}{\large\bf fix} $\uparrow$ \dotfill}
+\newcommand{\fixx}[1]{\par\noindent\hspace*{-2em}{\large\bf fix} $\uparrow$ {\small
+#1} \dotfill}
+\newcommand{\fixd}[1]{\par\noindent\hspace*{-2em}{\large\bf fix} $\downarrow$ {\small
+#1} \dotfill}
+\newcommand{\isit}[1]{\par\noindent\hspace*{-2em}{\small{{\bf [is it right?} #1{\bf ]}}}\par\noindent}
+\newcommand{\how}[1]{\par\noindent\hspace*{-2em}{\small{{\bf [how?} #1{\bf
+]}}}\par\noindent}
+\newcommand{\todo}[1]{\par\noindent\hspace*{-2em}{\small{{\bf [To Do:} #1{\bf ]}}}\par\noindent}
+\newcommand{\noo}[1]{\par\noindent\hspace*{-2em}{\large\bf NO} $\uparrow$ {\small
+#1} \dotfill}
+%%% environments
+\newtheorem{schem}[example]{Schema}
+\newcommand{\MyLPar}{\parsep -.2ex plus.2ex minus.2ex\itemsep\parsep
+   \vspace{-\topsep}\vspace{.5ex}}
+\newenvironment{PROOF}{{\bf Proof.}}{\nopagebreak\finish}
+\newenvironment{PROOFs}{{\bf Proof sketch.}}{\nopagebreak\finish}
+\newcommand{\finish}{\hspace*{\fill}\nopagebreak 
+     \raisebox{-1pt}{$\Box$}\par\addvspace{1.5ex}\noindent}
+
+\newcommand{\eq}[1]{\vspace*{-.5ex}\begin{equation}#1\vspace{-.5ex}\end{equation}}
+%%% Specs:
+\newcommand{\specY}[1]{\begin{array}[t]{rrl}#1\end{array}\vspace*{1ex}}
+\newcommand{\titY}[1]{\multicolumn{3}{l}{#1}}
+
+\newcommand{\spec}[1]{\begin{array}[t]{rrrcl}#1\end{array}\vspace*{1ex}}
+\newcommand{\tit}[1]{\multicolumn{5}{l}{#1}}
+\newcommand{\spSorts}[2]{#1: & \multicolumn{4}{l}{#2}\\ }
+\newcommand{\spSort}[1]{\spSorts{\Sorts}{#1}}
+\newcommand{\spOps}[2]{#1: & \multicolumn{4}{l}{\begin{array}[t]{rr@{\ \to\ }l}#2\end{array}}\\ }
+\newcommand{\spOp}[1]{\spOps{\Ops}{#1}}
+
+%\newcommand{\pdtspOLD}[4]{(#1,#3,#4)}
+%\newcommand{\pdt}{\pdtsp{\mu}{\delta}{\thr{X_\cons}}{\thr{P[X]_\cons}}}
+\newcommand{\pdtsimple}[4]{(#1,#3,#4)}
+\newcommand{\pdtmu}{\pdtsimple{\mu}{\delta}{\thr{X_\cons}}{\thr{P[X]_\cons}}}
+%\newcommand{\pdtOLD}{\pdtspOLD{\mu}{\delta}{\thr{X_\cons}}{\thr{P[X]_\cons}}}
+
+\newcommand{\pdtsp}[4]{(#1,#3,#4,#2)}
+\newcommand{\pdt}{\pdtsp{\mu}{\delta}{\thr{X_\cons}}{\thr{P[X]_\cons}}}
+
+%%% symbols
+\newcommand{\eeq}{\eequal}
+\newcommand{\PSet}[1]{{\mathcal{P}}(#1)}
+\newcommand{\ovr}[1]{\overline{#1}}
+\newcommand{\To}{\Rightarrow}
+\newcommand{\Tod}{\Leftarrow}
+\newcommand{\Iff}{\Longleftrightarrow}
+\newcommand{\hviss}{\Leftrightarrow}
+\newcommand{\ok}[1]{d_{#1}} % OK part of a sort #1
+\newcommand{\nat}{\mathcal{N}} % Natural numbers
+\newcommand{\powerset}{\mathcal{P}} % Powerset operator
+
+\newcommand{\adj}{\mathrel{\small\dashv}} %adjunction
+\newcommand{\iso}{\mathrel{\simeq}}
+
+\newcommand{\refine}[1]{\fu{#1}}
+\newcommand{\reff}[1]{\refine{R}_{\thr{#1}}}
+
+\newcommand{\prep}{\mathrel{\small\dashv}} %prepend
+
+\newcommand{\by}[2]{\stackrel{#1}{#2}} %1/2
+\newcommand{\isby}[1]{\by{#1}=}
+
+%%% use these for signatures
+\newcommand{\Sorts}{{\bf S}} 
+\newcommand{\Ops}{\Omega}
+\newcommand{\ndc}{\Pi}
+\newcommand{\err}{E}
+\newcommand{\sign}{(\Sorts,\Ops,\ndc)}
+\newcommand{\POps}{P\Omega}
+\newcommand{\Pops}{\POps}
+\newcommand{\Terms}[1]{T(#1)}
+\newcommand{\TermsS}{\Terms\Sigma}
+\newcommand{\TermsSX}{\Terms{\Sigma,X}}
+\newcommand{\dom}{{\bf dom}}
+\newcommand{\under}[1]{\underline{#1}}
+
+%%% general categorical concepts
+\newcommand{\cat}[1]{{\bf #1}} %put it around any category 
+\newcommand{\inst}[1]{{\mathcal{#1}}} %put it around any institution: needs $_$
+\newcommand{\fu}[1]{{\sf {#1}}} %put it around any functor
+\newcommand{\thr}[1]{{\bf #1}} %put it around any Theory
+\newcommand{\obj}[1]{|#1|} %objects of a category
+\newcommand{\natt}{\mathrel{\rightrightarrows}} %natural transformation :
+						%amssymb !!!
+%%% Categories
+% multialgebras
+\newcommand{\MA}[1]{\cat{MAlg}_{#1}}
+\newcommand{\MAS}{\cat{MAlg}_{\Sigma}} %partial multialgebras
+\newcommand{\PMA}[1]{\cat{PMAlg}_{#1}}
+\newcommand{\PMAS}{\cat{PMAlg}_{\Sigma}} %partial algebras
+\newcommand{\PAl}[1]{\cat{PAlg}_{#1}}
+% used little but still...
+\newcommand{\PAlo}{\PAl{(\Sorts,\Ops)}}
+\newcommand{\MAlo}{\MA{(\Sorts,\Ops,\emptyset)}}
+% standard
+\newcommand{\Sign}{\cat{Sign}}
+\newcommand{\Set}{\cat{Set}}
+% specifications
+\newcommand{\MAsp}{\cat{MAsp}}
+\newcommand{\ThMA}{\cat{Th}_{\inst{MA}}} %replaces \MAsp
+
+%%% Functors
+\newcommand{\Mod}{\fu{Mod}}
+\newcommand{\PMod}{\fu{PMod}}
+\newcommand{\FMod}{\fu{FMod}}
+\newcommand{\Sen}{\fu{Sen}}
+\newcommand{\sen}{\Sen}
+
+%%% Institutions
+\newcommand{\MAH}{\inst{MAH}}
+\newcommand{\MAC}{\inst{MAC}}
+%\newcommand{\MAPC}{\inst{MAPC}}
+\newcommand{\MAP}{\inst{MAP}}%partial multialgebras
+\newcommand{\PA}{\inst{PA}}%partial algebras
+
+%%% Equivalences 
+\newcommand{\quot}{\sim} % ekvivalens tegn
+\newcommand{\kernel}[1]{\quot_{#1}} %% ekvivalens med subskript
+\newcommand{\qu}[2]{#1/\!_{#2}}
+
+%%% some special functions used in specifications
+\newcommand{\ite}[3]{\mathit{if}\ #1\ \mathit{then}\ #2\ \mathit{else}\ #3}%if then else
+\newcommand{\sort}[1]{#1}
+% and
+\newcommand{\band}{\mathrel{\mathit{and}}}% ``and''
+\newcommand{\choice}{\sqcup} % Nondeterministic choice
+

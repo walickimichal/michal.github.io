@@ -1,0 +1,114 @@
+\begin{thebibliography}{10}
+
+\bibitem{paramADJ}
+H.~Ehrig, H.-J. Kreowski, J.W. Thatcher, E.G. Wagner, and J.B. Wright.
+\newblock Parameter passing in algebraic specification languages.
+\newblock In {\em Proceedings of Workshop on Program Specification}, volume 134
+  of {\em LNCS}, 1982.
+
+\bibitem{Alge}
+Hartmut Ehrig and Bernd Mahr.
+\newblock {\em Fundamentals of Algebraic Specification 1}.
+\newblock Springer, 1985.
+
+\bibitem{paramGanz}
+Harald Ganzinger.
+\newblock Parametric specifications, parameter passing and optimizing
+  implementations.
+\newblock Technical Report TUM-18110, Technical University of Munich, 1981.
+
+\bibitem{inst}
+Joseph~A. Goguen and R.~M. Burstal.
+\newblock Institutions: Abstract model theory for specification and
+  programming.
+\newblock {\em Journal of the ACM}, 39:95--146, 1992.
+
+\bibitem{CATs}
+Joseph~A. Goguen and Rod~M. Burstall.
+\newblock Cat: a system for the structural elaboration of correct programs from
+  structured specifications.
+\newblock Technical Report CSL-118, SRI International, 1980.
+
+\bibitem{CASL}
+CoFI. The Common~Framework Initiative.
+\newblock {\em CASL -- The Common Algebraic Specification Language}.
+\newblock http://www.brics.dk/Projects/CoFI/Documents/CASL.
+
+\bibitem{partial}
+Yngve Lamo and Micha{\l} Walicki.
+\newblock Modeling partiality by nondeterminism - from abstract specifications
+  to flexible error handling.
+\newblock Technical Report 178, Depeartment of Informatics, University of
+  Bergen, 1999.
+
+\bibitem{MAinst}
+Yngve Lamo and Micha{\l} Walicki.
+\newblock The instution of multialgebras.
+\newblock Technical Report 209, Department of Informatics, University of
+  Bergen, 2000.
+
+\bibitem{TRparam}
+Yngve Lamo and Micha{\l} Walicki.
+\newblock Specification of parameterized data types.
+\newblock Technical Report 210, Department of Informatics, University of
+  Bergen, 2000.
+
+\bibitem{member}
+Jos\'{e} Meseguer.
+\newblock Membership algebra as a logical framework for equational
+  specification.
+\newblock In Francesco~Parisi Presicce, editor, {\em Recent Trends in Algebraic
+  Development Techniques}, volume 1376 of {\em Lecture Notes in Computer
+  Science}, pages 18--61. Springer, 1998.
+
+\bibitem{paramPoigne}
+Axel Poign{\'e}.
+\newblock Another look at parameterization using algebras with subsorts.
+\newblock In {\em Proceedings of MFPC}, volume 176 of {\em LNCS}. Springer,
+  1984.
+
+\bibitem{para}
+Donald Sanella, Stefan Soko{\l}owski, and Andrzej Tarlecki.
+\newblock Toward formal development of programs from algebraic specifications:
+  parameterisation revisited.
+\newblock {\em Acta Informatica}, 29:689--736, 1992.
+
+\bibitem{para1}
+Donald Sanella and Andrzej Tarlecki.
+\newblock Toward formal development of programs from algebraic specifications:
+  implementations revisited.
+\newblock {\em Acta Informatica}, 25:233--281, 1988.
+
+\bibitem{stateinst}
+Andrzej Tarlecki.
+\newblock Institutions: An abstract framework for formal specifications.
+\newblock In Egidio Astesiano, Hans-J{\"o}rg Kreowski, and Bernd
+  Krieg-Br{\"u}ckner, editors, {\em on Algebraic Foundations of Systems
+  Specification}, chapter~4. Springer, 1999.
+
+\bibitem{paramPers}
+J.W. Thatcher, E.G. Wagner, and J.B. Wright.
+\newblock Data type specification: parameterization and the power of
+  specification techniques.
+\newblock In {\em Proceedings of POPL}. ACM, 1979.
+
+\bibitem{catrel}
+Micha{\l} Walicki and Marcin Bia{\l}asik.
+\newblock Categories of relational structures.
+\newblock In Francesco~Parisi Presicce, editor, {\em Recent Trends in Algebraic
+  Development Techniques}, volume 1376 of {\em Lecture Notes in Computer
+  Science}. Springer, 1998.
+
+\bibitem{calc}
+Micha{\l} Walicki and Sigurd Meldal.
+\newblock Multialgebras, power algebras and complete calculi of identities and
+  inclusions.
+\newblock volume 906 of {\em Lecture Notes in Computer Science}. Springer,
+  1995.
+
+\bibitem{multi}
+Micha{\l} Walicki and Sigurd Meldal.
+\newblock Algebraic approaches to nondeterminism-an overview.
+\newblock {\em ACM Computing Surveys}, 29, 1997.
+
+\end{thebibliography}

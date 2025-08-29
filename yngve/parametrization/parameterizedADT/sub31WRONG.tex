@@ -1,0 +1,231 @@
+
+\setcounter{section}{3}
+{\Large{Yngve!}} -- read what you have written, ask yourself what is wrong,
+try to fix it, and then read the (final?!?!) version which is in TRparam.tex
+(with sub31NEW.tex).
+
+\subsection{Signatures with sort constants}\label{sub:gsp}
+We start by modifiying the concept of signature and specification. The idea
+is that each signature may have, in addition to the standard set of sort and
+operation symbols, a (possibly empty) set of distinguished (sort and subsort) constant
+symbols $\allcons = \Cons\cup\subcons$. 
+The set $\Cons$ %=\{\cons_s:\to s: s\in\Sorts\}$ 
+contains  constant symbols
+$\cons_s$ for various sort symbols $s$ -- the intention of $\cons_s$ is to denote all the elements of the respective
+sort $s$. 
+The set $\subcons$  may contain additional constants
+which will represent various subsorts -- the constants from this set are
+called ``subsort constants''.
+\begin{definition}
+\label{def:modsign}
+A signature with sort constants, $\Sigma_\cons$, is a triple $\Sigma_\cons =
+ (\Sorts,\Ops,\allcons)$, where $\Sigma=(\Sorts,\Ops)$ is an ordinary
+ signature and $\allcons=\Cons\cup\subcons$ is a (possibly empty) set of additional constants,
+ $\allcons\cap\Ops=\emptyset$ and $\Cons\cap\subcons=\emptyset$. 
+\end{definition}
+%
+Signatures with sort constants will be used merely as a syntactic representation of 
+ordinary signatures. This is possible in multialgebraic setting since
+constants may denote sets of elements. (In a traditional setting, one would
+have to represent the sort constants, for instance, by predicates or (sub)sort symbols.)
+
+We allow the set $\allcons$ to be empty. Also, we allow the set
+$\Cons$ to contain several distinct constants of the same sort (although
+their intended meaning will be the same).
+The technical reasons for that come up in relating construction of co-limits
+(proposition~\ref{prop:finco}, especially, lemma~\ref{fa:coeq}) and, in particular, pushouts
+(subsection~\ref{sub:canpush}). For the most, we think of the set
+$\Cons$ as containing one constant for each sort, i.e., as
+$\Cons=\{\cons_s:\to s : s\in\Sorts\}$. Most relevant constructions will
+involve and yield such signatures. (in general, we use the symbol $\cons_s$
+for an arbitrary constant from $\Cons$ of sort $s$, e.g., for a signature
+morphism $\mu$, 
+$\mu(c)\not=\cons_s$ means the same as $\mu(c)\not\in\Cons$.)
+
+
+We will use the following operations relating the signatures with sort
+ constants to ordinary signatures.
+
+\begin{definition}\label{def:sigops}
+Given a signature with sort constants $\Sigma_\cons=(\Sorts,\Ops,\allcons)$ we let:
+\begin{enumerate}\MyLPar
+\item $\under{\Sigma_\cons}=(\Sorts,\Ops \cup \allcons)$
+i.e. $(\Sorts, \Ops \cup \Cons \cup \subcons)$ -- the underlying signature
+\item ${\Sigma_\weak}=(\Sorts,\Ops,\subcons)$ i.e. $\Sigma_\cons
+\setminus \Cons$ -- the reduced signature
+\item ${\Sigma}=(\Sorts,\Ops)$ i.e. $(\Sigma_\cons
+\setminus \allcons)$ -- the standard (part of the) signature
+\end{enumerate}
+The other way around, given an ordinary signature $\Sigma=(\Sorts,\Ops)$, we let
+\begin{enumerate}\MyLPar\setcounter{enumi}{3}
+\item ${\Sigma_\cons}=(\Sorts,\Ops,\Cons)$
+, where   $\Cons=\{\cons_s:\to s:s\in\Sorts\}$ and $\Cons\cap\Ops=\emptyset$
+-- the corresponding guarded signature with sort constants.
+\item\label{it:ins} $\ins\Sigma=(\Sorts,\Ops,\emptyset)$
+, -- the included signature (with sort constants).
+\end{enumerate}
+\end{definition}
+%
+Unless stated otherwise, the signatures considered will always be signatures with sort constants. 
+Given an arbitrary specifcation $\thr{SP}$ we will sometimes write
+$\Sigma(\thr{SP})$ to denote its signature.
+
+\begin{definition}
+A morphism between signatures with sort constants $\mu:\Sigma_\cons \to
+\Sigma'_{\cons}$ is a signature morphism between the underlying
+signatures $\mu:\under{\Sigma_\cons}\to\under{\Sigma'_\cons}$, sending
+$\allcons$ to ${\allcons}'$ and $\Sigma$ to $\Sigma'$.
+\end{definition}
+In other words, the $\Cons$-constants need not be sent to $\Cons'$-constants
+but may be mapped to subsort constants ${\subcons}'$, as well.
+
+\begin{fact}
+The signatures with sort constants form a category $\cat{Sign_\cons}$, with
+the identity function as identity and function composition as composition.
+\end{fact}
+%
+Since the signatures with sort constants essentially use underlying signature
+morphism, the transformation from the former to the latter
+%signatures with sort constants to
+%underlaying signatures 
+can be extended to a functor $\fu{_-}:\cat{Sign_\cons} \to
+\cat{Sign}$, which is the (pointwise) identity on the signature morphisms. 
+
+The other way arround the inclusion of signatures (point~\ref{it:ins} of
+def.~\ref{def:sigops}) can also be extended to a
+functor $\fu{\ins\ }:\cat{Sign} \to \cat{Sign_\cons}$, which sends $\Sigma$
+to $\ins\Sigma$ and is the identity on morphisms. The following fact says
+that $\cat{Sign}$ can be treated as a full subcategory of $\cat{Sign_\cons}$.
+
+\begin{fact}\label{fa:fullsub}
+$\ins\ :\cat{Sign} \to \cat{Sign_\cons}$ is full and faithfull.
+\end{fact}
+We have that for any $\Sigma\in\cat{Sign}:\Sigma=\under{(\ins\Sigma)}$ but,
+in general, for $\Sigma_\cons\in\cat{Sign_\cons}: \Sigma_\cons\not\iso \ins{(\under{\Sigma_\cons})}$.
+\begin{lemma}
+$\fu{_-}:\cat{Sign_\cons} \to \cat{Sign}$ is a left adjoint to $\ins\ :\cat{Sign} \to \cat{Sign_\cons}$.
+\end{lemma}
+\begin{PROOF}
+Suppose that $\sigma: \Sigma_\cons \to \ins{(\Sigma')}$ is a
+$\cat{Sign_\cons}$ morphism, then $\under{\sigma}: \under{\Sigma_\cons} \to
+\under{\ins{(\Sigma')}}$ (note that $\under{\ins{(\Sigma')}} = \Sigma'$) is
+the unique factorization morphism, since $\ins{\under{\sigma}}=
+\under{\sigma}$ and $\ins\ :\cat{Sign} \to \cat{Sign_\cons}$ is full and
+faithfull. 
+
+{\Large{WRONG!!!}} -- 
+What is the unit of this supposed adjunction?? 
+%If $\Sigma_\cons$ has
+%non-empty set of (sub)sort constants $\allcons$, then there is no
+%$\cat{Sign_\cons}$-morphism $\Sigma_\cons\to\ins{(\under{\Sigma_\cons})}$,
+%because the latter has no (sub)sort constants!!!
+\end{PROOF}
+{\Large{Also}}, there is no adjunction other way around, i.e., neither
+$\ins{\ }$ is left adjoint to $\under{\ }$.
+Perhaps, the fact that $\cat{Sign}$ is a full subcategory of
+$\cat{Sign_\cons}$ (fact~\ref{fa:fullsub}), might be used, but I don't know...
+
+\begin{corollary}
+The functor $\fu{_-}$ preserves co-limits.
+\end{corollary}
+%
+The following proposition shows that
+ that (finite) co-limits in $\cat{Sign}_\cons$
+can be obtained from the respective co-limits in $\cat{Sign}$. 
+
+\begin{proposition}\label{prop:finco}
+The functor $\fu{_-}:\cat{Sign_\cons} \to \cat{Sign}$ reflects finite co-limits.
+\end{proposition}
+%
+To prove the proposition we show that the functor reflects initial object, sums and co-equlizers.
+
+\begin{lemma}
+The functor $\under{\ }$ reflects and preserves initial objects.
+\end{lemma}
+%
+\begin{PROOF}
+The empty signature $\Sigma^\emptyset=(\emptyset,\emptyset)$ is {\em the}
+initial object in 
+$\cat{Sign}$, and the empty signature
+$\Sigma_\cons^\emptyset=(\emptyset,\emptyset,\emptyset)$ is {\em the} initial
+object in
+$\cat{Sign_\cons}$.
+But $\Sigma^\emptyset=\under{\Sigma_\cons^\emptyset}$, so initial object is
+both reflected and preserved.
+\end{PROOF}%\vspace*{-2ex}
+%
+\begin{lemma} The functor $\under{\ }$ reflects and preserves sums (binary co-products).
+\end{lemma}
+%
+\begin{PROOF}
+Supose that $\sigma:\Sigma_\cons \to \Sigma''_\cons, \sigma':\Sigma'_\cons
+\to \Sigma''_\cons$ is a co-cone in $\cat{Sign_\cons}$, if
+$\under{\sigma}:\under{\Sigma_\cons}\to \under{\Sigma''_\cons},
+\under{\sigma'}:\under{\Sigma'_\cons} \to \under{\Sigma''_\cons}$ is a
+co-limit (sum) of the co-cone in $\cat{Sign}$, we have to show that
+${\Sigma''_\cons}$ is a co-limit of the co-cone in $\cat{Sign_\cons}$. 
+
+We have that there is an isomorphism $\tau:\under{\Sigma''_\cons} \to
+\under{\Sigma_\cons} + \under{\Sigma'_\cons}$, where $\under{\Sigma_\cons} +
+\under{\Sigma'_\cons}$ is the standard choiche of sum object for algebraic
+signatures, i.e. the disjoint union of sorts and operations of
+$\under{\Sigma_\cons}$ and $\under{\Sigma'_\cons}$, this mean that for every
+other co-cone $\nu:\Sigma_\cons \to \Sigma'''_\cons, \nu':\Sigma'_\cons \to
+\Sigma'''_\cons$ in $\cat{Sign_\cons}$, can we define the unique
+factorization arrow $\mu_{\nu,\nu'}: \under{\Sigma''_\cons} \to
+\under{\Sigma'''_\cons}$ by: $\mu_{\nu,\nu'}= \comp{\tau}{u_{\nu,\nu'}}$,
+where $u_{\nu,\nu'}: \under{\Sigma_\cons} + \under{\Sigma'_\cons} \to 
+\under{\Sigma'''_\cons}$ is (the standard mediator) defined by: for any symbol
+$x\in\under{\Sigma_\cons} + \under{\Sigma'_\cons}: u_{\nu,\nu'}(x) = \left\{\begin{array}{ll}
+		\nu(x) & {\rm if\ } x \in \under{\Sigma_\cons} \\ 
+		\nu'(x) & {\rm if\ } x \in \under{\Sigma'_\cons}\\
+ \end{array}\right.$.
+
+Since $\nu,\nu'$ is $\cat{Sign_\cons}$ morphisms is the compositions
+$\sigma;\tau;u_{\nu,\nu'}$ and $\sigma';\tau;u_{\nu,\nu'}$ $\cat{Sign_\cons}$
+morphisms. But since both $\sigma$ and $u_{\nu,\nu'}$ is $\cat{Sign_\cons}$
+morphism has also $\tau$ to be a $\cat{Sign_\cons}$ morphisms. 
+\end{PROOF}
+%	 
+%
+\begin{lemma}\label{fa:coeq}
+The functor $\under{\ }$ reflects and preserves co-equalizers. 
+\end{lemma}
+%
+
+\begin{PROOF}
+Suppose that $\mu,\nu:\Sigma_\cons \to \Sigma'_\cons, \sigma:\Sigma'_\cons
+\to \Sigma''_\cons$, is a co-cone in $\cat{Sign_\cons}$ and that
+$\under{\mu},\under{\nu}:\under{\Sigma_\cons} \to \under{\Sigma'_\cons},
+\under{\sigma}:\under{\Sigma'_\cons} \to \under{\Sigma''_\cons}$, is a
+co-limit (co-equalizer) of the cone in $\cat{Sign}$. 
+
+We have that there is an isomorphism $\tau:\under{\Sigma''_\cons} \to
+\qu{\under{\Sigma'_\cons}}{\kernel{}}$, where
+$\qu{\under{\Sigma'_\cons}}{\kernel{}}$, is the standard choiche of
+co-equalizer i.e. ${\kernel{}}$ is the least equivalence on
+$\under{\Sigma'_\cons}$ induced by the 
+relation with the following components:
+ \begin{itemize}\MyLPar
+\item Sorts: $\kernel{S'}= \{ \langle \mu(s),\nu(s) \rangle: s \in \under{\Sigma_\cons} \}$,
+\item Operations $\kernel{\Omega'}= \{ \langle \mu(\omega), \nu(\omega)
+\rangle : \omega \in \under{\Sigma_\cons} \}$\\	 
+Specially this mean that for (Sub)sorts $\kernel{\allcons}= \{ \langle
+\mu(s^\cons), \nu(s^\cons) \rangle : s^\cons \in \allcons \}$, since
+$\under{{\allcons}} \subseteq \Omega'$, where  $\Omega'$ is the operations of
+$\under{\Sigma_\cons}$ 
+\end{itemize} 
+So for every other co-cone $\mu,\nu:\Sigma_\cons \to \Sigma'_\cons,
+\gamma:\Sigma'_\cons \to \Sigma'''_\cons$, in $\cat{Sign_\cons}$, we can
+define the unique factorization arrow $\rho_\gamma$ by $\rho_\gamma=
+\sigma;\tau;u_\gamma$, where $u_\gamma$ is (the standard mediator) defined
+by:$u_\gamma([s'])=\gamma(s')$ and $u_\gamma([\omega'])=\gamma(\omega')$ and
+by the same argument as in the proof for co-products we get that $\tau$ is a
+$\cat{Sign_\cons}$ morphism 
+\end{PROOF}
+{\Large{Try to write these two proofs}} -- making them sufficient and, not
+least, correct in english, before seeing the version in TRparam...
+
+
+Since we can create all finite co-limits by initial objects, sums and
+co-equlizers the proposition~\ref{prop:finco} follows from the above lemmata.

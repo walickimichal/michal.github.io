@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99c (Web2C 7.3.1)
+The top-level auxiliary file: TRparam.aux
+The style file: plain.bst
+Database file #1: biblo.bib
+Warning--empty year in CASL
+Warning--empty booktitle in calc
+You've used 17 entries,
+            2118 wiz_defined-function locations,
+            598 strings with 6451 characters,
+and the built_in function-call counts, 4962 in all, are:
+= -- 466
+> -- 235
+< -- 11
++ -- 91
+- -- 73
+* -- 317
+:= -- 867
+add.period$ -- 57
+call.type$ -- 17
+change.case$ -- 83
+chr.to.int$ -- 0
+cite$ -- 19
+duplicate$ -- 214
+empty$ -- 412
+format.name$ -- 73
+if$ -- 1042
+int.to.chr$ -- 0
+int.to.str$ -- 17
+missing$ -- 15
+newline$ -- 88
+num.names$ -- 40
+pop$ -- 100
+preamble$ -- 1
+purify$ -- 68
+quote$ -- 0
+skip$ -- 121
+stack$ -- 0
+substring$ -- 166
+swap$ -- 40
+text.length$ -- 11
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 64
+warning$ -- 2
+while$ -- 42
+width$ -- 19
+write$ -- 191
+(There were 2 warnings)

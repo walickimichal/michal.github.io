@@ -1,0 +1,650 @@
+
+
+\section{Building $\inst{MA}$ specifications}
+\label{se:specbuild}
+In this section we define the basic operations to systemize $\inst{MA}$ specifications. Since the specifications has pushouts and we are using loose semantics for multialgebras, we got all the standard specification building constructions. Using loose semantic one may view specification building as organization of text, it means that the sematic is not affected by how the final specification is created, what matters is the result specification.
+
+
+\subsection{Enrichment}
+The most basic specification building operation is {\em enrichment}, the idea is to add more structure to a specification. The syntax is enriched by adding new sorts and new operations. By adding axioms one ensures that the model class has more properties.
+
+The standard syntax for enrichment is:
+	\[ {\bf enrich \ } (\Sigma_I, \Phi_I)\ {\bf by \ } (\Sigma_A, \Phi_A) \]
+where $\Sigma_I \cup \Sigma_A$ is a signature and $\Phi_A$ is a set of sentences over $\Sigma_I \cup \Sigma_A$.
+ The semantic of the enrichment: ${\bf enrich \ } (\Sigma_I, \Phi_I) {\bf \ by \ } (\Sigma_A, \Phi_A)$ is the same as the semantic of the specification $(\Sigma_R, \Phi_R)$, where $\Sigma_R = \Sigma_I \cup \Sigma_A$ and $\Phi_R = \Phi_I \cup \Phi_A$
+
+\begin{definition}
+Given specification $\thr{SP}= (\Sigma,\Phi)$ and a signature inclusion $\iota: \Sigma \to \Sigma'$, and a set of $\Sigma'$ sentences $\Phi'$ the enrichment is given by:
+	\begin{itemize}
+	\item The syntax of enrichment is as follows: \\
+		\[ {\bf enrich \ } (\thr{SP}) {\bf \ by: \ } (\iota:, \Phi'), \]
+	\item The semantic of the enrichment is the specification: \\
+		\[ \thr{SP'}= (\Sigma', \Phi' \cup \mu(\phi)) : \phi \in \Phi \]
+	\end{itemize}
+\end{definition}		
+
+Alternative (and more general) definition of enrichment:
+	\[ {\bf enrich \ } (\Sigma_I, \Phi_I) {\bf \ by: \ } (\mu:(\Sigma_I, \Phi_I)\to (\Sigma_R, \Phi_R)), \]
+where $\mu$ is an injective theory morphism. The semantic for the enrichment:
+	\[{\bf enrich \ } (\Sigma_I, \Phi_I) {\bf \ by: \ } (\mu:(\Sigma_I, \Phi_I)\to (\Sigma_A, \Phi_A))\]
+ is the same as for the specification $(\Sigma_R, \Phi_R)$.
+
+Note that this more general definition of enrichment also alowes renaming of sorts and operetions, since we only require that $\mu$ is injective. Moreover will the injectivity of $\mu$ ensures that the structure from $(\Sigma_I, \Phi_I)$ is preserved under enrichment. One may say that $(\Sigma_I, \Phi_I)$ is a ``subspecification'' of $(\Sigma_R, \Phi_R)$.
+Note also that since $\mu$ is a theory morphism we have that $A \models \mu(\Phi_I)$ for every algebra $A \in \Mod(\Sigma_R, \Phi_R)$
+
+\subsection{Union}
+The other basic specification building operation is ``union'', the idea is to take two specifications and set them together in such way that the result only have one copy of the common parts. This intuition is formalized as a pushout of specifications:
+
+
+\begin{definition}
+Given injective specification morphisms: $\iota_1:\thr{SP_0} \to \thr{SP_1}$ and $\iota_2:\thr{SP_0} \to \thr{SP_2}$, the union of $\thr{SP_1}$ and $\thr{SP_2}$ is defined by:
+	\begin{itemize}
+	\item The syntax to the union of $\thr{SP_1}$ and $\thr{SP_2}$ is: \\
+		\[ \thr{SP_1} +_{\thr{SP_0}} \thr{SP_2} \]
+	\item The semantic to the union of $\thr{SP_1}$ and $\thr{SP_2}$ is the specification $\thr{SP_3}$ in the following pushout diagram:
+
+		\[\xymatrix{
+		\label{di:union}
+			\thr{SP_0} \ar@{^{(}->}[d]_{\iota_{2}} \ar@{^{(}->}[rr]^{\iota_1}
+				&& \thr{SP_1} \ar[d]^{\iota'_2}	\\
+		\thr{SP_2} \ar[rr]_{\iota'_1}
+				&& \thr{SP} 	\\
+		}
+		\]
+	\end{itemize}
+\end{definition}
+
+Note that this definition is a special case of parameter passing for specification in definition~\ref{di:parameterpassing}.
+Note also if $\thr{SP_0}= (\emptyset,\emptyset)$, the empty specification, is the union: $\thr{SP_1} +_{\thr{SP_0}} \thr{SP_2}$ actually the disjoint union of $\thr{SP_1}$ and $\thr{SP_2}$
+
+
+\subsection{Derive}
+
+The purpose of derive is to forget(hide) structure from a specification, derive has the following syntax:
+
+\begin{definition}
+Given specification $\thr{SP}=(\Sigma,\Phi)$ and signature morphism $\mu: \Sigma_1 \to \Sigma$ is the derive operation defined by:
+	\begin{itemize}
+	\item The syntax of derive is as follows: 
+		\[ {\bf derive\ by\ } \mu  {\bf  \ from \ } \thr{SP} \]
+	\item The semantic of derive is the specification:
+		 \[ (\Sigma_1,\Phi_1),\mbox{ where } \Phi_1= \{ \phi_1: \thr{SP} \models \Sen(\mu)(\phi_1) \} \]
+	alternativly:
+		\[ (\Sigma_1,\Phi_1),\mbox{ where } \Phi_1= \{ \phi_1: \mu(\phi_1) = \phi \in \Phi \} \]
+	\end{itemize}
+\end{definition}
+
+
+
+\subsection{Rename}
+The renaming operation can be used to avoid nameclashes, renaming is also usefull when one reuse old specifications in a new context.
+
+\begin{definition}
+Given a specification $\thr{SP}= (\Sigma, \Phi)$ and a bijective signature morphism $\mu: \Sigma \to \Sigma'$, we define the rename operation as:
+	\begin{itemize}
+	\item The syntax of rename is given by:
+	 	\[ {\bf rename\ } \thr{SP\ } {\bf by\ } \mu \]
+	\item The semantic is the specification $\thr{SP'}=(\Sigma', \Phi')$, where $\Phi'= \{ \mu(\phi) : \phi \in \Phi \}$.
+	\end{itemize}
+\end{definition}
+
+Note that renaming is a special case of the general enrichment.
+
+\section{Building algebras in $\inst{MA}$}
+\label{se:algbuild}
+
+The intension by building algebras is reuse of software, it is in many cases desirable to use already implemented programs to solve as implementations for new programming tasks by doing some minor modifications. We will present constructions to build both modelclasses and to build actual algebras in a model class.
+
+\subsection{Enrichment of the model class}
+An enrichment of a model class is to add structure to each algebra in the model class, this can by done by a extension of the algebras in the model class:
+Given specification $\thr{SP}= (\Sigma,\Phi)$ and injective signature morphism $\iota:\Sigma \to \Sigma'$ and extension functor (see definition~{def:extension}) $\fu{E}: \Mod(\thr{SP}) \to \Mod(\Sigma')$ is the syntax of the enrichment:
+	\[ {\bf enrich} \thr{\Mod(\thr{SP})} {\bf by:} \fu{E} \]
+The semantic is the class of all algebras: $\fu{E}(\Mod(\thr{SP}))$.
+
+
+
+\subsection{Enrichment of an algebra}
+On the model level is an enrichment of an algebra to add structure to the algebra, this can by done by a tight monomorphism:
+Given a $\Sigma$ algebra $A$ and tight $\Sigma$-monomorphism $\iota$ is the syntax of the enrichment:
+	\[ {\bf enrich} A {\bf by} \iota \]
+The semantic is the $\Sigma$ algebra wich is the target of $\iota(A)$.
+
+Note that this means that $A$ actually is a tight substructure of the enriched algebra.
+
+\subsection{Union of model classes}
+The union of modelclasses is how to combine programs that solve sub problems to solve the composed problem. This can be done by amalgamation of algebras:
+
+So given specifications $\thr{SP_1} = (\Sigma_1,\Phi_1)$ and $\thr{SP_2}= (\Sigma_2,\Phi_2)$ and signature inclusions $\iota_1: \Sigma_0 \to \Sigma_1$ and $\iota_2: \Sigma_0 \to \Sigma_2$, is the syntax of the union: 
+	\[ \thr{\Mod(\thr{SP_1})} {\bf union}_\thr{\Mod(\thr{SP_0})} \thr{\Mod(\thr{SP_2})} \]
+
+The semantic of union is defined as the amalgamated sum:
+	\[ \{ A_1 \amalgam_{A_0} A_2 : A_1|_{\iota_1} = A_0 = A_2|_{\iota_2} \} \] 
+
+
+
+\subsection{Union of algebras}
+The union of two algebras is how to combine programs that solve sub problems to solve the composed problem. This can be done by amalgamation of algebras:
+
+So given $\Sigma_1$ algebra $A_1$ and $\Sigma_2$ algebra $A_2$, we let $\Sigma_0$ be a signature and $\iota_1:\Sigma_0 \to \Sigma_1$ and $\iota_2:\Sigma_0 \to \Sigma_2$ be signature inclusions such that: $A_1|_{\iota_1} = A_2|_{\iota_2} \defeq A_0$.
+
+The syntax of union is defined by:
+	\[  A_1 {\bf union}_{\Sigma_0} A_2 \]
+
+The semantic of union is defined as the amalgamated sum:
+	\[ A_1 \amalgam_{A_0} A_2 \] 
+
+
+The union of two $\Sigma$-algebras $A_1$ and $A_2$ can be defined as their coproduct:
+The syntax of union is defined by:
+	\[  A_1 {\bf union} A_2 \]
+
+The semantic of union is defined as the coproduct:
+	\[ A_1 \amalgam A_2 \] 
+
+
+\subsection{Derive for modelclasses}
+The derive operation forgets structure for the modelclass so given specifications $\thr{SP}=(\Sigma,\Phi)$ and signature morphism $\mu: \Sigma_1 \to \Sigma$, is the syntax of derive: 
+	\[ {\bf{ derive by \ \mu \ from}} \Mod(\thr{SP}) \]
+The semantic is the class of algebras:
+	\[ \thr{\Mod(\thr{SP})}|_\mu \]
+		
+\subsection{Derive for algebras}
+The derive operation hides structure on a algebra.
+Given a $\Sigma$ algebra $A$ and a tight $\Sigma$-monomorphism $\iota:A' \to A$, we define the syntax of derive by:
+	\[ {\bf{ derive by\ \iota \ from}} A \]
+the semantic is given by:
+	\[ A' \]
+
+\subsection{Renaming of the modelclass}
+On the modelclass level is a renaming an equivalence of categories.
+Given specification $\thr{SP}$ and an equivalence of categories $\fu{F}:\Mod(\thr{SP}) \to Y$ the syntax of renaming is given by:
+	\[ {\bf{ rename\ \Mod(\thr{SP}) \ by}} \ \fu{F} \]
+the semantic is the category $Y$
+
+\subsection{Renaming of algebras}
+Given a $\Sigma$ algebra $A$ and a $\Sigma$ isomorphi: $h: A \to A'$ the syntax of renaming will be:
+	\[ {\bf{ rename }} A {\bf{ by }} h \]
+the semantics is $A'$
+
+
+
+
+\section{Logic and reasoning with parameterized data types}
+\label{se:paralogic}
+
+In the whole of this section, we fix some parameterized data type specification
+$(\mu,\thr{X_\cons},\thr{P[X]_\cons})$, and a semantic functor
+$\fu{F}:\Mod(\thr{X_\cons}) \to \Mod(\thr{P[X]_\cons})$ with the associated
+$\iota:\Mod(\thr{X_\cons})\to\Mod(\thr{X_\weak})$. The image of an
+$A\in\Mod(\thr{X_\cons})$ under $\iota$ ($\iota(A)$) will be (sometimes)
+called a (possible) extended $\Sigma(\thr{X_\cons})$ multialgebra.  
+%$A_\weak$
+%instead of $\iota(A)$.
+%\fix{This must go away}
+
+%%%%%%%%%%%%%%
+
+\begin{fact}
+\label{fa:semanticexists}
+For a parameterizated datatypespecification $\thr{P} = (\mu,\thr{X_\cons},\thr{P[X]_\cons})$ we have that:
+
+There exists a semantic functor $\fu{F}: \thr{X_\cons} \to \thr{P[X]_\cons}$
+	if we have for all $\phi \in sen(\Sigma)$ that: \[
+	\thr{X_\cons}\models \phi \iff \thr{P[X]_\cons} \models
+	\mu(\phi_\cons )\] , where $\Sigma$ is the signature of
+	$\thr{X_\cons}$ and $\phi_\cons$ is the fully guarded version of
+	$\phi$
+\end{fact}
+The fact will be proved in subsection~\ref{subse:paramodlogic}.
+
+%%%%%%%%%%%%%
+
+\subsection{Logical properties for tight monomorphisms}
+
+In whole of this subsection we fix a signature $\Sigma$, two $\Sigma$ multialgebras $A$ and $B$ and a tight $\Sigma$-monomorphism $h:A \to B$.
+\begin{definition}
+Restricted assignment: Given a set of variables $X$
+, an assignment $\alpha^{\weak}:X \to |B|$, is
+called restricted (w.r.t. $h$) if $\alpha^{\weak}(x) \in \{ h(a), a\in A \}$ for
+all $s \in \Sigma$ and all $x \in X$.
+\end{definition}
+
+Note that a restricted assignment assigns variables only to the image of $h$.
+
+\begin{fact}
+\label{fa:restassign}
+Given an assignment $\alpha: X \to |A|$, there is a coresponding restricted
+assignment $\alpha^{\weak}: X \to |B|$, defined by $\alpha^{\weak} = \comp{\alpha}{h}$. The other way around given restricted assignment
+$\alpha^{\weak}:X \to |B|$ the coresponding assignment $\alpha:X \to |A|$
+given by $\alpha(x)= h^{-1}(\alpha^{\weak}(x))$, note that $\alpha$ is well defined
+since $h$ is a monomorphism (injective).
+\end{fact}
+
+
+\begin{lemma}
+\label{le:restricted}
+If $X$ a set of variables, $t \in \TermsSX$ a $\Sigma$ term, $A$ and $B$, $\Sigma$
+	algebras, $h:A \to B$ a tight $\Sigma$ monomorphism and $\alpha^{\weak}: X \to |B|$ a restricted
+	assignment, then we have that: \[ \alpha^{\weak}(t)^{B} =
+	h(\alpha(t)^{A}), t \in \TermsSX \]
+, where $\alpha: X \to |A|$ is the assignment coresponding to $\alpha^{\weak}$. 
+\end{lemma}
+
+\begin{PROOF}
+Induction on the complexity of $t$
+	\begin{itemize}
+	\item $t = x$ \\
+		$\alpha^{\weak}(x)^{B} = h(\alpha(x)^A)$, by fact~\ref{fa:restassign}
+	\item $t = c$
+		\begin{eqp}
+			\alpha^{\weak}(c)^{B} 
+		\comment{=}{no assignment for constants}
+			c^{B}
+		\comment{=}{$h$ tight homomorphism}
+			h(c^A)
+		\comment{=}{no assignment for constants}
+			h(\alpha(c)^A)
+		\end{eqp}
+	\item $t= \omega(\overline{t_i})$
+		\begin{eqp}
+			\alpha^{\weak}(\omega(\overline{t_i}))^{B}
+		\comment{=}{assignment}
+			\bigcup_{b_i \in \alpha^{\weak}(t_i)^B} (\omega(\overline{b_i}))^{B}
+		\comment{=}{induction hypothesis}
+			\bigcup_{b_i \in h(\alpha(t_i)^A)} (\omega(\overline{b_i})^{B}))
+		\comment{=}{set equality, $h$ is a function}
+			\bigcup_{h(a_i): a_i \in \alpha(t_i)^A} (\omega(\overline{h(a_i)})^{B}))
+		\comment{=}{$h$ tight homomorphism}
+			\bigcup_{a_i \in \alpha(t_i)^A} (h(\omega(\overline{a_i})^{A}))
+		\comment{=}{assignment}
+			h(\alpha(\omega(\overline{t_i}))^A)
+		\end{eqp}
+	\end{itemize}
+\end{PROOF}
+
+
+\subsection{Satisfaction of formulae}
+
+
+Note that for a parameterized data type specification
+$(\mu,\thr{X_\cons},\thr{P[X]_\cons})$, and a semantic functor
+$\fu{F}:\Mod(\thr{X_\cons}) \to \Mod(\thr{P[X]_\cons})$ with the associated
+$\iota:\Mod(\thr{X_\cons})\to\Mod(\thr{X_\weak})$. We have for the target of an
+$A\in\Mod(\thr{X_\cons})$ under $\iota$ ($\iota(A)$), the extended $\Sigma(\thr{X_\cons})$ multialgebra, that an assignment is restricted iff $\alpha^{\weak}(x) \subseteq {\cons_s}^{\iota(A)}$ for all $s \in \Sigma$ and all $x \in X$.
+
+
+%\begin{definition}
+%Restricted assignment: Given a set of variables $X$, an extended $\Sigma$
+%multialgebra $\iota(A)$, an assignment $\alpha^{\weak}:X \to \iota(A)$, is
+%called restricted if $\alpha^{\weak}(x) \subseteq {\cons_s}^{\iota(A)}$ for
+%all $s \in \Sigma$ and all $x \in X$.
+%\end{definition}
+
+%\begin{fact}
+%\label{fa:restassign}
+%Given an assignment $\alpha: X \to A$, there is a coresponding restricted
+%assignment $\alpha^{\weak}: X \to \iota(A)$, defined by $\alpha^{\weak} =
+%\iota \circ \alpha$. The other way around we given restricted assignment
+%$\alpha^{\weak}:X \to \iota(A)$ the coresponding assignment $\alpha:X \to A$
+%given by $\alpha(x)= \iota^{-1}(\alpha^{\weak}(x))$, $\alpha$ is well defined
+%since $\iota$ is a monomorphism (injective).
+%\end{fact}
+
+
+Since $\iota$ is a tight monomorphism we get the following collolary directly from lemma~\ref{le:restricted}
+
+\begin{corollary}
+\label{co:restricted}
+If $X$ a set of variables, $t \in \TermsSX$ a $\Sigma$ term, $A$ a $\thr{X_\cons}$
+	algebra, $\iota(A)$ the coresponding (extended) $\thr{X_{\weak}}$
+	algebra and $\alpha^{\weak}: X \to \iota(A)$ a restricted
+	assignment, then we have that: \[ \alpha^{\weak}(t)^{\iota(A)} =
+	\iota(\alpha(t)^{A}), t \in \TermsSX \]
+\end{corollary}
+
+%\begin{PROOF}
+%Induction on the complexity of $t$
+%	\begin{itemize}
+%	\item $t = x$ \\
+%		$\alpha^{\weak}(x)^{\iota(A)} = \iota(\alpha(x)^A)$, by fact~\ref{fa:restassign}
+%	\item $t = c$
+%		\begin{eqp}
+%			\alpha^{\weak}(c)^{\iota(A)} 
+%		\comment{=}{no assignment for constants}
+%			c^{\iota(A)}
+%		\comment{=}{def. $\iota(A)$}
+%			\iota(c^A)
+%		\comment{=}{$\iota$ tight homomorphism}
+%			c^A
+%		\comment{=}{no assignment for constants}
+%			\iota(\alpha(c)^A)
+%		\end{eqp}
+%	\item $t= \omega(\overline{t_i})$
+%		\begin{eqp}
+%			\alpha^{\weak}(\omega(\overline{t_i}))^{\iota(A)}
+%		\comment{=}{assignment}
+%			\bigcup_{a_i \in \alpha^{\weak}(t_i)} (\omega(\overline{a_i}))^{\iota(A)}
+%		\comment{=}{induction hypothesis}
+%			\bigcup_{a_i \in \iota(\alpha(t_i))} (\iota(\omega(\overline{a_i}))^{A})
+%		\comment{=}{$\iota$ tight homomorphism}
+%			\bigcup_{a_i \in \iota(\alpha(t_i))} (\omega(\overline{a_i}))^{A}
+%		\comment{=}{assignment}
+%			\iota(\alpha(\omega(\overline{t_i}))^A)
+%		\end{eqp}
+%	\end{itemize}
+%\end{PROOF}
+
+
+We are now ready to prove the following ``satisfaction condition'' for the modified specifications.
+
+\begin{proposition}{Modified satisfaction condition}
+\label{pr:modsat}
+Given a modified specification
+	$\thr{X_\cons}=(\Sigma,\Phi_\cons,\Modax_{\Sigma})$, the functor
+	$\fu{\iota}: \Mod(X_\cons) \to \Mod(X_{\weak})$ in
+	definition~\ref{def:parametersemantic} satisfies the following
+	satisfaction condition, for every fully guarded $\Sigma$ formula $\phi_\cons$: \[ A
+	\models \phi_\cons \iff \iota(A) \models \phi_\cons \]
+\end{proposition}
+
+\begin{PROOF}\\
+$\Rightarrow$:\\ 
+Suppose that $A \models_{\alpha} \phi_\cons$, it means that
+$\iota(A) \models_{\iota(\alpha)} \phi_\cons$, since $\iota$ is a thight
+monomorphism. Then by lemma~\ref{le:restricted} we get that $\iota(A)
+\models_{\alpha^\weak} \phi_\cons$.\\ 
+If $\alpha':X \to |\iota(A)|$ is an
+assignment such that for one $x$ is $\alpha'(x) \neq \alpha^{\weak}(x)$ for
+any restricted assignment $\alpha^{\weak}$, we have that $\alpha'(x)
+\not\prec \cons_s$, so $\iota(A) \models_{\alpha'} \phi_\cons$ since
+$\phi_\cons$ is guarded.\\ 
+$\Leftarrow$: \\ 
+Suppose $\iota(A) \models
+\phi_\cons$. It means that $\iota(A) \models_{\alpha^{\weak}} \phi_\cons$,
+for all restricted assignments $\alpha^{\weak}:X \to |\iota(A)|$, by
+lemma~\ref{le:restricted} we get that $A \models_{\alpha} \phi_\cons$, so $A
+\models \phi_\cons$ since $\alpha$, arbritary.
+\end{PROOF}
+
+
+\begin{corollary}{Weakened satisfaction condition}
+\label{co:weaksat}
+Given a modified specification
+	$\thr{X_\cons}=(\Sigma,\Phi_\cons,\Modax_{\Sigma})$, the functor
+	$\fu{\iota}: \Mod(X_\cons) \to \Mod(X_{\weak})$ satisfies the following
+	satisfaction condition, for every $\Sigma$ formula $\phi$:
+	\[ A \models \phi \iff \iota(A) \models \phi_\cons \]
+, where $\phi_\cons$ is the fully guarded version of $\phi$
+\end{corollary}
+
+\begin{PROOF}
+We have that $A \models \phi \iff A \models \phi_\cons$ and the proof follows from proposition~\ref{pr:modsat}
+\end{PROOF}
+
+Note that $\phi_\cons$ have to be completly guarded to prove the direction $\To$.
+
+\begin{corollary}{Satisfaction reflection}
+\label{co:satreflex}
+Given a modified specification
+	$\thr{X_\cons}=(\Sigma,\Phi_\cons,\Modax_{\Sigma})$, the functor
+	$\fu{\iota}: \Mod(X_\cons) \to \Mod(X_{\weak})$ satisfies the following
+	satisfaction reflection, for every $\Sigma$ formula $\phi$:
+	\[ \iota(A) \models \phi \To A \models \phi \]
+
+\end{corollary}
+
+\begin{PROOF}
+Suppose $\iota(A) \models
+\phi$. It means that $\iota(A) \models_{\alpha^{\weak}} \phi$,
+for all restricted assignments $\alpha^{\weak}:X \to |\iota(A)|$, by
+lemma~\ref{le:restricted} we get that $A \models_{\alpha} \phi$, so $A
+\models \phi$ since $\alpha$, arbritary.
+\end{PROOF}
+
+
+\subsection{Models for a parameterizated specification}
+\label{subse:paramodlogic}
+
+We start this section by proving fact~\ref{fa:semanticexists}, that ensures existence of a semantic functor for a parameterizated datatype.
+Moreover we prove that if the formal parameter specification $\thr{X_\cons}$, satisfies  a formula $\phi$ will the parameterizated algebras satisfy $\mu(\phi_\cons)$, i.e. $\PMod(\thr{P}) \models \mu(\phi_\cons)$, for a given parameterizated datatype specification $\thr{P}=(\thr{X_\cons}, \thr{P[X]_\cons}, \mu)$. Further we show that the actual parameter passing reflects this property i.e. a formula satisfied by the formal parameter specification has a corresponding formulae satisfied by the actual specification. 
+
+
+We now prove fact~\ref{fa:semanticexists}.
+Dette er vanskelig, trenger essensielt et kompletthets bevis.
+
+
+
+
+\begin{fact}
+For a parameterizated datatypespecification $\thr{P} = (\mu,\thr{X_\cons},\thr{P[X]_\cons})$ do we have that:
+
+There exists a semantic functor $\fu{F}: \thr{X_\cons} \to \thr{P[X]_\cons}$ if we have for all $\phi \in sen(\Sigma)$ that:
+	\[ \thr{X_\cons}\models \phi \iff \thr{P[X]_\cons} \models \mu(\phi_\cons )\]
+, where $\thr{X_\cons}=(\Sigma,\Phi)$, $\thr{P[X]_\cons}=(\Sigma',\Phi')$ and $\phi_\cons$ is the fully guarded version of $\phi$.
+\end{fact}
+
+We need the following definition:
+\begin{definition}
+The deterministic core $T(P[X])$ of $\thr{P[X]_\cons}$ is defined by:
+	\begin{itemize}
+	\item ${s'}^{T(P[X])} =\{ t: t \in \Terms{\Sigma'} \setminus \Terms{\Sigma} \land \thr{P[X]_\cons} \models t \eleq t \}$, for $s' \in \Sigma' \}$
+	\item for $\omega': \overline{s'} \to s'$, is the operation $\omega': \overline{s'}^{T(P[X])} \to \powerset(s')$ defined by:
+		\[ \omega'(\overline{t})= \{ t' : t' \in |T(P[X])| \land \thr{P[X]_\cons} \models t' \prec \omega'(\overline{t}) \}  \]
+	\end{itemize}
+\end{definition}
+
+
+
+\begin{PROOF}
+Supose that we have for a parameterizated datatype specification $\thr{P} = (\mu,\thr{X_\cons},\thr{P[X]_\cons})$ that:
+	\[ \thr{X_\cons}\models \phi \iff \thr{P[X]_\cons} \models \mu(\phi_\cons )\]
+, where $\Sigma$ is the signature of $\thr{X_\cons}$ and $\phi_\cons$ is the fully guarded version of $\phi$. We have to construct a semantic functor $\fu{F}: \thr{X_\cons} \to \thr{P[X]_\cons}$.
+
+
+\end{PROOF}
+
+
+\begin{lemma}
+\label{le:consclosed}
+For a parameterizated specification
+	$(\thr{X_\cons}, \thr{P[X]_\cons}, \mu)$, if an algebra $\fu{F}(A) \in \Mod(\thr{P[X]_\cons})$ is in the image of a semantic functor, we have that:
+	\begin{itemize}
+	\item $A|_\mu \models c \prec \cons_s$, for every constant $c \to s \in \Sigma(X_\cons)$
+	\item $A|_\mu \models \overline{x} \prec \cons \to f(\overline{x}) \prec \cons_s$, for every opperation $f:\overline{s} \to s \in \Sigma(X_\cons)$
+	\end{itemize}
+\end{lemma}
+
+\begin{PROOF}\\
+$\Rightarrow$ Suppose that $\fu{F}$ is a semantic functor with coresponding $\iota$, for an arbitrary algebra in the image of $\fu{F}$, $\fu{F}(A) \in \Mod(\thr{P[X]_\cons})$, since $A \in \Mod(\thr{X_\cons})$ and $\iota$ is a tight homomorphism we get that:		\begin{itemize}
+	\item $\iota(A) \models c \prec \cons_s$, for every constant $c \to s \in \Sigma(X_\cons)$
+	\item $\iota(A) \models \overline{x} \prec \cons \to f(\overline{x}) \prec \cons_s$, for every opperation $f:\overline{s} \to s \in \Sigma(X_\cons)$
+	\end{itemize}
+The claim follows by the restrictions of $\fu{F}$\\
+\end{PROOF}
+
+\begin{proposition}
+For a fully guardede parameterizated specification
+	$P=(\thr{X_\cons}, \thr{P[X]_\cons}, \mu)$, with $\PMod(\thr{P}) \not= \emptyset$ and where $\mu(\phi) \in \thr{P[X]_\cons}$ for every $\phi \in \thr{X_\cons}$. We have that an algebra $A \in \Mod(\thr{P[X]_\cons})$ is in the image of a semantic functor iff
+	\begin{itemize}
+	\item $A|_\mu \models c \prec \mu(\cons_s)$, for every constant $c \to s \in \Sigma(X_\cons)$
+	\item $A|_\mu \models \overline{x} \prec \mu(\cons) \to f(\overline{x}) \prec \mu(\cons_s)$, for every opperation $f:\overline{s} \to s \in \Sigma(X_\cons)$
+	\end{itemize}
+\end{proposition}
+
+%Dette gaar ikke dersom $\thr{X_\cons}$ ikke er fully guarded
+%Note that any fully guarded specification has the empty algebra as a modell.
+
+\begin{PROOF}\\
+$\Rightarrow$ By lemma~\ref{le:consclosed}\\
+$\Leftarrow$ Suppose that $A \in \Mod(\thr{P[X]_\cons})$ satisfies:
+	\begin{itemize}
+	\item $A|_\mu \models c \prec \cons_s$, for every constant $c \to s \in \Sigma(X_\cons)$
+	\item $A|_\mu \models \overline{x} \prec \cons \to f(\overline{x}) \prec \cons_s$, for every opperation $f:\overline{s} \to s \in \Sigma(X_\cons)$
+	\end{itemize}
+Suppose that $\fu{F}: \thr{X_\cons} \to \thr{P[X]_\cons}$ is a semantic functor, we have to create a semantic functor $\fu{F'}$, such that $A$ is in the image of $\fu{F'}$. We define the algebra $A' \in  \Mod(\thr{X_\cons})$ by:
+
+	\begin{itemize}
+	\item carrier\\ 
+		$s^{A'} = \cons_s^{A|_\mu}$
+	\item opperations\\
+		$f^{A'}(\overline{x}) = f^{A|_\mu}(\overline{x})$
+	\end{itemize}
+
+We define $\iota(A') = A|_\mu$ as the inclusion.
+$A' \in Mod(\thr{X_\cons})$, since $\mu: \thr{X_\weak} \to  \thr{P[X]_\cons}$ is a specification morphism we have that $A|_\mu \models \phi$ for all axioms $\phi \in \thr{X_\cons}$ so corollary~\ref{co:satreflex} gives us that $A' \models \phi$ for all axioms $\phi \in \thr{X_\cons}$.
+
+We now divide $\Mod(\thr{X_\cons})$ in two classes:
+
+
+	\begin{enumerate}
+	\item $Img(A') = \{ B \in \Mod(\thr{X_\cons}): \mbox{ such that there exist a (weak) homomorphism }h:A \to B \}$
+%	\item $Pre(A|_\mu) = \{ C \in \Mod(\thr{X_\cons}): \mbox{ such that there exist a (weak) homomorphism } h:C \to A \}$
+%	\item $Rest(A') = \{ D \in \Mod(\thr{X_\cons}): \mbox{ such that there exist no (weak) homomorphism } h:D \to A, \mbox{ or } h:A \to D \}$
+	\item $Rest(A') = \Mod(\thr{X_\cons}) \setminus Img(A')$
+	\end{enumerate}
+
+We let ${A_s}^+$ be the set $s^{A|_\mu} \setminus {\cons_s}^{A|_\mu}$, and define the functor $\fu{F'}$ as:
+	\begin{itemize}
+	\item Objects
+		\begin{itemize}
+		\item $|\fu{F'}(X)|= \left\{\begin{array}{ll}
+	A		& \mbox{if } X = A' \\
+	\fu{F(X)}^+	& \mbox{if } X \in Img(A|_\mu) \\
+	\fu{F(X)}	& \mbox{else}\\
+		\end{array}\right.$\\
+		Where $X^+$ is given by:
+			\begin{itemize}
+			\item carrier:\\
+		$|X^+| = |X| \oplus A^+$
+			\item opperations:\\
+			$f^{X^+}(\overline{x})= \left\{\begin{array}{ll}
+			f^{X}(\overline{x})	& \mbox{if } f^{X}(\overline{x}) \mbox{ is defined}\\
+			\bigcup_{h \in hom(A,X)} h(f^A)(\overline{x}) 	& \mbox{else} 
+			\end{array}\right.$
+			\end{itemize}
+		\end{itemize}
+
+	\item Homomorphisms: $h: X \to Y$
+		\begin{itemize}
+		\item $|\fu{F}(h)|= \left\{\begin{array}{ll}
+	h^+		& \mbox{if }  X \in Img(A') \\
+	h		& \mbox{else}\\
+		\end{array}\right.$ \\
+		Where $h^+$ is given by:\\
+			$h^{+}({x})= \left\{\begin{array}{ll}
+			{x}	& \mbox{if } x \in A^+ \\
+			h(x)	& \mbox{else} 
+			\end{array}\right.$
+		\end{itemize}
+	\end{itemize}
+
+
+\end{PROOF}
+
+
+%\begin{definition}
+%Given a parameterizated specification
+%	$(\thr{X_\cons}, \thr{P[X]_\cons}, \mu)$, for any $\Sigma(\thr{X_\cons})$ formula $\phi$, we define the coresponding $\Sigma(\thr{P[X]_\cons})$ formula $\phi'$, where $\phi'$ is given by:
+%	\begin{itemize} 
+%	\item Global guards:\\
+%		$\phi = x \prec \cons_s \To \phi' = x \prec \delta(\cons_s)$
+%	\item Formulae:
+%		$\phi = \guard^{\ast},
+%	a_1, \ldots ,a_m \to a_{m+1}, \ldots ,a_n \To \phi' = \phi_\cons
+%	= \guard^{\ast},
+%	a_1, \ldots ,a_m \to a_{m+1}, \ldots ,a_n$, where $\phi_\cons$ is the fully guarded version of $\phi$
+%	\end{itemize} 
+%\end{definition}
+
+\begin{proposition}{Parameterizated satisfaction condition}
+\label{prop:parasat}
+Fort a parameterizated specification
+	$\thr{P}=(\thr{X_\cons}, \thr{P[X]_\cons}, \mu)$, we have the following
+	satisfaction condition, for every $\Sigma(\thr{X_\cons})$ formula $\phi$:
+	\[ \thr{X_\cons} \models \phi \iff \PMod(\thr{P}) \models \mu(\phi_\cons) \]
+, where $\phi_\cons$ is the fully guarded version of $\phi$.
+\end{proposition}
+
+\begin{PROOF}
+Suppose that $\thr{X_\cons} \models \phi$, for an arbitrary semantic functor: $\fu{F}$, with coresponding $\iota$, and an arbitrary algebra $A \in \Mod(\thr{X_\cons})$, we have that: 
+	\begin{eqp}
+		A \models \phi 
+	\comment{\iff}{corollary~\ref{co:weaksat}}
+		\iota(A) \models \phi_\cons
+	\comment{\iff}{satisfaction condition, since $\iota(A)=\fu{F}(A)|_\mu $}
+		\fu{F}(A) \models \mu(\phi_\cons)
+	\end{eqp}
+\end{PROOF}
+
+
+
+%\begin{proposition}{Parameterizated satisfaction conservation}
+%\label{prop:parasat}
+%A parameterizated specification
+%	$(\thr{X_\cons}, \thr{P[X]_\cons}, \mu)$, satisfies the following
+%	satisfaction conservation, for every $\Sigma(\thr{X_\cons})$ formula $\phi$:
+%	\[ \thr{X_\cons} \models \phi \To \thr{P[X]_\cons} \models \phi' \]
+%, where $\phi'$ is the coresponding formula to $\phi$
+%\end{proposition}
+%Dette holder ikke 
+
+%\begin{proposition}{Parameterizated satisfaction conservation}
+%\label{prop:parasat}
+%A parameterizated specification
+%	$(\thr{X_\cons}, \thr{P[X]_\cons}, \mu)$, satisfies the following
+%	satisfaction conservation, for every $\Sigma(\thr{X_\cons})$ formula $\phi$:
+%	\[ \thr{X_\weak} \models \phi \To \thr{P[X]_\cons} \models \phi' \]
+%, where $\phi'$ is the coresponding formula to $\phi$
+%\end{proposition}
+
+
+%\begin{PROOF} %\\
+%We have that $\thr{X_\cons} \models \phi \iff \thr{X_\cons} \models \phi_\cons \To \thr{P[X]_\cons} \models \mu(\phi_\cons)$, where ``$\To$'' follows since $\mu$ is a specification morphism.
+%\end{PROOF}
+
+%\begin{proposition}{Parameterizated satisfaction conservation}
+%\label{prop:parasat}
+%A parameterizated specification
+%	$(\thr{X_\cons}, \thr{P[X]_\cons}, \mu)$, satisfies the following
+%	satisfaction conservation, for every $\Sigma(\thr{X_\cons})$ formula $\phi$:
+%	\[ \thr{X_\cons} \models \phi \To \thr{P[X]_\cons} \models \mu(\phi_\cons) \]
+%, where $\phi_\cons$ is the fully guarded version of $\phi$
+%\end{proposition}
+
+%\begin{PROOF} %\\
+%We have that $\thr{X_\cons} \models \phi \iff \thr{X_\cons} \models \phi_\cons \To \thr{P[X]_\cons} \models \mu(\phi_\cons)$, where ``$\To$'' follows since $\mu$ is a specification morphism.
+%\end{PROOF}
+
+
+%Note that the proof gives that if $\mu(\cons_s)= \cons_s$ for all sorts $s$ occuring in a formula $\phi$, will $\thr{X_\cons} \models \phi \To \thr{P[X]_\cons} \models \phi$. In general we have the guarded version of $\phi$ on the righthandside.
+
+
+\begin{proposition}{Actualparameter satisfaction conservation}
+\label{prop:actparasat}
+Given a parameterizated specification
+	$(\thr{X_\cons}, \thr{P[X]_\cons}, \mu)$, and actual parameterspecification $(\thr{Y_\cons}, \thr{P[X]_\cons}, \mu')$, with actual parameter passing morphism $\nu: \thr{X_\cons} \to \thr{Y_\cons}$, we have the following
+	satisfaction conservation, for every $\Sigma(\thr{X_\cons})$ formula $\phi$:
+	\[ \thr{X_\cons} \models \phi \To \thr{P[Y]_\cons} \models \mu'(\nu(\phi)_\cons) \]
+, where $\nu(\phi)_\cons$ is the fully guarded version of $\nu(\phi)$
+\end{proposition}
+
+\begin{PROOF} %\\
+Since $\nu: \thr{X_\cons} \to \thr{Y_\cons}$ is a specification morphism we have that $\thr{X_\cons} \models \phi \To \thr{Y_\cons} \models \nu(\phi)$ and the proof follows from proposition~\ref{prop:parasat}.
+\end{PROOF}
+
+
+\subsection{Checking actual parameter passing}
+
+To check if $\thr{Y_\cons}$ is a legal parameter for the parameterizated specification, $(\thr{X_\cons}, \thr{P[X]_\cons}, \mu)$ we have to:
+	\begin{itemize}
+	\item Construct a specification morphism $\nu: \thr{X_\weak} \to \thr{Y_{\nu(\weak)}}$, satisfying $\nu(\cons_s)= \cons_{\nu(s)}$, for all $s$. 
+	This can be divided in two sub parts:
+		\begin{enumerate}
+		\item The existence of a signature morphism $\nu: \thr{X_\weak} \to \thr{Y_{\nu(\weak)}}$, satisfying $\nu(\cons_s)= \cons_{\nu(s)}$, for all $s$. 
+		\item Prove that the actuall $\nu$ is a specification morphism.
+		\end{enumerate}
+	\end{itemize}
+The existence of a signature morphism is an ``easy'' problem to solve, the hard part is to check if it really is a specification morphism.
+
+
+

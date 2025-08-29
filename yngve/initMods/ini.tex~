@@ -1,0 +1,250 @@
+\documentclass[10pt]{article}
+%\documentstyle[a4,fullpage,12pt,oldlfont]{article}
+
+%\usepackage{amssymb}
+
+\makeatletter
+\input{a4wide}
+\makeatother
+
+\input{defs}
+
+\newcommand{\comt}[1]{... \ \hfill{\small{[#1 {\bf !}]}}}
+%--------------------------------------------------------------------
+% the document
+
+\begin{document} 
+
+\hfill\today
+% 
+\section{Labeled multialgebras...}
+
+\begin{Definition}
+Given a specification $SP=\<\Sigma,\Phi\>$, we define two relations on
+$\GTerms\times\GTerms$ \vspace*{-1ex}
+\[ s\incleq t \iff SP\models s\prec t\ \ \  and\ \ \ 
+   s\seteq t\iff s\incleq t\land t\incleq s \vspace*{-1ex} \]
+\end{Definition}
+Obviously, $\incleq$ is an ordering relation while $\seteq$ a
+$\Sigma$-congruence on $\GTerms$. Equivalence classes wrt. $\seteq$ will be
+denoted by $[t]=\{s\in\GTerms:s\seteq t\}$, and the whole class
+$\quot{\GTerms}{\seteq}$ by $\spTerms$. We will consider also other congruences on
+ground terms satisfying $\seteq\ \subseteq\ \congrA$ -- the respective equivalence
+classes will be denoted $[t]^\congrA$, and their collection
+$\quot{\GTerms}{\congrA}$ by $\spTTerms\congrA$.
+
+\begin{Definition}\label{de:labm}
+A labeled $\Sigma$-multialgebra $A$ has the carrier $|A|=\under A$, for some
+set $\under A$ which, however, has a structure described by the triple
+$\<\under A,\G A, \congrA\>$ where:
+\begin{ite}
+\item $\congrA$ is a congruence on $\GTerms$ such that $\seteq\ \subseteq\ \congrA$ 
+\item $\G A\subseteq\PSet {\under A}\times \PSetp{\aTerms}\times \PSet{\aTerms}$, with projections
+$set:\G A\into\PSet{\under A}$, $lab_1:\G A\into\PSetp{\aTerms}$,  $lab_2:\G
+A\into\PSet{\aTerms}$. (We write $lab(X)=lab_1(X)\cup lab_2(X)$.)
+\end{ite}
+$\G A$ contains all and only labeled sets interpreting ground terms: for each
+$t\in\GTerms$, its interpretation in $A$, $t^A\in\G A$,
+satisfies the following conditions ($X,Y\in\G A$):
+\begin{enum}
+\item $[t]^\congrA\in lab_1(t^A)$
+\item $[t]^\congrA\in lab(X) \impl set(t^A)\subseteq set(X)$
+\item $[t]^\congrA\in lab(X) \land s\incleq t \impl [s]^\congrA\in lab(X)$
+\item $lab_2(X)\not=\emptyset \impl |set(X)|=1 \land |lab_1(X)|=1$
+\item $lab_1(X)=lab_1(Y)\land set(X)=set(Y) \impl X=Y\ \  (lab_2(X)=lab_2(Y))$
+\item $lab(X)\subseteq lab(Y) \impl set(X)\subseteq set(Y)$
+\item $set(X)=\{e\}=set(Y) \land |lab(X)|=1=|lab(Y)| \impl lab(X)=lab(Y)$.\\ 
+\comt{to avoid $\{e\}^s \not\eleq \{e\}^t$, while $m(z)=\{e\}\incl s, t$.}
+\end{enum}
+We furthermore distinguishe the following sets:
+\begin{ite}
+\item $\Gone A= \{ X\in\G A : |set(X)|=1\}$ -- labeled sets
+with 1 element
+%$\Gone A= \bigcup \{ set(X):X\in\G A\land |set(X)|=1\}\subseteq\under A$ 
+%containing only elements of 1-element sets from $\G A$. 
+\item $\Gtwo A = \{X\in\G A:|set(X)|\not=1\}$ -- labeled sets with no or at least two elements
+\item $\restA=\under A\setminus\Gone A$
+\end{ite}
+We won't distinguish between $\Gone A$ and the set of its elements, i.e., the
+set $\bigcup\{set(X):X\in\Gone A\}$. For instance, 
+writing $a\in\Gone A$ for an $a\in\under A$, we mean that there exists a
+labeled set $X\in\Gone A$ such that $set(X)=\{a\}$. This justifies the
+notation in the last point. 
+
+\comt{In general $\G A \not= \PSet{\Gone A}$, and even $\bigcup\G
+A\not\subseteq\Gone A$.} 
+%
+
+Operations are  (multi)functions
+$|A|\into \PSet{\under A}\uplus\G A$ such that:
+\begin{ite}
+\item $f^A(a_1...a_n) \in\left\{\begin{array}{ll}
+   \G A & if\ all\ a_i\in\Gone A\\
+   \PSet{\under A} & otherwise \end{array}\right.$
+\item In the first case, each $\{a_i\}=t^A_i$ for some $t_i\in\GTerms$ and
+$f^A(a_1...a_i) = f(t_1...t_n)^A$
+%% \item In the second case, if for all $a_i\not\in\G A: \{a_i\}\in\Gone A$,
+%% then $f^A(a_1...a_n) = \emptyset$. 
+%%
+%% \comt{$=set(f^A(\{a_1\}...\{a_n\}))$}
+\end{ite}
+For convenience, given a non-ground
+term $t(x)$ and $a\in |A|$, we write $set(t(a))^A$ for 
+the set $f(a)^A$.
+\end{Definition}
+
+\begin{Definition}\label{de:sat}
+Assignment is a function $\alpha:X\into|A|$.
+Labeled multialgebra $A\models_\alpha \phi$:
+\begin{ite}
+\item $A\models_\alpha t\eleq t:$ iff $ t\in\G A\ \land\
+|set(t^A)|=1=|lab_1(t^A)|,$ or $t\not\in \G A\ \land\ |set(t^{A,\alpha})|=1$
+
+%$\begin{array}[t]{ll}
+%   t\in\G A\ \land\ |set(t^A)|=1=|lab_1(t^A)|,\ or \\
+%   t\not\in \G A\ \land\ |set(t^{A,\alpha})|=1   \end{array}$
+\item $A\models_\alpha s\eleq t:$ iff $A\models_\alpha s\eleq s\land t\eleq
+t$, $set(s^{A,\alpha})=set(t^{A,\alpha})$ and if $s^A,t^A\in\G A$ then $lab_1(s^A)=lab_1(t^A)$.
+%$\begin{array}[t]{ll}
+%set(s^A)=\{e\}=set(t^A)\ \land\ 
+%lab_1(s^A)= \{[s]\}=lab_1(t^A) & if\ s^A,t^A\in\Gone A\\
+%   false & if\ s^A\ or\ t^A\in\Gtwo A \\
+%set(s^{A,\alpha})=\{e\}=set(t^{A,\alpha}) & otherwise \end{array}$.\com
+\item $A\models_\alpha s\incl t:$ iff $\begin{array}[t]{ll}
+set(s^A)\subseteq set(t^A)\land lab(s^A)\subseteq lab(t^A) & if\
+s^A,t^A\in\G A\\
+set(s^{A,\alpha})\subseteq set(t^{A,\alpha}) & otherwise \end{array}$. \\
+\comt{The first clause describes also the case when $s,t\in\GTerms$ and $set(s^A)=set(t^A)=\emptyset$.}
+\end{ite}
+\end{Definition}
+
+\begin{Prop}
+Given a specification $SP$: for every $A\in\MMS$ there is an $L\in\LMS$ such
+that for every formula $\phi:A\models\phi\iff L\models \phi$.
+\end{Prop}
+\begin{Proof}
+Given an $A\in\MMS$, we construct an $L\in\LMS$ by endowing appropriate sets
+with adequate labels constructed from $\spTTerms\congrA$. The carrier
+$|L|=|A|$ and for each ground
+term $t\in\GTerms$, we define its interpretation  $t^L$ by
+$set(t^L)=t^A$ and labeling these sets as follows (all $s\in\GTerms$):
+\begin{enum}
+\item if $t^A=\emptyset$ then $lab_1(t^L)=\{[t]^\congrA\}=\{[s]^\congrA:s^A=\emptyset\}$ and $lab_2(t^L)=\emptyset$.
+\item if $|t^A|=1$ then  $lab_1(t^L)=\{[t]^\congrA\}$ and
+$lab_2(t^L)=\{[s]^\congrA:A\models s\prec t\}\setminus\{[t]^\congrA\}$. In
+fact, $lab_2(t^L) = \{[s]^\congrA\}$ where $s^A=\emptyset$, or $lab_2(t^L)=\emptyset$ if no such
+$s\in\GTerms$ exists.
+\item otherwise $lab_1(t^L)=\{[s]^\congrA:s\in\GTerms\land A\models
+s\prec t\}$ and $lab_2(t^L)=\emptyset$.
+%\item[$\bullet$] PROBLEM with labeling of $t$ if $A\models t\eleq t$ and $A\models s\prec t$, because $s^A=\emptyset$!
+\end{enum}
+All operations are interpreted as in $A$, with the exception that applied to
+ground terms, they return sets in $\G L$ rather than in $\PSet{L}$. It is
+trivial to check that $L$ is a labeled multialgebra according to definition~\ref{de:labm}.
+
+For any ground term $t:set(t^L) = t^A$, thus the only thing which
+might change satisfaction of some formulae is the labeling affecting
+relations between ground terms. However, for all $s,t\in\GTerms:$
+\begin{ite}
+\item if $A\models s\eleq t$ then $[s]^\congrA=[t]^\congrA$; by the point
+2. we will have $set(s^L)=set(t^L)$ and
+$lab_1(s^L)=\{[s]^\congrA\}=lab_1(t^L)$, i.e., $L\models s\eleq t$,
+\item if $A\not\models t\eleq t$ then $|t^A|\not=1$ and hence $L\not\models
+t\eleq t$
+\item if $A\not\models s\eleq t$ while both $A\models s\eleq s$ and
+$A\models t\eleq t$, then $s^A\not= t^A$, and hence $L\not\models s\eleq t$.
+\end{ite}
+Thus $L\models s\eleq t\iff A\models s\eleq t$, for all $s,t\in\GTerms$.
+Similarly, for ground inclusions $s\prec t$, we have:
+\begin{ite}
+\item if $A\models s\prec t$ then $s^A\subseteq t^A$. But then also for any
+other ground term $k:A\models k\prec s \impl A\models k\prec t$, and so
+$lab(s^L)\subseteq lab(t^L)$,
+\item if $A\not\models s\prec t$ then $s^A\not\subseteq t^A$ and so
+$L\not\models s\prec t$.\\
+\comt{if $A\models t\eleq t$ and $A\models s\prec t$, because $set(s^A)=\emptyset$,
+we get $L\models s\prec t$ because of 1. and 2.}
+\end{ite}
+Hence $L\models s\prec t\iff A\models s\prec t$ for all $s,t\in\GTerms$. Since $set(t^L)=t^A$ for all
+ground terms and interpretation of all operations returns the same sets in
+$L$ as it did in $A$, we will have that for any assignment $\alpha:X\into
+|L|=|A|$, $set(t^{L,\alpha})=t^{A,\alpha}$. Thus $L\models \phi\iff
+M\models\phi$ for all formulae.
+\end{Proof}
+
+\begin{Corollary}
+$\LMS\models\phi\ \impl\ \MMS\models\phi$
+\end{Corollary}
+However, the opposite implication does {\em not} hold.
+\begin{Example}
+There are {\em more} labeled models than multialgebras. The specification:
+
+$\begin{array}{ll}
+1. & a\eleq a\ \land\  b\eleq b\ \land \\
+2. & s\prec a\ \land\  s\prec b\ \land \\
+3. & a\not\eleq b\ \ \land \\
+4. & s\not\prec c
+\end{array}$
+
+\noindent
+has no multialgebraic models! 1., 2. and 3. force in any multialgebra $A:
+s^A=\emptyset$, which is inconsistent with 4. But it has a labeled model:
+
+$\begin{array}{l@{\ \mapsto\ }ll}
+a & \{a\}^{\{a\},\{s\}} & (or\ X^{\{a\},\{s\}},\ for\ any\ X) \\[.5ex]
+b & \{b\}^{\{b\},\{s\}} & (or\ X^{\{b\},\{s\}},\ for\ any\ X) \\[.5ex]
+c & \emptyset^{\{c\}} & (or\ X^{\{c\}},\ for\ any\ X) \\[.5ex]
+s & \emptyset^{\{s\}}
+\end{array}$
+\end{Example}
+
+\section*{Initial models}
+%
+\begin{Claim}
+Need: for (the) initial structure $T(SP)$ to be a model, for every ground
+atom: $T(SP)\models atom\iff SP\models
+atom$ ($s\eleq t$ or $s\prec t$, with $s,t\in\GTerms$).
+\end{Claim}
+\begin{Definition}
+Given $SP=\<\Sigma,\Gamma\>$, we define the structure $T(SP)$:
+\begin{ite}
+\item $|T(SP)| = \{[t]:SP\models t\eleq t\}$, (sorted by $s\in S$).
+\item $f^{T(SP)}([t_1]...[t_n])=X$, where
+$set(X) = \{ [p]: p\in\GTerms\land SP\models p\eleq
+p\land SP\models p\prec f(t_1...t_n)\}$ and (we let $f(t_1...t_n)=t$):
+\begin{ite}
+\item[a)] if $SP\models t\eleq t$ then: 
+$lab_1(X) = \{[t]\}$ and $lab_2(X) 
+= \bigcup\{lab(p^{T(SP)}):SP\models p\prec t\}\setminus\{[t]\}$,\vspace*{.5ex}
+\item[b)] if $SP\not\models t\eleq t$ then: 
+$lab_1(X) = \{[t]\}\cup \bigcup\{lab(p^{T(SP)}):SP\models p\prec
+t\}$, and $lab_2(X)=\emptyset$.
+\end{ite}
+\end{ite}
+\end{Definition}
+
+\[\begin{array}{r|l|l}
+L\models & t^L & s^L\\ \hline\hline
+t\eleq t &  \{\bullet\}^{\{[t]\},\emptyset} & \\ 
+t\eleq t \land s\prec t \land s\not\eleq s &  \{\bullet\}^{\{[t]\},\{[s]\}} &
+\emptyset^{\{[s]\},\emptyset}\\
+t\eleq t \land s\prec t \land s\eleq s &  \{\bullet\}^{\{[t]=[s]\},\emptyset} & \{\bullet\}^{\{[s]=[t]\},\emptyset} \\
+t\not\eleq t \land s\prec t \land s\not\eleq s&  \{\bullet\}^{\{[t],[s]\},\emptyset} & 
+\emptyset^{\{[s]\},\emptyset} \\
+t\not\eleq t \land s\prec t\land s\eleq s &  \{\bullet\}^{\{[t],[s]\},\emptyset} & \{\bullet\}^{\{[s]\},\emptyset}
+\end{array}
+\]
+$T(SP)$ is obviously a labeled {\em multi}algebra (additive). 
+
+\begin{Definition}
+A homomorphism of labeled multialgebras $\phi:A\into B$ is a total function
+$h:\under A\into \under B$ such that for all $a_i\in\under
+A:\phi(set(f^A(a_1...a_n))) \subseteq set(f^B(h(a_1)...h(a_n)))$.
+\end{Definition}
+
+%\bibliographystyle{bibNo}
+%\bibliography{my}
+
+\end{document}
+
+

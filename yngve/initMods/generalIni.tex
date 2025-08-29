@@ -1,0 +1,878 @@
+\documentclass[12pt]{article}
+%\documentstyle[a4,fullpage,12pt,oldlfont]{article}
+
+%\usepackage{amssymb}
+
+\makeatletter
+\input{a4wide}
+\makeatother
+
+\input{defs}
+\input{xypic}
+\xyoption{curve}
+
+%--------------------------------------------------------------------
+% the document
+
+\begin{document} 
+
+\hfill\today
+% 
+\section{Initiality in arbitrary languages}
+\begin{Definition}
+Atomic language $\langa$ is given by a set of binary relation symbols
+$L_1,...,L_k$. Given a signature $\Sigma$ and a set of variables $X$, the
+atomic formulae of $\langa$ relatively to $\Sigma,X$ form the set
+$\langsx= \{L_i(t_1,t_2): L_i\in \langa\land t_1,t_2\in\XTerms\}$. 
+% Equality is always implicitly in any $\langa$ but not among the 
+% explicitly listed $L_1,...,L_k$.
+\end{Definition}
+$\langa$ comprises the set of {\em logical} (or primitive) relations with
+uniform interpretation in all structures. If they are
+axiomatisable, all structures have to satisfy the same axioms. But they may
+be not axiomatisable, e.g., identity, in which case they are interpreted
+uniformly in all $\langa$-structures. We do not want to deal with intricacies
+of definability and will simply  assume that $\langa$ is given
+an interpretation which is fixed in one way or another. 
+%(We will state some necessary conditions for such interpretations but 
+%not in terms of definability.) 
+What makes an $A$ an $\langa$ structure is that it conforms to
+this fixed interpretation.\\
+. \comt{no $L_i\in\langa$ is definable from others in $\langa$ using
+relational operators $\neg,\cap,\cup$...} 
+
+Thus, $\Stra$ is a subset of standard (arbitrarily interpreted)
+$\langa$-structures: tuples  $\<\car A,L_1^A,...,L_k^A\>$ where $\car
+A$ is a (carrier) set (possibly empty), and each $L_i^A\subseteq\car A\times \car A$
+satisfies the assumed interpretation. 
+We always require $\Stra$ to be closed under $\langa$-isomorphisms, i.e.,
+bijective mappings $h:A\into B$ such that $L^A(a_1,a_2) \iff L^B(h(a_1),h(a_2))$.
+Equivalently, modeling relations as multifunctions 
+$[L\subseteq X\times Y]\iso [L:X\into\PSet Y]$,  $A=\{
+\<a,L_1(a)...L_k(a)\>:a\in\car A\}$ where $b \in L_i(a) \iff L_i^A(a,b)$.
+By ``a language $\langa$'' we mean its fixed interpretation, i.e., the corresponding class $\Stra$.
+
+An
+$\langs$-structure is an $\langa$-structure which, in addition, contains
+an interpretation $\Sigma^A$ of all symbols from $\Sigma$.
+$\Strs$ denotes the class of all $\langs$-structures.
+
+\begin{Definition}
+Given $\Sigma$, $\lla S\subseteq \langa$ and two $\langs$-structures $A,B$, an
+$\langss S$-homomorphism $\phi:A\into B$ is a total function
+$\phi:|A|\into|B|$ satisfying:
+\begin{enum}
+\item $\phi(f^A(a_1...a_k)) = f^B(\phi(a_1)...\phi(a_k))$ for any
+$a_i\in\car A$
+\item for all $L_i\in \lla S$ and $a\in\car A: \phi(L_i^A(a)) \subseteq
+L_i^B(\phi(a))$.
+\end{enum}
+\end{Definition}
+Using only a subset $\lla S\subset \langa$ allows us to treat homomorphisms which do
+not necessarily preserve all logical relations from
+$\langa$. $\Sigma$-homomorphism is a $\langss\emptyset$-homomorphism. If
+$\phi$ is an $\langs$-homomorphism, then it is also $\langss S$-homomorphism
+for any $\lla S\subset \langa$.
+
+\begin{Definition}
+Given $\langa=\{L_1...L_k\}$ and $\Sigma$ define the term structure $\tsl$:
+\begin{enum}
+\item the carrier $\car{\tsl}=\GTerms$ -- the ground $\Sigma$-terms
+\item for each $f\in\Funcs$ and $t_1...t_k\in\car{\tsl}:
+f^{\scr\tsl}(t_1...t_k) = f(t_1...t_k)$
+\item for each $t\in\car\tsl$ and $L_i\in\langa: L_i^{\scr\tsl}(t)=\emptyset$.
+\end{enum}
+\end{Definition}
+$\tsl$ is initial {\em for} $\Strs$ with $\langs$-homomorphisms (in fact, any
+$\langss S$-homomorphisms). $SP\subseteq\langsx$ is {\em consistent} iff 
+$\Mod{SP}=\setsuch{A\in\Strs}{A\models SP}\not=\emptyset$.
+%
+\begin{Definition}
+Given a consistent $SP\subseteq\langsx$, define $\tsp$ as follows:
+\begin{enum}
+\item the carrier $\car{\tsp} = \GTerms$ 
+%$\quot{\tsl}\equiv$, where $t\equiv s\Iff \Mod{SP}\models s=t$
+\item for each $f\in\Funcs$ and $t_1...t_k\in\car{\tsp}:
+f^{\scr\tsp}(t_1...t_k) = f(t_1...t_k)$
+\item for each $t\in\car{\tsp}$ and $L_i\in\langa:
+L_i^{\scr\tsp}(t) = \{s:\Mod{SP}\models L_i(t,s)\}$.
+\end{enum}
+\end{Definition}
+Notice that $\tsp$ is not the standard construction since it does not involve
+quotient. 
+But $\tsp$ need not be initial in $\Mod{SP}$ because it may happen that
+$\tsp\not\in\Strs$ for other reasons (besides intended identity
+interpretation). We first investigate these other reasons. 
+To ensure $\tsp\in\Strs$ we need to require all relations to
+be {\em strictly immediate}. 
+Intuitively, a relation $R\subseteq X\times Y$ is {\em immediate} iff 
+$R(x,y)$ never requires existence of other elements than $x$ and
+$y$, or else iff $\{x\},\{y\}$ can be made into a structure
+satisfying $R(x,y)$. 
+Given a strict ordering $<$, the relation $R_{sep}(x_1,x_2)\Iff
+\exists x: x_1<x\land x<x_2$ is not immediate. Similarly, the directedness relation
+$R_{dir}(x_1,x_2)\Iff \exists x: x_1<x\land x_2<x$ is not immediate. 
+The ordering $<$ itself, equivalence, membership, set-inclusion, on
+the other hand, are immediate.
+
+\begin{Definition} Define constructions on structures --
+substructure, intersection, inverse: 
+\begin{enumerate}
+\item
+A $\Sigma$-substructure of an $A\in\Strs$ is a structure $B=\<\car
+B, L_1^B,...,L_k^B,\Sigma^B\>$ where $\car B\subseteq\car A$ is
+$\Sigma$-closed,  $\forall f\in\Funcs, b_i\in\car B: f^B(b_i)=f^A(b_i)$, and $L_i^B=L_i^A\cap
+\car B\times\car B$. We write $B\sqsubseteq_\Sigma A$ (possibly dropping
+subscript.) \hfill -- $\Diamond(B\not\in\Stra)$.
+\item
+Given a set of $\langs$-structures $\{A_n:n\in I\}$ for some $I$, we 
+let $\bigcap A_n$ denote the structure $\<\bigcap_n{\car
+{A_n}},\bigcap_nL_1^{A_{n}},..., \bigcap_n L_k^{A_{n}},
+\bigcap_n\Sigma^{A_{n}}\>$ \hfill -- $\Diamond(\bigcap A_n\not\in\Stra\cup\Str\Sigma)$.
+\item
+For a set $X$, $A\in\Stra$ and a function $f:X\into\car A$ define the
+structure $\inv fA=\<X, L_1^{\inv fA},...,L_k^{\inv fA}\>$ by
+$L_i^{\inv fA}(x_1,x_2)\iff L_i^{A}(f(x_1),f(x_2))$ \hfill -- $\Diamond(\inv fA\not\in\Stra)$.
+\end{enumerate}
+\end{Definition}
+%For an $A\in\Strs$, a $B\sqsubseteq_\Sigma A$ may fail to be an
+%$\langa$-structure. Also $\bigcap A_n$ may happen to be neither $\Sigma$- nor
+%$\langa$-structure.
+The first point below captures the intuition of immediacy but we will also need a
+stronger property from point \ref{si}:
+%\newpage
+\begin{Definition}\label{def:immed}
+\ 
+\begin{enum}
+\item\label{i:immed}
+A language $\langa$ is {\em immediate}, \imm, iff for  any
+ collection of $A_n\in\Stra: \bigcap A_n \in \Stra$.
+\item\label{si}
+A language $\langa$ is {\em strictly immediate}, \simm, iff for  any set $X$, collection of $A_n\in\Stra$
+ and  functions $f_n:X\into \car{A_n} : \bigcap \inv{f_{n}}{A_{n}}\in\Stra$.
+%\<X, \bigcap_n \langa^{\inv{f_{n}}{A_{n}}}\>\in\Stra$.
+\end{enum}
+\end{Definition}
+%
+\comt{Strict immediacy of $\langa$ is NOT more than strict immediacy of each of its
+components.}\\
+For instance, a (quasi, partial, total)  ordering is immediate but a
+dense ordering $R_{dns}$ is not. To see this take two $R_{dns}$-structures: as $A_1$ the dense ordering of
+rationals in the closed interval $\car{A_1}=[0,1]$ and as $A_2$ the same
+ordering on this interval
+but with all rationals within the open inteval $(0,1)$ replaced by new distinct
+elements. $A_1\cap A_2=\<\{0,1\},\{\<0,0\>,\<0,1\>,\<1,1\>\}\>$ is still (quasi, partial, total) ordering but it
+is not dense, i.e., it is not an $R_{dns}$-structure.
+%
+\begin{Prop}\label{cl:iff}
+%If $\langa$ is immediate then
+\begin{enum}
+%$\{A_n\}\subseteq\Stra \impl \bigcap A_n\in\Stra$.
+%\item for any set $\{X_i=\<X,\langa^{X_{i}}\>\}\subseteq\Stra:\bigcap X_i\in\Stra$.
+\item\label{eachL} $\langa$ is immediate iff each $L\in\langa$ is immediate.\comt{}
+\item\label{injective} $\langa$ is immediate iff
+for  any collection of $A_n\in\Stra$
+ and  {\em injective} functions $f_n:X\into \car{A_n} : \<X, \bigcap_n
+ \langa^{\inv{f_{n}}{A_{n}}}\>\in\Stra$.
+\item\label{ifSigma} $\langa$ is immediate iff
+for any $\Sigma: \{A_n\}\subseteq\Strs \land
+%$\bigcap A_n= \<\bigcap_n\car{A_n},\bigcap_n L_k^{A_{n}},\bigcap_n\Sigma^{A_{n}}\>$ is
+\bigcap A_n\in\Str\Sigma \impl \bigcap A_n\in\Stra$.
+\item\label{ifsub} $\langa$ is immediate iff
+for  any $\Sigma: A\in\Strs \land 
+B\sqsubseteq_\Sigma A \impl B\in \Stra$.
+\item\label{samecar} If $\langa$ is immediate then:
+%intersection of $\langa$-structures on the same set is again an $\langa$-structure:
+$\{A_n\}\subseteq\Stra\land\car {A_n}=X \impl \bigcap A_n\in\Stra$.
+\item\label{subset} If $\langa$ is immediate then: 
+%restriction of an $\langa$-structure to its subset is an $\langa$-structure: 
+for any  set $X: A\in \Stra \impl \<\car A\cap X,
+\langa^A\cap X\times X\>\in \Stra$.
+\item\label{sii} If $\langa$ is strictly immediate then it is immediate.
+\end{enum}
+\end{Prop}
+\begin{Proof} 
+\ref{eachL}. Let all $A_n\in\Stra$. Since each $L_i\in\langa$ is immediate,
+$\bigcap A_n\in\Str {L_i}$ -- but this means $\bigcap A_n\in\Stra$. [???]
+Conversely, assume $\langa$ is immediate. [if each $L_i$-structure can be
+extended to an $\langa$-structure ???] Let $A_n\in\Str{L_i}$ and $A'_n$ be an
+extension of $A_n$ to an $\langa$-structure. $\bigcap A'_n\in\Stra$ and so,
+in particular, $\bigcap A'_n\in\Str{L_i}$. \\[1ex]
+\ref{injective}. Let $\langa$ be immediate. For an $A_n\in\Stra$ and an injective
+$f_n:X\into\car{A_n}$, the structure $A'_n$ obtained by replacing each
+$f_n(x)$ by $x$ and preserving all relations will be in $\Stra$. Then also
+for each $L\in\langa:L^{\inv{f_{n}}{A'_{n}}}(x,y) \iff L^{A'_{n}}(x,y)$. We thus
+get $\<X,\bigcap_n \langa^{\inv{f_{n}}{A'_{n}}}\> = \<\bigcap_n\car{A'_n}, \bigcap_n
+\langa^{A'_{n}}\>\in\Stra$ since $\langa$ is immediate. 
+Conversely, $\car{\bigcap A_n}= \bigcap_n \car{A_n}$ yields
+an injective (identity) function $f_n:\car{\bigcap A_n}\into \car{A_n}$,
+for each $A_n$. 
+Then for each $L\in\langa:L^{\inv{f_{n}}{A_{n}}}(x,y) \iff L^{A_{n}}(x,y)$, and so
+$\bigcap A_n = \<\bigcap_n\car{A_n},\bigcap_n
+\langa^{\inv{f_{n}}{A_{n}}}\>\in\Stra$ by assumption.
+\\[1ex]
+\ref{ifSigma}. 
+If $\bigcap A_n\in\Stra$, then, in particular, if
+$\bigcap A_n\in\Str\Sigma$, then $\bigcap A_n\in\Stra$.
+Conversely: for empty $\Sigma$, any $\bigcap A_n\in\Str\Sigma$,
+hence $\bigcap A_n\in\Stra$ by \ref{ifSigma}. \\[1ex]
+%
+\ref{ifsub}. 
+Let $B\sqsubseteq_\Sigma A$. Construct $A_1\in\Strs$ from $A$ by
+replacing each element $a\in \car A\setminus\car B$ by
+a new element $n_a$ and preserving interpretation of all the symbols (i.e.,
+$L_i^{A_1}(n_a) = \{n_b: b\in L_i^A(a)\}$ etc.).  Then $B=A\cap A_1\in\Str\Sigma$
+and, by~\ref{ifSigma}., $B\in\Stra$.
+Conversely: if $\bigcap A_n\in\Str\Sigma$ then $\bigcap A_n\sqsubseteq_\Sigma
+A_n$ for any $A_n$ and, by \ref{ifsub}., $\bigcap A_n\in \Stra$. \\[1ex]
+\ref{samecar}. 
+is a special case of \refb{def:immed}.\ref{i:immed} (or of \ref{ifSigma}).\\[1ex]
+%
+\ref{subset}. 
+follows from \ref{injective} with injection $id:X\cap\car{A}\into\car A$, $id(a)=a$
+(or from \ref{ifsub}. with $\Sigma=\emptyset$). \\[1ex]
+%
+\ref{sii}. follows from \ref{injective} (which is a special case of definition~\refb{def:immed}.\ref{si}).
+\end{Proof}
+\ref{subset}. means that $\Stra$ for an immediate $\langa$ is closed under
+substructures but this condition is weaker than immediacy. Closure under
+substructures means that given $\{A_{n}\}_{n\in I}\subseteq\Stra$ with
+$\car A=\bigcap_{n\in I}\car{A_n}$ then, for any
+$A_i\in\{A_n\}: \<\car A, L^{A_{i}}\cap \car{A}\times
+\car{A}\>\in\Stra$ which does not imply that $\bigcap A_n=\<\car{A},
+\bigcap_{n\in I} L^{A_{n}}\>\in\Stra$. The conclusion of \ref{subset}.,
+namely, that {\em any}
+subset of an $\langa$-structure is already an $\langa$-structure (with
+inherited relations), is weaker than immediacy.
+\begin{Example}
+Here is a language closed under substructures which is not immediate...
+\end{Example}
+What distinguishes strict immediacy from immediacy is only identity.
+For instance, identity, non-identity, weak PO are immediate but not strictly immediate. 
+\begin{Definition}\label{def:exp}
+1. Given an $A\in\Stra$, a {\em pre-quotient} of $A$ is any structure $B$ with
+$|B|=\bigcup_{a\in|A|} [a]$ where, for each $a\in|A|$, $[a]$ is a non-empty
+set such that $a\not=b \impl [a]\cap [b]=\emptyset$ and where, for each
+$L\in\langa: L^B(x_a,x_b)$
+iff $x_a\in [a],x_b\in [b]$ and $L^A(a,b)$.
+
+\noindent
+2. $\langa$ {\em has no reference to identity} iff $\Stra$ is closed under pre-quotients.
+\end{Definition}
+%
+\comt{Having a reference to identity is a more general claim than being
+identity. For instance, antisymmetry ($L(x,y)\land L(y,x)\imp x=y$) has a
+reference to identity, but this does not mean that any $L$-structure must
+involve identity. A $B$ where $L^B$ is irreflexive does not force any identities.
+But there exists an 
+$A$ where an element can not be ``splitt'', namely for an $x: L^A(x,x)$,
+$L^{\ext Ax}$ will not be antisymmetric.}
+
+Notice also that a reference to non-identity is not a reference to
+identity. If $R$ requires $x\not= y$, then any $R$-structure $A$ may be
+extended to an $R$-structure $\ext Aa$.
+\begin{Prop}\label{cl:simIff}
+$\langa$ is
+strictly immediate $\iff$ $\langa$ is immediate and has no reference to identity.
+\end{Prop}
+\begin{Proof} $\impl$) implication to immediacy is \refb{cl:iff}.\ref{sii}. So
+assume that $\langa$ has reference to identity and let $B$ be a pre-quotient
+of an $A\in\Stra$ witnessing to that, i.e., $B\not\in\Stra$. Let $f:\car
+B\into \car A$ be given by $\forall b\in [a]: f(b) = a$ (notation from
+def.~\ref{def:exp}). Then $B= \inv fA$, but since $B\not\in\Stra$, so
+$\langa$ is not strictly immediate.
+%$A$, $[a]$ be
+%witnesses to that. Let $X=\car{A}\cup\{[a]\}$ and $f:X\into\car{A}$ be
+%identity on $\car A$ and $f([a])=a$. Then $\ext Aa\not\in\Stra$ but $\ext
+%Aa=\inv fA$, so $\langa$ is not strictly immediate. 
+\\[1ex]
+$\Leftarrow$) 
+Let all $A_n\in\Stra$ and $f_n:X\into \car{A_n}$ be arbitrary functions. Each
+$f_n$ factors through $\quot X{\equiv_{n}}$, i.e., $f_n= g_n;h_n$ where $g_n$
+is surjective and $h_n$ injective:
+\[\xymatrix@R=.4cm@C=1.5cm{
+& & \car{A_1} \\
+& \quot X{\equiv_{1}} \ar@{^{(}->}[ur]_{h_1} & \\
+X \ar@{>>}[ur]_{g_1} \ar@{>>}[dr]^{g_n} \ar@/^0.6cm/[uurr]^{f_1} \ar@/_0.6cm/[ddrr]_{f_n} & ... &
+\\
+& \quot X{\equiv_{n}} \ar@{^{(}->}[dr]^{h_n} & \\
+& & \car{A_n}
+}\]
+Since $\langa$ is immediate and all $h_i$ are injective, all $\quot
+X{\equiv_{i}}\in\Stra$. 
+For each $g_i$ let $X_i$ be the pre-quotient of $\quot X{\equiv_i}$ on the
+carrier $X$ with $[x]=\{x'\in X:g_i(x')=x\}$. Since $\langa$ has no reference
+to identity, all $X_i\in\Stra$. Finally, by immediacy of $\langa$,
+$\bigcap_nX_n\in\Stra$ -- but each $X_i=\inv{f_i}{A_i}$, so $\langa$ is
+strictly immediate.
+%
+%For any given
+%$\quot X{\equiv_{n}}$, replace each $[x]$ by an arbitrary representative
+%$x\in[x]$ -- the resulting structure is in $\Stra$. Now expand all
+%$L\in\langa$ by adding all remaining $y\in [x]\setminus\{x\}$ according to
+%def.~\refb{def:exp}.\comt{Need {\em set} in \ref{def:exp}} 
+%\\ Since $\langa$ has no reference to identity, the
+%resulting structure -- $X_n$ with carrier $\car{X_n}=X$ -- is in $\Stra$. 
+%Thus, by immediacy of $\langa$ (def.\refb{def:immed}), $\bigcap X_n\in\Stra$. But $X_n=\inv
+%{f_{n}}{A_{n}}$, so $\langa$ is strictly immediate.
+\end{Proof}
+\begin{Example}
+A weak PO (reflexive, transitive, antisymmetric) is immediate but not strictly immediate -- the reference to
+identity in the antitransitivity axiom provides a simple
+counter-example: one element PO $B=\{b;b\leq b\}$ and a function from two
+elements set $f:\{0,1\}\into \{b\}$ gives $\inv fB =
+\{\{0,1\};0\leq 0,0\leq 1,1\leq 0,1\leq 1\}$, so we have $0\leq 1\land 1\leq
+0$ but $0\not=1$.
+
+A strict PO (irreflexive, transitive) has no reference to identity -- it is
+strictly immediate. 
+\end{Example}
+\begin{Prop}
+If $\langa$  is strictly immediate and $SP\subseteq\langsx$ is consistent then $\tsp\in\Strs$.
+\end{Prop}
+\begin{Proof}
+We do have $\tsp\in\Str\Sigma$.
+The assumptions ensure that all relations $L_i$ are correctly
+interpreted in $\tsp$. 
+For each $A_n\in\Mod{SP}\subseteq\Strs$ let $f_n:\GTerms\into \car{A_n}$ be given by
+$f_n(t)=t^{A_{n}}$. Since $\langa$ is strictly immediate,
+$\bigcap \inv{f_{n}}{A_{n}}\in\Stra$. But this is precisely $\tsp$.
+%%
+%%But each $f_n$ factors through $\car{\tsp}$, i.e., 
+%%\[\xymatrix{
+%% & \GTerms \ar[ld]_{g_n} \ar[rd]^{f_n} \\
+%%\car{\tsp} \ar[rr]^{h_n} & & \car{A_n}
+%%}
+%%\]
+%%with $f_n=g_n;h_n$. Thus we have that also $\bigcap \inv{h_{n}}{A_{n}}\in\Stra$, 
+%%but this structure is just
+%%$\tsp\in\Stra$.
+\end{Proof}
+
+\begin{Prop}
+If $\langa$ is strictly immediate then:
+
+\begin{tabular}{rrl}
+%\begin{enum}\item 
+1. & for any ground $\phi\in \langs:$ & $\tsp\models\phi\Iff
+\Mod{SP}\models\phi$ \\
+%\item 
+2. & for any  $\phi\in \langsx:$ & $\tsp\models\phi\Longleftarrow \Mod{SP}\models\phi$.
+%\end{enum}
+\end{tabular}
+\end{Prop}
+
+\begin{Prop}
+If $\langa$ is strictly immediate then $\tsp$ is initial in ${\Mod{SP}}$  wrt. $\langs$-homomorphisms.
+\end{Prop}
+%
+\noindent\hrulefill
+
+Now, we treat the case of immediate but not strictly. We need to add
+quotient...
+
+\begin{Definition}
+Given a language $\langa=\{L_1...L_n\}$, an $\langa$-congruence $\equiv$ is an
+equivalence relation such that in any $A\in\Stra$ and for all $L\in\langa:$
+
+\hspace*{\fill}{$\forall a_1,a_2,a'_1,a'_2\in\car A:
+a_1\equiv a'_1 \land a_2\equiv a'_2 \land L^A(a_1,a_2) \impl L^A(a'_1,a'_2)$.}
+\end{Definition}
+Unless stated otherwise, $\equiv$ will denote an arbitrary $\langa$-congruence.
+We will write $\lequiv$ for the language $\langa\cup\{\equiv\}$ where $\equiv$ is a designated
+$\langa$-congruence.
+For an $a\in A\in\Str{\lequiv}$ we let $[a]=\{a'\in A: a\equiv^A
+a'\}$. $\lequ$ is a language (with reference to identity) where the
+designated congruence is identity. We obviously have 
+\eq{
+\Str{\lequ}\subset\Str{\lequiv} \label{eq:sub}
+}
+The inclusion is proper by \refb{cl:simIff}.
+\begin{Fact}
+If $\langa$ is strictly immediate then so is $\lequiv$.
+\end{Fact}
+\begin{Proof}
+Let $\{A_i\}\subseteq \Str{\lequiv}$ and $f_i:X\into A_i$ be as on the
+diagram below.
+\[\xymatrix@R=0.7cm@C=1.5cm{
+ & \car{A_1} \\
+X \ar[ur]^{f_1} \ar[dr]^{f_n} \ar[r]^{f_i}  & ... \\
+ & \car{A_n}
+}\]
+We show that 1) for every $i:\inv{f_i}{A_i}\in\Str{\lequiv}$ and then
+that 2) $\bigcap \inv{f_i}{A_i} \in\Str{\lequiv}$.
+
+1) We only have to show that inverse of $\equiv_i$ is an $\langa$-congruence
+   on $X$ with inverse of $\langa^{A_{i}}$. So, assume that $L^{\inv
+   {f_{i}}{A_{i}}}(x_1,y)$ and $\equiv^{\inv{f_{i}}{A_{i}}}(x_1,x_2)$. This
+   means that $L^{A_{i}}(f_i(x_1),f_i(y))$ and
+   $\equiv^{A_{i}}(f_i(x_1),f_i(x_2))$. Since $\equiv^{A_{i}}$ is an
+   $\langa$-congruence on $A_i$, we get that $L^{A_{i}}(f_i(x_2),f_i(y))$,
+   and thus $L^{\inv   {f_{i}}{A_{i}}}(x_2,y)$. 
+
+2) Let $A$ abbreviate $\bigcap \inv{f_i}{A_i}$. Since $\langa$ is
+   (strictly) immediate, $A\in\Stra$. We have to show that $\bigcap
+   \equiv^{\inv{f_{i}}{A_{i}}}$ is a congruence on $A$. So assume that
+   $L^A(x_1,y)$ and $\equiv^A(x_1,x_2)$. Then both these
+   relations hold in all $\inv{f_i}{A_i}$ and, by 1) we also get
+   $L^{\inv{f_{i}}{A_{i}}}(x_2,y)$ for all $\inv{f_i}{A_i}$. But then also $L^A(x_2,y)$.
+\end{Proof}
+\begin{Definition}
+Given an $A\in\Stra$ and an $\langa$-congruence (on $A$) $\equiv$, the
+quotient $\quot A\equiv$ is the structure given by: $\car{\quot A\equiv} =
+\{[a]:a\in\car A\}$ and for all $L\in\langa: L^{\quot
+A{\equiv}}([a],[a'])\iff L^A(a,a')$.
+\end{Definition}
+The relations $L^{\quot{A}\equiv}$ are well defined because $\equiv$ is an
+$\langa$-congruence and hence the choice of representatives does not matter.
+
+As in the classical case, quotients are actually (isomorphic to) substructures.
+\begin{Fact}\label{fa:quotsub}
+Given an $\langa$ and an $\langa$-congruence $\equiv$, for any $A\in\Stra$
+there exists a set
+$X\subseteq\car A: \quot A\equiv \iso
+\<\car A\cap X, \langa^A\cap X\times X\>$.
+\end{Fact}
+\begin{Proof}
+From each $[a]$ select a unique element $a\in [a]$ and let $X$ be the set of
+these. Since $\equiv$ is an $\langa$-congruence the relations $L^X(a,a')\iff
+L^A(a,a')$ are well defined (do not depend on the choice of $a$'s). Obviously
+$\quot A\equiv \iso \<\car A\cap X, \langa^A\cap X\times X\>$.
+\end{Proof}
+%
+From now on we will often refer to a pair of languages, $\lequiv$ and $\lequ$
+where the former is obtained from the latter by replacing all references to
+identity by an $\langa$-congruence (and vice versa). If $\lequ$ is axiomatized
+by a set of formulae $\Phi^=$ then $\lequiv$ is axiomatized by the set
+$\Phi^\equiv$ (each occurrence of $=$ in $\Phi^=$ is replaced by $\equiv$) and
+the congruence axioms for $\equiv$.
+%
+\begin{Example} If $\lequ$
+is the language for partial orderings as shown on the left, then $\lequiv$ is
+as shown on the right -- $=$ in the 3rd axiom replaced by $\equiv$ and
+congruence axioms for $\equiv:$
+\[\begin{array}{rr|rr}
+& \lequ = \{\leq,=\} & & \lequiv = \{\leq,\equiv\} \\ \hline
+\Phi^=:& x\leq x & \Phi^\equiv: &   x\leq x \\
+& x\leq y \land y\leq z \impl x\leq z &&  x\leq y \land y\leq z \impl x\leq z \\
+& x\leq y\land y\leq x\impl x=y && x\leq y\land y\leq x\impl x \equiv y \\ \cline{1-4}
+&& \multicolumn{2}{l}{\equiv\ {\rm is\ an\ equivalence\ }:} \\ %\cline{3-4}
+& && x\equiv x,\ x\equiv y \impl y\equiv x, \\
+& &&  x\equiv y\land y\equiv x\impl x\equiv z \\ %\cline{3-4}
+&& \multicolumn{2}{l}{{\rm and\ a\ congruence\ wrt.\ }\leq:} \\ %\cline{3-4}
+& && x\leq y \land x\equiv x'\land y\equiv y'\impl x'\leq y'
+\end{array}
+\]
+\end{Example}
+%
+\begin{Fact}\label{fa:then}
+For any pair $\lequiv$ and $\lequ$ (closed under isos):
+\begin{enumerate}\MyLPar
+\item\label{it:quo} $A\in\Str{\lequiv}\impl \quot A\equiv\in\Str{\lequ}$
+\item\label{it:pre} $A\in\Str{\lequ} \land \quot B\equiv \iso A \impl B\in\Str{\lequiv}$.
+\end{enumerate}
+\end{Fact}
+\begin{Proof}
+1. follows since $\equiv^{\quot A\equiv}$ is identity.
+2.: $A\in\Str{\lequ}\by{(\ref{eq:sub})}\impl A\in\Str{\lequiv}$ and since $\lequiv$
+has no reference to identity then $B\in\Str{\lequiv}$.
+\end{Proof}
+%
+\begin{Prop}Let $\equiv$ stand for an arbitrary $\langa$-congruence:
+\begin{enumerate}\MyLPar
+\item\label{cl:quot}
+If $\langa$ is immediate then $\Stra$ is closed under quotients: $A\in\Stra
+\impl \quot A\equiv\in\Stra$.
+\item\label{fa:simcl}
+If $\langa$ is strictly immediate then $\Str{\langa}$ is closed under
+quotients and pre-quotients.
+\item
+If $\lequiv$ is strictly immediate and $A\in\Str{\lequiv}$  then
+$\quot A\equiv\in \Str{\lequ}\subset\Str{\lequiv}$.
+\item If $\lequiv$ is strictly immediate and $\quot A\equiv\in\Str{\lequ}$  then
+$A\in\Str{\lequiv}$.
+\end{enumerate}
+\end{Prop}
+\begin{Proof}
+%Let $f:\car{\quot A\equiv}\into \car A$ be injective function sending $[a]$
+%onto some $a\in[a]$. Then $\quot A\equiv \iso \inv
+%fA\in\Str{\lequiv}$ since $\lequiv$ is immediate (b
+\begin{enumerate}\MyLPar
+\item 
+By~\refb{cl:iff}.\ref{subset} $\Stra$ is closed under $\langa$-substructures,
+so the claim follows by closure under isos and \refb{fa:quotsub}.
+\item If $\langa$ is strictly immediate then, by claim~\refb{cl:simIff}, it has no
+reference to identity, thus $\Stra$ is closed under pre-quotients. Since
+$\langa$ is also immediate, closure under quotients follows from \ref{cl:quot}. 
+\item If $\langa$ is strictly immediate then it is immediate, so
+$A\in\Str{\lequiv} \by{\ref{cl:quot}}\impl \quot A\equiv\in\Str{\lequiv}$,
+but $\equiv^{\quot A\equiv}$ is identity, and so $\quot
+A\equiv\in\Str{\lequ}$.
+\item $A$ is (isomorphic to) a pre-quotient of $\quot A\equiv$. Hence 
+$\quot A\equiv\in\Str{\lequ} \by{(\ref{eq:sub})}\impl \quot
+A\equiv\in\Str{\lequiv} \by{\ref{fa:simcl}}\impl A\in\Str{\lequiv}$.
+\end{enumerate}
+\end{Proof}
+%
+%
+\begin{Theorem}
+$\lequ$ is immediate iff $\lequiv$ is strictly immediate.
+\end{Theorem}
+\begin{Proof}
+$\Leftarrow$) Let $\{A_i\}\subseteq \Str{\lequ}$ -- we have to show that
+$\bigcap_i A_i \in\Str{\lequ}$. By (\ref{eq:sub})
+$\{A_i\}\subset\Str{\lequiv}$ and, since $\lequiv$ is immediate, $A=\bigcap_i
+\car{A_i}\in\Str{\lequiv}$. Now $\equiv^A= \bigcap_i \equiv^{A_i}$ and each
+$\equiv^{A_i}$ is actually identity $=^{A_i}$, so $\equiv^A$ is identity on
+$A$, $=^A$. But this means that $A\in\Str{\lequ}$, so $\lequ$ is immediate.
+\\[1ex]
+$\impl$) Let $\{A_i\}\subseteq\Str{\lequiv}$ and $f_i:X\into \car{A_i}$ be a
+collection of functions. We have to show that
+$A=\bigcap\inv{f_i}{A_i}\in\Str{\lequiv}$. Each $f_i$ factors through a
+surjective $g_i$ and injective $h_i$ as shown on the diagram to the left:
+\[\xymatrix@R=.4cm@C=1.5cm{
+& \Str{\lequiv} &  && \Str{\lequ} \\
+& & \car{A_1} 
+  &&& \car{\quot{A_1}{\equiv^{A_{1}}}}  \\
+& \quot X{\equiv_{1}} \ar@{^{(}->}[ur]_{h_1} & 
+  && \quot{(\quot X{\equiv_1})}{\equiv'_1} \ar@{^{(}->}[ur]_{h'_1}\\
+X \ar@{>>}[ur]_{g_1} \ar@{>>}[dr]^{g_n} \ar@/^0.6cm/[uurr]^{f_1} \ar@/_0.6cm/[ddrr]_{f_n} & ... &
+   && ... \\
+& \quot X{\equiv_{n}} \ar@{^{(}->}[dr]^{h_n} & 
+  && \quot{(\quot X{\equiv_{n}})}{\equiv'_n} \ar@{^{(}->}[dr]_{h'_n} & \\
+& & \car{A_n}
+  &&& \car{\quot{A_n}{\equiv^{A_{n}}}} 
+}\]
+For each $A_i$ let $q_i:A_i\into\quot{A_i}{\equiv^{A_i}}$ be the quotient
+mapping, and $\equiv'_i$ the congruence on $\quot X{\equiv_i}$ defined by
+$[x]\equiv'_i[y]\Iff q_i(h_i([x])) = q_i(h_i([y]))$. \comt{Is it congruence?}
+Then $h'_i:\quot{(\quot
+X{\equiv_i})}{\equiv'_i} \into \car{\quot{A_i}{\equiv^{A_i}}}$ is injective
+and, by immediacy of  $\lequ$ (claim~\refb{cl:iff}.\ref{injective}), 
+$\quot{(\quot X{\equiv_i})}{\equiv'_i}=
+\inv{h'_i}{\quot{A_{i}}{\equiv^{A_{i}}}}\in\Str{\lequ}$. By
+fact~\refb{fa:then}.\ref{it:pre} we have then $\quot
+X{\equiv_i}\in\Str{\lequiv}$. 
+Since $\lequiv$ has no reference to identity
+
+\end{Proof}
+
+\noindent\hrulefill
+
+If $\langa$ is not immediate, we risk that $\GTerms$ do not provide enough
+witnesses. In such a case, we can still provide a canonical construction,
+although it won't necessarily yield an initial model...
+
+%\end{document}
+%%%%%%%%
+\newpage
+\comt{OLD: intersection}\\
+$\tsp$ need not be initial in $\Mod{SP}$ because it may happen that
+$\tsp\not\in\Strs$.
+To ensure this does not happen we need to require all relations to
+be {\em immediate}. 
+Intuitively, a relation $R\subseteq X\times Y$ is {\em immediate} iff 
+$R(x,y)$ never requires existence of other elements than $x$ and
+$y$, or else iff $\{x\},\{y\}$ can be made into a structure
+satisfying $R(x,y)$. 
+Given a strict ordering $<$, the relation $R_{sep}(x_1,x_2)\Iff
+\exists x: x_1<x\land x<x_2$ is not immediate. Similarly, the directedness relation
+$R_{dir}(x_1,x_2)\Iff \exists x: x_1<x\land x_2<x$ is not immediate. 
+The ordering $<$ itself, identity, membership, set-inclusion, on
+the other hand, are immediate.
+
+\begin{Definition}
+A $\Sigma$-substructure of an $A\in\Strs$ is a structure $B=\<\car
+B, L_1^B,...,L_k^B,\Sigma^B\>$ where $\car B\subseteq\car A$ is
+$\Sigma$-closed,  $\forall f\in\Funcs, b_i\in\car B: f^B(b_i)=f^A(b_i)$, and $L_i^B=L_i^A\cap
+\car B\times\car B$. We write $B\sqsubseteq_\Sigma A$ (possibly dropping subscript.)
+
+Given a set of $\langs$-structures $\{A_i:i\in I\}$ for some $I$, we 
+let $\bigcap A_i$ denote the structure $\<\bigcap_i{\car
+A_i},\bigcap_iL_1^{A_{i}},..., \bigcap_iL_k^{A_{i}},
+\bigcap_i\Sigma^{A_{i}}\>$.
+\end{Definition}
+For an $A\in\Strs$, a $B\sqsubseteq_\Sigma A$ may fail to be an
+$\langa$-structure. Also $\bigcap A_i$ may happen to be neither $\Sigma$- nor $\langa$-structure.
+\begin{Definition}\label{Odef:immed}
+A relation $R$ is {\em immediate} iff for  any set of
+$R$-structures $\{A_i\}$, 
+$\bigcap A_i= \<\bigcap_i\car{A_i},\bigcap_i R\>$ 
+is also an $R$-structure.
+{\em Mediate} relation is one that is not
+immediate. 
+$\langa$ (or its ``interpretation'') is {\em immediate} iff all $L_i\in\langa$ are immediate.
+\end{Definition}
+For instance, a (quasi, partial, total)  ordering is immediate but a
+dense ordering $R_{dns}$ is not. To see this take two $R_{dns}$-structures: as $A_1$ the dense ordering of
+rationals in the closed interval $\car{A_1}=[0,1]$ and as $A_2$ the same
+ordering on this interval
+but with all rationals within the open inteval $(0,1)$ replaced by new distinct
+elements. $A_1\cap A_2=\<\{0,1\},\{\<0,0\>,\<0,1\>,\<1,1\>\}\>$ is still (quasi, partial, total) ordering but it
+is not dense, i.e., it is not an $R_{dns}$-structure.
+
+We note some equivalent formulations of immediate relations.
+\begin{Prop}
+$\langa$ is immediate 
+\begin{enum}
+%\item for any set $\{X_i=\<X,\langa^{X_{i}}\>\}\subseteq\Stra:\bigcap X_i\in\Stra$.
+\item\label{OifSigma}$\iff$ 
+for any $\Sigma: \{A_i\}\subseteq\Strs \land
+%$\bigcap A_i= \<\bigcap_i\car{A_i},\bigcap_i L_k^{A_{i}},\bigcap_i\Sigma^{A_{i}}\>$ is
+\bigcap A_i\in\Str\Sigma \impl \bigcap A_i\in\Stra$.
+\item\label{Oifsub}$\iff$ 
+for  any $\Sigma: A\in\Strs \land 
+B\sqsubseteq_\Sigma A \impl B\in \Stra$.
+\item\label{Osamecar}$\impl$ 
+%intersection of $\langa$-structures on the same set is again an $\langa$-structure:
+$\{A_i\}\subseteq\Stra\land\car {A_i}=X \impl \bigcap A_i\in\Stra$.
+\item\label{Osubset}$\impl$ 
+%restriction of an $\langa$-structure to its subset is an $\langa$-structure: 
+for any set $X: \<\car A,\langa^A\>\in \Stra \impl \<\car A\cap X,
+\langa^A\cap X\times X\>\in \Stra$.
+\end{enum}
+\end{Prop}
+\begin{Proof} 
+%1. It is just a special case of the definition of immediate
+%relation. Conversely, assume 1. and let $A_i\in\Stra$ and
+%$X=\bigcap_i\car{A_i}$ \\[1ex]
+\ref{OifSigma}. If $\langa$ is immediate, then $\bigcap A_i\in\Stra$. In particular, if
+$\bigcap A_i\in\Str\Sigma$, then $\bigcap A_i\in\Stra$.
+Conversely, for empty $\Sigma$, any $\bigcap A_i\in\Str\Sigma$,
+hence $\bigcap A_i\in\Stra$ by \ref{OifSigma}. \\[1ex]
+%
+\ref{Oifsub}. 
+Let $B\sqsubseteq_\Sigma A$. Construct $A_1\in\Strs$ from $A$ by
+replacing each element $a\in \car A\setminus\car B$ by
+a new element $n_a$ and preserving interpretation of all the symbols (i.e.,
+$L_i^{A_1}(n_a) = \{n_b: b\in L_i^A(a)\}$ etc.).  Then $B=A\cap A_1\in\Str\Sigma$
+and, since $\langa$ is immediate, $B\in\Stra$.
+Conversely, if $\bigcap A_i\in\Str\Sigma$ then $\bigcap A_i\sqsubseteq_\Sigma
+A_i$ for any $A_i$ and, by \ref{Oifsub}., $\bigcap A_i\in \Stra$. \\[1ex]
+%
+\ref{Osamecar}. is a special case of definition \ref{Odef:immed}.\\[1ex]
+%
+\ref{Osubset}. follows from \ref{Oifsub}. with $\Sigma=\emptyset$. Conversely,
+   does not seem to go...
+%%assume 4. and
+%%   let $\{A_i\}\subseteq\Stra$. Then for each $A_k\in \{A_i\}$ we have
+%%   $A'_k=\<\car {A_k}\cap \bigcap_i\car{A_i}, R^{A_{k}}\cap
+%%   \bigcap_i\car{A_i}\times \bigcap_i \car
+%%   {A_i}\>\in\Stra$. [??? By \ref{samecar}. we obtain that $\bigcap A'_i\in \Stra$.???]
+\end{Proof}
+\comt{OLD: intersection}
+%%%%%%%
+%%%%%%
+\subsection{Horn extension of $\langa$ ...}
+To allow Horn extensions of $\langsx$ we need to exclude
+mediate but also contrary relations.
+\begin{Definition}
+Interpretation of relation symbols $L,R\subseteq X\times Y$ is {\em contrary}
+iff in any $L,R$-structure $A$, $\exists x,y\in A:
+((x,y)\in R^A\lor (x,y)\in L^A) \land ((x,y)\not\in R^A\lor (x,y)\not\in
+L^A)$. \\ .
+\comt{$\ \Iff\forall A:\exists x,y:(x,y)\not\in R^A \iff (x,y)\in L^A
+ \Iff \forall A:L^A\not\subseteq R^A\land R^A\not\subseteq L^A$} \\
+non-c= \comt{$\exists A:\forall x,y: (x,y)\in L^A\cap
+R^A\lor (x,y)\in \neg L^A\cap \neg R^A \Iff \exists A:L^A\subseteq R^A\lor
+R^A\subseteq L^A$}
+\end{Definition}
+
+\begin{Example}
+Let $L_1,L_2$ be contrary, and let
+$SP:$ 1. $L_1(a,b)\impl R_1$, 2. $L_2(a,b)\impl R_2$. In an initial
+model we would let all relations not hold. However, due to contrariness, we
+have choices:
+
+$\begin{array}{lll}
+a) & \neg L_1(a,b) \land L_2(a,b) \land R_2\ (\land \neg R_1) & 
+   since\ \neg L_1(a,b)\impl L_2(a,b)\\
+b) & \neg L_2(a,b) \land L_1(a,b) \land R_1\ (\land \neg R_2) & 
+   since\ \neg L_2(a,b)\impl L_1(a,b)
+\end{array}
+$
+\end{Example}
+
+\newpage
+\ 
+
+\newpage
+\section{Labeling...}
+For a $\Sigma$-structure $A$, its underlying set $\under A$ is possibly
+different from its carrier $\car A$, but $\under A\subseteq\car A$.
+\begin{Definition}
+For a signature $\Sigma=(\Sorts,\Funcs)$ and a set $X$,
+$\Sigma$-diagram of $X$, $\diag X$ is given:
+\begin{enum}
+\item $\GTerms \subseteq\diag X$
+\item for each $x\in X\setminus\GTerms$,  a new name $n(x)\in\diag X$ (typically, $n(x)=x$)
+\item for all $n_1...n_k\in\diag X$ and $k$-ary $f\in\Funcs: f(n_1...n_k)\in\diag X$.
+\end{enum}
+Thus $\diag\emptyset=\GTerms=\diag{{\scriptsize{\GTerms}}}$. For a $\Sigma$-structure
+$A$, $\diag{A}$ is the $\Sigma$-diagram of the set
+$\{a\in\car A:\forall t\in\GTerms\ t^A\not=a\}$.
+The interpretation of $\diag A$ in $A$ is obious: $n(a)^A=a$,
+$f(n_1...n_k)^A= f^A(n_1^A...n_k^A)$. 
+\end{Definition}
+There are infinitely many different (but isomorphic) diagrams for each $A$ but we work with
+{\em the} diagram -- an arbitrary representative. For $t\in\GTerms$, we let $n(t)=t$.
+
+In general, $f(n(a_1)...n(a_k)) \not= n(a)$ even if $f^A(a_1...a_k) = a$. The
+equivalence (congruence) $\equiv\ \subseteq\ \diag A\times\diag A$ is defined
+by: $n_1\equiv n_2 \Iff n_1^A=n_2^A$. By $[n]$ (possibly $[n]^A$) we denote the $\equiv$-equivalence
+class of $n\in\diag A$, and their
+collection $\quot{\diag A}{\equiv}$, by $\diagE A$.
+%%% Moved to 1.
+%%\begin{Definition}
+%%Atomic language $L$ is given by a set of binary relation symbols
+%%$L_1,...,L_k$. Given a signature $\Sigma$ and a set of variables $X$, the
+%%atomic formulae of $L$ relatively to $\Sigma,X$ form the set
+%%$L_{\Sigma,X}= \{L_i(t_1,t_2): L_i\in L\land t_1,t_2\in\XTerms\}$.
+%%\end{Definition}
+%%
+\begin{Definition}
+Given  an atomic language $L_{\Sigma,X}$ and a $\Sigma$-structure $A$ with
+(primitive) interpretation $L_i^A$ of all $L_i\in L$, we define the
+lifting, or labeling, of $A$ wrt. $S\subseteq L$, $\lift{A,S}$ (we write it 
+$\lift A$ when $S$ and $L$ are implicitly given by the context): 
+\begin{enum}
+\item For  any $a\in\car A$, its lifting is a tuple $l(a)=
+\<a,[n(a)],L_1(a),...,L_k(a)\>$,\\ where $\{L_1,...,L_k\}=S$ and $L_i(a) =\{[n]:n\in\diag A\land
+L_i^A(a,n)\}$
+\item $\car {\lift A} = \{l(a):a\in\car A\}$
+\item For $l(a_1)...l(a_k)\in\car{\lift A}$ and a $k$-ary $f\in\Funcs$,
+$f^{\lift A}(l(a_1)...l(a_k)) = l(f^A(a_1...a_k))$.
+\end{enum}
+If $x\in\car{\lift A}:el(x)\in\car A$ is s.t.
+$l(el(x))=x$, $n(x)= [n(el(x))]$  and $L_i(x)=L_i(el(x))$.
+\\
+Given an assignment $\alpha:X\into\car{\lift A}$:\comt{$\into\under A\subseteq\car A$}
+\begin{enum}\setcounter{enumi}{3}
+\item $\lift A\models_\alpha L_i(x,y) \Iff n(\alpha(y))\in L_i(\alpha(x))$.
+\item $\lift A\models_\alpha x=y \Iff n(\alpha(x))\in\{n(\alpha(y)\}$, i.e., $n(\alpha(x))= n(\alpha(y))$
+\end{enum}
+\end{Definition}
+
+\begin{Claim} $\xymatrix@R=.3cm{[X\into\car A]  \ar@<.5ex>[r]^l &
+[X\into\car{\lift A}] \ar@<.5ex>[l]^{el}}$. 
+$A\models_\alpha L_i(x,y) \Iff \lift A\models_{\alpha;l} L_i(x,y)$. \vspace*{-1ex}
+\end{Claim}
+%
+\begin{Definition}
+Given $\Sigma$ and $L=\{L_1,...,L_k\}$, a labeled
+$\Sigma,L$-structure $A$ is given by
+\begin{enum}
+\item unlabeled carrier -- a set $\carr{A}$
+\item a congruence $\equiv$ on $\diag{\carr{A}}$ such that $\equiv\cap\ 
+\carr A\times \carr A = id_{\carr A}$
+\item the carrier $\car A$ containing, for each $[t]\in\diagE{\carr{A}}$ a unique tuple
+$\l a=\<a,[t],L'_1...L'_k\>$ where $a\in\carr{A}$ and each
+$L'_i\subseteq\diagE{\carr{A}}$ ($n(\l a)=[t]$ and $L_i(\l a)=L'_i$)
+\item for $\l x_1...\l x_k\in\car A: f^A(\l x_1...\l x_k)=\l x$
+s.t. $f(n(\l x_1)...n(\l x_k))\in n(\l x)$.
+\end{enum}
+For $\alpha:X\into\car A$, $A\models_\alpha L_i(x,y)\Iff n(\alpha(y))\in L_i(\alpha(x))$.
+\end{Definition}
+%
+\begin{Definition}
+Given $\Sigma$, $S\subseteq L$ and two $\Sigma,L$-structures $A,B$. A
+$\Sigma,S$-homomorphism $\phi:A\into B$ is a total function
+$\phi:|A|\into|B|$ given by $\phi:\diagEL A\into\diagEL B$ satisfying:
+\begin{enum}
+\item $\phi([f(n_1...n_k)]^A) = [f(n'_1...n'_k)]^B$ for any
+$n'_i\in\phi([n_i]^A)$
+\item for all $L_i\in S$ and $n\in\diagEL A: \phi(L_i^A(n)) \subseteq
+L_i^B(\phi(n))$.
+\end{enum}
+\end{Definition}
+Using only a subset $S\subset L$ allows us to treat homomorphisms which do
+not necessarily preserve all logical relations from
+$L$. $\Sigma$-homomorphism is a $\Sigma,\emptyset$-homomorphism. A {\em weak}
+$\Sigma,S$-homomorphism is like above but with $\subseteq$ instead of $=$ in
+1 -- assuming $el(\car B)\subseteq \PSet{\under B}$.
+
+\section{Initiality and labeling...}
+\begin{Definition}
+Given $L=\{L_1...L_k\}$ and $\Sigma$ define the labeled structure $\init_{\Sigma,L}$:
+\begin{enum}
+\item the unlabeled carrier $= \GTerms$
+\item the congruence $\equiv$ on $\diag{\scriptsize{\GTerms}}=\GTerms$ is identity
+\item the carrier
+$\car{\init_{\Sigma,L}}=\{\<t,t,L'_1...L'_k\>:t\in\GTerms\land
+L'_i=\emptyset\}$
+\item for each $f\in\Funcs$ and $t_1...t_k\in\car{\init_{\Sigma,L}}:
+f^{\scriptsize\init_{\Sigma,L}}(t_1...t_k) = t$ with $n(t)=f(n(t_1)...n(t_k))$.
+\end{enum}
+\end{Definition}
+Obviously, $\init_{\Sigma,L}$ is initial in $\LM{\Sigma,L}$ with any
+$\Sigma,S$-homomorphisms (for any $S\subseteq L$).
+
+Given a language $L$, with a logical (primitive) interpretation of all
+$L_i\in L$ as immediate relations,
+a specification $SP\subseteq L_{\Sigma,X}$ induces a model class $\Mod{SP}$. We
+lift it to the class of labeled models $\lift{\Mod{SP}}$, 
+construct a labeled model $\init_{SP}\models SP$ and show that it is initial
+in $\liftp{\Mod{SP}} = \lift{\Mod{SP}}\cup\{\init_{SP}\}$. Also,
+$\liftp{\Mod{SP}}\models\phi\Iff \Mod{SP}\models \phi$.
+
+\begin{Definition}
+Given $SP\subseteq L_{\Sigma,X}$, with the logical (primitive) interpretation
+of all $L_i\in L$ as immediate relations. Assuming that $\Mod{SP}\not=\emptyset$, we define labeled model
+$\init_{SP}$: % starting with $\init_{\Sigma,L}$ and 
+\begin{enum}
+\item let $\equiv\ \subseteq\ \car{\init_{\Sigma,L}}\times
+\car{\init_{\Sigma,L}}$ be given by $\l t_1\equiv \l t_2\Iff \Mod{SP}\models
+n(\l t_1)=n(\l t_2)$
+\item $\init_{\equiv}=\quot{\init_{\Sigma,L}}\equiv$
+\item $\init_{SP}$ is obtained from $\init_{\equiv}$ by letting for each $\l s, \l t
+\in\car{\init_{\equiv}}$ and $L_i\in L:$ \\
+$\l s\in L_i(\l t)\Iff \Mod{SP}\models
+L_i(t',s')$, for some $s'\in n(\l s), t'\in n(\l t)$.
+\end{enum}
+\end{Definition}
+
+\begin{Prop}
+For any (ground!) $\phi\in L_{\Sigma}: \init_{SP}\models\phi\Iff \Mod{SP}\models\phi$.
+\end{Prop}
+
+\begin{Prop}
+$\init_{SP}$ is initial in $\liftp{\Mod{SP}}$.
+\end{Prop}
+
+\begin{Prop}
+For all formulae $\phi$ over atoms $L_{\Sigma,X}:\liftp{\Mod{SP}}\models\phi\Iff \Mod{SP}\models \phi$.
+\end{Prop}
+%
+To allow Horn extensions of atomic language we will need to exclude not only
+mediate but also contrary relations.
+\begin{Definition}
+Interpretation of relation symbols $L,R\subseteq X\times Y$ is {\em contrary}
+iff in any $L,R$-structure $A$, $\exists x,y\in A:
+((x,y)\in R^A\lor (x,y)\in L^A) \land ((x,y)\not\in R^A\lor (x,y)\not\in
+L^A)$. \\ .
+\comt{$\ \Iff\exists x,y\in A:(x,y)\not\in R^A \iff (x,y)\in L^A$}\\
+. \comt{$\ \Iff L^A\not\subseteq R^A\land R^A\not\subseteq L^A$}
+\end{Definition}
+
+\begin{Example}
+Let $L_1,L_2$ be contrary, and let
+$SP:$ 1. $L_1(a,b)\impl R_1$, 2. $L_2(a,b)\impl R_2$. In an initial
+model we would let all relations not hold. However, due to contrariness, we
+have choices:
+
+$\begin{array}{lll}
+a) & \neg L_1(a,b) \land L_2(a,b) \land R_2\ (\land \neg R_1) & 
+   since\ \neg L_1(a,b)\impl L_2(a,b)\\
+b) & \neg L_2(a,b) \land L_1(a,b) \land R_1\ (\land \neg R_2) & 
+   since\ \neg L_2(a,b)\impl L_1(a,b)
+\end{array}
+$
+\end{Example}
+
+
+%\bibliographystyle{bibNo}
+%\bibliography{my}
+
+\end{document}
+
+

@@ -1,0 +1,59 @@
+\begin{thebibliography}{1}
+
+\bibitem{cat}
+Michael Barr and Charles Wells.
+\newblock {\em Category Theory for Computing Science}.
+\newblock Prentice Hall, 1990.
+
+\bibitem{fundamental1}
+Joseph~A. Goguen and R.~M. Burstal.
+\newblock Some fundamental algebraic tools for the semantic of computation.
+  part 1: Comma categories, colimits, signatures, and theories.
+\newblock {\em Theoretical Computer Science}, 31:175--209, 1984.
+
+\bibitem{inst}
+Joseph~A. Goguen and R.~M. Burstal.
+\newblock Institutions: Abstract model theory for specification and
+  programming.
+\newblock {\em Journal of the ACM}, 39:95--146, 1992.
+
+\bibitem{partial}
+Yngve Lamo and Micha{\l} Walicki.
+\newblock Modeling partiality by nondeterminism - from abstract specifications
+  to flexible error handling.
+\newblock Technical Report 178, Depeartment of Informatics, University of
+  Bergen, 1999.
+
+\bibitem{statestruct}
+Fernando Orejas.
+\newblock Structuring and modularity.
+\newblock In Egidio Astesiano, Hans-J{\"o}rg Kreowski, and Bernd
+  Krieg-Br{\"u}ckner, editors, {\em on Algebraic Foundations of Systems
+  Specification}, chapter~6. Springer, 1999.
+
+\bibitem{stateinst}
+Andrzej Tarlecki.
+\newblock Institutions: An abstract framework for formal specifications.
+\newblock In Egidio Astesiano, Hans-J{\"o}rg Kreowski, and Bernd
+  Krieg-Br{\"u}ckner, editors, {\em on Algebraic Foundations of Systems
+  Specification}, chapter~4. Springer, 1999.
+
+\bibitem{catrel}
+Micha{\l} Walicki and Marcin Bia{\l}asik.
+\newblock Categories of relational structures.
+\newblock In Francesco~Parisi Presicce, editor, {\em Recent Trends in Algebraic
+  Development Techniques}, volume 1376 of {\em Lecture Notes in Computer
+  Science}. Springer, 1998.
+
+\bibitem{toplas}
+Micha{\l} Walicki and Sigurd Meldal.
+\newblock A complete calculus for the multialgebraic and functional semantics
+  of nondeterminism.
+\newblock {\em ACM TOPLAS}, 17(2), 1995.
+
+\bibitem{multi}
+Micha{\l} Walicki and Sigurd Meldal.
+\newblock Algebraic approaches to nondeterminism-an overview.
+\newblock {\em ACM Computing Surveys}, 29, 1997.
+
+\end{thebibliography}

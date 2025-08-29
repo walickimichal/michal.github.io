@@ -1,0 +1,413 @@
+This is TeX, Version 3.14159 (Web2C 7.3.1) (format=latex 2000.2.2)  29 DEC 2000 15:08
+**njc
+(njc.tex
+LaTeX2e <1999/12/01> patch level 1
+Babel <v3.6Z> and hyphenation patterns for american, french, german, ngerman, d
+anish, norsk, swedish, nohyphenation, loaded.
+(/local/teTeX/share/texmf/tex/latex/base/article.cls
+Document Class: article 1999/09/10 v1.4a Standard LaTeX document class
+(/local/teTeX/share/texmf/tex/latex/base/size10.clo
+File: size10.clo 1999/09/10 v1.4a Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/local/teTeX/share/texmf/tex/latex/ntgclass/a4.sty
+Package: a4 1999/03/03 v1.2f A4 based page layout
+)
+(/local/teTeX/share/texmf/tex/generic/xypic/xy.sty
+(/local/teTeX/share/texmf/tex/generic/xypic/xy.tex Bootstrap'ing: catcodes,
+docmode, (/local/teTeX/share/texmf/tex/generic/xypic/xyrecat.tex)
+(/local/teTeX/share/texmf/tex/generic/xypic/xyidioms.tex)
+
+ Xy-pic version 3.7 <1999/02/16>
+ Copyright (c) 1991-1998 by Kristoffer H. Rose <krisrose@ens-lyon.fr>
+ Xy-pic is free software: see the User's Guide for details.
+
+Loading kernel: messages; fonts; allocations: state,
+\X@c=\dimen103
+\Y@c=\dimen104
+\U@c=\dimen105
+\D@c=\dimen106
+\L@c=\dimen107
+\R@c=\dimen108
+\Edge@c=\toks14
+\X@p=\dimen109
+\Y@p=\dimen110
+\U@p=\dimen111
+\D@p=\dimen112
+\L@p=\dimen113
+\R@p=\dimen114
+\Edge@p=\toks15
+\X@origin=\dimen115
+\Y@origin=\dimen116
+\X@xbase=\dimen117
+\Y@xbase=\dimen118
+\X@ybase=\dimen119
+\Y@ybase=\dimen120
+\X@min=\dimen121
+\Y@min=\dimen122
+\X@max=\dimen123
+\Y@max=\dimen124
+\lastobjectbox@=\box26
+\zerodotbox@=\box27
+\almostz@=\dimen125
+ direction,
+\d@X=\dimen126
+\d@Y=\dimen127
+\K@=\count87
+\KK@=\count88
+\Direction=\count89
+\K@dXdY=\dimen128
+\K@dYdX=\dimen129
+\xyread@=\read1
+\xywrite@=\write3
+\csp@=\count90
+\quotPTK@=\dimen130
+
+utility macros; pictures: \xy, positions,
+\swaptoks@@=\toks16
+\connectobjectbox@@=\box28
+ objects,
+\styletoks@=\toks17
+ decorations;
+kernel objects: directionals, circles, text; options; algorithms: directions,
+edges, connections;  Xy-pic loaded)
+Package: xy 1999/02/16 Xy-pic version 3.7
+
+(/local/teTeX/share/texmf/tex/generic/xypic/xyall.tex
+ Xy-pic option: All features v.3.3
+(/local/teTeX/share/texmf/tex/generic/xypic/xycurve.tex
+ Xy-pic option: Curve and Spline extension v.3.7 curve,
+\crv@cnt@=\count91
+\crvpts@=\toks18
+\splinebox@=\box29
+\splineval@=\dimen131
+\splinedepth@=\dimen132
+\splinetol@=\dimen133
+\splinelength@=\dimen134
+ circles,
+\L@=\dimen135
+ loaded)
+(/local/teTeX/share/texmf/tex/generic/xypic/xyframe.tex
+ Xy-pic option: Frame and Bracket extension v.3.7 loaded)
+(/local/teTeX/share/texmf/tex/generic/xypic/xycmtip.tex
+ Xy-pic option: Computer Modern tip extension v.3.3
+(/local/teTeX/share/texmf/tex/generic/xypic/xytips.tex
+ Xy-pic option: More Tips extension v.3.3 loaded) loaded)
+(/local/teTeX/share/texmf/tex/generic/xypic/xyline.tex
+ Xy-pic option: Line styles extension v.3.6
+\xylinethick@=\dimen136
+ loaded)
+(/local/teTeX/share/texmf/tex/generic/xypic/xyrotate.tex
+ Xy-pic option: Rotate and Scale extension v.3.3 loaded)
+(/local/teTeX/share/texmf/tex/generic/xypic/xycolor.tex
+ Xy-pic option: Colour extension v.3.3 loaded)
+(/local/teTeX/share/texmf/tex/generic/xypic/xymatrix.tex
+ Xy-pic option: Matrix feature v.3.4
+\Row=\count92
+\Col=\count93
+\queue@=\toks19
+\queue@@=\toks20
+\qcount@=\count94
+\qcount@@=\count95
+\matrixsize@=\count96
+ loaded)
+(/local/teTeX/share/texmf/tex/generic/xypic/xyarrow.tex
+ Xy-pic option: Arrow and Path feature v.3.5 path, \ar, loaded)
+(/local/teTeX/share/texmf/tex/generic/xypic/xygraph.tex
+ Xy-pic option: Graph feature v.3.7 loaded) loaded))
+(/local/teTeX/share/texmf/tex/latex/base/latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 42.
+)
+(/local/teTeX/share/texmf/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 1996/11/03 v2.2b
+
+(/local/teTeX/share/texmf/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 1997/09/17 v2.2e
+\@emptytoks=\toks21
+\symAMSa=\mathgroup5
+\symAMSb=\mathgroup6
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 133.
+)) (defs.tex
+\c@example=\count97
+\listskip=\skip43
+\eqpskip=\skip44
+)
+(a4wide.tex) (njc.aux)
+\openout1 = `njc.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 25.
+ (/local/teTeX/share/texmf/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2eLaTeX symbol font definitions
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 25.
+
+(/local/teTeX/share/texmf/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 1995/01/05 v2.2e AMS font definitions
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 25.
+
+(/local/teTeX/share/texmf/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 1995/01/05 v2.2e AMS font definitions
+) (pdt.tex [1
+
+] [2]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 133.
+
+
+(/local/teTeX/share/texmf/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 133.
+ <xymatrix 9x3 471> [3]
+[4] [5] [6] [7] [8] <xymatrix 4x1
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 770.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 770.
+
+66> [9] <xymatrix 5x1
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 835.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 835.
+
+70> [10]
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 921.
+ <xymatrix 3x2 145> [11] [12] <xymatrix 3x3 194> [13] <xymatrix 5x3
+217> [14] <xymatrix 11x4 683> [15] [16] <xymatrix 5x5 582> [17] <xymatrix 4x1
+92> [18] <xymatrix 2x7 631> <xymatrix 10x8 1170> [19] <xymatrix 9x4 486>
+[20] <xymatrix 6x6 1317>
+Overfull \hbox (20.78123pt too wide) detected at line 2064
+| []
+ []
+
+[21] <xymatrix 7x6 597> [22] <xymatrix 4x1
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 2195.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 2195.
+
+90> <xymatrix 5x1
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 2224.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 2224.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 2224.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 2224.
+
+158> [23] <xymatrix 5x5 418> <xymatrix
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+2x2
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2353.
+
+86> [24]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 2366.
+
+<xymatrix 7x3 541> [25] (njc.bbl [26]) [27] (njc.aux) ) ) 
+Here is how much of TeX's memory you used:
+ 3167 strings out of 10888
+ 34778 string characters out of 71831
+ 238162 words of memory out of 263001
+ 6075 multiletter control sequences out of 10000+0
+ 18028 words of font info for 75 fonts, out of 400000 for 1000
+ 14 hyphenation exceptions out of 1000
+ 35i,36n,33p,222b,1043s stack positions out of 300i,100n,500p,50000b,4000s
+
+Output written on njc.dvi (27 pages, 325124 bytes).

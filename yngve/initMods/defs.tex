@@ -1,0 +1,248 @@
+\usepackage{amssymb}
+\usepackage{latexsym}
+
+%equalities
+\newcommand{\eequal}{\stackrel{e}{=}}%existential equality
+\newcommand{\sequal}{\stackrel{s}{=}}%strong equality
+\newcommand{\wequal}{\stackrel{w}{=}}%weak equality
+\newcommand{\eleq}{\mathrel{\dot{=} }}%element equality
+\newcommand{\seq}{\mathrel{\asymp}}% set equality 
+
+\newcommand{\exist}{\downarrow}% defindnes in partial algebra
+\newcommand{\st}{\ast}% extra star element
+
+\newcommand{\incl}{\prec}
+\newcommand{\incleq}{\preceq}
+\newcommand{\seteq}{\asymp}
+
+\newcommand{\congr}{\asymp}
+\newcommand{\ccongr}[1]{\congr_{#1}}
+\newcommand{\congrA}{{\ccongr{A}}}
+
+\newcommand{\dcongr}{\equiv}
+
+%different Categorical, arrows...
+\newcommand{\embd}{\hookrightarrow}% embedding of institutions 
+\newcommand{\pfunc}{\hookrightarrow}% partial function
+\newcommand{\ring}{\circ}% composition of arrows
+
+\newlength{\listskip}\setlength{\listskip}{1ex plus .2ex minus .5ex}
+\newlength{\eqpskip}\setlength{\eqpskip}{.5ex plus .2ex minus .2ex}
+\newenvironment{eqp}{\par %\topsep\eqpskip \parskip 0ex
+   \begin{tabbing}
+   \quad\=\+\quad\=$\{$\ \=\kill\(}{\)\end{tabbing}
+   \addvspace{-1ex plus.2ex minus.3ex}} 
+\newcommand{\comment}[2]{\)\-\\[\eqpskip]$#1$\>\>$\{$\>\+\+\ignorespaces#2$\}$\-\\[\eqpskip]\(}
+\newcommand{\nline}{\)\\\(\mbox{}}
+
+\newcommand{\com}{\hfill{\bf ???}}
+\newcommand{\comt}[1]{\dotfill{{\small{\sf{\ [#1]\ {\bf ??}}}}}}
+%\newcommand{\comt}[1]{... \ \hfill{\small{[#1 {\bf !}]}}}
+
+%%%%%%% MICHAL
+
+%%% comments to be removed eventually
+\newcommand{\fix}{\par\noindent\hspace*{-2em}{\large\bf fix} $\uparrow$ \dotfill}
+\newcommand{\fixx}[1]{\par\noindent\hspace*{-2em}{\large\bf fix} $\uparrow$ {\small
+#1} \dotfill}
+\newcommand{\fixd}[1]{\par\noindent\hspace*{-2em}{\large\bf fix} $\downarrow$ {\small
+#1} \dotfill}
+\newcommand{\isit}[1]{\par\noindent\hspace*{-2em}{\small{{\bf [is it right?} #1{\bf ]}}}\par\noindent}
+\newcommand{\how}[1]{\par\noindent\hspace*{-2em}{\small{{\bf [how?} #1{\bf
+]}}}\par\noindent}
+\newcommand{\todo}[1]{\par\noindent\hspace*{-2em}{\small{{\bf [To Do:} #1{\bf ]}}}\par\noindent}
+\newcommand{\noo}[1]{\par\noindent\hspace*{-2em}{\large\bf NO} $\uparrow$ {\small
+#1} \dotfill}
+%%% environments
+
+\newenvironment{Proof}{{\bf Proof.}}{\nopagebreak\finish}
+\newenvironment{Proofs}{{\bf Proof sketch.}}{\nopagebreak\finish}
+\newcommand{\finish}{\hspace*{\fill}\nopagebreak 
+     \raisebox{-1pt}{$\Box$}\par\addvspace{1.5ex}\noindent}
+
+\newcounter{CLAIM}[section]
+\def\theCLAIM{\arabic{section}.\arabic{CLAIM}}
+
+\newtheorem{Claim}[CLAIM]{? Claim}   %[section]
+\newtheorem{Definition}[CLAIM]{Definition} %[section]
+\newtheorem{Fact}[CLAIM]{Fact}       %[section]
+\newtheorem{Prop}[CLAIM]{Claim}       %[section]
+\newtheorem{Lemma}[CLAIM]{Lemma}     %[section]
+\newtheorem{Example}[CLAIM]{Example} %[section]
+\newtheorem{Theorem}[CLAIM]{Theorem} %[section]
+\newtheorem{Corollary}[CLAIM]{Corollary}   %[section]
+
+\newcommand{\MyLPar}{\parsep -.2ex plus.2ex minus.2ex\itemsep\parsep 
+\vspace{-\topsep}\vspace{.5ex}}
+
+\newenvironment{enum}{\begin{enumerate}\MyLPar}{\end{enumerate}}
+\newenvironment{ite}{\begin{itemize}\MyLPar}{\end{itemize}}
+
+%%% Specs:
+\newcommand{\spec}[1]{\begin{array}[t]{rrl}#1\end{array}\vspace*{1ex}}
+\newcommand{\tit}[1]{\multicolumn{3}{l}{#1}}
+
+%%% symbols
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\pair}[2]{\<#1,#2\>}
+
+\newcommand{\eeq}{\eequal}
+\newcommand{\PSet}[1]{{\mathcal{P}}(#1)}
+\newcommand{\PSetp}[1]{{\mathcal{P}}^+(#1)}
+\newcommand{\ovr}[1]{\overline{#1}}
+\newcommand{\ovl}[1]{\overline {#1}}
+\newcommand{\under}[1]{\underline {#1}}
+
+\newcommand{\quot}[2]{#1\!{\textstyle /}\!_{#2}}
+\newcommand{\quo}[1]{#1\!{\textstyle /}\!_{\equiv_{#1}}}
+\newcommand{\Mquo}{\!{\textstyle /}\!}
+
+\newcommand{\Card}[1]{|#1|}
+\newcommand{\car}[1]{|#1|}
+%\newcommand{\carr}[1]{|\!|#1|\!|}
+\newcommand{\carr}[1]{\under{#1}}
+
+\newcommand{\into}{\rightarrow}
+\newcommand{\imp}{\rightarrow}
+\newcommand{\impl}{\Rightarrow}
+\newcommand{\Impl}{\Longrightarrow}
+
+\newcommand{\To}{\Rightarrow}
+\newcommand{\Tod}{\Leftarrow}
+\renewcommand{\iff}{\Leftrightarrow}
+\newcommand{\Iff}{\Longleftrightarrow}
+\newcommand{\hviss}{\Leftrightarrow}
+\newcommand{\ok}[1]{d_{#1}} % OK part of a sort #1
+\newcommand{\nat}{\mathcal{N}}
+
+\newcommand{\adj}{\mathrel{\small\dashv}} %adjunction
+
+\newcommand{\by}[2]{\stackrel{#1}{#2}}
+
+%%% use these for signatures
+%\newcommand{\Sorts}{{\bf S}} 
+%\newcommand{\Ops}{\Omega}
+%\newcommand{\ndc}{\Pi}
+\newcommand{\err}{E}
+\newcommand{\sign}{(\Sorts,\Ops,\ndc)}
+\newcommand{\POps}{P\Omega}
+\newcommand{\Pops}{\POps}
+%\newcommand{\Terms}[1]{T(#1)}
+%\newcommand{\TermsS}{\Terms\Sigma}
+%\newcommand{\TermsSX}{\Terms{\Sigma,X}}
+
+%\newcommand{\Terms}[1]{\bfit{T}_{#1}}
+\newcommand{\Terms}[1]{T_{#1}}
+\newcommand{\GTerms}{\Terms\Sigma}
+\newcommand{\XTerms}{\Terms{\Sigma,X}}
+\newcommand{\spTTerms}[1]{\Terms{#1}}
+\newcommand{\spTerms}{\spTTerms{\seteq}}
+\newcommand{\aTerms}{\spTTerms {\congrA}}
+
+\newcommand{\Sorts}{\bfit{S}}
+\newcommand{\Funcs}{\bfit{F}}
+\newcommand{\Preds}{\bfit{P}}
+%\newcommand{\diag}[1]{{\cal D}(#1)}
+\newcommand{\diag}[1]{\Terms{\Sigma,#1}}
+%\newcommand{\diagE}[1]{{\cal D}_\equiv(#1)}
+\newcommand{\diagE}[1]{\Terms{\Sigma,#1,\equiv}}
+\newcommand{\diagEL}[1]{\Terms{\Sigma,\carr{#1},{\equiv_{#1}}}}
+\newcommand{\langF}[1]{{\cal L}(#1)} %\functor
+
+\newcommand{\liftf}{{\cal L}}
+\newcommand{\lift}[1]{{\cal L}(#1)}
+\newcommand{\liftp}[1]{{\cal L}^+(#1)}
+
+\renewcommand{\l}[1]{{\scriptstyle{\cal L}}{#1}}
+%\renewcommand{\l}[1]{{\bfit{#1}}}
+\newcommand{\lla}[1]{{\cal{#1}}}
+\newcommand{\langa}{{\lla L}}
+\newcommand{\lang}[1]{{\lla L}(#1)} 
+\newcommand{\langs}{\lang\Sigma} 
+\newcommand{\langsx}{\lang{\Sigma,X}} 
+\newcommand{\langss}[1]{{\lla #1}(\Sigma)} 
+
+\newcommand{\lequiv}{\langa^\equiv}
+\newcommand{\lequ}{\langa^=}
+
+\newcommand{\tss}[1]{{\bfit{T}}_{#1}}
+\newcommand{\tsl}{\tss{\langs}}
+\newcommand{\ts}{\tss\Sigma}
+\newcommand{\tsp}{\tss{SP}}
+\newcommand{\init}{\bfit{I}}
+\newcommand{\scr}[1]{{\scriptsize{#1}}}
+
+\newcommand{\dom}{{\bf dom}}
+
+\newcommand{\bfit}[1]{\mbox{\bf{\em #1}}} %bold italic
+
+\newcommand{\refb}[1]{{\bf \ref{#1}}}
+
+\newcommand{\eq}[1]{\begin{equation}#1\end{equation}}
+%%%% ???
+%%%%% for multi ones
+\renewcommand{\L}[1]{L_{#1}}
+\newcommand{\Le}{\L{\eleq}}
+\newcommand{\Li}{\L{\incl}}
+
+\newcommand{\G}[1]{\bfit{L}(#1)} %labeled part of P(A)
+%\newcommand{\G}[1]{{\mbox{\bf{\em L}}}(#1)}
+\newcommand{\Gone}[1]{\bfit{L}_1(#1)}
+\newcommand{\Gtwo}[1]{\bfit{L}_2(#1)}
+
+\newcommand{\rest}[1]{\under{#1}_0}
+\newcommand{\restA}{\rest A}
+
+%%% general categorical concepts
+\newcommand{\cat}[1]{{\sf #1}} % {{\bf #1}} %put it around any category 
+\newcommand{\inst}[1]{{\mathcal{#1}}} %put it around any institution: needs $_$
+\newcommand{\fu}[1]{{\sf {#1}}} %put it around any functor
+\newcommand{\thr}[1]{{\bf #1}} %put it around any Theory
+\newcommand{\obj}[1]{|#1|} %objects of a category
+\newcommand{\natt}{\mathrel{\Longrightarrow}} %natural transformation
+%%% Categories
+%multialgebras
+\newcommand{\MM}[1]{\cat{MAlg}(#1)}
+\newcommand{\MMS}{\MM{SP}} 
+\newcommand{\LM}[1]{\cat{LMAlg}(#1)} %labeled multialgebra models
+\newcommand{\LMS}{\LM{SP}} 
+%used little but still...
+\newcommand{\PAlo}{\PAl{(\Sorts,\Ops)}}
+\newcommand{\MAlo}{\MA{(\Sorts,\Ops,\emptyset)}}
+%standard
+\newcommand{\Sign}{\cat{Sign}}
+\newcommand{\Set}{\cat{Set}}
+
+%%% Functors
+\newcommand{\Mod}[1]{\fu{Mod}(#1)}
+\newcommand{\Str}[1]{\fu{Str}(#1)}
+\newcommand{\Strs}{\Str\langs}
+\newcommand{\Stra}{\Str\langa}
+\newcommand{\Sen}{\fu{Sen}}
+\newcommand{\sen}{\Sen}
+
+%%% constructions on structures
+\newcommand{\inv}[2]{#1^{-}[#2]}
+\newcommand{\ext}[2]{#1^{[#2]}}
+
+\newcommand{\setsuch}[2]{\{#1\ |\ #2\}}
+
+\newcommand{\imm}{{\sf im}}   %immediate
+\newcommand{\simm}{{\sf sim}} %strictly immediate
+
+%%% Institutions
+\newcommand{\MAH}{\inst{MAH}}
+\newcommand{\MAC}{\inst{MAC}}
+%\newcommand{\MAPC}{\inst{MAPC}}
+\newcommand{\MAP}{\inst{MAP}}%partial multialgebras
+\newcommand{\PA}{\inst{PA}}%partial algebras
+
+%%% Equivalences 
+\newcommand{\kernel}[1]{\quot_{#1}} %% ekvivalens med subskript
+\newcommand{\qu}[2]{#1/\!_{#2}}
+\newcommand{\iso}{\mathrel{\simeq}}
+
+
+\newcommand{\choice}{\sqcup} % Nondeterministic choice
+

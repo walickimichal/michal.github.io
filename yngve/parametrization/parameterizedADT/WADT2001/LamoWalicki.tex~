@@ -1,0 +1,84 @@
+\title{Specification of parameterized data types}
+\author{Yngve Lamo \and Micha{\l} Walicki}
+\date{Department of Informatics\\ University of Bergen}
+\begin{document}
+
+
+We revisit the concept of persistent functor pointing out its (well known) limitations for the purpose of describing the semantics of specifications of parameterized data types (PDTs). We introduce a more general notion of a functor F which requires only that the parameter algebra A is a subalgebra of its image F(A). We illustrate the flexibility and advantages of the proposed construction by examples. 
+The main part of the presentation concerns then the syntactic restrictions on the specifications which allow one to define the semantics of PDTs in this way. The  
+
+\maketitle
+
+Study of PSPs has long tended in the direction of PDTs. One of the problems
+is that, while the former continued the tradition of working with classes
+axiomatized by (possibly conditional) equations, the latter require a precise
+grasp on individual algebras (which, for modelling purposes, can be
+identified with programs): a program P taking as a parameter another program
+X cannot change X -- X functions in the context of P, that is in P[X], in the
+same way as it would in isolation. This intuition of ``preserving actual
+parameter'' has been identified as one of the semantic requirements on PSP in
+form of the persistency requirement on the functors from (\ref{eq:fsem}), \cite{EM}.
+However, in the purely equational context, there was hardly any syntactic
+counterpart of this semantic requirement. Thus, no syntactic/logical means
+were available for reasoning about correctness of such implementations.
+
+Even worse, persistency turns out to be all too strong a requirement
+eliminating many (if not most) interesting examples of PDTs as
+``illegal''. For instance, a functor which takes an EL-algebra of elements and
+adds a new element (intended, e.g., as the ``error value'' resulting from inspecting the top of an empty
+stack in the specification STACK[EL]) is {\em not} persisitent.
+
+We introduce a framework for specifying PDTs. The first
+thing is a generalisation of the classical concept of persistent functors, so
+that our semantic functors can add new elements to the parameter algebras. 
+(A typical example would be augmenting the data types of a parameter
+program with new ``error'' values for more adequate treatement of error
+situations.) We
+define a syntax for writing specifications of PDTs, and then their semantics
+which specializes (\ref{eq:fsem}). 
+
+Several compositionality theorems are
+shown which lead to a possibility of flexible development. 
+We identify possible steps of refinement of specifications which amount
+to selecting parts of a specification as possible parameters. This scenario
+seems to reflect well actual process of software
+development, where parts of a bigger problem are isolated as separate
+modules. In our framework, such a splitting of a problem induces
+automatically requirements on implementation of separate modules {\em as well
+as} the way of composing such pieces together into an implementation of the
+whole system.
+
+The framework is presented using multialgebras \cite{WM,surv} and thus, in particular, allowing
+unrestricted use of nondeterministic data types. However, we do not focus on the issue
+of nondeterminism here and show that
+natural extensions of traditional, deterministic ADTs (like, for instance,
+membership algebras, or ADTs with predicates) can utilize fully the
+ideas introduced in this paper. The logical means for reasoning about
+specifications of PDTs follow from their definition within the multialgebraic framework.
+
+
+\begin{thebibliography}{biblo}
+%\bibliographystyle{plain}
+\bibitem{BG}R.Burstall and J.Goguen. Putting theories together to make
+specifications. {\em Proc. 5th Intl. Joint Conference on Artificial
+Intelligence}, Cambridge, Mass., USA, (1977).
+\bibitem{CASL}The CoFI Task Group on Language Design. CASL - the Common
+Algebraic Specification Language. Summary (version 1.0) available from {\tt http://www.brics.dk/Projects/CoFI/}.
+\bibitem{Ehr}H.-D.Ehrich. On the theory of specification, implementation and
+parameterization of abstract data types. {\em Journal of the ACM}, 29,
+(1982).
+\bibitem{EM}H.Ehrig and B.Mahr. {\em Fundamentals of Algebraic Specification
+1}, vol.~6 of EATCS Monographs on TCS, Springer, (1990).
+\bibitem{SST}D.Sannella, S.Soko{\l}owski and A.Tarlecki. Toward formal
+development of programs from algebraic specifications: Parameterization
+revisited. {\em Acta Informatica}, 29(8), (1992).
+\bibitem{ST}D. Sannella and A. Tarlecki. Toward Formal Development of
+Programs from Algebraic Specifications: Implementations Revisited. {\em Acta
+Informatics}, 25, pp.233-281, (1988).
+\bibitem{WM}M.Walicki and S.Meldal. Multialgebras, power algebras and
+complete calculii of identities and inclusion. {\em Recent Trends in Data Type
+Specification}, LNCS vol.~906, (1995).
+\bibitem{surv}M.Walicki and S.Meldal. Algebraic approaches to nondeterminism
+-- an overview. {\em Computing Surveys}, 29(1), (1997).
+\end{thebibliography}
+\end{document}

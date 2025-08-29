@@ -1,0 +1,364 @@
+
+\subsection{Signatures with sort constants}\label{sub:gsp}
+We start by modifiying the concept of signature and specification. The idea
+is that each signature may have, in addition to the standard set of sort and
+operation symbols, a (possibly empty) set of distinguished (sort and subsort) constant
+symbols $\allcons = \Cons\cup\subcons$. 
+The set $\Cons$ %=\{\cons_s:\to s: s\in\Sorts\}$ 
+contains  constant symbols
+$\cons_s$ for various sort symbols $s$ -- the intention of $\cons_s$ is to denote all the elements of the respective
+sort $s$. 
+The set $\subcons$  may contain additional constants
+which will represent various subsorts -- the constants from this set are
+called ``subsort constants''. (Usually, the distinction between $\Cons$ and
+$\subcons$ does not matter and then we will write ``(sub)sort constants''.)
+\begin{definition}
+\label{def:modsign}
+A signature with sort constants, $\Sigma_\cons$, is a triple $\Sigma_\cons =
+ (\Sorts,\Ops,\allcons)$, where $\Sigma=(\Sorts,\Ops)$ is an ordinary
+ signature and $\allcons=\Cons\cup\subcons$ is a (possibly empty) set of additional constants,
+ $\allcons\cap\Ops=\emptyset$ and $\Cons\cap\subcons=\emptyset$. 
+\end{definition}
+%
+Signatures with sort constants will be used merely as a syntactic representation of 
+ordinary signatures. This is possible in multialgebraic setting since
+constants may denote sets of elements. (In a more traditional setting, one would
+have to represent the sort constants, for instance, by predicates or (sub)sort symbols.)
+
+We allow the set $\allcons$ to be empty. Also, we allow the set
+$\Cons$ to contain several distinct constants of the same sort (although
+their intended meaning will be the same).
+The technical reasons for that come up in relating construction of co-limits
+(proposition~\ref{prop:finco}, especially, lemma~\ref{fa:coeq}) and, in particular, pushouts
+(subsection~\ref{sub:canpush}). For the most, we think of the set
+$\Cons$ as containing one constant for each sort, i.e., as
+$\Cons=\{\cons_s:\to s : s\in\Sorts\}$. Most relevant constructions will
+involve and yield such signatures. (in general, we use the symbol $\cons_s$
+for an arbitrary constant from $\Cons$ of sort $s$, e.g., for a signature
+morphism $\mu$, 
+$\mu(c)\not=\cons_s$ means the same as $\mu(c)\not\in\Cons$.)
+
+
+We will use the following operations relating the signatures with sort
+ constants to ordinary signatures.
+
+\begin{definition}\label{def:sigops}
+Given a signature with sort constants $\Sigma_\cons=(\Sorts,\Ops,\allcons)$ we let:
+\begin{enumerate}\MyLPar
+\item $\under{\Sigma_\cons}=(\Sorts,\Ops \cup \allcons)$
+i.e. $(\Sorts, \Ops \cup \Cons \cup \subcons)$ -- the underlying signature
+\item ${\Sigma_\weak}=(\Sorts,\Ops,\subcons)$ i.e. $\Sigma_\cons
+\setminus \Cons$ -- the reduced signature
+\item ${\Sigma}=(\Sorts,\Ops)$ i.e. $(\Sigma_\cons
+\setminus \allcons)$ -- the standard (part of the) signature
+\end{enumerate}
+The other way around, given an ordinary signature $\Sigma=(\Sorts,\Ops)$, we let
+\begin{enumerate}\MyLPar\setcounter{enumi}{3}
+\item ${\Sigma_\cons}=(\Sorts,\Ops,\Cons)$
+, where   $\Cons=\{\cons_s:\to s:s\in\Sorts\}$ and $\Cons\cap\Ops=\emptyset$
+-- the corresponding guarded signature with sort constants.
+\item\label{it:ins} $\ins\Sigma=(\Sorts,\Ops,\emptyset)$
+, -- the included signature (with sort constants).
+\end{enumerate}
+\end{definition}
+%
+Unless stated otherwise, the signatures considered will always be signatures with sort constants. 
+Given an arbitrary specifcation $\thr{SP}$ we will sometimes write
+$\Sigma(\thr{SP})$ to denote its signature.
+
+\begin{definition}
+A morphism between signatures with sort constants $\mu:\Sigma_\cons \to
+\Sigma'_{\cons}$ is a signature morphism between the underlying
+signatures $\mu:\under{\Sigma_\cons}\to\under{\Sigma'_\cons}$, sending
+$\allcons$ to ${\allcons}'$ and $\Sigma$ to $\Sigma'$.
+\end{definition}
+In other words, the $\Cons$-constants need not be sent to $\Cons'$-constants
+but may be mapped to subsort constants ${\subcons}'$, as well.
+
+\begin{fact}
+The signatures with sort constants form a category $\cat{Sign_\cons}$, with
+the identity function as identity and function composition as composition.
+\end{fact}
+%
+Since the signatures with sort constants essentially use underlying signature
+morphism, the transformation from the former to the latter
+%signatures with sort constants to
+%underlaying signatures 
+can be extended to a functor $\fu{_-}:\cat{Sign_\cons} \to
+\cat{Sign}$, which is the (pointwise) identity on the signature morphisms. 
+
+The other way arround the inclusion of signatures (point~\ref{it:ins} of
+def.~\ref{def:sigops}) can also be extended to a
+functor $\fu{\ins\ }:\cat{Sign} \to \cat{Sign_\cons}$, which sends $\Sigma$
+to $\ins\Sigma$ and is the identity on morphisms. The following fact says
+that $\cat{Sign}$ can be treated as a full subcategory of $\cat{Sign_\cons}$.
+
+\begin{fact}
+$\ins\ :\cat{Sign} \to \cat{Sign_\cons}$ is full and faithfull.
+\end{fact}
+We have that for any $\Sigma\in\cat{Sign}:\Sigma=\under{(\ins\Sigma)}$ but,
+in general, for $\Sigma_\cons\in\cat{Sign_\cons}: \Sigma_\cons\not\iso
+\ins{(\under{\Sigma_\cons})}$. This is because for an isomorphism in
+$\cat{Sign_\cons}$ we must have isomorphism between the respective sets of
+(sub)sort constants, but while $\allcons$ in $\Sigma_\cons$ may be
+non-empty, it is always empty in $\ins{(\under{\Sigma_\cons})}$.
+
+%%\begin{lemma}
+%%$\fu{_-}:\cat{Sign_\cons} \to \cat{Sign}$ is a left adjoint to $\ins\ :\cat{Sign} \to \cat{Sign_\cons}$.
+%%\end{lemma}
+%%\begin{PROOF}
+%%Suppose that $\sigma: \Sigma_\cons \to \ins{(\Sigma')}$ is a
+%%$\cat{Sign_\cons}$ morphism, then $\under{\sigma}: \under{\Sigma_\cons} \to
+%%\under{\ins{(\Sigma')}}$ (note that $\under{\ins{(\Sigma')}} = \Sigma'$) is
+%%the unique factorization morphism, since $\ins{\under{\sigma}}=
+%%\under{\sigma}$ and $\ins\ :\cat{Sign} \to \cat{Sign_\cons}$ is full and
+%%faithfull. 
+%%\end{PROOF}
+%%
+%%\begin{corollary}
+%%The functor $\fu{_-}$ preserves co-limits.
+%%\end{corollary}
+%
+The following proposition shows that
+ that (finite) co-limits in $\cat{Sign}_\cons$
+can be obtained from the respective co-limits in $\cat{Sign}$. 
+
+\begin{proposition}\label{prop:finco}
+The functor $\fu{_-}:\cat{Sign_\cons} \to \cat{Sign}$ reflects (and
+preserves) finite co-limits.
+\end{proposition}
+%
+To prove the proposition we show that the functor reflects initial object, sums and co-equlizers.
+
+\begin{lemma}
+The functor $\under{\ }$ reflects (and preserves) initial objects.
+\end{lemma}
+%
+\begin{PROOF}
+The empty signature $\Sigma^\emptyset=(\emptyset,\emptyset)$ is {\em the}
+initial object in 
+$\cat{Sign}$, and the empty signature
+$\Sigma_\cons^\emptyset=(\emptyset,\emptyset,\emptyset)$ is {\em the} initial
+object in
+$\cat{Sign_\cons}$.
+But $\Sigma^\emptyset=\under{\Sigma_\cons^\emptyset}$, so initial object is
+both reflected and preserved.
+\end{PROOF}%\vspace*{-2ex}
+%
+\begin{lemma} The functor $\under{\ }$ reflects (and preserves) sums (binary co-products).
+\end{lemma}
+%
+\begin{PROOF}
+Let $\Sigma_{\cons 1}=(\Sorts_1,\Ops_1,\allcons_1)$ and 
+$\Sigma_{\cons 2}=(\Sorts_2,\Ops_2,\allcons_2)$ be $\cat{Sign_\cons}$ objects and
+$T$ be a co-cone 
+%$\iota_1:\Sigma_{\cons 1}\to\Sigma_\cons$, $\iota_2:\Sigma_{\cons 2}\to\Sigma_\cons$ 
+in $\cat{Sign_\cons}$ as in the left diagram. Assume that its image $\under
+T$ (as in the right diagram) 
+%, i.e., $\under{\iota_1}:\under{\Sigma_{\cons 1}}\to\under{\Sigma_\cons}$,
+%$\under{\iota_2}:\under{\Sigma_{\cons 2}}\to\under{\Sigma_\cons}$  
+is a
+co-limit (sum) in $\cat{Sign}$. We have to show that $T$ is a sum in
+$\cat{Sign_\cons}$.
+\[\xymatrix@R=0.6cm@C=0.5cm{
+T  & \Sigma_\cons &   &&& \under T & \under{\Sigma_\cons}\iso
+\under{\Sigma_{\cons 1}}+\under{\Sigma_{\cons 2}}\\
+\Sigma_{\cons 1} \ar[ur]_{\iota_1} && \Sigma_{\cons 2} \ar[ul]^{\iota_2} 
+  &&&
+ \under{\Sigma_{\cons 1}} \ar[ur]_{\under{\iota_1}} &&
+    \under{\Sigma_{\cons 2}} \ar[ul]^{\under{\iota_2}}
+}
+\]
+By the standard construction $\under{\Sigma_\cons}\iso \under{\Sigma_{\cons
+1}} + \under{\Sigma_{\cons 2}}$, where the latter denotes disjoint union (of
+sort and operation symbols from both signatures). To simplify the notation,
+let us assume, without loss of geenrality, that we have equality here. Then
+both $\under{\iota_i}$'s are injections,
+
+Let $C$ be any co-cone $\mu_1:\Sigma_{\cons 1}\to\Sigma'_\cons$, $\mu_2:\Sigma_{\cons
+2}\to\Sigma'_\cons$  in $\cat{Sign_\cons}$. Since $\under
+T$ is a sum, we have a unique mediator to $\under C$, 
+$u_{\under{\mu_{1}},\under{\mu_{2}}}:
+\under{\Sigma_\cons}\to\under{\Sigma'_\cons}$, such that
+$\under{\mu_i}=\under{\iota_i};u_{\under{\mu_{1}},\under{\mu_{2}}}$ for
+$i\in\{1,2\}$.
+It is given by: for any symbol
+$x\in\under{\Sigma_\cons}:
+u_{\under{\mu_{1}},\under{\mu_{2}}}(x)=\left\{\begin{array}{ll} 
+ \under{\mu_1}(x) & if\ x\in\under{\Sigma_{\cons 1}} \\
+ \under{\mu_2}(x) & if\ x\in\under{\Sigma_{\cons 2}}
+\end{array}\right.$.
+\[\xymatrix@R=0.8cm@C=0.7cm{
+C & \Sigma'_\cons &  &&& \under C & \under{\Sigma'_\cons} \\
+& \Sigma_\cons \ar@{.>}[u]|{u_{\mu_{1},\mu_{2}}}&  &&&  
+  & \under{\Sigma_{\cons 1}}+\under{\Sigma_{\cons 2}} \ar@{.>}[u]|{u_{\under{\mu_{1}},\under{\mu_{2}}}}\\
+\Sigma_{\cons 1} \ar[ur]_{\iota_1} \ar@(u,l)[uur]^{\mu_1} 
+  && \Sigma_{\cons 2} \ar[ul]^{\iota_2}  \ar@(u,r)[uul]_{\mu_2} 
+  &&&
+ \under{\Sigma_{\cons 1}} \ar[ur]_{\under{\iota_1}} \ar@(u,l)[uur]^{\under{\mu_1}}
+  &&  \under{\Sigma_{\cons 2}} \ar[ul]^{\under{\iota_2}}  \ar@(u,r)[uul]_{\under{\mu_2}}
+}
+\]
+The claim is that there is also a unique mediator
+$u_{\mu_{1},\mu_{2}}:\Sigma_\cons\to\Sigma'_\cons$. Indeed, let it be given
+by $u_{\mu_{1},\mu_{2}}(x)= u_{\under{\mu_{1}},\under{\mu_{2}}}(x)$ for all
+$x\in\Sigma_\cons$ (then $\under{u_{\mu_{1},\mu_{2}}}=
+u_{\under{\mu_{1}},\under{\mu_{2}}}$). 
+ It obviously
+makes $\mu_i=\iota_i;u_{\mu_{1},\mu_{2}}$, for $i\in\{1,2\}$. 
+
+It is also a
+$\cat{Sign_\cons}$ morphism because all $\iota_i$'s and $\mu_i$'s
+are: the (sub)sort constants $\allcons_1, \allcons_2$ from $\Sigma_{\cons 1},
+\Sigma_{\cons 2}$, respectively, are mapped by $\iota_1,\iota_2$ to (sub)sort constants
+${\allcons}$ in $\Sigma_\cons$. Their $\iota_i$ images are also {\em all} the (sub)sort
+constants ${\allcons}$, since the other symbols in $\Sigma_\cons$ are images
+of $\Sigma_1$, resp., $\Sigma_2$ symbols (i.e., of those symbols from
+$\Sigma_{\cons 1}, \Sigma_{\cons 2}$ which are {\em
+not} (sub)sort constants). Then, since also all the images under $\mu_i$ of (sub)sort constants
+from $\Sigma_{\cons i}$ are (sub)sort constants in $\Sigma'_\cons$, it
+follows from the definition of $u_{\mu_{1},\mu_{2}}$ that it, too, maps
+(sub)sort constants -- of the form $c=\iota_i(c)$ -- to (sub)sort constants,
+since $u_{\mu_{1},\mu_{2}}(c)=\mu_i(c)$, for respective $i$'s.
+
+Finally, this $u_{\mu_{1},\mu_{2}}$ is unique making
+$\mu_i=\iota_i;u_{\mu_{1},\mu_{2}}$. For if there is another $u\not=
+u_{\mu_{1},\mu_{2}}$, such that $\mu_i=\iota_i;u$, then it would also be the
+case that $\under u\not= u_{\under{\mu_{1}},\under{\mu_{2}}}$ and,
+furthermore, that
+$\under{\mu_i}=\under{\iota_i};\under u$, contradicting the
+uniqueness of $u_{\under{\mu_{1}},\under{\mu_{2}}}$. 
+
+Preservation of sums follows now easily. A sum $\Sigma_{\cons
+1}+\Sigma_{\cons 2}$ in $\cat{Sign_\cons}$ must be
+isomorphic to a sum as given above, i.e., a disjoint union of all the symbols
+from both signatures: 
+%i.e., for 
+%$\Sigma_{\cons 1}=(\Sorts_1,\Ops_1,\allcons_1)$ and 
+%$\Sigma_{\cons 2}=(\Sorts_2,\Ops_2,\allcons_2)$, 
+%we have 
+$\Sigma_{\cons 1}+\Sigma_{\cons 2}\iso
+(\Sorts_1\uplus\Sorts_2,\Ops_1\uplus\Ops_2,\allcons_1\uplus\allcons_2)$ where
+also $(\Ops_1\uplus\Ops_2)\cap(\allcons_1\uplus\allcons_2)=\emptyset$. 
+But
+then $\under{\Sigma_{\cons 1}+\Sigma_{\cons 2}} \iso
+(\Sorts_1\uplus\Sorts_2,(\Ops_1\cup\allcons_1)\uplus(\Ops_2\cup\allcons_2))\iso
+\under{\Sigma_{\cons 1}} + \under{\Sigma_{\cons 2}}$.
+\end{PROOF}
+%
+\begin{lemma}\label{fa:coeq}
+The functor $\under{\ }$ reflects (and preserves) co-equalizers. 
+\end{lemma}
+%
+\begin{PROOF}
+Let $\Sigma_\cons=(\Sorts,\Ops,{\allcons})$,
+$\Sigma'_\cons=(\Sorts',\Ops',{\allcons}')$,
+$\Sigma''_\cons=(\Sorts'',\Ops'',{\allcons}'')$ be objects in
+$\cat{Sign_\cons}$ and
+suppose that we have a co-cone in $\cat{Sign_\cons}$ as on the left diagram
+(with $\mu_1;\sigma=\mu_2;\sigma$), 
+%%$\mu,\nu:\Sigma_\cons \to \Sigma'_\cons, \sigma:\Sigma'_\cons
+%%\to \Sigma''_\cons$, is a co-cone in $\cat{Sign_\cons}$ and that
+%%$\under{\mu},\under{\nu}:\under{\Sigma_\cons} \to \under{\Sigma'_\cons},
+%%\under{\sigma}:\under{\Sigma'_\cons} \to \under{\Sigma''_\cons}$, 
+and that its image (on the right diagram)
+is a co-limit (co-equalizer) in $\cat{Sign}$. We have to show that the
+original co-cone (on the left) is a co-limit in $\cat{Sign_\cons}$.
+\[\xymatrix@C=1.2cm{
+\Sigma_\cons \ar@<0.7ex>[r]^{\mu_1} \ar@<-0.7ex>[r]_{\mu_1} 
+  & \Sigma'_\cons \ar[r]^{\sigma} 
+  & \Sigma''_\cons
+&&&
+\under{\Sigma_\cons} \ar@<0.7ex>[r]^{\under{\mu_1}}
+\ar@<-0.7ex>[r]_{\under{\mu_1}} 
+  & \under{\Sigma'_\cons} \ar[r]^{\under{\sigma}} 
+  & \under{\Sigma''_\cons} \iso \qu{\under{\Sigma'_\cons}}{\approx}
+}
+\]
+By the standard construction in $\cat{Sign}$, we have an isomorphism $\under{\Sigma''_\cons} \iso
+\qu{\under{\Sigma'_\cons}}{\approx}$, where
+$\qu{\under{\Sigma'_\cons}}{\approx}=(\qu{\Sorts'}{\approx},\qu{\Ops'}{\approx})$, is the standard choice of
+co-equalizer i.e. the quotient by  the least equivalence $\approx$ on
+$\under{\Sigma'_\cons}$ induced by the 
+relation with the following components:
+ \begin{enumerate}\MyLPar
+\item Sorts: $\approx_{\Sorts'}= \{ \langle \under{\mu_1}(s),\under{\mu_2}(s)
+\rangle: s \in \Sorts \}$,
+%\under{\Sigma_\cons} \}$,
+\item Operations: $\approx_{\Ops'\cup{\allcons}'}= \{ \langle \under{\mu_1}(\omega), \under{\mu_2}(\omega)
+\rangle : \omega \in \Ops\cup{\allcons} \}$
+%\under{\Sigma_\cons} \}$
+\end{enumerate}
+To simplify the notation we will assume, without loss of generality, that, in
+fact,  $\under{\Sigma''_\cons} = \qu{\under{\Sigma'_\cons}}{\approx}$. 
+
+Since $\mu_1,\mu_2$ are $\cat{Sign_\cons}$-morphisms, the equivalence
+$\approx$ above can be viewed (is the same) as the least equivalence $\sim$ 
+on $\Sigma'_\cons$ induced by the following components:
+%(from the original $\Sigma'_\cons$) 
+ \begin{enumerate}\MyLPar\setcounter{enumi}{2}
+\item\label{it:s1} Sorts: $\sim_{\Sorts'}= \{ \langle \mu_1(s),\mu_2(s)
+\rangle: s \in \Sorts \}$,
+%{\Sigma_\cons} \}$,
+\item Operations: $\sim_{\Ops'}= \{ \langle \mu_1(\omega), \mu_2(\omega)
+\rangle : \omega \in \Ops \}$
+\item\label{it:sub1} (sub)sort constants: $\sim_{{\allcons}'}= \{ \langle 
+\mu_1(c), \mu_2(c) \rangle : c \in \allcons \}$.
+\end{enumerate}
+%
+We then have
+$\under{\qu{\Sigma'_\cons}{\sim}}=\qu{\under{\Sigma'_\cons}}{\approx}$, so we
+let $\Sigma''_\cons=\qu{\Sigma'_\cons}{\sim}$.
+
+Let $\mu_1,\mu_2,\gamma$ be an arbitrary co-cone as shown on the left diagram.
+\[\xymatrix@C=1.2cm@R=0.7cm{
+\Sigma_\cons \ar@<0.7ex>[r]^{\mu_1} \ar@<-0.7ex>[r]_{\mu_1} 
+  & \Sigma'_\cons \ar[r]^{\sigma} \ar[dr]_\gamma
+  & \Sigma''_\cons = \qu{\Sigma'_\cons}{\sim} \ar@{.>}[d]^{u_\gamma}
+&&&
+\under{\Sigma_\cons} \ar@<0.7ex>[r]^{\under{\mu_1}}
+\ar@<-0.7ex>[r]_{\under{\mu_1}} 
+  & \under{\Sigma'_\cons} \ar[r]^{\under{\sigma}} \ar[dr]_{\under{\gamma}}
+  & \qu{\under{\Sigma'_\cons}}{\approx} \ar@{.>}[d]^{u_{\under\gamma}}
+\\
+&& \Sigma'''_\cons &&& && \under{\Sigma'''_\cons}
+}
+\]
+Since the image $\under\sigma,\
+\under{\Sigma''_\cons}=\under{\qu{\Sigma'_\cons}{\sim}}=\qu{\under{\Sigma'_\cons}}{\approx}$ is
+co-equalizer, we have a unique mediator $u_{\under\gamma}$ making
+$\under\gamma=\under\sigma;u_{\under\gamma}$. We show that $u_\gamma:\Sigma''_\cons\to\Sigma'''_\cons$, given
+by $u_\gamma(x)=u_{\under\gamma}(x)$ for all symbols $x\in\Sigma''_\cons$ (in
+particular, $\under{u_\gamma}=u_{\under\gamma}$) is
+a unique mediator in $\cat{Sign_\cons}$. It obviously makes
+$\gamma=\sigma;u_\gamma$. 
+
+It is also a morphism in $\cat{Sign_\cons}$. Since both $\sigma,\gamma$ are
+morphisms in $\cat{Sign_\cons}$ they send (sub)sort constants ${\allcons}'$
+to the (sub)sort constants ${\allcons}''$, respectively,
+${\allcons}'''$. Since $\under\sigma$ is surjective, then so is $\sigma$, and
+thus the (sub)sort constants in $\Sigma''_\cons$ are exactly the
+$\sigma$-images of (sub)sort constants ${\allcons}'$ from $\Sigma'_\cons$. By
+definition of $u_\gamma$ and the fact that $\gamma=\sigma;u_\gamma$, this
+means that for every (sub)sort constant $\sigma(c)=[c]\in{\allcons}''$,
+$u_\gamma([c])=\gamma(c)\in{\allcons}'''$. 
+
+Finally, $u_\gamma$ is a unique mediator. For if there was another
+$u\not=u_\gamma$ making $\gamma=\sigma;u$, then we would also have $\under
+u\not=u_{\under\gamma}$ and $\under\gamma=\under\sigma;\under u$,
+contradicting the uniqueness of $u_{\under\gamma}$.
+
+The fact that co-equalizers are also preserved by the functor $\under{\ }$
+follows now easily. A co-equalizer of $\mu_1,\mu_2$ must be isomorphic to the
+quotient $\qu{\Sigma'_\cons}{\sim}$, with $\sim$ defined by the points
+\ref{it:s1}.-\ref{it:sub1}. above. But then its image
+$\under{\qu{\Sigma'_\cons}{\sim}}$ is trivially isomorphic
+to the co-equalizer $\qu{\under{\Sigma'_\cons}}{\approx}$ in
+$\cat{Sign}$. 
+\end{PROOF}
+%
+Since we can create all finite co-limits by initial objects, sums and
+co-equlizers the proposition~\ref{prop:finco} follows from the above lemmata.
+The concrete way of doing this is to construct a co-limit in $\cat{Sign}$ and
+then make an appropriate choice of the (sub)sort constants,
+according to the prescriptions given in the proofs above.

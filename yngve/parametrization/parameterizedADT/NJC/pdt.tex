@@ -1,0 +1,2498 @@
+\section{Introduction}
+The important distinction between parameterized specifications and specifications
+of parameterized programs has been originally pointed out in \cite{para}. An 
+important difference concerns the objects which the two kinds of parameterization
+allow one to reuse. 
+
+A {\em parameterized specification}, ``PSP'', e.g., of stacks parameterized
+by elements, \thr{Stack(El)}, allows
+one, under some conditions, to instantiate
+the formal parameter specification \thr{El} with an actual parameter specification, say \thr{Nat}, to
+obtain a new specification \thr{Stack(Nat)}. What is reused is the {\em text} of
+the parameterized specification. Except for that, the model classes of \thr{Stack(El)}
+and \thr{Stack(Nat)} are just model
+classes of two different specifications, related merely by the existence of a
+reduct functor from the latter to the former, 
+e.g. \cite{Alge}.
+
+{\em Specification of a parameterized data type}, ``PDT'' \cite{para,para1}, on the other hand, is a
+specification which requires a reusable {\em implementation}. E.g.,
+specification of a data type stack parameterized by elements, \thr{Stack[El]},
+requires an {\em implementation of a data type with a parameter}, i.e., one capable
+of taking any implementation of \thr{El} and resulting in an implementation of
+\thr{Stack[El]}. The model class of such a specification should be thus seen as
+consisting of some -- perhaps all -- functors sending models of the formal
+parameter specification \thr{X} to models of the parameterized specification $\thr{P[X]}:$
+\begin{equation}
+\FMod(\thr{P[X]}) \subseteq \{F:\Mod(\thr{X})\to\Mod(\thr{P[X]})\}. \label{eq:fsem}
+\end{equation}
+There has been surprisingly little work done wrt. to this latter kind of
+parameterization (recent work on CASL, \cite{CASL}, is a valuable
+exception). ``Surprisingly'' because the idea of specifying actual 
+architecture of designed software should appeal to one's sense of potential
+applicability of specifications. 
+We mention a few possible reasons of this negligence which also indicate the
+approach of this paper.
+
+Study of PSPs has long tended in the direction of PDTs \cite{paramADJ,Alge,paramGanz,CATs}. 
+%also: Ganzinger,Poigne
+One of the problems
+is that, while the former continued the tradition of working with classes
+axiomatized by (possibly conditional) equations, the latter require a precise
+grasp on individual algebras (which, for modeling purposes, can be
+identified with programs): a program $P$ taking as a parameter another program
+$X$ cannot change $X$ -- $X$ functions in the context of $P$, that is in $P[X]$, in the
+same way as it would in isolation. This intuition of ``preserving actual
+parameter'' has been identified as one of the semantic requirements on PSP in
+form of the persistency requirement on the functors from (\ref{eq:fsem}),
+e.g., \cite{paramGanz,paramPers,Alge}.
+However, in the purely equational context, there was hardly any syntactic
+counterpart of this semantic requirement. Thus, no syntactic/logical means
+were available for reasoning about correctness of such implementations.
+
+Even worse, persistency turns out to be all too strong a requirement
+eliminating many (if not most) interesting examples of PDTs as
+``illegal''. For instance, a functor which takes an \thr{El}-algebra of elements and
+adds a new element (intended, e.g., as the ``error value'' resulting from inspecting the top of an empty
+stack in the specification \thr{Stack[El]}) is {\em not} persistent. In
+general, most free functors are not persistent, since they involve,
+typically, generation of new elements. Partial algebras admit more free
+functors than the total ones (since ``error'' elements remain simply
+undefined), but they still exclude the possibility of adding ``new'' elements
+and, in particular (as pointed out e.g. in \cite{partial}), of explicit error treatment.
+
+We introduce a more adequate framework for specifying PDTs. The first
+thing is a generalization of the classical concept of persistent functors, so
+that our semantic functors can add new elements to the parameter algebras. 
+This is the basic idea (going back to the short paper~\cite{paramPoigne})
+underlying our approach.
+
+Although the semantic definition of the desirable functors is simple, 
+a lot of book-keeping is required on the side of the syntax. 
+Section \ref{se:paraADT} begins by introducing the syntactic preliminaries
+needed for specification of PDTs, and then defines the syntax and semantics
+of PDTs. Section \ref{se:app} discusses syntax and semantics of actual
+parameter passing. Section \ref{se:compref} shows the counterparts of the
+classical, vertical and horizontal composition theorems. In this connection,
+we also encounter the concept of refinement of PDTs. Since PDTs correspond
+more to the design-, and not only to the requirement-specifications, thier
+refinement reflects more specific design decisions. Unlike the classical concept of
+model class inclusion, refinement of PDTs amounts to introduction of additional
+structure. For instance, identifying a part of a (flat)
+specification as a parameter, amounts to requiring a structured, i.e.,
+parameterized (rather than a flat) implementation. This section leads to a
+general concept of such a refinement, exemplifying the idea of ``constructor
+specifications'' from \cite{para1}, which is summarized in section \ref{sub:ref}.
+Section \ref{se:conc} contains some concluding remarks.
+
+The framework is presented using multialgebras \cite{calc,multi} and thus, in particular, allowing
+unrestricted use of nondeterministic data types. However, we do not focus on the issue
+of nondeterminism here and multialgebras are chosen merely as an example of a
+framework capable of expressing the intended concepts. 
+Entirely analogous definitions and constructions to those
+presented here can be done in any institution where the category of
+signatures has pushouts, the model functor is (finitely) continuous
+(or else, with amalgamation property) and where the signatures
+can express predicates. Thus our  results can be used in a
+straightforward way, for instance, for membership algebras \cite{member}, 
+for total/partial algebras with predicates, etc. This is one of the reasons
+why we did not attempt to define a new institution (of PDTs), but introduced the
+required concepts ``on the top'' of the institution of multialgebras. 
+
+The
+reader is assumed to have elementary knowledge of category theory and
+algebraic specifications. Some
+familiarity with the concept of institution would be advantageous but isn't necessary. To make
+the paper (almost) self-contained, we
+begin now, in section~\ref{se:ma}, by reviewing the relevant concepts from
+institutions and, in particular, the institution of multialgebras.
+
+Most of the proofs are omitted here -- interested reader may find them in \cite{TRparam}.
+
+\section{Preliminaries -- institution of multialgebras}\label{se:ma}
+We list here only relevant definitions and facts. For more detailed
+discussion of these concepts and proofs of the theorems concerning
+institutions, the reader is referred, for instance, to
+\cite{stateinst}, while for those
+concerning the institution of multialgebras to \cite{MAinst}.
+We start with the general concepts related to institutions.
+The reader completely unfamiliar with  institutions may
+go directly to subsection~\ref{sub:ma} and inspect subsection~\ref{sub:inst}
+only if necessary later on.
+
+
+\subsection{Institutions}\label{sub:inst}
+An institution \cite{inst,stateinst} is an abstract form for a logical framework. Showing that a particular
+specification formalism forms an institution allows one to apply some 
+facts, properties and constructions which have been demonstrated generally for all, or some
+particular institutions.
+%
+\begin{definition}\label{de:inst}
+An institution is a quadruple $\inst{I} = (\Sign,\Sen,\Mod,\models)$, where:
+\begin{itemize}\MyLPar
+\item $\Sign$ is a category of signatures.  
+\item $\Sen: \Sign \to \Set$ is a functor which associates a set of {\it sentences} to each signature.
+\item $\Mod:\Sign^{op} \to \cat{Cat}$ is a functor which associates a
+category of {\it models}, whose morphisms are called $\Sigma$-morphisms, to
+each signature $\Sigma$
+\item $\models$ is a satisfaction relation -- for each signature $\Sigma$, a relation
+ $\models_{\Sigma} \subseteq |\Mod(\Sigma)| \times
+\sen(\Sigma)$, such that the following {\it satisfaction condition} holds:
+for any $M' \in \Mod(\Sigma'), \mu: \Sigma \to \Sigma' , \phi \in \sen(\Sigma)$
+  \[ M' \models_{\Sigma'} \Sen(\mu)(\phi)\ \  \mbox{ iff }\ \ \Mod(\mu)(M') \models_{\Sigma} \phi\]
+	\end{itemize}
+\end{definition}
+%
+Given an institution, one defines the category of theories (or
+specifications), $\cat{Th}$, with objects being pairs $(\Sigma,\Gamma)$ of a
+signature $\Sigma$ and a set of $\Sigma$-sentences $\Gamma$. Models of a
+theory are obtained by restricting the $\Mod$ functor, i.e.,
+$\Mod(\Sigma,\Gamma)=\{M\in\Mod(\Sigma):M\models_\Sigma\Gamma\}$. A morphism
+in $\cat{Th}$, $\mu:(\Sigma,\Gamma)\to(\Sigma',\Gamma')$, 
+is a {\em specification morphism}, that is, a signature morphism
+$\mu:\Sigma\to\Sigma'$ such that $\Gamma'\models\mu(\Gamma)$. 
+
+Putting  theories together is done by
+constructing their co-limits. The following institution independent result ensures that the category of
+specifications has all co-limits if the signature category has.  This
+result is used to create co-limits of specifications by first creating the
+co-limit for the corresponding signatures. The functor $\fu{Sign}$ forgets the
+axioms and retains the signature of a specification.
+%
+\begin{proposition} %\cite{inst}
+\label{pro:reflects}
+The functor  $\fu{Sign}: \thr{Th} \to \thr{Sign}$ reflects co-limits, in any institution $\inst{I}$.
+\end{proposition}
+%
+In particular, passing an actual parameter specification to a
+parameterized specification corresponds to constructing a pushout. The
+desirable property is that such a construction at the level of syntax be
+reflected at the level of model classes. This is ensured in a particular kind
+of institutions, which will be of importance in this paper, 
+the {\em exact} institutions.
+%
+\begin{definition} An institution $\inst{I}$ is 
+\begin{enumerate}\MyLPar
+\item {\em semi-exact} iff $\Sign$
+has pushouts and $\Mod$ sends pushouts in $\Sign$ to pullbacks in
+$\cat{Cat}$,
+\item {\em exact} iff $\Sign$ has finite co-limits and $\Mod$ sends
+finite co-limits in $\Sign$ to limits in $\cat{Cat}$.
+\end{enumerate}
+\end{definition}
+Although the weaker property of semi-exactness is sufficient for treatment
+of parameterization and actualization, we will work
+with an exact institution. 
+
+Semi-exactness is of uttermost
+relevance for treatment of PDTs because it implies the
+following, more specific property.
+%
+\begin{lemma}\label{le:amalg}(Amalgamation Lemma).\\
+In any semi-exact institution $\inst{I}$, for every pushout of
+signatures (on the left):
+\[\xymatrix@R=0.3cm@C=0.6cm{
+\Sigma \ar[dd]_{\mu_{2}} \ar[rr]^{\mu_1} && {\Sigma_1} \ar[dd]^{{\mu'}_2}  &&&& 
+  \Mod(\Sigma) && \Mod(\Sigma_1) \ar[ll]_{\_|_{\mu_{1}}}  \\
+&&  &\ar@{=>}[rr]^{\Mod} &&&\\
+{\Sigma_2} \ar[rr]_{{\mu'}_1}	&& {\Sigma'} &&&&
+   \Mod(\Sigma_2) \ar[uu]^{\_|_{\mu_{2}}} && \Mod(\Sigma')
+   \ar[uu]_{\_|_{\mu'_{2}}} \ar[ll]^{\_|_{\mu'_{1}}}  
+}
+\]
+we have that: for any two models $M_1 \in \Mod({\Sigma_1})$ and $M_2 \in
+\Mod({\Sigma_2})$ satisfying $M_1|_{{\mu}_1} = M_2|_{{\mu}_2}$, there exists 
+a unique model $M' \in \Mod({\Sigma'})$, such that $M'|_{{\mu'}_1} = M_2$ and
+$M'|_{{\mu'}_2} = M_1$.
+\end{lemma}
+%
+%The corresponding amalgamation property holds also for homomorphisms. 
+(The amalgamation lemma holds then also for pushouts of
+specifications, since these are constructed from pushouts of signatures by proposition~\ref{pro:reflects}.)
+The amalgamation lemma tells that the model class of a
+pushout $\Sigma'$ of signatures along $\mu_1,\mu_2$ is a pullback (in $\cat{Cat}$) of the respective
+morphisms $\_|_{\mu_{1}}$, $\_|_{\mu_{2}}$. 
+The model $M'$, denoted $M_1\amalgam_M M_2$ (where $M=M_1|_{\mu_{1}}=M_2|_{\mu_{2}}$), is called the {\em
+amalgamated sum} of $M_1$ and $M_2$. This property allows one to give a
+uniform definition of functorial semantics of actual parameter passing, as we
+will see in a later section.
+
+
+\subsection{Multialgebras}\label{sub:ma}
+Signatures for multialgebras are the standard algebraic signatures, i.e.,
+pairs $(\Sorts,\Ops)$ where $\Sorts$ is a set of sort names, and $\Ops$ a
+set of operation names with argument sorts and result sort from
+$\Sorts$. Also terms (over a signature $\Sigma$, with variables $X$, denoted
+$T(\Sigma,X)$) are built in the usual way. 
+Unlike in standard algebras, operation in a multialgebra may return
+(possibly empty) sets of elements.
+%
+\begin{definition}\label{def:ma}
+A {\em multialgebra} $A$ for a signature $\Sigma=(\Sorts,\Ops)$ is given by:
+\begin{itemize}\MyLPar
+\item  a set $s^A$, the carrier set, for each sort symbol $s\in\Sorts$
+\item  a subset $ c^A \in {\mathcal{P}}(s^A)$, for each constant, $c:\to s$
+\item an additive operation $\omega^A : s_1^A \times \cdots \times s_k^A \to {\mathcal{P}}(s^A)$
+	for each symbol $\omega : s_1\times\cdots\times s_k \to s \in \Ops$
+\end{itemize}
+\end{definition}
+``Additivity'' means that operations are composed pointwise by collecting the
+results of applications to all elements of argument sets, i.e., for sets of elements
+$t_1,\ldots,t_n$ (of appropriate sorts) and operation $\omega:
+\omega^A(t_1 , \ldots ,t_n)) = \bigcup_{a_{i}\in t_{i}}\omega^A(a_1 , \ldots
+,a_n)$. 
+%One sometimes demands that constants and operations are total
+%\cite{multi,toplas}, i.e. never return empty set and take values only in
+%${\mathcal{P}}^+ (s^A)$, the nonempty subsets of $s^A$. We will not make this
+%assumption.% unless else is stated.
+
+Note that for a constant $c \in \Ops$, $c^A$ denotes possibly a subset of the
+carrier $s^A$. This allows one to use constants as predicates as was done,
+for instance, in \cite{partial}. This will be the main aspect of
+multialgebras used in this paper.
+
+As homomorphisms of multialgebras, we use weak homomorphisms (see
+\cite{catrel} for alternatives).
+\begin{definition}Given two multialgebras $A$ and $B$, 
+a function $h: |A| \to |B|$ is a (weak) homomorphism if:
+\begin{enumerate}\MyLPar
+\item $h(c^A) \subseteq c^B$, for each constant $c: \to s$ 
+\item $h(\omega^A(a_1 , \ldots , a_n)) \subseteq\omega^B(h(a_1), \ldots ,h(a_n))$,
+for each operation  $\omega:s_1\times\cdots\times s_n\to s\in\Ops$ and for all $a_i \in s_{i}^A$.
+\end{enumerate}
+\end{definition}
+Saying ``homomorphism'' we will always mean weak homomorphism.
+The collection of all $\Sigma$-multialgebras with $\Sigma$-homomorphisms
+forms a category. 
+
+Multialgebraic specifications are written using the following formulae:
+%
+\begin{definition}\label{def:masen}
+Formulae of multialgebraic specifications are of the following forms:
+%{\bf{Atomic formula}}:
+\begin{enumerate}\MyLPar
+\item Atomic formulae, for terms $t, t' \in \TermsSX$:
+\begin{itemize}\MyLPar
+\item $t \eleq  t'$ (equality), $t$ and $t'$ denote the same one-element set.
+\item $t \prec t'$ (inclusion), the set interpreting $t$ is included in
+the set interpreting $t'$.
+\end{itemize}
+\item $a_1 , \ldots ,a_n \To b_1 , \ldots ,b_m$, where either $n>0$ or $m>0$ and
+each $a_i$ and $b_j$ is atomic.
+\end{enumerate}
+\end{definition}
+%
+Given a set of variables $X$, an assignment is a function $\alpha: X \to |A|$ 
+assigning {\em individual} elements (not sets!) from the carrier of $A$ to
+variables. In the standard way, it induces a unique
+interpretation $\overline{\alpha}: T(\Sigma,X) \to A$ of every term $t$
+(with variables from $X$) in
+$A$.
+ 
+Satisfaction of formulae in a multialgebra is defined as follows:
+\begin{definition}\label{de:sat}
+Given an assignment $\alpha:X\to|A|$:
+\begin{enumerate}\MyLPar
+\item $A \models_\alpha t \eleq  t'\ {\rm iff\ } \ovr{\alpha}(t)
+=\overline{\alpha}(t') = \{e\},\ {\rm for\ some\ element\ } e \in |A|$
+\item $A \models_\alpha t \prec t'\ {\rm iff\ } \ovr{\alpha}(t) \subseteq \overline{\alpha}(t')$
+\item $ A \models_\alpha a_1 , \ldots ,a_n \To  b_1 , \ldots ,b_m\ {\rm iff\ }
+\exists i: 1 \leq i \leq n : A \not\models_\alpha a_i\ {\rm or\ } \exists j: 1 \leq j \leq m : A \models_\alpha b_j$
+\item $A \models \varphi\ {\rm iff\ } A \models_\alpha \varphi\ {\rm for\ all\ } \alpha$.
+\end{enumerate}
+\end{definition}
+%
+Multialgebraic specifications contain, as a special case, all usual equational
+specifications. 
+The following example should give the flavor of some additional aspects
+of multialgebraic specifications.
+\begin{example}
+A (sketchy) specification of the integers.
+
+\( 
+	\spec{
+	\tit{\mbox{\bf spec\ Int}=} \\
+		\spSort{Int}
+		\spOp{ zero: && Int\\
+			succ: & Int & Int\\
+			 pred: &Int & Int \\
+			 pos: & & Int}
+		\Phi:
+			&1.& && zero \eleq zero \\
+			&2.& && succ(x) \eleq succ(x)\\
+			&3.& && pred(succ(x)) \eleq x\\
+			&4.& && succ(zero) \prec pos\\
+			&5.& x\prec pos &\To& succ(x) \prec pos\\
+	}
+\)
+
+\noindent
+Axioms 1. and 2. state merely that $zero$ and $succ$ are deterministic
+operations. (Such axioms can be naturally abbreviated, e.g., by ${\bf det:}\ 
+zero,succ$.)
+Axiom 3. states a property of $pred$ applied to $succ$. 
+Unlike the constant
+$zero$, the constant $pos$ can
+be ``nondeterministic'', i.e., it can, in general, denote a set of elements
+of sort $Int$  -- its
+intention here is to represent the subsort of positive integers.
+The last two axioms specify the least contents of this subsort.
+\end{example}
+Of course, a complete specification would include more axioms, but we merely
+wanted to indicate the special features of multialgebraic specifications. 
+
+%
+Putting the definitions from this subsection together, we obtain the institution of 
+multialgebras $\inst{MA}$.
+The property of $\inst{MA}$ which is of particular relevance for this paper
+follows from the following proposition by lemma~\ref{le:amalg}.
+\begin{proposition}
+The model functor $\fu{Mod}:\cat{Sign}^{op}\to\cat{Cat}$ in the institution
+$\inst{MA}$ is finitely continuous -- $\inst{MA}$ is an exact institution.
+\end{proposition}
+
+\section{Specifications of parameterized data types}\label{se:paraADT}
+To specify parameterized data types we will use a restricted syntax for
+specifications. All specifications can be naturally viewed as standard
+multialgebraic specifications. Also, all semantic constructions take place in
+the category of standard multialgebras. Subsection~\ref{sub:gsp} introduces
+merely convenient syntactic abbreviations. 
+
+
+\subsection{Signatures with sort constants}\label{sub:gsp}
+We start by modifying the concept of signature and specification. The idea
+is that each signature may have, in addition to the standard set of sort and
+operation symbols, a (possibly empty) set of distinguished (sort and subsort) constant
+symbols $\allcons = \Cons\cup\subcons$. 
+The set $\Cons$ %=\{\cons_s:\to s: s\in\Sorts\}$ 
+contains  constant symbols
+$\cons_s$ for various sort symbols $s$ -- the intention of $\cons_s$ is to denote all the elements of the respective
+sort $s$. 
+The set $\subcons$  may contain additional constants
+which will represent various subsorts -- the constants from this set are
+called ``subsort constants''. (Usually, the distinction between $\Cons$ and
+$\subcons$ does not matter and then we will write ``(sub)sort constants''.)
+\begin{definition}
+\label{def:modsign}
+A signature with sort constants, $\Sigma_\cons$, is a triple $\Sigma_\cons =
+ (\Sorts,\Ops,\allcons)$, where $\Sigma=(\Sorts,\Ops)$ is an ordinary
+ signature and $\allcons=\Cons\cup\subcons$ is a (possibly empty) set of additional constants,
+ $\allcons\cap\Ops=\emptyset$ and $\Cons\cap\subcons=\emptyset$. 
+\end{definition}
+%
+Signatures with sort constants will be used merely as a syntactic representation of 
+ordinary signatures. This is possible in multialgebraic setting since
+constants may denote sets of elements. (In a more traditional setting, one would
+have to represent the sort constants, for instance, by predicates or (sub)sort symbols.)
+
+We allow the set $\allcons$ to be empty. Also, we allow the set
+$\Cons$ to contain several distinct constants of the same sort (although
+their intended meaning will be the same).
+The technical reasons for that come up in relating construction of co-limits
+%(proposition~\ref{prop:finco}, especially, lemma~\ref{fa:coeq}) 
+and, in particular, pushouts
+(subsection~\ref{sub:canpush}). For the most, we think of the set
+$\Cons$ as containing one constant for each sort, i.e., as
+$\Cons=\{\cons_s:\to s : s\in\Sorts\}$. Most relevant constructions will
+involve and yield such signatures. (In general, we use the symbol $\cons_s$
+for an arbitrary constant from $\Cons$ of sort $s$, e.g., for a signature
+morphism $\mu$, 
+$\mu(c)\not=\cons_s$ means the same as $\mu(c)\not\in\Cons$.)
+
+
+We will use the following operations relating the signatures with sort
+ constants to ordinary signatures.
+
+\begin{definition}\label{def:sigops}
+Given a signature with sort constants $\Sigma_\cons=(\Sorts,\Ops,\allcons)$ we let:
+\begin{enumerate}\MyLPar
+\item $\under{\Sigma_\cons}=(\Sorts,\Ops \cup \allcons)$
+i.e. $(\Sorts, \Ops \cup \Cons \cup \subcons)$ -- the underlying signature
+\item ${\Sigma_\weak}=(\Sorts,\Ops,\subcons)$ i.e. $\Sigma_\cons
+\setminus \Cons$ -- the reduced signature
+\item ${\Sigma}=(\Sorts,\Ops)$ i.e. $(\Sigma_\cons
+\setminus \allcons)$ -- the standard (part of the) signature
+\end{enumerate}
+Conversely, given an ordinary signature $\Sigma=(\Sorts,\Ops)$, we let
+${\Sigma_\cons}=(\Sorts,\Ops,\Cons)$, 
+ where   $\Cons=\{\cons_s:\to s:s\in\Sorts\}$ and $\Cons\cap\Ops=\emptyset$.
+%%\begin{enumerate}\MyLPar\setcounter{enumi}{3}
+%%\item ${\Sigma_\cons}=(\Sorts,\Ops,\Cons)$
+%%, where   $\Cons=\{\cons_s:\to s:s\in\Sorts\}$ and $\Cons\cap\Ops=\emptyset$
+%%-- the corresponding guarded signature with sort constants.
+%%\item\label{it:ins} $\ins\Sigma=(\Sorts,\Ops,\emptyset)$
+%%, -- the included signature (with sort constants).
+%%\end{enumerate}
+\end{definition}
+%
+Unless stated otherwise, the signatures considered will always be signatures with sort constants. 
+Given an arbitrary specification $\thr{SP}$, we will sometimes write
+$\Sigma(\thr{SP})$ to denote its signature.
+
+\begin{definition}\label{def:sigmor}
+A morphism between signatures with sort constants $\mu:\Sigma_\cons \to
+\Sigma'_{\cons}$ is a signature morphism between the underlying
+signatures $\mu:\under{\Sigma_\cons}\to\under{\Sigma'_\cons}$, sending
+$\allcons$ to ${\allcons}'$ and $\Sigma$ to $\Sigma'$.
+\end{definition}
+In other words, the $\Cons$-constants need not be sent to $\Cons'$-constants
+but may be mapped to subsort constants ${\subcons}'$, as well.
+The signatures with sort constants and morphisms from def.~\ref{def:sigmor}
+form a category $\cat{Sign_\cons}$. 
+Since the morphisms are essentially the morphisms of the underlying
+signatures,  the transformation from $\cat{Sign_\cons}$ to $\cat{Sign}$
+can be extended to a functor $\fu{_-}:\cat{Sign_\cons} \to
+\cat{Sign}$, which is the (pointwise) identity on the signature morphisms. 
+%%
+%%The other way around the inclusion of signatures (point~\ref{it:ins} of
+%%def.~\ref{def:sigops}) can also be extended to a
+%%functor $\fu{\ins\ }:\cat{Sign} \to \cat{Sign_\cons}$, which sends $\Sigma$
+%%to $\ins\Sigma$ and is the identity on morphisms. The following fact says
+%%that $\cat{Sign}$ can be treated as a full subcategory of $\cat{Sign_\cons}$.
+%%
+%%\begin{fact}
+%%$\ins\ :\cat{Sign} \to \cat{Sign_\cons}$ is full and faithfull.
+%%\end{fact}
+%%We have that for any $\Sigma\in\cat{Sign}:\Sigma=\under{(\ins\Sigma)}$ but,
+%%in general, for $\Sigma_\cons\in\cat{Sign_\cons}: \Sigma_\cons\not\iso
+%%\ins{(\under{\Sigma_\cons})}$. This is because for an isomorphism in
+%%$\cat{Sign_\cons}$ we must have isomorphism between the respective sets of
+%%(sub)sort constants, but while $\allcons$ in $\Sigma_\cons$ may be
+%%non-empty, it is always empty in $\ins{(\under{\Sigma_\cons})}$.
+%%
+The following proposition shows that
+ that (finite) co-limits in $\cat{Sign}_\cons$
+can be obtained from the respective co-limits in $\cat{Sign}$. 
+
+\begin{proposition}\label{prop:finco}
+The functor $\fu{_-}:\cat{Sign_\cons} \to \cat{Sign}$ reflects (and
+preserves) finite co-limits.
+\end{proposition}
+%
+More concretely, to obtain a co-limit in $\cat{Sign_\cons}$, one can construct a co-limit in $\cat{Sign}$ and
+then make a straightforward choice of the (sub)sort constants.
+
+\subsection{Guarded specifications}
+To write specifications of parameterized data types we will use guarded
+axioms. In general, one only requires that the axioms from the parameter specification
+hold only for the elements in the parameter algebras, and guards are needed to mark these elements.
+
+\begin{definition}\label{def:guf}
+Given a signature  $\Sigma_\cons$ (with sort constants $\allcons$):
+\begin{enumerate}\MyLPar
+\item\label{it:guard} a {\em guard} $\gamma$ is an atom of the form $x \prec c$, where
+$x$ is a variable and $c \in \allcons$;
+\item a {\em guarded formula} is of the form $\phi_\cons = \guard^{\ast},
+	\ovr{a} \To \ovr{b}$ where $\ovr{a},\ovr{b}$ are (sequences of)
+	${\Sigma_\weak}$ atoms and 
+	$\guard^\ast$ is a (non-empty) sequence of guards $\guard_i =
+	x_i\prec {c_{i}}$ for some variables $x_i$ occuring in the
+	atoms $\ovr{a},\ovr{b}$ -- $\gamma_i$'s in such conditional
+	formulae are called {\em local guards};
+\item\label{it:fullguard} a {\em fully guarded} formula is a guarded formula where there is a
+guard $\guard_i$ for each variable $x_i$ occurring in the formula;
+\item\label{it:ung} an {\em unguarded formula} is any formula over $\Sigma_\cons$
+with no guards.
+\end{enumerate}
+\end{definition}
+The only places where $\Cons$ may occur are in guards
+-- for conditional axioms in the premises. (We will also allow unconditional
+axioms of form~\ref{it:guard} and \ref{it:ung}.). Note that guards $x\prec\cons$ are only special
+(strongest) cases -- in general, $x\prec c$, where $c\in\allcons$, is a
+guard. 
+
+A formula containing only ground $\Sigma_\cons$ terms (a ground
+$\Sigma_\cons$ formula) can be seen either as a fully guarded formula
+(according to point~\ref{it:fullguard}.), or else as an unguarded formula
+(according to point~\ref{it:ung}.). Saying ``a fully guarded formula'' we
+will typically mean also such formulae.
+
+We will use only a restricted form of the specifications, namely, 
+guarded  specifications.
+
+\begin{definition}\label{def:guardedspec}
+A {\em guarded specification} is a triple $\thr{SP_\cons} = (\Sigma_\cons,\Phi_\cons,\Modax_{\Sigma})$ where:
+\begin{itemize}\MyLPar
+\item $\Sigma_\cons$ is a signature with sort constants
+\item Each $\phi_\cons \in \Phi_\cons$ is a guarded or unguarded formula
+\item $\Modax_\Sigma \subseteq \{ x \prec \cons_s : \cons_s \in \Cons \}$ is the
+set of axioms called {\em global guards}.
+\end{itemize}
+If $\Cons$ contains at least one constant of each sort and there is an equality in the last point, 
+we call a specification {\em
+	globally guarded}. If, in addition, all axioms in $\Phi_\cons$ are
+	fully guarded (possibly, ground unguarded $\Sigma_\cons$ formulae), the specification is {\em fully guarded}.
+\end{definition}
+Note that all the local guards of the form $x\prec\cons\To...$ in a globally
+guarded specification are trivially satisfied 
+due to the presence of the global guards $\Modax$.
+
+\begin{example}\label{ex:Nat}
+Fully guarded specification of the natural numbers.
+
+\( 
+	\spec{
+	\tit{\mbox{\bf spec\ Nat}_\cons^{{}}=} \\
+		\spSort{Nat}
+		\spOp{ zero: && Nat\\
+			succ: & Nat & Nat\\
+			 pred: &Nat & Nat}
+		\spOps{\allcons}{ \cons_{Nat}: && Nat }
+		\Phi:
+			&1.& && zero \eleq zero \\
+			&2.& x \prec \cons_{Nat} & \To & succ(x) \eleq succ(x)\\
+			&3.& x \prec \cons_{Nat} & \To & pred(succ(x)) \eleq x\\
+		\Gamma:	&4.& && x \prec \cons_{Nat}\\
+	}
+\)
+\end{example}
+Except for the constant $\cons_{Nat}$ which
+comprises all the elements of sort $Nat$, 
+there is no real difference between this and the 
+specification with all the guards are dropped.
+
+\begin{definition}\label{def:specOps}
+Given a guarded specification $\thr{SP_\cons}
+= (\Sigma_\cons,\Phi_\cons,\Modax_{\Sigma})$, 
+\begin{enumerate}\MyLPar
+\item its {\em weakening} is a
+specification $\thr{SP_\weak} = (\Sigma_\cons,\Phi_\cons)$.
+\item its {\em underlying} specification is $\under{\thr{SP_\cons}} = (\under{\Sigma_\cons},
+\Phi_\cons \cup \Modax_\Sigma)$.
+\end{enumerate}
+Conversely, for an ordinary specification $\thr{SP}=((\Sorts,\Ops),\Phi)$,
+$\thr{SP_\cons}$ denotes the fully guarded specification
+$(\Sigma_\cons,\Phi_\cons,\Modax_{\Sigma})$, where $\Cons$ is as in
+def.~\ref{def:sigops}, 
+$\Sigma_\cons=(\Sorts,\Ops,\Cons)$ and
+$\Modax_\Sigma=\{x\prec \cons:\cons\in\Cons\}$.
+\end{definition}
+% 
+$\thr{SP}_\cons$ denotes, in general, a guarded specification with all,
+some or none axioms guarded. However, when $\thr{SP}$ is an ordinary specification,
+then $\thr{SP_\cons}$ denotes the fully guarded version. This latter case will be
+used less frequently than the former one, and we will indicate it explicitly.
+
+Keep in mind that, given a specification $\thr{SP_\cons}$ with signature
+$\Sigma_\cons$, the signature of its weakened version $\thr{SP_\weak}$ is
+still $\Sigma_\cons$ and not $\Sigma_\weak$.
+
+As models for guarded specifications we use ordinary multialgebras.
+\begin{definition}
+The model class of a guarded specification $\thr{SP_\cons}$ is the
+model class of its underlying specification: $\Mod(\thr{SP_\cons}) = \Mod(\under{\thr{SP_\cons}})$.
+\end{definition}
+In particular, for a given ordinary specification $\thr{SP}$, there is obvious equivalence of
+model categories between the unguarded $\Mod(\thr{SP})$ and fully guarded $\Mod(\thr{SP_\cons})$.
+Also, for a given guarded specification $\thr{SP_\cons}$ there is the obvious
+inclusion functor
+\eq{\label{eq:idcons}
+\fu{id_\weak}:\Mod(\thr{SP_\cons}) \to \Mod(\thr{SP_\weak})
+}
+which sends each algebra in the first class to itself.
+
+
+\subsection{Syntax of parameterized data type specification}
+\begin{definition}\label{def:parametersyntax}
+A parameterized data type specification (a PDT) is a
+ quadruple $\pdt$,
+where
+\begin{enumerate}\MyLPar
+\item 
+$\thr{X_\cons}=(\Sigma_\cons,\Phi_\cons, \Modax_\Sigma)$ and $\thr{P[X]_\cons} =
+ (\Sigma'_{\cons},\Phi'_{\cons}, \Modax'_{\Sigma'})$ are fully guarded specifications,
+\item 
+$\Sigma_\cons=(\Sorts,\Ops,\allcons)\subseteq
+(\Sorts',\Ops',S^{\cons'})=\Sigma'_\cons$ are signatures from $\cat{Sign_\cons}$, 
+\item 
+$\mu:\Sigma_\cons\to \Sigma'_\cons$ is a signature morphism, called the {\em
+``parameterization morphism''}, which is identity on all symbols with the
+possible exception of $\Cons$, and such that if $\mu(\cons_s)\not=\cons_s$
+then $\mu(\cons_s)\not\in\Sigma_\cons$ (i.e., $\mu(\cons_s)$ is then a fresh
+constant from ${\allcons}'$),
+\item 
+$\delta:\Sigma_\cons\to\Sigma'_\cons$, called the {\em ``local guard mapping''}, is 
+a signature morphism, which is identity on all symbols with the
+possible exception of $\Cons$,
+\item\label{it:rel}
+ the two specifications, $\mu$ and $\delta$ are such that:
+\begin{enumerate}
+\item\label{it:sat} if $\mu(\cons_s)\not=\delta(\cons_s)$ then the axiom
+$\mu(\cons_s)\prec\delta(\cons_s)$ is among $\Phi'_\cons$
+\item\label{it:unguard} for every unguarded axiom $\phi\in\Phi_\cons:\mu(\phi)\in\Phi'_\cons$
+\item\label{it:corax} for every guarded axiom  $\phi_\cons\in\Phi_\cons:
+\delta(\phi_\cons)\in\Phi'_\cons$.
+\end{enumerate}
+\end{enumerate}
+\end{definition}
+%
+We write $\delta$ at the end of the tuple because in many constructions it
+plays no role. In such cases, we will often drop it from the notation and
+write a PDT simply as $\pdtmu$. Although it is defined as a signature morphism,
+its only role is to map the local guards. Being  the identity on most
+symbols, it is essentially a mapping
+$\delta:\Cons\to{\allcons}'$. The point~\ref{it:corax} can be stated in more
+detail as follows: for every guarded axiom $\phi_\cons\in\Phi_\cons:$ \\
+\hspace*{2em} $\phi_\cons =x_1\prec\cons_1, \ldots ,x_m\prec\cons_m, \ovr{a}
+ \To \ovr{b}$, \\ where
+$x_1\prec\cons_1,\ldots,x_m\prec\cons_m$ are all the local guards in
+$\phi_\cons$ with $\cons_i\in\Cons$ (and $\ovr{a}, \ovr{b}$ sequences of $\Sigma_\weak$
+atoms), 
+$\delta(\phi_\cons)\in\Phi'_\cons$,
+where $\delta(\phi_\cons)$ is the corresponding axiom:\\
+\hspace*{1.5em}$\delta(\phi_\cons)=x_1\prec\delta(\cons_1),
+\ldots ,x_m\prec\delta(\cons_m),\ovr a \To \ovr b$.
+\\
+Similarly, $\mu$ is essentially a mapping $\mu:\Cons\to{\allcons}'$. 
+Although the definition is rather liberal, for all practical purposes we can
+think of the syntax as given by a $\mu$ which maps $\Cons$ to ${\allcons}'$,
+and by a $\delta$ with
+$\delta(\cons_s)=\mu(\cons_s)$ or else
+$\delta(\cons_s)=\cons_s$ (see the remarks below). This, in fact, covers most natural situations and
+will be the case in all our examples.
+
+Axioms of the form \ref{it:sat} are needed to ensure that the guarded axioms
+from the parameter specification will still apply, at least, to the elements originating
+from the parameter algebras. Since $\thr{X_\cons}$ is fully guarded, axioms
+mentioned in \ref{it:unguard} are actually ground formulae, typically,
+involving only (sub)sort constants from $\allcons$. The
+restriction~\ref{it:unguard} has significant effect if, e.g., $\phi$ is
+$c\prec\cons$ and $\mu(\cons)=c'\not=\cons$, in which case, we require
+$\mu(\phi)=c\prec c'$ to be included in $\Phi'_\cons$.
+This requirement ensures that elements contained in
+$c$ (in a parameter algebra) will remain within $\mu(\cons)$ (we will see it
+shortly when discussing the semantics).
+
+The definition discriminates against some
+isomorphic (wrt. semantics) specifications, since $\mu$ has to be identity on
+$\Sigma_\weak$. 
+%Like $\delta$, this mapping is essentially a function $\Cons\to{\allcons}'$.
+It will be the main element in defining the
+semantics of PDTs.
+The image
+under $\mu$ of the constants $\Cons$ can be twofold -- 
+$\mu(\cons_s)$ has to be $\cons_s$ itself or a
+fresh constant from ${\subcons}'$.  
+\begin{itemize}\MyLPar
+\item[1)] The former situation, $\mu(\cons_s)=\cons_s$, corresponds to the
+classical case of persistency, i.e., to  non-extending the carrier.
+\item[2)] Otherwise, $\mu(\cons_s)\not=\cons_s$, we
+will obtain a distinction between the elements of sort $s$ originating from
+the parameter, $\mu(\cons_s)$, and the ones originating from the parameterized specification
+itself, the ``new'' $\cons_s$. 
+\end{itemize}
+These two cases can be marked by the respective keywords: 1) {\bf
+non-extending carrier} $s$, or 2) (possibly) {\bf extending carrier} $s$.
+
+The mapping $\delta$ is introduced to allow more flexibility in
+parameterized data type specifications. If the carrier of sort $s$ is not
+extended, case 1) above, $\delta$ has no effect -- according to
+\ref{it:sat}, it has to be $\delta(\cons_s)=\mu(\cons_s)=\cons_s$ (or else
+another subsort constant $c$ but such that $\thr{P[X]_\cons}\models
+\cons_s\prec c$ which, together with the global guard $x\prec \cons_s$ says
+that the two denote the same set, i.e., the whole carrier of sort $s$). But if the carrier of $s$
+is (possibly) extended, case 2) above, $\delta$ allows to
+either 
+\begin{itemize}\MyLPar
+\item[2a)] restrict the local guards from the formal parameter, when
+$\delta(\cons_s)=\mu(\cons_s)$ -- in this case the axioms from
+the parameter specification are required to hold only for the elements from the
+parameter algebra, 
+\item[2b)] 
+or else extend the local guards -- in which case the axioms from the parameter
+specification have to hold also for (possibly new) elements from
+$\delta(\cons_s)$; the presence of axioms~\ref{it:sat}, $\mu(\cons_s) \prec
+\delta(\cons_s)$, ensures that the old axioms still hold at least for the old elements.
+\end{itemize}
+Thus, in the case 2) of {\bf extending carrier} $s$, 
+$\delta$ allows us either 2a) {\bf restricting (local) guards} $s$,
+or 2b) {\bf extending (local) guards} $s$.
+
+\begin{example}\label{ex:groups}
+Specification of groups parameterized by monoids.
+
+First, we take a standard (deterministic multialgebraic) specification of
+groups, with multiplication $\cdot$, unit $e$ and inverse $(\_)^-$:
+
+\[ 	\spec{
+	\tit{{\mbox{\bf spec\ Group}}^{{}}=} \\
+		\spSorts{\Sorts'}{S}
+		\spOps{\Ops'}{ \cdot: & S \times S & S \\
+			e: &&  S \\
+			(\_)^-: & S & S}
+\Phi':  	&1.&  e\cdot x & \eleq &  x \cdot e \\
+		&2.&  e \cdot x & \eleq &  x \\
+		&3.&  x \cdot(y\cdot z)& \eleq & (x\cdot y)\cdot z  \\
+		&4.& e & \eleq & e \\
+		&5.& x\cdot y & \eleq &  x\cdot y \\
+		&6.& x\cdot x^- & \eleq &  e \\
+		&7.& x^-  & \eleq & x^-  
+}
+\]
+This does not conform to the required format -- we  add the sort constant
+$\cons_S$, a global guard
+$x \prec \cons_S$, and then a new constant $mono$ to mark the elements
+originating from the monoid specification. The result is the
+PDT on the right, with the formal parameter on
+the left:
+\[ \xymatrix{
+\frame{\txt{${\spec{\tit{\mbox{\bf spec\ Monoid}_\cons^{{}}=} \\
+		\spSort{S}
+		\spOp{ \cdot : &S \times S& S \\
+		       e: && S }
+	     \spOps{\allcons}{\cons_S: && S}
+		{\Phi:}
+	&1.&  e\cdot x & \eleq &  x \cdot e \\
+		&2.&  e \cdot x & \eleq &  x \\
+		&3.&  x \cdot(y\cdot z)& \eleq & (x\cdot y)\cdot z  \\
+		&4.& e & \eleq & e \\
+		&5.& x\cdot y & \eleq &  x\cdot y \\
+	\Gamma:	&6.&  x & \prec & \cons_S 
+}}$}} \ar[rrr]^{\txt{$\large{\mu(\cons_{S})=mono}$}}_{\txt{$\large{\delta(\cons_{S})=\cons_{S}}$}} &&&
+\frame{\txt{${\spec{
+	\tit{{\mbox{\bf spec\ Group[Monoid]}}_\cons^{{}}=} \\
+		\spSorts{\Sorts'}{S}
+		\spOps{\Ops'}{ \cdot: & S \times S & S \\
+			e: &&  S \\
+			(\_)^-: & S & S}
+		\spOps{{\allcons}'}{\cons_S: &&  S \\
+			mono: &&  S }
+\Phi':  	&1.&  e\cdot x & \eleq &  x \cdot e \\
+		&2.&  e \cdot x & \eleq &  x \\
+		&3.&  x \cdot(y\cdot z)& \eleq & (x\cdot y)\cdot z  \\
+		&4.& e & \eleq & e \\
+		&5.& x\cdot y & \eleq &  x\cdot y \\
+		&6.& x\cdot x^- & \eleq &  e \\
+		&7.& x^-  & \eleq & x^-  \\
+\Gamma':
+	&8.&  x & \prec & \cons_S
+}}$}}
+}
+\]
+The parameterization morphism sends
+$\mu(\cons_S)=mono$. This is so because constructing a {\bf Group}-algebra out of a given
+{\bf Monoid}-algebra, one may need to add new elements, {\bf extending
+carrier}, of sort $S$. The (dummy)
+constant $mono$ keeps the track of the old elements. 
+
+On the other hand, even if new elements appear in the resulting algebra, 
+we certainly want the {\bf Monoid}-axioms to hold not only for the old but
+also for these new elements. 
+Therefore, we let $\delta(\cons_S)=\cons_S$. 
+\end{example}
+In the presentation above, we
+have dropped all the local guards $x\prec\cons_S\To...$ in both specifications, since they will
+be trivially satisfied due to the presence of the global guards $\Gamma$,
+resp. $\Gamma'$. We have also
+dropped the axiom $mono\prec\cons_S$ (required by
+definition~\ref{def:parametersyntax}, point~\ref{it:sat}), since it follows from the
+global guard $\Gamma'$. The respective specifications are equivalent (i.e.,
+isomorphic in $\cat{Th}_{\inst{MA}}$).
+We will often use such abbreviations in order to simplify the examples. (The
+syntactic presence of all guards will be of significance first in considering
+composition in section~\ref{se:compref}.)
+
+It should be observed that the flexibility offered by $\delta$ is highly
+desirable -- in many other situations, one would like
+to restrict the local guards from the formal parameter to hold only for the
+elements originating from it but not for the new ones added by the
+parameterized specification. The classical example of such a situation is a
+specification of 
+stacks parameterized by elements.
+%
+\begin{example}\label{ex:stackelSP}
+As in the previous example, we drop the local guards $s\prec\cons_{Stack}$
+and the axiom
+$ok\prec\cons_{El}$ from $\thr{Stack[El]_\cons}$.
+\[\xymatrix{
+\frame{\txt{$\spec{
+	\tit{\mbox{\bf spec\ El}_\cons^{{}}=} \\
+		\spSort{El}
+		\spOps{\allcons}{ \cons_{El}: \to El}
+		\Gamma:
+			& x \prec \cons_{EL}
+}$}}
+\ar[rrrr]^{\txt{$\large{\mu(\cons_{El})=ok}$}}_{\txt{$\large{\delta(\cons_{El})={ok}}$}} &&&&
+\frame{\txt{$\spec{
+	\tit{\mbox{\bf spec\ Stack[El]}_\cons^{{}}=} \\
+		\spSorts{\Sorts'}{Stack,El}
+		\spOps{\Ops'}{empty: && Stack\\
+			top: & Stack & El\\
+			pop: & Stack & Stack\\
+			push: & El \times Stack & Stack}
+		\spOps{{\allcons}'}{	\cons_{El}: && El \\
+			\cons_{Stack}: && Stack \\
+			ok:  && El}
+		\Phi':
+			&1.& && empty \eleq empty \\
+			&2.& x \prec ok
+				& \To & top(push(x,s)) \eleq x\\
+			&3.& x \prec ok
+				 & \To & pop(push(x,s)) \eleq s \\
+		\Gamma':	&4.& && x \prec \cons_{EL}\\
+			&5.& && s \prec \cons_{Stack} \\
+}$}}
+}
+\]
+The parameterization morphism with $\mu(\cons_{El}) = ok$, allows {\bf extending
+carrier} of sort $El$. The local guard mapping $\delta$ coincides here
+with $\mu$, i.e., $\delta(\cons_{El})=ok$, thus {\bf restricting (local)
+guards} of sort $El$ -- the potentially new
+elements of sort $El$ arising in {\bf Stack}, like $top(empty)$, are not
+intended to behave as the ``ordinary'' elements from the 
+actual parameter sort but to function merely as, say, ``error'' elements. 
+\end{example}
+The effect of $\delta$ may be little visible in the above example since the
+parameter $\thr{El_\cons}$ does not contain any proper axioms. However, it
+should be clear that a PDT where the local guards in $\thr{Stack[El]_\cons}$
+axioms 2. and 3. were replaced by $x\prec\cons_{El}$ would be very
+different. Also, it should be easy to imagine replacing the formal parameter
+$\thr{El_\cons}$ with, say $\thr{Nat_\cons}$ from example~\ref{ex:Nat}, in which axioms 
+should be guarded. For instance, the axiom  $x\prec \cons_{Nat}\To
+pred(succ(x))\eleq x$ from $\thr{Nat_\cons}$
+would correspond to $x\prec ok \To pred(succ(x))\eleq x$ in 
+$\thr{Stack[Nat]_\cons}$, since we do not necessarily want this
+axiom to apply to the result of $top(empty)$.
+
+We register a simple fact about the parameterization morphisms:
+\begin{fact}\label{fa:weakparamo}
+If $\pdt$ is a PDT then:
+\begin{enumerate}\MyLPar
+\item $\mu: \thr{X_\cons} \to \thr{P[X]_\cons}$ may not be a specification morphism, but
+\item $\mu: \thr{X_\weak} \to \thr{P[X]_\weak}$ is a specification morphism,
+and hence also
+\item $\mu: \thr{X_\weak} \to \thr{P[X]_\cons}$ is a specification morphism.
+\end{enumerate}
+\end{fact}
+%%\begin{PROOF}
+%%1. A trivial counter-example is given by $\thr{X_\cons}$ with the only global
+%%   guard axiom $x\prec\cons$, $\thr{P[X]_\cons}$ with a subsort constant $c$ and
+%%   the only global guard   axiom $x\prec\cons$, and
+%%   $\mu(\cons)=\delta(\cons)=c$. Obviously $\thr{P[X]_\cons}\not\models
+%%   \mu(x\prec\cons)= x\prec c$.
+%%\\[1ex]
+%%2. follows from
+%%definition~\ref{def:parametersyntax}. $\mu$-translations of all unguarded
+%%axioms from $\thr{X_\weak}$ are included in $\thr{P[X]_\cons}$ by
+%%point~\ref{it:unguard}. For any guarded axiom $x_i\prec\cons_i,\ovr a\To\ovr
+%%b$ from $\thr{X_\weak}$, the corresponding axiom
+%%$x_i\prec\delta(\cons_i),\ovr a\To\ovr b$ is in $\thr{P[X]_\cons}$. But then
+%%we also have the axioms $\mu(\cons_i)\prec\delta(\cons_i)$ in
+%%$\thr{P[X]_\cons}$, and these together imply that 
+%%$\thr{P[X]_\cons}\models x_i\prec\mu(\cons_i),\ovr a\To\ovr b$, i.e., 
+%%$\thr{P[X]_\cons}\models \mu(x_i\prec \cons_i,\ovr a\To\ovr b)$.
+%%\\[1ex]
+%%3. follows from 2., since $\thr{P[X]_\cons}\models\thr{P[X]_\weak}$.
+%%\end{PROOF}
+
+\subsection{Semantics of parameterized data type specification}
+It is, of course, possible to use ordinary (loose) semantics for our PDTs,
+i.e., to treat them as simple parameterized specifications. 
+But the trouble we have taken with the
+syntactic operations and restrictions on the specifications was meant to
+provide the possibility to define the semantics as 
+parameterized data types, i.e., data types consisting of algebras parameterized
+by algebras. 
+
+To define the semantics for PDTs we will use a special case of the general (weak)
+homomorphisms of multialgebras.
+\begin{definition}
+A {\em tight} homomorphism $h:A \to B$ is a homomorphism satisfying:
+	\[ h(\omega^A(x_1,...,x_n)) = \omega^B(h(x_1),...,h(x_n)) \]
+\end{definition}
+The following is a logical characterization of tight subalgebra (an algebra
+$A$ with a tight monomorphism to $B$).
+\begin{proposition}\label{prop:satiff}
+If $h:A\to B$ is a tight $\Sigma_\cons$-monomorphism
+and $\phi$ is an arbitrary, fully
+guarded $\Sigma_\cons$ formula, then $A\models\phi\Iff B\models\phi$.
+\end{proposition}
+%
+It is necessary to restrict the attention to fully guarded formulae (possibly
+ground formulae), because assignments to ``new'' elements in $B$ which are
+not in the image of $h[A]$ may actually
+falsify some formulae which hold in $A$.
+
+Now, given a PDT $(\mu,\thr{X_\cons},\thr{P[X]_\cons})$
+and a functor $\fu{F}:\Mod(\thr{X_\cons})\to \Mod(\thr{P[X]_\cons})$, we
+obtain two functors: 
+\begin{itemize}\MyLPar
+\item 
+$\fu{id}_\weak:\Mod(\thr{X_\cons})\to \Mod(\thr{X_\weak})$ defined in
+ (\ref{eq:idcons}) at the end of section~\ref{sub:gsp}, and
+\item  the composition
+$\comp{\fu{F}}{\_|_\mu}:\Mod(\thr{X_\cons})\to \Mod(\thr{X_\weak})$. 
+\end{itemize}
+The latter has the target $\Mod(\thr{X_\weak})$ and not $\Mod(\thr{X_\cons})$
+because, in the case when $\mu(\cons_s)=c\not=\cons_s$ for some $s$, the
+reduct $A|_\mu$ of an algebra $A\in\Mod(\thr{P[X]_\cons})$ may contain more
+elements in the sort $s^{A|_{\mu}}$ than those in $\cons_s^{A|_{\mu}}$, i.e.,
+it may fail to satisfy the global guard $x\prec \cons_s$. This captures the
+intention that the parameterized algebra may actually add new elements to the
+sorts of the parameter algebra. We define (loose) semantics of parameterized
+data type specifications by putting some restrictions on the functors
+$\fu{F}:\Mod(\thr{X_\cons})\to \Mod(\thr{P[X]_\cons})$. Notice that the
+effect of (or requirements put by) $\delta$ are present in the actual axioms
+of both specifications, so that we do not have to consider $\delta$ explicitly
+here. 
+%
+\begin{definition}
+\label{def:parametersemantic}
+The semantics of the
+parameterized data type specification $\thr P = (\mu,\thr{X_\cons},\thr{P[X]_\cons})$
+is the class of all functors $\fu{F}:
+\Mod(\thr{X_\cons}) \to \Mod(\thr{P[X]_\cons})$, such that there exists a
+natural transformation $\iota: \fu{id_\weak} \natt
+\comp{\fu{F}}{\_|_{\mu}}$, where for each $A\in\Mod(\thr{X_\cons})$ the
+component $\iota_A$ is a tight ${\Sigma}(\thr{X_\cons})$-monomorphism.
+\end{definition}
+A functor with this property is
+called a {\em semantic functor} for the PDT \thr{P},
+ and $\PMod(\thr{P})$ will denote the class of all semantic functors for a parameterized
+data type.
+%%
+%%First, let us observe that although this semantics $\PMod(\thr P)$ is
+%%rather liberal, it does capture the structuring aspect at least in the sense
+%%that the algebras which may result from it are not all possible models of the
+%%flat specification. More precisely, a PDT $\thr P = \pdtmu$ can be seen as
+%%defining two classes of algebras: 
+%%\begin{enumerate}\MyLPar
+%%\item the one is simply the model class
+%%$\Mod(\thr{P[X]_\cons})$ with $\thr{P[X]_\cons}$ viewed as a flat specification, and 
+%%\item the
+%%other is obtained from the semantic functors of the PDT, namely, the class
+%%$\FMod(\thr P)=\{ \fu F(X): X\in\Mod(\thr{X_\cons}), \fu F\in\PMod(\thr P)\}$ 
+%%of all $\thr{P[X]_\cons}$ algebras which can be obtained as an image of some $\thr X_\cons$
+%%algebra under some semantic functor $\fu F$.
+%%\end{enumerate}
+%%Obviously, the latter class is contained in the former. 
+%%\begin{fact} 
+%%In general $\FMod(\thr{P}) \not= \Mod(\thr{P[X]_\cons})$.
+%%\end{fact}
+%%\begin{PROOF}
+%%Consider following specification $\thr P = \pdtmu$:
+%%
+%%\( 
+%%\xymatrix{
+%%	{\txt{\spec{
+%%	\tit{\mbox{\bf spec\ X}_\cons^{{}}=} \\
+%%		\spSorts{\Sorts}{s}
+%%		\spOps{\Ops}{c:		&& s}
+%%		\spOps{\allcons}{\cons_{s}:	&& s}
+%%		\Gamma:
+%%			&1.& && x \prec \cons_{s} \\
+%%	} }}
+%%\ar[rrr]^{\mu(\cons_s)=d}
+%%&&& 
+%%	{\txt{ \spec{
+%%	\tit{\mbox{\bf spec\ P[X]}_\cons^{{}}=} \\
+%%		\spSorts{\Sorts'}{s}
+%%		\spOps{\Ops'}{c:&& s}
+%%		\spOps{{\allcons}'}{d,\cons_{s}:	&& s}
+%%		\Gamma':
+%%			&1.& && x \prec \cons_{s} \\
+%%	}  }}
+%%}
+%%\)
+%%
+%%\noindent
+%%The algebra $A$ given by: carrier $|A|=\{c\}$ and $c^A = \cons_s^A = c, d^A =
+%%\emptyset$, is in $\Mod(\thr{P[X]_\cons})$.
+%%However, the reduct $A|_\mu$ has no tight $\Sigma_\cons$-subalgebra in
+%%$\Mod(\thr X_\cons)$, because $\cons_s^{A|_\mu}=\emptyset$ while
+%%$c^{A|_\mu}=c$. Hence $\FMod(\thr{X}) \not= \Mod(\thr{P[X]})$.
+%%\end{PROOF}
+%
+%
+The following fact is an alternative formulation of the above definition~\ref{def:parametersemantic}.
+
+\begin{fact}\label{fa:parsemAlt}
+A functor $\fu{F}: \Mod(\thr{X_\cons}) \to \Mod(\thr{P[X]_\cons})$ is a
+semantic functor of a parameterized data type specification
+$(\mu,\thr{X_\cons},\thr{P[X]_\cons})$ iff:
+\begin{enumerate}\MyLPar
+\item there exists a functor $\fu{\iota}:\Mod(\thr{X_\cons}) \to
+\Mod(\thr{X_{\weak}})$ such that for every algebra $A \in
+\Mod(\thr{X_\cons})$ there is a tight $\Sigma_\cons$-monomorphism $\fu{\iota}_A: A \to \iota(A)$
+\item For every $A\in\Mod(\thr{X_\cons}): \iota(A) =
+(\fu{F}(A))|_\mu$, i.e., 
+the following diagram commutes:
+\[ \xymatrix@C=0.5cm@R=0.5cm{
+	\Mod(\thr{X_\cons}) \ar[rr]^{\fu{F}} \ar[rd]_{\iota}
+			&& \Mod(\thr{P[X]_\cons}) \ar[ld]^{|_\mu} \\
+		& \Mod(\thr{X_{\weak}}) \\
+								}
+\]
+	\end{enumerate}
+\end{fact}
+%In the following we will drop the application of $\fu{id_\weak}$ from the
+%notation. 
+(Although the $\iota$ here is not the same as in
+definition~\ref{def:parametersemantic}, its role is essentially the same and
+there is no real danger in confusing the two.)
+The requirement of $\iota_A$ being a monomorphism implies that it must
+be injective \cite{catrel}. The tightness requirement ensures that
+$\iota_A(\cons^A)= \mu(\cons)^{\fu{F}(A) |_{\mu}}$, i.e., the carrier
+$s^A=\cons_s^A$ is injectively embedded into the carrier $s^{\fu{F}(A)}$ as the subset
+$\mu(\cons_s)^{\fu{F}(A)}$. Together, the requirements mean that 
+$A$ is a (tight) subalgebra of
+$\fu{F}(A)|_{\mu}$ and the carrier of this subobject corresponds bijectively in $\fu{F}(A)$ to
+$\mu(\cons_s)^{\fu{F}(A)}$ -- thus ensuring
+protection of the parameter algebra. This is a generalization of the
+requirement that $\fu{F}$ has to be a persistent functor. The
+classical persistency is obtained as the special case when $\mu(\cons_s)= \cons_s$, for all $s$.
+
+
+\begin{example}\label{ex:stackelSem}
+For the specification of stacks from example~\ref{ex:stackelSP} we may, for
+instance, define the following semantic functor
+$\fu{F}:\Mod(\thr{El}_\cons)\to\Mod(\thr{Stack[El]_\cons})$: 
+\begin{itemize}\MyLPar
+\item objects: a given $A\in\Mod(\thr{El}_\cons)$ is mapped to
+$\fu{F}(A)\in\Mod(\thr{Stack[El]_\cons})$ given by:
+\begin{itemize}\MyLPar
+ \item $El^{\fu{F}(A)} = El^A\cup\{\bot\}$, where $\bot\not\in El^A$, and \\
+  $Stack^{\fu{F}(A)} = (El^{A})^*$ -- finite strings of elements from $A$
+ \item $empty^{\fu{F}(A)}=\varepsilon$ -- the empty string
+ \item $push^{\fu{F}(A)}(x,s) = \left\{\begin{array}{ll}s & if\ x=\bot\\ xs &
+  otherwise\end{array}\right.$
+ \item $pop^{\fu{F}(A)}(xs) = s$ and $pop^{\fu{F}(A)}(\varepsilon)=\varepsilon$
+ \item $top^{\fu{F}(A)}(xs) = x$ and $top^{\fu{F}(A)}(\varepsilon)=\bot$
+ \item $ok^{\fu{F}(A)} = El^{A}$, $\cons_{El}^{\fu{F}(A)} = El^{\fu{F}(A)}$
+  and $\cons_{Stack}^{\fu{F}(A)} = Stack^{\fu{F}(A)}$.
+\end{itemize}
+\item morphisms: $h:A\to B$ is mapped to $\fu{F}(h):\fu{F}(A)\to \fu{F}(B)$
+given by: 
+ \begin{itemize}\MyLPar
+ \item for $x\in El^{\fu{F}(A)}: \fu{F}(h)(x) = \left\{\begin{array}{ll} h(x) 
+ & {\rm if\ }x\not= \bot \\ \bot & {\rm otherwise}
+ \end{array}\right.$
+ \item  for $s\in Stack^{\fu{F}(A)}: \fu{F}(h)(s)$ is the pointwise 
+ application of $\fu{F}(h)(x)$ to successive $x$'s in $s$. 
+ \end{itemize} 
+\end{itemize} 
+Of course, one might attempt a more specific error treatment but we are here
+merely illustrating the basic idea. 
+We check that $\fu{F}$ satisfies 
+definition \ref{def:parametersemantic} by verifying the
+conditions of fact~\ref{fa:parsemAlt}. 
+
+The functor $\iota:\Mod(\thr{El_\cons}) \to \Mod(\thr{El_\weak})$ is given by
+$\iota(A)= \fu{F}(A)|_\mu$, which obviously makes the diagram in point
+2. (fact~\ref{fa:parsemAlt}) commute. For each $A\in\Mod({\thr{El_\cons}})$, $\iota_A$ is the embedding of $A$
+into $\fu{F}(A)|_\mu$ ($\forall x\in|A|:\iota_A(x)=x$), i.e., it is
+monomorphism. It is tight (mainly) because we have that $\iota_A(\cons^A) = El^A=
+(ok^{\fu{F}(A)})|_{\mu} = \mu(\cons)^{\fu{F}(A)|_{\mu}}$. (To obtain this last equality it is essential
+that the target is required merely to be a model of $\thr{EL_\weak}$ and not
+of $\thr{El_\cons}$. Verification of tightness for other operations is easy.) Thus, although the reduct
+${\fu{F}(A)|_{\mu}}$ contains the additional element $\bot$ in its
+carrier, this element does not interfere with the requirement of $A$ being a
+tight subalgebra of this reduct.
+\end{example}
+%
+Notice that, thanks to the local guards $x\prec ok\To...$ in axioms 2. and
+3. from $\thr{Stack[El]_\cons}$, we can actually obtain extension of the
+carrier with a new $El$ement $\bot$, and yet ignore it when $push$ing on
+stacks. 
+The above functor illustrates just one possibility of the functor semantics
+from definition~\ref{def:parametersemantic}. There are, of course, more.
+
+A functor sending each
+$\thr{El_\cons}$ algebra $A$ to the standard stack algebra where $top(empty)$
+returns the empty set would be another possibility. This would be, in fact,
+the solution analogous to the free-persistent functor semantics with partial
+algebras (the local guards $x\prec ok$ could then be dropped in axioms 2. and
+3. in $\thr{Stack[El]_\cons}$). It is known that partial algebras admit more free persistent functors
+than the total algebras do, and we can capture this extensions since
+undefinedness of partial algebra terms can be modeled using empty set
+(see~\cite{partial}). 
+
+But our extension is much more powerful since, in general, it will
+admit free functor semantics whenever $\thr{P[X]_\cons}$ does not force any new
+identifications of $\thr X_\cons$ elements (which aren't already forced by
+$\thr X_\cons$). The example illustrates the possibility 
+of extending the carrier of parameter algebra. If our specifications are deterministic (or, more
+generally, allow free extensions), we can always choose the free functor
+semantics (as long as no new identifications are implied). Such a functor can
+be chosen as the semantics of the 
+specification in this example, and also in example~\ref{ex:groups}. This cannot be done with partial
+algebras alone as long as one uses the classical definition of persistent functor.
+
+Of course, the definition~\ref{def:parametersyntax} of the syntax of PDT does
+not guarantee the existence of a semantic 
+functor. As in the case of persistency, we would have to show that the
+parameterized theory $\thr{P[X]_\cons}$ is a conservative extension of the
+parameter $\thr{X_\weak}$, and this problem is undecidable. It is a possible
+topic for further work to identify syntactic restrictions on the
+specifications ensuring the existence of a semantic functor.
+
+\section{Actual parameter passing}\label{se:app}
+Since we specify PDTs, it might seem that passing an
+actual parameter amounts merely to applying a semantic functor to the actual (parameter)
+algebra in order to obtain a new algebra. This, however, is only what happens
+at the level of programs implementing our specifications. Remaining still at
+the specification level, we want to allow passing other specifications as
+actual parameters to a specification of parameterized data type -- 
+such an operation should yield a specification of a {\em new} PDT.
+That is, instantiating the formal parameter of a PDT 
+by a specification allows one to reuse the PDTs. This will
+be addressed mostly by the syntactic considerations below and in
+subsection~\ref{sub:appsyn}. In subsection~\ref{sub:appsem} we will show that
+instantiation at the level of specifications can be reflected at the level of
+semantic functors. In fact, given a semantic functor $\fu F$ for a PDT $\pdtmu$ and
+an instantiation of the formal parameter $\thr{X_\cons}$ by an actual
+parameter $\thr{Y_\cons}$, we can actualize $\fu F$, i.e., construct a semantic functor for the
+resulting specification in a canonical way. As in the classical approach to
+PDTs based on free-persistent functor semantics, this implies the possibility of
+reusing not only specifications of PDTs but also their actual implementations. 
+
+We start with an example of the intended construction. We use
+the specification of stacks parameterized by elements from example~\ref{ex:stackelSP}.
+As the actual parameter we want to pass the specification of natural
+numbers from example~\ref{ex:Nat}.
+(Recall that, given a standard specification {\bf Nat}, we can obtain the
+desired form ${\bf Nat}_\cons$ by applying the syntactic operation $\__\cons$
+from definition~\ref{def:specOps}.)
+
+Let the actual parameter passing morphism -- a specification morphism
+$\nu:{\bf El}_\cons\to{\bf Nat}_\cons$ -- be given by $\nu(El)= Nat$
+and $\nu(\cons_{El}) = \cons_{Nat}$. The result of instantiation is the following specification
+\[
+	\spec{
+	\tit{\mbox{\bf spec\ Stack[Nat]}_\cons^{{}}=} \\
+		\spSorts{\Sorts} {Stack,Nat}
+		\spOps{\Ops} { empty: && Stack\\
+			 top: & Stack & Nat\\
+			 pop: & Stack & Stack\\
+			 push: & Nat \times Stack & Stack \\
+			 zero: && Nat \\
+			 succ: & Nat & Nat }
+		\spOps{{\allcons}}{	 \cons_{Nat}: &&  Nat \\
+			 \cons_{Stack}: && Stack \\
+			 ok: && Nat }
+		\Phi:
+			&1.& && zero \eleq zero \\
+			&2.& x \prec ok & \To & succ(x) \eleq succ(x)\\
+			&3.& x \prec ok & \To & pred(succ(x)) \eleq x\\
+			&4.& && empty \eleq empty \\
+			&5.& x \prec ok
+				 & \To & top(push(x,s)) \eleq x\\
+			&6.& x \prec ok
+				& \To & pop(push(x,s)) \eleq s \\
+		\Gamma:	&7.& && x \prec \cons_{Nat}\\
+			&8.& && s \prec \cons_{Stack} \\
+	}
+\]
+%
+The first three axioms come from $\thr{Nat}_\cons$.
+The thing to observe is that the guards $x\prec \cons_{Nat}$ in axioms 2. and 3. from ${\bf
+Nat}_\cons$ have changed to $x\prec ok$. This happens because the
+parameterization morphism was defined by $\mu(\cons_{El}) = ok$, and
+$\delta(\cons_{El})=ok$ prescribed {\bf restricting (local) guards}.
+The
+above specification is obtained as a pushout (in the category of
+multialgebraic specifications $\ThMA$ -- see section~\ref{se:ma}) of $\mu$ and $\nu$:
+\eq{\label{eq:pushoutA} %\begin{array}[c]{l}
+\xymatrix@R=0.5cm@C=0.5cm{
+		\thr{El_\weak} \ar[rr]^{\mu} \ar[dd]_{\nu}
+			&& \thr{Stack[El]_\cons} \ar[dd]^{\nu'}	\\ \ \\
+	\thr{Nat_{\weak}} \ar[rr]_{\mu'}
+			&& \thr{Stack[Nat]_\cons}
+}
+%\end{array}
+}
+Notice that the formal and actual parameter specifications in this diagram
+are weakened (to ${\bf El}_\weak$, resp. ${\bf Nat}_{\weak}$) by removing
+their global guards. The intention of this weakening is to remove the translation
+$x\prec ok$ of the global guard $x\prec \cons_{Nat}$ along $\mu'$ from the resulting
+specification -- we want to keep this global guard there, and not the
+stronger (but not intended) $x\prec \mu'(\cons_{Nat})=ok$. The global guard
+$x\prec\cons_{Nat}$ enters the result along
+$\nu'$ from $\thr{Stack[El]_\cons}$.
+
+The result is  a new PDT
+$\pdtsp{\mu'}{\delta'}{\thr{Nat_\cons}}{\thr{Stack[Nat]_\cons}}$, where
+$\mu'$ and $\delta'$ are identities except for 
+$\mu'(\cons_{Nat}) = ok =\delta'(\cons_{Nat})$.
+%%\begin{itemize}\MyLPar
+%%\item $\mu'(\cons_{Nat}) = ok$
+%%\item $\delta'(\cons_{Nat}) = ok$.
+%%\end{itemize}
+The latter equality reflects {\bf restricting (local) guards} in the axioms from ${\bf
+ Nat}_{\weak}$ (2., 3.) according to $\mu$.
+
+\subsection{Syntax of actual parameter passing}\label{sub:appsyn}
+In order to ensure the existence of the pushout as illustrated in
+diagram~(\ref{eq:pushoutA}) above, we have to ensure that the involved morphisms $\mu$
+and $\nu$ from ${\bf El}_\weak$ are actually specification morphisms. The
+former is so by fact~\ref{fa:weakparamo}. As to the latter, we have to
+take into account a more general situation than in diagram
+(\ref{eq:pushoutA}), namely, the possibility that 
+the actual parameter contains sorts which are not in the image of $\nu$, i.e., 
+that the passing morphism is not surjective on the sorts.
+
+The global guards of sorts $s'$ which are in the image of $\nu$ should be
+dropped from the actual parameter in order not to be translated by $\mu'$.
+%%!), while the local ones treated
+%%according to the prescription given by $\delta(\cons_{s'})$.
+But if $\thr Y_\cons$ contains a sort $s$ which is not in the image of $\nu$, its
+global guard $x\prec \cons_s$ should be preserved in $\thr{P[Y]_\cons}$,
+while the local ones left unchanged (since parameterization does not affect
+these sorts at all).
+The treatment of global guards in these two cases calls for the 
+definition~\ref{def:weakalong} of weakening a specification
+$\thr{Y}_\cons$ not to $\thr{Y}_\weak$ but only to $\thr{Y}_{\nu(-)}$ by removing
+only the global guards which are in the image of a given (signature)
+morphism $\nu$. 
+
+\begin{definition}\label{def:weakalong}
+Given signatures $\Sigma_\cons=(\Sorts,\Ops,\cons)$ and
+$\Sigma'=(\Sorts',\Ops',\cons')$, guarded specifications
+$\thr{SP_\cons}=(\Sigma_\cons,\Phi_\cons,\Modax_\Sigma)$,
+$\thr{SP'_\cons}=(\Sigma'_\cons,\Phi'_\cons,\Modax_{\Sigma'})$ and a
+signature morphism $\nu:\Sigma_\cons\to\Sigma'_\cons$, the {\em weakening of
+$\thr{SP'_\cons}$ along $\nu$} is the specification $\thr{SP'_{\nu(\weak)}} =
+(\Sigma'_\cons,\Phi'_\cons,\Modax_{\Sigma'}\setminus\{x\prec\nu(\cons_s):s\in
+S\})$.
+\end{definition}
+This weakening removes only these global guards from the target specification
+which are in the image of global guards from the source specification. 
+%%In
+%%particular, if $\nu(\cons_s)\not=\cons_{\nu(s)}$, the global guard $x\prec
+%%\cons_{\nu(s)}$ will not be removed, but $x\prec \nu(\cons_s)$ will be.
+This definition will be used only in conjunction with the next one.
+
+\begin{definition}
+An {\em actual parameter passing} is a specification morphism:
+$\nu:\thr{X_\weak} \to \thr{Y_{\nu(\weak)}}$ satisfying
+$\nu(\cons_s) = \cons_{\nu(s)}$, for all $s \in \Sigma(\thr{X_\weak})$.
+\end{definition}
+The intuition behind the extra requirement $\nu(\cons_s) = \cons_{\nu(s)}$
+should be clear: $\cons_s$ in the formal parameter stands for all elements of
+the carrier of sort $s$ and  $\cons_{\nu(s)}$ does the same with respect to the
+elements of the carrier $\nu(s)$ in the actual parameter. Thus $\nu$ should
+identify the two --  the restrictions induced on and expressed using
+$\cons_s$ should now be transferred to $\cons_{\nu(s)}$.
+
+We register the following simple fact to be of relevance for defining
+semantics of instantiation and composition.
+
+\begin{lemma}\label{le:id-^-1}
+Given specifications $\thr X_\cons$ and $\thr Y_\cons$, 
+if $\nu:\thr{X_\weak}\to \thr{Y_{\nu(-)}}$ is an actual parameter passing,
+then $\nu:\thr X_\cons\to \thr Y_\cons$ is a specification morphism.
+\end{lemma}
+%%\begin{PROOF}
+%%Let $\thr{X_\weak}=(\Sigma,\Phi_\cons)$,
+%%$\thr{Y_{\nu(\weak)}}=(\Sigma',\Phi'_\cons,\Modax'_\weak)$, and $\nu:\thr
+%%{X_\weak}\to \thr{Y_{\nu(-)}}$ be an actual parameter passing.
+%%Suppose that $A \in \Mod(\thr{Y_\cons})$. Then
+%%\begin{enumerate}\MyLPar
+%%\item First, $A\in \Mod(\thr{Y_{\nu(\weak)}})$ since
+%%$\thr{Y_{\nu(-)}}\subseteq \thr{Y_\cons}$. Then, since 
+%%$\nu:\thr{X_\weak}\to \thr{Y_{\nu(-)}}$ is
+%%	a specification morphism we get that $A|_\nu \in
+%%	\Mod(\thr{X_\weak})$, so $A|_\nu \models \Phi_\cons$.
+%%
+%%\item Since $A\in\Mod(\thr Y_\cons)$, we have that $A\models x\prec
+%%\cons_{s'}$ for all $s'\in\Sigma'$, in particular, $A \models x
+%%	\prec \cons_{\nu(s)}$ for all $s \in \Sigma$. 
+%%Since $\nu(\cons_s) = \cons_{\nu(s)}$,  we obtain
+%%	$A|_\nu \models x \prec \cons_s$ for all $s \in \Sigma$,
+%%	i.e., $A|_\nu \models \Modax_\Sigma$.  
+%%\end{enumerate} 
+%%1. and 2. mean that $A|_\nu \in \Mod(\thr{X_\cons})$, and since $A$ was
+%%arbitrary, the claim follows. 
+%%\end{PROOF}
+
+\begin{definition}\label{def:actparPush}
+Given a PDT $\pdt$ 
+and an actual parameter passing $\nu:\thr{X_\weak}
+\to 
+\thr{Y_{\nu(\weak)}}$, the result of instantiation (the actual parameter passing)
+ is a specification $\thr{P[Y]_\cons}$ obtained by pushout (in $\ThMA$) of
+$\nu$ and $\mu$:
+\[ \xymatrix@R=0.6cm@C=0.6cm{
+	&& \thr{X_\weak} \ar[rr]^{\mu}_\delta \ar[dd]_{\nu}
+			&& \thr{P[X]_\cons} \ar[dd]^{\nu'}	\\
+	\\
+			&& \thr{Y_{\nu(\weak)}} \ar[rr]^{\mu'}%_{\delta'}
+			&& \thr{P[Y]_\cons}
+								}
+\]
+\end{definition}
+%
+Now, it is not clear that the result will be a PDT. In fact, since pushout is
+defined only up to isomorphism, this need not be the case. To ensure that it
+is, we will make a canonical choice of the pushout object. 
+
+\subsubsection{The canonical pushout object}\label{sub:canpush}
+The examples and technicalities in this subsection culminate in
+lemma~\ref{le:weakmu} and proposition~\ref{prop:paramtoo}. Impatient reader
+may only register these facts and continue reading at section~\ref{sub:appsem}.
+
+In the definition~\ref{def:parametersyntax} of PDT
+we demand that the parameterization
+morphism  be an inclusion on the reduced signature of the
+(formal)parameter. Thus $\mu'$ has to be the identity on
+$\Sigma_\weak(\thr{Y_{\nu(\weak)}})$, so the names in the pushout object
+$\thr{P[Y]_\cons}$ should be chosen appropriately.
+
+A more intricate question concerns the choice of the sets $\Cons$ and
+$\subcons$ in the resulting specification. Since morphisms in
+$\cat{Sign_\cons}$ are the same as in $\cat{Sign}$, we may have two different
+signatures $\Sigma_\cons\not=\Sigma'_\cons$, with
+$\under{\Sigma_\cons}=\Sigma=\under{\Sigma'_\cons}$, which differ merely by
+the fact that a constant $c$ in $\Sigma_\cons$ belongs to $\subcons$ while in
+$\Sigma'_\cons$ to $\Cons'$. 
+We want the resulting
+specification to possess sort constant $\cons_s$ for each sort symbol $s$
+(assuming that the parameterized specification and the actual parameter do),
+and also to be fully guarded (assuming that the parameterized
+specification and the actual parameter are). The idea here is to include
+among the sort constants $\Cons_{\thr{P[Y]_{\cons}}}$ of the resulting specification all the
+(sub)sort constants $c$, such that the specification contains also the
+respective global guard $x\prec c$. 
+We illustrate it by the following examples.
+
+\begin{example}\label{ex:sigchoice}
+Let $\thr{X}_\cons$ contain two sorts $S_1,S_2$ and $\mu$ send the respective
+$\mu(\cons_i)=c_i$ in  $\thr{P[X]_\cons}$. Let $\nu$ identify these two
+sorts, i.e., $\nu(S_1)=\nu(S_2)=S$. The resulting pushout $\thr{P[Y]_\cons}$ is shown in the
+rightmost bottom corner:
+\[
+\xymatrix@R=0.5cm@C=0.5cm{
+\thr X_\weak  \ar[ddd]_\nu & S_1: & {\cons_1} \save[].[dr]*\frm{.}\restore \ar[dddr] \ar[rrrr]^\mu && &&
+           c_1 \ar[dddl] & & \cons_1 \ar[dddl]  & x_1\prec
+           \cons_1  \ar@{.>}[dddl] & \thr{P[X]_\cons} \ar[ddd]^{\nu'} \\
+ & S_2: & & \cons_2 \ar[rr]^\mu \ar[dd]  && c_2 \save[].[urrrr]*\frm{.}\restore 
+               \ar[dd] & & \cons_2 \ar[ddl] &  & x_2\prec
+           \cons_2  \ar@{.>}[dd]\\ 
+& & &&&&&&  \\
+\thr{Y_{\nu(\weak)}} & S: & & \cons \save[].[]*\frm{.}\restore \ar[rr]^{\mu'} && 
+    c \save[].[rrrr]*\frm{.}\restore & \cons_2 & \cons_1 &   x\prec \cons_1 &
+    x\prec \cons_2 & \thr{P[Y]_\cons}
+}
+\]
+The resulting specification  $\thr{P[Y]_\cons}$ contains two constants $\cons_1$ and $\cons_2$,
+both of the same sort $S$ and it also contains both global guards $x\prec
+\cons_1$ and $x\prec \cons_2$ originating from the global guards in
+$\thr{P[X]_\cons}$.
+\end{example}
+%
+The example indicates the reason for allowing the set $\Cons$ to contain more
+than one constant $\cons$
+of each sort. Of course, trivial and automatic manipulation may be performed
+to remove such redundant duplicates, but its result, although in a strong
+sense equivalent (due to the global guards, the respective model categories
+are not only equivalent but contain ``essentially'' the same objects), won't be isomorphic to the
+pushout specification (due to the difference
+in the signatures).
+%
+%%\begin{example}\label{ex:sigchoiceB}
+%%Let $\thr{X}_\cons$ contain again two sorts $S_1,S_2$ which are identified by
+%%$\nu$, i.e., $\nu(S_1)=\nu(S_2)=S$.  
+%%But now let $\mu$ send
+%%$\mu(\cons_1)=c_1$ while $\mu(\cons_2)=\cons_2$ in  $\thr{P[X]_\cons}$.
+%%The resulting pushout $\thr{P[Y]_\cons}$ is shown in the
+%%rightmost bottom corner:
+%%\[
+%%\xymatrix@R=0.5cm@C=0.5cm{
+%%\thr X_\weak \ar[ddd]_\nu & S_1: & {\cons_1} \save[].[dr]*\frm{.}\restore \ar[dddr] \ar[rrrr]^\mu && &&
+%%           c_1 \ar[dddl] &  \cons_1 \ar[dddl]  & x_1\prec
+%%           \cons_1 \ar@{.>}[dddl]  & \thr{P[X]_\cons} \ar[ddd]^{\nu'} \\
+%% & S_2: & & \cons_2 \ar[rr]^\mu \ar[dd]  && \cons_2 \save[].[urrr]*\frm{.}\restore 
+%%               \ar[dd] &  &  & x_2\prec \cons_2 \ar@{.>}[dd]\\ 
+%%& & &&&&&&  \\
+%%\thr {Y_{\nu(\weak)}} & S: & & \cons \save[].[]*\frm{.}\restore \ar[rr]^{\mu'} && 
+%%    \cons \save[].[rrr]*\frm{.}\restore & \cons_1 &   x\prec \cons_1 & x\prec
+%%    \cons  & \thr{P[Y]_\cons}
+%%}
+%%\]
+%%The resulting specification  $\thr{P[Y]_\cons}$ contains again two constants $\cons_1$ and $\cons$,
+%%both of the same sort $S$, with the respective global guards $x\prec
+%%\cons_1$ and $x\prec \cons$ originating from the global guards in
+%%$\thr{P[X]_\cons}$. The point now is that $\nu'$ is sending
+%%$\nu'(c_1)=\cons$ or, in other words, that $\mu'(\cons)$ is actually a sort constant
+%%$\cons\in\Cons_{\thr{P[Y]_{\cons}}}$ and not merely a subsort constant
+%%$c\in\subcons_{\thr{P[Y]_{\cons}}}$. This is because $\mu(\cons_2)=\cons_2$
+%%which ``overrides'' the fact that $\mu(\cons_1)=c_1$. 
+%%\end{example}
+%%The examples illustrate the motivation for the following definition of the
+%%canonical choice of the pushout specification and, in particular, its signature.
+
+\begin{definition}\label{def:quasiunique}
+In definition~\ref{def:actparPush} we choose the (signature for the)
+pushout object $\thr{P[Y]_\cons}$ in the following canonical way. 
+
+Given a pushout signature $\under{\Sigma(\thr{P[Y]_\cons})}$ of $\mu$ and $\nu$ in
+$\cat{Sign}$, we choose as the names in $\Sigma(\thr{P[Y]_\cons})$ all the names coming from $\Sigma(\thr
+Y_\cons)$ -- the rest of the names are ``inherited'' from $\thr{P[X]_\cons}$. 
+(When several subsort constants from $\thr{P[X]_\cons}$ get identified
+ (like in example \ref{ex:sigchoice}), 
+just choose a fresh name for the resulting subsort constant.)
+
+As the resulting set of sort constants, 
+$\Cons_{\thr{P[Y]_{\cons}}}$, we take the images of all constants
+$c\in\allcons_{\thr{Y_{\cons}}}\cup\allcons_{\thr{P[X]_{\cons}}}$ for which we also have a
+global guard $x\prec c$. (These are 
+the images under $\nu'$ of all
+$\Cons_{\thr{P[X]_{\cons}}}$ and (the images of) those
+$\Cons_{\thr{Y_{\cons}}}$ which are {\em not} in the image of $\mu$.)
+% -- cf. example~\ref{ex:sigchoiceB}). 
+
+The subsort constants are all the remaining images of subsort constants from
+$\thr{Y_\cons}$ and $\thr{P[X]_\cons}$, i.e., 
+\[\subcons_{\thr{P[Y]_{\cons}}} = (\nu'[\allcons_{\thr{P[X]_{\cons}}}] \cup
+\mu'[\allcons_{\thr{Y}_{\cons}}]) \setminus \Cons_{\thr{P[Y]_{\cons}}}.
+\]
+Finally, as the axioms we take the union of the axioms from
+$\thr{Y_{\nu(\weak)}}$ (translated along $\mu'$) and $\thr{P[X]_\cons}$ (translated along $\nu'$).
+\end{definition}
+%
+With this choice, we can now state two facts which will
+be used in the sequel.
+%
+\begin{lemma}\label{le:weakmu}
+Given a PDT $\pdtmu$ with an actual parameter
+passing $\nu: \thr{X_\weak} \to \thr{Y_{\nu(\weak)}}$,
+the pushout diagram as in the definition~\ref{def:actparPush} and the
+canonical pushout object from definition~\ref{def:quasiunique}:
+then $\nu': \thr{P[X]_\weak} \to \thr{P[Y]_{\nu(\weak)}}$ is an actual
+parameter passing. 
+\end{lemma}
+%%\begin{PROOF}
+%%Let $\thr{P[X]_\cons}= (\Sigma_\cons',\Phi'_\cons,\Modax_{\Sigma'_{\cons}})$.
+%%That $\nu'(\cons_{s'}) = \cons_{\nu'(s')}$ for all $s' \in \Sigma_\cons'$
+%%follows from the pushout properties, since if $\cons_{s'} = \mu(\cons_s)$, then
+%%$\nu'(\cons_{s'})= \nu(\cons_s)= \cons_{\nu(s)}$ (since $\nu$ is an actual
+%%parameter passing), and otherwise $\nu'(\cons_s) =
+%%\cons_{\nu'(s')}$. Furthermore, $\nu'$ is a specification morphism, i.e.,
+%%$\thr{P[Y]_{\nu(\weak)}} \models \thr{P[X]_\weak}$,  since
+%%for every formula $\phi_\cons \in \thr{P[X]_\weak}:\nu'(\phi_\cons) \in
+%%\thr{P[Y]_{\nu(\weak)}}$, by the canonical pushout construction.
+%%\end{PROOF}
+%
+\begin{proposition}\label{prop:paramtoo}
+With $\thr{P[Y]_\cons}$ and $\mu'$ from definition~\ref{def:quasiunique}, 
+$\pdtsp{\mu'}{\mu'}{\thr{Y_\cons}}{\thr{P[Y]_\cons}}$ is a PDT.
+\end{proposition} 
+%%\begin{PROOF}
+%%All global guards from $\thr{Y_{\nu(\weak)}}$ get included in
+%%$\thr{P[Y]_\cons}$. 
+%%Translations along $\mu$ (and then $\nu'$) of global guards
+%%$\Modax_{\Sigma({\thr{X_{\cons}}})}$ originating from $\thr{X_\cons}$ are
+%%``forgotten'' (by starting from $\thr{X_\weak}$), but the global guards
+%%themselves are passed from $\thr{P[X]_\cons}$ along $\nu'$. 
+%%Thus $\thr{P[Y]_\cons}$ is globally guarded (if $\thr{Y_\cons}$ and
+%%$\thr{P[X]_\cons}$ are). Also, if
+%%$\thr{Y_\cons}$ and $\thr{P[X]_\cons}$ are fully guarded, then so is $\thr{P[Y]_\cons}$.
+%%
+%%$\mu'$ is identity by the choice of the names in $\thr{P[Y]_\cons}$, possibly
+%%with the exception of some $\cons\in\Cons_{\thr Y_{\cons}}$, which are in the image of
+%% $\Cons_{\thr X_{\cons}}$ and are mapped along $\mu$
+%%(example~\ref{ex:sigchoice}). But these are then mapped to fresh constants,
+%%either as by $\mu$, or by the choice of the canonical $\thr{P[Y]_\cons}$.
+%%
+%%The local guard mapping $\delta'=\mu'$ makes inclusion of the axioms 
+%%$\mu'(\cons_{s'})\prec \delta'(\cons_{s'})$ unnecessary. 
+%%
+%%Finally, by the canonical pushout construction for all
+%% the axioms  $\phi_\cons\in\thr{Y_{\nu(\weak)}}$
+%%(i.e., except some global guards), we have
+%% $\mu'(\phi_\cons)\in\thr{P[Y]_\cons}$, so that the point~\ref{it:rel} of
+%%definition~\ref{def:parametersyntax} is satisfied.
+%%\end{PROOF}
+%
+In some cases, it might seem more natural to choose $\delta'$ in a
+different way (i.e., $\delta'\not=\mu'$), and
+we expect that one can obtain more flexibility in passing actual
+parameters, but the details of that need to be postponed to a future work. 
+For now, we are satisfied with the proposition~\ref{prop:paramtoo}, and ignore the details
+and possibility of more specific choices of the PDTs resulting from instantiation.
+
+
+\subsection{Semantics of actual parameter passing}\label{sub:appsem}
+The first aspect of the semantics of instantiation is expressed in
+proposition~\ref{prop:paramtoo} -- it gives a specification of a new parameterized
+data type. That is, we can reuse PDTs for constructing new PDTs by 
+instantiating the formal parameter. 
+
+There is, however, another semantic aspect which we call ``actualization''.
+Given a functor $\fu{F}:\Mod(\thr{X_\cons})\to \Mod(\thr{P[X]_\cons})$
+defining semantics of a PDT according to
+definition~\ref{def:parametersemantic} and an actual parameter passing
+$\nu:\thr{X_\weak}\to\thr{Y_{\nu(-)}}$, we want to define the way of
+transforming $\thr{Y_\cons}$ algebras into $\thr{P[Y]_\cons}$ algebras, i.e.,
+a functor $\fu{F}':\Mod(\thr{Y_\cons})\to \Mod(\thr{P[Y]_\cons})$ which is
+{\em induced} by $\fu F$. In
+addition, we want this functor to satisfy the conditions corresponding to
+those imposed on the semantics of parameterized data type specifications (fact~\ref{fa:parsemAlt}).
+
+Let us return to the example of the PDT of stacks
+from example~\ref{ex:stackelSP}, the chosen semantic functor
+$\fu{F}:\Mod(\thr{El_\cons})\to\Mod(\thr{Stack[El]_\cons}$ from 
+example~\ref{ex:stackelSem} and the actual parameter passing $\nu:\thr{El_\weak}\to\thr{Nat_\weak}$ from the
+beginning of this section. Let $N$ be the standard $\thr{Nat_\cons}$
+algebra (i.e., the standard $\thr{Nat}$ algebra with $\cons_{Nat}^N$ being
+all the natural numbers). The functor $\fu{F}'$ will simply embed $N$ into
+$\fu{F}'(N)$ and mimic the action of $\fu{F}$ with respect to constructing
+the rest of $\thr{Stack[Nat]_\cons}$ algebra $\fu{F}'(N)$. 
+
+The important point is that such an actualization of functor $\fu F$ 
+to a functor $\fu{F}'$ can be done canonically given a semantic functor
+$\fu{F}$ with the corresponding
+$\iota:\Mod(\thr{X_\cons})\to\Mod(\thr{X_\weak})$.
+This corresponds to the classical case of free-persistent functor semantics of
+parameterization in the presence of amalgamation lemma. Notice, however, that
+our result is far more general, since we show it for any functor satisfying
+definition~\ref{def:parametersemantic}. Thus we 
+do not require persistency (but
+allow extension of the carrier) and, furthermore, the extension need not be
+free, i.e., free functors are only special cases. 
+To show this, we will need the following definition.
+
+\begin{definition}\label{def:actparsem}
+Given a PDT $(\mu,\thr{X_\cons}, \thr{P[X]_\cons})$,
+the semantic functor $\fu{F}:\thr{X_\cons} \to \thr{P[X]_\cons}$, with
+corresponding $\iota$ and an actual parameter passing morphism $\nu_\weak:
+\thr{X_\weak} \to \thr{Y_{\nu(\weak)}}$. A 
+functor $\iota': \Mod(\thr{Y_\cons}) \to
+\Mod(\thr{Y_{\nu(\weak)}})$ is {\em induced by} $\iota$ iff for all $Y \in
+\Mod(\thr{Y_\cons})$:
+\begin{enumerate}\MyLPar
+\item there is a tight monomorphism $\iota'_Y:Y\to \iota'(Y)$, and
+\item $\iota( Y |_{\nu}) = \iota'(Y)|_{\nu}$.
+\end{enumerate}
+\end{definition}
+The second point uses overloaded notion of $\nu$ which is admissible by
+lemma~\ref{le:id-^-1}. It means the commutativity of the leftmost
+square (2.)
+in the diagram below. The rest of the diagram is referred to 
+in the following definition.
+\[ \xymatrix@R=0.5cm@C=0.5cm{
+&& \Mod(\thr{X_\cons})  \ar[dd]_{\iota} \ar[rrdd]^{\fu{F}}\\
+&& && \\
+\Mod(\thr{Y_\cons}) \ar[dd]_{\iota'} \ar[rrrdd]^{\fu{F'}} \ar[rruu]^{|_{\nu}}
+	&& \Mod(\thr{X_{\weak}}) \ar@{}[ur]|{1.}
+		&& \Mod(\thr{P[X]_\cons}) \ar[ll]_{|_{\mu}} \\
+&& && \\
+\Mod(\thr{Y_{\nu(\weak)}}) \ar[uurr]_{|_{\nu}}  \ar@{}[uuuurr]|{2.}
+	&&& \Mod(\thr{P[Y]_\cons}) \ar[lll]^{|_{\mu'}} \ar[uur]_{|_{\nu'}} \ar@{}[luu]|{3.}	
+								}
+\]
+%
+Notice that the lower triangle of this diagram is actually a more specific
+case of the general requirement, namely, that $\iota'$ is a functor
+$\iota':\Mod(\thr{Y_\cons})\to\Mod(\thr{Y_\weak})$, since
+$\Mod(\thr{Y_{\nu(\weak)}})\subseteq\Mod(\thr{Y_\weak})$. It corresponds to
+the fact that carrier of any sort $s$ from $\thr{Y_\cons}$, which is not in the image of $\nu$, is not
+extended in the models of $\thr{P[Y]_\cons}$ (or else, that $\mu'$ maps its
+$\cons_s$ and the respective global guard to the same $\cons_s$ and the same
+global guard in $\thr{P[Y]_\cons}$).
+%
+\begin{definition}\label{def:actinstfunct} 
+Let $\fu{F}$, $\iota$ be as in the previous definition (\ref{def:actparsem}) and
+$\iota'$ be induced by $\iota$. 
+The instantiation functor $\fu{F'}: \Mod(\thr{Y_\cons}) \to
+\Mod(\thr{P[Y]_\cons})$ is then defined by: 
+\begin{itemize} 
+\item objects: $\fu{F'}(Y) = \iota'(Y)
+	\amalgam_{\iota'(Y)|_{\nu}} \fu{F}(Y|_\nu)$ 
+\item homomorphisms:
+	$\fu{F'}(h) = \iota'(h) \amalgam_{\iota'(h)|_{\nu}} \fu{F}(h|_\nu)$
+\end{itemize}
+\end{definition}
+The notation $Y\amalgam_X Z$ denotes the amalgamated sum of $Y$ and $Z$ with
+respect to the common reduct $X$ (cf. section \ref{sub:inst}).
+
+$\fu{F'}$ is well-defined since, by commutativity of 1. and 2. in the diagram
+above, $\iota'(Y)|_{\nu} =
+(\fu{F}(Y|_\nu))|_{\mu}$ and $\iota'(h)|_{\nu} = (\fu{F}(h|_\nu))|_{\mu}$.
+With this definition of $\fu{F}'$, all the loops
+in the diagram  above commute. 
+%
+
+By continuity of the $\Mod$-functor (from $\inst{MA}$, section~\ref{se:ma}),
+the square 3. in the diagram above is a pullback
+(since the corresponding specification was constructed as pushout
+according to definition~\ref{def:actparPush}). Hence, by amalgamation
+property, $\fu{F}'(Y)$ is indeed guaranteed to belong to
+$\Mod(\thr{P[Y]_\cons})$. 
+
+We thus have the construction of the desired actualization functor provided
+that we have a functor $\iota'$ induced by $\iota$. The following proposition
+shows that such an induced functor can always be obtained providing also a
+way to construct it.
+
+\begin{proposition}\label{prop:inducedapp}
+Given a functor $\iota: \Mod(\thr{X_\cons}) \to
+\Mod(\thr{X_{\weak}})$ (associated with the semantic functor for a PDT)
+%parameterized data type specification) 
+and an actual parameter passing morphism
+$\nu:\thr{X_\weak} \to \thr{Y_{\nu(\weak)}}$, there exist a
+functor $\iota': \Mod(\thr{Y_\cons}) \to \Mod(\thr{Y_{\nu(\weak)}})$ induced by
+$\iota$.
+\end{proposition}
+%
+\begin{PROOF}
+Let the formal parameter specification be $\thr{X_\cons}=
+((\Sorts,\Ops),\Phi,\Modax_\Sorts)$ and the actual parameter specification $\thr{Y_\cons}=
+((\nu(\Sorts)\cup \Sorts', \nu(\Ops)\cup \Ops'), \nu(\Phi)\cup 
+\Phi',\nu(\Modax_\Sorts)\cup \Modax_{\Sorts'})$, (where $\nu(\Sorts) \cap \Sorts' = \nu(\Ops)
+\cap \Ops' = \nu(\Modax_\Sorts) \cap \Modax_{\Sorts'} = \emptyset$). We let $\Cons$'s to
+be included in respective $\Ops$'s, since they do not require separate
+treatment here. $s/\omega$ range over symbols from $\Sorts/\Ops$ and $s'/\omega'$ from
+$\Sorts'/\Ops'$. The algebra $V=\iota'(Y)$ is constructed by inheriting the sorts and
+operations which are not in the image of $\nu$ directly from $Y$, while those
+which are in the image of $\nu$ from $\iota(Y|_\nu)$. 
+We define $\fu{\iota'}$ on:
+\begin{itemize}\MyLPar
+\item algebras:
+	for every $Y\in\Mod(\thr{Y_\cons})$ we let
+	$\iota'(Y)=V\in\Mod(\thr{Y_{\nu(\weak)}})$ be the following algebra:
+\begin{enumerate}\MyLPar
+\item sorts:
+	\begin{enumerate}\MyLPar
+	\item\label{it:sim} for $s \in \Sorts : \nu(s)^{V}= s^{\iota(Y|_{\nu})}$
+	\item\label{it:snew} for $s' \in \Sorts' : {s'}^{V}= {s'}^{Y}$
+	\end{enumerate}
+\item operations:
+	\begin{enumerate}\MyLPar
+	\item\label{it:opim} for $\omega \in \Ops : \nu(\omega)^{V}= \omega^{\iota(Y|_{\nu})}$, 
+	\item\label{it:opnew} for $\omega' \in \Ops' : \omega'(\ovr y)^{V}= 
+	  \left\{
+	  \begin{array}{ll} \omega'(\ovr y)^{Y} & if\ all\ \ovr y \in |Y| \\
+%	\item\label{it:opnewmix} 
+            \emptyset & otherwise\ (if\ some\ \ovr y\not\in|Y|)
+	  \end{array}\right.$
+	\end{enumerate}
+\end{enumerate}
+\item homomorphisms: $\iota'(h)=h$, i.e., $\iota'(h_{\nu(s)}) = \iota(h_s)$ and $\iota'(h_{s'}) = h_{s'}$.
+\end{itemize}
+%
+We let $\iota'(y)=y$ and show that $\iota'$ satisfies definition~\ref{def:actparsem}.
+This defining equation makes it trivially a monomorphism. It is, indeed, a tight
+$\Sigma(\thr{Y_\cons})$-homomorphism because: for all $\omega\in\Ops$, i.e.,
+$\nu(\omega)\in\nu(\Ops)$, and all $\ovr y\in|Y|:
+\nu(\omega)(\ovr y)^V\isby{\ref{it:opim}}
+\omega(\ovr y)^{\iota(Y|_{\nu})}=\omega(\ovr y)^{Y|_{\nu}}=\omega(\ovr y)^Y$, where the
+middle equality holds since $\iota$ is tight homomorphism, and the last one
+by the definition of reduct. For the remaining operation $\omega'\in\Ops'$
+and $\ovr y\in|Y|: \omega'(\ovr y)^V\isby{\ref{it:opnew}}\omega'(\ovr y)^Y$.
+Furthermore, we have that $V|_{\nu} = \iota(Y|_{\nu})$, by construction.
+
+By construction, i.e., by \ref{it:snew}, $V$  satisfies all the global guards
+in $\Modax_{S'}$. 
+By proposition~\ref{prop:satiff}, it also satisfies all the fully guarded
+axioms of $\thr{Y_\cons}$, since $\iota'$ is a tight mono. Thus
+$V\in\Mod(\thr{Y_{\nu(\weak)}})$. 
+\end{PROOF}
+We have thus shown the possibility of reusing specifications of parameterized
+data types not only by syntactic instantiation (def.~\ref{def:actparPush}) but
+also by providing the above actualization construction.
+
+In the final example of the whole setting, we use also the possibility
+offered by multialgebras to model nondeterminism. 
+\begin{example}
+We specify a 
+generic extension of a deterministic data type with a (binary)
+nondeterministic choice: we give a (generic) PDT
+and instantiate it for a more specific data type.
+We do not extend carrier, i.e, $\mu(\cons_{El})=\cons_{El}$.
+
+\( \xymatrix{
+\frame{\txt{\spec{
+	\tit{\mbox{\bf spec\ El}_\cons^{{}}=} \\
+		\spSorts{\Sorts} {El}
+		\spOps{\Ops}{	\cons_{El}: &&  El \\ \ \\ }
+		\Gamma:	&1. x \prec \cons_{El}%\\ \ \\ \ \\ \ 
+	} } }
+\ar[rrr]^<<<<<<<<<<<<<{\txt{\normalsize{$\mu(\cons_{El})=\cons_{El}$}}}_<<<<<<<<<<<<<{\txt{\normalsize{$\delta(\cons_{El})=\cons_{El}$}}}
+&&&
+\frame{\txt{\spec{
+	\tit{\mbox{\bf spec\ $\choice$[El]}_\cons^{{}}=} \\
+		\spSorts{\Sorts'} {El}
+		\spOps{\Ops'} {
+			\choice: & El \times El & El\\
+			\cons_{El}: &&  El \\	}
+		\Phi':
+			&1.& 			&& x \prec x \choice y \\
+			&2.& 			&& y \prec x \choice y \\
+			&3.& z\prec x\choice y	
+					& \To 	 & z \eleq x, z \eleq y\\
+		\Gamma':	&4.& && x \prec \cons_{El}\\
+	}} }
+}
+\)
+
+\noindent
+As the semantic functor we take the free functor $\fu{F}:\Mod(\thr{El_\cons}) \to
+\Mod(\thr{\choice[El]_\cons})$, i.e. for an $\thr{El_\cons}$ algebra $A$, 
+$\fu{F}(A)$ is  given by:
+\begin{itemize}\MyLPar
+\item $|\fu{F}(A)| = |A|$
+\item $x \choice^{\fu{F}(A)} y = \{ x,y \}$
+\end{itemize}
+Any actual instantiation can now be associated with an actualization of this
+functor. 
+Using a specification of natural numbers as actual parameter we get the
+specification of natural numbers with
+binary choice as the result. The corresponding semantic functor
+$\fu{F'}:\Mod(\thr{Nat_\cons}) \to \Mod(\thr{\choice[Nat]_\cons})$
+(induced by
+$\fu F$ and the obvious parameter passing $\nu(El)=Nat$), 
+will embed an arbitrary $\thr{Nat_\cons}$ 
+algebra $A$ into $\fu F'(A)$ by
+\begin{itemize}\MyLPar
+	\item $|\fu{F}(A)| = |A|$
+	\item $x \choice^{\fu{F}(A)} y = \{ x,y \}$
+	\item ${\omega}^{\fu{F}(A)} = {\omega}^A$ -- for all operation
+	symbols $\omega\in\Sigma(\thr{Nat_\cons})$.
+	\end{itemize}
+\end{example}
+%%One could probably think of a more general means of
+%%specifying instantiation mechanisms at the algebra (program) level, that is, mechanisms of taking
+%%a PDT and matching an actual parameter {\em algebra}
+%%in order to
+%%obtain a new data type (and not merely, as we have now, a PDT
+%% which can be applied to actual parameter algebras coming only from the model
+%%class of the parameter specification). The actualization mechanism described
+%%above would be a special case of such a more general instantiation in that
+%%the ``matching'' of actual parameter algebras here is expressed by the reduct
+%%functor from $\Mod(\thr{Y_\cons})$ to $\Mod(\thr{X_\cons})$.
+%%This would require a closer look at
+%%the possibilities of describing the semantic functors and we have to leave such considerations for
+%%future work.
+
+%\input{pdtCom}
+\section{Composition and refinement}\label{se:compref}
+%
+We will now review the classical vertical and horizontal
+composition, showing the counterparts of the standard compositionality
+theorems. The main difference will concern the fact that, in general,
+stepwise application of constructions will not yield the same result as a direct
+construction along the respective composition, but a refinement of the latter.
+Subsections~\ref{sub:vcsyn} and \ref{sub:vcsem} discuss vertical, and
+\ref{sub:hcsyn} %and \ref{sub:hcsem} 
+horizontal composition. Section~\ref{sub:ref} will summarize the concept of refinement
+which emerges from this section.
+
+We recall that, given a parameter passing diagram (like 1. below in
+Figure~\ref{fi:vertcomp}), by proposition~\ref{prop:paramtoo},
+$\mu':\thr{Y_{\nu(\weak)}}\to \thr{P[Y]_\cons}$ is a parameterization
+morphism, and hence, in particular (by fact~\ref{fa:weakparamo}), $\mu':\thr
+Y_\weak\to\thr{P[Y]_\cons}$ is a specification morphism.
+
+
+\subsection{Vertical composition}\label{sub:vcsyn}
+Given two actual parameter passing morphisms $\nu:\thr X_\weak\to \thr
+Y_{\nu(\weak)}$ and $\rho:\thr Y_\weak\to \thr Z_{\rho(\weak)}$,
+(as indicated in the diagrams 1. and 2. in Figure~\ref{fi:vertcomp}), 
+we would like to compose them vertically, i.e.,
+we want to show that also $(\nu;\rho):\thr X_\weak \to \thr Z_{(\nu;\rho)(-)}$ is
+an actual parameter passing.\vspace*{-3ex}
+
+\begin{figure}[hbt]
+\[\xymatrix@R=0.4cm@C=1.5cm{
+\thr X_\weak \ar[r]^\mu \ar[dd]_\nu   \ar@(l,l)[dddddd]_{\nu;\rho}  \ar@{}[ddr]|{1.}
+  & \thr{P[X]_\cons} \ar[dd]^{\nu'} \ar@(r,r)[dddddd]^{(\nu;\rho)'} \\ \\ 
+\thr Y_{\nu(\weak)} \ar[r]^{\mu'} & \thr{P[Y]_\cons} \\ 
+%
+\thr Y_\weak \ar[r]^{\mu'} \ar[dd]_\rho \ar@{}[ddr]|{2.}
+  & \thr{P[Y]_\cons} \ar[dd]^{\rho'} \\ \\ 
+\thr Z_{\rho(\weak)} \ar[r]^{\mu''} & \thr{P[Z]_\cons} \\ 
+\thr Z_{(\nu;\rho)(\weak)} \ar[r]^{\mu'''} & \thr{P[Z]'_\cons} \\ 
+}\vspace*{-2ex}
+\]
+\caption{}\label{fi:vertcomp}\vspace*{-1ex}
+\end{figure}
+
+\noindent
+The notation from this figure will be used throughout this and next
+subsection (\ref{sub:vcsyn}, \ref{sub:vcsem}).
+ 
+The specifications $\thr{Z_{\rho(\weak)}}$ and
+$\thr{Z_{(\nu;\rho)(\weak)}}$ need not be the same -- the latter may have
+more global guards than the former. In general, we only have that 
+$\thr{Z_{(\nu;\rho)(\weak)}}\models \thr{Z_{\rho(\weak)}}$.
+%%\begin{fact}\label{fa:triv}
+%%Given a PDT $\pdtsimple{\mu}{\delta}{\thr X_\cons}{\thr{P[X]_\cons}}$
+%%and actual parameter passing $\nu$
+%%and $\rho$ as in the Figure~\ref{fi:vertcomp}: 
+%%\begin{enumerate}\MyLPar
+%%\item $\thr{Z_{(\nu;\rho)(\weak)}}\models \thr{Z_{\rho(\weak)}}$.
+%%\item If $\nu$ is surjective on the sorts, then $\thr{Z_{\rho(\weak)}}\models
+%%\thr{Z_{(\nu;\rho)(\weak)}}$.
+%%\item If $\nu$ is
+%%surjective on the sorts, then $\thr{Z_{(\nu;\rho)(\weak)}} \iso \thr{Z_{\rho(\weak)}}$.
+%%\end{enumerate}
+%%\end{fact}
+%%Notice that, in points 2. and 3., surjectivity of $\nu$ on sorts is sufficient but
+%%not necessary condition. It is sufficient and necessary that for any sort $s\in\Sigma(\thr{Y})$
+%%which is not in the image of $\nu$, there is a sort  $s'\in\Sigma(\thr{Y})$ which
+%%is in the image of $\nu$ and such that $\rho(s)=\rho(s')$.
+%%
+In spite of the possible differences, the following proposition ensures at
+least that
+composition of actual parameter passing morphisms is still an actual parameter passing.
+\begin{proposition}\label{prop:vertcomp}
+If 
+$\nu:\thr X_\weak\to \thr Y_{\nu(\weak)}$ and $\rho:\thr Y_\weak\to \thr Z_{\rho(\weak)}$
+ are actual parameter passing
+morphisms, then so is $(\nu;\rho):\thr X_\weak \to \thr Z_{(\nu;\rho)(\weak)}$
+(see the diagram in Figure~\ref{fi:vertcomp}). 
+\end{proposition}
+%
+Now, in general, also the resulting specifications $\thr{P[Z]_\cons}$ and
+$\thr{P[Z]'_\cons}$ may be different. In the classical case, this is merely a
+consequence of their definition by pushout (which is unique only up to
+isomorphism). In our case, however, the difference may be more significant,
+since we also may drop and/or add some global guards on the way. 
+As in the case of $\thr{Z_{\rho(\weak)}}$ and $\thr{Z_{(\nu;\rho)(\weak)}}$, 
+%fact~\ref{fa:triv}, 
+the only difference may concern the presence/absence of global guards (since
+all other axioms are involved in the pushout construction), so these are the only
+axioms we mention in the following example.
+\begin{example}\label{ex:difpush}
+Consider first two instantiations $\nu:{\thr
+X_\weak}\to\thr{Y_{\nu(\weak)}}$ and 
+$\rho:{\thr Y_\weak}\to\thr{Z_{\rho(\weak)}}$. (Two lines in $\thr{Y_{\nu(\weak)}}$,
+$\thr{Y_\weak}$, etc. represent two distinct sorts which are identified by
+the second instantiation $\rho$.)
+\[\xymatrix@R=0.4cm@C=0.7cm{
+\thr{X_\weak} \ar[dd]^\nu & &\cons  \save[].[]*\frm{.}\restore  \ar[rr]^{\mu} \ar[dd] && 
+    c \save[].[rrrr]*\frm{.}\restore \ar[dd] & & \cons \ar[dd] && x\prec
+  \cons \ar@{.>}[dd] & \thr{P[X]_\cons} \ar[dd]_{\nu'}\\ 
+&& && && && \\
+\thr{Y}_{\nu(\weak)}& & \cons \ar[rr]^{\mu'} && c  && \cons && x \prec\cons
+    \save[].[dllll]*\frm{.}\restore  & \thr{P[Y]_\cons}\\
+ & y\prec \cons_1\ \ \ \cons_1 \save[].[ru]*\frm{.}\restore
+    \ar[rrrr]^{\mu'} &&&& 
+   \cons_1 &&  y\prec\cons_1 &  \\ 
+%}\]
+%\[\xymatrix@R=0.4cm@C=0.7cm{
+%%% next inst
+\thr{Y_\weak}\ar[ddd]^{\rho} & \cons_1 \save[].[dr]*\frm{.}\restore \ar[dddr]\ar[rrrr]_{\mu'}
+&&&&  \cons_1 \ar[dddl] && y\prec \cons_1 \ar@{.>}[ddd] &  & \thr{P[Y]_\cons}
+  \ar[ddd]_{\rho'}\\
+ & & \cons \ar[dd]  \ar[rr]_{\mu'} && c \ar[dd] && \cons \ar[dd] 
+  && x\prec\cons \save[].[ullll]*\frm{.}\restore  \ar@{.>}[dd]\\ 
+& & && && && \\
+ \thr{Z_{\rho(\weak)}} & & \cons' \save[].[]*\frm{.}\restore \ar[rr]^{\mu''} && 
+  \cons' \save[].[rrrr]*\frm{.}\restore && \cons & y\prec\cons' & x \prec
+ \cons & \thr{P[Z]_\cons}
+}
+\]
+And now a direct instantiation along $(\comp{\nu}{\rho})$:
+\[\xymatrix@R=0.2cm@C=0.9cm{
+\thr{X_\weak} \ar[ddd]_{(\nu;\rho)} & \cons \save[].[]*\frm{.}\restore \ar[ddd] \ar[rr]^\mu && 
+  c \save[].[rrrr]*\frm{.}\restore \ar[ddd] 
+   && \cons \ar[ddd] && x\prec\cons \ar@{.>}[ddd] & \thr{P[X]_\cons} \ar[ddd]_{(\nu;\rho)'}\\
+ & && &&&&& \\  & && &&&&& \\
+\thr{Z_{(\nu;\rho)(\weak)}} & \cons' \save[].[]*\frm{.}\restore \ar[rr]^{\mu'''} && 
+  \cons'  \save[].[rrrr]*\frm{.}\restore
+   && \cons  && x\prec\cons  & \thr{P[Z]'_\cons}
+}
+\]
+%Both $\thr{P[Z]_\cons}$ and $\thr{P[Z]'_\cons}$  have isomorphic
+%signatures: in the former  $\allcons = \{\cons,\cons'\}$, while in the
+%latter ${\allcons}'=\{\cons,c\}$. 
+%
+The significant difference consists in that  $\thr{P[Z]_\cons}$  has the
+global guard for $\mu''(\cons)$, namely $y\prec\cons'$ originating from
+$\thr{P[Y]_\cons}$. Thus here $\Cons=\{\cons,\cons'\}$ and $\subcons=\emptyset$.
+In $\thr{P[Z]'_\cons}$, on the other hand, this guard is
+not present, so here $\Cons'= \{\cons\}$, while ${\subcons}'=\{\cons'\}$.
+
+Thus,$\pdtsimple{\mu''}{whoever}{\thr{Z_\cons}}{\thr{P[Z]_\cons}}$ forbids
+extending the carrier of $\cons'$, while
+$\pdtsimple{\mu'''}{whoever}{\thr{Z_\cons}}{\thr{P[Z]'_\cons}}$ does not.
+\end{example}
+%
+So, in general, $\thr{P[Z]_\cons}$
+and $\thr{P[Z]'_\cons}$ are not even isomorphic. We have the following fact.
+\begin{fact}\label{fa:pzpz}
+With the notation from Figure~\ref{fi:vertcomp} and
+example~\ref{ex:difpush}:
+\begin{enumerate}\MyLPar
+\item $\thr{P[Z]_\cons}\models \thr{P[Z]'_\cons}$.
+\item if $\thr{P[Z]'_\cons}\not\models \thr{P[Z]_\cons}$, then it is only
+because for some sort constant(s) $c: \thr{P[Z]_\cons}\models x\prec c$ and
+$\thr{P[Z]'_\cons}\not\models x\prec c$. 
+\end{enumerate}
+\end{fact}
+%%\begin{PROOF}
+%%The signatures of both specifications will be isomorphic, so we assume that they are
+%%identical. All axioms except global guards are involved in the pushout
+%%constructions, so their presence (or satisfaction) follows from the standard
+%%isomorphism of pushout objects. The difference may concern only some constants which are in $\Cons$ but
+%%not in $\Cons'$ (only in ${\subcons}'$, as in the
+%%example~\ref{ex:difpush}). This justifies point 2.
+%%For point 1. we show that if $\cons\in\Cons'$ then
+%%$\cons\in\Cons$, that is if $\thr{P[Z]'_\cons}\models x\prec\cons$ then
+%%$\thr{P[Z]_\cons}\models x\prec\cons$, which will yield the conclusion.
+%%
+%%This follows trivially. Any global guard $x\prec\cons$ in $\thr{P[Z]'_\cons}$
+%%is an image of a respective global guard either from
+%%$\thr{Z_{(\nu;\rho)(\weak)}}$ or from $\thr{P[X]_\cons}$. In the latter case,
+%%it will also be present in $\thr{P[Y]_\cons}$ and hence also in
+%%$\thr{P[Z]_\cons}$. 
+%%
+%%In the former case, if this guard is also in $\thr{Z_{\rho(\weak)}}$ it will
+%%be present in $\thr{P[Z]_\cons}$. If it does not belong to
+%%$\thr{Z_{\rho(\weak)}}$, this means that it (its sort) is in the image of
+%%$\rho$ (and therefore was dropped). But then, its $\rho$ pre-image must be in
+%%$\thr{Y_\cons}$, that is, must be present in $\thr{P[Y]_\cons}$. But then it
+%%is also present in $\thr{P[Z]_\cons}$ as the result of pushout construction.
+%%\end{PROOF}
+%
+This fact, that stepwise instantiation (of $\thr X_\cons$ along $\nu$ by
+$\thr Y_\cons$ and then along $\rho$ by
+$\thr Z_\cons$ leading to $\thr{P[Z]_\cons}$) yields a different result than the direct instantiation
+(along $(\nu;\rho)$ leading to $\thr{P[Z]'_\cons}$) may look like a severe weakness of our
+setting. After all, equality of these two indicates the desirable
+compositionality which would be expected by anybody familiar with the
+traditional, pushout based theory of parameterized specifications. 
+
+However,
+we are not developing a theory of parameterized specifications but of
+specification of parameterized data types. Hence we are interested in
+constructing new data types (algebras) from others. 
+Performing different series of constructions or, as in the case
+of vertical composition, performing constructions in different ways, may be
+expected to yield different results. 
+
+Our point is that stepwise instantiation, first along $\nu$ and then along
+$\rho$, represents a slightly different construction than the direct instantiation
+along $\eta=\nu;\rho$. In fact, we suggest to think of the former as a refinement
+of the latter. The latter is a one step construction along $\eta$. In this
+sense, splitting this construction in two steps, first along $\nu$ and then
+$\rho$, is a more detailed, refined construction which may introduce new
+aspects. We certainly want the result of this refined construction to be
+``compatible'' with the results prescribed by the more rough, one step
+construction. This is the meaning of one construction refining another which
+corresponds to the classical concept of refinement by model class
+inclusion. This is indicated by the fact~\ref{fa:pzpz}.1 and we now
+proceed to illustrate the semantic aspect of this refinement.
+
+\subsection{Vertical composition -- semantics}\label{sub:vcsem}
+%
+As noted in section~\ref{sub:appsem}, we can view the semantics of
+instantiation from two angles: on the one hand, as a new PDT with a class of
+its semantic functors and, on the other hand, as an actualization: a functor
+for the resulting PDT induced by a
+particular functor for the instantiated PDT. We now apply this distinction in
+the discussion of the semantics of vertical composition.
+
+\subsubsection{Vertical composition as a refinement of PDT}\label{sub:vertref}
+We postpone the general definition of refinement to section~\ref{sub:ref} and for
+the moment take it intuitively to mean:
+a PDT  $\thr P=\pdt$ is a {\em
+refinement} of a PDT  $\thr
+P'=\pdtsp{\mu'}{\delta'}{\thr{X'_\cons}}{\thr{P[X]'_\cons}}$, $\thr
+P'\leadsto \thr P$, if any semantic 
+functor for $\thr P$ can be used for obtaining 
+a semantic functor for $\thr P'$.
+
+A trivial, though by no means only, example of such a refinement is when
+$\thr{P[X]'_\cons}\leadsto\thr{P[X]_\cons}$, i.e.,
+$\Mod(\thr{P[X]'_\cons})\supseteq \Mod(\thr{P[X]_\cons})$, while other
+components are equal. This is, in fact, the case with the results of vertical
+composition. If we view $\thr{P[Z]_\cons}$ and $\thr{P[Z]'_\cons}$ as two
+independent PDTs (i.e., ``forget'' that they both originate from instantiation
+of the same PDT), we see that, 
+by fact~\ref{fa:pzpz}, $\thr{P[Z]_\cons}\models
+\thr{P[Z]'_\cons}$, i.e., we have an inclusion (functor)
+$\fu i:\Mod(\thr{P[Z]_\cons})\subseteq\Mod(\thr{P[Z]'_\cons})$. 
+Thus any semantic functor $\fu F$ for $\thr P= \pdtsp{\mu''}{\delta''}{\thr
+Z_\cons}{\thr{P[Z]_\cons}}$ 
+gives a semantic functor for $\thr P'= \pdtsp{\mu'''}{\delta'''}{\thr
+Z_\cons}{\thr{P[Z]'_\cons}}$, simply 
+by composing $\comp{\fu F}{\fu i}$.
+The other components of both PDTs are (essentially) the same, and so we get
+%
+\begin{fact}
+Given $\thr P= \pdtsp{\mu''}{\delta''}{\thr
+Z_\cons}{\thr{P[Z]_\cons}}$ and  $\thr P'= \pdtsp{\mu'''}{\delta'''}{\thr
+Z_\cons}{\thr{P[Z]'_\cons}}$ (as in Figure~\ref{fi:vertcomp}), $\thr P'\leadsto \thr P$.
+\end{fact}
+%
+This refinement amounts to the situation from
+example~\ref{ex:difpush}, namely, that while $\thr P'$ may allow extension of
+some carriers (corresponding to $\cons'$ in the example), $\thr P$ may forbid
+it by introducing additional global guards. Thus, in general, all semantic
+functors for $\thr P$ are also semantic functors for $\thr P'$, but there may
+be some functors for $\thr P'$ which are not valid semantic functors for
+$\thr P$.
+
+\subsubsection{Vertical composition as an actualization of a particular semantic
+functor}
+There is, however, a more specific relation between the stepwise
+instantiation and the direct one. According to
+proposition~\ref{prop:inducedapp}, any semantic functor $\fu F_X$ for $\pdt$
+induces a semantic functor $\fu F_Y$ for any instantiation of the formal
+parameter $\thr X_\cons$ by an actual parameter $\thr Y_\cons$. 
+If we now consider the results of respective actualizations, i.e., functors
+$\fu F_Z$ (obtained by stepwise actualization through $\thr Y_\cons$ first
+along $\nu$ and then $\rho$) and
+$\fu F'_Z$ (obtained by direct actualization along $(\nu;\rho)$) which are
+both induced starting from the same, given $\fu F_X$, then it turns out that
+the semantics is fully compositional, i.e., both functors are equal.
+
+In more detail, the semantic counterpart of the diagram from Figure~\ref{fi:vertcomp} is
+shown below.
+\[
+\hspace*{-2em}\xymatrix@C=0.7cm@R=0.7cm{
+&&&& \Mod(\thr X_\cons) \ar[dr]^{\fu F_X} \ar[d]^{\iota_X} & \\
+&&& \Mod(\thr Y_\cons)  \ar[dr]^>>>{\fu F_Y} \ar[d]^{\iota_{Y1}}
+\ar[ur]^{|_{\nu}} \ar@{.}[dl]|{=} 
+     & \Mod(\thr X_\weak) & \Mod(\thr{P[X]_\cons}) \ar[l]_{|_{\mu}} \\
+&& \Mod(\thr Y_\cons) \ar[dr]^>>>{\fu F'_Y} \ar[d]^{\iota_Y} 
+     & \Mod(\thr Y_{\nu(\weak)}) \ar[ur]^>>>>>{|_{\nu}} \ar@{_{(}.>}[dl]
+     & \Mod(\thr{P[Y]_\cons}) \ar[l]^{|_{\mu'}} \ar[ur]^{|_{\nu'}}
+     \ar@{.}[dl]|{=} \\
+& \Mod(\thr Z_\cons) \ar[ur]^{|_\rho} \ar[d]^{\iota_Z} \ar[dr]^>>>{\fu F_Z} & \Mod(\thr Y_\weak) &
+       \Mod(\thr{P[Y]_\cons}) \ar[l]_{|_{\mu'}} \\
+\Mod(\thr Z_\cons) \ar[d]_{\iota_{Z1}} \ar[dr]^>>>{\fu F'_Z} \ar@{.}[ur]|{=}\ar@/^3pc/[uuuurrrr]^{|_{(\nu;\rho)}}
+     & \Mod(\thr Z_{\rho(\weak)}) \ar[ur]^>>>>>{|_{\rho}} &
+       \Mod(\thr{P[Z]_\cons}) \ar[l]^{|_{\mu''}} \ar[ur]_{|_{\rho'}}
+       \ar@{^{(}.>}[dl]^{\fu i} \\
+\Mod(\thr Z_{(\nu;\rho)(\weak)}) \ar@{^{(}.>}[ur]
+    & \Mod(\thr{P[Z]'_\cons}) \ar[l]^{|_{\mu'''}}   \ar@/_3pc/[uuuurrrr]_{|_{(\nu;\rho)'}}
+}
+\]
+Given a semantic functor $\fu F_X$ (in the uppermost diagram),
+proposition~\ref{prop:inducedapp} allows us to construct a functor $\fu F_Y$,
+and similarly, an $\fu F_Z$ can be constructed given an arbitrary $\fu F'_Y$. Thus, using
+$\fu F_Y$ obtained from the actualization along $\nu$ for $\fu F'_Y$, we can
+construct an $\fu F_Z$ from a given $\fu F_X$. Notice that the associated
+$\iota_Z$ guarantees the image of $\Mod(\thr Z_\cons)$ to be
+included in $\Mod(\thr Z_{\rho(\weak)})$. 
+
+For the direct actualization, we can obtain $\fu F'_Z$ from a given $\fu
+F_X$ by proposition~\ref{prop:inducedapp}. On the other hand,
+by fact~\ref{fa:pzpz}, we also have the inclusion (functor) 
+$\fu i:\Mod(\thr{P[Z]_\cons})\subseteq\Mod(\thr{P[Z]'_\cons})$.  
+Hence, composing we obtain $\comp{\fu
+F_Z}{\fu i}:\Mod(\thr{Z_\cons})\to\Mod(\thr{P[Z]'_\cons})$, which gives a
+possible semantic functor $\fu F'_Z$ for the PDT
+$\thr P'=\pdtsp{\mu'''}{\delta'''}{\thr{Z_\cons}}{\thr{P[Z]'_\cons}}$. 
+Compositionality of actualization is expressed in the following
+proposition. 
+%
+\begin{proposition}
+With the notation from the diagram above, where all functors are induced by
+$\fu F_X$ (in particular, $\fu F_Y=\fu F'_Y$ and $\iota_Y=\iota_{Y1}$), we have:
+$\fu F_Z;\fu i = \fu F'_Z$.
+\end{proposition}
+%
+%\newpage
+\subsection{Horizontal composition}\label{sec:semfunccomp}\label{sub:hcsyn}
+Horizontal composition of PDTs is defined in the standard and expected way.
+\begin{definition}\label{def:horcomp}
+For PDTs %parameterized data type specifications
+$\pdtsp{\mu}{\delta}{\thr{X_\cons}}{\thr{P[X]_\cons}}$ and
+$\pdtsp{\mu'}{\delta'}{\thr{P[X]_\cons}}{\thr{W[P[X]]_\cons}}$,
+we define their horizontal composition to be $\pdtsp{(\mu;\mu')}{(\delta;\delta')}{\thr
+X_\cons}{\thr{W[P[X]]_\cons}}$. 
+\end{definition}
+%
+Composing horizontally PDTs yields a new PDT, as expressed in the following proposition.
+\begin{proposition}\label{prop:horcomp}
+The composition as defined in~\ref{def:horcomp} is (isomorphic to) a
+PDT. (I.e., there exists a $\thr{W[P[X]]'_\cons}\iso\thr{W[P[X]]_\cons}$
+such that $\pdtsp{(\mu;\mu')}{(\delta;\delta')}{\thr
+X_\cons}{\thr{W[P[X]]'_\cons}}$ is a PDT).
+\end{proposition}
+The first 4 points of definition~\ref{def:parametersyntax} are trivially
+satisfied and verification of point~\ref{it:rel} is based, primarily, on the 
+presence of axioms of the form~\ref{it:sat}.
+
+On the semantic side,
+the following proposition states that, given semantic functors for the (horizontally composed)
+component PDTs, their composition yields a semantic functor for the composed
+PDT. 
+%\newpage
+\begin{proposition}
+Given PDTs $\pdt$ and
+$\pdtsp{\mu'}{\delta'}{\thr{P[X]_\cons}}{\thr{W[P[X]]_\cons}}$, 
+with the semantic functors
+$\fu{F_\thr{X}}: \Mod(\thr{X_\cons}) \to 
+\Mod(\thr{P[X]_\cons})$ and $\fu{F_\thr{P[X]}}: \Mod(\thr{P[X]_\cons}) \to
+\Mod(\thr{W[P[X]]_\cons})$. The composition
+$\comp{\fu{F_\thr{X}}}{\fu{F_\thr{P[X]}}}:\thr{X_\cons} \to
+\thr{W[P[X]]_\cons}$, is a semantic functor for
+$\pdtsp{(\mu;\mu')}{(\delta;\delta')}{\thr{X_\cons}}{\thr{W[P[X]]_\cons}}$. 
+\end{proposition}
+The proposition means that all the loops in the following diagram commute:
+\[
+\xymatrix@C=0.4cm@R=0.5cm{
+&& \Mod(\thr{X_\cons}) \ar[dd]^{\iota_{\thr{X}}}
+\ar@(l,l)[dddd]_{\iota'} \ar[rrdd]^{\fu{F_\thr{X}}}
+\ar@(u,r)[rrrrdddd]^{\comp{\fu{F_\thr{X}}}{\fu{F_\thr{P[X]}}}}\\ 
+\\
+&& \Mod(\thr{X_{\weak}}) \ar@{.>}[dd]^{\iota_{\thr{P[X]}}|_\mu}
+&& \Mod(\thr{P[X]_\cons}) \ar[ll]_{|_{\mu}} \ar[dd]^{\iota_{\thr{P[X]}}} \ar[rrdd]^{\fu{F_\thr{P[X]}}}\\
+\\
+&&\Mod(\thr{X_{\weak}})
+&& \Mod(\thr{P[X]_{\weak}}) \ar@{.>}[ll]_{|_{\mu}}
+&& \Mod(\thr{W[P[X]]_\cons}) \ar[ll]_{|_{\mu'}} \ar@(d,d)[llll]_{|_{\comp{\mu}{\mu'}}}\\
+\\
+}
+\]
+In the proof one verifies that the composition
+$\iota'=\iota_{\thr{X}};(\iota_{\thr{P[X]}}|_\mu)$ provides the required tight
+monomorphism for each algebra $A\in\Mod(\thr{X_\cons})$.
+
+As was the case with the vertical composition, horizontal composition of PDTs
+gives us a more structured specification. 
+According to
+proposition~\ref{prop:horcomp}, composing horizontally two PDTs, we obtain a
+new PDT with the associated class of semantic functors. 
+However, the semantics of a PDT obtained by a stepwise, horizontal
+composition of PDTs $\thr P=\pdt$ and $\thr
+P'=\pdtsp{\mu'}{\delta'}{\thr{P[X]_\cons}}{\thr{W[P[X]]_\cons}}$, 
+which can be written as $\thr P;\thr P'$, 
+%$\pdt;\pdtsp{\mu'}{\delta'}{\thr{P[X]_\cons}}{\thr{W[P[X]]_\cons}}$, 
+is a
+refinement of the semantics of the respective composed PDT 
+$\pdtsp{(\mu;\mu')}{(\delta;\delta')}{\thr{X_\cons}}{\thr{W[P[X]]_\cons}}$ --
+the former, possessing more structure in the form of the intermediary stage
+$\thr{P[X]_\cons}$, may put additional restrictions on the admissible
+functors.
+
+The following example illustrates this fact -- that horizontal composition, introducing an
+ intermediary parameter, can actually be a strict refinement of the composed
+ PDT, i.e., that some functors admissible as a semantics for the composed PDT
+ may no longer be obtained as a composition of the semantic functors for the
+ component PDTs.
+
+\begin{example}\label{ex:abstrref}
+The following PDT $\thr P=\pdt$ requires extension of the parameter algebra $A$ with a new
+function $f$ and allows extending $A$'s carrier with
+new elements (one of which may be $d$). 
+\[\xymatrix{
+\frame{\txt{$\spec{\tit{\mbox{\bf \spec\ X}_\cons=} \\
+		\spSort{El}
+		\spOps{\allcons}{ \cons: \to El}
+		\Gamma:
+			& x \prec \cons
+}$}}
+\ar[rrr]^<<<<<<<<<<<<{\txt{$\large{\mu(\cons)= ok}$}}_<<<<<<<<<<<<{\txt{$\large{\delta(\cons)={\cons}}$}} 
+&&& \frame{\txt{$\spec{\tit{\mbox{\bf P[X]}_\cons=} \\
+	\spSorts{\Sorts'}{El}
+	\spOps{\Ops'}{
+		d:	&& El \\
+		f: & El & El }
+	\spOps{{\allcons}'}{	\cons, ok: && El}
+	\Phi':
+		&1.& && f(d) \eleq d\\
+		&2.&x\prec \cons &\To& f(x) \eleq f(x)\\
+		&3.& && ok\prec\cons \\
+	\Gamma':&4.& && x \prec \cons\\
+}$}}
+}
+\]
+Let the semantic functor $\fu{F}: \Mod(\thr{X_\cons}) \to
+	\Mod(\thr{P[X]_\cons})$ send an $A\in\Mod(\thr{X_\cons})$ to $\fu
+	F(A)$ given by:
+\begin{itemize}\MyLPar
+\item $|\fu{F}(A)| = |A| \uplus d$, i.e. $d$ is a new element added to the carrier of $A$,
+\item $f^{\fu{F}(A)}(x)= d$, for all $x\in|\fu F(A)|$,
+\item $ok^{\fu{F}(A)} = |A|$, by the semantic functor requirement,
+\item $\cons^{\fu{F}(A)} = |\fu{F}(A)|$, by default.
+\end{itemize}
+Let's now introduce $\thr{W[X]_\cons}$ as an intermediary parameter, i.e., we
+now have two PDTs $\thr
+P'=\pdtsp{\mu'}{\delta'}{\thr{X_\cons}}{\thr{W[X]_\cons}}$ and
+$\thr P''=\pdtsp{\mu''}{\delta''}{\thr{W[X]_\cons}}{\thr{P[W[X]]_\cons}}$:
+\[ \xymatrix{
+\thr{X_\cons}
+\ar[rr]^<<<<<<<<<<{\txt{$\large{\mu'(\cons)=\cons}$}}_<<<<<<<<<<{\txt{$\large{\delta'(\cons)=\cons}$}}
+&& \frame{\txt{$\spec{
+\tit{\thr{W[X]_\cons}=}\\
+	\spSorts{\Sorts''}{El}
+	\spOps{\Ops''}{f: &El & El}
+	\spOps{{\allcons}''}{\cons: && El}
+	\Phi'':
+		 &2.& x\prec\cons&\To& f(x) \eleq f(x)\\
+	\Gamma'':&4.& && x \prec \cons_{EL}\\
+}$}}
+\ar[rr]^<<<<<<<<<<{\txt{$\large{\mu''(\cons)=ok}$}}_<<<<<<<<<<{\txt{$\large{\delta''(\cons)=\cons}$}}  
+&& \thr{P[X]_\cons}=\thr{P[W[X]]_\cons}
+}
+\]
+Obviously, we have that $\thr P=\pdtsp{(\mu';\mu'')}{(\delta';\delta'')}{\thr
+X_\cons}{\thr{P[W[X]]_\cons}}$. But the refinement $\thr P\leadsto \thr
+P';\thr P''$ is strict -- e.g., the functor $\fu F$ for the former cannot be obtained
+by composing any two functors for the latter two.
+
+For any semantic functor $\fu{F'}: \Mod(\thr{X_\cons}) \to\Mod(\thr{W[X]_\cons})$ 
+can't extend the carrier of any $A\in \Mod(\thr{X_\cons})$, but 
+merely adds a deterministic function $f$. Furthermore, any semantic functor 
+$\fu{F''}: \Mod(\thr{W[X]_\cons}) \to\Mod(\thr{P[W[X]]_\cons})$ may add a
+new element $d$ to the carrier of a parameter algebra $B\in\Mod(\thr{W[X]_\cons})$ and force
+$f(d)\eleq d$. However, $\fu{F''}$ has to ``preserve'' the parameter algebra
+$B$, i.e., $B$ must be a tight subalgebra of
+$\fu{F''(B)}$. This means that function $f^{\fu F''(B)}$ applied to the elements
+from the carrier of $B$ (i.e., from $ok^{\fu F''(B)}$) has to return elements
+from the same carrier (as it did in $B$). If $d$ is a new element (as was the
+case for $\fu F$), it will never be ``reachable by $f$'' from these old
+elements. This illustrates the impossibility
+of obtaining the original functor $\fu F$ as a composition of any $\fu F'$
+and $\fu F''$.
+\end{example}
+%
+\section{Refinement}\label{sub:ref}
+The general concept of refinement of PDTs
+% As we have emphasised, it amounts, primarily, to
+amounts to 
+introduction of additional {\em structure}.% on the PDTs. 
+%The following definition captures the general concept
+
+\begin{definition}\label{def:ref}
+A PDT $\thr
+P'=\pdtsp{\mu'}{\delta'}{\thr{X'_\cons}}{\thr{P[X]'_\cons}}$
+refines a PDT $\thr P=\pdt$, 
+$\thr P\leadsto\thr P'$, if there exist functors
+$\reff X:\Mod(\thr  X_\cons)\to\Mod(\thr X'_\cons)$ and
+$\reff{P[X]}:\Mod(\thr {P[X]'_\cons})\to\Mod(\thr{P[X]_\cons})$, such that
+for any semantic functor $\fu F'$ for $\thr P'$, the functor $\reff X;\fu
+F';\reff{P[X]}$ is a semantic functor for $\thr P$.
+\[ \xymatrix@R=0.4cm@C=0.4cm{
+&& \Mod(\thr{X_\cons})  \ar[dd]_{\iota} \ar@{.>}[rrdd]^{\reff{X};\fu{F}';\reff{P[X]}} \ar[lldd]_{\reff{X}}\\
+&& && \\
+\Mod(\thr{X'_\cons}) \ar[dd]_{\iota'} \ar[rrrdd]^{\fu{F'}}
+	&& \Mod(\thr{X_{\weak}}) %\ar@{}[ur]|{1.}
+		&& \Mod(\thr{P[X]_\cons}) \ar[ll]_{|_{\mu}} \\
+&& && \\
+\Mod(\thr{X'_{\weak}}) %\ar@{}[ur]|{2.}
+	&&& \Mod(\thr{P[X]'_\cons}) \ar[lll]^{|_{\mu'}} \ar[uur]_{\reff{P[X]}}
+}\vspace*{-2ex}
+\]
+\end{definition}
+%The following diagram illustrates the requirement:
+The relation is trivially transitive, i.e., $\thr P\leadsto\thr
+P'\leadsto\thr P'' \To \thr P\leadsto \thr P''$.
+
+The contravariance of $\reff{X}$ on the parameter side may seem a bit unusual since,
+following the idea of refinement as the model class inclusion, one might
+expect the refinement relation to hold also when
+$\thr{X_\cons}\leadsto\thr{X'_\cons}$, i.e., $\Mod(\thr
+X_\cons)\supseteq\Mod(\thr X'_\cons)$. However, if this refinement were
+strict, i.e., if $\Mod(\thr X_\cons)\supset\Mod(\thr X'_\cons)$, 
+a semantic functor $\fu F'$ with source $\Mod(\thr{X'_\cons})$ could not, in
+general, be used in places were one assumes a functor with source $\Mod(\thr{X_\cons})$.
+%%one should keep in mind that
+%%we are talking about design specifications of actual structure of data
+%%types/programs. A PDT with source $\thr{X'_\cons}$ could not, in general,
+%%replace a PDT with the source $\thr{X_\cons}$ if the refinement
+%%$\thr{X_\cons}\leadsto\thr{X'_\cons}$ were strict.
+
+A simple example is when $\thr{P[X]_\cons}\leadsto\thr{P[X]'_\cons}$, i.e., when
+$\reff{X}$ is identity and
+$\reff{P[X]}$ is a model class inclusion $\Mod(\thr{P[X]'_\cons})\subseteq
+\Mod(\thr{P[X]_\cons})$ (as was the case of vertical composition in section~\ref{sub:vertref}). 
+Another example was \ref{ex:abstrref} %and \ref{ex:stackref},
+% insection~\ref{sub:hcsem}, 
+where both $\reff{X}$ and $\reff{P[X]}$ were
+identities but where intermediary parameter forced additional structure
+not (necessarily) required by the original, refined PDT.
+
+Finally, we give an example showing an even more particular case of
+refinement by adding structure, where the formal parameter of a PDT is itself
+refined to a PDT.
+
+\begin{example}
+%Let 
+The PDT $\thr
+P=\pdtsp{\mu}{\delta}{\thr{Set}_\cons}{\thr{\choice[Set]_\cons}}$ 
+%be the PDT given in Figure~\ref{fi:setch} which 
+extends a specification of sets with a nondeterministic
+choice.
+%
+%\begin{figure}[hbt]
+\[%\hspace*{-1em}
+\xymatrix{
+\frame{\txt{$\spec{
+\tit{\mbox{\bf spec\ Set}_\cons^{{}}=\ \Sorts: Set,El} \\
+%	\spSort{Set,El}
+	\spOps{\Ops}{
+	\emptyset: && Set \\
+	\prep\ : & El\times Set & Set 
+	}
+	\spOps{\allcons}{ \cons_{El}: \to El,\ \ \  \cons_{Set}:\to Set}
+	\Phi: & 1.& x\prep (y\prep S) & \eleq & y\prep (x\prep S) \\
+	      & 2.& x\prep (x\prep S) & \eleq & x\prep S \\
+	\Gamma:
+	   &3. & x &\prec &\cons_{EL} \\ 
+	   &4. & S &\prec &\cons_{Set}
+}$}}
+\ar@(u,r)[dr]^{\txt{\normalsize{\hspace*{1.5em}$\mu(\cons_{El})=\delta(\cons_{El})=ok_{El}$}}}_{\txt{\normalsize${\mu(\cons_{Set})=\delta(\cons_{Set})=
+	\cons_{Set}\ \ \ }$}} 
+\\ &
+\hspace*{-8em}\frame{\txt{$\spec{
+\tit{\thr{spec \choice[Set]}_\cons=\ \Sorts: Set, El} \\
+%	\spSort{Set,El}
+	\spOps{\Ops}{
+	\emptyset: && Set \\
+	\prep\ : & El\times Set & Set \\
+	\choice : & Set & El
+	}
+	\spOps{\allcons}{ ok,\cons_{El}: \to El,\ \ \  \cons_{Set}:\to Set}
+	\Phi: & 1.& x\prec ok,y\prec ok &\To & x\prep (y\prep S)  \eleq  y\prep (x\prep S) \\
+	      & 2.& x\prec ok & \To & x\prep (x\prep S)  \eleq  x\prep S \\
+	      & 3.& x\prec ok & \To & \choice(x\prep S)\prec ok \\
+	      & 4.& x\prec ok, z\prec \choice(x\prep S) 
+	            & \To & z\eleq x, z\prec \choice(S)\\
+	\Gamma:
+   	    &5. &&& x \prec \cons_{EL} \\ 
+	    &6. &&& S\prec \cons_{Set}
+}$}}
+}%\vspace*{-2ex}
+\]
+%\caption{Sets with nondeterministc choice parameterized by sets.}\label{fi:setch}
+%\end{figure}
+%
+We admit here {\bf extending carrier} $El$, $\mu(\cons_{El})=ok$, which is
+motivated by the possible need of a new, ``error'' element to be returned by
+ $\choice(\emptyset)$.
+
+A possible semantic functor $\fu F$ may send a $\thr{Set}_\cons$ algebra $A$ on the
+algebra $\fu F(A)$ where, for any nonempty set $S$, the operation 
+$\choice^{\fu F(A)}(S)$ returns all the elements of the set
+$S$. $\choice^{\fu F(A)}(\emptyset)$ may return a new, ``error'' element $\bot$,
+added to the carrier of $A$. Adding this element to a set, $\bot\prep^{\fu F(A)}S$ may then result in
+the empty set $\emptyset^{\fu F(A)}$ (or else, leave $S$ unchanged).
+
+Obviously, the specification $\thr{Set_\cons}$ can be naturally parameterized
+by elements, i.e., we ``extract'' from it a parameter (sub)specification. We
+obtain then $\thr P'=\pdtsp{\mu'}{\delta'}{\thr{El}_\cons}{\thr{Set[El]_\cons}}$,
+where $\thr{El_\cons}$ contains merely the sort $El$ and the global guard
+$x\prec \cons_{El}$, while $\thr{Set[El]_\cons}$ is exactly the same as
+$\thr{Set_\cons}$. $\mu'$ and $\delta'$ are identities on $\cons_{El}$. 
+
+The point is now that the composed PDT $\thr P';\thr P$ is a refinement of
+$\thr P$ according to definition~\ref{def:ref}. 
+\[\xymatrix@C=0.6cm@R=1cm{
+\Mod(\thr{El_\cons}) \ar[drr]^{\fu F'} \ar@{.>}[d] && &&
+  \Mod(\thr{Set_\cons})  \ar@{.>}[d]
+    \ar[llll]_{|_{\mu'}\ =\ \reff{Set}}  \ar@{.>}[drr]^{\fu G} \ar@{.}[dll]|{id} \\
+\Mod(\thr{El_\weak}) && \Mod(\thr{Set[El]_\cons})  \ar@{.>}[d] \ar[drr]^{\fu F} \ar[ll]_{|_{\mu'}}
+   && \Mod(\thr{Set_\weak}) && \Mod(\thr{\choice[Set]_\cons})
+   \ar@{.}[dll]|{id\ =\ \reff{\choice[Set]}} \ar[ll]_{|_{\mu}}\\ 
+&& \Mod(\thr{Set[El]_\weak}) && \Mod(\thr{\choice[Set[El]]_\cons}) \ar[ll]_{|_{\mu}}
+}
+\]
+Since $\mu'(\cons_{El})=\cons_{El}$ the  reduct $|_{\mu'}$ will
+return an $\thr{El_\cons}$-algebra (and not only an
+$\thr{El_\weak}$-algebra), so $\fu F'$ must be here persistent in the
+classical sense.
+
+Now, given $\fu F'$ and $\fu F$, the functor $\fu G$ can be trivially chosen
+to be $\fu F$, if we let $\reff{Set}$ be identity. More generally, if $\fu F'$ were such that $|_{\mu'};\fu
+F'=\fu{id}_{\thr{Set_{\cons}}}$, we will have that $\fu G=\reff{Set};\fu
+F';\fu F;\reff{\choice[Set]}=\fu F$. 
+
+However, even in such cases, the refinement consists in requiring a more
+structured data type, which consists of building first an algebra of sets
+over a given algebra of elements, and then an algebra with choice (i.e., 
+composing $\fu F';\fu F$). 
+%In this sense, it is reasonable to call $\thr P';\thr P$ a refinement of $\thr
+%P$.
+
+ Moreover, the functor $\fu F'$ will not, in general, be surjective on the
+ objects, i.e., it may choose only a subclass of all $\thr{Set[El]_\cons}$
+ algebras. In this case, the application of the composition to all models of
+ $\thr{El_\cons}$, $\fu F';\fu F(\Mod(\thr{El_\cons}))$ may result in fewer
+ $\thr{\choice[Set[El]]_\cons}$ algebras than $\fu F(\Mod(\thr{Set[El]_\cons}))$,
+ which is another reason for viewing this composition as a refinement of the
+ original PDT.
+\end{example}
+%
+There is yet another possibility of viewing the above as an example of
+refinement. Suppose that we have implemented the PDT
+$\pdtsp{\mu}{\delta}{\thr{Set_\cons}}{\thr{\choice[Set]_\cons}}$, i.e., we
+have a functor $\fu G$.  Then, having implemented also a functor $\fu F'$, we
+can compose it with $\fu G$. Since $\fu F'$ will not, typically, be
+surjective on the objects, this composition will, in general, yield a smaller
+subclass of $\Mod(\thr{\choice[Set]_\cons})$ than the image of $\fu G$.
+
+All these scenarios are different examples of a process of gradual
+refinement by introduction of additional structure into the original
+specification. If we start with a flat specification
+$\thr{\choice[Set]_\cons}$, in the first
+step we extract from it the parameter $\thr{Set_\cons}$ which prescribes a
+more specific, structured implementation. (This was the PDT {\thr{P}} with
+which we started the above example.) In the second step, we again extract
+the parameter $\thr{El_\cons}$, requiring even more structure. Viewed in this
+way, our setting gives a concrete specialization of the general concept of
+``constructor implementations'' from \cite{para1}. A more detailed study of
+the methodological possibilities offered by our PDTs is left for a future work.
+
+\section{Conclusions}\label{se:conc}
+We have presented a framework for specifying parameterized data types. The
+syntax of PDTs is defined by a series of restrictions on the
+syntax of parameterized specifications, with the additional means for indicating
+the possibility of extending the carrier of the parameter algebras as well as
+restricting the axioms of the parameter specification (to apply only  to the ``old''
+elements). 
+
+Semantics of PDTs is defined by a class of functors which satisfy a
+generalization of the classical persistency requirement -- the parameter
+has to be a (tight) subalgebra of its image under the semantic functor. This
+generalization leads to a great flexibility in specifying PDTs which was
+illustrated by a series of examples. 
+
+We have re-stated and proved the theorems of vertical and horizontal
+composition of PDTs in our setting. An important concept emerging from these
+theorems concerns refinement of PDTs. We have given a general definition of
+such a refinement which is reflected in concrete examples, primarily, as introduction of
+additional structure into the specified PDT.
+
+We view PDTs as design
+specifications which put requirements not only on the abstract (input-output)
+properties of the implementations but also on the actual structure of the
+implementation. In this way, our PDTs give a concrete realization of a more
+general concept of `constructor specifications' from \cite{para1} which has
+recently been included into CASL \cite{CASL} as `architectural
+specifications'. Indeed, the suggested refinement of PDTs can be naturally seen as an
+example of program development based on constructor specifications where
+successive stages amount to splitting the original, loose specification into
+smaller pieces, 
+according to the desired structure of the intended implementation.
+
+Although we have presented the whole setting using the institution of multialgebras, it should
+be easy to recognize the generic aspect of our definitions and
+constructions. Entirely analogous extensions can be made on the top of any
+semi-exact institution where signatures contain means of expressing predicates or
+subsorts. We see a straightforward way of doing that, for instance, for
+partial algebras or partial membership algebras. Since our constructions
+involved occasionally empty set as a default value, one might perhaps expect
+that generalization to total algebras could be more involved, but we expect
+that this, too, can be achieved.
+In any case, we suggest quite a general way of applying our setting which
+certainly is not restricted to multialgebras. It is thus a significant
+extension of similar ideas applied in \cite{paramPoigne} to 
+very specific context of order sorted algebras.
+
+A point which certainly requires a further study concerns reasoning about
+PDTs. We expect that addition of generic axiom schemata expressing closure of the
+parameter algebras (i.e., that operations applied to the ``old'' elements
+return ``old'' elements) will lead to a complete axiomatization but this issue
+needs to be investigated.
+
+On the other hand, we would like to use PDTs for study and, perhaps, design
+of more specific structuring mechanisms at the level of implementations.
+We believe that the current work can provide a useful starting point for designing more
+detailed constructs, for instance, for architectural specifications in languages like CASL.
+
+
+\bibliography{biblo}
+\bibliographystyle{plain}
+
+
+\end{document}
+
+

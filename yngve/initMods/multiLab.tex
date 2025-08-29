@@ -1,0 +1,295 @@
+\documentclass[12pt]{article}
+%\documentstyle[a4,fullpage,12pt,oldlfont]{article}
+
+%\usepackage{amssymb}
+
+\makeatletter
+\input{a4wide}
+\makeatother
+
+\input{defs}
+\input{xypic}
+\xyoption{curve}
+
+%--------------------------------------------------------------------
+
+
+\begin{document} 
+
+\hfill\today
+% 
+\section{Labeled multialgebras}
+We define labeled multialgebras $\LM\Sigma$ and a lifiting of $\MMS$ to
+$\lift\MMS\subset\LM\Sigma$. We add a model $\init_{SP}\models SP$ to
+this lifted class obtaining $\liftp{\MMS}$, and show $\init_{SP}$ to be initial
+there. $\MMS$ and $\liftp{\MMS}$ are logically indistinguishable.
+\begin{Definition}\label{de:lm}
+A labeled $\Sigma$-multialgebra $A$ is given by:
+\begin{enum}
+\item A carrier set $\car A$ with three functions:
+ \begin{enum}
+ \item\label{addB} $n:\car A\into \quot{\GTerms}\seteq \cup\{\bot\}$ %(surjective and
+							 %injective on
+							 %$\quot{\GTerms}\seteq$)
+  such that: $\forall t\in\GTerms, x\in\car A : t\in  n(x) \iff t^A=x$.
+ \item $\Le: \car A \into \PSet{\car A}$
+ \item $\Li: \car A \into \PSet{\car A}$ (reflx., transitive, i.e.,  $b\in\Li(a)\land 
+ c\in\Li(b) \impl c \in\Li(a)$)
+ \end{enum}
+with the underlying set $\under A =\{e\in \car A: e\in \Le(e)\}$.
+\item (additive) interpretation of all $f\in\Funcs: f^A:\car A\times...\times\car A\into
+\car A$
+\begin{enum}
+\item\label{addA} $\forall e \in\under A, y_i\in\car A: e \in \Li(f^A(y_i)) \iff
+\exists e_i\in\under A: e_i\in \Li(y_i)\land e \in \Li(f^A(e_i))$
+\end{enum}
+\item Given an assignment $\alpha:X\into\under A$ (!)
+\begin{enum}
+\item $A\models_\alpha s\eleq t$ iff $\alpha(s)=e = \alpha(t) \land e \in
+\Le(e)$.
+\item
+$A\models_\alpha s\incl t$ iff $\alpha(s) \in \Li(\alpha(t))$.
+\end{enum}
+\item Homomorphism 
+$\phi:A\into B$ is a function $\phi:\under A\into \under B$ such that:
+\begin{enum}
+\item\label{*} $\forall e \in \under A : e \in \Li^A(f^A(e_1...e_n))
+\impl \phi(e) \in \Li^B(f^B(\phi(e_1)...\phi(e_n)))$
+\item\label{**} $\forall t\in\GTerms, e \in\under A: t\in n(e) \impl
+t\in n(\phi(e))$.
+\end{enum}
+\item $\LM{\Sigma}$ denotes (the category of) all labeled $\Sigma$-multialgebras 
+\end{enum}
+\end{Definition}
+
+\begin{Prop}\label{cl:groundincl}
+If $\phi:A\into B$ is a homomorphism then $\forall t\in\GTerms:$
+\begin{enum}
+\item\label{grA} $\forall a\in\under A: a\in
+\Li^A(t^A) \impl \phi(a)\in\Li^B(t^B)$.
+\item\label{grB} $A\models t\eleq t \land B\models t\eleq t \impl \phi(t^A)=t^B$.
+\end{enum}
+\end{Prop}
+\begin{Proof}
+\ref{grA}. Using \refb{de:lm}.\ref{*}. If $t$ is a constant $c$, \refb{de:lm}.\ref{*} gives $a\in \Li^A(c^A) \impl
+\phi(a)\in \Li^B(c^B)$. So let $t=f(t_i)$ and by IH, for any $e_i\in\under
+A: e_i\in\Li^A(t_i^A) \impl \phi(e_i)\in \Li^B(t_i^B)$. Let $a\in\under A$ and $a\in
+\Li^A(f(t_i)^A)$; by additivity of $A$ (\refb{de:lm}.\ref{addA}), there exist $e_i\in\under A: e_i\in
+\Li^A(t_i^A)\land a \in \Li^A(f^A(e_i))$. By \refb{de:lm}.\ref{*} $\phi(a)\in
+\Li^B(f^B(\phi(e_i)))$. But by IH $\phi(e_i)\in \Li^B(t_i^B)$ and then,
+by additivity of $B$ (\refb{de:lm}.\ref{addA}), $\phi(a)\in \Li^B(f(t_i)^B)$. \\[.5ex]
+%
+\ref{grB}. %Using \refb{de:lm}.\ref{**}. 
+$t^A\in\under A$ and by \refb{de:lm}.\ref{addB} $t\in n(t^A)$. Then
+   $t\in n(\phi(t^A))$ by \refb{de:lm}.\ref{**} and, by \refb{de:lm}.\ref{addB}, $\phi(t^A)=t^B$.
+%%%Does NOT hold -- requires more in def. of homomorphism
+%%%   ($A= \<c,\{c\},\{c\}\>$ and $B=  \<c,\{c\},\{c,x\}\> ,  \<x,\{x\},\{c,x\}\>$;
+%%%   $\phi(c^A)=x\not= c^B$.)
+\end{Proof}
+
+\begin{Claim}
+1) Isos $\iso$ are bijective homs. 2) If $A\iso B$ then
+   $\forall\phi: A\models\phi\iff B\models\phi$. 
+\end{Claim}
+We won't deal
+with the whole class $\LM\Sigma$ but only a specific subclass. 
+%
+\begin{Definition}\label{de:liftA}
+For an $A\in\MM\Sigma$, define its lifting $\lift A\in \LM\Sigma$ as follows:
+\begin{enum}
+\item Carrier $\car{\lift A}$ contains all and only $\XTerms$-reachable
+subsets of $\car A$ (i.e., such $Z\subseteq \car A$ that $\exists
+t(x_1...x_n)\in\XTerms$, $\exists a_1...a_n\in\car A:
+Z=t^A(a_1...a_n)$):
+\begin{enum}
+\item\label{a} $\under{\lift A}= \car A$, %\{\l a: a\in \car{A}\}\subseteq \car{\lift A}$, 
+where each $a\in\under{\lift A}$ gets the label:\\
+ $n(a) = \left\{\begin{array}{ll} [t] & {\rm iff}\ \exists t\in\GTerms \land t^A=a,\
+ {\rm where}\
+[t]=\{s\in\GTerms: A\models s\eleq t\} \\ \bot & {\rm otherwise}
+\end{array}\right.$
+\item\label{b} $\car{\lift A}$ contains, in addition, every
+$\XTerms$-reachable set  $Z\subseteq \car A$, with the label:\\
+ $n(Z) = \left \{ \begin{array}{ll}
+ [t] & {\rm iff}\ \exists t\in\GTerms \land t^A=Z,\ {\rm where}\ [t]=\{s\in\GTerms:
+ A\models s\seteq t\} \\ \bot & {\rm otherwise}
+ \end{array} \right. $ 
+\end{enum}
+\item\label{Le} $\forall Z\in\under{\lift A}:\Le(Z) = \{Z\}$ and $\forall Y
+\in \car{\lift A}\setminus \under{\lift A} : \Le(Y)=\emptyset$
+\item\label{Li} $\forall Z\in\car{\lift A}:\Li(Z) = \{X\in \car{\lift A}: X
+\subseteq Z\}$
+\item\label{funcs} $c^{\lift A} = c^{A}$ and 
+$f^{\lift A}(Z_i) = f^A(Z_i)$
+%\l Y$ such that for some $a_i\in\car A$ and $t_i\in\XTerms:Z_i=t_i^A(a_i)$ and $Y=f^A(t_i(a_i))$.
+\end{enum}
+\end{Definition}
+\begin{Claim}
+$\lift A$ is a labeled multialgebra.
+\end{Claim}
+\begin{Proof}
+$\lift A$ is merely a complicated presentation of $A$, in particular, each
+$Z\in\car{\lift A}$ represents a unique $\XTerms$-reachable set
+$Z\subseteq\car A$. We have to verify:\\[.5ex]
+%
+\refb{de:lm}.\ref{addB}. Labeling convention is obviously respected by the construction.
+\\[.5ex]
+\refb{de:lm}.\ref{addA}. Follows trivially since $A$ was a multialgebra and
+additivity of all operations in $A$ -- $\forall e\in\car A\ \forall Y_i\subseteq\car A:
+e\in f^A(Y_i)\iff \exists y_i\in Y_i:e\in
+f^A(y_i)$ -- translates into \refb{de:lm}.\ref{addA}.
+\end{Proof}
+An assignment $\alpha:X\into \car A$ is also an assignment
+$\alpha:X\into \under{\lift A}$ and v.v. These won't be distinguished.  
+Interpretation of a term $t\in\XTerms$ under $\alpha$ is denoted
+$\alpha(t)$. From \refb{de:liftA}.\ref{funcs} we have that for
+any assignment $\alpha:X\into\car A$
+\begin{equation}
+{\alpha(t)^A}= \alpha(t)^{\lift A}. \label{eq:lili}
+\end{equation}
+\begin{Claim}\label{pr:liftA}
+For any multialgebra $A$ and formula $\phi: A\models\phi\Iff \lift A\models\phi$.
+\end{Claim}
+\begin{Proof}
+By induction on the formulae, using the construction of $\lift A$: 1) $A\models_\alpha s\eleq t \iff
+\alpha(s)=\alpha(t)=e\in\car A\iff e\in \Le^{\lift A}(e)\iff \lift A\models_\alpha
+s\eleq t$. 
+%
+2) $A\models_\alpha s\incl t \iff \alpha(s)\subseteq
+\alpha(t) \by{\refb{de:liftA}.\ref{Li}}{\impl} \alpha(s)\in
+\Li^{\lift A}(\alpha(t)) \iff \lift
+A\models_\alpha s\incl t$. This implication can be reversed by 
+(\ref{eq:lili}) and \refb{de:liftA}.\ref{Li}.
+%
+3) For non-atomic formulae, trivial induction.
+\end{Proof}
+
+\begin{Corollary}\label{Liff}
+$\MMS \models \phi \Iff \lift{\MMS}\models \phi$.
+\end{Corollary}
+
+\begin{Claim}
+The following mapping $\liftf:\MM\Sigma\into\LM\Sigma$ is a functor: 
+\begin{enum}
+\item for objects $A\in\MM\Sigma: \lift A$ is as in def.~\refb{de:liftA}.
+\item for homomorphism $\phi:A\into B : \lift\phi(a) = \phi(a)$.
+\end{enum}
+\end{Claim}
+
+
+\begin{Definition}\label{de:init}
+Let $SP$ be DET-additive and 
+$\MMS\not=\emptyset$ -- define labeled model
+$\init_{SP}$. Let $\seteq\ \subseteq \GTerms\times\GTerms$ be the congruence: 
+$s\seteq t\iff \MMS\models s\incl t \land \MMS\models t\incl
+s$. $\quot\GTerms\seteq$ will serve as both the carrier and the name space
+(elements written $[t]$). 
+\begin{enum}
+\item $\car{\init_{SP}} = \{[t]:t\in\GTerms\}$ and
+$\under{\init_{SP}}=\{[t]:\MMS\models t\eleq t\}$. We let $n([t]) = [t]$.
+\item\label{det} for each $[t]\in\under{\init_{SP}}$
+  \begin{enum}
+  \item\label{db} $\Le([t]) = \{[t]\}$
+  \item\label{dc} $\Li([t])= \{[s]: s\in\GTerms \land \MMS\models s\incl t\}$
+  \end{enum}
+\item\label{set} for all other
+$[p]\in\car{\init_{SP}}\setminus\under{\init_{SP}}$:
+  \begin{enum}
+  \item\label{sb} $\Le([p]) =\emptyset$
+  \item\label{sc} $\Li([p]) = \{[s]: s\in\GTerms \land \MMS\models s\incl t\}$
+  \end{enum}
+\item for each $t\in\GTerms: t^{\scr\init_{SP}}=[t]$, in particular,
+$f^{\scr\init_{SP}}([t_1]...[t_n]) = [f(t_1...t_n)]$.
+\end{enum}
+\end{Definition}
+%%%% will need to verify
+\begin{Claim}
+If $SP$ is DET-additive, then $\init_{SP}$ is a labeled multialgebra.
+\end{Claim}
+\begin{Prop}\label{cl:init} Let $\psi$ be arbitrary ground formula and $\phi$
+arbitrary formula:
+\begin{enum}
+\item\label{initiff}$\MMS\models\psi \Iff \init_{SP}\models\psi$ (ground).
+\item\label{initng} $\MMS\models\phi \Impl \init_{SP}\models\phi$ (arbitrary).
+\end{enum}
+\end{Prop}
+\begin{Proof}
+1. Obvious by construction: $\init_{SP}\models s\eleq t \iff
+s^{\scr\init_{SP}}= e = t^{\scr\init_{SP}} \land e\in
+\Le^{\scr\init_{SP}}(e) \iff \MMS\models s\eleq t$ by
+def.~\refb{de:init}.\ref{db}.
+$\init_{SP}\models s\incl t \iff [s]\in \Li^{\scr\init_{SP}}([t]) \iff
+\MMS\models s\incl t$ by def.~\refb{de:init}.\ref{sc}.
+And so on ... \\[.5ex]
+%
+2. If $\MMS\models\phi$ then, in particular, $\MMS\models\phi[x_i/t_i]$, where
+   $\phi[x_i/t_i]$ ranges over ground deterministic instances of $\phi$
+   (obtained by substituting ground terms $t_i$ such that $\MMS\models
+   t_i\eleq t_i$ for variables $x_i$). Conclusion follows then from \ref{initiff}.
+\end{Proof}
+%
+\begin{Example}
+For an $SP$ with $\Sigma=\<s,\{c,d,e:\into s\}\>$ and the axioms given on the
+left, $\init_{SP}$ is described on the right
+\[\begin{array}{l@{\hspace*{4em}}l}
+ \begin{array}{rcl}
+ & & c\eleq c \\ && d\eleq d \\ && c \incl e \\ c\eleq e & \impl & d\eleq e
+\end{array}
+& 
+ \begin{array}{c|c|c|l}
+\car{\init_{SP}}  &  n    & \Le   & \Li \\ \hline
+c & \{c\} & \{c\} & \{c\}  \\
+d & \{d\} & \{d\} & \{d\}  \\
+e & \{e\} & \emptyset & \{c,e\}
+\end{array}
+\end{array}
+\]
+\end{Example}
+%
+\begin{Corollary}\label{co:liftall}
+For all formulae $\phi :\liftp{\Mod{SP}}\models\phi\Iff \MMS\models \phi$.
+\end{Corollary}
+\begin{Proof} 
+$\impl$) $\liftp{\Mod{SP}}\models\phi \impl \lift{\MMS}\models\phi$. So
+ $\MMS\models\phi$, by cor. \refb{Liff}. $\Leftarrow$)
+$\MMS\models \phi \impl \lift{\MMS}\models\phi$ by cor. \refb{Liff}, while
+$\MMS\models \phi \impl \init_{SP}\models\phi$ directly from \refb{cl:init}.\ref{initng}.
+\end{Proof}
+
+\begin{Prop}
+If $SP$ is DET-additive then $\init_{SP}$ is initial in $\liftp{\MMS}$.
+\end{Prop}
+\begin{Proof}
+For any $\lift A\in\liftp{\MMS}$, the $\phi_A: \under{\init_{SP}}\into \under
+{\lift A}$ given by $\phi_A([t]) = t^{\lift A}$ is a homomorphism:
+\begin{enum}
+\item
+Since $[t]\in\under{\init_{SP}}$, we have $\MMS\models t\eleq t$ by~\refb{de:init}, in
+particular, $A\models t\eleq t$ and, by~\refb{pr:liftA}, $\lift A\models
+t\eleq t$. Thus $\phi_A:\under{\init_{SP}}\into \under {\lift A}$.
+\item
+Verify \refb{de:lm}.\ref{*}. Assume $[t],[t_i]\in\under{\init_{SP}}$ and
+$[t]\in\Li(f^{\scr\init_{SP}}([t_i]))$. By~\refb{de:init} (and~\refb{pr:liftA})
+$\lift A\models t\incl f(t_i)$. But $t^{\lift A}= \phi([t])$ and $t_i^{\lift
+A}= \phi([t_i])$ by \refb{cl:groundincl}.\ref{grB}, so $\phi([t])\in \Li(f^{\lift A}(\phi([t_i])))$. 
+\item
+Verify \refb{de:lm}.\ref{**}. By construction, $\forall t\in\GTerms, e\in
+\under{\init_{SP}}: t\in n(e) \iff e = t^{\scr\init_{SP}}$. But also
+$\phi_A([t]) = t^{\lift A}$ by \refb{cl:groundincl}.\ref{grB}, and thus $t\in
+n(\phi([t]))$ by \refb{de:lm}.\ref{addB}.
+\end{enum}
+$\phi_A$ is unique. If $\psi:\init_{SP}\into \lift A$ is a homomorphisms,
+claim~\refb{cl:groundincl}.\ref{grB} implies that $\forall [t]\in\under{\init_{SP}}:
+\psi([t]) = t^{\lift A}$. But this is exactly the definition of $\phi_A$.
+\end{Proof}
+
+%
+%\end{document}
+
+
+%\bibliographystyle{bibNo}
+%\bibliography{my}
+
+\end{document}
+
+

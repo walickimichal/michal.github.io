@@ -1,0 +1,43 @@
+\documentclass[12pt]{IIreport}
+\usepackage{a4,block}
+
+\usepackage[all]{xy}
+\usepackage{latexsym}
+\usepackage{amssymb}
+
+\input{defs}
+
+\makeatletter
+\input{a4wide}
+\makeatother
+
+\begin{document}
+\iireport{Specification of Parameterized Data Types}{Yngve Lamo\ and\  Micha{\l} Walicki}{210}{November}{2000}
+
+\title{Specification of Parameterized Data Types} 
+\author{Yngve Lamo\thanks{Email: \texttt{yngvel@ii.uib.no}} \\*[1ex] Department of
+Engineering \\ Bergen College \\  N-5020 Bergen \\ Norway
+\and Micha{\l} Walicki\thanks{Email: \texttt{michal@ii.uib.no}} \\*[1ex] Department of
+  Informatics \\ University of Bergen \\ N-5020 Bergen \\ Norway}
+
+
+\date{\today}
+\maketitle
+
+\input{pdtB} %\input{pdtBcom} - is inputed to pdtB
+             % The actual (our new) parameterization stuff
+%\input{pdtC} %structured specs -> structured algs
+
+
+\bibliography{biblo}
+\bibliographystyle{plain}
+\end{document}
+
+
+
+
+
+
+
+
+

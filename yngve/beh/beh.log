@@ -1,0 +1,155 @@
+This is TeX, Version 3.1415 (C version 6.1) (format=latex 94.6.28)  6 MAY 1999 17:20
+**&latex2e beh
+(beh.tex
+LaTeX2e <1994/06/01> patch level 2
+Hyphenation patterns for english, norsk, swedish, danish,
+german & francais loaded.
+(/local/TeX/macros/LaTeX/article.cls
+Document Class: article 1994/06/02 v1.2s Standard LaTeX document class
+(/local/TeX/macros/LaTeX/size10.clo
+File: size10.clo 1994/06/02 v1.2s Standard LaTeX file (size option)
+)
+\c@part=\count82
+\c@section=\count83
+\c@subsection=\count84
+\c@subsubsection=\count85
+\c@paragraph=\count86
+\c@subparagraph=\count87
+\c@figure=\count88
+\c@table=\count89
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (a4wide.tex) (defs.tex
+(/local/TeX/macros/AMS-LaTeX-1.2/amssymb.sty
+Package: amssymb 1995/02/01 v2.2a
+
+(/local/TeX/macros/AMS-LaTeX-1.2/amsfonts.sty
+Package: amsfonts 1995/02/01 v2.2b
+\@emptytoks=\toks15
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 128.
+))
+\c@CLAIM=\count90
+\c@ax=\count91
+\c@axA=\count92
+\c@axB=\count93
+\c@axC=\count94
+\c@axD=\count95
+\c@BIB=\count96
+)
+\c@COMMENT=\count97
+\c@CONT=\count98
+
+(/local/TeX/macros/xypic-3.5/xypic.tex (/local/TeX/macros/xypic-3.5/xyv2.tex
+(/local/TeX/macros/xypic-3.5/xy.tex Bootstrap'ing: catcodes, docmode,
+(/local/TeX/macros/xypic-3.5/xyrecat.tex)
+(/local/TeX/macros/xypic-3.5/xyidioms.tex)
+
+ Xy-pic version 3.5 <1997/05/28>
+ Copyright (c) 1991-1997 by Kristoffer H. Rose <krisrose@brics.dk>
+ Xy-pic is free software: see the User's Guide for details.
+
+Loading kernel: messages; fonts; allocations: state,
+\X@c=\dimen103
+\Y@c=\dimen104
+\U@c=\dimen105
+\D@c=\dimen106
+\L@c=\dimen107
+\R@c=\dimen108
+\Edge@c=\toks16
+\X@p=\dimen109
+\Y@p=\dimen110
+\U@p=\dimen111
+\D@p=\dimen112
+\L@p=\dimen113
+\R@p=\dimen114
+\Edge@p=\toks17
+\X@origin=\dimen115
+\Y@origin=\dimen116
+\X@xbase=\dimen117
+\Y@xbase=\dimen118
+\X@ybase=\dimen119
+\Y@ybase=\dimen120
+\X@min=\dimen121
+\Y@min=\dimen122
+\X@max=\dimen123
+\Y@max=\dimen124
+\lastobjectbox@=\box25
+\zerodotbox@=\box26
+\almostz@=\dimen125
+ direction,
+\d@X=\dimen126
+\d@Y=\dimen127
+\K@=\count99
+\KK@=\count100
+\Direction=\count101
+\K@dXdY=\dimen128
+\K@dYdX=\dimen129
+\xyread@=\read1
+\xywrite@=\write4
+\csp@=\count102
+\quotPTK@=\dimen130
+
+utility macros; pictures: \xy, positions,
+\swaptoks@@=\toks18
+\connectobjectbox@@=\box27
+ objects,
+\styletoks@=\toks19
+ decorations;
+kernel objects: directionals, circles, text; options; algorithms: directions,
+edges, connections;  Xy-pic loaded)
+ Xy-pic option: Version 2 Compatibility v.3.4
+
+Xy-pic Warning: `\stop' redefined.
+
+(/local/TeX/macros/xypic-3.5/xyframe.tex
+ Xy-pic option: Frame and Bracket extension v.3.4 loaded)
+(/local/TeX/macros/xypic-3.5/xymatrix.tex  Xy-pic option: Matrix feature v.3.4
+\Row=\count103
+\Col=\count104
+\queue@=\toks20
+\queue@@=\toks21
+\qcount@=\count105
+\qcount@@=\count106
+\matrixsize@=\count107
+
+loaded) (/local/TeX/macros/xypic-3.5/xyarrow.tex
+ Xy-pic option: Arrow and Path feature v.3.5 path, \ar, loaded) loaded))
+(beh.aux)
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 100.
+LaTeX Font Info:    ... okay on input line 100.
+LaTeX Font Info:    Try loading font information for U+msa on input line 105.
+ (/local/TeX/macros/packages/mfnfss/Umsa.fd
+File: Umsa.fd 1994/05/12 v2.2b Standard AMS font definitions
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 105.
+
+(/local/TeX/macros/packages/mfnfss/Umsb.fd
+File: Umsb.fd 1994/05/12 v2.2b Standard AMS font definitions
+) <xymatrix 5x3 222> [1
+
+] (beh.bbl)
+[2] (beh.aux) ) 
+Here is how much of TeX's memory you used:
+ 2488 strings out of 11024
+ 22689 string characters out of 74866
+ 96963 words of memory out of 262141
+ 5280 multiletter control sequences out of 9500
+ 9636 words of font info for 38 fonts, out of 100000 for 255
+ 14 hyphenation exceptions out of 607
+ 25i,13n,24p,218b,427s stack positions out of 300i,40n,60p,3000b,4000s
+
+Output written on beh.dvi (2 pages, 9036 bytes).
