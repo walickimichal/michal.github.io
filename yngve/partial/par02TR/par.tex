@@ -1,0 +1,3079 @@
+\documentclass[10pt]{article}
+\usepackage[all]{xy}
+\usepackage{latexsym}
+
+\makeatletter
+\input{a4wide}
+\makeatother
+
+\input{defs}
+
+\begin{document}
+
+\title{Modeling partiality by nondeterminism --\\ from abstract
+specifications to flexible error handling}
+\author{Yngve Lamo \and Micha{\l} Walicki}
+\date{{\small{Department of Informatics\\University of Bergen\\5020 Bergen, Norway\\$\{$yngvel,michal$\}$@ii.uib.no}}}
+\maketitle
+%{\bf Keywords:} Algebraic specification; error handling; partiality;
+%institution; nondeterminismn; 
+
+
+\abstract{The paper presents a new way to model partial operations by use of
+nondeterminism: a partial operation is modeled as a nondeterministic
+operation returning, possibly, any value of the carrier. We introduce an
+institution of multialgebras $\inst{MA}$ (modelling nondeterministic
+operations by set-valued functions) and illustrate the flexibility of our
+approach by examples showing uniform treatment of strictness, non-strictness
+and various error handling. We present a methodology for specification
+development from an abstract specification to low level error handling. We
+also study the conditions for $\inst{MA}$ specifications to ensure the
+existence of initial models. Finally we relate $\inst{MA}$ to other
+institutions, in particular, we show embedding of partial algebras and
+membership algebras into $\inst{MA}$. Applying institution transformation
+instead of embedding leads to the possibility of resuing partial algebra
+specifications in the proposed framework -- a partial algebra specification
+can be conservatively (preserving the models) imported to $\inst{MA}$ while
+the extension of the model class allows for furhter development towrds
+explicit error treatement.}
+
+
+\section{Introduction}
+The problem of partial operations is of fundamental importance in specifying
+and deriving programs. At the abstract level, one would like to be able to
+ignore many details related to the fact that some operations may happen to be
+undefined for some particular arguments. However, at the level close to
+actual implementation, it will often be mandatory to address explicitly
+possible error situations and to describe the program's behaviour in such
+situations. 
+
+In the tradition of algebraic specifications, there are two main
+approaches to describing partially defined operations: the partial algebra approach
+on the one hand \cite{burm,reichel,state}, and total algebras with explicit
+definition domains or even error elements,
+on the other. This later approach comprises manifold variations, including
+error-algebras \cite{error}, labeled algebras~\cite{label}, 
+order-sorted algebras~\cite{order1}, techniques using predicates \cite{member} or
+functions \cite{guard} to specify definition domains of operations. For a closer
+discussion of the traditional solutions see \cite{sort}.% and \cite{survey}.
+
+In
+partial algebras, an undefined term has no interpretation in the
+carrier. During the refinement process, one makes terms gradually more
+defined, by adding values for undefined terms. Terms which remain undefiend
+til the very end of the specification process are then understood as errors whose
+handling is left for the implementation. Partial algebras offer an
+abstract and user-friendly model for partiality due to strictness assumption
+which releases the specifier from the need to explicitly treat error
+situations. This, however, turns out to be a drawback when the specification
+approaches the implementation level and explicit error handling becomes
+desirable. Strictness of all operations makes explicit error handling very
+difficult, if at all possible. Possible extensions of partial algebras to
+handle this level of specification are indicated in \cite{state,lazy}. Often,
+they suggest some form of translation of a partial algebra
+specification into some total framework \cite{state}.
+
+The approaches based on total algebras explore the possibilities of explicit
+error handling, by allowing for values which can be used as error values. 
+
+The error elements solution is  to add distinct elements to the carrier which
+will be returned by partial operations. The problem with this solution is
+that operations applied to error elements need to be explicitly specified and
+thus specifications tend to include -- even at an early, abstract stage -- a
+lot of axioms for such situations.
+In order-sorted algebras, the sorts are arranged in a hierarchy of subsorts
+and domains of operations are restricted to appropriate subsorts. To some
+extent, static type checking can then take care of excluding partial
+terms. On the other hand, 
+static type checking may give unitended consequences \cite{state},
+e.g. intuitively legal terms may become ill-typed. To handle this one
+introduces the dynamical concepts
+like retracs \cite{order}. A retract is much like a
+predicate telling if some term is defined/well-typed or not.
+Finally, instead of subsorts one may use the predicates to specify the
+definition domains of operations \cite{member}. A partial term may remain underspecified by
+guarding the axioms to hold only for terms satisfying appropriate predicates.
+
+We thus have, on the one hand, an abstract framework of partial algebras and,
+on the other hand, the total algebra approaches which allow one to specify
+errors explicitly at a level closer to implementation but for the price
+ of the abstract character of partial algebras.
+We are proposing a single framework capable of addressing both these
+aspects. 
+We view undefinedness as nondeterminism -- a term whithout a
+well-defined value may result in any value. At the early stages of
+development, this nondeterminism expresses our ignorance or disinterest in
+what exactly will happen in a given -- error -- situation. At the later
+stages, such nondeterminism may be narrowed leading, eventually, to explicit
+error values. 
+
+As a model of nondeterminism, we use multialgebras \cite{calc,multi}.
+A multialgebra is an algebra where operations are set valued. A term
+interpreted by a set with more than one element is called nondeterministic:
+the set represents the set of possible results returned by various
+applications of the term. 
+The fact that an operation is well-defined is represented by this operation
+having a unique value. Such a unique value may be an intended ``proper''
+value, or else it may represent an error value after one started to introduce
+such error values explicitly into specification.
+
+The opposite, i.e., undefined situation may be represented in two ways. A
+term may denote the empty set. This turns out to be the exact analogue of
+undefinedness in partial algebras. Other operations applied to the empty set
+return empty set, and thus operations' behaviour is strict. The empty set
+result can also
+be understood as delegating further error treatement to the level of
+implementation. 
+
+On the other hand, an undefined term may denote a non-empty set of
+values. Initially, such a set may be thought of as the possibilities of later
+error recovery, or else it may model abnormal behaviour of the system. In the
+refinement process, the set may be narrowed to include only the relevant
+values to be used in error situation. However, one may also {\em force} a
+term to return a set. Such ``error sets'' will then include, on the one hand,
+some ``proper'' values to be used by other operations for the recovery
+purposes. On the other hand, the sets may contain error values functioning as
+labels and indicating particular error situation. These error values may be
+then propagated by other operations or else caught and removed -- thus we
+obtain a model of throwing and catching exceptions.
+
+We will present various scenarios for the development process. The one which
+we favour most, begins with a partial algebra specification which, however,
+in our context has a richer class of models than the standard partial algebra
+models -- it contains also models where operations are non-strict. Through a
+simple process of refinement, one can arrive at the level of explicit error
+handling, either by introducing unique error values, or else error sets which
+are amenable to further specification of errors and exceptions. 
+On the other hand, one may use the language of multialgebras to introduce
+nondeterministic constants which are essentially the same as predicates in many
+total algebra approaches. Such predicates can be used for the specification
+of domain definitions and specifications can be refined in the way standard
+total algebra specifications are. At the technical level, we show that
+institutions of partial algebras and membership alegbras can be embedded into
+the proposed institution of multialgebras, thus justifying our claims about
+both flexibility of our approach and the possiblity of reusing the existing
+specifications.
+
+%%The paper is mostly self-contained, but section~\ref{se:inst} and part of
+%%section~\ref{se:pre} assumes a basic knowledge of category theory (see
+%%e.g. \cite{cat}). Section~\ref{se:init} contains some technical lemmata that
+%%were stated and proved -- in a slightly different form -- elsevere
+%%\cite{Huss???}. The above parts are not essential for the intuitive
+%%understanding of the paper, they will only be used in technical arguments.
+%%
+In section~\ref{se:pre} we introduce some notation and give the basic
+definitions concering multialgebras, following \cite{multi}.
+Section~\ref{se:part} shows how the basic partiality problems can be
+addressed in $\inst{MA}$ -- the institution of multialgebras.  Since
+multialgebras offer a nonstrict (or rather, not necessarily strict)
+framework, we also show how to deal with strictness, if it is desirable for
+some reasons.  In section~\ref{se:meth} we present a methodology for
+developing specifications in $\inst{MA}$, illustrated by examples.
+
+The rest of the paper presents the technical results.  Section~\ref{se:inst}
+presents the background definitions of institutions \cite{inst} and their
+morphisms, and shows that multialgebras form an institution
+$\inst{MA}$. Section~\ref{se:init} studies the conditions for the existence
+of initial models in $\inst{MA}$. In section~\ref{se:partial} we compare
+$\inst{MA}$ with partial algebras $\inst{PA}$, showing, firstly, an embedding
+of institution of partial algebras $\inst{PA}$ into $\inst{MA}$. Then we show
+that a direct translation of $\inst{PA}$ specifications yields another form
+of institution morphism which also gives us the possibility to reuse such
+specifications in a later development toward explicit error handling.
+Section~\ref{se:member} shows that the membership algebras \cite{member} form
+a sublogic of multialgebras by constructing apropriate embedding
+of institutions.
+
+  
+\section{Preliminaries}\label{se:pre}
+
+\subsection{Notation}
+We use the notation $|${\cat{C}}$|$ to denote the objects of a category
+\cat{C}. The same notation is used to denote the carrier $|A|$ of an algebra
+$A$. (This shouldn't cause any confusion.)  Institutions are written with
+the script font $\inst{I}$, categories with bold $\cat{Cat}$, and functors with
+Sans Serif $\fu{Func}$.  Sequences $s_1, \ldots, s_k$ will be often denoted
+by $\overline{s}$. Application of functions are then understood to not
+distribut over the elements, i.e., $f(\ovr s)$ denotes the term
+$f(s_1,\ldots, s_k)$.  
+Occasionally, a sequence $s_1 \ldots s_k$ may be denoted by $s^*$ -- 
+applications of functions are then understood to
+distribute over the elements, i.e., $f(s^*)$ denotes the sequence
+$(f(s_1),\ldots, f(s_k))$. $f^A$ interprets the operation $f$ in the (multi)algebra $A$
+
+
+\subsection{Multialgebras}
+We will now summarize the relevant notions about multialgebras (for an
+overview, see \cite{multi,catrel}). % In the following sections, we will identify and use various
+%sub institutions of $\inst{MA}$.
+%\fixx{only sub institution?}\\
+Signatures for multialgebras are the same as classical signatures.
+%
+\begin{definition}\label{de:Sign}
+The category of signatures $\Sign$ has:
+\begin{itemize}\MyLPar
+\item signatures as objects: a signature
+$\Sigma$ is a pair of sets $(\Sorts,\Ops)$ of names of sorts and
+operations. Each operation $\omega\in\Ops$ is a (k+2)-tuple:
+$\omega : s_1 \times \cdots \times s_k \to s$,
+where {$s_1, \ldots , s_k,s \in S$ and $k \geq 0$}.  $\omega$ is the
+{\it name} of the operation and $s_1 \times \ldots \times s_k \to s$ its {\it
+arity}. If $ k=0$ then an operation $c: \to s$ is called a {\it constant} of
+sort $s$.
+\item  signature morphisms as arrows: 
+a signature morphism $\mu: \Sigma \to \Sigma'$ is a pair $\mu = (\mu_S,
+\mu_{\Omega})$ of (total) functions:
+$\mu_S: S \to S'$, $\mu_{\Omega}: \Ops \to \Ops'$, 
+such that 
+$ \mu_{\Omega}(\omega:s_1 \times \cdots \times s_n \to s) =
+\omega':\mu_S(s_1) \times \cdots \times \mu_S(s_n) \to \mu_S(s)$
+\item
+Identities are the identity
+signature morphisms; morphism are composed componentwise.
+\end{itemize}
+\end{definition}
+%
+In the standard way, 
+we extend the signature morphism $\mu : \Sigma \to \Sigma'$ to terms.
+
+Terms are defined in the usual way; ground terms are denoted by $\TermsS$ and terms over a set with variables $X$ is denoted $\TermsSX$
+\begin{definition} Extension of a
+signature morphism $\mu$ to terms ${\tilde{\mu}} : \TermsSX \to \TermsSX$ is defined by:
+\begin{itemize}\MyLPar
+\item ${\tilde{\mu}} (x_s) = x_{\mu (s)}$
+\item ${\tilde{\mu}} (c) = \mu(c)$
+\item ${\tilde{\mu}} (\omega(t_1, \ldots ,t_n )) = \mu(\omega)({\tilde{\mu}}(t_1), \ldots , {\tilde{\mu}}(t_n))$
+\end{itemize}
+\end{definition}
+%The extra subscript for variables prevents name clash. 
+We will write $\mu(t)$
+instead of ${\tilde{\mu}}(t)$.
+
+A multialgebra for a signature $\Sigma$ is an algebra where operations may be
+set-valued. ${\mathcal{P}}(y)$ denotes the powerset of set $y$.
+
+\begin{definition}\label{def:ma}
+(Multialgebra) A multialgebra $A$ for $\Sigma$ is given by:
+\begin{itemize}
+\item  a set $s^A$, the carrier set, for each sort symbol $s\in\Sorts$
+\item  a subset $ c^A \in {\mathcal{P}}(s^A)$, for each constant, $c:\to s$
+\item an operation $\omega^A : s_1^A \times \cdots \times s_k^A \to {\mathcal{P}}(s^A)$
+	for each symbol $\omega : s_1\times\cdots\times s_k \to s \in \Ops$
+\end{itemize}
+Operations are defined on sets by pointwise extension.
+\end{definition}
+One sometimes demands that constants and operations are total
+\cite{calc,toplas}, i.e. never return empty set and take values only in
+${\mathcal{P}}^+(s^A)$, the nonempty subsets of $s^A$. We will not make this
+assumption.% unless else is stated.
+
+Note that for a constant $c \in \Ops$, $c^A$ denotes a (sub)set of the
+carrier $s^A$. This will allow us to use constants  as predicates. 
+
+As homomorphisms of multialgebras, we will use weak homomorphisms (see
+\cite{catrel} for alternative notions).
+\begin{definition}Given two multialgebras $A$ and $B$, 
+a function $h: |A| \to |B|$ is a (weak) homomorphism if:
+\begin{enumerate}
+\item $h(c^A) \subseteq c^B$, for each constant $c: \to s$ 
+\item $h(\omega^A(a_1, \ldots ,a_n)) \subseteq\omega^B(h(a_1), \ldots ,h(a_n))$,
+for each operation  $\omega:s_1\times\cdots\times s_n\to s\in\Ops$ and for all $a_i \in s_{i}^A$.
+\end{enumerate}
+\end{definition}
+Saying ``homomorphism'' we will always mean weak homomorphism, unless
+something else is stated.
+
+\begin{definition} 
+The category of $\Sigma$-multialgebras, $\MAS$, has $\Sigma$-multialgebras as
+objects and homomorphisms as arrows.  The identity arrows are the identity
+homomorphisms and composition of arrows is obvious composition of
+homomorphisms.
+\end{definition} 
+Multialgebraic specifications are written using the following formulae:
+%
+\begin{definition}
+Formulae of multialgebraic specifications are of the following forms:
+%{\bf{Atomic formula}}:
+\begin{enumerate}\MyLPar
+\item Atomic formulae:
+\begin{itemize}\MyLPar
+\item $t \eleq  t'$ (equality), $t$ and $t'$ denote the same one-element set.
+\item $t \prec t'$ (inclusion), the set interpreting $t$ is included in
+the set interpreting $t'$.
+\end{itemize}
+\item $a_1, \ldots ,a_n \To b_1, \ldots ,b_m$, where either $n>0$ or $m>0$ and
+each $a_i$ and $b_j$ is atomic.
+\end{enumerate}
+%The first two are called atomic formulae.
+\end{definition}
+%
+Given a set of variables $X$, an assignment is a function $\alpha: X \to |A|$ 
+assigning {\em individual} elements of the carrier of $A$ to variables. It induces a unique
+interpretation $\overline{\alpha}: T(\Sigma(X)) \to A$ of every term $t$
+(with variables from $X$) in
+$A$.
+\begin{definition} Given a $\Sigma$-multialgebra $A$, an {\it assignment} to 
+variables $X$ is a function $\alpha:X \to |A|$. An assignment induces a
+unique interpretation $\overline{\alpha}(t)$ in $A$ of any term $t$ as
+follows:
+\begin{itemize}\MyLPar
+\item $\ovr\alpha(x)=\{\alpha(x)\}$
+\item $\ovr\alpha(c)=c^A$
+\item $\ovr\alpha(\omega(t_1, \ldots ,t_n)) = \bigcup_{a_{i}\in\ovr\alpha(t_{i})}\omega^A(a_1, \ldots ,a_n)$
+\end{itemize}
+\end{definition}
+Keep in mind that variables are assigned not sets but individual
+elements of the carrier. 
+We will write $\alpha(t)$ instead of $\ovr\alpha(t)$.
+ 
+Satisfaction of formulae in a multialgebra is defined as follows:
+\begin{definition}\label{de:sat}
+Given an assignment $\alpha:X\to|A|$:
+\begin{enumerate}
+\item $A \models_\alpha t \eleq  t'\ {\rm iff\ } \ovr{\alpha}(t)
+=\overline{\alpha}(t') = \{e\},\ {\rm fore\ some\ } e \in |A|$
+\item $A \models_\alpha t \prec t'\ {\rm iff\ } \ovr{\alpha}(t) \subseteq \overline{\alpha}(t')$
+\item $ A \models_\alpha a_1, \ldots ,a_n \To b_1, \ldots ,b_m\ {\rm iff\ }
+\exists i: 1 \leq i \leq n : A \not\models_\alpha a_i\ {\rm or\ } \exists j: 1 \leq j \leq m : A \models_\alpha b_j$
+\item $A \models \varphi\ {\rm iff\ } A \models_\alpha \varphi\ {\rm for\ all\ } \alpha$
+\end{enumerate}
+\end{definition}
+%
+Putting these definitions together, the multialgebras form an institution
+$\inst{MA}$. Its formal definition and the proof of the fact that it is an
+institution are postponed to  section~\ref{se:inst}.
+We also recall that there exist sound and complete calculii for
+multialgebraic specifications: for multialgebras without operations returning
+empty set \cite{toplas,calc}, and for the ones admitting empty result sets
+(like in \ref{def:ma} above) \cite{BK}.
+
+
+%\setcounter{section}{2}
+\section{Partiality handling with multialgebras}
+\label{se:part} % var \label{se:ma}
+
+The straightforward way to model partiality in a multialgebra $A$ is to let
+an operation undefined on some arguments, $\omega^A(a_1, \ldots ,a_n)$, be
+represented by a multi-function returning the empty set when applied to these
+arguments, $\omega^A(a_1, \ldots ,a_n)=\emptyset$. This was done, for instance,
+in
+\cite{catrel} where one showed that modeled this way, partial algebras form a
+full subcategory of multialgebras.  Classical partial algebras (or the above
+way of representing them in multialgebras) offer a high level abstraction
+mechanism. In particular, the underlying strictness assumption releases one
+from detailed treatment of various error situations. On the other hand,
+however, there are non-strict operations (like $if\_then\_else$) which then
+require special treatment \cite{lazy,state}. 
+More generally, the abstract
+character of partial algebra formalism does not handle the problems
+encountered when the specification approaches the implementation level and
+where explicit error handling may be desirable. At this stage, one will
+typically recommend a ``totalisation'' of a partial algebra specification \cite{state}.  Most, if not
+all, total algebra approaches to partiality introduce some form of error
+elements or predicates, allowing explicit error handling.
+% Although less abstract
+
+It is our contention that multialgebras can provide a framework unifying
+these two extremes in a single formalism.  As indicated in the introduction,
+besides the above solution (where partial operation returns empty set), we
+have the possibility to model a partial operation by proper
+nondeterminism. Thus an undefined $\omega^A(a_1, \ldots ,a_n)$ may return
+various results, potentially, any available element of the carrier. At the
+very beginning of specification process, this nondeterminism may represent
+our complete ignorance and disinterest in what particularly will happen when
+error situation occur. Later it may be used to represent all potential error
+elements without discriminating against any one. Finally, it may also capture
+possible "totalisation" when, at a later stage, one refines the earlier
+specification by choosing a particular (error or not) value to be returned in
+an error situation.
+
+\subsection{Definedness and Undefinedness}
+
+\subsubsection{Definedness}
+As noted above, definedness is the same as determinism in our setting. To
+specify definedness we use element equalities. The axiom $t \eleq t$ holds
+only when $t$ is defined i.e. when $t$ is deterministic. Likewise the
+axiom $t \eleq t'$ specifies both terms $t$ and $t'$ to be equal and
+deterministic, i.e., defined. Specially,
+the axiom $f(\overline{x}) \eleq f(\overline{x})$ specifies the operation
+$f$ to be defined (deterministic) on all arguments. Thus, since operations may be
+nondeterministic, to make an ordinary
+total specification in $\inst{MA}$ one has to add this type of axioms for
+every constant and operation.
+
+\begin{example}\label{ex:A}
+Here is a simple example of a specification of the natural
+numbers, with successor and predecessor, using multialgebras:
+ \[ \begin{array}{r@{\hspace*{1em}}llll}
+ \mbox{\bf spec\ Nat} =\ \ \\
+	\Sorts:	&& Nat \\			
+	\Ops: 	&& zero: \to Nat\\
+		&& succ: Nat \to Nat\\
+		&& pred: Nat \to Nat\\	
+	{\bf axioms}: 	
+		&1.& zero \eleq  zero \\
+		&2.& succ(x) \eleq succ(x) \\
+		&3.& pred(succ(x)) \eleq  x 
+\end{array} \] 
+This specification will have all the expected classical (total, as well as
+partial algebras) among its models.  The first two axioms make $zero$ and
+$succ$ deterministic operations. The last one ensures that $pred$ is
+deterministic and returns $x$ when applied to $succ(x)$. 
+
+However,
+$pred(zero)$ remains unspecified. In the traditional setting, this amounts to
+underspecification. So does it here, only that here it opens the possibility
+for this term to be nondeterministic. $pred(zero)$ may return anything.
+Consequently, although $succ(x)$
+will always return a unique value, $succ(pred(0))$
+will be, in general,  nondeterministic since it denotes all the
+values returned by $succ(y)$ where $y$ is returned by $pred(0)$. 
+
+Note that in this
+specification  the $succ$ is always defined as a consequence of axiom 2.
+\end{example}
+%
+In the sequel we will sometimes use {\bf det} as an abbreviation to specify
+that operations is deterministic; then axioms 1. and 2. above will be
+abbreviated as ${\bf det}\ zero, succ$.
+
+\subsubsection{Undefinedness}
+Since element equality, $\eleq$, holds only if both
+sides of the equality sign denote same element, we have two possible
+situations for this equality to fail -- (at least) one side may be a set with
+more than one element or else it may be the empty set. We interpret these two
+possibilities as two types of undefinedness in
+multialgebras: nondeterminism and partiality.
+
+%%To avoid partiality we may force a term to be deterministic (as we did in the example
+%%above), or else to  specify a deterministic term to be
+%%included in the term. In the latter case, for a term $t$ we add two axioms of the form $t'
+%%\eleq t'$ and $t' \prec t$. Then $t$ still may be nondeterministic.  
+
+Partiality corresponding to empty result set leads to strictness: if a term
+$t$ denotes an empty set, any operation applied to it will also yield empty set.
+In fact, such partiality
+can be forced by the specification by adding a negated axiom -- `$x\prec
+t\To$' requires that no $x$ be included in $t$. In terms of program development,
+we may interpret such axioms as requirements to handle the respective 
+situation, caused by $t$, at the implementation level. It
+excludes any further possibility of a more refined treatement of
+this situation at the specification level. 
+
+Undefinedness represented by nondeterminism, e.g., by an axiom `$t\eleq
+t\To$', on the other hand, allows
+further refinement and will be the main issue in the following. 
+ Delegation of
+the responsibility for error treatement to implementation may occur at the
+very last steps of specification.
+
+Using element equality $\eleq$ we can 
+only force a term to contain exactly one value. Thus, the intuition behind our element equality
+$\eleq$ corresponds exactly to the existential equality $\eeq$ from partial
+algebras: forcing a term to have a uniquely defined value.
+The difference concerns the negation: if existential equation $t\eeq t$
+fails, the term $t$ is undefined and other operations are strict; if the
+element equality $t\eleq t$ fails, the term $t$ may be undefined in the sense
+of being empty set (leading to strictness of other operations), or else it
+may be a non-empty set. The choice between these two possibilities is left
+for the specifier.
+
+Unless stated otherwise, we will in the sequel mean by ``undefinedness'' proper
+nondeterminism and by ``partiality'' empty result set.
+
+\subsection{Predicates, order-sortedness and strictness}
+In the most abstract way one may say that an operation $f$ is strict in an
+argument if, whenever this argument is undefined, then so is the result of
+the operation. This is how it is viewed in partial algebras. However, when
+undefinedness is described more explicitly, typically by an explicit
+indication of the definition domain, then this needs a
+reformulation: whenever the  argument falls outside  the definition
+domain, then so does the result of the operation. Here ``definition domain''
+is understood simply as a set of designated elements of the carrier
+considered as well-defined. Even more specific notion is obtained when 
+each operation obtains a specific definition domain. Then strictness means:
+when the argument of the operation comes from outside of the operation's definition
+domain, then the result is undefined.
+
+
+As noted in the introduction multialgebras offer a non-strict
+framework. Although we believe this to be its advantage, we will now make some
+remarks on how also  strict operations can be specified in this framework.
+
+
+\subsubsection{Non-strictness and non-injectivity}
+
+We now start
+with an example of a non-strict function and then proceed to a more detailed treatment of
+explicit definition domains.
+
+\begin{example}\label{ex:B}
+Let us extend the
+specification from example~\ref{ex:A} as follows:
+
+\[ \begin{array}{l}\begin{array}{r@{\hspace*{1em}}rlll}
+\tit{\mbox{\bf spec\ Nat1} =\ \ }\\
+	\Sorts:	&& Nat \\			
+	\Ops: 	&& zero: \to  Nat\\
+        	&& succ: Nat \to Nat\\
+		&& pred:  Nat  \to Nat\\	
+		&& f: Nat  \to Nat \\
+
+	{\bf det}:
+		&& zero, succ \\
+	{\bf axioms}:	
+		&1.& pred(succ(x))  \eleq  x \\
+                &2.& f(x)  \eleq  succ(zero)
+\end{array}
+\end{array} \] 
+The last axiom makes $f$ non-strict - and non-injective. No matter what
+argument or set of arguments it receives, its result will always be
+$succ(zero)$.
+\end{example}
+%
+All operations are strict on the partial terms -- applied to empty set, they
+return empty set.
+Unless some axioms of the form 2. are given
+for some operation, the operation will be allowed to be strict also with
+respect to nondeterministic undefinedness: applied to an
+error  (nondeterministic term) it will, in some models, result in error
+(nondeterminate result). 
+
+In other models, however, it may be non-strict in that it returns unique
+result on undefined (nondeterministic) arguments.  We think that this
+generosity is a virtue rather than a sign of indefinite abstractness. One
+should not be forced to make this kinds of decisions at an early stage of
+development -- forcing strictness  damages the possibility for later error
+recovery, as error recovery is non strict by nature.
+
+
+\subsubsection{Definedness predicates}\label{subsub:dp}
+Since  nondeterministic constants denote a set, we  can use them as
+predicates. For instance, we can  add definedness 
+predicates (constants) to each sort, e.g. $\ok{Nat}:\to Nat$. 
+This gives a possibility to write axioms like
+$succ(x) \prec \ok{Nat}$ with the intended meaning as $succ(x) \eleq
+succ(x)$. This meaning, however,  remains merely ``intended'' since the
+constant $\ok{Nat}$  functions merely as a label unless the range of its
+elements is explicitly specified.
+
+The use of definedness predicates implies closer classification of the
+elements of the carrier,  so it is less abstract than the mere use of
+elements equalities.
+
+
+\begin{example}\label{ex:AB}
+This following intends to use definedness predicates to make ``the same''
+specification of the natural numbers, with successor and predecessor, as
+example~\ref{ex:A}.
+ \[ \begin{array}{r@{\hspace*{1em}}llll}
+ \mbox{\bf spec\ Nat2} =\ \ \\
+	\Sorts:	
+		&& Nat \\			
+	\Ops: 	
+		&& zero: \to Nat\\
+		&& succ: Nat \to Nat\\
+		&& pred: Nat \to Nat\\	
+		&& \ok{Nat} \to Nat\\
+	{\bf det}:
+		&& zero, succ \\
+	{\bf axioms}:
+		&1.& zero \prec \ok{Nat}\\
+		&2.& x\prec \ok{Nat} \To succ(x) \prec \ok{Nat} \\
+		&3.& x \prec \ok{Nat} \To  pred(succ(x)) \eleq  x\\
+		&4.& succ(x) \prec \ok{Nat} \To x \prec \ok{Nat} \\
+		&5.& pred(succ(x)) \eleq  x \To x \prec \ok{Nat} 
+\end{array} \] 
+The constant $\ok{Nat}$ is intended to comprise all ``defined'' values of
+sort $Nat$. The first two axioms specify its minimal range. Axiom 3. needs
+then a guard, since we do not know what may happen when operations are
+applied to elements outside $\ok{Nat}$.
+
+Axiom 4. makes $succ$ strict in the more specific sense than mere
+preservation of nondeterminism: when its argument
+falls outside $\ok{Nat}$, so does its result. Similar effect is achieved for
+$pred$ by axiom 5.
+\end{example}
+
+\subsubsection{Order-sorting and predicates}
+The previous example illustrated the possibility to identify a subset of the
+carrier as a set of ``defined'' elements. 
+A more detailed treatment of undefinedness is achieved by
+an explicit introduction of predicates identifying definition domains for various operations.
+
+\begin{example}\label{ex:CA}
+We extend the specification from example~\ref{ex:A} with a new constants
+representing subsort pos of $Nat$.
+
+\[ \spec{
+ \tit{\mbox{\bf spec\ Nat3} =} \\
+	\Sorts:	
+		&& Nat \\
+	\Ops:
+		&& zero: \to Nat\\
+		&& succ: Nat \to Nat\\
+		&& pred: Nat \to Nat\\	
+ 		&& pos: \to Nat\\ 
+	{\bf det}:
+		&& zero, succ \\
+	{\bf axioms}: 	
+		&1.& succ(zero) \prec pos \\
+		&2.& x\prec pos \To succ(x)\prec pos \\
+		&3.& zero \prec pos \To \\
+		&4.& x\prec pos \To pred(x)\eleq pred(x) \\
+        	&5.& pred(succ(x)) \eleq x 
+}\] 
+We have here a more detailed description of definition domain for pred: the
+	first two axioms include there all positive numbers and the third one
+	excludes from it zero.
+Then, according to axiom 4., if the argument of $pred$ comes from its definition
+domain $pos$, then the result is defined in the sense that it is
+deterministic. 
+
+A more detailed notion of strictness than in example~\ref{ex:AB} follows now from
+this more detailed specification of the definition domain pos.
+The above
+specification is consistent with the axiom
+\[ 6.\ \ \To pred(x)\eleq errorNat, x\prec pos \]
+i.e., the requirement that the
+result of $pred(x)\eleq errorNat$ for some new (error) constant, when applied
+to an $x\not\prec pos$ (i.e., an $x\not\in pos$).
+
+Alternative axiom
+\[ 6'.\ \ pred(x)\eleq pred(x) \To x\prec pos \]
+would make $pred$ strict with respect to pos: 
+ if the argument does not belong to the domain $pos$,
+then the result is undefined.
+\end{example}
+%
+If this example reminds you of order-sorted algebras \cite{oxford}, then it was also our
+intention. Recasting
+order-sorted formalism within the present framework should be a simple
+exercise. The additional power can be used, for example, to specify exactly
+the relations between subsorts (similarly to axiom 3.) Notice also, that we
+don't run into the known problem with typing intuitively correct terms:
+$pred(pred(succ(succ(zero))))$ is a correct term. The role played by retracts in
+order-sorted approach is here overtaken by the proof obligation: to decide
+that it is defined, one has to show that
+the argument $pred(succ(succ(zero)))$ actually yields something belonging to $pos$.
+
+Definedness predicates from example \ref{ex:AB} in \ref{subsub:dp} and
+subsorts from the above example \ref{ex:CA} reflect only methodological
+aspects - formally they are just constants in the specifcation. A particular
+consequence of this is that they can be introduced in arbitrary order during
+development, and their relations can be specified quite tightly. For
+instance, one will typically introduce first definedness predicates, like
+$\ok{Nat}$ and later subsorts, like $pos$, for a tighter specification of
+definition domains. Extending axioms 1.-3. from example~\ref{ex:AB} with
+axioms 1.-2. from example~\ref{ex:CA} and adding the axiom
+\[x\prec \ok{Nat}\To x\eleq zero, x\prec pos\]
+will enforce the expected relation between the three constants in every
+model $A$, namely$: \ok{Nat}^A=\{zero^A\}\cup pos^A$ and $zero^A\not\in pos^A$.
+
+\subsubsection{Strictness}
+The axioms 4. in example~\ref{ex:AB} and 6. in example~\ref{ex:CA}
+exemplify the general way of enforcing strictness of
+required operations.
+
+\begin{schem}\label{sch:strictB}
+Enforcing strictness:
+\begin{enumerate}\MyLPar
+	\item partial function $f: s_1 \times \cdots \times s_n \to s$ 
+	\item definedness constant for each argument $1\leq i\leq n$ (relative to the function):
+	      $\ok{f_{s_i}}: \to s_i$
+%	      $\ok{f_{s_1}}: \to s_1,..,\ok{f{s_n}}: \to s_n$ 
+	\item value sort function definedness constant: $\ok{f_s}: \to s$ 
+	\item strictness axioms: $f(x_1, \ldots ,x_n) \prec \ok{f_s} \To
+	x_i \prec {\ok{f{s_i}}}$, for each argument $x_i$ in which $f$ is to be strict.
+\end{enumerate}
+\end{schem}
+If no definition domains are specified but one merely has the
+definedness constants for the subsets of the well-defined elements of each
+sort (like $\ok{Nat}$), these later constants will be used instead. In
+particular, the value sort definedness constant 3. will, typically, be of this kind.
+
+This solution works in many cases but is not fully general. A function with
+two (or more arguments), $f:s_1\times s_2\to s$ may have a definition domain
+which cannot be described as a product of some subsets of $s_1$ and
+$s_2$. (E.g. $f(1,2)$ and $f(2,3)$ may be defined while $f(1,3)$ is
+undefined.)
+In such cases, one needs a more general technique, similar to that
+used in  guarded algebras \cite{guard}. It introduces, for each partial
+function $f$, an explicit definition domain function $dom_f$ as follows:
+%
+\begin{schem}\label{sch:strict}
+General way of enforcing strictness:
+\begin{enumerate}\MyLPar
+	\item partial function $f: s_1 \times \cdots \times s_n \to s$ 
+	\item definition domain function: ${dom}_f:s_1, \ldots , s_n \to s$ 
+	\item value sort definedness constant: $\ok s: \to s$ 
+	\item definedness axiom: $dom_f(x_1, \ldots ,x_n) \prec \ok s \To
+	f(x_1, \ldots ,x_n) \prec \ok s$.	
+\end{enumerate}
+\end{schem}
+%
+It seems like we have added a lot of constants and functions to treat strictness. Indeed,
+we have. To defend this wastage of ink we can say two things. Firstly, 
+the above schemata can be added purely mechanically having a mere indication of
+a function being strict in some arguments. More importantly, one of the schemata is
+used only when a function is to be strict. We believe that, in practice, most
+functions are not or, in any case, should not be. Eventually, one wants to
+describe explicitly error handling. For this purpose, we find it more natural
+to allow the operations to be, by default, non-strict. And in such a case, our formalism
+does not force one to do any additional specification work.
+
+\subsubsection{Specifying evaluation strategies}\label{sub:eva}
+In our setting, strictness is specified using explicit constants for
+definition domains. We finish this section by giving a few simple examples of
+specifying various evaluation strategies for boolean operations.
+
+\begin{example}
+Basic specification of booleans.
+\[ \spec{
+	\tit{\mbox {\bf spec\ Bool}^{\inst{MA}}=} \\	
+	\tit{\mbox{\bf include:\ Nat}}\\
+	\Sorts:
+		&& Bool\\
+	\Ops:	&& \ok{Bool} \to Bool\\
+		&& true: \to Bool\\
+		&& false: \to Bool\\
+		&& not: Bool \to Bool\\
+		&& \band: Bool \times Bool \to Bool \\
+		&& \ite{_{-}}{_{-}}{_{-}}:Bool \times Nat \times Nat \to Nat\\
+	{\bf axioms:}
+		&&{\bf det:} not,true,false\\
+		&& true \prec \ok{Bool}\\
+		&& false \prec \ok{Bool}\\
+		&& not(true) \eleq false\\
+		&& not(false) \eleq true\\
+		&& (\ite{true}{x}{y}) \eleq x\\
+		&& (\ite{false}{x}{y}) \eleq y\\
+}\]
+Adding axiom `$x\prec \ok{Bool}\To x\eleq true, x\eleq false$' would make
+	$true$ and $false$ the only defined boolean values in all models. In
+	the above specification, the same will be the case in the initial
+	model.
+The operation $\ite{_{-}}{_{-}}{_{-}}$ is non-strict in the second and third
+argument.
+\end{example}
+
+\begin{example}
+Strict evaluation of $\band$ operation.
+\[ \spec{
+	\tit{\mbox {\bf spec\ StrictBool}^{\inst{MA}}=} \\	
+	\tit{\mbox{\bf enrich:\  Bool\ by:}}\\
+	{\bf axioms:}
+		&a.& x \prec \ok{Bool} \To x \band true \eleq x\\
+		&b.& x \prec \ok{Bool} \To x \band false \eleq false\\
+		&c.& y \prec \ok{Bool} \To true \band y \eleq y\\
+		&d.& y \prec \ok{Bool} \To false \band y \eleq false\\
+}\]
+Note that $\band$ is underspecified outside $\ok{Bool}$. The axioms b. and
+d. force $and$ to have the expected result when the arguments come from
+	$\ok{Bool}$ but do not exclude the possibility that this happens also
+	when they do not. 
+Strictness -- in the sense that the result of $\band$ is included in
+$\ok{Bool}$ only if the arguments are -- is obtained by adding two
+	furhter axioms:
+\[\spec{
+		&e.& x \band y \prec \ok{Bool} \To x \prec \ok{Bool}\\
+		&f.& x \band y \prec \ok{Bool} \To y \prec \ok{Bool}
+}
+\]
+\end{example}
+%{\bf Skal vi legge til axiom type $x \band y \eleq x \band y \To x \band y \prec \ok{Bool}$??}
+
+\begin{example}
+Left to right evaluation of $\band$:
+\[ \spec{
+	\tit{\mbox {\bf spec\ LtoRBool}^{\inst{MA}}=} \\	
+	\tit{\mbox{\bf enrich:\  Bool\ by:}}\\
+	{\bf axioms:}
+		&a.& true \band y \eleq y\\	
+		&b.& false \band y \eleq false \\
+}\]
+This evaluation may be non-strict in the first argument (it is here
+	underspecified for first argument from outside of $\ok{Bool}$).
+Left to right evaluation, strict in the the first argument, is obtained by
+	adding the axiom:
+\[\spec{
+		&c.& x\band y \prec \ok{Bool} \To x \prec \ok{Bool}
+}
+\]
+\end{example}
+
+		
+\begin{example}
+Possibly non-strict parallel evaluation.
+\[ \spec{
+	\tit{\mbox {\bf spec\ NSPBool}^{\inst{MA}}=} \\	
+	\tit{\mbox{\bf extend:\  Bool\ by:}}\\
+	{\bf axioms:}
+		&a.& true\band y \eleq y \\
+		&b.& false\band y \eleq false \\
+		&c.& x \band true \eleq x \\
+		&d.& x\band false \eleq false \\
+}\]
+\end{example}
+%
+We have merely indicated the possibilities of obtaining non-stric evaluations. Possible
+errors and error recovery are left for a more detailed specification of the
+possible values outside $\ok{Bool}$.
+
+
+\section{Developing specifications in $\inst{MA}$}
+\label{se:meth}
+We illustrate the possibilities of development in $\inst{MA}$
+from abstract specifications analogous to partial-algebra specifications,
+through a series of refinement steps, to specifications with explicit error
+handling. At the intial, most abstract level, error situations are not
+addressed at all. Operations known to be total are specified as
+deterministic, while others remain underspecified which allows, in
+particular, for their nondeterministic interpretation. At the next stage,
+error situations are identified and we indicate several possible ways to do
+that. Then one can begin explict error handling, first by specifying the
+behaviour of other operations in error situations and, eventually, by
+introducing explicit error values. A great flexibility of error treatement is
+offered enabling one to introduce error values, exceptions and various ways
+of reacting to them.
+It is to be remarked that the whole
+process involves merely a gradual refinement of initial specification by
+extending its signature and the set of axioms.
+
+Subsection \ref{sub:ex} gives a simple example and discusses various
+alternatives and subsection \ref{sec:meto} summarizes the methodological
+observations.
+
+\subsection{An example}\label{sub:ex}
+As an example of the possibilities offered by multialgebras, we discuss
+various ways of developing a specification of stacks of natural numbers. The
+process starts from an abstract specification quite similar to partial
+algebra specification and ends with a specification with explicit error treatement.
+
+\subsubsection{Initial specification}\label{subsub:pa1}
+We start with a standard development of specification not addressing any
+error situations explicitly.
+\[ \spec{
+	\tit{\mbox{\bf spec\ Stack}^{\inst{MA}}=} \\
+		{\bf include}
+			&& {\bf Nat}\\
+		\Sorts: && Stack\\
+		\Ops:   && empty: \to Stack\\
+			&& top:Stack \to Nat\\
+			&& pop:Stack \to Stack\\
+			&& push:Nat \times Stack \to Stack\\
+		{\bf det:} && empty \\
+		{\bf axioms:}			
+			&1.& push(x,s) \eleq push(x,s) \To top(push(x,s)) \eleq x\\
+			&2.& push(x,s) \eleq push(x,s) \To pop(push(x,s)) \eleq s
+}
+\]
+At this abstract level, only $empty$ is explicitly specified to be
+deterministic.  Axioms 1. and 2. are the ``usual'' stack axioms,
+guarded to yield well-defined (deterministic) results only on
+arguments which are well-defined (deterministic).
+This is the way we will do it in general -- the outermost operation in a
+composition of functions will be guarded by a deterministic assertion. The
+way axiom 2. should be understood is: if a stack $s'$ is constructed from $push(x,s)$
+and $s'$ is defined, then  $pop(s')$ is defined and equal to $s$.
+Note that since variables only range over individual elements, we need no
+additional guards of the form $s\eleq s$. Also, 
+the models for the specification may display flexible behaviour on nondeterministic values
+resulting from $push$. 
+
+Notice
+that this  specification is essentially the same as a partial
+algebra specification -- just replace the sign $\eleq$ by $\eeq$. The
+possibility to reuse partial algebra specifications in our framework is
+discussed in section~\ref{se:partial}.
+
+\subsubsection{Error situations}\label{subsub:er2}
+Error situations may be identified and marked by appropriate error constants:
+\vspace*{1ex}
+
+%\hspace*{1.2em}
+\(
+1. \spec{	\tit{\mbox{\bf spec\ ErrStack1}^{\inst{MA}}=} \\
+	\tit{\mbox{\bf enrich\ Stack\  by:}} \\
+	    	\Ops:	&& errStack: \to Stack\\
+		        && errNat: \to Nat \\
+	 	{\bf axioms:}
+			&1.& pop(empty) \prec errStack\\
+			&2.& top(empty) \prec errNat
+}
+\) 
+
+\noindent
+Such error constants do not have any
+direct influence on the semantics; they function mainly as labels visualizing
+the special situations:
+$pop(empty)$ may still be deterministic or not -- it has only been marked as a
+special term ``of type'' $errStack$. 
+
+Instead of introducing explicit error constants, one may indicate error
+situations by forcing respective terms to be nondeterministic:
+\vspace*{1ex}
+
+\(
+2. \spec{	\tit{\mbox{\bf spec\ ErrStack2}^{\inst{MA}}=} \\
+	\tit{\mbox{\bf enrich\ Stack\  by:}} \\
+	 	{\bf axioms:}
+			&1.& pop(empty) \eleq pop(empty) \To\\
+			&2.& top(empty) \eleq top(empty) \To
+}
+\)  
+
+\noindent
+The inequalities ensure that the error terms cannot be interpreted as
+individual elements of the carrier. They must be sets -- possibly empty. The
+associated logic prevents then one from substituting such terms for
+variables. This solution precludes later treatement of particular error
+situations by means of deterministic error constants.  Nevertheless, we will
+illustrate the flexibility offered by modelling errors by
+sets.\footnote{Notice that here we are interpreting the result {\em set} not
+as a nondeterminisitc result but as an actual union of the elements of the
+set. Every refinement of this specification -- eventually, also the
+implementation -- must conform to this. The only difference between further
+specification refinement and eventual implementation is that the former may
+further restric the range of the respective sets, while the latter may
+interpret elements of the set as ``simultaneously present'', e.g., as a
+recovery value and an error label/message. This point is illustrated further
+in \ref{subsub:er4}.}
+
+Finally, one can follow the order-sorted approach by introducing constants for
+appropriate subsorts:
+\vspace*{1ex}
+
+\( 
+3. \spec{
+	\tit{\mbox{\bf spec\ OsStack}^{\inst{MA}}=} \\
+	\tit{\mbox{\bf enrich\ Stack\  by:}} \\
+	    	\Ops:	&& nonempty: \to Stack\\
+	 	{\bf axioms:}
+			&1.& s \prec nonempty \To top(s) \eleq top(s)\\
+			&2.& s \prec nonempty \To pop(s) \eleq pop(s)\\
+			&3.& empty \prec nonempty \To	\\
+			&4.& push(x,s)\eleq push(x,s) \To push(x,s)\prec nonempty
+}
+\)
+
+\noindent
+The new constant $nonempty$ is used here as a subsort of non-empty stacks (by
+axiom 3. $empty$ does not belong to this subsort) for
+which $pop$ and $top$ are defined. Note that adding ``strictness' axioms like:
+$pop(s)\eleq pop(s)\To s\prec nonempty$, would preclude the possibility of
+deterministic error recovery at a later stage -- the axiom requires the result
+of $pop(empty)$ to be nondeterministic (cf. {\bf ErrStack2} above).
+
+The order-sorted approach may be naturally combined with the explicit error
+constants, e.g., this specification may extend {\bf ErrStack1}.
+
+
+\subsubsection{Behaviour on errors}\label{subsub:er3}
+Error constants, like those introduced in {\bf ErrStack1}, may be used for a
+uniform treatement of all errors which they include: \vspace*{1ex}
+
+%\hspace*{1.2em}
+\(
+1. \spec{	\tit{\mbox{\bf spec\ ErrStack1a}^{\inst{MA}}=} \\
+	\tit{\mbox{\bf enrich\ ErrStack1\  by:}} \\
+	 	{\bf axioms:}
+			&1.& pop(push(x,errStack))\eleq empty \\
+			&2.& top(push(x,errStack))\eleq x \\
+			&3.& pop(push(errNat,s))\prec pop(s), s\prec errStack \\
+			&4.& top(push(errNat,s))\prec top(s), s\prec errStack 
+}
+\) %\vspace*{1ex}
+
+\noindent
+In the first two axioms, the prescribed results are always well-defined. If
+the first argument happens to be $errNat$, axiom 1. will give $empty$ and
+axiom 2. will result in $errNat$ (whether it happens to be determnistic or
+not).
+The last two axioms use $\prec$ and not $\eleq$. This is so
+because the terms on the right-hand-side may, possibly, be error terms (when
+$s$ is $empty$). The alternatives give precedence to
+$errStack$ over $errNat$. If both arguments are $err$, axiom 1.,
+respectively 2., will be applied -- instead of axiom 3., axiom 1. will yield $empty$
+as the result of $pop$. Similarly in axiom 4.
+
+Another possibility is to treat each error situation separately. The
+following specification refines {\bf ErrStack2} but it might as well be a
+refinement of {\bf ErrStack1}: \vspace*{1ex}
+
+\(
+2. \spec{	\tit{\mbox{\bf spec\ ErrStack2a}^{\inst{MA}}=} \\
+	\tit{\mbox{\bf enrich\ ErrStack2\  by:}} \\
+	 	{\bf axioms:}
+			&1.& pop(push(x,pop(empty)))\eleq empty \\
+			&2.& top(push(x,pop(empty)))\eleq x \\
+			&3.& pop(push(top(empty),s))\prec pop(s), s\prec pop(empty) \\
+			&4.& top(push(top(empty),s))\prec top(s), s\prec pop(empty) 
+}
+\)
+
+\noindent
+These two possibilities take full advantage of non-strict semantics allowing
+one to describe actions to be performed in error situations. Notice that they
+do not specify explicitly the value of error terms ($pop(empty)$ is merely
+labeled in the first case and made nondeterministic in the second) -- they
+only specify the behaviour of other operations applied to such error
+terms. $errStack$ may later be specified to be a particular value or else remain nondeterministic.
+
+The most dramatic possibility is to delegate all responsibility for error
+treatement to the implementation. Explicit specification which excludes further
+description of error makes the result of respective error terms empty (this
+can be read as a requirement of raising a run-time exception): \vspace*{1ex}
+
+\(
+3. \spec{	\tit{\mbox{\bf spec\ ErrStack3}^{\inst{MA}}=} \\
+	\tit{\mbox{\bf enrich\ ErrStack2\  by:}} \\
+	 	{\bf axioms:}
+			&1.& s \prec pop(empty) \To  \\
+			&2.& x \prec top(empty) \To \\
+			&3.& s \prec push(errNat,s') \To
+}
+\)
+
+\noindent
+Notice that this implies strictness of other operations applied to these
+arguments, since empty argument will always lead to empty result.  (For
+instance, $push(x,pop(empty))$ will return the empty set.) Making
+analogous extension of {\bf ErrStack1} is possible, though it does not seem
+quite purposeful -- labeling error situtations will, typically, involve later
+their explicit treatement.
+
+\subsubsection{Error values}\label{subsub:er4}
+\hspace*{1.2em}
+\(
+1. \spec{	\tit{\mbox{\bf spec\ ErrValStack1}^{\inst{MA}}=} \\
+	\tit{\mbox{\bf enrich\ ErrStack1a\  by:}} \\
+	 	{\bf axioms:}
+			&1.& pop(empty) \eleq empty \\
+			&2.& top(empty) \eleq errNat \\
+			&3.& push(errNat,s) \eleq s
+}
+\) 
+%\vspace*{2ex}
+
+\noindent
+This is apparently consistent with the intention of the specification of the
+behaviour in {\bf ErrStack1a} (according to first two axioms from {\bf
+ErrStack1a}, $errStack$ behaves as $empty$, and according to the last two,
+pushing $errNat$ on $s$ behaves then as $s$). However, there are serious
+problems with this refinement.
+
+A counter-intuitive consequence of this enirchment is that $empty\prec
+errStack$ by axiom 1. from {\bf ErrStack1}. Axiom 1. here says that, no
+matter what we have previously said about the error situation $pop(empty)$, it
+can be disregarded and that we, instead, do immediate error recovery. 
+Since $pop(empty)$ has been earlier
+identified as an error $errStack$, a more plausible refinement would be to
+identify this
+error value which can take care of a possible indication of the error
+situation.
+
+Another problem might occur from making $errNat$ deterministic. If it is a
+constant introduced in this specification (as it happened in our example),
+this might be ok. However, if this error constant comes from another
+specification {\bf Nat}, we shouldn't force additional restriction since
+these may interfere with its specification elsewhere. 
+
+The really serious problem is caused by the last axiom. It makes $push(errNat,s)$
+deterministic. Thus, since $errNat$ is deterministic, we can substitute it into
+axioms from {\bf Stack} and may conclude that
+$top(push(errNat,s))\eleq errNat$. However, according to  {\bf ErrStack1a},
+if $s\not\prec errStack$ we have that $top(push(errNat,s))\prec
+top(s)$. Thus, this may lead to collapsing the sort of elements (here $Nat$).
+
+In general, forcing some error terms to be deterministic, requires revisiting
+earlier developed specifications and checking for such unintended
+coincidences. The uniform way of introducing errors, which is safe, is to
+force errors to be sets. The following specification makes $pop(empty)$ a new
+deterministic constants (this is ok in this example), but illustrates this
+generally recommended way by axiom 3.
+\vspace*{1ex}
+
+\(
+2. \spec{	\tit{\mbox{\bf spec\ ErrValStack2}^{\inst{MA}}=} \\
+	\tit{\mbox{\bf enrich\ ErrStack1a\  by:}} \\
+	    	\Ops:	&& popEmpty: \to Stack\\
+	 	{\bf axioms:}
+			&1.& pop(empty) \eleq popEmpty \\
+			&2.& top(empty) \prec errNat \\
+			&3.& push(errNat,s)\eleq push(errNat,s) \To
+}
+\)
+
+\noindent
+We are forcing $push(errNat,s)$ to be nondeterministic in order to avoid interference
+with the axioms of {\bf Stack}. The axioms from {\bf ErrStack1a} prescribe
+recovery from this situation.
+
+The last remaining question concerns now the actual value to be returned by
+$push(errNat,s)$. We are doing it by specifying the values to be included in
+the set to be denoted by this term. On the one hand, we include there some
+error value -- it does not have any influence on the other operations. On the
+other hand, we include the value which is to be used for the recovery
+purpose:
+
+\(
+ \spec{	\tit{\mbox{\bf spec\ ErrValStack3}^{\inst{MA}}=} \\
+	\tit{\mbox{\bf enrich\ ErrStack2\  by:}} \\
+	    	\Ops:	&& pushErr: \to Stack\\
+		{\bf det:} && pushErr \\
+	 	{\bf ax:}
+			&1.& s\prec push(errNat,s) \\
+			&2.& pushErr\prec push(errNat,s) \\
+			&3.& s\prec pop(pushErr) \To \\
+			&4.& x\prec top(pushErr) \To \\
+			&5.& s\prec push(x,pushErr) \To
+}
+\)
+
+\noindent
+Together, these axioms ensure the desired behaviour (as specified in {\bf
+ErrStack1a}). The first axiom includes the recovery value $s$ and the second
+the error value $pushErr$. Thus, the results of other operations applied to
+$push(errNat,s)$ will be obtained by summing up the results applied to $s$ and
+to $pushErr$. 
+
+The last three axioms make this later value
+insignificant for other operations -- it merely  marks the
+error situation. It can be naturally interpreted as a side effect of
+$push(errNat,s)$, and can be implemented as, for instance, sending an error
+message to the user. On the other hand, the presence of such an error value
+in the result set can be interpreted as an exception. The axioms
+3.-5. correspond here to immediate catching this exception. Replacing, e.g., the
+axiom 3. with $pushErr \prec pop(pushErr)$ will then correspond to throwing
+this exception also from an application of $pop$ until one arrives at a
+situation where other operations ignore this error value (specified as above
+by the axioms 3.-5. which correspond to catching the exception and performing
+the further action only on the remaining values in the set -- here on $s$).
+
+
+At any previous development step we could have extended the stack
+specification to a specification of bounded stack. This can be also done now
+as a refinement of the last specification: \vspace*{1ex}
+
+\(
+3. \spec{	\tit{\mbox{\bf spec\ BoundedStack}^{\inst{MA}}=} \\
+	\tit{\mbox{\bf enrich\ ErrValStack3\  by:}} \\
+	    	\Ops:	&& max: \to Nat\\
+		        && hgh: Stack \to Nat \\
+		{\bf det:} && max, hgh \\
+	 	{\bf axioms:}
+			&1.& hgh(empty) \eleq 0 \\
+			&2.& push(x,s)\eleq push(x,s) \To hgh(push(s,x))\eleq
+			succ(hgh(s)) \\
+			&3.& hgh(s)\eleq max \To hgh(push(x,s))\eleq
+			succ(max) \\
+			&4.& hgh(s)<max \To push(x,s)\eleq push(x,s) \\
+			&5.& hgh(s)\geq max \To push(s,x)\prec errStack
+}
+\)
+
+\noindent
+Notice that the last axiom makes the error resulting from exceeding the bound
+behave as $empty$ according to {\bf ErrStack1a}. If this is not desirbale,
+one would have to identify it as a new error type with appropriate axioms.
+
+Also, when $hgh(s)\eleq max$, the result of $push(x,s)$ will yield a
+possibly nondeterministic
+$errStack$. Nevertheless, its height is defined uniquely and uniformly for
+all such possible results by axiom 3. 
+
+\subsection{The methodology for developing partial specifications}\label{sec:meto}
+The above examples show the wide range of possible error treatements offered
+by multialgebras and suggest the following fixed methodology
+for the development of partial specifications in $\inst{MA}$. 
+
+\begin{enumerate}\MyLPar
+\item[\ref{subsub:pa1}] The first step involves the usual abstract specification which need not
+        address any partiality issues. The only requirement on the axioms --
+	needed for later error handling -- is that
+	the arguments of the outermost function applications
+	should be guarded by a definedness assertion, i.e., a
+	determinacy caluse (like $push(x,s)\eleq push(s,x)$ in axioms 2.,
+	3. of {\bf Stack} in \ref{subsub:pa1}).
+	There is no need to guard the variables, 
+	since variables are always deterministic. Only
+	operations that can never possibly lead to error situations should be
+	explicitly
+	specified deterministic. 
+
+	At this level of abstraction the form of
+	the specification is like a partial algebra specification, with
+	$\eleq$ instead of $\eeq$. In fact, any partial-algebra specification
+	can be reused in this way (see section~\ref{se:partial}).
+
+\item[\ref{subsub:er2}] The second step identifies error situations and,
+        possibly, introduces order-sorting constants. Among the possibilities
+	here, forcing the error terms to be a set
+	 is the solution offering most flexibility in
+	later development ({\bf ErrStack2}). 
+
+	Altrernatively, one may introduce labels in form of error constants
+	({\bf ErrStack1}). We do not specify that operations
+	are strict on error constants at this level. The error constants 
+	work merely like syntactic marking until we specify the errors closer
+	at a lower level. They are not specified here to be determinisitic
+	(later they may be) and serve merely as negative predicates
+	telling that some terms may yield ill-defined results.
+
+\item[\ref{subsub:er3}] The third step  should specify the behaviour of other
+significant operations when applied to the error constants or terms -- 
+	this is the stage where we begin the
+	error handling. Error constants may be used for a uniform error
+	handling; alternatively, each error term may obtain separate
+	treatement.
+
+	Notice that here we do not introduce explicit error elements but only
+	specify behaviour in error situations. Error recovery means here that we specify an error term to
+	behave as an ordinary term after use of some operations. Strictness
+	means that errors remain (or become other) errors after application of
+	operations. The most extreme case of strictness is to delegate error
+	handling to the implementation by explicitly specifying the result
+	set to be empty (as in {\bf ErrStack3}).
+
+\item[\ref{subsub:er4}] The fourth and last step is to identify the errors with some
+	particular error sets/elements. 
+In some cases,
+immediate error recovery can be specified (as was the case with $pop(empty)$,
+which could be made equal $empty$ in {\bf ErrValStack1} or $popEmpty$ in {\bf
+ErrValStack2}). The general error recovery, however, is that exemplified by
+$push(errNat,s)$ in {\bf ErrValStack3}: en error situation results in a set
+comprising the recovery value and an explicit error value which does not
+affect other operations unless it is passed as an exception.
+\end{enumerate}
+%
+The first two steps are flexible with respect to error handling. After step 2 we
+have not taken any decision regarding (non-)strictness. So working at this
+abstract level it should be possible to have compositional specification
+building operations, treating the nondeterministic error constants as
+predicates. From step three one actually specifies consequences of errors so
+strictness and error handling may interfere with compositionality.
+
+
+
+\section{Institution of multialgebras}
+\label{se:inst}
+
+We start this section by recalling the basic notions about institutions.
+ 
+\subsection{Institutions}
+
+\begin{definition}
+An institution is a quadruple $\inst{I} = (\Sign,\Sen,\Mod,\models)$, where:
+	\begin{itemize}
+\item $\Sign$ a category of signatures.  
+\item $\Sen: \Sign \to \Set$ is a functor which associates a set of {\it sentences} to each signature.
+\item $\Mod:\Sign^{op} \to \cat{Cat}$ is a functor which associates a
+category of {\it models}, whose morphisms are called $\Sigma$-morphisms, to
+each signature $\Sigma$
+\item $\models$ is a satisfaction relation -- for each signature $\Sigma$, a relation
+ $\models_{\Sigma} \subseteq |\Mod(\Sigma)| \times
+\sen(\Sigma)$, such that the following {\it satisfaction condition} holds:
+for any $M' \in \Mod(\Sigma'), \mu: \Sigma \to \Sigma' , \phi \in \sen(\Sigma)$
+ 
+  \[ M' \models_{\Sigma'} \Sen(\mu)(\phi) \mbox{ iff } (\Mod(\mu))(M') \models_{\Sigma} \phi\]
+	\end{itemize}
+\end{definition}
+%
+The definition can be represented as the following diagram:
+
+\[\xymatrix{
+	\Sigma \ar[d]_{\mu}
+		& {\Mod}(\Sigma)
+			& \models_{\Sigma}
+				& \Sen(\Sigma) \ar[d]^{\Sen(\mu)}	\\
+	\Sigma'
+		& {\Mod}(\Sigma') \ar[u]_{{\Mod}(\mu)}
+			& \models_{\Sigma'}
+				& \Sen(\Sigma')			\\
+								}
+\]
+Based on the above satisfaction relation we write: $\Gamma \models_{\Sigma}
+ \varphi \mbox{ iff } \forall M \in \Mod(\Sigma): M \models_{\Sigma} \Gamma
+ \Rightarrow M \models_{\Sigma} \varphi $.  With this in mind we write
+ $\Gamma^{\bullet}$ for the semantical consequences of $\Gamma$
+ i.e. $\Gamma^{\bullet} = \{ \varphi: \Gamma \models \varphi \}$
+ 
+A {\em theory} (specification) in an institution is any pair
+$\thr{Th}=(\Sigma,\Gamma)$ where $\Sigma\in\obj{\Sign}$ and $\Gamma\subseteq
+\sen(\Sigma)$. For a given institution $\inst{I}$, we have the corresponding
+category of theories $\cat{Th_{\inst{I}}}$ with theories as objects and
+theory morphisms $\mu:(\Sigma,\Gamma) \to (\Sigma',\Gamma')$, where
+$\mu:\Sigma \to \Sigma'$, is a signature morphism such that: $\Gamma'
+\models_{\Sigma'} \sen(\mu)(\Gamma)$.  The models for the theory
+$\thr{Th}=(\Sigma,\Gamma)$ is the full sub category
+$\Mod_{\models}(\Sigma,\Gamma)$ of $\Mod(\Sigma)$ where $M \in
+\Mod_{\models}(\Sigma,\Gamma) \mbox{ iff } M \models_{\Sigma} \varphi,
+\forall \varphi \in \Gamma$, we will write $\Mod(\Sigma,\Gamma)$ instead of
+$\Mod_{\models}(\Sigma,\Gamma)$.  The satisfaction condition gives that
+$\Mod(\mu)(\Mod(\Sigma',\Gamma')) \subseteq$ % \thr{Th}
+$(\Mod(\Sigma,\Gamma)$, for each morphism $\mu:(\Sigma,\Gamma) \to
+(\Sigma',\Gamma') \in \thr{Th}$. This means that the functor $\Mod$ can be
+extended to a functor $\Mod_{\models}:\cat{Th}^{op} \to \cat{Cat}$. There is
+a canonic projection functor $\fu{sign}:\thr{Th} \to \cat{Sign}$ and there is
+an embedding functor $\fu{th}: \cat{Sign} \to \thr{Th}$ defined by
+$\fu{th}(\Sigma)= (\Sigma,\emptyset)$ A theory morphism $\mu:(\Sigma,\Gamma)
+\to (\Sigma',\Gamma')$ is called axiom preserving if $\mu(\Gamma) \subseteq
+\Gamma'$. This defines the sub category $\thr{Th_0}$ with theories as objects
+and axiom preserving theory morphisms as morphisms.
+
+\begin{definition}
+Given a functor $\fu{\Phi}:\thr{Th_0} \to \thr{Th_0'}$ and a natural
+transformation $\alpha: \sen \Rightarrow \sen' \circ \fu{\Phi}$, $\fu{\Phi}$ is
+$\alpha$-sensible iff:
+\begin{itemize}
+	\item There is a functor $\fu{\Phi^{\diamond}}:\fu{Sign} \to \fu{Sign'}$ such that $\fu{sign'} \circ \fu{\Phi} =\fu{\Phi^\diamond}  \circ  \fu{sign}$
+	\item $(\Gamma')^\bullet = (\emptyset'_{\Sigma} \cup \alpha_{\Sigma}(\Gamma))^{\bullet}$
+\end{itemize}
+Where we denote the set of axioms induced by $\fu{\Phi}(\Sigma)$ by $\emptyset'_{\Sigma}$.
+\end{definition}
+%
+To relate different institutions we will use {\it map of institutions} \cite{general}.
+\begin{definition}		
+Given institutions $\inst{I}= ({\Sign},\sen,\Mod,\models)$ and
+$\inst{I'}=({\Sign'},\sen',\Mod',\models')$, 
+a map of institutions is a triple  $(\fu{\Phi},\alpha,\beta): \inst{I} \to \inst{I'}$ where:
+\begin{itemize}
+	\item $\alpha: \sen \natt \sen' \circ \fu{\Phi}$ is a natural transformation.
+	\item $\fu{\Phi}: \thr{Th_0} \to \thr{Th_0'}$ is an $\alpha$-sensible functor %, where
+%	$\thr{Th_0}=(\Sigma,\Gamma),\thr{Th'_0}=(\Sigma',\Gamma')$ 
+\item a natural transformation $\beta: \Mod' \circ \fu{\Phi}^{op} \natt \Mod$
+\end{itemize}
+such that for each $\phi \in \sen(\Sigma)$ and $ M' \in \Mod'(\fu{\Phi}(\Sigma,\emptyset))$ the satisfaction condition:
+\[ M' \models_{sign'(\fu{\Phi}(\Sigma,\emptyset))} \alpha_{\Sigma}(\phi) \mbox{ iff } \beta_{(\Sigma,\emptyset)} (M') \models_{\Sigma} \phi \]
+\end{definition}
+%
+The condition from the above definition corresponds to the following
+commuting diagrams:
+\[
+\xymatrix{
+	(\Sigma,\Gamma)^{op} \ar[d]_{\Mod} \ar[r]^{\fu{\Phi}^{op}}
+		& (\Sigma',\Gamma')^{op} \ar[d]^{{\Mod'}}	\\
+	\cat{Cat}
+		& \mathbf{Cat}	\ar@{=>}[l]^{\beta}\\
+}\hspace*{5em}
+\xymatrix{
+	(\Sigma,\Gamma) \ar[d]_{\sen} \ar[r]^{\fu{\Phi}}
+		& (\Sigma',\Gamma') \ar[d]^{\sen'}	\\
+	\cat{Set} \ar@{=>}[r]^{\alpha}
+		& \cat{Set}				\\
+}
+\]
+%
+\begin{definition}
+An {\it embedding of institutions} \cite{member} is a map of institutions
+$(\fu{\Phi},\alpha,\beta): \inst{I} \to \inst{I'}$, where the functor $\beta_T
+:\Mod'(\fu{\Phi}(T)) \to \Mod(T)$ is an equivalence of categories for each $T \in
+\cat{Th_{\inst{I}}}$. We will use the notation $(\fu{\Phi}, \alpha,\beta):\inst{I}
+\embd \inst{I'}$ to denote an embedding of institutions.
+\end{definition}
+%
+An $\alpha$-extension to theories of a functor $\fu{\Phi}:\cat{Sign} \to
+\thr{Th_0'}$ is a functor $\fu{\Phi}:\thr{Th_0} \to \thr{Th_0'}$ mapping the
+theory $\thr{Th}=(\Sigma,\Gamma)$ to the theory $\fu{\Phi}(\thr{Th})$ with
+signature $\fu{\Phi}(\Sigma)$ and with axioms $\fu{\Phi}(\Sigma) \cup
+\alpha_{\Sigma}(\Gamma)$, for a given natural transformation $\alpha:\fu{Sen}
+\to \fu{Sen'} \circ \fu{\Phi}$.
+
+\begin{definition} A map of institutions $(\fu{\Phi},\alpha,\beta)$ is:
+	\begin{itemize}
+		\item  $(\alpha)$ {\em simple} iff $\fu{\Phi}$ is a $\alpha$-extension to theories of a functor $\fu{F}:\cat{Sign} \to \thr{Th_0'}$, i.e. $\fu{\Phi}$ maps axioms to axioms.
+		\item $(\alpha)$ {\em plain} iff $\fu{\Phi}$ is a $\alpha$-extension to theories of a functor $\fu{F}:\cat{Sign} \to \thr{Th_0'}$ that maps $\Sigma$ to $(\Sigma',\emptyset)$, i.e. $\fu{\Phi}$ maps signatures to signatures.
+	\end{itemize}
+\end{definition}
+
+\begin{definition}
+A {\it subinstitution} \cite{general} is a map of institutions
+$(\fu{\Phi},\alpha,\beta):\inst I \to \inst I'$ that is plain, with $\fu{\Phi}$
+faithful and injective on objects, $\alpha$ injective and with $\beta$ a
+natural isomorphism.
+\end{definition}
+%$
+We will use {\it institutioin transformation}\cite{system} as a formalisiation of model class extension.
+
+\begin{definition}
+Given institutions $\inst{I}= ({\Sign},\sen,\Mod,\models)$ and
+$\inst{I'}=({\Sign'},\sen',\Mod',\models')$, 
+a institution transformation is a triple  $(\fu{\Phi},\alpha,\beta): \inst{I} \to \inst{I'}$ where:
+\begin{itemize}
+	\item $\alpha: \sen \natt \sen' \circ \fu{\Phi}$ is a natural transformation.
+	\item $\fu{\Phi}: \thr{Th_0} \to \thr{Th_0'}$ is an $\alpha$ plain, $\alpha$-sensible functor %, where
+%	$\thr{Th_0}=(\Sigma,\Gamma),\thr{Th'_0}=(\Sigma',\Gamma')$ 
+\item a natural transformation $\beta: \Mod \natt \Mod' \circ \fu{\Phi}^{op}$
+\end{itemize}
+such that for each $\phi \in \sen(\Sigma)$ and $ M \in \Mod(\Sigma,\emptyset)$ the satisfaction condition:
+\[ \beta_{(\Sigma,\emptyset)}(M) \models_{sign'(\fu{\Phi}(\Sigma,\emptyset))} \alpha_{\Sigma}(\phi) \mbox{ iff } M \models_{\Sigma} \phi \]
+\end{definition}
+
+\subsection{Institution of multialgebras, $\inst{MA}$}
+\label{sec:multi}
+In this section we formally define the institution of multialgebras  $\inst{MA}$ and prove
+that it actually is an institution.  First we apply
+the standard concept of reduct to multialgebras.
+\begin{definition}
+Let $\mu: \Sigma \to \Sigma'$ be a signature morphism.\\
+\underline{Reduct of an algebra}: The $\mu$-reduct
+of a $\Sigma'$-multialgebra $A'$, is the $\Sigma$-multialgebra $A'|_\mu$
+given by:
+\[ \begin{array}{ll} 
+	s^{{A'}|_\mu} = \mu(s)^{A'} 		&\mbox{, for all $s \in S$,} \\
+ 	\omega^{{A'}|_\mu} = \mu(\omega)^{A'} 	&\mbox{, for all $\omega \in \Omega$,}\\
+\end{array} \]
+%
+\underline{Reduct of assignment}:
+Given a set of variables $X$, a $\Sigma'$-multialgebra $A'$ 
+and an assignment $\alpha': \mu(X) \to A'$:
+the $\mu$-reduct of $\alpha'$ is an assignment
+$\alpha' |_\mu$ defined by:
+\[	\begin{array}{l}
+	\alpha' |_\mu : X \to A' |_\mu \mbox{ and}\\  
+	(\alpha' |_\mu)_{s}(x) = \alpha'_{\mu(s)}(\mu(x))\\
+	\end{array}
+\]
+%
+\underline{Reduct of a homomorphism}: The $\mu$ reduct of a weak $\Sigma'$ homomorphism
+$h':A' \to B'$, is the weak $\Sigma$ homomorphism $h'|_\mu$ defined by:
+\[ \begin{array}{l} 
+	h'|_\mu : A'|_\mu \to  B'|_\mu \mbox{ and}\\
+ 	(h'|_\mu)_s = h'_{\mu(s)}\\
+\end{array} \]
+\end{definition}
+
+\begin{fact} The reduct of a multialgebra is a multialgebra, the reduct of an
+assignment is an  assignment to the reduct algebra, the reduct of a weak
+homomorphism is a weak homomorphism between the reduct of two algebras.%, likewise is the reduct of a tight
+%homomorphism a tight homomorphism between the reduct of two algebras.
+\end{fact}
+The proof of this fact is analogous to the classical case.
+
+We are now ready to define the model functor $\fu{MAlg}:\Sign^{op}\to\cat{Cat}$ which
+maps each $\Sigma\in\obj{\Sign}$ to the category of all $\Sigma$-multialgebras $\MAS$.
+ 
+\begin{definition}
+The functor $\fu{MAlg}: \Sign^{op} \to \cat{Cat}$ is defined by:
+\begin{itemize}\MyLPar
+\item objects: $\fu{MAlg}(\Sigma) = \MAS$
+\item arrows: $\fu{MAlg}(\mu:\Sigma \to \Sigma') = \fu{MAlg}_\mu :
+\MA{\Sigma'} \to \MAS$, where the functor $\fu{MAlg}_\mu$ is given by:
+	\begin{enumerate}\MyLPar
+	\item $\fu{MAlg}_\mu(A') = A'|_\mu$
+	\item $\fu{MAlg}_\mu(h') = h'|_\mu$
+	\end{enumerate}
+\end{itemize}
+\end{definition}
+
+\begin{lemma}(Reduct theorem)
+If $\mu:\Sigma \to \Sigma'$ is a signature morphism, $X$ a set of variables, $t$ a $\Sigma'$ term, $A'$ a $\Sigma'$ algebra and $\alpha': \mu(X) \to A'$ an assignment for $A'$ then we have that:
+\[ \alpha' |_{\mu}(t) ^{{A'} |_{\mu}} = \alpha'(\mu(t))^{A'} \]
+\end{lemma}
+\begin{PROOF}
+The proof goes by induction on the complexity of the term $t$.
+\begin{enumerate}
+\item $t = x \in X_s$.
+	\begin{eqp}
+		\alpha' |_{\mu}(x)^{{A'} |_\mu} 
+	\comment{=}{assignment}
+		(\alpha' |_{\mu})_s(x)
+	\comment{=}{def. $\alpha' |_\mu$}
+		(\alpha' _{\mu(s)})(\mu(x))
+	\comment{=}{assignment}
+		\alpha'(\mu(x))^{A'}
+	\end{eqp}
+\item $t = c, (c: \to s)$
+	\begin{eqp}
+		\alpha' |_{\mu}(c)^{{A'} |_\mu}
+	\comment{=}{no assignment for constants}
+		c^{{A'} |_\mu}
+	\comment{=}{def. $A' |_\mu$}
+		\mu(c)^{A'}
+	\comment{=}{no assignment, for constants}
+		\alpha'(\mu(c))^{A'}
+	\end{eqp}
+\item $t = \omega(t_1, \ldots ,t_n), (\omega: s_1 \times \cdots \times s_n \to s)$
+	\begin{eqp}
+		\alpha' |_{\mu}(\omega(t_1, \ldots ,t_n)^{{A'} |_\mu}
+	\comment{=}{assignment on function}
+		\bigcup_{a_{i}\in\alpha' |_{\mu}(t_{i})} \omega^{{A'} |_\mu}(a_1, \ldots ,a_n)
+	\comment{=}{ind. hyp. and def reduct}
+		\bigcup_{a_{i}\in\alpha'({\mu}(t_{i}))} \mu(\omega)^{A'}(a_1, \ldots ,a_n)
+	\comment{=}{assignment on function}
+		\alpha'(\mu(\omega)(\mu(t_1), \ldots ,\mu(t_n))^{A'}\ =\ \alpha'(\mu(\omega(t_1,\ldots,t_n)))^{A'}
+	\end{eqp}
+\end{enumerate}
+\end{PROOF}
+%
+The following lemma leads immediately to the satisfaction condition.
+\begin{lemma}\label{le:masat}
+For any signature morphism $\mu: \Sigma \to \Sigma'$ and $\Sigma'$ algebra
+$A'$, given assignment
+\begin{itemize}\MyLPar
+\item $\alpha:X \to A'|_\mu$, define  $\alpha':\mu(X) \to A'$ by:
+ $\alpha'_{\mu(s)}(\mu(x)) = \alpha_s(x)$, and
+\item $\alpha':\mu(X) \to A'$, define $\alpha:X \to A' |_\mu$ by:
+ 			$\alpha_s(x) = \alpha'_{\mu(s)}(\mu(x))$, i.e. $\alpha=\alpha'|_\mu$
+\end{itemize}
+Then for any $\Sigma$-formula
+$\varphi$ and for any $\Sigma'$ multialgebra $A'$ we have that:
+\[ (A' |_\mu) \models_\alpha \varphi \Iff A' \models_{\alpha'} \mu(\varphi) \]
+\end{lemma}
+\begin{PROOF}
+By induction on the formulae:
+\begin{enumerate}
+ 
+\item For atomic formulae $t_1 \eleq  t_2$ and $t_1\prec t_2$, the reduct theorem
+gives $\alpha'|_\mu(t_i)^{A'|_{\mu}}=\alpha'(\mu(t_i))^{A'}$, which yields
+the result.
+
+\item $a_1, \ldots ,a_n \To b_1, \ldots b_m$ \label{it:conditional}\\
+There are two cases:\\
+a) for some $a_i: (A' |_\mu) \not\models_\alpha a_i \by{IH}{\Iff}
+A' \not\models_{\alpha'} \mu(a_i)$, or\\
+b) for some $b_k: (A' |_\mu) \models_\alpha b_k
+  \by{IH}{\Iff} A' \models_{\alpha'} \mu(b_k)$
+\end{enumerate}
+\end{PROOF}
+%
+\begin{fact}\label{th:masat}(Satisfaction condition)
+The satisfaction condition is fullfiled for multialgebras, i.e. for any
+signature morphism $\mu: \Sigma \to \Sigma'$, for any $\Sigma$-formula
+$\varphi$ and for any $\Sigma'$ multialgebra $A'$ we have that:
+\[ (A' |_\mu) \models_\Sigma \varphi \Iff A' \models_{\Sigma'} \mu(\varphi) \]
+\end{fact}
+\begin{PROOF} 
+Let $\varphi$ be an arbitrary formula.\\
+``$\Leftarrow$'': let $\alpha:X \to A'|_\mu$ be arbitrary and let $\alpha'$
+ be as in lemma~\ref{le:masat}. Then, by assumption, $A' \models_{\Sigma'}
+ \mu(\varphi)$ and, in particular, $A' \models_{\alpha'} \mu(\varphi)$. By
+ lemma~\ref{le:masat}, $(A' |_\mu) \models_\alpha \varphi$. Since $\alpha$
+ was arbitrary, we obtain $(A' |_\mu) \models_\Sigma \varphi$.\\
+``$\Rightarrow$'': let $\alpha':\mu(X) \to A'$ be arbitrary, and let $\alpha$
+ be as in lemma~\ref{le:masat}. By assumption, $(A' |_\mu) \models_\Sigma
+ \varphi$, in particular, $(A' |_\mu) \models_\alpha \varphi$. By
+ lemma~\ref{le:masat}, $A' \models_{\alpha'} \mu(\varphi)$. Since $\alpha'$
+ was arbitrary, we obtain $A' \models_{\Sigma'} \mu(\varphi)$.
+\end{PROOF}
+%
+Finally, we define the functor assigning to each signature the set of formulae.
+\begin{definition}
+The formula functor $\fu{MSen}: \Sign\to\Set$ is given by:
+\begin{itemize}
+\item objects: $\fu{MSen}(\Sigma) =$ {the set of all $\Sigma$ formulae}
+\item $\fu{MSen}(\mu: \Sigma \to \Sigma') = \fu{MSen}_{\mu}:\fu{MSen}(\Sigma) \to \fu{MSen}(\Sigma')$ { defined by}:
+		\begin{enumerate}
+		\item $\fu{MSen}_{\mu}(t \eleq  t') = {\tilde{\mu}}(t) \eleq {\tilde{\mu}}(t')$
+		\item $\fu{MSen}_{\mu}(t \prec  t') = {\tilde{\mu}}(t) \prec {\tilde{\mu}}(t')$
+		\item $\fu{MSen}_{\mu}(a_1, \ldots ,a_n \to b_1, \ldots ,b_n) \\ = 
+ \fu{MSen}_{\mu}(a_1), \ldots ,\fu{MSen}_{\mu}(a_n) \to \fu{MSen}_{\mu}(b_1), \ldots ,\fu{MSen}_{\mu}(b_n)$
+		\end{enumerate}
+	\end{itemize}
+\end{definition}
+%
+With these definitions, lemma \ref{th:masat} shows the following:
+\begin{proposition}\label{fa:mainst}
+The multialgebras form the institution $\inst{MA}$ with:
+	\begin{itemize}
+	\item the category \Sign\ as signatures,
+	\item the model functor $\fu{MAlg}$,
+	\item the sentence functor $\fu{MSen}$,
+	\item $\models$ from definition~\ref{de:sat} as the satisfaction relation.
+	\end{itemize}
+	\end{proposition}
+
+\subsection{Subinstitutions of $\inst{MA}$}
+As illustrated in sections~\ref{se:part} and \ref{se:meth}, multialgebras
+offer a highly abstract specification formalism. The price of this
+abstraction is the loss of structure, some closure properties, in particular,
+such as the existence of initial models.  In the following, we will restrict the institution
+$\inst{MA}$ in various ways to relate it to other specification frameworks
+and, on the other hand, to ensure the existence of initial models.
+
+
+%\fixx{State explicitly the places where this proof differs!}
+\begin{fact}\label{fa:mahinst}
+The multialgebras with Horn clauses is a subinstitution $\MAH$ of
+$\inst{MA}$. All components are as in $\inst{MA}$ except for the sentence
+functor  which is $\fu{MSen}$ restricted to Horn clauses over
+atomic formulae.
+\end{fact}
+The proof of the satisfaction condition is a special case of the proof for
+$\inst{MA}$, the only difference is that now we only have to consider
+formulae of the form $a_1, \ldots , a_n \To b$.  The subinstitution
+mapping is $(\fu{\Phi},\alpha,\beta): \inst{MAH} \to \inst{MA}$, where
+$\fu{\Phi}$ is the identity functor, each component of $\alpha$ is identity
+and each component of $\beta$ is the identity functor.
+
+
+\begin{fact}\label{fa:maeh}
+The multialgebras with equational Horn clauses is a subinstitution $\inst{MAEH}$ of
+$\inst{MAH}$. All components are as in $\inst{MAH}$ except for the sentence
+functor  which is $\fu{MSen}$ restricted to Horn clauses' over element equalities.
+\end{fact}
+The proof of the satisfaction condition is a special case of the proof for
+$\inst{MAH}$,
+the only difference is that now we only have to consider formulae build over element equations.
+The subinstitution mapping is $(\fu{\Phi},\alpha,\beta): \inst{MAEH} \to
+\inst{MAH}$, where $\fu{\Phi}$ is the identity functor, each component of
+$\alpha$ is identity and each component of $\beta$ is the
+identity functor.
+
+\begin{fact}\label{fa:maa}
+The multialgebras with atomic sentences is a subinstitution $\inst{MAA}$ of
+$\inst{MAH}$. All components are as in $\inst{MAH}$ except for the sentence
+functor  which is $\fu{MSen}$ restricted to
+atomic formulae.
+\end{fact}
+The proof of the satisfaction condition is a special case of the proof for
+$\inst{MAH}$, the only difference is that now we only have to consider atomic
+formulas.  The subinstitution mapping is $(\fu{\Phi},\alpha,\beta):
+\inst{MAA} \to \inst{MAH}$, where $\fu{\Phi}$ is the identity functor, each
+component of $\alpha$ is identity and each component of
+$\beta$ is the identity functor.
+
+
+\section{Initial models for $\inst{MA}$ specifications}
+\label{se:init}
+In general, $\inst{MA}$ specifications  do not possess initial models
+\cite{hussmann,multi}. The most powerful logic that admits initial models is
+Horn logic, \cite{makow}, so the first restriction would be to consider the
+subinstitution  $\inst{MAH}$. However, as showed in
+\cite{hussmann}, even atomic specifications don't always have initial models.
+
+Using essentially the same construction as in \cite{hussmann}, we will state
+the general semantic condition for the existence of initial models -- also for
+specifications using disjunctive axioms (subsection~\ref{sub:if}). 
+Then we will review Hussmann's construction in our framework
+obtaining conditions ensuring the existence of initial models for atomic
+specifications (subsection~\ref{sub:atomic}).
+
+We should emphasize that the results of this section are of relatively
+limited value and the problem of identifying a satisfactory general subinstitution of
+$\inst{MA}$ admitting initial models is still open.
+
+\subsection{The general construction of initial structure}\label{sub:if}
+In \cite{hussmann} Hussmann gives sufficient conditions to ensure the
+existence of initial models when multialgebras are restricted
+to non empty interpretation of operations and with only atomic formula as
+axioms. The carrier of the initial model contains all and only deterministic
+terms. We first review this construction (some lemmata and proofs are
+different) which leads to a general result
+showing that it yields an initial model {\em whenever} it actually belongs to the model class
+(proposition~\ref{prop:if}).
+
+\begin{definition}\label{de:tsp} \cite{hussmann}
+For a specification $SP=(\Sigma,\Gamma)$, the (deterministic based) term
+structure $T(SP)$ is defined by:
+\begin{itemize}
+\item $s^{T(SP)} = \{ t : t \in T(\Sigma) \land SP \models t \eleq t \}$, for $s \in S$.
+\item for $f:\overline{s} \to s$, the operation
+$f^{T(SP)}:\overline{s}^{T(SP)}\to\mathcal P(s^{T(SP)})$ is defined by
+	\item[{}] $f^{T(SP)}(\overline{t})= \{ t': t' \in T(\Sigma) \land SP \models t' \eleq t' \land SP \models t' \prec f(\overline{t}) \}$, 
+	\end{itemize}
+\end{definition}
+%
+The first thing is to ensure that this construction yields a multialgebra.
+Two conditions from \cite{hussmann} to this goal
+are: DET-completeness and DET-additivity. The former requires that for every
+ground term $t$, there  exists at least one deterministic term included in
+$t$. Since we are allowing empty set interpretation of terms, this condition
+is not needed in our case. The second condition is as follows:
+
+\begin{definition} \cite{hussmann}
+A specification $SP=(\Sigma,\Gamma)$ is \em{DET-additive} iff:
+\[ \forall f:\overline{s} \to s \in \Omega\ : \forall \overline{t}, t \in
+T(\Sigma): SP \models t \prec f(\overline{t}) \land SP \models t \eleq t\ \To 
+\]
+%
+\[ \exists \overline{t'} \in T(\Sigma): SP \models t \prec f(\overline{t'})
+\land SP \models \overline{t'} \prec \overline{t} \land 
+ SP \models \overline{t'} \eleq \overline{t'} 
+\]
+\end{definition}
+The condition says: if a deterministic value $t$ is produced by an application of
+an operation $f$ to some terms $\overline t$, then this value $t$ must be
+produced by an application of $f$ to some determnistic elements
+$\overline{t'}$ of $\overline t$.
+This condition is necessary to be able to define the operations on term
+structure. 
+It allows to construct the result set of an application $f(\overline t)$ as
+the union of the determinisitc terms returned by the applications of $f$ to
+all deterministic terms (elements) $\overline{t'}$ included in $\overline{t}$.
+
+\begin{fact} \cite{hussmann} 
+If $SP$ is a DET-additive specification then $T(SP)$ is a multialgebra. 
+\end{fact} 
+We now begin to turn $T(SP)$ into a model for $SP$.
+\begin{lemma}
+\label{le:unique1}
+There is a unique homomorphism $h:T(SP) \to A$ for every $A \in \Mod(SP)$
+\end{lemma}
+%
+\begin{PROOF}
+Define $h$ by $h(t) = t^A$, for all $t \in |T(SP)|$ (remember that $SP\models
+t\eleq t$).
+\begin{itemize}
+\item $h$ is a homomorphism:
+	\begin{eqp}
+		h(f^{T(SP)}(\overline{x}))
+	\comment{=}{$\overline{x} = \overline{t}$ for some $\overline t\in T(\Sigma)$, and $SP \models \overline{t} \eleq \overline{t}$}
+		h(f^{T(SP)}(\overline{t})) 
+	\comment{=}{def. $T(SP)$}
+		h (\{ t': t' \in T(\Sigma) \land SP \models t' \eleq t' \land SP \models t' \prec f(\overline{t}) \} )
+	\comment{=}{def. $h$}
+		\{ t'^{A}: t' \in T(\Sigma) \land SP \models t' \eleq t' \land SP \models t' \prec f(\overline{t}) \}
+	\comment{\subseteq}{$t'^A \in f^A(\overline{t^A})$}
+		f^A(\overline{t^A})
+	\comment{=}{def. $h$ and $SP \models \overline{t} \eleq \overline{t}$}
+		f^A(\overline{h(t)})
+	\end{eqp}
+
+\item $h$ is unique:\\
+Suppose $h': T(SP) \to A$ is another homomorphisms with $h' \not= h$. Then:
+\[ h'(t) \subseteq t^A\]
+We show this by induction on the term structure of $t$:
+	\begin{enumerate}
+	\item $t= c$, $c$ constant:
+		\begin{eqp}
+			h'(t)
+		\comment{=}{assumption}
+			h'(c)
+		\comment{\subseteq}{$h'$ homomorphism}
+			c^{A}
+		\end{eqp}
+	\item $t= f(\overline{t'})$:
+		\begin{eqp}
+			h'(t)
+		\comment{=}{assumption}
+			h'(f^{T(SP)}(\overline{t'}))
+		\comment{\subseteq}{$h'$ homomorphism}
+			f^{A}({h'(t'^*)})
+		\comment{\subseteq}{ind. hyp.}
+			f^A(\overline{t'^A})
+		\comment{=}{def. interpretation}
+			(f(\overline{t'}))^A
+		\comment{=}{assumption}
+			t^A
+		\end{eqp}
+	\end{enumerate}
+\end{itemize}
+For the elements $t \in |T(SP)|$ we have that $SP \models t \eleq t$,
+	i.e. $|t^A| = 1$ and from the above we get: \[ h'(t) = t^A = h(t),
+	\forall t \in |T(SP)| \]
+\end{PROOF}
+
+
+
+\begin{definition} \cite{catrel}
+The \em{kernel} of a homomorphism $h:A \to B$ is the equivalence relation $\kernel{h}\subset |A| \times |A|$ such that $a \kernel{h} b$ iff $h(a) = h(b)$
+\end{definition}
+
+\begin{definition} \cite{catrel}
+The \em{quotient} of a multialgebra $A$ wrt. an equivalence relation $\quot$ 
+is the multialgebra $\qu{A}{\quot}$ where:
+	\begin{itemize}
+	\item $|\qu{A}{\quot}|= \{ [a]_{\quot}: a \in |A| \}$
+	\item $f^{\qu{A}{\quot}}(\overline{[x]}) = \{ [a]: a \in f^A(\overline{x'}), \overline{x'} \in \overline{[x]} \}$
+	\end{itemize}
+\end{definition}
+
+\begin{fact}
+\label{fa:epi}\cite{catrel}
+Given an equivalence relation $\quot$ on a multialgebra $A$ then the mapping
+$h_{\quot}:A \to \qu{A}{\quot}$, defined by $h_{\quot}(a) = [a]_{\quot}$ is a
+homomorphism (in fact, an epimorphism).
+\end{fact}
+
+\begin{fact}
+\label{fa:factor}\cite{catrel}
+Given a homomorphism $h:A \to B$, between to $\Sigma$ multialgebras $A,B$,
+there exist homomorphisms $h_1: A \to \qu{A}{\kernel{h}}$ and $h_2: \qu{A}
+{\kernel{h}} \to B$, defined by $h_1(a) = [a]_{\kernel{h}}$ and
+$h_2([a]_{\kernel{h}}) = h(a)$ such that $h_1$ is epi, $h_2$ is mono and $h=h_1;h_2$.
+\end{fact}
+
+\begin{fact}\cite{catrel}
+\label{fa:subequi}
+If $\quot_1\ \subseteq\ \quot_2$ for two equivalences $\quot_1 , \quot_2$ on
+$A$ then there is a (epi) homomorphism $h: \qu{A}{\quot_1} \to \qu{A}{\quot_2}$.
+\end{fact}
+
+\begin{definition}\label{de:cong}
+Let $\cong$ be the equivalence relation defined on $T(SP)$ by ${\cong}\ =\ 
+{\bigcap_A{ \kernel{h_A}}}$: where $h_A$ is the unique homomorphism
+$h_A:T(SP) \to A$ for each $A \in \Mod(SP)$.
+\end{definition}
+
+\begin{lemma}\label{le:unique}
+There is a unique homomorphism $\phi_A: \qu{T(SP)}{\cong} \to A$, for each $A \in \Mod(SP)$.
+\end{lemma}
+%
+\begin{PROOF}
+We have the following picture:
+
+\[
+\xymatrix{
+		&T(SP) \ar[dl]_{!h_A} \ar[d]^{\eta_A} \ar[dr]^{\eta}\\
+	A	& \qu{T(SP)}{\kernel{h_A}} \ar[l]^{h'_A}	
+			& \qu{T(SP)}{\cong} \ar[l]^{h_{\quot}}\\
+}
+\]
+There is a unique homomorphism $h_A: T(SP) \to A$, for each $A \in \Mod(SP)$,
+by lemma~\ref{le:unique1}. 
+By fact~\ref{fa:factor} there is then a monomorphism $h'_A:
+{\qu{T(SP)}{\kernel{h_A}}} \to A$.
+By fact~\ref{fa:subequi} there is, for each $A\in\Mod(SP)$, an epimorphism $h_{\quot}: \qu{T(SP)}{\cong} \to
+{\qu{T(SP)}{\kernel{h_A}}}$, since ${\kernel{h_A}}\ 
+\supseteq\ {\cong}$. Composition of homomorphisms is a homomorphism, so we get
+a homomorphism $\phi_A: {\qu{T(SP)}{\cong}} \to A$, defined by $\phi_A =
+h_{\quot};h'_A$. By fact~\ref{fa:epi} there is an epimorphism $\eta:
+T(SP) \to \qu{T(SP)}{\cong}$. This gives that $\phi_A$ is unique since $h_A$ is
+unique and $\eta$ is epi.
+\end{PROOF}
+%
+Lemma~\ref{le:unique} gives us immediately following proposition:
+\begin{proposition}\label{prop:if}
+If $\qu{T(SP)}{\cong} \in \Mod(SP)$ then  $\qu{T(SP)}{\cong}$ is an initial model for $SP$.
+\end{proposition}
+%
+Of course, checking whether $\qu{T(SP)}{\cong}\in\Mod(SP)$ may be a hard
+task. Nevertheless, 
+the above proposition gives us a general way of finding initial models
+irrespectively of the form of specification. For instance, we may construct
+an initial model for the following specification of binary nondeterministic
+choice $\choice$ which uses disjunction.
+
+\begin{example}
+Initial model for nondeterministic choice.
+\[ \spec{
+	\tit{\mbox{\bf spec\ NDChoice}^{\inst{MA}}=} \\
+		\Sorts: && s\\
+		\Ops:   && a: \to s\\
+			&& b:\to s\\
+			&& c: \to s\\
+			&& d:\to s\\
+			&& \choice:s \to s\\
+		{\bf axioms:}
+			&1.& a \eleq a\\
+			&2.& b \eleq b\\			
+		        &3.& c \eleq c\\
+			&4.& d \eleq d\\
+			&5.& x \prec x \choice y \\
+			&6.& x \choice y \prec y \choice x\\
+			&7.& z \prec x \choice y \To z \prec x , z \prec y \\	
+}
+\]
+$\qu{T(SP)}{\cong}$ is initial for the above specification, since it is a
+multialgebra and satisfies all axioms, especially axiom 7.
+
+	\[ \begin{array}{l}
+		s^{\qu{T(SP)}{\cong}} =\{ [a], [b], [c], [d] \}\mbox{, where $[a] = a, a \choice a, \ldots$ }\\
+		a^{\qu{T(SP)}{\cong}} =[a] \\
+		b^{\qu{T(SP)}{\cong}} =[b] \\
+		c^{\qu{T(SP)}{\cong}} =[c] \\
+		d^{\qu{T(SP)}{\cong}} =[d] \\
+		(x\choice y)^{\qu{T(SP)}{\cong}} = \{ x,y \} \mbox{ where $x,y \in s^{\qu{T(SP)}{\cong}}$}  \\
+	\end{array} \]
+\end{example}
+$\qu{T(SP)}{\cong}$ has the following property of standard initial models of
+deterministic specifications.
+\begin{proposition}\label{prop:geq}
+If $\qu{T(SP)}{\cong}\in\Mod(SP)$ then for any ground terms $s,t\in
+T(\Sigma):$ \[ \qu{T(SP)}{\cong}\models s\eleq t \iff SP\models s\eleq t. \]
+\end{proposition}
+\begin{PROOF}
+$\Leftarrow$ is trivial by the assumption. So assume that
+$\qu{T(SP)}{\cong}\models s\eleq t$. This means, in particular, that
+$[s],[t]\in |\qu{T(SP)}{\cong}|$, i.e., that $SP\models
+s\eleq s$ and $SP\models t\eleq t$. For any $A\in\Mod(SP)$, we have a unique
+homomorphism $\phi_A:\qu{T(SP)}{\cong}\to A$ by lemma~\ref{le:unique}. Thus
+$A\models s\eleq t$.
+\end{PROOF}
+%
+
+\subsection{Initial models for atomic specifications}\label{sub:atomic}
+We show that for an atomic DET-additive
+specification $SP$ (with only atomic formulae as axioms),
+$\qu{T(SP)}{\cong}\in\Mod(SP)$, and hence that it is an initial model. We
+will end up this section with a counter example demonstrating that the
+conditions for atomic specifications are not sufficient for ensuring the
+existence of initial models for specifications involving also conditional axioms.
+
+\begin{lemma}
+\label{le:eql}
+If $SP \models s \eleq t$, for $s, t \in T(\Sigma,X)$, then we have that:
+$\qu{T(SP)}{\cong} \models {s \eleq t}$.
+% and $[s]^{T(SP) / \cong} = [t]^{T(SP) / \cong}$
+\end{lemma}
+%
+\begin{PROOF}
+Note that for an $A\in \Mod(SP)$, each assignment $\alpha: X \to \qu{T(SP)}{\cong}$ induces a unique
+assignment $\alpha':X \to A$, defined by $\alpha'=
+\alpha;\phi_A$, where $\phi_A$ is the unique homomorphism $\phi_A:\qu{T(SP)}{\cong} \to
+A$.
+
+If $SP \models s \eleq t$, than for any given assignment $\alpha:X
+\to \qu{T(SP)}{\cong}$ we have that $\phi_A(\alpha(s))= \phi_A(\alpha(t))$ for all $A
+\in \Mod(SP)$, where $\phi_A$ is as above. But also $|\phi_A(\alpha(s))|=1=|\phi_A(\alpha(t))|$ i.e
+$\alpha(s) \cong \alpha(t)$, by definition~\ref{de:cong}. Thus, since
+$\alpha$ was arbitrary, $\qu{T(SP)}{\cong} \models s \eleq t$
+\end{PROOF}
+
+\begin{lemma}\cite{hussmann}
+\label{le:detinclusion}
+For an assignment $\alpha:X \to \qu{T(SP)}{\cong}$ and a term $t \in
+T(\Sigma,X)$ we have that: $\alpha(t)^{\qu{T(SP)}{\cong}}= \{[t']: t' \in
+T(\Sigma) \land SP \models t' \eleq t' \land SP \models t' \prec \alpha(t)
+\}$
+\end{lemma}
+%
+\begin{PROOF}
+We have three cases to prove.
+\begin{itemize} 
+\item $t = x, x \in X$: 
+	\begin{eqp}
+		\alpha(t)^{\qu{T(SP)}{\cong}}
+	\comment{=}{assumption}
+		\alpha(x)^{\qu{T(SP)}{\cong}}
+	\comment{=}{def. $\qu{T(SP)}{\cong}$, lemma~\ref{le:eql} and $SP\models \alpha(x) \eleq \alpha(x)$ }
+		\{[t']: t' \in T(\Sigma) \land SP \models t' \eleq t' \land SP \models t' \prec \alpha(x) \}
+	\end{eqp}
+\item $t = c$, $c$ constant:
+	\begin{eqp}
+		\alpha(t)^{\qu{T(SP)}{\cong}}
+	\comment{=}{assumption}
+		\alpha(c)^{\qu{T(SP)}{\cong}}
+	\comment{=}{no assignment for constants}
+		c^{\qu{T(SP)}{\cong}}
+	\comment{=}{def. $\qu{T(SP)}{\cong}$}
+		\{ [t']: t' \in T(\Sigma) \land SP \models t' \eleq t' \land SP \models t' \prec c \} 
+	\comment{=}{no assignment for constants}
+		\{ [t']: t' \in T(\Sigma) \land SP \models t' \eleq t' \land SP \models t' \prec \alpha(c) \} 
+	\end{eqp}
+
+\item $t = f(t_1, \ldots ,t_n)$:
+	\begin{eqp}
+		\alpha(t)^{\qu{T(SP)}{\cong}}
+	\comment{=}{assumption}
+		\alpha(f(t_1, \ldots ,t_n))^{\qu{T(SP)}{\cong}}
+	\comment{=}{assignment}
+		\bigcup_{a_{i}\in \alpha(t_{i})} f(a_1, \ldots ,a_n)^{\qu{T(SP)}{\cong}}
+	\comment{=}{def. $\qu{T(SP)}{\cong}$}
+		\{ [t']: t' \in T(\Sigma) \land SP \models t' \eleq t' \land SP \models t' \prec \bigcup_{a_{i}\in \alpha(t_{i})} f(a_1, \ldots ,a_n)^{\qu{T(SP)}{\cong}} \}
+	\comment{=}{assignment}
+		\{ [t']: t' \in T(\Sigma) \land SP \models t' \eleq t' \land SP \models t' \prec  \alpha(f(t_1, \ldots ,t_n)) \}
+	\end{eqp} 
+\end{itemize}\vspace*{-3ex}
+\end{PROOF}\vspace*{-2ex}
+
+\begin{lemma}
+\label{le:satincl}
+If $s,t \in T(\Sigma,X)$ and $SP \models s \prec t$ then: ${\qu{T(SP)}{\cong}} \models s \prec t$:
+\end{lemma}
+%
+\begin{PROOF}
+If $SP\models s \prec t$ and $\alpha$ an assignment we have that:
+	\begin{eqp}
+		\alpha(s)^{\qu{T(SP)}{\cong}}
+	\comment{=}{lemma~\ref{le:detinclusion}}
+		\{ [t']: t' \in T(\Sigma) \land SP \models t' \eleq t' \land SP \models t' \prec \alpha(s) \}
+	\comment{\subseteq}{$SP\models s \prec t$}
+		\{ [t']: t' \in T(\Sigma) \land SP \models t' \eleq t' \land SP \models t' \prec \alpha(t) \}
+	\comment{=}{lemma~\ref{le:detinclusion}}
+		\alpha(t)^{\qu{T(SP)}{\cong}}
+	\end{eqp}\vspace*{-2ex}
+\end{PROOF}
+\newpage
+Combining lemma~\ref{le:unique}, lemma~\ref{le:eql} and
+lemma~\ref{le:satincl} we get the sufficient condition for the existence of
+initial models for atomic specifications:
+
+\begin{proposition}\label{prop:atom} \cite{hussmann}
+\label{fa:atinit}
+If $SP$ is an atomic DET-additive specification then ${\qu{T(SP)}{\cong}}$ is
+an initial model for $SP$.
+\end{proposition}
+%%%%
+One might hope that the conditions of proposition~\ref{prop:atom} will carry over to conditional axioms,
+but the following example shows that this it not the case.
+
+\begin{example}\label{ex:coinit}
+Counter example: DET-additivity does not ensure the existence of initial model for Horn formulae.
+\[ \spec{
+	\tit{\mbox{\bf spec\ Counterex}^{\inst{MAH}}=} \\
+		\Sorts: && s\\
+		\Ops:   && c: \to s\\
+			&& d:\to s\\
+			&& e: \to s\\
+		{\bf axioms:}			
+		        &1.& \To c \eleq c\\
+			&2.& \To d \eleq d\\
+			&3.& \To c \prec e\\
+			&4.& \To c \eleq e \To d \eleq e \\
+}
+\]
+The following multialgebra $A$ satisfies the specification:
+
+	\[ \begin{array}{l}
+		s^A = \{ c,d,j \}\\
+		c^A= c \\
+		d^A= d \\
+		e^A = \{c,j \} \\
+	\end{array} \]
+
+But $\qu{T(SP)}{\cong}$ will not satisfy the specification. It looks as follows:
+
+	\[ \begin{array}{l}
+		s^{\qu{T(SP)}{\cong}} =\{ [c], [d] \}\mbox{, where $[c] = \{c, e\}$ and $[d] = \{d\}$} \\
+		c^{\qu{T(SP)}{\cong}} =[c] \\
+		d^{\qu{T(SP)}{\cong}} =[d] \\
+		e^{\qu{T(SP)}{\cong}} =[c] \\
+	\end{array} \]
+So ${\qu{T(SP)}{\cong}}$ does not satisfy axiom 4. On the other hand, if we
+take the least congruence on ${\qu{T(SP)}{\cong}}$ that satisfies the axioms,
+we would obtain $[c]=[d]$, but then we have no homomorphism to $A$ --
+${\qu{T(SP)}{\cong'}}$ satisfies now the equation $c
+\eleq e$ that is not satisfied by $A$.
+\end{example}
+%
+At the moment, we do not have general syntactic conditions ensuring the
+existence of initial models for conditional specifications and we have to live with the
+proposition~\ref{prop:if} as the strongest general result. 
+
+\section{Partial algebras and multialgebras}\label{se:partial}
+In this section we will study the relationships between the institution of
+partial algebras and $\inst{MA}$. We start with the recap of partial
+algebras. Subsection \ref{sub:rel} illustrates by example the intended way of
+reusing partial algebra specifications in our framework. Subsection
+\ref{sub:emb} shows an embedding of the institution of partial algebras into
+$\inst{MA}$ and, finally, subsection~\ref{sub:import} describes another way of
+relating institutions, namely {\em institution transormation} from \cite{system}, which
+formalizes the intentions of the example from ~\ref{sub:rel}.
+
+\subsection{Partial algebras}\label{sub:pa}
+We recall the basic definitions from partial algebras, for a survey see \cite{burm,state,mossa}.
+
+Partial algebra signatures are, as before, pairs $(\Sorts,\Ops)$ and their 
+category is the same as for multialgebras, \cat{Sign} from definition~\ref{de:Sign}.
+\begin{definition}
+A partial algebra $A$ for $\Sigma$ is given by:
+\begin{itemize}\MyLPar
+\item A set $s^A$ for each sort $s \in S$
+\item A partial function $\omega^A: s^A\times\cdots\times s_n^A \to s^A$, for each
+symbol $\omega:s_1\times\cdots \times s_n\to s \in \Omega$
+\end{itemize}
+A (weak) homomorphism between partial algebras $A$ and $B$ is a total function
+$h:|A|\to |B|$ such that $h(\omega^A(x_1, \ldots ,x_n))= \omega^B(h(x_1), \ldots ,h(x_n))$
+for each operation $\omega\in\Ops$ and arguments $x_1, \ldots ,x_n$ where
+$\omega^A(x_1, \ldots ,x_n)$ is defined.
+\end{definition}
+%
+The total functions are special cases of the partial ones. Weak homomorphism $h$ can
+be equivalently described as an ordinary homomorphism 
+such that: for each
+operation $\omega\in\Ops:h(\dom(\omega^A))\subseteq\dom(\omega^B)$, where
+$\dom$ identifies $\omega$'s definition domain in a given algebra $A$.
+%and likewise a closed homomorphism satisfies $\omega\in\Ops:h(\dom(\omega^A)) = \dom(\omega^B)$.
+
+\begin{definition}Formulae:
+\begin{itemize}
+\item Atomic $t \eequal t'$ -- existential equalities
+\item Formulae are conditional existential equalities: $a_1
+\land \cdots \land a_n \To a$ with $n\geq 0$. 
+\end{itemize}
+\end{definition}
+
+\begin{definition} Let $\alpha:X\to |A|$ be an assignment (total function):
+\begin{itemize}
+\item $A \models_{\alpha} t \eequal t'$ iff $\ovr{\alpha}(t)$ and
+$\ovr{\alpha}(t')$ are defined and $\ovr{\alpha}(t) =
+\ovr{\alpha}(t')$ 
+\item $A \models_{\alpha} a_1 \land \cdots \land a_n
+\To a$ iff $\exists i: 1 \leq i \leq n: A {\not \models_{\alpha}}
+a_i$ or $A \models_{\alpha} a$ 
+\item $A \models \phi$ iff $A\models_{\alpha} \phi$ for all $\alpha$ 
+\end{itemize}
+\end{definition}
+
+\begin{example}\label{ex:npa}
+Following is an example of a partial algebra specification:
+\[ \begin{array}{rrl}
+{\bf spec\ Nat}^{\PA} = \\
+	{\Sorts}:	&& Nat\\
+	{\Ops}:		&& zero:\to Nat\\
+			&& succ:Nat \to Nat\\
+			&& pred:Nat \to Nat\\
+	{\bf axioms}:	&1.& zero \eeq zero\\
+			&2.& succ(x) \eeq succ(x)\\
+			&3.& pred(succ(x)) \eeq x\\
+			&4.& pred(x) \eeq pred(x) \To succ(pred(x)) \eeq x \\
+\end{array} \]
+The first two axioms make $zero$ and $succ$ total operations. The third
+axioms ensures that $pred(succ(x))$ is defined and equal to $x$. The last axiom
+means that if $pred(x)$ is defined then also $succ(pred(x))$ is defined and equal
+to $x$.
+\end{example}
+%
+We will from now on use {\bf tot} as an abbreviation; axioms 1. and
+2. above will be abbreviated as {\bf tot}: $zero,succ$.
+  
+
+\subsection{Partial algebras and multialgebras}\label{sub:rel}
+To relate multialgebras with partial algebras we recall the similarities
+between the element equalities $\eleq$ from multialgebras and the existential
+equalities $\eeq$ in partial algebras. Both equalities hold when both sides
+of the equality sign denote the same element. In a multialgebra, the equality
+does not hold if one side of the equality sign is interpreted by a set with
+cardinality greater than one or by the empty set. The existential equality does not hold in
+a partial algebra if one side of the equality sign is undefined. 
+(Besides equality does not hold, in both multialgebra and
+partial algebra, when the elements are different on each side of the equality
+sign.) These similarities suggest the straightforward relation between
+multialgebras and partial algebras: replace {\bf tot} by {\bf det} and $\eeq$
+by $\eleq$.
+
+\begin{example}
+The multialgebra specification corresponding to the specification from example~\ref{ex:npa}
+is as follows:
+\[ \begin{array}{rrl}
+{\bf spec\ Nat}^{\inst{MA}}= \\
+	{\Sorts}: && Nat\\
+	{\Ops}:	&& zero:\to Nat\\
+		&& succ:Nat \to Nat\\
+		&& pred:Nat \to Nat\\
+{\bf det}:	&& zero, succ \\
+{\bf axioms}:	&1.& pred(succ(x))\eleq x \\
+		&2.& pred(x)\eleq pred(x) \To succ(pred(x))\eleq x\\
+\end{array} \]
+\end{example}
+The partial algebra models and the multialgebra models for the specifications
+from the above two examples will coincide on their total parts but the
+difference concerns the undefined parts.
+Among the partial algebra models, there will be ones where
+the term $pred(zero)$ has no interpretation -- is undefined. Similarly, among
+the multialgebraic models there will be ones where this term denotes empty set. 
+But we also have the possibility that this term
+may be nondeterministic, even completely nondeterministic. 
+
+If, instead of axiom 2., one writes the axioms $succ(pred(x)) \eeq x$, respectively
+$succ(pred(x))\eleq x$, one forces $succ(pred(x))$ to be always defined. In
+the partial algebra case, due to strictness of all operations, this forces also
+$pred(x)$ to be defined. In the multialgebra case this
+corresponds to a particular error recovery -- even if $pred(zero)$ is
+undefined, the subsequent application of $succ$ will yield $zero$. The model
+class of the multialgebraic specification has ``more'' models.
+
+The above example shows our intended goal of allowing reuse of partial
+algebra specifications in the context where additional flexibility is offered by the extension
+of the model class. This will be our topic in
+subsection~\ref{sub:import}. As a preliminary step we show first a direct embedding of
+$\inst{PA}$ into $\inst{MA}$.
+
+
+%%
+%%As the above examples suggest, we have the following relation between
+%%$\inst{MAEH}$ and $\inst{PA}$.
+%%\begin{proposition}
+%%There is a plain map $(\fu{\Phi},\alpha, \beta)$ of institutions from
+%%$\inst{MAEH}$ to $\inst{PA}$.
+%%\end{proposition}
+%%\begin{PROOF}
+%%\begin{itemize}
+%%\item The functor $\fu{\Phi}: \Sign_{\inst{MAEH}} \to \thr{Th}_{\inst{PA}}$
+%%is the identity on signatures.
+%%\item The natural transformation $\alpha: \Sen_{\inst{MAEH}} \to
+%%\Sen_{\inst{PA}} \circ \fu{\Phi}$ is given by:
+%%	\begin{enumerate}
+%%	 \item $\alpha(t \eleq t') \equiv t \eequal t'\mbox{ for each atom }$
+%%	 \item $\alpha(a_1 \wedge \cdots \wedge a_n \To a) \equiv \alpha(a_1) \wedge \cdots \wedge \alpha(a_n) \To \alpha(a)\mbox{ for Horn clause }a_1 \wedge \cdots \wedge a_n \To a$
+%%	\end{enumerate}
+%%\item The natural transformation $\beta: Mod_{\inst{PA}}
+%%	\circ \fu{\Phi}^{op} \to Mod_{\inst{MAEH}}$ is essentially identity
+%%	on models (cf. defintion~\ref{de:MP}) and homomorphisms.
+%%\end{itemize} \vspace*{-3ex}
+%%\end{PROOF}
+
+\subsection{Embedding $\inst{PA}$ into $\inst{MA}$.}\label{sub:emb}
+Any $\Sigma$-partial algebra can be trivially converted into a
+$\Sigma$-multialgebra by making all undefined operations return the empty
+set. 
+Since operations in multialgebra are strict on the empty set, the
+implicit strictness assumption from partial algebras, will be enforced
+automatically.
+%%%%%%%%
+\begin{definition}\label{de:MP}
+The functor $\fu{\beta}^-:\Mod_{\inst{PA}}(\Sigma)\to\Mod_{\inst{MA}}(\Sigma)$
+maps a partial algebra $A$ to a multialgebraby given by:
+\begin{itemize}\MyLPar
+\item $|\fu{\beta}^-(A)|=|A|$
+\item for all $\overline x\in |\fu{\beta}^-(A)|$ and $f\in\Omega$:
+$f(\overline x)^{\fu{\beta}^{-}(A)}= \left\{\begin{array}{ll}\{f(\overline x)^A\} & - {\rm
+if\ it\ is\ defined}\\
+\emptyset & - {\rm otherwise} \end{array}\right.$
+\end{itemize}
+For a homomorphism:  $h \in \Mod(\fu{\Psi}(\Sigma,\Gamma))$, we define $\fu{\beta}^-(h) = h$.
+
+For a multialgebra $M$ where all nondeterministic operations return empty
+set, $\fu{\beta}(M)$ will denote the
+corresponding partial algebra, i.e., $\fu{\beta}^-(\fu{\beta}(M))=M$.
+\end{definition}
+%
+Saying that a multialgebra and a partial
+algebra are ``essenitally the same'', we will
+mean that they are obtained from each other by means of $\fu{\beta}(\_)$,
+resp. $\fu{\beta}(\_)$.
+
+The embedding of $\inst{PA}$ into $\inst{MA}$ is now obtained by 
+augmenting the
+partial algebra specification with additional axioms forcing all operations
+to return either a unique element or the empty set. This is the underlying
+model in partial algebras which in our, generalized, context need explicit
+axioms. 
+
+For an operation $f(\overline x)$, the axiom forcing it to be empty or
+deterministic is of the form $y\prec f(\overline x)\To f(\overline x)\eleq
+f(\overline x)$, where $y$ is a fresh variable. We first show that this is
+the case -- i.e., that
+multialgebras satisfying such axioms (for all operations) are ``essentially''
+partial algebras.
+\begin{lemma}\label{le:esspa}
+Let $SP=(S,\Omega,\Gamma)$ be a specification in $\inst{MA}$ such that, for
+each operation $f\in\Omega:  
+SP\models y \prec f(\overline{x}) \To f(\overline{x}) \eleq f(\overline{x})$,
+where $y$ is distinct from all $\overline x$.
+Then in any $M\in\Mod(SP)$ we have that for all $\overline x\in|M|:f(\overline{x})^M=\emptyset$ or
+$f(\overline x)^M$ is deterministic.
+\end{lemma}
+\begin{PROOF}
+Let $M\in\Mod(SP)$ and $\alpha:\{y,\overline x\}\to M$ be an assignment. If
+$M\not\models_\alpha f(\overline{x}) \eleq f(\overline{x})$ then, since
+$M\models_\alpha y\prec f(\overline x)\To f(\overline x)\eleq f(\overline x)$,
+we must have that $M\models_\alpha y\prec f(\overline x)\To$, i.e., 
+$\alpha(f(\overline x))^M=\emptyset$.
+\end{PROOF}
+%
+%
+\begin{proposition}\label{prop:PaMa}
+There is an embedding $(\fu{\Psi},\alpha, \beta)$ of institutions from
+$\inst{PA}$ to $\inst{MA}$; the embedding is a simple map.
+\end{proposition}
+%
+\begin{PROOF}
+\begin{itemize}
+\item The functor $\fu{\Psi}: \Sign_{\inst{PA}} \to \thr{Th}_{0\inst{MA}}$ is given
+by: $\fu{\Psi}(S,\Omega)= ((S,\Omega),\emptyset_{\Sigma})$, where
+$\emptyset_{\Sigma}$ contains an axiom $y \prec f(\overline{x}) \to
+f(\overline{x}) \eleq f(\overline{x})$ for each $f\in\Omega$. For  morphisms
+$\fu{\Psi}(\mu_S,\mu_{\Omega})$ is the identity.  
+\item The natural transformation
+$\alpha: \Sen_{\inst{PA}} \to \Sen_{\inst{MA}} \circ \fu{\Psi}$ is given by:
+   \begin{enumerate} 
+    \item $\alpha(t \eequal t') \equiv t \eleq t'\mbox{ for
+each axiom }t \eequal t'$ 
+    \item $\alpha(a_1 \wedge \cdots \wedge a_n
+\To a) \equiv \alpha(a_1) \wedge \cdots \wedge \alpha(a_n)
+\To \alpha(a)\mbox{ for each clause }a_1 \wedge \cdots \wedge
+a_n \To a$ 
+   \end{enumerate}
+$\fu{\Psi}$ is extended to a functor 
+$\fu{\Psi}: \thr{Th}_{0\inst{PA}} \to \thr{Th}_{0\inst{MA}}$ by letting
+$\fu{\Psi}(\Sigma,\Gamma) = (\Sigma,\emptyset_\Sigma\cup\alpha_\Sigma(\Gamma))$.
+%
+\item 
+The components of the natural transformation $\beta: Mod_{\inst{MA}}
+	\circ \fu{\Psi}^{op} \to Mod_{\inst{PA}}$ are $\fu{\beta}$'s from definition~\ref{de:MP}, i.e.:
+\begin{itemize}
+	\item $|\beta_{\Sigma}(M')| = |M'|$
+	\item $f(x_1, \ldots ,x_n)^{\beta_{\Sigma}(M')} = \left\{\begin{array}{l}
+	  undefined\ {\rm if}\ f(x_1, \ldots ,x_n)^{M'}=\emptyset \\
+          x\ {\rm such\ that}\ f(x_1, \ldots ,x_n)^{M'}=\{x\}\ {\rm otherwise} \end{array}\right.$
+    \end{itemize}
+This is well defined partial algebra by lemma~\ref{le:esspa}.
+For a homomorphism:  $h \in \Mod_{\inst{MA}}(\fu{\Psi}(\Sigma,\Gamma))$, we define $\beta_\Sigma(h) = h$.
+\end{itemize}
+%
+We verify the ``thruth'' condition: for every $M'\in\Mod_{\inst{MA}}(\fu{\Psi}(\Sigma,\emptyset))$ and $\phi \in \Sen_{\inst{PA}}(\Sigma)$:
+\begin{equation}
+\label{eq:tcp} 
+M' \models_{\inst{MA}} \alpha_{\Sigma}(\phi) \mbox{ iff } 
+\beta_{(\Sigma,\emptyset)} (M') \models_{\inst{PA}} \phi  
+\end{equation}
+\noindent
+By the definition of $\beta$, for any $\fu{\Psi}(\Sigma,\emptyset)$-multialgebra
+$M'$, the $\Sigma$-partial algebra $\beta(M')$ has the same carrier, $|M|=
+|\beta(M')|$. Thus every assignment $\nu': X \to M'$ is also an assignment
+$\nu': X \to \beta(M')$, and vice versa.  Given a partial algebra signature
+$\Sigma=(S,\Omega)$, $\fu{\Psi}(\Sigma,\emptyset)$ adds an axiom $ y \prec
+\omega(\overline{x}) \To \omega(\overline{x}) \eleq \omega(\overline{x})$,
+for every $\omega \in \Omega$ -- thus for any ground term $t\in T(\Sigma)$,
+$\fu{\Psi}(t)=t$ will be interpreted as an element or the empty set in every
+$\fu{\Psi}(\Sigma,\emptyset)$-multialgebra $M'$.  We show that for every atom $a
+\in \Sen_{\inst{PA}}(\Sigma)$ and for any assignment $\nu:X\to|M'|$:
+\begin{equation}\label{eq:tcpa}
+M' {\models_{\inst{MA}}}_{\nu} \alpha_{\Sigma}(a) \mbox{ iff 
+} \beta_{(\Sigma,\emptyset)} (M') {\models_{\inst{PA}}}_{\nu} a
+\end{equation}
+%
+Let $M' \in \Mod_{\inst{MA}}(\fu{\Psi}(\Sigma,\emptyset))$:
+$a \equiv s \eequal t$:	
+		\begin{eqp}
+			M' \models_{\nu} \alpha(s \eequal t)
+		\comment{\hviss}{def. $\alpha$}
+			M' \models_{\nu} s \eleq t
+		\comment{\hviss}{satisfaction}
+			{\nu}(s)^{M'} = {\nu}(t)^{M'} = {e}, e \in |M'|
+		\comment{\hviss}{def. $\beta$}
+			{\nu}(s)^{\beta(M')} = {\nu}(t)^{\beta(M')} = e \in 
+|\beta(M')|
+		\comment{\hviss}{satisfaction}
+			{\beta(M')} \models_{\nu} s \eequal t
+		\end{eqp}
+The general statement (\ref{eq:tcp}) follows easily from the above fact (\ref{eq:tcpa}).
+\end{PROOF}
+We also have an immediate consequence of the above proof:
+\begin{fact}\label{fa:iso}
+For a $\inst{PA}$ theory $(\Sigma,\Gamma)$, 
+the functor $\beta_{(\Sigma,\Gamma)}$ is an equivalence (in fact, an
+isomorphism) of categories $\Mod_{\inst{MA}}(\fu{\Psi}(\Sigma,\Gamma))$ and
+$\Mod_{\inst{PA}}(\Sigma,\Gamma)$. 
+\end{fact}
+\begin{PROOF}
+The
+inverse functor $\beta^{-}_{(\Sigma,\Gamma)}$ sends a partial algebra
+$P\in\Mod_{\inst{PA}}(\Sigma,\Gamma)$ onto a multialgebra
+$M'\in\Mod_{\inst{MA}}(\fu{\Psi}(\Sigma,\Gamma))$ such that $\beta(M')=P$, i.e.,
+it is $\beta^-$ from definition~\ref{de:MP}. One verifies easily the
+isomorphism condition.
+\end{PROOF}
+%
+As Mossakowski showed in \cite{mossa} $\inst{PA}$ allows to
+specify exactly the finitely locally presentable categories \cite{locally},
+i.e. we have identified the subinstitution of $\inst{MA}$ allowing to specify
+thes classes of models. 
+
+\subsection{Extending the model class of $\inst{PA}$ specifications}\label{sub:import}
+The intention of passing from partial algebra to multilagebra specification
+is, on the one hand, to be able to reuse specifications which have been written in the former
+framework and, on the other, to allow for their furhter development with
+explicit error handling. The embedding of institutions from
+proposition~\ref{prop:PaMa} does not address this latter issue since it
+merely yields essentially the same model class. 
+
+What we will do now is to merely import the partial algebra specifications
+{\em without} augmenting them with the additional axioms. This will 
+allow us to make the desired
+transition: given a partial algebra
+specification, we translate it trivially  into a multialgebraic
+specification. This transition results in a larger model class, where in
+addition to essentially the same partial models, we also have the models
+where operations are non-strict.
+Further development can now take
+place in the multialgebraic framework, allowing one to refine the
+specification to the level of explicit error treatement.
+%
+%%%%%%%%%%%%%%%%%%%%% 
+
+The isomorphism of respective model classes stated in fact \ref{fa:iso} gives
+us the following relation 
+called {\em institution transformation} in \cite{system}.
+\begin{proposition}\label{prop:PaMaT}
+There is an institution transformation $(\fu{\Psi}^*,\alpha, \beta^{-})$ from
+$\inst{PA}$ to $\inst{MA}$.
+\end{proposition}
+%
+\begin{PROOF}
+\begin{itemize}
+\item The functor $\fu{\Psi}^*: \Sign_{\inst{PA}} \to \thr{Th}_{0\inst{MA}}$ is given
+by: $\fu{\Psi}^*(S,\Omega)= (S,\Omega,\emptyset)$. For  morphisms
+$\fu{\Psi}^*(\mu_S,\mu_{\Omega})$ is the identity.  
+\item The natural transformation
+$\alpha: \Sen_{\inst{PA}} \to \Sen_{\inst{MA}} \circ \fu{\Psi}^*$ is given by:
+   \begin{enumerate} 
+    \item $\alpha(t \eequal t') \equiv t \eleq t'\mbox{ for
+each axiom }t \eequal t'$ 
+    \item $\alpha(a_1 \wedge \cdots \wedge a_n
+\To a) \equiv \alpha(a_1) \wedge \cdots \wedge \alpha(a_n)
+\To \alpha(a)\mbox{ for each clause }a_1 \wedge \cdots \wedge
+a_n \To a$ 
+   \end{enumerate}
+$\fu{\Psi}^*$ is extended to a functor 
+$\fu{\Psi}^*: \thr{Th}_{0\inst{PA}} \to \thr{Th}_{0\inst{MA}}$ by letting
+$\fu{\Psi}^*(\Sigma,\Gamma) = (\Sigma,\alpha_\Sigma(\Gamma))$.
+%
+\item The components of the natural transformation $\beta^{-}: \Mod_{\inst{PA}} \to
+\Mod_{\inst{MA}} \circ (\fu{\Psi}^*)^{op}$ are $\beta^-$ from
+definition~\ref{de:MP}:
+\end{itemize}
+From the embedding in proposition~\ref{prop:PaMa} above we have the
+``thruth'' condition: for every
+$M'\in\Mod_{\inst{MA}}(\fu{\Psi}(\Sigma,\emptyset))$ and $\phi \in
+\Sen_{\inst{PA}}(\Sigma)$ ($\fu{\Psi}$ is as in proposition~\ref{prop:PaMa}):
+\begin{equation}
+\label{eq:tcpZ} 
+M' \models_{\inst{MA}} \alpha_{\Sigma}(\phi) \mbox{ iff } 
+\beta_{(\Sigma,\emptyset)} (M') \models_{\inst{PA}} \phi  
+\end{equation}
+Since $\beta_{(\Sigma,\Gamma)}$ is an isomorphism of categories (fact
+\ref{fa:iso}) we get that i) for each $P\in\Mod_{\inst{PA}}(\Sigma,\emptyset)$
+there exists an $M \in\Mod_{\inst{MA}}(\fu{\Psi}(\Sigma,\emptyset))$, with $P
+= \beta(M)$ and $M = \beta^{-}(P)$. Now, the extension of the model class is
+``conservative'': for a $\inst{PA}$ specification $(\Sigma,\Gamma)$,
+$\fu{\Psi}^*(\Sigma,\Gamma)\subset \fu{\Psi}(\Sigma,\Gamma)$  and hence
+$\Mod_{\inst{MA}}(\fu{\Psi}(\Sigma,\Gamma)) \subseteq
+\Mod_{\inst{MA}}(\fu{\Psi}^*(\Sigma,\Gamma))$. Thus, the $M$ existing by i)
+above is actually an element of
+$\Mod_{\inst{MA}}(\fu{\Psi}^*(\Sigma,\Gamma))$, and we obtain the condition
+for the institution transformation:
+for all $P \in \Mod_{\inst{PA}}(\Sigma,\emptyset)$
+\begin{equation}
+\label{eq:tcp1} 
+\beta^{-}_{(\Sigma,\emptyset)} (P) \models_{\inst{MA}} \alpha_{\Sigma}(\phi) \mbox{ iff } 
+P \models_{\inst{PA}} \phi  
+\end{equation}
+\end{PROOF}
+%
+Notice that this proposition does not imply the existence of initial model
+for $\fu{\Psi}^*(SP)$. For instance, let $f(t)\eeq s$ be the only axiom of
+$SP$. The initial partial algebra model will have two elements
+$[s]=\{s,f(t)\}$ and $[t]$. The latter appears because of the underlying
+strictness assumption, $f(t)\eeq s\To t\eeq t$. The corresponding assumption
+is absent in $\inst{MA}$ and the construction of $\qu{T(\fu{\Psi}^*(SP))}\cong$
+will give only one element in the carrier $[s]=\{s,f(t)\}$, which does not yield a
+multialgebra.\footnote{In this trivial example, an initial multialgebra could
+be obtained by adding the axiom $t\eleq t$. This, however, is an option left
+to the specifier.} Although this is, perhaps, bad news for the adherents of
+initial semantics, it seems to be the obvious price for dropping the
+strictness assumption. And getting rid of this assumption is necessary for a
+more detailed specification of error situations.
+
+%%
+\section{Membership algebras and multialgebras}\label{se:member}
+We start by recalling the basic concepts from membership algebras and show,
+in subsection~\ref{sub:mamb}, that institution of membership algebras can be
+embedded into $\inst{MA}$.
+%
+\subsection{Membership algebras}
+Membership algebras were introduced by Mesguer in \cite{member}. We will use
+notation coresponding to the notation used elsewhere in the article, which slightly differs
+from the notation used in \cite{member}.
+
+\begin{definition} (Membership signature)
+A (membership) signature $\Sigma$ is a quadruple $\Sigma=(S,\Omega,P,\pi)$, where $S$ is
+the names of the sorts and $\Omega$ the names of the $\overline{S} \times
+S$ indexed operations. $P$ is s set of predicate names. $\pi$ is a function
+$\pi:P \to S$ which for each predicate $p \in P$ assigns a corresponding sort
+$s \in S$. By $P_s$ one denotes the predicates of sort $s$
+i.e. $\{\pi^{-1}(s): s\in S\}$.
+\end{definition}
+%
+The function $\pi$ labels predicate symbols by sort -- its intention is to
+identify a predicate $p$ with $\pi(p)=s$ as a subset of sort $s$.
+
+\begin{definition}
+A {\it signature morphism} between two membership signatures $\Sigma =
+(S,\Omega,P,\pi)$ and $\Sigma' = (S',\Omega',P',\pi')$ is a triple $\mu =
+(\mu_P,\mu_S,\mu_{\Omega})$, where $\mu_P: P \to P'$ and $\mu_S: S \to S'$
+are functions such that the following diagram
+\[ \xymatrix{
+   P \ar[d]_{\pi} \ar[r]^{\mu_P} & P' \ar[d]^{\pi'}	\\
+   S \ar[r]_{\mu_S} & S'	}
+\]
+commutes, and there exists an $\omega'$ for each $\omega$ such that:
+\[ \mu_{\Omega}(\omega: \overline{s} \to s) = \omega': \mu_S(\overline{s}) \to \mu_S(s) .\]
+\end{definition}
+
+\begin{definition} (Membership algebra)
+A membership algebra for a signature $\Sigma$ is:
+\begin{itemize} 
+\item a many sorted $(S,\Omega)$ algebra $A$
+\item together with an assignment of a subset $ p^A \subseteq {\pi(p)}^A$ for each predicate $p$.
+\end{itemize}
+\end{definition}
+
+\begin{definition} (Homomorphism)
+A Homomorphism $h:A \to B$ is an ordinary total homomorphism which, in
+addition, satisfies: $h_{\pi(p)}(p^A) \subseteq p^B$
+\end{definition}
+
+\begin{definition}
+The axioms used for specifying classes of membership algebras are of the following form
+\begin{itemize}
+\item atomic formulas:
+	\begin{enumerate}
+	\item \it{equations} of the form $t=t'$ where $t,t' \in T_\Sigma(X)_s$, terms of the same sort s.
+	\item \it{membership assertions} of the form  $t:p$, $p \in P$ and $t \in T_\Sigma(X)_{\pi(p)}$.
+	\end{enumerate}
+\item universally quantified Horn clauses over atomic formulae, i.e. they have form:
+	\begin{enumerate}
+	\item $(\forall X) t=t' \Leftarrow u_1=v_1 \wedge \ldots \wedge u_n=v_n \wedge w_1:p_1 \wedge \ldots \wedge w_k:p_k$ or
+	\item $(\forall X) t:p \Leftarrow u_1=v_1 \wedge \ldots \wedge u_n=v_n \wedge w_1:p_1 \wedge \ldots \wedge w_k:p_k$
+	\end{enumerate}
+where $X$ is a $S$ sorted set containing all the variables appearing in the clause.
+\end{itemize}
+\end{definition}
+The assignments of values to variables are as usual. Then one defines
+satisfaction of formulae.
+\begin{definition}(Satisfaction of formulae)
+\begin{enumerate}
+\item $A \models_\alpha t = t' \mbox{ iff } \overline{\alpha}(t) =\overline{\alpha}(t')$
+\item $A \models_\alpha t:p \mbox{ iff } \overline{\alpha}(t) \in p^A$ % \overline{\alpha}(p)$
+\item $ A \models_\alpha a_1 \ldots a_n \To a \mbox{ iff } \exists i: 1 \leq i \leq n : A \not\models_\alpha a_i \mbox{ or }  A \models_\alpha a$
+\item $A \models \varphi \mbox{ iff } A \models_\alpha \varphi \mbox{ } \forall \alpha$
+\end{enumerate}
+\end{definition}
+%
+It is shown in \cite{member} that the membership algebras with above formulae
+and satisfaction form a liberal
+institution $\inst{MEMB}$. Moreover is there embeddings both ways between $\inst{MEMB}$ and the institution of many sorted Horn logic with predicates and equalities, i.e. this to institutions can be viewed as sublogics of each other. Note that if there are no ground terms included in a
+predicate then the predicate is represented by the empty set in the initial
+model.
+
+\subsection{Embedding membership algebras into multialgebras}\label{sub:mamb}
+%
+The embedding is based on the fact that nondeterministic constants play the
+same role as predicates. Hence the membership relation $s:p$ is naturally
+translated as $s\prec p$. Making, in addition, all operations deterministic,
+one obtains the straightforward translation of $\inst{MEMB}$ specifications
+into $\inst{MA}$.
+
+\begin{example}
+A membership algebra specification of (a part of) natural numbers and the
+corresponding multialgebra specification using only nondeterminisitc constants:
+{\small{\[ \begin{array}{ll}
+\begin{array}[t]{lll}
+	\multicolumn{3}{l}{{\bf spec Nat}^{\inst{MEMB}}= }\\
+		&S:
+			 & Nat\\
+		&\Pi:
+			 & \pi(nat) = Nat\\
+			&& \pi(pos) = Nat\\
+		&\Omega:
+			 & zero \to Nat\\
+			&& succ:Nat \to Nat\\
+			&& pred:Nat \to Nat\\
+		&{\bf axioms} \\
+			&& zero:nat\\
+			&& x:pos \To x:nat\\
+			&& x:nat \To pred(succ(x))=x\\
+			&& x:pos \To pred(x):nat\\	
+			&& x:nat \To succ(x):pos\\
+\end{array}
+&
+\begin{array}[t]{lll}
+		\multicolumn{3}{l}{ {\bf spec Nat}^{\inst{MA}}= }\\
+		&S':
+			 & Nat\\
+		&\Omega':
+			& nat: \to Nat\\
+			&& pos: \to Nat\\
+			&& zero \to Nat\\
+			&& succ:Nat \to Nat\\
+			&& pred:Nat \to Nat\\
+		&{\bf axioms:}
+			 & {\bf det}: zero, succ, pred \\
+			&& zero \prec nat\\	
+			&& x \prec pos \To x \prec nat\\
+			&& x\prec nat \To pred(succ(x))\eleq x\\
+			&& x \prec pos \To pred(x) \prec nat\\
+			&& x \prec nat \To succ(x) \prec pos\\
+\end{array}
+\end{array}
+\] }}
+The only difference is that the multialgebra specification needs to ensure
+determinacy of all the operations corresponding the the operations $\Omega$ from
+the membership specification (but not of the constants corresponding to the
+predicates $\Pi$).
+
+Both of the above specifications will have the same initial model and, as
+a matter of fact, the same model class.
+\end{example}
+%
+As the
+above example suggests, we can translate a membership algebra specification to
+a multialgebra specification, which will possess the same models.
+
+\begin{proposition}
+There is an embedding $(\fu{\Phi},\alpha, \beta)$ of institutions from $\inst{MEMB}$ 
+to $\inst{MA}$; the embedding is a simple map of institutions.
+\end{proposition}
+%
+\begin{PROOF}
+	\begin{itemize}
+		\item The functor $\fu{\Phi}: \Sign_{\inst{MEMB}} \to \thr{Th}_{\inst{MA}}$ 
+is given by:  $\fu{\Phi}(S,\Omega,\Pi)$ is the theory $(S,\Omega \uplus \Pi', 
+\emptyset_{\Sigma})$, for each $p \in \Pi$ is there a coresponding constant $p \to \pi(p)$ in $\Pi'$ and where $\emptyset_{\Sigma}$ contains an axiom 
+$\omega(\overline{x}) \eleq \omega(\overline{x})$, for each operation $\omega 
+\in \Omega$. $\fu{\Phi}(\mu_S,\mu_{\Omega},\mu_P)$ is the signature morphism 
+$(\mu_S,\mu_{\Omega} \uplus \mu_P)$
+	
+\item The natural transformation $\alpha: \Sen_{\inst{MEMB}} \to 
+\Sen_{\inst{MA}} \circ \fu{\Phi}$ is given by:
+	\begin{enumerate}
+	\item $\alpha(t:c) \equiv t \prec c\mbox{ for each atom }t:c$
+	 \item $\alpha(t=t') \equiv t \eleq t'\mbox{ for each atom }t = t'$
+	 \item $\alpha(a_1 \wedge \cdots \wedge a_n \To 
+a) \equiv \alpha(a_1) \wedge \cdots \wedge \alpha(a_n) \To 
+\alpha(a)\mbox{ for  Horn clause }a_1 \wedge \cdots \wedge a_n \To a$
+	\end{enumerate}
+$\fu{\Phi}$ is extended to a functor 
+$\fu{\Phi}: \thr{Th}_{0\inst{MEMB}} \to \thr{Th}_{0\inst{MA}}$ by 
+$\fu{\Phi}(\Sigma,\Gamma) = (\Sigma,\emptyset_\Sigma\cup\alpha_\Sigma(\Gamma))$.
+
+%		
+\item The natural transformation $\beta: \Mod_{\inst{MA}} \circ 
+\fu{\Phi}^{op} \to \Mod_{\inst{MEMB}}$ is essentially the identity on models and homomorphisms.
+For any multialgebra $M' \in \Mod_{\inst{MA}}(\fu{\Phi}(\Sigma,\Gamma))$
+			\begin{itemize}
+			\item $|\beta(M')| = |M'|$
+			\item $f(x_1, \ldots ,x_n)^{\beta(M')} = x$ such that
+			$f(x_1, \ldots ,x_n)^{M'}=\{x\}$
+			\item $p^{\beta(M')} = p^{M'}$
+			\end{itemize}
+For any homomorphisms:  $h: M' \to B' \in \Mod(\fu{\Phi}(\Sigma,\Gamma))$, we let $\beta(h)=h$.
+	\end{itemize}
+We verify the ``thruth'' condition: for every
+$M'\in\Mod_{\inst{MA}}(\fu{\Phi}(\Sigma,\emptyset))$ and $\phi \in \Sen_{\inst{MEMB}}(\Sigma)$:
+\begin{equation} \label{eq:tc}
+M' \models_{\inst{MA}} \alpha_{\Sigma}(\phi) \mbox{ iff } 
+\beta_{(\Sigma,\emptyset)} (M') \models_{\inst{MEMB}} \phi 
+\end{equation}
+By the definition of
+$\beta$, for any $\fu{\Phi}(\Sigma,\emptyset)$-multialgebra $M'$, the
+$\Sigma$-membership algebra $\beta(M')$ has the same carrier, 
+$|M|= |\beta(M')|$. Thus every assignment
+$\nu': X \to M'$ is also an assignment $\nu': X \to \beta(M')$, and vice
+versa.  Given
+a membership signature $\Sigma=(S,\Omega,\Pi)$, $\fu{\Phi}(\Sigma,\emptyset)$
+adds an axiom $\omega(\overline{x}) \eleq \omega(\overline{x})$, for every
+$\omega \in \Omega$ -- thus for any ground term $t\in T(\Omega)$, $\fu{\Phi}(t)=t$
+will be interpreted as an element in every
+$\fu{\Phi}(\Sigma,\emptyset)$-multialgebra $M'$.  We show that for every atom $a \in
+\Sen_{\inst{MEMB}}(\Sigma)$ and for any assignment $\nu:X\to|M'|$:
+\begin{equation} \label{eq:tca}
+M' {\models_{\inst{MA}}}_{\nu} \alpha_{\Sigma}(a) \mbox{ iff 
+} \beta_{(\Sigma,\emptyset)} (M') {\models_{\inst{MEMB}}}_{\nu} a 
+\end{equation}
+%
+Let $M'\in\Mod_{\inst{MA}}(\fu{\Phi}(\Sigma,\emptyset))$ -- we have two possible atoms:
+	\begin{enumerate}
+	\item $a \equiv s = t$:
+		\begin{eqp}
+			M' \models_{\nu} \alpha(s = t)
+		\comment{\hviss}{def. $\alpha$}
+			M' \models_{\nu} s \eleq t
+		\comment{\hviss}{satisfaction}
+			{\nu}(s)^{M'} = {\nu}(t)^{M'} = \{e\},\ e \in |M'|
+		\comment{\hviss}{def. $\beta$}
+			{\nu}(s)^{\beta(M')} = {\nu}(t)^{\beta(M')} = e \in |\beta(M')|
+		\comment{\hviss}{satisfaction}
+			{\beta(M')} \models_{\nu} s = t
+		\end{eqp}
+\item $a\equiv s:p$ :
+		\begin{eqp}
+			M' \models_{\nu} \alpha(s:p)
+		\comment{\hviss}{def. $\alpha$}
+			M' \models_{\nu} s \prec p
+		\comment{\hviss}{satisfaction}
+			{\nu}(s)^{M'} \subseteq {\nu}(p)^{M'}
+		\comment{\hviss}{$M'\in\Mod(\fu{\Phi}(\Sigma,\emptyset))$ and $s\not\in\Pi$} 
+			{\nu}(s)^{M'} \in {\nu}(p)^{M'}
+		\comment{\hviss}{def. $\beta$}
+			{\nu}(s)^{\beta(M')} \in {\nu}(p)^{\beta(M')}
+		\comment{\hviss}{satisfaction}
+			{\beta(M')} \models_{\nu} s:p
+		\end{eqp}
+	\end{enumerate}
+The general statement (\ref{eq:tc}) follows easily from the above fact (\ref{eq:tca}).
+\end{PROOF}
+
+\begin{fact}
+The functor $\beta_{(\Sigma,\Gamma)}$ is an equivalence (in fact, an
+isomorphism) of categories $\Mod_{\inst{MA}}(\fu{\Phi}(\Sigma,\Gamma))$ and
+$\Mod_{\inst{MA}}(\Sigma,\Gamma)$ for
+every $\inst{MEMB}$ theory $(\Sigma,\Gamma)$. 
+\end{fact}
+%
+\begin{PROOF}
+The inverse functor
+$\beta^{-1}_{(\Sigma,\Gamma)}$ sends a membership algebra
+$M\in\Mod(\Sigma,\Gamma)$ onto a multialgebra
+$M'\in\Mod(\fu{\Phi}(\Sigma,\Gamma))$ such that $\beta(M')=M$ (i.e., $|M'|=|M|$,
+$f^{M'}(\overline x) = \{f^M(\overline x)\}$ and for $p\in\Pi:p^{M'}=p^M$.)
+One verifies easily the isomorphism condition.
+\end{PROOF}
+%
+Given a membership algebra specification $SP$, we will call $\fu{\Phi}(SP)$ a
+multialgebra specification {\em of the membership form}. Restricting the syntax
+of $\inst{MA}$ specifications in this way, we obtain a 
+subinstitution $\inst{MAMB}$ of $\inst{MA}$ (and $\inst{MAH}$).
+
+As a consequence of the above proposition (in particular, that
+$\beta_{(\Sigma,\Gamma)}$ is an equivalence), we get that the multialgebra
+models of specifications of membership form possess initial objects. 
+%(this follows also 
+%directly from proposition~\ref{co:synt}).
+We can verify this fact directly applying proposition~\ref{prop:if}.
+\begin{proposition}
+If an $\inst{MA}$ specification $SP$ is of the membership form, i.e.,
+$SP=\fu{\Phi}(SP_{\inst{MEMB}})$, then ${\qu{T(SP)}{\cong}}$ is a model of $PS$.
+\end{proposition}
+%
+\begin{PROOF}
+1) We define the multialgebra $D(SP)$, modifying slightly the construction used
+earlier (definitions \ref{de:tsp} and \ref{de:cong}). 
+Let $(S,\Omega,\Pi)$ be the signature of the membership specification $SP_{\inst{MEMB}}$ for
+which we have $SP=\fu{\Phi}(SP_{\inst{MEMB}})$. 
+As the carrier we take 
+\begin{itemize}\MyLPar
+\item $|D(SP)|= \{ t \in T(\Omega) \}\subseteq\{t\in
+T(\Omega\uplus\Pi):SP\models t\eleq t\}$, and we let
+\item $t^{D(SP)} = \{t\} $, for $t \in T(\Omega)$ and 
+\item $p^{D(SP)} = \{ t \in 
+T(\Omega): SP \models t \prec p \}$, for $p \in \Pi$
+\item for $p\in\Pi$, $f\in\Omega$, $f(p)$ is defined by pointwise
+extension: $f(p)^{D(SP)}=\bigcup_{t\in p^{D(SP)}} f(t)^{D(SP)}$.
+\end{itemize}
+2) By the same argument as 
+for $T(SP)$ we get that there is a unique homomorphism $h_A: D(SP) \to A$ for 
+each $A \in \Mod(SP)$, so let $\cong$ be the equivalence relation defined on 
+$D(SP)$ by ${\cong}\ =\ {\bigcap_A{ \kernel{h_A}}}$ (cf.~\ref{de:cong}). 
+\\[1ex]
+3) We show now that $\qu{D(SP)}\cong\in\Mod(SP)$. 
+Let $\alpha:X \to 
+\qu{D(SP)}{\cong}$ be an arbitrary assignment -- for a term $t\in
+T(\Omega,X)$, we will denote by $\alpha(t)$ a term obtained by substituting some
+representative $s'\in \alpha(x)=[s']$ for each occurrence of $x$ in $t$.
+Let $s,t\in T(\Omega,X)$, and $p\in\Pi$, and consider possible axioms:
+	\begin{itemize}
+	\item $s\eleq t:$ then, in particular, $SP \models \alpha(s) \eleq
+	\alpha(t)$, and so
+for any $A\in\Mod(SP): \alpha (s)^A = \alpha (t)^A$, i.e. $\alpha (s) 
+{\cong} \alpha (t)$, and so ${\qu{D(SP)}{\cong}} \models_{\alpha} s \eleq t$
+ 	\item $s\prec t:$ from $SP \models \alpha(s) \prec \alpha(p)$
+we obtain that $\alpha (s)^A \in \alpha (p)^A=p^A$ for all $A\in\Mod(SP)$, and so
+ ${\qu{D(SP)}{\cong}} \models_{\alpha} s \prec p$.
+	\item Horn formulae: $SP \models_{\alpha} a_1, \ldots a_n \to a$, where $a_i, a$ atoms 
+of the above form: 
+\begin{enumerate}
+	\item If $A \models \alpha(a)$ for all $A\in\Mod(SP)$, then 
+${\qu{D(SP)}{\cong}} \models_{\alpha} a$, by the above arguments.
+	\item Otherwise, for some $A\in\Mod(SP):A \not\models \alpha(a)$. Then we
+	must also have $A\not\models \alpha(a_i)$ for some $i$. We show that
+	this implies
+${\qu{D(SP)}{\cong}} \not\models_{\alpha} a_i$ -- two cases:
+			\begin{enumerate}
+			\item $a_i\equiv s \eleq t$. It means that $\alpha (s)^A 
+\not= \alpha (t)^A$, hence $\alpha (s) \not\cong \alpha (t)$. By the
+definition of $\fu{\Phi}$, both $s'\eleq s'$ and $t'\eleq t'$ are among the axioms
+of $SP$ (where $s$, resp. $t$ is obtained from $s'$, resp. $t'$ by
+substituting some determinisitc terms for some variables). But this means that
+${\qu{D(SP)}{\cong}} \not\models_{\alpha} s \eleq t$, i.e.,
+$\qu{D(SP)}\cong\not\models_\alpha a_i$.
+			\item $a_i\equiv s \prec p$. By the definition of
+			$\fu{\Phi}$, $s'\eleq s'$ is among the axioms. Thus $\alpha (s)^A
+\not\in \alpha (p)^A$ i.e. $SP \not\models \alpha(s) \prec \alpha(p)$, so 
+${\qu{D(SP)}{\cong}} \not\models_{\alpha} s \prec p$.
+			\end{enumerate}
+		\end{enumerate}
+	\end{itemize}
+This gives that ${\qu{D(SP)}{\cong}} \in Mod(SP)$ and by 2) that it is initial model.
+\\[1ex]
+4) Finally, we show that ${\qu{D(SP)}{\cong}} 
+\simeq {\qu{T(SP)}{\cong}}$.
+
+The only difference in the construction was that in $\qu{D(SP)}\cong$ we
+excluded all $p\in\Pi$ which would be taken into account in constructing the
+carrier of $\qu{T(SP)}\cong$, i.e., 
+for all $p\in\Pi:[p]\not\in|\qu{D(SP)}\cong|$. 
+(We started with $|D(SP)|=\{t\in T(\Omega)\}$ instead of $|T(SP)|=\{t\in
+T(\Omega\uplus\Pi):SP\models t\eleq t\}$.)
+Since
+$\qu{D(SP)}\cong\in\Mod(SP)$,  if $SP\models p\eleq p$,
+we can conclude that there must exist a $t\in T(\Omega)$ (in particular,
+$SP\models t\eleq t$) such that
+$p^{\qu{D(SP)}{\cong}}=\{[t]\}=t^{\qu{D(SP)}{\cong}}$ and $\qu{D(SP)}\cong\models t\prec p$.
+%%%(moreover, for any other $s$ such that $SP\models s\prec p$, we will have
+%%%$SP\models s\eleq t$). 
+But this also means, by the construction of
+$\qu{D(SP)}\cong$, that $SP\models t\prec p$. Hence, in $\qu{T(SP)}\cong$ we
+would obtain $[t]=[p]$. In other words, excluding the symbols $\Pi$ from the
+construction does not change the result and $\qu{D(SP)}\cong\simeq \qu{T(SP)}\cong$.
+\end{PROOF}
+
+\subsection{Extending the model class of $\inst{MEMB}$ specifications}
+We will now extend the membership algebras, by allowing
+functions to be partial.
+\begin{definition}
+The institution $\inst{PMEMB}$ is as $\inst{MEMB}$ except that the equalities are
+changed to $\eeq$ and operations are interpreted as partial functions; to
+relate algebras we use weak homomorphism, i.e. the usuall weak homomorphisms
+$h:A\to B$ for the operations
+and for the predicates satisfying the condition $x \in \pi_s^A \To h(x)
+\in \pi_s^B$.
+\end{definition}
+%
+This is an (obvious) subinstitution of what is called ${\inst{RP}(\bf{R\eeq
+\to R\eeq})}$ in \cite{mossa} -- an institution where signatures, in addition
+to sort and function symbols, may contain n-ary predicates and have a distinguished set
+of total function symbols. There are embeddings both ways between
+${\inst{RP}(\bf{R\eeq \to R\eeq})}$ and $\inst{PA}$, and $\inst{PA}$ is
+an (obvious) subinstitution of $\inst{PMEMB}$. (All this institutions (and many
+more, see \cite{mossa}) specify the same categories of models, the finitely
+locally presentable categories). Composition of the above embeddings is
+illustrated in the following diagram:
+\[
+\xymatrix{	&&& \inst{\inst{RP}(\bf{R\eeq \to R\eeq})} \ar@{^{(}->}[dd] \\
+	\inst{PMEMB} \ar@{^{(}->}[rrru]\\ 
+		&&& \inst{PA} \ar@{^{(}->}[lllu]\\
+} 
+\] 
+
+\begin{fact}  There is a simple embeding $(\fu{\Phi}^*,\alpha,\beta)$ from 
+$\inst{PMEMB}$ to $\inst{MA}$. Moreover, each component of $\beta$ is an isomorphism of model
+	categories. 
+\begin{itemize} 
+\item	$\fu{\Phi}^*: \Sign_{\inst{PMEMB}} \to \thr{Th}_{\inst{MA}}$ is given
+	by: $\fu{\Phi}^*(S,\Omega,\Pi)=(S,\Omega \uplus \Pi',
+	\emptyset_{\Sigma})$, where
+	\begin{itemize}
+	\item for each $p \in \Pi$ there is a coresponding
+	constant $p: \to \pi(p)$ in $\Pi'$ 
+	\item $\emptyset_{\Sigma}$
+	contains an axiom $y \prec \omega(\overline{x}) \to
+	\omega(\overline{x}) \eleq \omega(\overline{x})$, for each operation
+	$\omega \in \Omega$
+	\item $\fu{\Phi}^*(\mu_S,\mu_{\Omega},\mu_P)$ is the
+	signature morphism $(\mu_S,\mu_{\Omega} \uplus \mu_P)$
+	\end{itemize}
+\item The natural transformation $\alpha: \Sen_{\inst{PMEMB}} \to 
+\Sen_{\inst{MA}} \circ \fu{\Phi}^*$ is given by:
+	\begin{enumerate}
+	\item $\alpha(t:c) \equiv t \prec c\mbox{ for each atom }t:c$
+	 \item $\alpha(t\eeq t') \equiv t \eleq t'\mbox{ for each atom }t = t'$
+	 \item $\alpha(a_1 \wedge \cdots \wedge a_n \To 
+a) \equiv \alpha(a_1) \wedge \cdots \wedge \alpha(a_n) \To 
+\alpha(a)\mbox{ for  Horn clause }a_1 \wedge \cdots \wedge a_n \To a$
+	\end{enumerate}
+$\fu{\Phi}^*$ is extended to a functor 
+$\fu{\Phi}^*: \thr{Th}_{0\inst{MEMB}} \to \thr{Th}_{0\inst{MA}}$ by 
+$\fu{\Phi}^*(\Sigma,\Gamma) = (\Sigma,\emptyset_\Sigma\cup\alpha_\Sigma(\Gamma))$.
+
+%		
+\item The components of natural transformation $\beta: \Mod_{\inst{MA}} \circ
+{\fu{\Phi}^*}^{op} \to \Mod_{\inst{PMEMB}}$ are essentially the identities on
+models and homomorphisms (cf. $\beta$ in definition \ref{de:MP}).  For an $M \in
+\Mod_{\inst{MA}}(\fu{\Phi}^*(\Sigma,\Gamma))$
+  \begin{itemize}
+      \item $|\beta_\Sigma(M)| = |M|$
+	\item $f(x_1, \ldots ,x_n)^{\beta_{\Sigma}(M)} = \left\{\begin{array}{l@{\ \
+	-\ }l} x &
+	{\rm such\ that\ } f(x_1, \ldots ,x_n)^{M}=\{x\}\ {\rm if\ it\
+	exists}\\ undefined & {\rm otherwise} \end{array}\right.$
+	\item $p^{\beta_{\Sigma}(M)} = p^{M}$ for all $p\in\Pi$
+   \end{itemize}
+For any homomorphisms:  $h: M \to B \in \Mod(\fu{\Phi}(\Sigma,\Gamma))$, we let $\beta(h)=h$.
+	\end{itemize}
+\end{fact}
+%
+Using this fact we can construct an institution transformation from
+$\inst{PMEMB}$ to $\inst{MA}$ conservatively extending the modelclass of
+$\inst{PMEMB}$ in the same way as we did in proposition~\ref{prop:PaMaT} for
+$\inst{PA}$. This means that we can use the syntax of membership algebra
+specifications directly in a multialgebra specification and introduce
+additional ``partiality'' axioms (corresponding to $\emptyset_\Sigma$ above)
+at an appropriate stage. Notice also that a ``totality'' axiom
+$\omega(\overline x)\eleq\omega(\overline x)$ is a strengthening of the
+respective ``partiality'' axiom -- thus a ``totalization'' of partial
+operation is always possible as a simple refinement step. In particular, one
+can obtain a membership algebra from a partial (membership) algebra  by
+simply adding such a totality axiom (for each operation).
+ As the embeddings
+between partial algebras (as in the diagram above and in \cite{mossa}) show,
+predicates do not extend the specification power of partial algebras. Using
+predicates leads, however, to a more natural presentation.
+
+\section{Conclusions}
+We have presented a multialgebra based approach to developing specifications
+with partial operations. The novelty of the proposed framweork lies in
+thinking about and modelling undefined operations by nondeterministic ones --
+an operation applied to an argument outside its definition domain may result
+in an unexpected and initially unknown value. This view leads actually
+to the combination of various features of several earlier approaches. It
+allows one to start with high level specifications, where error
+situations can be dealt with at the same level of abstraction as in partial
+algebras. Narrowing the range of nondeterminism modelling undefinedness, one
+can refine such specifications to a low level error handling. 
+We have illustrated by examples a wide range of possibilities for error
+handling admitted by the proposed framework. In particular, utilizing sets to
+model error situations allows a function to return both a marking that such a
+situation occurred and relevant recovery values.
+
+From the methodological perspective, we have shown the possiblity of
+reusing partial algebra specifications without the necessity to perform any
+translation (except for the trivial replacement of $\eeq$ by $\eleq$.) Thus,
+we believe the proposed framework may be more useful, and in any case easier
+to apply, when extending partial algebra specifications to explicit error
+handling, than the frameworks based on translation of such specifications into
+deterministic specifications with predicates.
+
+We have also shown that other institutions, in particular, the institution of
+partial algebras and of membership algebras can be embedded into the
+institution of multialgebras $\inst{MA}$. We thus suggest that this last institution may
+provide an adequate framework for both {\em comparing} and {\em combining} the advantages
+of earlier approaches within a unified framework.
+For this purpose, it would be desirable to restrict the 
+the generality of $\inst{MA}$. Looking for a suitable subinstitution may
+start, for instance, by trying to identify the conditions for $\inst{MA}$
+specifications ensuring the existence of initial models. We have stated a few
+preliminary results in the paper but this problem remains open.
+
+Another, though probably, less problematic issue concerns the reasoning
+system. The earlier systems need to be adjusted to the present context: the
+complete logic from \cite{toplas,calc} did not allow for empty result sets in a model,
+while the one from \cite{BK} used only inclusions $\prec$, but not the element
+equality $\eleq$.
+
+
+
+\bibliography{biblo}
+\bibliographystyle{plain}
+\end{document}
+
+%%% old proof of ``institution transformation''
+%%%%%%%%%%%%
+We now consider the opposite translation
+$\fu{\Phi}^-:\thr{Th}_{0\inst{PA}}\to\thr{Th}_{0\inst{MA}}$ of partial
+algebra specifications to the multialgebraic ones which merely replaces $\eeq$ by $\eleq$. 
+This does not yield an institution embedding -- the obtained model class of
+multialgebras is essentially ``larger'' than the original model class of
+partial algebras. In particular, the model class of the translated
+specification will contain algebras where some operations may be non-strict. 
+Yet, this would be exactly our purpose with such an ``importing'' of partial
+algebra specifications: to allow further development leading to error
+handling. Proposition~\ref{prop:subset} below ensures that the original model
+class is preserved in such a process. We first need an auxiliary definition
+and fact.
+%
+
+Following fact follows immediately from definition \ref{de:MP}.
+\begin{fact}\label{fa:MP}
+Let $s,t$ be arbitrary terms:
+\begin{enumerate}\MyLPar
+\item For a partial algebra $A$: either $\{t^A\}=t^{\beta(A)}$ or
+$t^A$ is undefined and $t^{\beta(A)}=\emptyset$. \\
+Consequently, $A\models s\eeq t \iff \beta(A)\models s\eleq t$.
+\item For a multialgebra $A$ where each nondeterministic term is empty set:
+either $t^A=\{t^{P(A)}\}$ or $t^A=\emptyset$ and $t^{P(A)}$ is undefined.\\
+Consequently, $A\models s\eleq t \iff P(A)\models s\eeq t$.
+\end{enumerate}
+\end{fact}
+%
+\begin{proposition}\label{prop:subset}
+$M(\Mod_{\inst{PA}}(SP))\subseteq \Mod_{\inst{MA}}(\fu{\Phi}^-(SP))$
+\end{proposition}
+\begin{PROOF} This is actually a consequence of proposition~\ref{prop:PaMa} and 
+corollary of fact~\ref{fa:iso} which we show
+in next subsection. Here follows a direct proof.
+
+Let $A\in\Mod_{\inst{PA}}(SP)$ -- we show that then
+$M(A)\in\Mod_{\inst{MA}}(\fu{\Phi}^-(SP))$. We consider an arbitrary
+assignment $\alpha:X\to |M(A)| = |A|$.
+
+If $s\eleq t$ is an axiom of $\fu{\Phi}^-(SP)$ then $s\eeq
+t$ is an axiom of $SP$ and $A\models s\eleq t$. 
+Then $\alpha(s)^{M(A)} \by{\ref{fa:MP}}= \{\alpha(s)^{A}\} = \{\alpha(t)^{A}\}
+\by{\ref{fa:MP}}= \alpha(t)^{M(A)}$, i.e., $M(A)\models s\eleq t$. 
+
+Similarly, for a $\fu{\Phi}^-(SP)$ axiom $s_1\eleq t_1,\ldots,s_n\eleq t_n\to
+s\eleq t$, $A$ will satisfy its pre-image $s_1\eeq t_1,\ldots,s_n\eeq t_n\to
+s\eeq t$. If $A\models s\eeq t$, the same argument as above shows that
+$M(A)\models s\eleq t$, and hence satisfies the axiom.  If for some
+$i:A\not\models_\alpha s_i\eleq t_i$, then there are two cases. Either at
+least one side of the equation, say $\alpha(s_i)^A$, is
+undefined. Then, by fact~\ref{fa:MP}, we have $\alpha(s_i)^{M(A)}=\emptyset$, 
+i.e., $M(A)\not\models_\alpha s_i\eleq t_i$. The other case
+is that both sides are defined but unequal -- then:
+$\alpha(s_i)^{M(A)}\by{\ref{fa:MP}}=\{\alpha(s_i)^A\}\not=
+\{\alpha(t_i)^A\}\by{\ref{fa:MP}}=\alpha(t_i)^{M(A)}$.
+Thus in both cases, we have that $M(A)\not\models_\alpha s_i\eleq t_i$, and
+since $\alpha$ was arbitrary
+$M(A)\models s_1\eleq t_1,\ldots,s_n\eleq t_n\to s\eleq t$.
+\end{PROOF}
+%
+%%
+
+
+\subsection{Developing bounded array of bounded natural numbers}\label{sub:bndarr}
+\fixd{These specs need more detailed analysis and extension to explicit
+treatement of all error situations. Try starting like that:}
+
+\[ \begin{array}{l|l}
+\spec{	\tit{\mbox{\bf spec\ Nat}^{\inst{MA}}=} \\
+                \Ops: && zero: \to Nat \\ && succ: Nat\to Nat \\ 
+		      && +: Nat\times Nat\to Nat \\[.5ex]
+	 	{\bf ax:}
+			&1.&  zero\eleq zero \\
+			&2.& succ(y)\eleq succ(y), \\ 
+			    &&\ \ succ(x+y)\eleq succ(x+y) \\
+			    &&\ \  \To x+succ(y)\eleq succ(x+y)
+}
+&
+\spec{	\tit{\mbox{\bf spec\ ArrNat}^{\inst{MA}}=} \\
+                \Ops: && ins: Nat\times Ar\times Nat\to Ar \\ 
+		     &&rd: Ar\times Nat \to Nat \\[.5ex]
+	 	{\bf ax:}
+			&1.&  ins(x,A,i)\eleq ins(x,A,i) \\
+			&&    \ \ \To rd(ins(x,A,i),i)\eleq x \\
+			&2.&  ins(x,A,i)\eleq ins(x,A,i), \\ 
+			   &&\ \ rd(A,j)\eleq rd(A,j)\\
+			   &&\ \  \To rd(ins(x,A,i),j)\eleq rd(A,j), i\eleq j
+} \\ \hline
+\spec{ \tit{\mbox{\bf spec\ ErrNat\ enirch\ Nat\ by}^{\inst{MA}}=} \\
+                \Ops: && max, erN: \to Nat \\ [.5ex]
+	 	{\bf ax:}
+			&1.&  max\eleq max \\
+			&2.&  succ(max) \prec erN
+}
+&
+\spec{ \tit{\mbox{\bf spec\ ErrAr\ enirch\ Ar\ by}^{\inst{MA}}=} \\
+                \Ops: && new: Nat \to Ar \\
+		      && bnd: Ar \to Nat \\ 
+		      && erAr: Ar \to Ar \\
+		      && erBnd, erIni: \to Nat \\[.5ex]
+	 	{\bf ax:}
+			&1.&   bnd(new(x)) \eleq x\\
+			&2.& i\geq bnd(A) \To ins(x,A,i) \prec erAr(A) \\
+			&3.& i\geq bnd(A) \To rd(A,i) \prec erBnd \\
+			&4.& i< bnd(A) \To rd(new(x),i) \prec erIni \\[1ex]
+\multicolumn{3}{l}{avoid:\ {\rm handling\ of\ Nat\ errors\ in\ }{\bf ErrAr}} \\
+\multicolumn{3}{l}{ rd(A,erN)\prec erN\ - {\rm incompatible\ with\ {\bf
+                ErrNat\ ax3}} } \\
+explain: && {\rm why\ }erAr\ {\rm needs\ an\ argument\ } Ar
+
+} \\ \hline
+\multicolumn{2}{c}{\rm further\ {\bf enrich}ments:} \\
+\spec{ {\bf ax1:} &1.&  succ(erN) \prec erN \\
+                    &2.&  x+erN \prec erN \\
+                    &2.&  erN+x \prec erN \\[1ex] \hline
+      {\bf ax2:} &1.&  succ(erN)\eleq zero \\
+                 &2.&  x+erN \eleq x \\
+                 &3.&  erN+x \eleq x \\[1ex]
+      {\bf ax3:} &1.&  erN\eleq zero
+}
+&
+\spec{ {\bf ax1:} &1.& ins(x,erAr(A),i) \prec erAr(A) \\
+                  &2.& rd(erAr(A),i)\prec erBnd \\
+		  &?.& erBnd\prec erN\ \ \ and\ \ \  erIni\prec erN \\[1ex] \hline
+      {\bf ax2:} &1.& rd(erAr(A),i) \prec rd(A,i) \\
+                 &2.& ins(x,erAr(A),i) \prec ins(x,A,i) \\ \\[1ex]
+      {\bf ax3:} &1.& erAr(A) \eleq A \\[1ex]
+     {\bf ax4:} &1.&  rd(A,i) \eleq rd(A,i\% bnd(A)) \\
+                &2.& ins(x,A,i) \eleq ins(x,A,i\% bnd(A))\\[1ex]
+}
+\end{array}
+\]
+\fix{develop to a full, deterministic specification}
+

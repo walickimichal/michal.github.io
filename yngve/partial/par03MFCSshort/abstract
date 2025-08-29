@@ -1,0 +1,18 @@
+Partiality as Nondeterminism
+
+Y.Lamo and M.Walicki
+
+The paper presents a new way to model undefinedness by nondeterminism: an
+operation undefined on some argument is modeled as a nondeterministic
+operation returning, possibly, any value of the carrier. We introduce an
+institution of multialgebras MA (modeling nondeterministic operations by
+set-valued functions) and illustrate the flexibility of our approach by
+examples showing uniform treatment of strictness, non-strictness and various
+strategies for handling errors and exceptions. We present a methodology for algebraic
+specification development from an abstract specification to a low level error
+handling. We relate MA to other institutions, in particular, of partial
+algebras. Applying institution transformation instead of embedding leads to
+the possibility of resuing partial algebra specifications in the proposed
+framework -- a partial algebra specification can be conservatively
+(preserving the models) imported to MA while the extension of the model class
+allows for furhter development towards explicit error treatement.

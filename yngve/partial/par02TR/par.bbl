@@ -1,0 +1,158 @@
+\begin{thebibliography}{10}
+
+\bibitem{locally}
+Ji{\v{r}}{\'{\i}} Ad{\'{a}}mek and Ji{\v{r}}{\'{\i}} Rosick{\'{y}}.
+\newblock {\em Locally Presentable and Accessible Categories}.
+\newblock Cambridge University Press, 1994.
+
+\bibitem{label}
+Gilles Bernot and Pascale~Le Gall.
+\newblock Label algebras: a systematic use of terms.
+\newblock In Bidot and Choppy \cite{ln655}, pages 144--163.
+
+\bibitem{BK}
+Marcin Bia{\l}asik and Beata Konikowska.
+\newblock Reasoning with first-order nondeterministic specifications.
+\newblock Technical Report 830, Depeartment of Theoretical Informatics, Polish
+  Academy of Sciences, 1997.
+
+\bibitem{ln655}
+Michel Bidot and Christine Choppy, editors.
+\newblock {\em Recent Trends in Data Type Spesification}, volume 655 of {\em
+  Lecture Notes in Computer Science}. Springer, 1993.
+
+\bibitem{burm}
+Peter Burmeister.
+\newblock Partial algebra - an introductory survey.
+\newblock {\em Algebra Universalis}, 15:306--358, 1982.
+
+\bibitem{lazy}
+Maura Cerioli.
+\newblock A lazy approach to partial algebras.
+\newblock In E.~Astesiano, G.~Reggio, and A~Tarlecki, editors, {\em Recent
+  Trends in Data Type Specification: 10th Workshop on Specification of Abstract
+  Data Types-Selected Papers}, volume 906 of {\em Lecture Notes in Computer
+  Science}. Springer, 1995.
+
+\bibitem{state}
+Maura Cerioli, Till Mossakowski, and Horst Reichel.
+\newblock From total equational to partial first order.
+\newblock In Egidio Astesiano, Hans-J{\"o}rg Kreowski, and Bernd
+  Krieg-Br{\"u}ckner, editors, {\em on Algebraic Foundations of Systems
+  Specification}, chapter~3. Springer.
+\newblock to appear.
+
+\bibitem{oxford}
+Joseph Goguen and R\u{a}zvan Diaconescu.
+\newblock An oxford survey of order-sorted algebra.
+\newblock {\em Journal of Mathematical Structures in Computer Science},
+  4:363--392, 1994.
+
+\bibitem{error}
+Joseph~A. Goguen.
+\newblock Abstract errors for abstract data types.
+\newblock In {\em IFIP Working Conference on the Formal Description of
+  Programming Concepts}, volume 116, pages 89--103. North-Holland, 1978.
+
+\bibitem{order1}
+Joseph~A. Goguen.
+\newblock Order-sorted algebra i.
+\newblock Semantics and Theory of Computation Series~14, UCLA Computer Science
+  Department, 1978.
+
+\bibitem{inst}
+Joseph~A. Goguen and R.~M. Burstal.
+\newblock Institutions: Abstract model theory for specification and
+  programming.
+\newblock {\em Journal of the ACM}, 39:95--146, 1992.
+
+\bibitem{order}
+Joseph~A. Goguen and Jos{\'e} Meseguer.
+\newblock Order-sorted algebra i: Equational deduction for multiple
+  inheritance, overloading, exceptions, and partial operations.
+\newblock Technical Report SRI-CSL-89-10, Computer Science Laboratory SRI
+  International, 1989.
+
+\bibitem{guard}
+Magne Haveraaen and Eric~G. Wagner.
+\newblock Guarded algebras and data type specification.
+\newblock Technical Report 108, Depeartment of Informatics, University of
+  Bergen, 1995.
+
+\bibitem{hussmann}
+Heinrich Hussmann.
+\newblock {\em Nondeterminism in Algebraic Specifications and Algebraic
+  Programs}.
+\newblock Birkh{\"{a}}user, 1993.
+
+\bibitem{makow}
+J.~A. Makowsky.
+\newblock Why horn formulas matter in computer science: Initial structures and
+  generic examples.
+\newblock {\em Journal of Computer and System Sciences}, 34:266--292, 1987.
+
+\bibitem{system}
+Alfio Martini and Uwe Wolter.
+\newblock A systematic study of mappings between institutions.
+\newblock In Francesco~Parisi Presicce, editor, {\em Recent Trends in Algebraic
+  Development Techniques}, volume 1376 of {\em Lecture Notes in Computer
+  Science}, pages 300--315. Springer, 1998.
+
+\bibitem{general}
+Jos\'{e} Meseguer.
+\newblock General logics.
+\newblock In H.-D. Ebbinghaus et~al., editors, {\em Logic colloquium'87}, pages
+  275--329. Elsevier Science Publisher B.V.(North-Holland), 1989.
+
+\bibitem{member}
+Jos\'{e} Meseguer.
+\newblock Membership algebra as a logical framework for equational
+  specification.
+\newblock In Francesco~Parisi Presicce, editor, {\em Recent Trends in Algebraic
+  Development Techniques}, volume 1376 of {\em Lecture Notes in Computer
+  Science}, pages 18--61. Springer, 1998.
+
+\bibitem{mossa}
+Till Mossakowski.
+\newblock Equivalences among various logical frameworks of partial algebras.
+\newblock In H.~K. B{\"{u}}ning, editor, {\em Computer Science Logic}, volume
+  1092 of {\em Lecture Notes in Computer Science}, pages 403--433. Springer,
+  1996.
+
+\bibitem{sort}
+Peter~D. Mosses.
+\newblock The use of sorts in algebraic spesifications.
+\newblock In Bidot and Choppy \cite{ln655}, pages 66--91.
+
+\bibitem{reichel}
+Horst Reichel.
+\newblock {\em Initial Computability Algebraic Specifications and Partial
+  Algebras}.
+\newblock Oxford Science Publications, 1987.
+
+\bibitem{catrel}
+Micha{\l} Walicki and Marcin Bia{\l}asik.
+\newblock Categories of relational structures.
+\newblock In Francesco~Parisi Presicce, editor, {\em Recent Trends in Algebraic
+  Development Techniques}, volume 1376 of {\em Lecture Notes in Computer
+  Science}. Springer, 1998.
+
+\bibitem{toplas}
+Micha{\l} Walicki and Sigurd Meldal.
+\newblock A complete calculus for the multialgebraic and functional semantics
+  of nondeterminism.
+\newblock {\em ACM TOPLAS}, 17(2), 1995.
+
+\bibitem{calc}
+Micha{\l} Walicki and Sigurd Meldal.
+\newblock Multialgebras, power algebras and complete calculi of identities and
+  inclusions.
+\newblock volume 906 of {\em Lecture Notes in Computer Science}. Springer,
+  1995.
+
+\bibitem{multi}
+Micha{\l} Walicki and Sigurd Meldal.
+\newblock Algebraic approaches to nondeterminism-an overview.
+\newblock {\em ACM Computing Surveys}, 29, 1997.
+
+\end{thebibliography}
