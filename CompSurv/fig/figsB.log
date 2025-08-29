@@ -1,0 +1,161 @@
+This is TeX, Version 3.1415 (C version 6.1) (format=latex 94.6.28)  4 DEC 1998 21:13
+**&latex2e figsB
+(figsB.tex
+LaTeX2e <1994/06/01> patch level 2
+Hyphenation patterns for english, norsk, swedish, danish,
+german & francais loaded.
+(/local/TeX/macros/LaTeX/article.cls
+Document Class: article 1994/06/02 v1.2s Standard LaTeX document class
+(/local/TeX/macros/LaTeX/size12.clo
+File: size12.clo 1994/06/02 v1.2s Standard LaTeX file (size option)
+)
+\c@part=\count82
+\c@section=\count83
+\c@subsection=\count84
+\c@subsubsection=\count85
+\c@paragraph=\count86
+\c@subparagraph=\count87
+\c@figure=\count88
+\c@table=\count89
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/local/TeX/macros/packages/mfnfss/euscript.sty
+Package: euscript 1994/05/08 v2.1c Standard LaTeX package (Euler Script)
+LaTeX Font Info:    Overwriting math alphabet `\EuScript' in version `bold'
+(Font)                  U/eus/m/n --> U/eus/b/n on input line 46.
+)
+
+! LaTeX Error: File `a4wide.tex' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: tex)
+
+Enter file name: 
+(/local/TeX/macros/xypic-3.5/xypic.tex (/local/TeX/macros/xypic-3.5/xyv2.tex
+(/local/TeX/macros/xypic-3.5/xy.tex Bootstrap'ing: catcodes, docmode,
+(/local/TeX/macros/xypic-3.5/xyrecat.tex)
+(/local/TeX/macros/xypic-3.5/xyidioms.tex)
+
+ Xy-pic version 3.5 <1997/05/28>
+ Copyright (c) 1991-1997 by Kristoffer H. Rose <krisrose@brics.dk>
+ Xy-pic is free software: see the User's Guide for details.
+
+Loading kernel: messages; fonts; allocations: state,
+\X@c=\dimen103
+\Y@c=\dimen104
+\U@c=\dimen105
+\D@c=\dimen106
+\L@c=\dimen107
+\R@c=\dimen108
+\Edge@c=\toks15
+\X@p=\dimen109
+\Y@p=\dimen110
+\U@p=\dimen111
+\D@p=\dimen112
+\L@p=\dimen113
+\R@p=\dimen114
+\Edge@p=\toks16
+\X@origin=\dimen115
+\Y@origin=\dimen116
+\X@xbase=\dimen117
+\Y@xbase=\dimen118
+\X@ybase=\dimen119
+\Y@ybase=\dimen120
+\X@min=\dimen121
+\Y@min=\dimen122
+\X@max=\dimen123
+\Y@max=\dimen124
+\lastobjectbox@=\box25
+\zerodotbox@=\box26
+\almostz@=\dimen125
+ direction,
+\d@X=\dimen126
+\d@Y=\dimen127
+\K@=\count90
+\KK@=\count91
+\Direction=\count92
+\K@dXdY=\dimen128
+\K@dYdX=\dimen129
+\xyread@=\read1
+\xywrite@=\write4
+\csp@=\count93
+\quotPTK@=\dimen130
+
+utility macros; pictures: \xy, positions,
+\swaptoks@@=\toks17
+\connectobjectbox@@=\box27
+ objects,
+\styletoks@=\toks18
+ decorations;
+kernel objects: directionals, circles, text; options; algorithms: directions,
+edges, connections;  Xy-pic loaded)
+ Xy-pic option: Version 2 Compatibility v.3.4
+
+Xy-pic Warning: `\stop' redefined.
+
+(/local/TeX/macros/xypic-3.5/xyframe.tex
+ Xy-pic option: Frame and Bracket extension v.3.4 loaded)
+(/local/TeX/macros/xypic-3.5/xymatrix.tex  Xy-pic option: Matrix feature v.3.4
+\Row=\count94
+\Col=\count95
+\queue@=\toks19
+\queue@@=\toks20
+\qcount@=\count96
+\qcount@@=\count97
+\matrixsize@=\count98
+
+loaded) (/local/TeX/macros/xypic-3.5/xyarrow.tex
+ Xy-pic option: Arrow and Path feature v.3.5 path, \ar, loaded) loaded))
+(/local/TeX/macros/xypic-3.5/xycurve.tex
+ Xy-pic option: Curve and Spline extension v.3.4 curve,
+\crv@cnt@=\count99
+\crvpts@=\toks21
+\splinebox@=\box28
+\splineval@=\dimen131
+\splinedepth@=\dimen132
+\splinetol@=\dimen133
+\splinelength@=\dimen134
+ circles,
+\L@=\dimen135
+ loaded)
+(figsB.aux)
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 76.
+LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 79.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 79.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 79.
+ (00Cc.xyc
+LaTeX Font Info:    Try loading font information for U+eus on input line 122.
+ (/local/TeX/macros/packages/mfnfss/Ueus.fd
+File: Ueus.fd 1994/05/12 v2.2b Standard AMS font definitions
+)) [1
+
+]
+(00hom.xyc) [2] (UA1.xyc) (UA2.xyc) [3] <xymatrix 27x5 1262> [4] (02MW.xyc)
+[5] (03choice.xyc) [6] (04tree.xyc) [7] (06MW.xyc) [8] (07tree.xyc) [9]
+(08MW.xyc) [10] <xymatrix 3x3 673> [11] <xymatrix 3x3 169> [12] (figsB.aux) ) 
+Here is how much of TeX's memory you used:
+ 2698 strings out of 11024
+ 27245 string characters out of 74866
+ 172058 words of memory out of 262141
+ 5461 multiletter control sequences out of 9500
+ 8744 words of font info for 34 fonts, out of 100000 for 255
+ 14 hyphenation exceptions out of 607
+ 29i,14n,27p,602b,955s stack positions out of 300i,40n,60p,3000b,4000s
+
+Output written on figsB.dvi (12 pages, 34928 bytes).

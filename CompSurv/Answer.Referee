@@ -1,0 +1,132 @@
+Dear Editor,
+
+In case it may be of interest - the new version of the article "Algebraic 
+Approaches to Nondeterminism - an Overview" is now written with LaTeX 
+(with some external packages). The file can be made available if needed. 
+With the next mail I am sending a PostScript version - 3 hard copies are 
+also sent by regular post. 
+
+We appreciate the referees' careful reading and their pointing out several 
+imprecisions in the submitted manuscript. In the enclosed version we think 
+we have addressed all their comments. 
+
+1. The general point made by Referee 1 concerning the references made us 
+go through the literature once again with an eye to identifying the most 
+widely published version of the material or results being referenced. We 
+think the current list of references is quite complete for this research 
+area. Some technical reports are still on the list - they either have not 
+been published elsewhere, or represent the first contribution of 
+historical interest (in which case references to other presentations of 
+the material are included as well). Some new items have been added.
+
+2. One of the referees judges the writing to be "excellent," while the 
+other is less happy about the English used. We have corrected the text 
+where marked by the complaining referee. 
+
+3. In order to address the referees' comments we have expanded some 
+explanations and added a few new ones.
+
+We have taken into account all the comments marked on the hard copies. The 
+most critical changes have been made at the following places (the numbers 
+'x' (page, propositions) refer to the old version of the article with the 
+new numbering in square bracets '[x]'): 
+
+a) the subsection on "Power algebras" (now pp. [10,11]) 
+
+b) the subsection on "Multihomomorphisms" (now pp. [13]) 
+
+c) the subsection 3.5 "The price of initiality", where we expanded an old 
+comment to a new example [3.8] (This was actually not asked for by any of 
+the referees, but we feel that it gives a good and concise illustration of 
+the point made in this subsection.)
+
+d) the end of subsection 5.1 explaining the content of the Mezei-Wright 
+theorem, together with the formulation of theorem 5.2 itself 
+
+e) the last paragraph before the example 5.4.a (now [5.4]) has been 
+expanded a bit; so has the paragraph just after example 5.4.b (now [5.6])
+
+f) the notation used in the diagram on p. 32 (now [31]) is now, hopefully, 
+unambiguous; a slight clarification has been made in the preceding 
+paragraph
+
+g) following the suggestion of referee 2, the end of subsection 7.2 
+"Rewriting Logic" has been augmented with a couple of paragraphs relating 
+the rewriting (logic) models to posets and cpo's 
+
+Below we comment on the particular points from the referees' lists. The 
+order and identification of the items in the lists reflect exactly the 
+comments from the referees' lists. 
+
+
+%%%%%%% Referee 1
+
+p.3, l.-3, [4] - The "unordered sequences" is changed to "sequences" and 
+an explicit statement of how they are ordered. 
+
+p.7 - We have kept {t} for the result set of t. The notation may be a bit 
+unfortunate, but it isn't used extensively, the other referee did not 
+object to it, and singleton sets do not appear often in the paper. (On 
+p.8, just after the heading "Functional Models" {f_z} did not denote a 
+singleton set - this notation has now been made more precise.)
+
+p.8 - The notation is standard.
+
+p.10 - Proposition 2.6 (now [2.5]) has been rephrased. 
+
+p.13 - We added a simple example in the subsection on "Multihomomorphisms" 
+and made clearer the difference between the loose and the tight ones. 
+
+p.15 - The formula 2.14 (now [2.3]) is taken from reference 53 (now [59]) 
+and actually did include other variables. The subtle question of whether 
+the contexts should or shouldn't admit additional variables is addressed 
+in detail in this reference (as a matter of fact, the results depend 
+crucially on the choice made), but expanding it here would turn too 
+technical for a survey. We have added a bit more explanation in the 
+footnote [3]. 
+
+p.15 - A counter-example of closure under quotients of a class axiomatized 
+by negative formulae can be taken from classical algebras - we added a 
+parenthetical sentence to this effect.
+
+p.16 - See the first comment to p.15.
+
+p.29, [27] - We rephrased the sentence and added a footnote [6] 
+
+p.29, [28] - The rerferences (theorem, subsection) have been made more 
+precise.
+
+p.32, [31] - Sorry for the apparent typos in the diagram here. (It seems 
+that two different things got the same P's due to some problems with 
+converting from one format to another.) We expanded the explanation before 
+the diagram and made two different P's - \cal P and \sf P. There is still 
+a slight overloading of notation in the diagram where the mappings from 
+{\cal P}(\hat W_{\Sigma,\perp}) and from {\sf P}(\hat W_{\Sigma,\perp}) 
+are denoted by the (composition of the) same letters. Hopefully, one can 
+live with this (the mappings are essentially the same); these paragraphs 
+intend merely to give an intuitive understanding of a rather complicated 
+and technical construction - this turns out to be hardly possible without 
+all the denotational technicalities which crept in. 
+
+p.38 - We now use the notation [x/t] for substitution both in the calculus 
+on p.[34] and in [7.16] on p.[37].
+
+p.39 - Fixed.
+
+%%%%%%% Referee 2
+
+1. Subsection "Power algebras" [10]
+We have made clearer the point concerning the difference betweeen (and, in 
+the special case, coincidence of) P(AxB) and P(A)xP(B) in the arguments of 
+the functions. There is a new lemma [2.7] stating the correspondance. 
+
+2. The confusion in the subsection on "Multihomomorphisms" seems to have 
+been due to the lack of the explicit distinction of tight and loose 
+homomorphisms. It should be clear now.
+
+3. The unfortunate formulation and typography of theorem 5.2 have been 
+changed.
+
+4. We have added a couple of paragraphs at the end of the section on 
+"Rewriting Logic" incorporating the remarks on the relations between cpo, 
+poset and rewrite models.

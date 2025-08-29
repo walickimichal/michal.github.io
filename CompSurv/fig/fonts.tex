@@ -1,0 +1,31 @@
+\documentclass[12pt]{article}
+\usepackage{oldgerm,euscript,eufrak}
+
+\DeclareMathAlphabet{\fra}{U}{yfrak}{m}{n}
+\DeclareMathAlphabet{\sch}{U}{yswab}{m}{n}
+\DeclareMathAlphabet{\yan}{U}{yinit}{m}{n}
+\DeclareMathAlphabet{\got}{U}{ygoth}{m}{n}
+
+\DeclareMathAlphabet{\cmt}{T1}{cmtt}{m}{it}
+
+%\DeclareMathAlphabet{\cm}{OML}{ccm}{m}{it} needs package 'concrete'
+
+\newcommand{\nor}[1]{{\rm #1}}
+
+\begin{document}
+
+\[ \begin{array}{r@{:\ \ \ \ \ \ }c@{\ \ \ \ \ \ }c@{\ \ \ \ \ \ }c}
+\nor{kind}                 & \nor{I}     & \nor{P}     & \nor{T} \\ \hline
+\nor{yfrak\ (Fraktur)}     & \fra{I}     & \fra{P}     & \fra{T} \\[.5ex]
+\nor{yswab\ (Schwabacher)} & \sch{I}     & \sch{P}     &  \sch{T}\\[.5ex]
+\nor{ygoth\ (Gothic)}      & \got{I}     & \got{P}     & \got{T} \\[.5ex]
+\nor{yinit\ (Yannis...)}   &  \yan{I}    & \yan{P}     &  \yan{T} \\[.5ex]
+\nor{(EuFrak)}             & \EuFrak{I}  & \EuFrak{P}  &  \EuFrak{T} \\[.5ex]
+\nor{(EuScript)}           & \EuScript{I}& \EuScript{P}&  \EuScript{T} \\[.5ex]
+%\nor{(cm)}           & \cm{I}& \cm{P}&  \cm{T} \\[.5ex]
+\nor{(cmtt)}             & \cmt{I  }& \cmt{P  }&  \cmt{T} \\[.5ex]
+ \end{array} 
+\]
+
+
+\end{document}

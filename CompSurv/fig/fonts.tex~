@@ -1,0 +1,16 @@
+\documentclass[12pt]{article}
+\usepackage{oldgerm, euler}
+
+\newcommand{\nor}[1]{{\rm #1}}
+\begin{document}
+
+\begin{tabular}{l@{\ \ \ \ |\ \ \ \ }l}
+ \begin{tabular}{c@{\ --\ }l@{\ \ \ }c@{\ --\ }l}
+
+ \end{tabular}
+&
+\( \EuFrak \begin{array}{c@{\ --\ }l@{\ \ \ }c@{\ --\ }l}
+ \nor{A} & A  & \nor{B} & B
+ \end{array}
+\end{tabular}
+\end{document}

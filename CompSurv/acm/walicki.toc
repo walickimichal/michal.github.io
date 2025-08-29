@@ -1,0 +1,23 @@
+\protect \contentsline {section}{\protect \numberline {1}Basic concepts}{3}
+\protect \contentsline {section}{\protect \numberline {2}Semantic preliminaries}{9}
+\protect \contentsline {subsection}{\protect \numberline {2.1}Operations ...}{10}
+\protect \contentsline {subsection}{\protect \numberline {2.2}Homomorphisms}{15}
+\protect \contentsline {subsection}{\protect \numberline {2.3}Equivalencies.}{17}
+\protect \contentsline {section}{\protect \numberline {3}Initial models and specification languages}{20}
+\protect \contentsline {subsection}{\protect \numberline {3.1}Choice as a primitive -- set union}{21}
+\protect \contentsline {subsection}{\protect \numberline {3.2}Inclusion}{22}
+\protect \contentsline {subsection}{\protect \numberline {3.3}Partial orders}{23}
+\protect \contentsline {subsection}{\protect \numberline {3.4}Lattices and unified algebras}{24}
+\protect \contentsline {subsection}{\protect \numberline {3.5}The price of initiality}{27}
+\protect \contentsline {section}{\protect \numberline {4}Terminal models}{31}
+\protect \contentsline {section}{\protect \numberline {5}Solutions of recursive equations -- continuous models}{33}
+\protect \contentsline {subsection}{\protect \numberline {5.1}Deterministic preliminaries}{33}
+\protect \contentsline {subsection}{\protect \numberline {5.2}CPO's for nondeterministic choice}{35}
+\protect \contentsline {section}{\protect \numberline {6}Reasoning Systems}{39}
+\protect \contentsline {subsection}{\protect \numberline {6.1}Reduction to determinism}{39}
+\protect \contentsline {subsection}{\protect \numberline {6.2}Calculus of nondeterminate terms}{41}
+\protect \contentsline {section}{\protect \numberline {7}Operational models and rewriting}{44}
+\protect \contentsline {subsection}{\protect \numberline {7.1}Non-confluence and restricted substitutivity}{44}
+\protect \contentsline {subsection}{\protect \numberline {7.2}Rewriting Logic}{48}
+\protect \contentsline {subsection}{\protect \numberline {7.3}Reasoning and rewriting with sets}{52}
+\protect \contentsline {section}{\protect \numberline {8}Summary}{53}

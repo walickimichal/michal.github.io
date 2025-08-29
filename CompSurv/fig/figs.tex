@@ -1,0 +1,237 @@
+\documentclass[12pt]{article}
+\usepackage{euscript}
+\newcommand{\eu}[1]{\EuScript{#1}}
+
+\makeatletter
+\input{a4wide}
+\makeatother
+\newcommand{\RLSX}{{\cal T}_{S}(X)}
+\newcommand{\RLS}{{\cal T}_{S}}
+\newcommand{\SCAT}{{\sf RL}_S}
+\newcommand{\SPO}{{\sf PO}_S}
+\newcommand{\CPOS}{{\sf CPO}_S}
+\newcommand{\src}{\partial_s}
+\newcommand{\trg}{\partial_t}
+\newcommand{\refl}{\mathrel{\hookrightarrow}}
+\newcommand{\Terms}{W}
+\newcommand{\GTerms}{W_{\Sigma}}
+\newcommand{\XTerms}[1]{W_{{\Sigma,#1}}}
+\newcommand{\ch}{\sqcup}
+\newcommand{\meet}{\mathrel{\sqcap}}
+\newcommand{\Car}[1]{|#1|}
+\newcommand{\PSet}{{\eu{P}}}
+\newcommand{\Plot}{{\sf P}}
+\renewcommand{\iff}{\mathrel{\Leftrightarrow}}
+\newcommand{\impl}{\mathrel{\Rightarrow}}
+\newcommand{\into}{\mathrel{\rightarrow}}
+\newcommand{\addinto}{\mathrel{\rightarrow_{\cup}}}
+\newcommand{\strinto}{\mathrel{\rightarrow_{+}}}
+\newcommand{\singinto}{\mathrel{\rightarrow_{1}}}
+\newcommand{\addstrinto}{\mathrel{\rightarrow_{\uplus}}}
+\newcommand{\es}{\emptyset}
+\newcommand{\Incl}{\mathrel{\prec}}
+\newcommand{\seteq}{\mathrel{\asymp}}
+\newcommand{\nothing}{{\sf nothing}}
+\newcommand{\Sorts}{{\cal S}}
+\newcommand{\Funcs}{{\cal F}}
+\newcommand{\Vars}{{\cal V}}
+\newcommand{\Lang}{{\cal L}}
+\newcommand{\bool}{{\rm{Bool}}}
+\newcommand{\Nat}{{\rm{Nat}}}
+\newcommand{\true}{{\sf true}}
+\newcommand{\false}{{\sf false}}
+\newcommand{\rew}{\mathrel{\mapsto}}
+\newcommand{\rewc}{\mathrel{\stackrel{*}\rew}}
+\newcommand{\reww}[1]{\mathrel{\stackrel{{\scriptscriptstyle{#1}}}\rew}}
+\newcommand{\intow}[1]{\mathrel{\stackrel{{\scriptscriptstyle{#1}}}\into}}
+\newcommand{\iso}{\mathrel{\simeq}}
+\newcommand{\uni}{{\eu{I}}}
+\newcommand{\und}[1]{\underline{#1}}
+\newcommand{\res}[1]{\{#1\}}
+\newcommand{\prule}[2]{{\displaystyle #1 \over \displaystyle#2}}
+
+\newcommand{\tree}[1]{\hat #1}
+\newcommand{\cpo}{\mathrel{\sqsubseteq}}
+\newcommand{\pred}[1]{P_{#1}}
+\newcommand{\pr}{\vdash}
+\newcommand{\syeq}{\mathrel{\equiv}}
+\def\theequation{\arabic{section}.\arabic{equation}}
+\newcommand{\refp}[1]{(\ref{#1})}
+\newcommand{\FMod}{F\!M\!od}
+\newcommand{\MMod}{M\!M\!od}
+\newcommand{\PMod}{P\!M\!od}
+\newcommand{\MHom}{M\!H\!om}
+\newcommand{\EHom}{E\!H\!om}
+\newcommand{\PHom}{P\!H\!om}
+
+\newcommand{\scol}[1]{\spreaddiagramcolumns{#1}}
+\newcommand{\srow}[1]{\spreaddiagramrows{#1}}
+\newcommand{\maly}[2]{
+  \scol{-#1pc}\srow{-#2pc}\def\objectstyle{\scriptstyle}\def\labelstyle{\scriptstyle}}
+\newcommand{\sdrop}[1]{\save\drop{#1}\restore}
+\input xypic       
+
+\begin{document}
+
+
+\[ \scol{-1pc}
+\diagramcompileto{00Cc}
+ & A \dlto_{\{\_\}} \drto^{f} \\
+\PSet(A) \rrto^{f^\PSet} & & \PSet(B)
+\enddiagram \]
+
+\vspace*{10ex} p.~10 (fonts modified)
+
+\newpage
+\[ %\scol{-1pc}
+\diagramcompileto{00hom}
+S_1^A\times\ldots\times S_n^A \rrto^<<<<<<<<<<{f^A} \dto<-6ex>_{\phi_{{S_1}}} 
+      \dto<5ex>_{\phi_{{S_n}}} & & S^A \dto^{\phi_S} \\
+S_1^B\times\ldots\times S_n^B \rrto^<<<<<<<<<<{f^B} &  & S^B
+\enddiagram
+\]
+
+\vspace*{10ex} p.~13
+
+\newpage
+
+\(\maly{1.2}{1.2}
+\diagramcompileto{UA1}
+& & 0\ch 1 \dlline \drline \\
+& 0\ch c \dlline \drline & & 1\ch c \dlline \drline \\
+0 \dline & & (0\ch c)\sqcap (1\ch c) \dlline \ddline \drrline \dllline & & 1 \dline \\
+0\sqcap (1\ch c)\drline & c \dline \drrline & & & (0\ch c)\sqcap 1 \dlline \\
+& 0\sqcap c \drline & 0\sqcap 1 \ullline \urrline \dline & 1\sqcap c \dlline \\
+& & 0\sqcap 1\sqcap c \dline \\
+& & \perp
+\enddiagram
+\)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
+\(\maly{1.2}{1.2}
+\diagramcompileto{UA2}
+& & 0\ch 1 \dlline \drline \\
+& 0\ch c \dlline \drline & & 1\ch c \dlline \drline \\
+0 \drline & & c \dlline  \drline  & & 1 \dlline \\
+& 0\sqcap c \drline &  & 1\sqcap c \dlline \\
+& & \perp
+\enddiagram
+\)
+
+\vspace*{10ex} p.~24
+
+\newpage
+\[
+\maly{2}{1.5}
+\diagram %compileto{01unf}
+\sdrop{f(3)} & & & & & \sdrop{f(2)+2} & & & & & & \sdrop{(f(1)+2)+2} & & & & & & &
+    \sdrop{((f(0)+2)+2)+2} & & & & & & & \sdrop{((0+2)+2)+2} \\
+\perp &\xto[rrr]& & & & + \dlline \drline & &\xto[rrr]& &&& + \dlline\drline & &\xto[rrr]& 
+        &  & & & + \dlline \drline  &   &\xto[rrr]& & & & & + \dlline \drline  &    \\
+&&   & & \perp & & 2              &&  & & + \dlline \drline & & 2  &&&
+          & & + \dlline \drline & & 2  &&&  & & + \dlline \drline & & 2     \\
+&&   &   & &  &  &&         &  \perp & & 2 &  &&&
+          & + \dlline \drline & & 2 &  &&&  & + \dlline \drline & & 2 &     \\
+&&  & & & &   && & & &  &                   & &&  \perp & & 2 & &  & &&  0 & & 2 & & 
+\enddiagram
+\]
+
+\vspace*{10ex} p.~29
+
+\newpage
+\[ \scol{-1pc}
+\diagramcompileto{02MW}
+ & \XTerms\perp \dlto_{{\tree{{\_}}}} \drto^{\uni} \\
+\tree\XTerms\perp \rrto^{\tree\uni} & & \tree A_{\Sigma,\perp}
+\enddiagram \]
+
+\vspace*{10ex} p.~30 (fonts modified)
+
+\newpage
+\[
+\maly{2}{1.5}
+\diagramcompileto{03choice}
+%\sdrop{f(3)} & & & & & \sdrop{f(2)+2} & & & & & & \sdrop{(f(1)+2)+2} & & & & & & &
+%    \sdrop{((f(0)+2)+2)+2} & & & & & & & \sdrop{((0+2)+2)+2} \\
+\perp &\xto[rrr]& & & & \ch\dlline\drline & &\xto[rrr]& &&& \ch\dlline\drline & &\xto[rrr]& 
+        &  & & & \ch\dlline \drline  &   &\xdotted[rrr]& & & & & \ch\dlline \drline  &    \\
+&&   & & \perp & & x              &&  & & \ch\dlline \drline & & x  &&&
+          & & \ch\dlline \drline & & x  &&&  & & \ch\dlline \drline & & x    \\
+&&   &   & &  &  &&         &  \perp & & x+1 &  &&&
+          & \ch\dlline \drline & & x+1 &  &&&  & \ch\dlline \drline & & x+1 &     \\
+&&  & & & &   && & & &  &      & &&  \perp & & x+2 & &  & &&  \ch\dldotted\drdotted & & x+2 & & \\
+&&&&&&&&&&&&&&&&&&&&&&&&&&
+\enddiagram
+\]
+
+\vspace*{10ex} p.~31
+
+
+\newpage
+\[ \maly{1.5}{1.5}
+\diagramcompileto{04tree}
+\tree t\ \syeq & f\dline & & & & & \tree s\ \syeq & f\dline \\
+  & g \dlline\drline & & & & & & \ch\dlline\drline \\
+\perp & & b & & & & \perp & & b
+\enddiagram
+\]
+
+\vspace*{10ex} p.~32 
+
+
+\newpage
+\[ \scol{-1pc}
+\diagramcompileto{06MW}
+ & \tree\XTerms{\ch,\perp} \dlto_{\Psi} \drto^{\Psi_A} \\
+\PSet(\tree\XTerms\perp) \rrto^{\tree\uni} & & \PSet(\tree A_{\Sigma,\perp})
+\enddiagram \]
+
+\vspace*{10ex} p.~32 (fonts modified)
+
+
+\newpage
+\[ \maly{1.5}{1.5}
+\diagramcompileto{07tree}
+\tree s_1\ \syeq & f\dline & & & & & \tree s_2\ \syeq & f\dline \\
+  & L \dlline\drline & & & & & & R \dlline\drline \\
+\perp & & erase & & & & erase & & b
+\enddiagram
+\]
+
+\vspace*{10ex} p.~33
+
+
+\newpage
+\[ \scol{-1pc}
+\diagramcompileto{08MW}
+ & \tree\XTerms{\ch,\perp} \dlto_{\Psi} \drto^{\Psi_A} \\
+\PSet(\tree\XTerms\perp)\dto^{\Plot} \rrto^{\tree\uni\circ\tree{{\eu C}}} & & \PSet(\tree A_{\Sigma,\perp})\dto^{\Plot} \\
+\Plot(\tree\XTerms\perp) \rrto^{\tree{\uni}\circ\tree{{\eu C}}} & & \Plot(\tree A_{\Sigma,\perp})
+\enddiagram \]
+
+\vspace*{10ex} p.~34 (fonts modified)
+
+
+\newpage
+\[ \scol{5em} %{4pc}
+\diagramcompileto{09RL}
+\bullet \ddrto|<<<<<<<<{r2([0],[1])}  \ddto_{r1([0],[1])} \toul_{[0\ch 1]}
+    & \bullet \ddto|{s(r1([0],[1]))} \ddrto^<<<<<{s(r2([0],[1]))} \toul_{[s(0\ch 1)]}
+    & \bullet \ddto^{r2([1],[2])} \ddlto^>>>>>>{r1([1],[2])} \tour^{[1\ch 2]} \\ \\
+\bullet \told_{[0]} & \bullet \told_{[1]} & \bullet \tord^{[2]}
+\enddiagram
+\]
+
+\vspace*{10ex} p.~43
+
+
+\newpage
+\[ \srow{-1.7pc}
+\diagram
+\CPOS \drto|<\hole|<<\ahook \\
+& \SPO \rto|<\hole|<<\ahook & \SCAT \\
+{\sf Alg}_S \urto|<\hole|<<\ahook 
+\enddiagram
+\]
+
+\vspace*{10ex} p.~45
+
+\end{document}

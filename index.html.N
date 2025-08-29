@@ -1,0 +1,29 @@
+<html>
+<head>
+	<title>
+		OutBox page for michal
+	</title>
+</head>
+<body bgcolor="#c1c1c1" text="#000000" link="#0000ee" vlink="#0000ee" alink="#ff0000" background=/outbox/images/background.gif>
+<!--DO NOT REMOVE--><!--#exec cmd="/var/www/cgi-bin/outbox-cgi /michal" -->
+<h1 align=center>
+		OutBox page for michal
+</h1>
+<p>
+<center>
+<p>
+<table border=1 cellpadding=2><tr>
+<td align=center><img src="/~michal/default.gif" align=center></td>
+</table>
+<p>Send <a href="mailto:michal@rogn">email to me.</a>
+<p>My machine is: <a href="/cgi-bin/MachineInfo">rogn</a>
+</center>
+<br>
+<br>
+<center>
+Click on the Help button to see what you can do with this OutBox page.
+</center>
+<hr size=3 width=100%>
+<!--DO NOT REMOVE--><!--#exec cmd="/var/www/cgi-bin/wrap /michal" -->
+</body>
+</html>

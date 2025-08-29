@@ -33,8 +33,8 @@ more specifically:
 (CURRENT) Graph representation of logical theories:
     Classical/paraconsistent semantics represented by digraph kernels/semikernels
     Graph Normal Form and its applications
-    Logical circularity as cycles in language graph 
-    Semantic paradoxes, self-reference, definability of truth
+    Logical circularity as graph cycles 
+    Semantic paradoxes, self-reference
     <!--Transparent sentential truth predicate -->
 <H3 style="margin-bottom:0px"> The earlier conjecture:
     A digraph with no kernel has an odd cycle or
@@ -44,7 +44,7 @@ more specifically:
   1. <A HREF="finEnds.pdf">graphs with finite number of ends</A> (Discrete Mathematics, 2019)
 
   2. A <A HREF="PoisonGame.pdf"> variant of Poison Game,</A> introduced by Duchet and Meyniel for finite digraphs,
-     which can be useful for proving (non)existence of (semi)kernels in the infinite digraphs.
+     which can be useful for proving (non)existence of (semi)kernels on infinite digraphs.
 <!--2. Not yet <A HREF="2paradoxes.pdf">all graphs</A>. This try uses 1. and variant of Duchet's `poison game' but has some mistakes. 
    Some are fixed, as compared to the version from <A HREF ="http://arxiv.org/abs/2309.03137">arXive</A>, but when you find others I will appreciate you letting me know. -->
 
@@ -64,21 +64,23 @@ anonymous ftp from the directory <b>/pub/michal</b> on the server <b> ftp.ii.uib
 <H2>1. Logic</H2>
 <ol>
       
- <H3>Self-reference, paradoxes, truth theory and kernels of digraphs</H3> (about third part of these are joint works with Sjur Dyrkolbotn)
+ <H3>Self-reference, paradoxes, infinitary theories and kernels of digraphs</H3> (about third part of these are joint works with Sjur Dyrkolbotn)
 <ol>
 
-<li><A HREF="LSOT.pdf">Truth is definable in Logic of Sentential Operators,</A> LSO (introduced in the paper below), without deviating from classical logic, (2025). 
-  
- <li>
-<A HREF="LSO-FINAL.pdf">Logic of sentential operators,</A> LSO,
+<!-- <li>  
+
+  <li> <A HREF="LSO.pdf">Logic of sentential operators,</A> LSO,
     extends LK with 2 rules for sentential quantifiers, providing a
-    complete reasoning for the language extending any FOL language with
-    operators and quantification over sentences. Graph-based
-    semantics admits self-reference arising from the unrestricted
-    sentential quantification.
-Paradoxes are distinct from contradictions and do not lead to explosion, unless unrestricted (cut) is added to LSO.  
- The final version in <A HREF="https://link.springer.com/article/10.1007/s10992-024-09775-2">Journal of Philosophical Logic, Vol. 53, pp.1579–1639, (2024)</A>.
- 
+    complete reasoning for language extending any FOL language with
+    predicates and quantification over sentences. Graph-based
+    semantics admits self-reference arising from unrestricted
+    sentential quantification. Paradoxes of intensional type and of
+    indirect discourse can be analyzed in the same way as direct ones,
+    while modal operators are special cases of the sentential
+    ones. (submitted 2023)
+
+re-INSERT after JPL review
+--> 
   <li> <A HREF="RG-KT.pdf">Reference graphs, dependence relations and kernel theory in analysis of paradoxes</A>, a note on some relations between the three. [unpublished]
 
 <!--  <li> "Paraconsistent resolution",  [to appear in Australasian  Journal of Logic, 2022] -->
@@ -133,7 +135,7 @@ the relations between the algorithms for kernels and SAT, [Journal of Discrete A
 <H3>Modal / Epistemic / Sequence logic / Bounded (finite) agents </H3>
 
 <H4 style="margin-top:10px">--  Sequence Logic</H4>
-<ol start=14>
+<ol start=13>
 <li><A HREF="Marc/WalickiBezemSz.pdf">"A strongly complete logic of dense
  time intervals"</A>, ESSLI-06, (logic relating sequential descriptions (in an arbitrary
  parameter logic) of systems passing through changing states)
@@ -152,7 +154,7 @@ the relations between the algorithms for kernels and SAT, [Journal of Discrete A
 </ol>
    
 <H4>-- Bounded agents and finite sets</H4>
-<ol start=18>
+<ol start=17>
 <li><A HREF="thomas/climaFinal.pdf">Strongly Complete Axiomatizations of
 ``Knowing At Most'' in Standard Syntactic Assignments</A>, CLIMA'05.
 
@@ -172,7 +174,7 @@ HREF="2004/thomasErrata.ps">errata</A>)
 
 
 <H3>Logic of multifunctions</H3>
-<ol start=23>
+<ol start=22>
  <li> <A HREF="2003/wollic03.ps">Quantifier-free logic for multialgebraic
 theories</A>, WOLLIC, 2003 [revised version in Theoretical Computer Science, 2006]
 
@@ -190,7 +192,7 @@ Multialgebraic and Functional Semantics of Nondeterminism"</A>
 </ol>
 
 <H4>-- Rewriting in multialgebras</H4>
-<ol start=27>
+<ol start=26>
 <li>"Reasoning and Rewriting with Set-Relations I: Ground Completeness"
   [<i>Proc. of CSL'94</i>, L.Pacholski, J.Tiuryn (eds.), LNCS vol. 933, 1995]
   <br> - <A HREF="valis/csl94/csl.ps">ps file</A> or 
@@ -226,7 +228,7 @@ Multialgebraic and Functional Semantics of Nondeterminism"</A>
     <li> <A HREF="marcin/09waw/wadt.ps"> view the .ps file</A>
     <li> <A HREF="ftp://ftp.ii.uib.no/pub/michal/relwadt.ps">ftp the .ps file</A>
     </ul>  -->
-<ol start=30>    
+<ol start=29>    
  <li> <A HREF="UniMulti.pdf"> "Universal Multialgebra"</A>, summarises all
  earlier results, presenting an interesting notion of multialgebraic
  homomorphism and congruence. A revised version appears as a chapter in "New Topics in Theoretical Computer Science", Nova Science Publishers, 2008. 
@@ -253,7 +255,7 @@ Tech.Rep. no.209, Department of Informatics, University of Bergen, 2000 -->
 </ol>
 
 <H3>Multialgebraic semantics of nondeterminism</H3>
-<ol start=36>
+<ol start=35>
 <li> <A HREF="CompSurv/acm/walicki.ps">"Algebraic Approaches to Nondeterminism - an Overview"</A>
   [<i>ACM Computing Surveys</i>,29, 1, March, 1997]
  <!--  <li> <A HREF="ftp://ftp.ii.uib.no/pub/michal/walicki.ps">ftp the .ps file</A> --> 
@@ -276,7 +278,7 @@ Tech.Rep. no.209, Department of Informatics, University of Bergen, 2000 -->
 </ol>
 
 <H3>Applications and extensions of nondeterministic specifications</H3>
-<ol start=42>
+<ol start=41>
 <li> <A HREF="Broy/TR.ps">"Structured Specifications and Implementation of Nondeterminisitc Data Types"</A>   [Tech. Rep. TUM-I9442, Inst. fur Informatik,
        Technische Universitat Munchen, 1994], appeared also in 
   <i>Nordic Journal of Computing,</i> no. 2, 1995. 
@@ -296,7 +298,7 @@ Computing, 2001.
 </ol>
     
 <H2 style="margin-left:-35px">3. Lecture Notes:</H2>
-<ol style="margin-top:0px" start="47">
+<ol style="margin-top:0px" start="46">
  <li> <!-- <A HREF="und/i127/i127.html">I-127 homepage: V-98</A> -->
    INF-227 - Introduction to mathematical logic
   <ul>
@@ -327,7 +329,7 @@ Computing, 2001.
    <li> <A HREF="phil/ggbInReading/visInvis2.pdf"> 2-pages/a4-page  (200p.)</A>
   <li> <A HREF ="https://www.pch24.pl/ich-prawdziwe-cele">trafny opis </A>
   </ul> -->
-<li> <A HREF="phil/phil1.html">philosophy</A>, telemark skiing.
+<li> <A HREF="phil/phil1.html">philosophy</A>, skiing.
 <!-- <li> <A HREF ="https://www.pch24.pl/ich-prawdziwe-cele">trafny opis </A>
 <!--<li><A HREF="http://interface.time-popcorn.info"> popCornTime</A> -->
 
@@ -336,37 +338,11 @@ Computing, 2001.
 </ol>
 <BR>
 
-<?php
-// File to store the count
-$file = __DIR__ . "/counter.txt";
-
-// If file doesn’t exist, create it with 0
-if (!file_exists($file)) {
-    file_put_contents($file, "0");
-}
-
-// Read the current count
-$count = (int)file_get_contents($file);
-
-// Increment by 1 for each visit
-$count++;
-
-// Save the new count back to the file
-file_put_contents($file, $count);
-
-// Now we can display it
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-</head>
-<body>
-  <p>You are visitor number: <strong><?= $count ?></strong>
- since 21.08.2025.</H3>
-</p>
-</body>
-</html>
-
+<H3 style="margin-left:-35px">You are the visitor number 
+ <!-- Start of SimpleHitCounter Code -->
+<a href="http://www.simplehitcounter.com" target="_blank">
+<img src="http://simplehitcounter.com/hit.php?uid=2269240&f=255&b=16777215" border="0" height="18" width="83" alt="web counter"></a>
+<!-- End of SimpleHitCounter Code -->
+, since 20.05.2017.</H3> 
 <BR>
 

@@ -1,0 +1,482 @@
+This is TeX, Version 3.1415 (C version 6.1) (format=latex 94.6.28)  4 DEC 1998 21:17
+**&latex2e walicki
+(walicki.tex
+LaTeX2e <1994/06/01> patch level 2
+Hyphenation patterns for english, norsk, swedish, danish,
+german & francais loaded.
+(/local/TeX/macros/LaTeX/latex209.def
+File: latex209.def 1994/06/01 Standard LaTeX file
+
+Entering LaTeX 2.09 compatibility mode.
+\footheight=\dimen102
+\@maxsep=\dimen103
+\@dblmaxsep=\dimen104
+(/local/TeX/macros/LaTeX/tracefnt.sty
+Package: tracefnt 1994/05/29 v2.3k Standard LaTeX package (font tracing)
+\tracingfonts=\count82
+LaTeX Info: Redefining \selectfont on input line 113.
+)
+\symbold=\mathgroup4
+\symsans=\mathgroup5
+\symtypewriter=\mathgroup6
+\symitalic=\mathgroup7
+\symsmallcaps=\mathgroup8
+\symslanted=\mathgroup9
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 179.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 180.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 181.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 187.
+LaTeX Info: Redefining \em on input line 197.
+ (/local/TeX/macros/LaTeX/latexsym.sty
+Package: latexsym 1994/05/27 v2.1e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup10
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+LaTeX Font Info:    Redeclaring math delimiter \lgroup on input line 262.
+LaTeX Font Info:    Redeclaring math delimiter \rgroup on input line 264.
+LaTeX Font Info:    Redeclaring math delimiter \bracevert on input line 266.
+)
+Compatibility mode: loading esub2acm.sty rather than esub2acm.cls.
+
+(esub2acm.sty
+Document Style `esub2acm' Electronic Submissions v1.0 <July 25th. 1996> (ACM).
+\c@part=\count83
+\c@section=\count84
+\c@subsection=\count85
+\c@subsubsection=\count86
+\c@paragraph=\count87
+\c@figure=\count88
+\c@table=\count89
+\@narrowfig=\dimen105
+\@nfigbox=\box25
+\@nfcapbox=\box26
+\@narrowfig=\dimen106
+\@nfigbox=\box27
+\@nfcapbox=\box28
+\@abstract=\box29
+Using ACM bibliography style
+\bibindent=\dimen107
+)
+\c@CLAIM=\count90
+ (/local/TeX/macros/xypic-3.5/xypic.tex (/local/TeX/macros/xypic-3.5/xyv2.tex
+(/local/TeX/macros/xypic-3.5/xy.tex Bootstrap'ing: catcodes, docmode,
+(/local/TeX/macros/xypic-3.5/xyrecat.tex)
+(/local/TeX/macros/xypic-3.5/xyidioms.tex)
+
+ Xy-pic version 3.5 <1997/05/28>
+ Copyright (c) 1991-1997 by Kristoffer H. Rose <krisrose@brics.dk>
+ Xy-pic is free software: see the User's Guide for details.
+
+Loading kernel: messages; fonts; allocations: state,
+\X@c=\dimen108
+\Y@c=\dimen109
+\U@c=\dimen110
+\D@c=\dimen111
+\L@c=\dimen112
+\R@c=\dimen113
+\Edge@c=\toks15
+\X@p=\dimen114
+\Y@p=\dimen115
+\U@p=\dimen116
+\D@p=\dimen117
+\L@p=\dimen118
+\R@p=\dimen119
+\Edge@p=\toks16
+\X@origin=\dimen120
+\Y@origin=\dimen121
+\X@xbase=\dimen122
+\Y@xbase=\dimen123
+\X@ybase=\dimen124
+\Y@ybase=\dimen125
+\X@min=\dimen126
+\Y@min=\dimen127
+\X@max=\dimen128
+\Y@max=\dimen129
+\lastobjectbox@=\box30
+\zerodotbox@=\box31
+\almostz@=\dimen130
+ direction,
+\d@X=\dimen131
+\d@Y=\dimen132
+\K@=\count91
+\KK@=\count92
+\Direction=\count93
+\K@dXdY=\dimen133
+\K@dYdX=\dimen134
+\xyread@=\read1
+\xywrite@=\write4
+\csp@=\count94
+\quotPTK@=\dimen135
+
+utility macros; pictures: \xy, positions,
+\swaptoks@@=\toks17
+\connectobjectbox@@=\box32
+ objects,
+\styletoks@=\toks18
+ decorations;
+kernel objects: directionals, circles, text; options; algorithms: directions,
+edges, connections;  Xy-pic loaded)
+ Xy-pic option: Version 2 Compatibility v.3.4
+
+Xy-pic Warning: `\stop' redefined.
+
+(/local/TeX/macros/xypic-3.5/xyframe.tex
+ Xy-pic option: Frame and Bracket extension v.3.4 loaded)
+(/local/TeX/macros/xypic-3.5/xymatrix.tex  Xy-pic option: Matrix feature v.3.4
+\Row=\count95
+\Col=\count96
+\queue@=\toks19
+\queue@@=\toks20
+\qcount@=\count97
+\qcount@@=\count98
+\matrixsize@=\count99
+
+loaded) (/local/TeX/macros/xypic-3.5/xyarrow.tex
+ Xy-pic option: Arrow and Path feature v.3.5 path, \ar, loaded) loaded))
+(/local/TeX/macros/xypic-3.5/xycurve.tex
+ Xy-pic option: Curve and Spline extension v.3.4 curve,
+\crv@cnt@=\count100
+\crvpts@=\toks21
+\splinebox@=\box33
+\splineval@=\dimen136
+\splinedepth@=\dimen137
+\splinetol@=\dimen138
+\splinelength@=\dimen139
+ circles,
+\L@=\dimen140
+ loaded)
+(walicki.aux)
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+
+Overfull \hbox (7.66704pt too wide) in paragraph at lines 154--154
+\OT1/cmss/m/n/10 University of Bergen, Dept. of In-for-mat-ics, 5020 Bergen, No
+r-way \OT1/cmr/m/n/9 (michal,sigurd@ii.uib.no) 
+ []
+
+
+Package acmart Warning: an abstract is required
+
+(walicki.toc
+LaTeX Font Info:    No math setup on input line 3.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 3.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 3.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 3.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 3.
+ (/local/TeX/macros/LaTeX/Ulasy.fd
+File: Ulasy.fd 1994/05/27 v2.1eLaTeX symbol font definitions
+))
+\tf@toc=\write5
+LaTeX Font Info:    No math setup on input line 169.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 169.
+ [1
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Font Info:    No math setup on input line 222.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 222.
+ [2]
+[3]
+LaTeX Font Info:    No math setup on input line 326.
+LaTeX Font Info:    No math setup on input line 353.
+ [4]
+Overfull \hbox (1.44743pt too wide) in paragraph at lines 367--371
+[]  \OT1/cmr/bx/n/10 Bounded and un-bounded non-de-ter-min-ism\OT1/cmr/m/it/10 
+. Bounded \OT1/cmr/m/n/10 non-de-ter-min-ism refers
+ []
+
+LaTeX Font Info:    No math setup on input line 374.
+LaTeX Font Info:    No math setup on input line 416.
+[5]
+LaTeX Font Info:    No math setup on input line 471.
+LaTeX Font Info:    No math setup on input line 484.
+LaTeX Font Info:    No math setup on input line 488.
+
+Underfull \vbox (badness 3690) has occurred while \output is active []
+
+LaTeX Font Info:    No math setup on input line 502.
+ [6]
+LaTeX Font Info:    No math setup on input line 514.
+LaTeX Font Info:    No math setup on input line 553.
+
+[7]
+LaTeX Font Info:    No math setup on input line 586.
+LaTeX Font Info:    No math setup on input line 608.
+ [8]
+LaTeX Font Info:    No math setup on input line 611.
+LaTeX Font Info:    No math setup on input line 688.
+ [9]
+LaTeX Font Info:    No math setup on input line 691.
+LaTeX Font Info:    No math setup on input line 752.
+ [10]
+LaTeX Font Info:    No math setup on input line 754.
+ (00Cc.xyc)
+Overfull \hbox (3.96986pt too wide) in paragraph at lines 817--820
+[][]\OT1/cmr/m/it/10 Consider a two-sorted al-ge-bra with $\OML/cmm/m/it/10 N \
+OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; \OT1/cmr
+/m/n/10 1\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 2\OMS/cmsy/m/n/10 g$ \OT1/cmr/m/it/
+10 and $\OML/cmm/m/it/10 S \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 f\OML/cmm/m/it/10
+ a; b; c\OMS/cmsy/m/n/10 g$\OT1/cmr/m/it/10 ,
+ []
+
+LaTeX Font Info:    No math setup on input line 824.
+[11]
+LaTeX Font Info:    No math setup on input line 826.
+LaTeX Font Info:    No math setup on input line 888.
+ [12]
+LaTeX Font Info:    No math setup on input line 895.
+LaTeX Font Info:    No math setup on input line 974.
+ [13]
+LaTeX Font Info:    No math setup on input line 978.
+LaTeX Font Info:    No math setup on input line 1046.
+ [14]
+LaTeX Font Info:    No math setup on input line 1051.
+ (00hom.xyc)
+Overfull \hbox (67.40065pt too wide) in paragraph at lines 1062--1068
+\OT1/cmr/m/n/10 i.e., [] 
+ []
+
+LaTeX Font Info:    No math setup on input line 1091.
+LaTeX Font Info:    No math setup on input line 1094.
+LaTeX Font Info:    No math setup on input line 1102.
+[15]
+LaTeX Font Info:    No math setup on input line 1111.
+LaTeX Font Info:    No math setup on input line 1167.
+ [16]
+LaTeX Font Info:    No math setup on input line 1168.
+LaTeX Font Info:    No math setup on input line 1258.
+ [17]
+LaTeX Font Info:    No math setup on input line 1265.
+LaTeX Font Info:    No math setup on input line 1278.
+LaTeX Font Info:    No math setup on input line 1279.
+LaTeX Font Info:    No math setup on input line 1307.
+ [18]
+LaTeX Font Info:    No math setup on input line 1325.
+LaTeX Font Info:    No math setup on input line 1354.
+LaTeX Font Info:    No math setup on input line 1355.
+LaTeX Font Info:    No math setup on input line 1380.
+ [19]
+LaTeX Font Info:    No math setup on input line 1408.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Font Info:    No math setup on input line 1445.
+ [20]
+LaTeX Font Info:    No math setup on input line 1445.
+LaTeX Font Info:    No math setup on input line 1474.
+LaTeX Font Info:    No math setup on input line 1474.
+LaTeX Font Info:    No math setup on input line 1511.
+
+[21]
+LaTeX Font Info:    No math setup on input line 1526.
+LaTeX Font Info:    No math setup on input line 1569.
+ [22]
+LaTeX Font Info:    No math setup on input line 1577.
+LaTeX Font Info:    No math setup on input line 1633.
+ [23]
+LaTeX Font Info:    No math setup on input line 1636.
+
+Overfull \hbox (42.95615pt too wide) in paragraph at lines 1668--1676
+[]\OT1/cmr/m/n/10 Every uni-fied sig-na-ture $^^F$ con-tains the sub-sig-na-tur
+e $
+$ with the op-er-a-tions $\OMS/cmsy/m/n/10 f[]\OML/cmm/m/it/10 ; []\OMS/cmsy/m/
+n/10 j[]\OML/cmm/m/it/10 ; []\OT1/cmr/m/n/10 &[]\OMS/cmsy/m/n/10 g$
+ []
+
+LaTeX Font Info:    No math setup on input line 1700.
+[24]
+LaTeX Font Info:    No math setup on input line 1703.
+LaTeX Font Info:    No math setup on input line 1757.
+ [25]
+LaTeX Font Info:    No math setup on input line 1770.
+LaTeX Font Info:    No math setup on input line 1809.
+ [26]
+LaTeX Font Info:    No math setup on input line 1811.
+ (UA1.xyc) (UA2.xyc)
+Overfull \hbox (1.75156pt too wide) in paragraph at lines 1855--1875
+[]$[]$                $[]$ 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Font Info:    No math setup on input line 1876.
+ [27]
+LaTeX Font Info:    No math setup on input line 1878.
+LaTeX Font Info:    No math setup on input line 1927.
+
+[28]
+LaTeX Font Info:    No math setup on input line 1929.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Font Info:    No math setup on input line 1977.
+ [29]
+LaTeX Font Info:    No math setup on input line 1978.
+LaTeX Font Info:    No math setup on input line 2034.
+
+[30]
+Overfull \hbox (15.16736pt too wide) in paragraph at lines 2058--2060
+[][]\OT1/cmr/m/n/10 Furthermore, the data types ob-tained by ter-mi-nal se-man-
+tics are co-semicomputable
+ []
+
+LaTeX Font Info:    No math setup on input line 2062.
+
+Overfull \hbox (32.5135pt too wide) in paragraph at lines 2075--2078
+[][]\OT1/cmr/m/n/10 [Hesselink 1988]. \OT1/cmr/m/it/10 A mul-ti-model $\OML/cmm
+/m/it/10 B$ \OT1/cmr/m/it/10 is ter-mi-nal in the class $\OT1/cmr/m/n/10 (\OML/
+cmm/m/it/10 L\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 B\OT1/cmr/m/n/10 )\OML/cmm/m/it/
+10 ; M H om\OT1/cmr/m/n/10 )$
+ []
+
+LaTeX Font Info:    No math setup on input line 2088.
+[31]
+LaTeX Font Info:    No math setup on input line 2093.
+LaTeX Font Info:    No math setup on input line 2135.
+ [32]
+LaTeX Font Info:    No math setup on input line 2142.
+ <xymatrix 27x5 1262>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Font Info:    No math setup on input line 2189.
+ [33]
+LaTeX Font Info:    No math setup on input line 2192.
+LaTeX Font Info:    No math setup on input line 2224.
+LaTeX Font Info:    No math setup on input line 2225.
+LaTeX Font Info:    No math setup on input line 2249.
+
+[34]
+LaTeX Font Info:    No math setup on input line 2252.
+ (02MW.xyc) (03choice.xyc)
+LaTeX Font Info:    No math setup on input line 2317.
+ [35]
+LaTeX Font Info:    No math setup on input line 2319.
+ (04tree.xyc) (05tree.xyc)
+LaTeX Font Info:    No math setup on input line 2388.
+ [36]
+LaTeX Font Info:    No math setup on input line 2388.
+ (06MW.xyc)
+LaTeX Font Info:    No math setup on input line 2447.
+
+[37]
+LaTeX Font Info:    No math setup on input line 2448.
+ (07tree.xyc)
+LaTeX Font Info:    No math setup on input line 2504.
+LaTeX Font Info:    No math setup on input line 2505.
+ (08MW.xyc)
+Underfull \vbox (badness 2343) has occurred while \output is active []
+
+LaTeX Font Info:    No math setup on input line 2522.
+ [38]
+LaTeX Font Info:    No math setup on input line 2525.
+LaTeX Font Info:    No math setup on input line 2566.
+
+[39]
+LaTeX Font Info:    No math setup on input line 2568.
+LaTeX Font Info:    No math setup on input line 2628.
+ [40]
+LaTeX Font Info:    No math setup on input line 2628.
+LaTeX Font Info:    No math setup on input line 2683.
+ [41]
+LaTeX Font Info:    No math setup on input line 2684.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Font Info:    No math setup on input line 2744.
+ [42]
+LaTeX Font Info:    No math setup on input line 2746.
+LaTeX Font Info:    No math setup on input line 2799.
+
+[43]
+LaTeX Font Info:    No math setup on input line 2822.
+LaTeX Font Info:    No math setup on input line 2844.
+ [44]
+LaTeX Font Info:    No math setup on input line 2845.
+LaTeX Font Info:    No math setup on input line 2900.
+ [45]
+LaTeX Font Info:    No math setup on input line 2900.
+LaTeX Font Info:    No math setup on input line 2953.
+ [46]
+LaTeX Font Info:    No math setup on input line 2954.
+LaTeX Font Info:    No math setup on input line 3018.
+ [47]
+LaTeX Font Info:    No math setup on input line 3018.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Font Info:    No math setup on input line 3071.
+ [48]
+LaTeX Font Info:    No math setup on input line 3074.
+LaTeX Font Info:    No math setup on input line 3125.
+
+[49]
+LaTeX Font Info:    No math setup on input line 3125.
+ (09RL.xyc)
+LaTeX Font Info:    No math setup on input line 3187.
+ [50]
+LaTeX Font Info:    No math setup on input line 3188.
+ <xymatrix 3x3 169>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Font Info:    No math setup on input line 3258.
+ [51]
+LaTeX Font Info:    No math setup on input line 3262.
+LaTeX Font Info:    No math setup on input line 3316.
+
+[52]
+LaTeX Font Info:    No math setup on input line 3330.
+LaTeX Font Info:    No math setup on input line 3361.
+ [53]
+LaTeX Font Info:    No math setup on input line 3396.
+
+Underfull \hbox (badness 8132) in paragraph at lines 3412--3416
+[][]\OT1/cmr/m/sc/8 Aarts, C., Back-house, R., Hoogendijk, P., Vo-er-mans, E., 
+and van der
+ []
+
+
+Underfull \hbox (badness 1019) in paragraph at lines 3412--3416
+\OT1/cmr/m/sc/8 Woude, J. \OT1/cmr/m/n/8 1992.  A re-la-tional the-ory of datat
+ypes. [draft avail-able at URL =
+ []
+
+LaTeX Font Info:    No math setup on input line 3435.
+[54] [55] [56] [57]
+Underfull \hbox (badness 10000) in paragraph at lines 4092--4096
+[][]\OT1/cmr/m/sc/8 Plotkin, G. \OT1/cmr/m/n/8 1982.  Do-mains. [lec-ture notes
+, avail-able at URL =
+ []
+
+[58]
+LaTeX Font Info:    No math setup on input line 4240.
+LaTeX Font Info:    No math setup on input line 4264.
+ [59] [60] (walicki.aux) )
+(\end occurred inside a group at level 1) 
+Here is how much of TeX's memory you used:
+ 3188 strings out of 11024
+ 31170 string characters out of 74866
+ 190282 words of memory out of 262141
+ 5901 multiletter control sequences out of 9500
+ 20078 words of font info for 75 fonts, out of 100000 for 255
+ 14 hyphenation exceptions out of 607
+ 28i,14n,21p,601b,1100s stack positions out of 300i,40n,60p,3000b,4000s
+
+Output written on walicki.dvi (60 pages, 305688 bytes).
