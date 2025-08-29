@@ -1,0 +1,1072 @@
+\documentclass[10pt]{article}
+
+\newcommand{\GTerms}{W_{\Sigma}}
+\newcommand{\XTerms}{W_{\Sigma,X}}
+\newcommand{\ch}{\sqcup}
+\newcommand{\Car}[1]{|#1|}
+\newcommand{\PSet}{{\cal P}}
+\renewcommand{\iff}{\mathrel{\Leftrightarrow}}
+\newcommand{\impl}{\mathrel{\Rightarrow}}
+\newcommand{\into}{\mathrel{\rightarrow}}
+\newcommand{\addinto}{\mathrel{\rightarrow_{\cup}}}
+\newcommand{\strinto}{\mathrel{\rightarrow_{+}}}
+\newcommand{\singinto}{\mathrel{\rightarrow_{1}}}
+\newcommand{\addstrinto}{\mathrel{\rightarrow_{\uplus}}}
+\newcommand{\es}{\emptyset}
+
+\newcommand{\Sorts}{{\cal S}}
+\newcommand{\Funcs}{{\cal F}}
+\newcommand{\Lang}{{\cal L}}
+\newcommand{\bool}{{\rm{\em Bool}}}
+\newcommand{\rew}{\mathrel{\mapsto}}
+\newcommand{\iso}{\mathrel{\simeq}}
+\newcommand{\uni}{{\cal I}}
+\newcommand{\und}[1]{\underline{#1}}
+
+%%%%%%%%%%%% Envs
+\newcommand{\MyLPar}{\parsep -.2ex plus.2ex minus.2ex\itemsep\parsep 
+\vspace{-\topsep}\vspace{.5ex}}
+\newenvironment{enum}{\begin{enumerate}\MyLPar}{\end{enumerate}}
+
+\newcounter{CLAIM}[section]
+\def\theCLAIM{\arabic{section}.\arabic{CLAIM}}
+
+\newtheorem{Claim}[CLAIM]{Proposition}  
+\newtheorem{Definition}[CLAIM]{Definition} 
+\newtheorem{Fact}[CLAIM]{Fact}     
+\newtheorem{Lemma}[CLAIM]{Lemma}     
+\newtheorem{Example}[CLAIM]{Example} 
+\newtheorem{Theorem}[CLAIM]{Theorem} 
+\newtheorem{Corollary}[CLAIM]{Corollary}  
+\newenvironment{Proof}
+               {\setlength{\parskip}{2pt}
+                \setlength{\parindent}{0pt}
+                {\sc Proof:}}{\hfill{\sc qed}\vspace{1.5ex}}
+
+\newenvironment{REMARK}[1]{\vspace{1ex}\par\noindent{\bf #1}}
+            {\vspace{1ex}\par\noindent\ignorespaces}
+% and numbered version
+\newenvironment{REMARKno}[1]{\refstepcounter{CLAIM}
+       \vspace{1ex}\par\noindent{\bf #1\ \theCLAIM .}}
+       {\vspace{1ex}\par\noindent\ignorespaces}
+% small remark
+\newenvironment{SREMARK}[1]{\vspace{1ex}\par\noindent\small{\bf #1}}
+            {\vspace{1ex}\par\noindent\normalsize\ignorespaces}
+\newenvironment{SREMARKno}[1]{\refstepcounter{CLAIM}
+       \vspace{1ex}\par\noindent\small {\bf #1\ \theCLAIM .}}
+       {\vspace{1ex}\par\noindent\normalsize\ignorespaces}
+       
+
+\title{Algebraic Approaches to Nondeterminism -- an Overview}
+\author{Micha{\l} Walicki and Sigurd Meldal \\
+University of Bergen \\
+Department of Informatics\\
+HiB, 5020 Bergen, Norway \\
+{michal,sigurd}@ii.uib.no}
+
+\begin{document}
+\maketitle
+
+Mathematics never saw much of a 
+reason to deal with something called ``nondeterminism''.  
+It works with values,
+ functions, sets, relations. In computing science, on the other hand, 
+nondeterminism has been an issue from the very beginning, if only in 
+the form of nondeterministic Turing machines or nondeterministic 
+finite state machines. Early references to nondeterm
+inism in computer science go back to the sixties [38, 84].  A great 
+variety of theories and formalisms dealing with it have been 
+developed during the last two decades. There are the denotational 
+models based on power domains [103, 117, 51, 106], the predic
+ate transformers for the choice construct [29, 30, 104, 118], 
+modifications of the $\lambda$-calculus [73, 4, 49]. Nondeterminism arises in 
+a natural way when discussing concurrency, and models of concurrency 
+typically also model nondeterminism.  There are numerou
+s variants of process languages and algebras [13, 89, 90, 50, 54, 52, 
+65, 39, 11], event structures [136, 135, 134, 2], state transition 
+systems [83, 71], Petri nets [100, 109]. 
+
+ In terms of modeling 
+nondeterminism may be considered a purely operational no
+tion. However, one of the main reasons for considering nondeterminism 
+in computer science is the need for abstraction, allowing one to 
+disregard irrelevant aspects of actual computations. Typically, we 
+prefer to work with models which do not include all th
+e details of the physical environment of computations such as timing, 
+temperature, representation on hardware, etc. Since we do not want to 
+model all these complex dependencies, we may instead represent them 
+by nondeterministic choices. The nondeterminism 
+of concurrent systems usually arises as an abstraction of time. 
+Similarly nondeterminism is also a means of increasing the level of 
+abstraction when describing sequential programs [85, 130], and as a 
+way of indicating a ``don' t care''  attitude as to which among a 
+number of computational 
+paths will actually be utilized in a particular evaluation [30].
+
+ The variety of approaches referred to above 
+indicates the possible difficulties in gathering all the pieces into 
+one uniform theory, let alone a short presentati
+on. In this paper we are concerned with algebraic specifications and 
+hence will consider only a part of the whole picture of 
+nondeterminism. As far as the basic notions related to nondeterminism 
+and the associated algebraic formalisms are concerned, the pa
+per is by and large self-contained. Only occasionally refererences to 
+other areas presupposing some prior knowledge will be made.
+
+ In section 1 the basic concepts involved in 
+the study of nondeterminism are introduced. Sections 2-5 discuss the 
+semantic issu
+es, and 6-7 reasoning with nondeterminism. The main alternatives for 
+the interpretation of nondeterministic operations, homomorphisms 
+between nondeterministic structures, and equivalence of 
+nondeterministic terms are sketched in 2. Sections 3 and 4 discuss
+ various proposals for, respectively, the initial and the terminal 
+semantics. In section 5 we make some comments on the continuous 
+semantics of nondeterminism and the problem of solving recursive 
+equations over signatures with binary nondeterministic choic
+e. 6 presents the attempts at reducing reasoning about nondeterminism 
+to reasoning in first order logic and then gives an example of a 
+calculus dealing directly with nondeterministic terms. In 7 rewriting 
+with nondeterminism is discussed: primarily, as a m
+eans of reasoning, but also as a means of assigning operational 
+semantics to \~nondeterministic specifications.
+
+\section{Basic concepts}\label{se:one}
+In this section we present informal 
+definitions of the basic concepts and distinctions involved in the 
+study of nondeterminism. 
+
+\paragraph*{Nondeterminism and nondeterminacy}
+ Roughly speaking, nondeterminacy 
+concerns {\em syntax}, nondeterminism {\em semantics}. The constructs 
+which always yield unique result are {\em determinate}, those which 
+may yield different results when invoked several times 
+{\em non\-deter\-minate}. The presence of a 
+nondetermi\-nate construct in an expression does not force the 
+cor\-re\-sponding operation to be nondetermin\-istic. Determinacy implies 
+determinism but nonde\-terminacy does not necessarily imply 
+non\-deter\-minism and, as observed in [18], the problem whether a 
+non\-determinate term is deter\-mi\-nistic or not is, in general, undecidable. 
+We are primarily concerned with the intentional 
+nondeterminism originating from the presence in the language of some 
+constructs which have nondeterministic semantics. 
+
+\paragraph*{Nondeterminism and underspecification}
+When developing a software system 
+in a number of refinement steps, we are often interested in 
+specifying the functionality of the system uniquely but only with 
+respect to some relevant properties. 
+That is, each model of the specification is a standard 
+(deterministic) structure but we do not identify one unique model. We 
+then speak of underspecification. Later in the development process we 
+may add more properties, whenever we find it appropr
+iate, and so restrict the model class. Thus underspecification 
+functions also, like nondeterminism, as a means of abstraction. It 
+bears a resemblance to nondeterminism in that it leavs open the 
+possibility of choosing among several admissible models. The i
+mportant difference between the two notions may be roughly expressed 
+thus: underspecification admits a choice between different models but 
+nondeterminism admits choices within one model. While 
+underspecification fits into the concepts of classical logic an
+d model theory smoothly, the treatement of nondeterminism leads to 
+complications and, typically, requires introduction of non-standard 
+features both into the models and logic. For this reason some 
+researchers postulate the use of underspecification as the 
+primary, if not the only, means of abstraction. Others consider it 
+insufficient and try to design formalisms which capture the 
+phenomenon of nondeterminism as distinct from underspecification.
+
+\paragraph*{Representational vs. ``real''  nondeterminism}
+There are essentially two reasons 
+why one might want to include the concept of nondeter\-minism in the 
+traditional algebraic specification methods:
+\begin{enum}
+\item {\em Real} nondeterminism.\\
+The system being specified 
+really is nondeterministic --  its behavior is not fully 
+pre\-dict\-able, nor fully reproducible, no matter how detailed our 
+knowledge of its initial state.
+\item {\em Representational} (or {\em pseudo-}) nondeterminism [64, 121, 130].\\
+The behavior of the system 
+being specified may be fully predictable in its final 
+imple\-mentation (i.e. deterministic), but it may not be so at the 
+level of abstraction of the specification.
+\end{enum}
+Though many think of 
+representational nondeterminism as identical to 
+under\-specifi\-cation, they turn out to be technically and 
+conceptually quite distinct (as we shall see shortly). 
+
+Whether the world {\em really} is 
+nondeterministic or not we leave to the physicists and 
+phi\-lo\-sophers to ponder. A computer system {\em in isolation}
+ certainly is deterministic: When started from a particular state 
+(given in full detail) twice, both executions will demonstrate 
+identical behavior. Possible sources of perceived nondeterminism lie 
+only in the unpredictability of the environment such as hardware failures or human 
+factors. Considering all such factors as parts of the total state 
+given in full detail may obviate the perceived nonde\-
+terminism, but leads to undesirable complexity and is possible only 
+in principle.
+
+The primary argument in favor of accepting nondeterministic operators 
+is instrumental, and identical to the credo of the abstract data type 
+community: One should specify a system {\em 
+only in such detail that any implementation satisfying the 
+specification also satisfies the user, and no more.} It turns out 
+that nondeterministic operators ease the process of specifying 
+systems by allowing one to disregard irrelevant aspects  -- 
+be they the external influences or implementation details --  
+and thus reducing the danger of over\-specification resulting from 
+technical rather than methodical reasons. 
+
+For purposes of discussion it may be convenient to further identify 
+three variants of representational nondeterminism: 
+(1) abstraction from hidden state, (2) 
+abstraction from time, and (3) abstraction from external entities. 
+Though these may be dealt with uniformly, they have often been 
+considered distinct. In particular, the introduction of 
+nonde\-terminism as a result of 
+abstraction from {\em time} is usually taken as a given in the process 
+alge\-bra community without thereby necessesarily accepting 
+abstraction over {\em state} as requiring nondeterminsm for specification purposes.
+
+ How does this use of nondeterminism differ 
+from the usual notion of under\-specifica\-tion? Consider for a 
+moment a user-defined choice function $\sqcup$ from sets of 
+integers to integers, returning one of the elements of the set:
+
+ For instance, $\sqcup(\{0,1\})$ may return 
+either of the values 0 and 1. If choice were just an under\-specified 
+function, then we would have that $\sqcup(\{0,1\})=\sqcup(\{1,0\})$, 
+since the arguments of the function are equal (though not 
+syntactically identical) in the two terms. In practical terms, this 
+would require the choice operator always to return the same value 
+when applied to a particular set. I.e., $\sqcup(\{0,1\})$ is always 0, or always 1.
+
+ However, this kind of underspecification does 
+not allow for abstraction from (conceptually) invisible entities that 
+might influence the choice (such as a hidden state, timing or 
+interaction with a human being). E.g., if set values were implemented 
+as un\-or\-dered sequences with new elements always added to the 
+front of the sequence, this underspecified description of the choice function would disallow using a 
+simple imple\-men\-tation of choice as picking the first element 
+of the sequence, since 
+such an implementation would sometimes return the value 0, sometimes 
+the value 1, when applied to the set $\{0,1\}$, depending on wh
+ich of the two elements were added first. If we were to treat choice 
+as a nondeterministic operator, on the other hand, then such a 
+straightforward implementation (though deterministic) would be quite 
+acceptable, both formally and according to the usual intuition 
+about the requirements of an operator picking some element 
+from a set [107, 132].
+
+ Similarly, if the implementation of the choice 
+function asked a human operator to pick an element then one would 
+encounter the same difficulty: The behavior of human
+ beings may be deterministic, but even were that the case their inner 
+state determining that behavior is not available for inspection. A 
+specification needs to abstract from that inner state, and 
+nondeterminism is the right concept for doing that.
+
+ And similarly again, if the choice depended 
+upon timing properties (e.g. the set was distributed among a number of processors, and the choice function simply 
+queried them all, returning the first (in terms of time) value 
+returned to it by one of these processors) the abstraction from timing properties would introduce a seeming 
+nondeterminism.
+
+ The implementation relation also arises in the 
+distinction between {\em loose} and {\em tight} relationships between 
+structures modelling nondeterministic operators (see below).
+
+\paragraph*{Bounded and unbounded nondeterminism}
+ {\em Bounded} nondeterminism refers 
+to the case where every terminating computation has only a finite 
+number of possible results; {\em unbounded}  -- to the one where 
+the set of the possible results may be infinite. 
+
+
+It may be argued [30, 54] 
+whether unbounded nondeterminism has a plausible computational 
+interpretation. A deterministic program {\i P} which takes a natural 
+number {\i n} as input and outputs a natural number {\i m}
+ corresponds to a partial recursive function. The relation 
+ \[
+  R_{P}(n,m) \iff P(n)=m
+  \] 
+\noindent 
+is recursively enumerable (RE), and 
+the subset $L_{P}$ of natural numbers for which $P$ 
+does not terminate is co-recursively enumerable. For nondeterministic 
+program $P$, the input-output relation $R_{P}(n,m)$ is also RE, but when the involved 
+nondeterminism is unbounded $L_{P}$ is much more 
+complex than co-RE. Firstly, (non-)termination cannot be guaranteed 
+and $L_{P}$ is the set of those inputs on which 
+{\i P} {\em may} not terminate. Then it is shown in [25] that for 
+erratic (see below) unbounded nondeterminism $L_{P}$ has the 
+complexity $\Sigma_{1}^{1}$.
+ This either presents a serious challenge to the Church-Turing 
+thesis and the classical notion of computability or, perhaps, 
+discredits unbounded nondeterminism as a notion without computational 
+relevance. Nevertheless, even if one might agree that the no
+tion of unbounded nondeterminism is not feasible from the 
+implementation point of view, it may even so provide an invaluable 
+abstraction mechanism at the specification level.
+ 
+Unbounded nondeterminism creates severe difficulties in models based 
+on fixed point semantics because, unlike bounded nondeterminism, it 
+is not continuous in the standard constructions of power domains. 
+However, it should be observed that noncontinuity is 
+not caused by the nondeterminism, but rather by the unboundedness. 
+Noncontinuity may also arise in a determinate language, for instance, 
+in a language admitting quanti\-fication over infinite sets. 
+
+\paragraph*{Biased agents }
+ The paradigmatic concept of 
+nondeterminism is probably that of arbitrary choice. Choosing 
+nondeterministically between $a$ and $b$ there is a possibility 
+that we get $a$ and also a possibility that we get $b$. 
+The choice may be influenced by additional factors which 
+never\-theless leave it, to some extent, undetermined. If this is the 
+case we may speak of the ({\em agent} making the) choice being {\em 
+biased}. 
+
+The most extensively studied 
+case of such agents involves bias with respect to possible 
+termination. {\em Erratic} choice is completely arbitrary -- 
+ it may happen that such a choice will lead to a nonterminating 
+computation and it may happen that it will eventually produce some 
+result. {\em Angelic}
+ choice, on the other hand, will always avoid branches which may lead 
+to nontermination. If there is a computational path leading to a 
+successful result, angelic nondeterminism will guarantee that such a 
+path will be found. Finally, a {\em demonic}
+ choice will do the opposite and always follow the path, if such 
+exists, leading to a nonterminating computation.
+
+ 
+In terms of implementation, erratic nondeterminism is the least 
+problematic. A choice may be performed locally without consideration 
+of the possible consequences of the choices made. It may be also 
+thought of as an unpredictable environment beyond the cont
+rol of the program. An operational intuition of angelic 
+nondeterminism [25] can be a system which, whenever a ch
+oice is to be made, spawns several new processes, one for each among 
+the possible results of the choice. The first process to terminate 
+causes all other processes to stop as well. The demonic case can be 
+analogous except that {\em every}
+ process must terminate if the whole computation is to terminate. 
+Demonic nondeterminism is in [21] called {\em backtrack} 
+nondeterminism  -- 
+it is there thought of as a system which makes a choice and follows 
+the path until it terminates. If it does, the system backtracks to 
+the point at
+ which the last choice was made and follows another path. It will 
+terminate only after having checked that all possible choices lead to 
+terminating computations.
+
+ The terms erratic, angelic, demonic are used 
+not only to refer to the termination aspect but, generally, to the 
+situations where nondeterminism involves arbitrary choices where the 
+results are either ``desirable'' 
+ or ``undesirable'',  e.g., with respect to 
+definedness. 
+
+ The first version of angelic nondeterminism 
+[84] was related to this kind of preference for ``desirable'' 
+ behaviour. It was local (like the erratic one) in the sense that it 
+chose among its arguments looking only at their values rather than at 
+the consequences of its own choice. If both arguments were well 
+defined (completed computations) any of them might have been chosen 
+erratically but if any of the 
+arguments was undefined the other one was chosen. 
+
+ This is an example of the {\em value} bias 
+[110] where every agent may have its own preference as to which 
+values to choose. Such a bias can be mod
+eled by a partial order on the values expressing the preferences. An 
+agent presented with the choice between $a$ and $b$
+ first considers whether any of the values is to be preferred (is 
+greater in the ordering), in which case this value is selected. 
+Otherwise the choice is arbitrary. For instance, the ordering for the 
+angelic agent in the last paragraph would be the {\em 
+flat} partial order: $a\leq  b \iff a=\perp \lor\ a=b$.
+
+ Another form of a bias is {\em fairness}. If an 
+erratic agent has infinitely many occasions to choose between $a$
+and $b$ it may happen that it will always choose $a$. A fair 
+agent will eventually choose also $b$.\footnote{ 
+This is known as {\em unbounded} fairness. There 
+are many different notions of fairness but we do not focus on them 
+here.}
+ There is a close connection between fair choice and unbounded 
+nondeterminism as the well-known example illustrates [30, 99, 3]: 
+\\
+\hspace*{2em} $b := $ true ; \\
+\hspace*{2em} $x := 0$ ; \\
+\hspace*{2em}  while $b$ do \\
+\hspace*{3em} $b := $ false $\sqcup x := x+1$ ;  \\
+\hspace*{2em} od ; 
+
+\noindent
+If $\sqcup$ denotes erratic (demonic) choice this program may (will) not 
+terminate. Any number may be returned by a terminating (erratic) 
+computation. If $\sqcup$ is fair (in this case it means also angelic) then 
+the program will {\em always} terminate. There is no upper bound on the 
+number of iterations before this will 
+happen, though, so any natural number may be returned as the value of 
+$x$. This means that a ``solution'' to the fairness problem would 
+also provide a mechanism to implement 
+unbounded nondeterminism. 
+
+Many subtleties arise in this connection: the 
+distinction between {\em strong termination} 
+(which requires an upper bound on the number of 
+iterations) vs. {\em weak} (where no such bound exists) [5], {\em tight}
+implementation (which produces all the results prescribed by the 
+specification) vs. {\em loose} (which only needs to produce some of them) 
+[21, 99] and, of course, various kinds of fairness ranging from the 
+``ideal'' 
+ fairness as in the example above to forms of computable fairness 
+where the bound on the delay in selecting any of the alternatives is 
+determined by some computable function. The latter is shown in [25] 
+to have complexity $\Sigma_{1}^{0}$, i.e., essentially the same as 
+functions computable by deterministic 
+programs. (Thus fairness will restrict the functions ``computable''  
+by a nondeterministic program.)\par 
+As a final example of biased agents we mention {\em probabilistic} 
+nondeterminism [68, 108, 111, 81]. Here every choice is made with 
+some probability distribution $P$ which may depend only on the 
+values (e.g., whenever a choice between $a$ and $b$
+is to be made, $P(a)=1/3$ and $P(b)=2/3$, 
+or also on the agents making the choice (so that 
+$P_{M}(a,b)$ for an agent $M$ may differ from $P_{N}(a,b)$ for another 
+agent $N$.) Of course, the formalism for the description, as well as the 
+models, of probabilistic nondeterminism are considerably more complex 
+than the formalisms and models of non-probabilistic nondeterminism. 
+They are probably more appealing to the community inte
+rested in probabilistic algorithms than to workers in the field of 
+formal specifications and abstract data types.   
+
+\paragraph*{Singular and plural} 
+In deterministic programming the 
+distinction between call-by-value and call-by-name semantics is 
+well-known. The former corresponds to the situation where the actual 
+parameters to function calls are evaluated and passed as values. The 
+latter allows also parameters which are function expre
+ssions, passed by a kind of Algol copy rule [113], and which are 
+evaluated only when a need for their value arises.
+
+The nondeterministic 
+counterparts of these two notions are what [110] calls {\em singular} 
+and {\em plural} semantics of parameter passing. Other, very 
+closely related distinctions go under the names call-time-choice vs. 
+run-time-choice  [26, 49, 50], inside-out (IO) vs. outside-in (OI) 
+[34, 35]. The different names reflect slight differences in meaning 
+of the concepts. Except where we are entering into a
+ more detailed discussion of this distinction (7) we will adopt the 
+terminology [110] (taking the risk of abusing it a bit for the sake 
+of a more intuitive exposition). \par 
+The terminology of [110] reflects the meaning of the nondeterminate 
+terms as represent
+ing sets of possible results. Evaluation of such a term yields a 
+unique result, hence when evaluation of the argument is required at 
+the moment of the call it represents a single value. When a term is 
+passed by some variant of the textual copy rule and sev
+eral evaluations of it in the body of the operation can happen 
+independently of each other, then we can picture the situation as 
+passing the whole set of possible results where each reference to the 
+parameter name picks (independently) one among the possib
+le results.
+
+\paragraph*{Etc. ...} 
+Among other, more particular 
+distinctions which may be occasionally referred to, we have:
+\begin{itemize}
+\item {\em Weak} vs. {\em strong} [110]. 
+Weak nondeterminism means that, although some internal parts 
+of a computation may happen nondeterministically, the eventual result 
+is uniquely determined by the input. For instance, confluent 
+rewriting of a term may apply different rules (chosen no
+ndeterministically) but will always arrive at the same normal form; a 
+term may be called weakly nondeterministic if it is nondeterminate 
+and deterministic. Strong nondeterminism is, of course, the 
+nondeterminism proper.
+\item {\em Tight} vs. {\em loose} [99, 21, 110]. This distinction concerns the relation between two, possibly 
+nondeterministic, structures. If $M$ is one of them and displays 
+some nondeterminism then $N$
+ is said to be tight if it displays exactly the same amount of 
+nondeterminism, and it is loose if its nondeterminism is, possibly, 
+more restricted than of $M$. For instance, if $M$ is a 
+specification then, typically, its implementation $N$
+ will be allowed to decrease the nondeterminism of some operations 
+(loose). Similarly, if $M$ is a programming language with 
+nondeterminate constructs, then we may think of a (loose) 
+deterministic implementation $N$ of $M$
+ as being correct if every operation in $N$ returns a result which 
+is among the possible results of the corresponding operation in 
+$M$.  
+\item {\em Restrained} vs. {\em unrestrained }[110]. 
+The former is nondeterminism of single programming constructs 
+ -- ``choose arbitrary number'' , and the 
+latter is nondeterminism allowing choice of different execution paths  -- ``goto label1 or 
+label2''. The latter can be easily implemented using the former. 
+Nevertheless, the names come from the fact that denotational models 
+of the latter are much more complex and require power domain 
+construction over function spaces with a non-flat ordering.  
+\end{itemize}
+
+\paragraph*{Notation}
+ A specification $SP$ is a pair $(\Sigma,\Pi)$ of the 
+signature and the formulae in some language which will depend on the 
+context. The set of ground terms over $\Sigma$
+ will be denoted $\GTerms$, and $\XTerms$ will denote terms with 
+ variables from the set $X$. Terms may be determinate or nondeterminate 
+ -- when speaking of their interpretation we will say {\em 
+``function'' } whenever a deterministic operation is 
+meant, and {\em ``operation''} whenever the term may 
+denote a nondeterministic operation. For $t\in\XTerms$, we will 
+let $\{t\}$ denote the set 
+of its possible results, possibly with a superscript, as in 
+$\{t^{A}\}$,  for the structure $A$ in which $t$
+ is interpreted. 
+
+Nondeterministic choice\~is 
+denoted by $\ch$ . Sometimes it will denote binary 
+choice, written  $x\ch y$, but usually its argument will be a set 
+ -- either because the profile of $\ch$ in $\Sigma$ declares it 
+so, or because the appropriate axioms of commutativity, associativity 
+and idempotency are given. For the set-valued operator the notation 
+$\ch.\{x,y\}$ will be used. 
+
+Equality, as a primitive of the language, is written in the infix 
+notation,  $x=y$; $=(x,y)$ is used to denote equality as a 
+defined predicate. The symbol $\doteq$ 
+ indicates syntactic identity of its arguments. 
+ 
+ 
+An upper case letter such as ``$A$''  usually 
+denotes a set or a model with carrier $\Car A$. 
+(The latter notation is also occasionally used for the cardinality 
+of a set. We expect no confusion arise from this overloading of 
+notaiton.) 
+$\PSet(A)$ is the power set of $A$,  $\PSet^{+}(A)$ the set of its 
+non-empty subsets.  $\PSet A$ will denote (some variant of) power set 
+structure. 
+Instead of $S_{1}\times\ldots\times S_{n}$ we will write $S^{n}$.
+
+%%%%%%%%%%%%%%%%%%%%%%% Section 2
+
+\section{Semantic preliminaries}
+The algebraic approach to 
+nondeterminism is dominated by the use of power set structures. We 
+use the name ``power set structure'' 
+ (algebra, model) as the generic description of most algebraic models 
+of nondeterminism. In particular, {\em power algebras} are just a 
+special case of power {\em set} algebras. We include here also the {\em 
+function oriented} and {\em relational}
+ constructions since they are closely related to what one would 
+naturally associate with the expression ``power set 
+structure'' 
+. However, there is no standard definition of this notion and the 
+choices one has to make are not merely esthetical or technical. In 
+this sec
+tion we sketch the main alternatives of modeling operations and 
+homomorphisms using power set structures. The following definition 
+will be used extensively:
+\begin{Definition}  %[2.1.]
+We say that a function $f:\PSet(A)\into\PSet(B)$ is  
+\begin{enum}
+\item {\em additive}, written $f:\PSet(A)\addinto\PSet(B)$,   iff   
+$\forall S\in\PSet(A) : f(S)=\bigcup_{s\in S}f(s)$,
+\item {\em strict}, written $f:\PSet(A)\strinto\PSet(B)$, iff 
+$f(\es)=\es$, and
+\item {\em preserves singletons}, written 
+$f:\PSet(A)\singinto\PSet(B)$, iff $\forall S\in\PSet(A):\Car 
+S=1\impl\Car{f(S)}=1$.
+\end{enum}
+%
+Functions satisfying both 1. and 2. will be indicated by 
+$f:\PSet(A)\addstrinto\PSet(B)$.
+\end{Definition}
+
+\subsection{Operations ...} 
+The carrier of a power set algebra 
+$\PSet A$ is (usually) the power set of some ({\em underlying} or {\em
+basis}) set $A$: for each sort $S\in\Sorts$, the 
+carrier of $S$ is $\PSet(S^{A})$ or $\PSet^{+}(S^{A})$. 
+(In the notation we usually drop the 
+sort indexing --  it is always implicitly present.) The elements 
+of $A$ will be called {\em individuals}  --  
+ interpretation of terms in $\PSet A$ is usually based on the 
+interpretation of variables as individuals (singular semantics 
+[110]). The interpretation of a nondeterminate operation 
+$f:S^{i}\into S$ offers several choices.   
+
+\paragraph{Functional models: $f^{A}= \{f_{z}: (S^{i})^{A}\into 
+S^{A}\} $}
+ Here the carrier is the set $A$ 
+rather than its power set. Every $f$ is interpreted as a set 
+$\{f_{z}\}$ of deterministic functions. Operationally it may 
+mean: whenever $f$
+ is to be applied, it first chooses some $i$ and then applies the 
+(deterministic) function $f_{i}$, i.e., all 
+nondeterminism is resolved at the beginning of the computation.  
+
+A possible argument against the functional model is that it is not 
+fully abstract. Instead of looking at the input-output relation which 
+gives the abstract view of a program (specification) it looks inside 
+it and distinguishes models with the same observable behavior, [59, 58]: 
+
+\begin{Example}\label{ex:22} %[2.2]
+Let $A$ and $B$ be two models of an operation $f:S\into S:$
+\[ \begin{array}{c@{\ \ \ \ \ }c}
+\multicolumn{2}{c}{ S^{A}\ =\ \{0,1\}\ =\ S^{B}} \\
+ f^{A}\{f_{0}, f_{1}\} &  f^{B}\{f_{2}, f_{3}\} \\
+ f_{0}(0)=f_{0}(1) = 0 & f_{2}(0)=0,\  f_{2}(1) = 1 \\
+  f_{1}(0)=f_{1}(1) = 1 & f_{3}(0)=1,\  f_{3}(1) = 0
+  \end{array}
+\]
+ For any input, $f^{A}$ and $f^{B}$ can return the same 
+result, and hence might be called indistinguishable. The above 
+semantics, however, would claim that $A$ and $B$
+ are different because both computations are performed in different 
+ways.
+\end{Example}
+This vice may become a virtue if the way in which 
+operations are computed matters. It is easy to abstract such a 
+structure of computations and look only at the result sets produced 
+by a nondeterministic operation [126]. 
+
+The model reflects also the fact 
+that each computation of any program produces a unique result  --  
+observing the results produced in {\em one}
+ execution of a program does not supply sufficient information to 
+decide whether we run a nondeterministic $f$, which happened to 
+choose an $f_{i}$, or whether we run a deterministic 
+$f_{i}$. Thus  
+\[ 
+m_{i}\in f(n) \iff \exists f_{i}: f_{i}(n) = m_{i}
+\]   %(2.3)
+ In this view there is, in general, 
+no deterministic program equivalent to a nondeterministic one. Both 
+produce unique results in every computation on a given input, but 
+all computations of the former produce the 
+same result, while different computations of the latter can produce 
+different results. In terms of the automata theory this amounts to 
+viewing each nondeterministic finite state machine 
+$NM$ as a set of deterministic machines $DM_{z}$, each accepting 
+exactly one string from the language of $NM$.
+
+This functional approach has 
+received relatively little attention in the literature. The domains 
+of indexed sets used in [9] instead of power domains remin
+d one of indexed functions. A more elaborate investigation of the 
+functional models is reported in [126] where the relationships to the 
+next kind of models are studied as well. We will denote functional 
+models by {\em FMod}.
+
+\paragraph{ Multialgebras: $f^{A}: (S^{i})^{A}\into \PSet(S^{A})$} 
+This is the most common approach [102, 64, 53, 58, 93, 8]. The 
+arguments to the operations are individuals and the result is the set 
+of possible outcomes. Thus operations are modeled as deterministic 
+set-valued functions. 
+
+This view corresponds to the 
+equival
+ence of nondeterministic and deterministic (finite state or Turing) 
+machines. The central point of this equivalence is the definition of 
+languages accepted by the former in which nondeterminism is 
+eliminated: a nondeterministic machine $NM$ accepts a string 
+$s$, $s\in\Lang(NM)$, iff there exists an accepting 
+computation starting on $s$. Writing {\sf S} for the initial state, 
+{\sf Y} for a final (accepting) state, and $\epsilon$ for the empty 
+string, we have
+\[
+ s\in\Lang(NM) \iff \exists{\rm computation\ }C:({\sf S},s)\rew^{C}({\sf 
+ Y},\epsilon)
+ \]
+The existential quantifier 
+eliminates all nondeterminism  --  it does not matter any more 
+which computation is performed; an accepting computation $C$
+ either exists or not, and the language of $NM$ is uniquely defined. 
+Hence, an equivalent deterministic machine $DM$ can be constructed by 
+``dovetailing''  all possible computations of $NM$. 
+Analogously, if $f$
+ is a (nondeterministic) multioperation, the result set $f(n)$ 
+ can be computed deterministically by evaluating (``dovetailing'' ) 
+ all possible computation paths, as it is done 
+for the Turing machines. 
+
+Composition of multioperations is defined 
+using the following simple fact [34, 106]:
+\begin{Claim}\label{prop:24} %[2.4.]
+For every $f:A\into\PSet(B)$ there exists a unique 
+$f^{\PSet}:\PSet(A)\addstrinto\PSet(B)$ (strict, additive) such that 
+the following diagram commutes:
+\[ \begin{array}{c}
+ A \\
+ ^{\{\_\}}\swarrow\ \ \ \ \searrow^{f} \\
+ \PSet(A) \stackrel{f^{\PSet}}\longrightarrow \PSet(B)
+ \end{array} 
+ \]
+ \end{Claim} 
+ $\{_\}$ denotes the canonical embedding sending 
+every element to the singleton set. Thus composition is defined as: 
+$g(f(x)) = g^{\PSet}(f(x)) = \bigcup_{e\in f(x)}g(e)$. 
+Also here it is natural to interpret the carrier as the set 
+$A$ rather than its power set, but the canonical embedding $\{_\}$ and 
+additivity of the operations make the transition between the two very 
+easy. We will denote multimodels by {\em MMod}.
+
+Here the two models from example~\ref{ex:22}
+would be identified, since both $f^{A}$ and $f^{B}$
+applied to any argument return the set $\{0,1\}$. 
+
+In most cases, one lets an operation $f$ 
+map $A$ to $\PSet^{+}(B)$ rather than $\PSet(B)$. The former 
+corresponds to the {\em total} while the latter to the {\em partial} 
+models in which $f(a)=\es$ indicates that $f$ is undefined on $a$. 
+With the above definition of 
+composition this partial interpretation implies angelic 
+nondeterminism.
+
+\begin{Example}\label{ex:25} %[2.5] 
+Let the sort $N = \{0,1,2\}$ and $S=\{{\i a,b,c}\}$, and the operations 
+$f:N\into S,\ g:S\into N$  be as follows:
+\[ \begin{array}{l@{\  \ \ \ \ }l}
+f(0) = \{a,b\} & g(a) = \{0,1\} \\ 
+f(1) = \{a,c\} & g(b) = \{2\} \\ 
+f(2) = \es  & g(c) = \es \end{array}
+\]
+Then \\
+\hspace*{2em}$ g(f(0)) = \{0,1,2\} $ \\
+\hspace*{2em}$ g(f(1)) = g^{\PSet}(\{a,c\}) = \{0,1\}\cup \es = \{0,1,\} $ \\
+\hspace*{2em}$ g(f(2)) = g(\es) = \es $ 
+\end{Example}
+
+\noindent
+To obtain more flexibility in modeling biased 
+nondeterminism with multialgebras some additional constructions in 
+the specification language are n
+eeded, analogous to those for partiality in the deterministic case, 
+e.g., the bottom element $\perp$ [77, 63, 91], or definedness 
+predicate [21, 18, 59, 58].
+
+ Although the classes $MMod$ and 
+$FMod$ are not isomorphic there is a strong sense of correspondence 
+between the two. (``equivalence'' means the same result sets on the 
+same arguments):
+\begin{Claim}[127] %2.6 }[127]{\f14587 .} 
+Every functional algebra $F$ 
+determines an equivalent multialgebra $M$ and for every $M$ there is an 
+equivalent $F$.
+\end{Claim}
+
+\noindent
+Treatment of partiality in a functional model 
+will be quite different from that illustrated in example~\ref{ex:25}. Unless 
+we introduce a $\perp$
+ element (or a definedness predicate) explicitly, there will be no 
+default interpretation of undefinedness (such as the empty set) in 
+the carrier of a functional model. 
+
+Other consequences of the 
+multialgebraic interpretation can best be explained by contrasting it 
+with the third possibility: 
+
+\paragraph{ Power algebras: 
+$f^{A}:\PSet(S_{1}^{A}\times\ldots\times\PSet(S_{1}^{A}) \into 
+\PSet(S^{A})$}
+Here every function takes a set as 
+an argument and returns a set as the result. There are still two 
+possible ways to interpret this: \\[1ex]
+a) Every element of the result set is a 
+possible outcome of applying the operation to {\em any}
+ element of the argument set. Under this interpretation a power 
+algebra is just a more concise expression of a multialgebra, as the 
+following straightforward consequence of the proposition~\ref{prop:24} shows 
+($[A\into B]$ denotes the partial order of functions from $A$ to $B$ 
+ordered pointwise): 
+
+\begin{Claim}\label{prop:27} %[2.7.] }
+$[A\into \PSet(B)] \iso [\PSet(A)\addstrinto \PSet(B)]$.
+\end{Claim}
+
+\noindent
+b) The other (and from now on 
+the only) meaning is that every element of the result set is a 
+possible outcome of applying the operation to the argument {\em set}. 
+Without any additional conditions such a definition begs the whole 
+question of nondeterminism because what we obtain is a deterministic 
+structure which just happens to have a power set as the carrier. In 
+particular, there is no distinction between elements,
+or 1-element sets, and other sets. An operation $f$ may, for 
+instance, be such that $f(\{0,1,2\}) = \{0\}$ and $f(\{0\}) = \{0,1\}$. 
+This is counterintuitive [33, 103] because one expects that an increase in the nondeterminism 
+of the arguments to an operation should not result in a decreased 
+nondeterminism of the result.
+
+To meet the intuitive 
+understanding one would require that the operations in a power 
+algebra be $\subseteq$-monotonic. $\subseteq$-monotonicity does 
+not imply additivity, and so proposition~\ref{prop:27} does 
+not yield an isomorphism with multialgebras. The possibility of 
+non-additive functions between power sets offers new possibilities. 
+If we aim at plural semantics of parameter passing [110, 130] we are 
+forced to allow the arguments of 
+functions to be sets (and to let variables refer to sets rather than 
+individuals). 
+
+\begin{Example} %[2.8] 
+Let $f$ be the operation 
+
+$f(x) = {\ \ \rm if\ }x=x{\rm\ then\ }0{\rm\ else\ }1$. \\
+%
+In any multimodel ($x$ will 
+refer to an individual and) the result set of $f$ will be $\{0\}$
+for all $x$. In particular, 
+$f(a\ch b)=\{0\}$. Some authors [77, 53] focus on the purely semantic issues, i.e., do 
+not consider any specification language. But by adopting the 
+multimodel of operations they are forced to adopt the singular 
+semantics of the operation symbols. 
+
+If, on the other hand, we take 
+$f$ as mapping sets to sets, we obtain 
+
+$f(a\ch b) = {\ \ \rm if\ }(a\ch b = a\ch b){\rm\ then\ }0{\rm\ else\ 
+}1$\\
+%
+which may give $f(a\ch b)=\{0,1\}$.
+\end{Example}
+
+\noindent
+Actually, the last equality does 
+not follow by itself in a power model, but depends further on the 
+interpretation of the equality $a\ch b = a\ch b$
+ (which may be interpreted as element- or set-equality). We discuss 
+this further in 2.3 and 7. The singular semantics can be obtained, 
+according to 2.7, if we impose the additi
+onal restriction of additivity. Thus power algebras, but not 
+multialgebras, give us the possibility to define both singular and 
+plural semantics.
+
+
+The reasons why this approach is relatively unpopular in spite of its 
+apparent generality are probably mostly pragmatic and similar to the 
+reasons why call-by-name semantics has been superseded by the 
+call-by-value in the deterministic setting (besides the
+fact that additive function spaces have nicer formal properties). It 
+may be argued that programs written in t
+erms of call-by-value are significantly clearer and more tractable 
+than those using call-by-name. It should be also observed that one 
+risks obtaining only uncountable models where most elements are 
+unreachable when defining the carrier as a set of all (als
+o infinite if the basis set is infinite) subsets. 
+
+Power models will be denoted by {\em PMod}.
+
+\paragraph{ Relational models:  $f^{A}\subseteq 
+S_{1}^{A}\times\ldots\times S_{n}^{A}\times S^{A}$}
+Although relational structures are 
+well known in the universal algebra [27, 80, 79] they have not quite 
+found their way int
+o the world of algebraic specifications, where the intuition of 
+functional application and its result plays the central role. Use of 
+relations in semantic definitions is made in [99, 7, 93, 25, 18], 
+and, in a categorical setting, in [119]. In so far as input-output behavior 
+is concerned the relational models are isomorphic 
+to multimodels. 
+
+\begin{Claim}\label{prop:29} %Proposition 2.9]
+$[A\into\PSet(B)]\iso [A\into (B\into \bool)]\iso [A\times 
+B\into\bool]\iso \PSet(A\times B)$.
+\end{Claim}
+
+\noindent
+With the relational product as the definition of composition, one 
+obtains angelic nondeterminism as with multialgebras 
+(example~\ref{ex:25}). 
+The most typical use of relations is for describing termination 
+properties and this is how they are used in [99, 7, 93, 25, 18]. 
+One introduces a pair of relations: one for defining the 
+input-output relation for the terminating computations, and one 
+for characterizing the inputs which may (will) lead to divergence. 
+
+At the level of specifications, 
+[121, 64, 21, 18] pointed in the direction of the relational 
+structures by describing non\-deterministic operations by means of 
+{\em characteristic predicates}. 
+But the relations are used as auxiliary definitions of the 
+semantics and are not fully integrated into the formalism of the 
+specification language. None of the above works developed a 
+relational specification language. An exception is the work from [1, 55, 123] 
+which attempts to develop a theory of data types based on the 
+notion of a relation instead of a function. 
+The relational language leads to concise, albeit hard to read, 
+specifications and gives powerful support in performing calculations. 
+Since nondeterminism is implicit in the notion of a relation  --  
+functions being just a special case of relations  --   the 
+relational approach offers a uniform treatment of deterministic and 
+nondeterministic operations. 
+
+\subsection{... homomorphisms ...}
+Homomorphisms for multialgebras 
+were defined already in [101,102], and then in [45, 53, 59, 64, 93]. 
+
+Recall that a homomorphism $\phi$ between (deterministic) algebras $A$ 
+and $B$ is a family of mappings $\phi_{S}:S^{A}\into S^{B}$, for each 
+$S\in\Sorts$ such that the following diagram commutes
+\[ \begin{array}{rcl}
+(S^{i})^{A} & \stackrel{f^{A}}\longrightarrow & S^{A} \\
+\phi_{S_{i}} \downarrow & & \downarrow \phi_{S} \\
+(S^{i})^{B} & \stackrel{f^{B}}\longrightarrow & S^{B} 
+\end{array}
+\]
+\noindent
+i.e., \begin{tabular}[t]{l@{\ :\ }l}
+1. for every constant $c:\into S$ & $\phi_{S}(c^{A}) = c^{B}$,  and \\
+2. for every function $f:S^{i}\into S$ & $\phi_{S}(f^{A}(x_{i})) = 
+f^{B}(\phi_{S_{i}}(x_{i}))$, for all $x_{i}\in S_{i}^{A}$
+\end{tabular}
+
+\noindent
+The transition to nondeterministic structures 
+again introduces several possibilities of generalization. They are 
+only loosely related to the choice of interpretation of the 
+operations. One general remark applies to all of them: Since $f$
+is set-valued the result of following the leftmost path in the 
+diagram gives a set $\{f^{B}(\phi(a))\}$. Similarly, 
+$\{f^{A}(a)\}$ 
+ is a set and hence the result of applying w to it (all its members) 
+will give a set. The two basic possibilities are therefore:  \\
+\hspace*{2em} {\em tight homomorphism}:\ \ $\{\phi(f^{A}(a))\} = 
+\{f^{B}(\phi(a))\}$ \hfill(2.10) \\
+\hspace*{2em} {\em loose homomorphism}:\ \ $\{\phi(f^{A}(a))\} 
+\subseteq \{f^{B}(\phi(a))\}$ \hfill(2.11) \\
+%
+Any of these two conditions may 
+replace the homomorphism condition 1.-2.\footnote{There is also the 
+third possibility: {\em closed} homomorphism reverse the inclusion 
+from (2.11). But they are less frequent and we do not consider them 
+here.} Loose homomorphisms 
+correspond to nonincreasing nondeterminism in the pre-image. Notice 
+that this does not preclude the cardinality of the set 
+$\Car{f^{A}(a)}$
+being greater than this of $\Car{f^{A}(\phi(a))}$. 
+Then some values produced by $f^{A}(a)$
+ must be equivalent under $\phi$. Loose homomorphisms (or their 
+equivalents) are often used as the implementation criteria since it 
+is generally accepted that one should allow deterministic (less 
+nondeterministic) implementations of nondeterministic data types
+ [121, 64, 94, 53, 132].
+
+Both 
+kinds of homomorphisms are used in the literature, though often under 
+different names. The vocabulary becomes even more confused since many 
+authors introduce the partiality considerations into the definitions. 
+([59, 18]. See [21, 93, 94] for more detailed 
+and idiosyncratic notions.)
+
+\paragraph{ Element homomorphisms: $\phi: A\into B$} 
+This is the most common way of 
+defining homomorphisms in a nondeterministic context, and we will 
+denote it by {\em EHom}.
+Here the basic entities are individuals and homomorphisms send 
+individuals to
+ individuals. If multialgebras or power algebras are involved one 
+still may use this notion of homomorphism since pointwise extension 
+then defines the mapping between the corresponding power sets. In 
+either case the homomorphism condition will be modified 
+to (2.10) or (2.11).  
+
+\paragraph{Multihomomorphisms: $\phi : A\into\PSet(B)$} 
+In [59] the element homomorphisms 
+are generalized to the set-valued ones. There is at least one 
+advantage to be gained from this. In the deterministic case the 
+initial structure for a given signature $\Sigma$
+ is the collection of all words, $\GTerms$. The 
+interpretation in a structure $A$ is given by the 
+(unique) homomorphism $\uni:\GTerms\into A$.
+In the nondeterministic case we may want to interpret some terms as 
+sets. The notion of multihomomorphisms makes such an interpretation a 
+homomorphism whereas element homomorphisms do not. 
+
+$\uni$ may be a homomorphism in $EHom$ 
+if we do not explicitly distinguish individuals from sets. Then, if a 
+structure $B$ happens to be a power algebra, the mapping 
+$\uni:\GTerms\into B$ will actually send terms to sets since 
+here $B$ is the power set 
+of some set. But then sets, which are the interpretations of terms, 
+cannot be identified with the {\em result}
+ sets since the distinction between individuals and sets disappears 
+(sets are individuals in $\PSet(B)$).
+
+Multihomomorphism will be denoted by {\em MHom}.
+
+\paragraph{ Power homomorphisms: $\phi:\PSet(A)\into\PSet(B)$}
+This notion may lead to the 
+peculiarities reminiscent of those of unrestricted (to $\subseteq$-monotonic) 
+functions in power algebras. The intention behind 
+the definition of a homomorphism is to make 
+the mappings from individuals to individuals and from sets to sets 
+``compatible'' , even if the specification language 
+is insufficient for dealing with this distinction.  Both EHom and 
+MHom ensure such ``compatibility''  
+ --   mapping from a power set is obtained by pointwise extension 
+of the mapping from individuals.
+
+\begin{Example}\label{ex:212} %2.12]
+Suppose that 
+$\Sigma$ contains only two constants of sort $S$, 0 and 1. Let 
+$A$ and $B$ be the following power algebras: 
+\[ \begin{array}{l@{\ \ \ \ \ }l}
+\Car A = \PSet\{\und 0, \und a, \und b\} & \Car B = \PSet\{\und 0, 
+\und 1\} \\
+0^{A}=\{\und 0\},\ \ 1^{A}=\{\und a, \und b\} & 
+  0^{B}=\{\und 0\},\ \ 1^{B}=\{\und 1\} 
+  \end{array}
+\]
+\noindent
+A power homomorphism  $\phi:A\into B$ must send 
+$\{\und 0\}$ onto $\{\und 0\}$ and $\{\und a,\und b\}$ onto $\{\und 
+1\}$.  The rest is arbitrary so, for instance, 
+we may have $\phi(\{\und a\}) = \phi(\{\und b\}) = \{\und 0\}$. 
+\end{Example}
+
+This does not look very plausible. 
+Again, as in the case of the power functions, it helps a lot if we 
+insist that homomorphisms be $\subseteq$-monotonic. 
+But the point is how such a requirement is expressed. If 
+we just restrict the legal morphisms to those which are $\subseteq$-monotonic 
+then we will exclude mappings which, like the one 
+above, preserve the $\Sigma$-structure and satisfy the compatibility condition defining 
+homomorphisms.
+
+
+It can be seen from the example that the trouble arises from the fact 
+that we do not have a syntactic operation which would correspond to 
+the semantic operation of set construction. Choice is not really such 
+a constructor. If interpreted as set union, it would enable us to construct 
+only the set $\{\und 0, \und a, \und b\}$ in $A$ but not, for instance 
+$\{\und a\}$. Thus, 
+instead of extending the gap between syntax and semantics we might 
+consider extending the specification language with an appropriate 
+operation (predicate) such that the 
+homomorphism condition wrt. to this operation would imply 
+$\subseteq$-monotonicity. Several works [77, 59, 87, 91] introduce such an 
+operation. If, in addition, the language contains a predicate 
+expressing that something is an individual [91] then homomorphisms 
+are again determined by the images of singletons. This leads to
+ the same class of mappings as $EHom$ since strict, additive mappings 
+from $\PSet(A)$ to $\PSet(B)$ which, in addition, preserve singletons 
+are isomorphic to the mappings from $A$ to $B$:
+\begin{Claim} %2.13.} 
+$[A\into b]\iso [\PSet(A)\into_{\uplus,1}\PSet(B)]$.
+\end{Claim} 
+See also [102, 106] for the 
+results concerning the relationship between various forms of mappings 
+between power sets. Extending the notational analogy with the models 
+we will denote the power homomorphisms by {\em PHom}.
+
+\end{document}
