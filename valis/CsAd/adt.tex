@@ -1,0 +1,1048 @@
+\section{Transition to the Non-Ground Case}\label{se:ng}
+We recast the definitions and concepts from section~\ref{se:nd-specs} introducing
+variables. The interpretation of terms and clauses in a multialgebra is a
+strightforward extension of the definition~\ref{def:semantics}. Notice that
+variables are assigned only {\em individual} elements of the carrier -- not sets
+thereof.
+%\section{Syntax and Semantics}\label{se:nd-specsNG}
+%% Specifications are written using a countable set of variables $\Vars$ and a
+%% finite non-empty set of functional symbols $\Funcs$ having arity
+%% \(ar:\Funcs\to \Nat\).\footnote{To simplify the notation we are treating only
+%% the unsorted case. Extensions to many sorts are straightforward.}  An
+%% \(f\in\Funcs\) with \(ar(f)=0\) is a {\em constant}.  Terms $\Terms$
+%% over signature $\Funcs$ are defined in the usual way. 
+%% 
+%% There are only three atomic forms of formulae built using binary predicates: 
+%% {\em equation} $s\Eq t$, {\em inclusion} $s\Incl t$ and {\em intersection} 
+%% $s\Int t$. Atoms and their negations form the set of {\em literals}. An atom 
+%% $a$ is a {\em positive} literal, and a negated atom $\neg a$ is a {\em 
+%% negative} literal. Negative literals are written as $s\notEq t$, 
+%% $s\notIncl t$ and $s\notInt t$.  \(\rev{s\oplus t}\) is the reversed literal
+%% \(t\rev \oplus s\), which is different from \(t\oplus s\) only in
+%% the cases \(\oplus\in\{\Incl,\notIncl,\Cont,\notCont\}\), because these signs
+%% are not symmetric by their shape and meaning.
+%% A {\em clause} is a finite set of literals,
+% ({\em i.e.}, multiplicity and ordering of the atoms do not matter), 
+%% a {\em specification} is a set of {\em
+%% clauses}.  
+%% 
+%% By {\em words} we will mean the union of the sets of terms, literals and
+%% clauses.  \(\VV w\) denotes the set of variables occuring in a word $w$.
+%
+%\subsection{Semantics}
+%
+%% Words are interpretated in {\em multialgebras}
+%% \cite{Kap,Hus,Mich} which, unlike usual algebras, allow
+%% functions to have multiple values.
+%% \(\true\) and  \(\false\) denote the boolean values.
+%
+%% 
+%% \begin{DEFINITION}
+%% A $\Funcs$-{\em multialgebra} $A$ is a pair \(\<S^A,\Funcs^A\>\) where
+%% $S^A$ is a non empty {\em carrier} set, and $\Funcs^A$ is a set of
+%% set-valued functions \(f^A: (S^A)^{ar(f)}\to\C P^+(S^A)\), where \(f\in
+%% \Funcs\), and \(\C P^+(S^A)\) is the power-set of \(S^A\) with the empty set
+%% excluded.
+%% \end{DEFINITION}
+%
+%
+ \begin{DEFINITION} \label {def:semanticsNG}
+Let $A$ be a \(\Funcs\)-multialgebra, \(\upsilon:\Vars \to S^A\) be an
+interpretation of variables, then value \(\Value w\) of a word $w$ is
+defined for :
+\begin{enumerate}%\smallerspaces
+\item a variable \(x\in\Vars\), \ \(\Value x \Def \upsilon(x)\);
+  \label {semantics-v}
+\item a constant $c\in\Funcs$, \ \(\Value c \Def c^A\);
+\item a term \(t=f(\List tn,)\in \Terms\), \
+  \(\Value t \Def \bigcup_{{\alpha_i} \in \Value{t_i}} f^A(\List{\alpha}n,)\);
+  \label {semantics1}
+\item a literal \(l=s\oplus t\), \ \(\Value l \Def
+  F_\oplus(\Value s, \Value t)\), where
+  \vspace{1ex}\newline \(
+  \begin{array}{r@{\ \equiv\ } l@{\quad}r@{\ \equiv\ } l}
+   F_{\Eq}(U,V)  & \forall \alpha\in U\; \forall \beta\in V\;\alpha=\beta, &
+   F_{\Incl}(U,V)& \forall \alpha\in U\; \exists \beta\in V\;\alpha=\beta,\\
+   F_{\Int}(U,V) & \exists \alpha\in U\; \exists \beta\in V\;\alpha=\beta, &
+   F_{\neg\otimes}(U,V) & \neg F_\otimes(U,V);
+  \end{array}\)
+  \label {semantics3}
+\item a clause \(C\), \ \(\Value C \Def 
+  \bigvee_{l\in C} \Value{l} \) if \(C\neq \emptyset\), and \(\Value C \Def
+  \false\) if $C=\emptyset$.
+  \label {semantics4}
+\end{enumerate}
+\noindent
+The multialgebra $A$ {\em satisfies} a clause $C$ if \(\Value C =
+\true\) for every interpretation \(\upsilon:\Vars \to S^A\).
+It {\em satisfies} a literal $l$ iff it satisfies the clause
+\(\{ l\}\), and {\em satisfies} a specification \C S iff it satisfies all
+the clauses in \C S.
+\end{DEFINITION}
+
+
+\subsection{Term types $\exists$ and $\forall$ in literals.}
+%
+The point~\ref {semantics3} of Definition \ref{def:semanticsNG} involved
+existential quantification in some predicates.  The meaning of atoms is
+defined according to the following schema: $\Value{s\oplus t} = Q^\oplus_1
+\alpha\in \Value s\, Q^\oplus_2\beta \in \Value t\, \alpha = \beta,$ where
+\(Q^\oplus_i\in \{\forall ,\exists \}\). 
+We thus say that (the occurrence of) the term $s$ {\em has type} $Q_1^\oplus$ and
+of $t$ the type $Q_2^\oplus$.
+% It explains why terms in literals can have types $\forall$ or $\exists$.
+There are four possibilities of arranging the quantifiers $Q_1^\oplus
+Q_2^\oplus : \forall\forall$ corresponds to $\oplus=\Eq$, $\forall\exists$ to
+$\Incl$ and $\exists\exists$ to $\Int$.  
+
+The fourth $\exists\forall$, say
+$\Nid$, has not been used but it can be defined as 
+\(s\Cont t\land t\Eq t\), so by strength it is
+between \(s\Cont t\) and \(s\Eq t\). 
+(This is the exact counterpart of the relation `$:$' used in {\em unified algebras} 
+\cite {uni-al}.)
+ It defines \(s\Eq t\) in the form \(s\Din t\land s\Nid t\), like
+`$\Incl$' defines `$\Seteq$' in (\ref {eq:Seteq-definition}). However,
+`$\Din$' and `$\Nid$' taken separately cannot model `$\Eq$', like `$\Incl$'
+and `$\Cont$' do with `$\Seteq$'.  It is enough to check Table~\ref
+{tbl:composition} to see that any result of composition of an atom \(s\Seteq
+t\) with some other atom can be obtained by composition of either \(s\Incl
+t\) or \(s\Cont t\), what justifies our ignoring of `$\Seteq$'.  In the case
+of `$\Din$' and `$\Eq$', composition of \(r\Incl s\) with \(s\Din t\) gives
+\(r\Din t\), with \(s\Nid t\) gives nothing, but with \(s\Eq t\) produces
+\(r\Eq t\), a stronger relation than two previous.  Of course, from \(r\Din
+t\) and \(s\Nid t\) it follows that \(r\Eq t\) because of determinism of $t$ implied
+by \(s\Nid t\).  The composition rules cannot help here -- some others would have 
+to be used.
+
+
+%%\subsection{Basic properties of atoms.}
+%% 
+%%  \begin{LEMMA}\label{le:replacementNG}
+%% The following term replacement properties hold: % for the introduced predicates:
+%% \begin{equation}\label{eq:rep}
+%% s\Eq t  \impl   u[s]_p \Seteq  u[t]_p,\ \ \ \ \ \ 
+%% s\Incl t  \impl  u[s]_p \Incl  u[t]_p,\ \ \ \ \ \  
+%% s\Int t \impl  u[s]_p \Int  u[t]_p.
+%% \end{equation}
+%%  \end{LEMMA}
+%
+% The following lemma describes  the rules for replacement of
+% subterms in literals. It is related to the appearance of
+% {\em critical peaks} \cite{Der} and generation of {\em
+% critical pairs}.
+%%  The differences occur in row 1, columns 3 through 6, where the result of chaining will be
+%%  \begin{equation}\label{eq:chain}
+%%  \Comp\Eq{\Cont}=\Eq,\ \ \ \ \ \ 
+%%  \Comp\Eq\Int =\Incl,\ \ \ \ \ \ 
+%%  \Comp\Eq\notEq =\notCont,\ \ \ \ \ \ 
+%%  \Comp\Eq\notIncl=\notInt. 
+%%  \end{equation}
+%%  \noindent
+%%  It is easy to see that $\Comp\_\_$ is transitive (so the first relation is
+%%  reversed comparing with entries of Table~\ref {tbl:replacementNG}).
+%%  We join the two operations into one: 
+%
+%
+%
+\subsection{Problems with unification}\label{se:unification}
+%
+%\subsubsection{Deterministic terms, substitutions, frontiers and skeletons.}
+%
+There are several things hindering us from the
+application of the usual unification techniques and we begin here with a brief example illustrating these difficulties. \\[1ex]
+%
+\noindent 1) 
+The essential feature of calculus of nondeterministic operations is
+unsoundness of unrestricted substitution. Terms and variables denote objects
+of different kind: variables always mean single elements, while terms mean
+sets of possible values even if values of their variables are fixed.  This
+excludes unification of terms by substitutions.  Therefore, we apply rules
+like {\em relaxed paramodulation} \cite {relaxed-par}, which make terms
+identical by ``cutting out'' some subterms, but which introduce new literals
+into derived clauses, like in the following derivation:
+\[
+\prule {y\notIncl g(c); \quad h(x,x)\Incl g(x)}{y\notIncl h(x,x), x\notInt c}
+\] 
+%Here \(s\Incl t\) means that each possible value of $s$ is also a possible
+%value of $t$, \(s\Int t\) means that $s,t$ have a common possible value,
+(Comma between literals means disjunction and $x,y$ are the only variables.)
+The variable $x$ can not be replaced by $c$ in \(h(x,x)\Incl g(x)\) because
+\(h(c,c)\Incl g(c)\) is equivalent to \(x\Int c\land y\Int c\then h(x,y)\Incl
+g(c)\), but not to \(x\Int c\then h(x,x)\Incl g(c)\), when $c$ has more than
+one possible value.  Fortunately, \(y\notIncl g(c)\) is equivalent to \(x\Int
+c\then y\notIncl g(x)\), what is used in the derivation.  Literals 
+\(x\notInt c\), where $x$ is a variable, are called {\em bindings}.\\[1ex]
+%
+\noindent 2) 
+Another complicating circumstance is that
+if some nondeterministic term occured instead of $y$ in the left premise,
+the derivation, although  correct, would in some cases yield too weak a 
+conclusion (Example~\ref {famous}).  \\[1ex]
+%\noindent 
+3) Yet another problem is illustrated by
+an attempt to apply transitivity of $\Incl$ to atoms \(f(y)\Incl g(c,y)\) and
+\( g(x,h(x,x))\Incl e(x)\).  The term $h(x,x)$ may be moved into a binding,
+but $c$ cannot because \(f(y)\Incl g(c,y)\) means \(\exists x(x\Incl c\land
+f(y)\Incl g(x,y))\) but not \(\forall x(x\Incl c\then f(y)\Incl g(x,y))\).
+Bindings do not help in this situation, because the occurrence of the term $g(c,y)$ 
+in the literal \(f(y)\Incl g(c,y)\) is, as we call it, of type $\exists$.  
+Following Skolem, we know that
+there exists a function $\alpha$ satisfying \(\alpha(y)\Incl c\) and \(y\Int
+h(\alpha(y),\alpha(y))\then f(y)\Incl e(\alpha(y))\).  The function $\alpha$
+is a semantical object, and we will introduce notation rules for such
+functions since they will be needed in the derivations in
+our inference system.\\[1ex]
+%
+Unification is used during the proof process but, in order to solve the
+above problems, it will not only unify two terms but also produce some
+additional assumptions to be included in the processed clauses.
+ We consider {\em refutational} proofs with a strategy
+analogous to {\em ordered resolution} and {\em ordered superposition}
+\cite{BG,PP}, in which term ordering is used to restrict the proof
+search space.  According to this strategy, only maximal terms may be
+involved in the applications of the inference rules. Our results are
+valid for any {\em simplification} ordering
+\cite {Der} of terms.  In the following example the maximal terms are underlined.
+
+\begin{EXAMPLE} \label{famous}
+\begin{eqnarray}
+\label{cl:f-h}  &\underline{f(x)}\Incl h(x,x); \\
+\label{cl:g-h}  &\underline{g(x)}\Cont h(x,x);\\
+\label{cl:g-f}  &\underline{g(c)}\notCont f(c);\\
+\noalign
+{This set of clauses has no model \cite{Hus,Mich}.  The ordering of 
+the functional symbols, $g>f>h>c$, gives rise to the term ordering used here.
+There is only one possibility to start: to unify terms with
+$g$. But if $c$ were moved from $g(c)$ into a binding just now, the clause
+\(x\notInt c, g(x)\notCont f(c)\) would be obtained, which does not
+contradict the first two clauses.  First, the other side of the literal
+must be made deterministic. A new deterministic constant $d$ denotes an element
+of $f(c)$ which is not an element of $g(c)$:}
+\label{cl:f-d}  &\underline{f(c)}\Cont d; &  (\ref {cl:g-f})\\
+\label{cl:g-d}  &\underline{g(c)}\notInt d; &  (\ref {cl:g-f})\\
+\noalign{Only now $c$ may be moved into a binding and transitivity of 
+$\Cont$ applied:}
+\label{cl:h-d}  & c\notInt x,\,\underline{h(x,x)}\notCont d &  (\ref{cl:g-d},\ref{cl:g-h})\\
+\label{cl:c-e}   &\underline c\Cont e; &  (\ref {cl:f-d})\\
+\label{cl:fe-d}   &\underline{f(e)}\Cont d; &  (\ref {cl:f-d})\\
+\noalign{In the similar way clause~\ref {cl:f-d} was prepared to be resolved
+with clause~\ref {cl:f-h}, because deterministic terms can be substituted
+without any restrictions:}
+\label{cl:he-d}  &\underline{h(e,e)}\Cont d;\quad &  (\ref {cl:fe-d},\ref{cl:f-h})\\
+\label{cl:c-e2}  & \underline c\notInt e,\, d\notCont d; &  (\ref {cl:he-d},\ref{cl:h-d})\\
+\label{cl:d-d}   & \underline e\notInt e,\,d\notCont d; &  (\ref {cl:c-e},\ref{cl:c-e2})\\
+&\underline{d}\notCont d; &  (\ref {cl:d-d})\\
+& \Box \vspace{-2ex}
+\end{eqnarray}
+The clauses~\ref {cl:g-d} and \ref{cl:fe-d} are {\em assumptions} about new
+deterministic terms (constants in this example) $d,e$, which are some kind of
+{\em Skolem} functions, introduced to break down existential binding present
+inside of some terms.  Their introduction, like introduction of variable
+bindings, is an effect of term unification, and can not be avoided in this
+strategy.
+\end{EXAMPLE}
+%
+The example shows how complicated unification is in the case of
+nondeterministic operations -- its definition was the
+main problem to be solved on the way to the completeness result. The
+next section presents the solution to this problem.
+
+\section{Unification of nondeterministic terms}
+
+\subsection{Substitutions are deterministic}
+
+In proofs we extend syntax by additional functional symbols from an infinite
+set \(\Fvars\) called {\em f-variables}.  They are always interpreted as
+deterministic functions, therefore terms constructed completely of variables
+and f-variables are called {\em d-terms} (shorthand for {\em deterministic
+terms}), their set is denoted $\Dterms$, so \(\Terms \cap \Dterms =\Vars\).
+Terms of this kind are used to construct a model in the completeness proof.
+Only d-terms are allowed to be substituted into variables. \vspace{.5ex}
+
+\begin{DEFINITION}\label{def:substitution}
+Call a {\em substitution} any function \(\sigma:\Vars \to \Dterms\).  The
+domain \(\dom (\sigma)\) of $\sigma$ is the set \(\{x: \sigma(x) \neq x\}\)
+of variables on which $\sigma$ is non-trivial.  As a set the substitution
+$\sigma$ is considered as the set of pairs \(\{\<x,\sigma(x)\>: x\in\dom
+(\sigma)\}\).
+\end{DEFINITION} \vspace{.5ex}
+
+Variables are the only d-terms in the set $\Terms$.  After instantiation of
+some variables by d-terms, the obtained terms become divided into two parts:
+the top is nondeterministic, and bottom is deterministic.  The natural way to
+present this division is to write such terms in the form \(t\sigma\), where
+$t$ does not contain f-variables and $\sigma$ is a substitution.  The same
+applies to other words, like literals and clauses.  Words in such
+presentation remind of {\em closures} \(w\cdot \sigma\) from \cite
+{Basic-par}.  We sometimes use this form of presentation.  In our case,
+unlike in \cite {Basic-par}, this form is derivable from the word structure
+because of non-intersection of classes \(\Terms \setminus \Vars\) and
+\(\Dterms \setminus \Vars\).  We borrow some terminology from \cite
+{Basic-par}: $w$ is called a {\em skeleton} and \(\Var w\) is called the {\em
+frontier} of a word \(w\sigma\), also denoted \(\frontier {w\sigma}\).  It is
+supposed that all variables in any skeleton are different, therefore all
+skeletons of the word \(w\sigma\) are equal up to renaming of variables.
+(This is relevant to introduction of f-variables discussed below.)  In spite
+of non-uniqueness of skeletons, we will write \(w\sigma=w\cdot \sigma\), as
+if interpreting the sign `$\cdot $' as an application of substitution to the
+word $w$.
+
+The restriction to substitute only d-terms restricts the possibility to
+unify terms. As a kind of compensation for that, it is allowed to {\em
+replace} some subterms by d-terms.  Soundness of this replacement is based on
+special properties of f-variables formulated in Lemma~\ref {le:f-variables}.
+%
+\subsection{Introduction of f-variables}
+%
+They are related with some literals and {\em positions} in them.  We include
+the functional symbols in positions in order to be able to relate positions
+directly with specific terms.
+
+ \begin{DEFINITION}\label {def:position}
+A {\em position} is any finite sequence \(f_1n_1\ldots f_kn_k\), where $f_i$ are functional sybols and $n_i$ are natural numbers such that \(0< n_i\leq ar(f_i)\).
+The empty sequence, the {\em top position}, is denoted \(\Top\).
+\end{DEFINITION}
+
+{\em Concatenation} of positions $p,q$ is denoted by juxstaposition \(pq\),
+with unit \(\Top\).  
+For a set of positions $Q$, \(pQ\) denotes \(\{pq: q\in Q\}\).  
+Positions form upper semilattice
+with $\Top$ as the top {\it wrt}. the {\em prefix order}:
+position \(pq\) is {\em below} $p$ for \(q\neq \Top\).  For a set of
+positions $P$, \(\min(P)\) and \(\max(P)\) denote, respectively, the sets of
+minimal and maximal positions in $P$.  The set of positions in $t$, \(\Pos
+t\), is the smallest set of positions such that \(\Top \in \Pos t\) and, if
+\(t=f(\List tn,)\), then \(\Pos t\Def \bigcup_{i=1}^n fi\cdot\Pos {t_i}\).
+$\subterm tp$ denotes a subterm of $t$ which {\em occurs at the position} $p:$
+\(\subterm t\Top= t\) and \(\subterm t{qfi}=t_i\) if \(\subterm tq=f(\List
+tn,)\), otherwise \(\subterm t{qfi}\) is undefined.
+$t[s]_p$ denotes the term $t$ with the
+subterm \(\subterm tp\) replaced by $s$ (the case \(s=\subterm tp\) is
+possible).
+For a set of positions $P$, \(\subterm tP\) denotes the set of subterms
+\(\{\subterm tp:p\in P\cap \Pos t\}\).
+\(\Var t\) denotes the set of {\em variable positions} in a term $t$,
+{\it i.e.}, \(\{p\in\Pos t:\subterm tp\) is a variable$\}$.  % for \(p\in\Var t\).
+\(\Var t\) is a subset of \(\min
+(\Pos t)\), the remaining minimal positions (if any) are occupied by
+constants.
+%The lack of any (variable) symbol at the end of a variable position
+%corresponds to the ``hole'' represented by a variable -- appending any term,
+%or position, will correspond to substitution.
+%
+\subsubsection{When are f-variables introduced?}
+%
+The f-variables correspond to {\em Skolem} functions and are needed in
+unification of the terms of type $\exists$.  There are four general forms of
+literals whith a non-variable term $s$ of this type in which new
+f-variables may be introduced by unification:
+\begin{equation} \label{eq:exist-literals}
+ s\Int t,\quad s\notEq t, \quad s\notIncl t, \quad  s\Cont t,
+\end{equation} 
+\(s,t \in \Terms\).  To describe all possible appearences of f-variables
+in any proof, we establish a bijection $\dt\_\_$ between the following sets:
+\begin{itemize}%\smallerspaces
+\item the set of all pairs \(\<l,p\>\), where a literal $l$ has one of the
+forms presented in (\ref {eq:exist-literals}), $t$ is
+a variable in the case \(l= s\Cont t\), $p$ is a non-variable position
+in $s$,
+\item the set of d-terms with exactly one f-variable.
+\end{itemize}
+For \(e(\vec x)=\dt lp\), \(\vec x\) is the list of all variables occuring in
+$l$, in the same order from left to right and with all repetitions.  Thanks
+to this requirement, \(\dt{l\cdot \sigma}p=\dt lp\sigma\) for any
+substitution $\sigma$.  The inverse bijection $\expandafter\inverse\dt
+\hide\_$ is a pair of functions \(\<\fl\_, \fp\_\>\), {\it i.e.}, \(\fl {\dt
+lp}=l\), \(\fp {\dt lp}=p\) and \(\dt {\fl d}{\fp d}=d\).  We also denote by
+$\ft{e(\vec x)}\Def \subterm sp$, the subterm of $l$ which can be safely
+replaced in it by $e(\vec x)$ in the sense of Lemma~\ref {le:f-variables}.
+%
+\subsubsection{Semantics for f-variables.}
+%
+For a  \(\Funcs\)-multialgebra $A$, each f-variable $e$ is
+interpretated as a deterministic function \(\phi(e): (S^A)^{ar(e)}\to S^A\).
+Let $\phi$ be such an interpretation of f-variables. It
+extends  $A$ to a \(\Funcs\cup\Fvars\)-multialgebra, denoted
+ \(A_\phi\).  Values of d-terms in the multialgebra \(A_\phi\) are
+evaluated according to the usual rules of (deterministic) algebras.  
+The interpretations of f-variables must satisfy the additional conditions
+given in:
+
+\begin{LEMMA}\label{le:f-variables}
+Any \(\Funcs\)-multialgebra $A$ can be extended with an intepretation $\phi$
+of f-variables in such a way that for any d-term $d:$ 
+%the following statements are true:
+\begin{itemize}%\smallerspaces
+\item $A_\phi$ satisfies the atom \(d\Incl \ft d\);
+\item $A_\phi$ satisfies \(\fl d\) iff it satisfies \(\fl d [d]_{\fp d}\) 
+%\\(If \(\fl d\) is of the form $f(s)\Cont t$, then this condition is satisfied for $t\in\Vars$.)
+\end{itemize}
+ \end{LEMMA}
+The last condition says that the subterm \(\ft d\) can be replaced by $d$ in
+\(\fl d\) without changing the meaning of \(\fl d\). 
+
+\subsection{Unification}
+
+Success in unifying terms depends not only on the terms, but also on the literals 
+in which
+they occur.  In usual unification, one tries to make terms identical by
+some unifying substitution.  In our case, only d-subterms can be substituted
+for variables.  If a variable  should be replaced by a
+non-deterministic subterm, then the inverse action is made --- the subterm is
+replaced by the variable, we say that the subterm is {\em ejected} and put
+into a new literal, called a {\em binding}.  In clauses, this kind of
+replacement is legal only inside of terms of type $\forall$.  In terms of
+type $\exists$, the ejected subterms must be replaced by new f-variables,
+which are then bound by {\em assumptions}, the special kind of clauses.  To
+be shorter in some places below, we call {\em unifying sets} collections
+consisting of a substitution (presented as a set), a set of bindings and a
+set of assumptions.  In general, the process of unification can be presented
+as a sequence of three phases: 1)~ejection of some subterms, 2)~formation of
+the unifying sets, and 3)~usual unification.
+%
+\subsubsection{Ejection.}
+%
+To perform an ejection from a term, it is sufficient to know the frontier of
+the other term, so we formulate ejection relatively to some given set $Q$ of
+positions.  Let \(l= s\oplus t\) and \(l'=l\cdot \sigma\) be literals, $l'$
+be the one where ejection should occur, and let \(P \Def \max(Q\cap\Pos
+s)\setminus \Var s\) be the set of non-variable positions of $s$ which are
+maximal in $Q$.  If $P$ is empty, then there are no subterms to be ejected.
+If not, then we proceed as follows.  All subterms \(\subterm sP\) are ejected
+and replaced by new, neither from \(\dom (\sigma)\) nor from \(\VV {l'}\), all
+distinct variables.  Let $s_Q$ be the term obtained from $s$ by this
+replacement.
+
+The rest depends on the form of the literal $l$ and is presented in the next
+phases. 
+%
+\subsubsection{Formation of unifying sets.}
+%
+Let \(B =\{\subterm {s_Q} p\notInt \subterm sp: p\in P\}\) be a set of
+bindings, \(A =\{\dt {l} p\Incl \subterm sp: p\in P\}\) be a set of atoms,
+and \(S =\{\<\subterm {s_Q}p ,\dt {l'}p\>: p\in P\}\) be a substitution. All
+these sets are obtained by the replacement of \(\subterm sP\).
+
+Different cases to consider are presented in Table~\ref {tbl:unification}.
+The second term of $l$ ({\it i.e.}, $t$) can be changed to a new variable
+$y$, so the final forms of $l$ and $t$ are denoted $l_Q$ and $t_Q$, while
+\(\Sub(l',Q)\) and \(\At(l',Q)\) denote the obtained substitution and the set
+of assumptions, respectively.  The first line of the table describes the
+trivial case \(P=\emptyset\).
+
+\begin{table}[hbt]
+\begin{center}
+\(
+\begin{array}{|c||c|c|c|c|}
+\hline
+   \mbox{for }Q\mbox{ and }l'=(s\oplus t)\cdot \sigma & \Bin(l',Q) & l_Q & \Sub(l',Q) & \At(l',Q) \\
+\hline\hline
+ (Q\cap\Pos s)\setminus \Var s=\es & \es & l & \es & \es \\ 
+\hline
+ \oplus=\Cont\ \land\ t\notin \Vars & \{y\notInt t\} & s_Q\Cont y & \sigma\cup S & A \\
+\hline
+ \oplus\in\{\Cont,\Int,\notEq,\notIncl\}\ \land & & & & \\
+ (\oplus=\Cont\ \then\ t\in \Vars) & \es & s_Q\oplus t & \sigma\cup S & A \\
+\hline
+ \oplus=\notCont\land t\notin \Vars & B & s_Q\notInt y & \sigma\cup\{\<y,\dt {t\notIncl s}{\Top}\>\} & \{\dt {t\notIncl s}{\Top}\Incl t\} \\
+\hline
+  \oplus\in\{\Eq,\Incl,\notCont,\notInt\}\ \land & & & & \\
+  ( \oplus=\notCont\ \then\ t\in \Vars) & B & s_Q\oplus t & \sigma & \es \\
+\hline
+\end{array}
+\)
+\end{center}
+\caption{Ejection cases} \label{tbl:unification}
+\end{table}
+%
+\subsubsection{Deterministic unification.}
+%
+The ejection and formation of unifying sets were formulated relatively to
+some unspecified set of positions $Q$.  In unification of two terms $s',s''$,
+$Q$ is the union of their frontiers, \(\frontier {s'}\cup \frontier
+{s''}\).  In the first step, every non-variable term from \(\subterm {s'}
+Q\cup \subterm {s''}Q\) was ejected and replaced by a new variable, in the
+second step, the literals $l'\cdot\sigma'$ and $l''\cdot\sigma''$ containing
+$s',s''$ were considered and, if necessary, transformed.  $s',s''$ became now
+\(s'_Q\Sub(l',Q)\) and \(s''_Q\Sub(l'',Q)\).  The whole question is reduced
+now to unification of the latter two terms by a substitution, say $\rho$.
+The previous transformations were needed only to ensure that no 
+nondeterministic term appears in $\rho$.  Practical unification algorithms 
+could, of course, proceed in other way, but this is another story.
+
+\section{The Inference System \C J}\label{se:reasoningNG}
+%
+%\subsection{Overlapping of literals}
+%
+Unification is used in inference rules, as the
+case of {\em literal overlapping}.  \(\mgu(s,t)\) denotes the 
+usual {\em most general unifier} of terms $s,t$.
+
+\begin{DEFINITION}\label {def:literal-overalap}
+Let \(l'=s\oplus t\) and \(l''=u \otimes v\) be literals, $p$ be a position
+in $u$ above the frontier, \(Q=\max(\frontier s \cup \frontier {\subterm
+up})\) be a set of positions, \( s'\oplus' t' = l'_Q \cdot \Sub(l',Q)\),
+\(u'\otimes' v' = l''_{pQ} \cdot \Sub(l'',pQ)\).  Then the literal $l'$
+{\em overlaps} the literal $l''$ at a position $p$, if the substitution
+\(\Sub(l',l'',p) =\mgu (s\Sub(l',Q), \subterm up\Sub(l'',Q))\)
+called the {\em unifying substitution} exists.
+\end{DEFINITION}
+
+Literal overlapping is not sufficient to derive new literal from $l'$ and
+$l''$, the additional condition being that the relation \(\ominus
+=\Sup(p ,\oplus' ,\otimes')\) is non-trivial.  In this case,
+\begin{itemize}%\smallerspaces
+\item the literal \(\Lit (l',l'',p)\Def u'[t']_p\ominus v\) is called the {\em
+    critical literal} formed by  \(l'\) and \(l''\); 
+\item the literal set \(\Bin(l',l'',p)\Def \Bin(l',Q) \cdot \Sub(l',Q )\cup
+   \Bin(l'',pQ) \cdot \Sub(l'',pQ)\) is called the {\em binding set};
+\item the clause \(\CC(l',l'',p)\Def \Bin(l',l'',p) \cup \{\Lit (l,l',p)\}\), 
+   is called the {\em critical clause} formed by the  \(l'\) and \(l''\);
+\item the set of single clauses \(\At(l',l'',p)\Def \{\{a \cdot \Sub(l',Q)\}:
+   a\in\At(l',Q)\} \cup \{\{a \cdot \Sub(l'',pQ)\}: a\in\At(l'',pQ)\}\) is
+   called the {\em assumption set}.
+\end{itemize}
+%
+%So, the process of unification of overlapping terms produces a set of atoms
+%called {\em assumptions} and a clause called critical and consisting of
+%obtained bindings and of the critical literal.  
+In the ground case 
+we only had the critical literal without any bindings or
+assumptions.  The critical clause \(\CC(l',l'',p)\), the assumption set
+\(\At(l',l'',p)\) and the unifying substitution \(\Sub(l',l'',p)\) are
+now used in the  inference system \C J, with the following rules: \\[2ex]
+%
+\begin{tabular}{r@{\ :\ }l}
+{\bf Reflexivity resolution} & \quad\(\prule {C,s\oplus s'}
+  {\{(B,C)\sigma\}\cup \C A}\) 
+\quad
+where \(\oplus\) is one of \(\notIncl\), \(\notInt\) or \(\notCont\),\\[2ex]
+\multicolumn{2}{r}{\C A \(=\At(l,\rev l,\Top)\),
+\(B=\Bin(l,\rev l,\Top)\) and
+$\sigma$ is a substitution \(\Sub(l,\rev l,\Top)\) for \(l= s\oplus s'\).} \\[3ex]
+%
+{\bf Superposition} & \quad \(\prule {C,a \qquad D,l}
+{(C,D,\CC(a,l,p))\Sub(a,l,p)}\) \quad 
+atom \(a\) overlaps literal \(l\) at $p$.\\[3ex]
+%
+{\bf Compositionality resolution} & 
+\quad \(\prule {C,s\oplus t \qquad D,s'\odot u,s''\ominus w}
+{(C,t\otimes u,s\odot u)\sigma}\) \quad  \\[2ex] 
+\multicolumn{2}{r}{where
+\(\odot = \Comp \oplus {\neg\otimes}\) and \(\sigma=\mgu\{s,s',s''\}\).}
+\end{tabular}
+
+\begin{THEOREM} \label{th:soundnessNG}
+The inference system $\C J$ is sound.
+\end{THEOREM}
+\begin{PROOF} 
+Proving soundness of inference rules, which use so complicated
+unification, is not a trivial task. It consists of two subtasks: 1) proving
+soundness of unification on which the rules are based, and 2) for each rule, 
+showing the particular property of predicates which is applied in the rule.
+\end{PROOF}
+
+\subsection{Ordering of words and the proof strategy}\label {se:strategy}
+We extend the definitions of ordering from \ref{sub:ordMax} to non-ground terms.
+The partial ordering of
+non-ground terms is derived from the ordering of the ground ones
+according to the rule: %$u > v \Leftrightarrow u\sigma > v\sigma$
+\begin{equation} \label{eq:ord-non-ground}
+u > v \iff u\sigma > v\sigma
+\end{equation}
+for any ground substitution $\sigma$.
+
+Our specific assumption about the orderings is that any deterministic term
+(from $\Dterms$) is strictly smaller than any non-variable non-deterministic
+term (from \(\Terms\)). Thus any variable is smaller than non-variable term
+from $\Terms$.  But in the set $\Dterms$ of d-terms we have the sam
+term ordering as before.
+Literals and clauses are identified with multisets and their ordering
+is defined by the {\em multiset extension} \cite{DM} of the term
+ordering as before.
+%% \footnote{ It is possible to use sets instead of multisets
+%% but this would require definition of different new orderings on
+%% sets. For instance, if $t<s$ we want $t\Eq s < s\Eq s$. This is
+%% obtained directly using the multiset extension but not using extension
+%% to sets. Furthermore, multisets work uniformely when extending the
+%% ordering to the level of literals and then clauses. It is easier to
+%% work with such uniform extensions than with possibly different
+%% extensions to sets.}
+%Considering
+%multisets over some set $T$ as functions of type \(T\to \Nat\) we use
+%\begin{DEFINITION} \label{def:multiset-ordering}
+%For an ordering `$\Ord$' on a given set $T$, an ordering `\(\M\Ord\)' on the
+%set \(T\to \Nat\) is a {\em multiset extension} of `$\Ord$', if
+%\[\beta \M\Ord \gamma \iff \forall d\in  T\,\exists c\in T\/  \left( (\beta
+%(c)>\gamma (c) \land (\beta (d)\geq \gamma (d)\lor c\Ord d  )\right).\]
+%\end{DEFINITION}
+%In the general case it is known \cite{DM} that `$\M\Ord$' is total if
+%`$\Ord$' is total and `$\M\Ord$' is well-founded if `$\Ord$' is well-founded.
+%
+%% A literal $s\oplus t$ is represented by the multiset \(\{\{s,\oplus\},
+%% \{t,\rev \oplus\}\}\).  We assume that any term is bigger than any predicate
+%% symbol.  A stronger positive predicate is bigger than a weaker one, the order
+%% between negative predicates is reversed, and all negative predicates are
+%% bigger than the positive ones:
+%% \begin{equation} \label{eq:predicate-orderNG}
+%% \notEq\ >\ \notIncl\ >\ \notCont\ >\ \notInt\ >\ \Eq\ >\ \Incl\ >\ \Cont\ >\
+%% \Int.
+%% \end{equation}
+%
+%%  The ordering of literals is the twofold
+%% extension of `$<$' because each literal is a multiset of two multisets.
+%% Clauses are compared as multisets of literals, so their ordering is the
+%% multiset extension of the ordering of literals (threefold multiset extension
+%% of `$<$'). Although we have here three different orderings, we will use the
+%% same symbol `$<$' to denote any of them. This should not introduce any
+%% confusion as the sets of terms, literals and clauses are disjoint.
+
+%\subsubsection {The \strategy\ proof strategy.} 
+%% 
+%% The literals mentioned explicitly in the premises of the proof rules are
+%% called {\em active}. Various ways of selecting the active literals will lead
+%% to different proof strategies. The \strategy\ strategy requires that the
+%% active literals in the premise clauses are the ones which are maximal {\it
+%% wrt}. the ordering defined above.  Stated explicitly the strategy amounts to
+%% the following restrictions on the application of the rules:
+Using this extension of the ordering, we adapt the \strategy\ proof strategy
+for \C I from \ref{sub:Max} to the present system \C J:
+\begin{description}%\smallerspaces
+\item[Reflexivity resolution:] \((s\oplus s')\sigma\) is maximal
+in the clause \((C,s\oplus s')\sigma\).
+\item [Superposition:] the atom \(a\sigma\) and the literal \(l\sigma\),
+where \(\sigma=\Sub(a,l,p)\), are maximal in the respective clauses
+\((C,a)\sigma\) and \((D,l)\sigma\).
+\item [Compositionality resolution:] the atom \((s\oplus t)\sigma\) is maximal
+in the clause \((C,s\oplus t )\sigma\). The maximal atom in the clause
+\((D, s'\odot u, s''\ominus w)\sigma\) is \((s''\ominus w)\sigma\), and
+\(s'\odot u\) is an atom.
+\end{description}
+%
+The important observation for our proof of completeness concerns the ordering of
+clauses in premisses and conclusions of the proof rules.  The
+nondeterministic terms from bindings that appear in the conclusions are subterms
+of the active literals, and therefore binding literals are smaller than
+the active literals from premisses.  So, if other new (``not contained
+in premisses'') literals are smaller than the (maximal) active literals
+then the conclusion clause is smaller than the maximal of premisses clauses.
+Furthermore, new variables may be introduced instead of non-deterministic terms.
+But then the assumption that $\Dterms$ (including variables!) 
+are smaller than non-variable $\Terms$ makes the conclusion smaller than the 
+respective premisses.
+%
+%\section{Ground literal rewriting}\label{se:Grewrite}
+%
+%This section mainly repeats the relevant 
+%The definitions and lemmas listed here are essentially the same as in \cite{KW}.
+%They introduce the concepts and results used in the completeness proof.
+%
+%\begin{DEFINITION} \label{def:rewriting-step}
+%A literal $r$ is a {\em rewriting step} in \C L if either \(r\in\C L\), or
+%$r$ is an atom \(u[s]_p\oplus u[t]_p\) for some term $u$, a position $p$ in
+%$u$, and an atom \(s\otimes t\in \C L\), where \(\oplus\in\{\Incl,\Cont\}\),
+%if $\otimes=\Eq$, or $\oplus=\otimes$, otherwise.
+%\end{DEFINITION}
+%
+%A sequence of rewriting steps \(\<s\oplus_1 t_1,\: t_1\oplus_2 t_2,\:
+%t_2\oplus_3t_3,\: ...\:,\:t_n\oplus_n t\>\) is called a {\em rewriting
+%sequence}, the predicate sign of the derived literal \(s\oplus t\) is
+%computed using the function \(\Comp\_\_\): \(\oplus=\Comp {\rev {\Comp {\rev {\Comp
+%{\rev {\oplus _1}}{\rev {\oplus _2}}}}{\cdots }}}{\oplus _n}\).
+%
+%\begin{DEFINITION} \label{def:rewriting-proof}
+%A rewriting sequence is a {\em rewriting-proof} if it does not contain a {\em
+%peak} ({\it w.r.t.} to an ordering of terms $<$), {\em i.e.}, a pair of
+%consecutive rewriting steps \(s\oplus t\),\(t\otimes u\) such that \(s\leq
+%t\geq u\).
+%\end{DEFINITION}
+%
+%\begin{DEFINITION}\label{def:rewriting-closure}
+%For a set \C L of ground literals, the {\em rewriting closure} of \C L is the
+%set of ground literals, $\C L^\ast$, defined as follows:
+%\begin{itemize}%\smallerspaces
+%\item  all atoms of the form $s\Incl s$ or $s\Int s$, where $s$ is a ground
+%  term, belong to $\C L^\ast$;
+%\item if an atom \(s\oplus t\in\C L\) and a literal \(u[s]_p\otimes v\in\C
+%  A^\ast\), then the literal \(u[t]_p\odot v\in\C L^\ast\), if
+%  \(\odot=\Sup(p,\oplus,\otimes)\);
+%\end{itemize}
+%\end{DEFINITION}
+%
+%\begin{DEFINITION} \label{def:critical-literal}
+%A ground rule \(r_1 = s\To\oplus t\) {\em overlaps} a ground rule \(r_2 =
+%u[s]_p \To \otimes v\). In this case the literal \(l = u[t]_p \odot v\),
+%where \(\odot = \Sup(s,u[s]_p,\oplus,\otimes)\), is called a {\em critical
+%literal} formed by the rules \(r_1,r_2\), if $l$ is different from \(r_1\)
+%and \(r_2\).
+%\end{DEFINITION}
+%
+%\begin{DEFINITION} \label{def:confluent-system}
+%A set \C R of ground rewriting rules is {\em confluent} if \(\C R^\ast\)
+%contains all critical literals formed by overlapping rules from \C R.
+%\end{DEFINITION}
+%
+%\begin{DEFINITION} \label{def:forcingNG}
+%A set of ground atoms \C A {\em forces}
+%\begin{itemize}%\smallerspaces
+%\item a ground atom  $a$ if \(a\in\C A^\ast\), and the literal \(\neg a\) if 
+%\(a\notin \C A^\ast\);
+%\item a ground clause $C$ if it forces some literal \(l\in C\);
+%\item a non-ground clause $C$ if it forces any ground instance of $C$;
+%\item a set of clauses \C S if it forces all clauses from \C S.
+%\end{itemize}
+%\end{DEFINITION}
+%
+%
+\section{Completeness} \label{se:completenessNG} 
+%
+As we have seen in section~\ref{se:rewrite}, sets of ground atoms \C A, or literals
+\C L, can be viewed as rewriting systems. We will now use
+the same definitions \ref{def:rewriting-step} through \ref{def:confluent-system}
+of rewriting step, critical literal, etc. as in
+section~\ref{se:rewrite}. We also use the definition~\ref{def:forcing} of forcing
+but extend it with the case of forcing a non-ground clause.
+\begin{DEFINITION}\label{def:ground-rewriting}\label {def:forcingNG}
+A set of ground atoms \C A {\em forces}
+\begin{itemize}\MyLPar%\smallerspaces
+\item a ground atom  $a$ if \(a\in\C A^\ast\), and the literal \(\neg a\) if 
+\(a\notin \C A^\ast\);
+\item a ground clause $C$ if it forces some literal \(l\in C\);
+\item a non-ground clause $C$ if it forces any ground instance of $C$;
+\item a set of clauses \C S if it forces all clauses from \C S.
+\end{itemize}
+ \end{DEFINITION}
+%
+The next lemma is the exact counterpart of lemma~\ref{le:first-rule}.
+ \begin{LEMMA} \label {le:first-ruleNG} 
+If: \C L is confluent, \(a\in \C L\), an atom $b$, with \(b\leq a\), has a
+rewriting proof $P$ in \C L, but \(b\notin(\C L\setminus \{a\})^\ast\).  Then:
+$a$ and $b$ have the same maximal term, $s$, and the proof $P$ has the
+form $a,P'$, where $a$ is not used in the proof $P'$. If \(a\ne b\), then the
+literal derived by $P'$ is smaller than $b$.
+ \end{LEMMA}
+%% 
+%% \begin{LEMMA} \label{le:preserve-confluency}
+%% For a confluent and consistent system \C R and a rule \(r\notin\C R^\ast\)
+%% the system \(\C R\cup \{r\}\) is confluent and consistent iff
+%% \begin{itemize}%\smallerspaces
+%% \item $r$ does not have the form  \(s\To\oplus s\), where
+%%  \(\oplus\in\{\notIncl,\notCont,\notInt\}\),
+%% \item for any critical literal $l$ formed by any \(r'\in \C R
+%% \cup\{r\}\) overlapping (or overlapped by) $r$, $l\in \C R^\ast$,
+%% \end{itemize}
+%% \end{LEMMA}
+%
+We are sketching the proof of {\em refutational completeness} of the inference system
+\C J, {\em i.e.}, that there exists a model (multialgebra) satisfying all the
+clauses from a consisten set \C S (the empty clause is not derivable from \C S). 
+% A set of clauses \C S is {\em consistent} if it does not contain the empty clause.
+%The main result is
+
+\begin{THEOREM}\label{completeness}
+If a set of clauses \C S is consistent then it has a model.
+\end{THEOREM}
+\noindent
+The construction proceeds in two main steps as in the ground case. 
+Given a consistent set \C S,
+we select a set of atoms \C R %(section~\ref{se:forcing-set})
+and show that \C R is a {\em forcing set}\/ for \C S.
+Then \C R can is used to construct a multimodel which satisfies \C S in the
+way it was done in \ref{se:multimodel}. We list the steps of the construction
+but give only the proofs which are significantly different from those in the
+ground case.
+%\cite{KW}. 
+
+%\subsection{Model}\label{se:forcing-set}\label{se:main-R}
+
+Let \C G denote the set of ground instances of form \C S, {\it i.e.}, of
+clauses \(C\sigma\), where \(C\in \C S\) and $\sigma$ is a ground
+substitution (involving only $\Fvars$ functional symbols.).  
+The starting point of the model construction is now the set of
+maximal literals of ground instances of \C S :
+\begin{equation} \label{eq:max-literals}
+\C L_0 \Def \{\max(C) : C\in \C G\}.
+\end{equation}
+%
+As before, for an $\C L$ and an $l\in\C L$, we define the set \(\C
+L_l\Def \{a\in\C L:a<l\}\)
+% contains all the literal from \C L that are
+%smaller than $l$.
+%
+
+\begin{DEFINITION}\label{def:redundancy}
+Let $\C A$, $\C G$  be  sets of ground atoms and clauses, respectively, 
+$C$ be a ground clause and $l$ a ground literal.
+\begin{enumerate}\MyLPar%\smallerspaces
+\item \label{def:redundant-clauseNG}
+  \(C\) with \(\max(C)=l\) is {\em redundant} in \C A and \C G if either
+  \begin{itemize}%\smallerspaces
+  \item $\forc{\C A_l}C$, i.e., $C$ is forced by \(\C A_l\)  or 
+  \item the set \C G contains another clause \(C'<C\) with \(\max(C')=l\), and
+    $\notforc{\C A_l}{C'}$.%    \(C'\) is not forced by \(\C A_l\).
+   \end{itemize}
+\item \label {def:redundant-literal}
+$l$ is {\em redundant} in \C A and \C G if either
+  \begin{itemize}%\smallerspaces 
+  \item \(l=s\oplus s'\), where \(\oplus \in \{\notIncl ,\notCont ,\notInt\}\),
+  $l$ overlaps \(\rev l\) at the top position, and the clause \(\Bin(l,\rev
+  l,\Top)\) is not forced by \(\C A\), or
+  \item \(\C A\cup\{l\}\) contains an atom $r$ overlapping $l$ at a position
+  $p$, and such that the critical clause \(\CC(r,l,p) <\{l\}\) and is not
+  forced by \(\C A\), or
+  \item every clause $C\in \C G$ with $\max(C)=l$ is redundant in \C A.
+  \end{itemize}
+\item \label{def:productiveNG}
+\(C,l\) with \(\max(C,l)=l\) is {\em productive} for $l$
+in \C A if $\notforc{\C A}C$. %\C A does not force $C$.
+\end{enumerate}
+ \end{DEFINITION}
+\noindent
+Definitions~\ref {def:forcingNG} (of forcing) and
+\ref {def:redundancy}.\ref {def:redundant-literal} 
+(of redundancy) are so related, that all negative literals that are
+not forced are redundant. Since any forced literal makes redundant all
+clauses containing it, any negative literal appears redundant.
+
+If $\C L_i$ is known, and \(l_i\) is the minimal redundant
+literal in \(\C L_i\), we define as in the ground case:
+\begin{equation} \label{eq:atoms-modelNG}
+\C L_{i+1} \Def \C L_i \setminus \{l_i\}, \hspace{7em}
+\C R \Def{\bigcap_{i\in \Nat}} \C L_i.
+\end{equation}
+%
+For a literal \(l\in\C R\) we denote by \(\C R_{l'}\) the set \(\C
+R_l\cup\{l\}\), while for \(l\notin\C R :\C R_{l'}=\C R_l\).
+%% Before sketching the proof that \C R is the forcing set for $\C S$, 
+%% we list some of its properties.
+The following three lemmas are the counterparts of (with proofs analogous to)
+\ref{le:redundancy-limit}, 
+\ref{co:model-confluent} and \ref{le:productive-clause}. Recall the notation
+$\red{\C L}l$ for redundancy of a literal $l$ in a set of literals \C L.
+
+ \begin{LEMMA} \label{le:redundancy-limitNG}
+For a literal $l\in\C L_0$ (a clause $C\in \C G$ with \(\max(C)=l\)) the three
+conditions are equivalent: 
+%\[ 
+\begin{itemize}\MyLPar
+\item $\exists i, l_i>l : \red{\C L_i}l$
+\item $\forall j>i: \red{\C L_j}l$
+\item $\red{\C R}l$.
+\end{itemize}
+%% 
+%% \(l\in\C L_0\) (a clause \(C\in \C G\) with \(\max(C)=l\)) is
+%% redundant in some \(\C L_i\) with \(l_i>l\) $\Leftrightarrow$ it is redundant in every
+%% \(\C L_j\) with $j>i$ $\Leftrightarrow$ it is redundant in \C R.
+\end{LEMMA}
+
+ \begin{LEMMA} \label{le:model-confluent}
+\C R is confluent.
+\end{LEMMA}
+
+\begin{LEMMA} \label{le:productive-clauseNG}
+For any \(l\in\C R\), there is a clause \(C\in\C G\) productive
+for $l$ in \(\C R_l\).
+ \end{LEMMA}
+%% \begin{PROOF}
+%%  If $l\in \C R$ then $l$ is non-redundant. The negated form of the redundancy
+%% Definition~\ref{def:redundancy}.\ref{def:redundant-literal} is a conjunction including the
+%% condition that there is a non-redundant clause $C\in \C G$ with $\max(C)=l$.
+%% Non-redundancy of $C$, {\em i.e.}, negation of
+%% Definition~\ref{def:redundancy}.\ref{def:redundant-clauseNG} implies that $C$ is not forced by \(\C
+%%  R_l\), what means productivity of $C$ for $l$ in \(\C R_l\).
+%%  \end{PROOF}
+%
+ \begin{DEFINITION}
+A set \C G is {\em relatively closed} if any application of a
+rule from \C J with premises from \C G yields a clause whose each ground
+instance is in \C G or is redundant in \C G.
+ \end{DEFINITION}
+%
+The main technical result, giving the completeness theorem is
+%
+\begin{THEOREM} \label{le:main-theoremNG}
+Let \C G be consistent and relatively closed set of ground clauses, \(\C
+L_0\) and \C R be defined by (\ref {eq:max-literals}) and (\ref
+{eq:atoms-modelNG}). Each \(l\in \C L_0\) satisfies the following
+conditions:
+\begin{description}%\smallerspaces
+\item[I1.] if $\red{\C R}l$, %$l$ is not redundant in \C R, 
+  then for any \(a\in\C R_l\) there
+  exists a clause \(C\in \C G\) productive for $a$ in \(\C R_l\),
+\item[I2.] if $\red{\C R}l$, %$l$ is redundant in \C R, 
+  then \(\C R_l\) forces any clause  \(C\in \C G\) with \(\max(C)=l\).
+\end{description}
+\end{THEOREM}
+\begin{PROOF} 
+The structure of the proof is essentially the same as the proof of the ground case
+\ref{th:ground-completeness}, proceeding 
+by contradiction from the assumption that $l$ is a minimal literal 
+in \(\C L_0\) not satisfying the theorem, i.e., either
+%We assume that there exist some literal $l$ not satisfying
+%the theorem and suppose $l$ is minimal in \(\C L_0\) with this property.
+%Observe that any literal from \(\C L_0\) must satisfy one of the conditions 
+%I1 or I2, therefore we have two non-intersecting cases:
+\begin{description}%\smallerspaces
+\item[B1.] $l$, being included in \C R, ``spoils'' productiveness of some 
+  clause \(C\in\C G\) with \(a=\max (C) \leq l\), {\em i.e.}, $C$ is
+  productive for $a$ in \(\C R_l\), but is not productive in \(\C
+  R_l\cup\{l\}\), or
+\item[B2.] $l$, being not included in \C R, leaves unforced by \(\C R_l\) 
+  some clause \(C\in\C G\) with \(\max (C)=l\).
+\end{description}
+The following lemma and corollary (cf.~\ref{le:contradiction-way}, \ref{cor:contradiction-way}) allow us to obtain contradiction in both cases:
+
+ \begin{LEMMA}\label {le:contradiction-wayNG}
+The following conditions about a clause $D$ and a literal $l$ cannot be 
+satisfied simultaneously in a relatively closed \C G:
+%\begin{enumerate}
+%\item\label{i} 
+\setcounter{ITEM}{0}
+\ITEM{i}{$D$ is a ground instance of conclusion of some proof rule
+from \C J with premises from \C G,}
+%\item\label{ii} 
+\ITEM{ii} {for any clause \(D'\leq D\), if \(D'\in\C G\), then \(\C R_l\)
+forces $D'$,}
+%\item\label{iii} 
+\ITEM{iii} {\(\C R_l\) does not force $D$,}
+%\item\label{iv}
+\ITEM{iv} {\(\max(D)<l\).}
+%\end{enumerate}
+ \end{LEMMA}
+%% \begin{PROOF}
+%% The condition \?{i} and relative-closeness of \C G mean that the clause $D$
+%% must be in \C G or be redundant in \C G.  By \?{iii} and \?{ii}, the clause
+%% \(D\notin\C G\), so it is redundant in \C G. The redundancy of $D$ in \C G,
+%% by Lemma~\ref {le:redundancy-limitNG} and \?{iv}, means redundancy of $D$ in
+%% \(\C R_l\). The redundancy definition includes two cases: either 
+%% \ITEM{v}{$D$ is forced by $\C R_l$, or}
+%% \ITEM{vi}{ $\C G$ contains a clause \(D'<D\) with \(\max(D')=l\) that is not
+%% forced by $\C R_l$.} The case \?{v} is excluded by \?{iii}. The case \?{vi}
+%% contradicts \?{ii}.
+%% \end{PROOF}
+%
+\begin{COROLLARY} \label{cor:contradiction-wayNG}
+Lemma~\ref {le:contradiction-wayNG} holds if Condition~\?{ii} is replaced by the
+following  statement:  $l$ is the minimal literal in \(\C L_0\) satisfying
+B1 or B2.
+\end{COROLLARY}
+%% \begin{PROOF}
+%% Minimality of $l$ with respect to Condition~B2 means, that for all clauses
+%% $C\in\C G$ from \(\max(C)<l\) follows that \(\C R_l\) forces $C$. Any clause
+%% \(D'\leq D\) by \?{iv} has \(\max(D')<l\), and therefore satisfies \?{ii}.
+%% \end{PROOF}
+%
+\underline{Assumption B1} means that
+ \(\max(C)=a\), and \(C\setminus\{a\}\) is not forced by \(\C R_l\),
+but there exists \(b\in C\) such that \(b\neq a\) and \(b\in \C
+  R_{l'}^\ast\).
+Productiveness conditions for $C$ in B1 means that
+\ITEM{2}{ \(\max(C)=a\), and \(C\setminus\{a\}\) is not forced by \(\C R_l\),}
+\ITEM{4}{ but there exists \(b\in C\) such that \(b\neq a\) and \(b\in \C
+  R_{l'}^\ast\).}
+By Lemma~\ref {le:productive-clauseNG}, there is a clause $D,l$ such that
+\(l=\max(D)\) and $D$ is not forced by \(\C R_l\).
+\ITEM{1}{\(l=\max(D)\), $D$ is not forced by \(\C R_l\).}
+We want to prove that the factoring rule can be applied to
+clauses \(D,l\) and $C$. The order of the atoms \(a,b,l\) is important:
+\ITEM{6}{ \(b< a\leq l\) (it follows from \?{2} and B1).}
+The strong inequality between $a$ and $b$ follows from maximality of $a$ in
+$C$. By Lemma~\ref {le:first-ruleNG} applied to atoms \(l\neq b\), we get that,
+if \(l = s\oplus t\) and \(b = s\odot u\), then there exists $\otimes$ such
+that
+\ITEM{FA}{\(\odot = \Comp {\rev \oplus}\otimes\) and \(c = t\otimes u< b\).}
+The first condition in \?{FA} is sufficient to apply the factoring rule to
+\(D,l\) and $C$ and derive the clause \(E = (D,b,\neg c)\).  From \?{1},
+\?{6} and \?{FA} it follows \(\max(E)<l\).  From Lemma~\ref {le:first-ruleNG}
+we also have, that $l$ is used only once in the proof of $b$, hence \(c\in\C
+R_l^\ast\) {\it i.e.}, \C R does not force \(\neg c\).  This condition
+together with \?{1}, \?{2}, and \?{4} implies that $E$ is not forced by \(\C
+R_l\).
+
+Lemma~\ref{le:first-ruleNG} implies that we can apply the compositionality
+resolution to $C$ and $D,l$ producing the clause $E=D,b,\neg c$ with
+$\max(E)<l$ which
+%The literal $l$ and the clause $E$ 
+satisfy the conditions of Lemma~\ref
+{le:contradiction-wayNG} thus leading to a contradiction. \\[1ex]
+%
+\underline{Assuming B2}, we have a clause $D$ such that
+%That means that there exists a clause $D$ such that
+\(C=(D,l)\), \(\max(D)<l\) and $C$ is not forced by $\C R_l$.
+\ITEM{2i}{\(C=(D,l)\), \(\max(D)<l\) and $C$ is not forced by $\C R_l$.}
+%Assume that $C$ is minimal with this property.
+Then $l$ is redundant and we analyse the three alternatives of
+Definition~\ref{def:redundancy}.\ref{def:redundant-literal}.
+The last one is impossible since $C$ is non-redundant. In the first case,
+contradiction follows from Lemma~\ref{le:contradiction-wayNG} after
+application of reflexivity resolution. In the second case, 
+Lemma~\ref{le:productive-clauseNG} and superposition rule give again a pair
+satisfying the conditions of Lemma~\ref{le:contradiction-wayNG}, thus yielding a
+contradiction.
+
+The literal $l$ is redundant, and by Definition~\ref {def:redundancy}.\ref
+{def:redundant-literal} there are three alternatives:
+\ITEM{21}{\(l=s\oplus s'\), where \(\oplus \in \{\notIncl ,\notCont
+  ,\notInt\}\), $l$ overlaps \(\rev l\) at the top position, and the clause
+  \(\Bin(l,l',\Top)\) is not forced by \(\C A\),}
+\ITEM{22}{\(\C A\cup\{l\}\) contains a rule $r$ overlapping $l$ at a position
+  $p$, and the critical clause \(\CC(r,l,p) <\{l\}\) is not forced by \(\C
+  A\),}
+\ITEM{23}{ every clause $B\in \C G$ with $\max(B)=l$ is redundant in $\C R_l$.}
+
+The alternative \?{23} is false because $C$ is non-redundant ---
+Definition~\ref {def:redundancy}.\ref{def:redundant-clauseNG} 
+of redundancy subsumes the negated form
+of the minimality assumption about $C$ which we have just made.
+
+In the case of \?{21}, the reflexivity resolution rule can be applied to the
+clause $C$ to produce the clause \(D,\Bin(l,l',\Top)\).  The all bindings
+literals are smaller than $l$ (see conclding note in subsection~\ref {se:strategy}, 
+why by Lemma~\ref {le:contradiction-wayNG} we derive contradiction in this case.)
+
+Consider the alternative \?{22} and let \((C',r)\) be a productive clause
+for $r$ in \(\C R_r\) (that exists by Lemma~\ref {le:productive-clauseNG}).
+From minimality of $l$ it follows, that no a literal between $r$ and $l$
+destroys productivity of $(C',r)$. (By the way, \(r=l\) is possible.)  So,
+$(C',r)$ is also productive for $r$ in \(\C R_l\):
+\ITEM{PCl}{ \(C'\cap \C R_l^\ast =\es\).}
+By \?{22}, there exists a clause
+\ITEM{28}{\((D' = D,\,C',\CC(r,l,p))\Sub(r,l,p)\)}
+deduced from clauses $D,\,l$ and $C',\,r$ by the superposition rule.  Now,
+all conditions of Lemma~\ref {le:contradiction-wayNG} for $D'$ hold, and
+contradiction follows.
+\end{PROOF}
+\noindent
+Thus $\C R$ is the forcing set for $\C S$. 
+A multialgebraic model of \C S can be now constructed from $\C R$ 
+in the same way as in subsection~\ref{se:multimodel}.
+%theorem~\ref{th:multialgebra-exists}.
+
+\section{Conclusions and directions for future work}
+
+We presented a theoretical case study of transferring the ideas from ordered
+paramodulation to a particular non-equational reasoning system.  We
+concentrated on a particular logic, but the obtained results are of general
+interest. Firstly, because reasoning with set-valued relations is very common
+and, secondly, because the introduced techniques should be applicable to the
+more general binary relations.  Together with L.~Bachmair and H.~Ganzinger,
+\cite {BG249,BG-Oslo}, we have shown how term-rewriting techniques for
+theorem proving and methods of restricting inference rules can be applied to
+more general binary relations than congruences.  Specifically, we
+demonstrated how term-rewriting can work in a languge with a very restricted
+substitutivity into variables and in the presence of existential
+quantification.
+
+We were not concerned here with inference restrictions other than those
+imposed by the term ordering.  Probably, also the ideas from {\em basic
+paramodulation} \cite{Basic-par} could be transferred to our logic, because
+the level of deterministic terms is entirely analogous to the equational
+case.
+
+Our results may be particularly relevant to the area of relational
+specifications \cite {rel-spec}, where composition of relations also hides
+existential quantification.  We intend to investigate the possible
+applications and extensions in this direction \cite {KMW}.  Another
+interesting possibility would be to extend our results to typing relations.
+

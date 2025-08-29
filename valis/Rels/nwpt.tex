@@ -1,0 +1,1111 @@
+\documentstyle[12pt,a4]{article}
+\title{%~\vspace*{-15mm}\newline
+Nondeterministic Algebraic Specifications\\
+ in Relational Syntax\\}
+\date{}
+\author{%
+\it Valentinas Kriau\v ciukas $^1$\hfill Sigurd Meldal $^2$\hfill  Micha{\l}
+Walicki $^2$\\[2ex]
+\small$^1$Matematikos ir Informatikos Institutas, Akademijos 4, 2600
+Vilnius, Lithuania\\[-.5ex]
+\small\tt valentinas.kriauciukas@mlats.mii.lt\\
+\small$^2$Institutt for Informatikk,  Universitetet i Bergen, HiB, N-5020
+Bergen, Norway\\[-.5ex]
+\small\tt $\{$sigurd,michal$\}$@ii.uib.no
+}
+\newtheorem{claim}{Proposition}[section]
+\newtheorem{corollary}[claim]{Corollary}
+\newtheorem{theorem}[claim]{Theorem}
+\newtheorem{lemma}[claim]{Lemma}
+\newtheorem{definition}[claim]{Definition}
+\newcommand{\smallerspaces}{\parsep -.2ex plus.2ex minus.2ex\itemsep\parsep
+   \vspace{-\topsep}\vspace{.5ex}}
+\newcommand{\MyNumEnv}[1]{\parskip 0pt\partopsep 0pt\trivlist \refstepcounter 
+   {claim}\item [\hskip \labelsep {\bf #1\ \theclaim\ }]\ignorespaces}
+%\newenvironment{definition}{\MyNumEnv{definition}}{\par\addvspace{0.5ex}}
+\newenvironment{example}{\MyNumEnv{Example}}{\nopagebreak \finish}
+\newenvironment{proof}{{\bf Proof.}}{\nopagebreak\finish}
+\newcommand{\finish}{\hspace*{\fill}\nopagebreak 
+     \raisebox{-1ex}{$\Box$}\hspace*{1em}\par\addvspace{1ex}}
+
+\newcommand{\I}[1]{\mbox{\boldmath$I$}_{#1}}
+\let\EQV=\equiv
+\renewcommand{\equiv}{\:\EQV\:}
+\newcommand{\then}{\Rightarrow}
+\newcommand{\Pre}[1]{{\sf Pre}(#1)}
+\newcommand{\varre}[3]{[#1]^{#2}_{#3}}
+\newcommand{\prule}[2]{{\displaystyle #1 \over \displaystyle#2}}
+\newcommand{\Rewr}{\Rightarrow}
+\newcommand{\rewr}{\longrightarrow}
+\newcommand{\meet}{\SmallR\sqcap{1ex}}
+\newcommand{\join}{\SmallR\sqcup{1ex}}
+\newcommand{\Acc}[1]{{\sf acc}(#1)}
+\newcommand{\impl}{\mathrel\Rightarrow}
+\newcommand{\transl}[1]{\rho(#1)}
+\newcommand{\Com}[1]{#1^{\sf c}}
+\newcommand{\Sorts}{S}
+\newcommand{\Spec}{{\sf Spec}}
+\newcommand{\epsi}{\varepsilon}
+\newcommand{\unit}{{\rm 1\!l}}
+\newcommand{\emp}[1]{\lfloor#1\rfloor}
+\newcommand{\ful}[1]{\lceil#1\rceil}
+\newcommand{\ident}{I}
+\newcommand{\backern}{\mkern -9mu}
+\newcommand{\All}{\top\backern\top}
+\newcommand{\Nil}{\bot\backern\bot}
+\newcommand{\point}{\mathbin.}
+\newcommand{\C}[1]{\mbox {$\cal #1$}}
+\let\from=\leftarrow
+\newcommand{\emseq}{\Lambda}
+\newcommand{\Rterms}[2]{{\cal RT}(#1,#2)}
+\newcommand{\type}[2]{#1\mathbin{\rightarrow}#2}
+\newcommand{\incl}{\SmallR\sqsubseteq{1.2ex}}
+\newcommand{\Neg}{\SmallR\neg{1ex}}
+\newcommand{\plu}{\SmallR+{1.2ex}}
+\newcommand{\pro}{\SmallR\times{1.2ex}}
+\newcommand{\comp}{\circ}
+\newcommand{\duck}{\diamond}
+%\newcommand{\comp}{\SmallR\cap{1ex}}
+%\newcommand{\duck}{\SmallR\cup{1ex}}
+\newcommand{\SmallR}[2]{\mathbin{\vbox to#2{\nointerlineskip \hbox
+   {$\scriptstyle #1$}\vss}}}
+\newcommand{\Incl}{\mathbin{\prec}}
+\newcommand{\Cont}{\mathbin{\succ}}
+\newcommand{\Int}{\mathbin{\frown}}
+\newcommand{\Seteq}{\mathbin{\asymp}}
+\newcommand{\Eq}{\mathbin{\approx}}
+\newcommand{\notEq}{\mathbin{\Not\approx}}
+\newcommand{\notIncl}{\mathbin{\Not\prec}}
+\newcommand{\notCont}{\mathbin{\Not\succ}}  
+\newcommand{\notInt}{\mathbin{\Not\frown}}
+\newcommand{\notSeteq}{\mathbin{\Not\asymp}}
+\newcommand{\dotminus}{\mathbin{\buildrel\vbox{\hbox{\normalsize.}\kern-.7ex}\over-}}
+\newcommand{\Funcs}{\Sigma}
+\newcommand{\Terms}{{\cal T}}
+\newcommand{\Vars}{{\cal V}}
+\newcommand{\Vvalue}[2]{[\![#1]\!]_{#2}}
+\newcommand{\Value}[1]{\Vvalue{#1}\epsi}
+\newcommand{\es}{\emptyset}
+\newcommand{\List}[3]{#1_{1}#3\ldots#3#1_{#2}}
+\newcommand{\II}[1]{{\rm I\!#1}}
+\newcommand{\Nat}{{\II N}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\Def}{\,\mathrel {\stackrel {\mbox {\tiny def}}{=}\:}}
+\newcommand{\true}{{\sf T}}
+\newcommand{\false}{{\sf F}}
+\makeatletter
+\newcommand{\Not}[1]{\mathbin {\mathpalette\C@ncel#1}}
+\newcommand{\C@ncel}[2]{\m@th \ooalign {$\hfil #1|\hfil $\crcr $#1#2$}}
+\newcommand{\rev}[1]{\vbox {\m@th \ialign {##\crcr \scriptsize \leftarrowfill \crcr \noalign {\kern -\p@ \nointerlineskip } $\hfil \displaystyle {#1}\hfil $\crcr }}}
+\makeatother
+
+\pagestyle{empty}
+\begin{document}
+\noindent\maketitle
+\thispagestyle{empty}
+\begin{abstract}
+Relational syntax is presented for nondeterministic algebraic specifications
+called the language of relational terms.  It is shown how nondeterministic
+specifications can be translated to the relational terms.
+
+A complete inference system is presented for derivation of valid clauses of
+relational atoms.
+
+Finally, a $\lambda $-abstraction construct is introduced extending the
+syntax of relational terms.  It is weaker than the functional $\lambda
+$-abstraction, but allows translation of first-order predicate language into
+the language of relational terms. A slight extension of the inference system
+remains sound and complete for this extended syntax.
+\end{abstract}
+
+\section*{Introduction}
+ 
+The paper presents work in progress on establishing connections between the
+theory of nondeterministic specifications and other relevant theories, in
+particular, relational algebra \cite{RelTh}, $\lambda$-calculus and
+first-order predicate calculus.  In our earlier work \cite{KW-nong,MW-II,MW}
+nondeterministic specifications are sets of clauses, where literals are
+written using the binary predicates $\Incl$ (inclusion), $\Eq$ (deterministic
+equality), $\Int$ (non-emptiness of intersection) and their negated forms.
+The term syntax is as usual, but semantically function symbols are
+interpreted as {\em nondeterministic operators}, {\it i.e.}, returning
+possibly more than one value for a given argument value.  In fact,
+nondeterministic operators are {\em oriented} relations, {\it i.e.}, for a
+relation there is a distinguished argument representing the possible return
+values of the corresponding operator.
+
+We introduce a language of {\em relational terms} which masquerades as a
+first-order language of relational algebra. We obtain a complete
+axiomatization of validity of clauses of relational terms.  On the other
+hand, we have earlier introduced \cite {KW-nong} complete system for
+reasoning about these specific relations.
+The system is prone to automation and we hope that,
+having established the connections with relational algebra, it (or its
+variant) could also be applied in the relational setting.
+
+The language of relational terms explicitly uses composition, product,
+complement and inverse of binary relations, and can also be extended with
+union (choice) and $\lambda$-abstraction.  The interesting feature of the
+language is that each term denotes a binary relation (except variables, which 
+denote only specific relations, namely, individual elements).  Thus a term is a kind
+of statement, and thus we have a {\em purely logical} (and algebraic,
+since there are no quantifiers) language, similar to that of propositional
+calculus.  This level of ``purity'' is the same as in the language of
+ $\lambda$-calculus, where each term denotes a function.  
+Differences and similarities with
+$\lambda$-calculus can be studied by
+explicit introduction of $\lambda$-abstraction, This opens a wide field
+of interesting investigations of how one may use relational terms wherever
+the $\lambda$-calculus is used.  The language presented here does not explore
+the full power of $\lambda$-abstraction because variables denote only individuals 
+but not arbitrary relations.  The construct as it is used here 
+serves the purpose of rearranging the arguments of relations.
+
+The composition of relations and its dual, both expressing implicit
+quantification, allow direct encoding of the language of first-order
+predicate calculus in our (quantifier-free) language of relational terms,
+without any skolemisation, {\it i.e.}, without the introduction of additional
+function symbols.
+
+In Section~\ref {sec:nondet-spec} we introduce nondeterministic
+algebraic specifications as in \cite {KW,KW-nong}.  Then, in Section~\ref
+{sec:rel-terms}, the language of relational terms is defined.  A complete
+axiomatic system for this language is presented in Section~\ref
+{sec:axiomatisation}, the completeness proof of which is moved into
+Appendix~\ref {app:proof}.  Section~\ref {sec:lambda} is devoted to extension
+of relational terms with $\lambda$-abstraction, which enables simple
+translation of the language of first order predicates into syntax of
+relational terms.
+
+\section{Language of nondeterministic specifications}\label {sec:nondet-spec}
+
+\subsection{Syntax}
+
+Language of nondeterministic algebraic specifications is not firmly fixed,
+the main thing to vary is the set of predicates.  Here we start with one of our
+variants \cite{KW,KW-nong} containing three binary predicates.  Specifications are
+written using a countable set of variables $\Vars$ and a finite non-empty set
+of functional symbols $\Funcs$, each \(f\in\Funcs\) has a fixed arity \(ar(f)
+\in \Nat\).  A functional symbol $c$ with \(ar (c)=0\) is called a {\em
+constant}.  The set $\Terms(\Funcs ,\Vars)$ of terms of signature $\Funcs$ is
+defined in usual way.  There are three atomic forms of formulae built using
+binary predicates: {\em equation} $s\Eq t$, {\em inclusion} $s\Incl t$ and
+{\em intersection} $s\Int t$, connecting terms $s$ and $t$.  Atoms and their
+negations form the set of {\em literals}.  An atom $a$ is called a {\em
+positive} literal, and a negated atom $\neg a$ is a {\em negative} literal.
+Negative literals are written using forms $s\notEq t$, $s\notIncl t$ and
+$s\notInt t$.  By \(\rev{ s\oplus t}\) the reversed literal \(t\mathbin
+{\rev\oplus }s\) is denoted, which is different from \(t\oplus s\) only in
+the cases \(\oplus \in \{\Incl ,\notIncl ,\Cont ,\notCont\}\) because these
+signs are not symmetric (by their shape and meaning).
+
+A {\em specification} is a set of {\em clauses}, where each clause is a
+finite set of literals ({\it i.e.}, multiplicity and ordering of the atoms do
+not matter).  By {\em words} we will mean the union of the sets of terms,
+literals and clauses.
+
+\subsection{Semantics}
+
+Syntactic expressions of the language are interpretated in {\em
+multialgebras} \cite {Kap,Hus,MW} which, unlike usual algebras,
+allow  functions to have multiple values.  Here we also allow them to be
+ {\em partial}, {\it i.e.}, do not have any value for some  arguments.
+
+\begin{definition}\label {def:nd-terms}
+A $\Funcs$-{\em multialgebra} $A$ is a tuple \(\<S^A,\Funcs^A\>\), where
+$S^A$ is a {\em carrier}, and $\Funcs^A$ is a set of set-valued functions
+\(f^A: (S^A)^n\to {\cal P}(S^A)\) where \(f\in \Funcs\), \(n=ar(f)\) and
+\({\cal P}(S^A)\) is the power-set of \(S^A\).
+\end{definition}
+
+In definition of meaning of words we follow \cite {MW,MW-II}. We denote
+boolean values {\em true} by \(\true\) and {\em false} by \(\false\).
+
+\begin{definition} \label {def:nd-semantics}
+Let $A$ be a \(\Funcs\)-multialgebra, \(\epsi: \Vars \to S^A\) be an
+interpretation of variables, then value \(\Value w\) of a word $w$ is a
+subset of $S^A$
+and is defined as follows:
+\begin{enumerate}\smallerspaces
+\item for a variable \(v\in\Vars\), \(\Value v \Def \{\epsi(v)\}\);
+  \label {semantics-v}
+\item for a constant $c\in\Funcs$, \(\Value c \Def c^A\);
+\item for a term \(t=f(\List tn,)\in \Terms\),  \(\Value t \Def
+  \bigcup_{\vec{\alpha} \in \Value{\vec t\,}} 
+  f^A(\vec{\alpha})\), where \(\Value{\vec{t\,}}\Def \Value{t_1}\times \cdots
+  \times \Value{t_n}\); 
+  \label {semantics1}
+\item for a literal \(l=s\oplus t\), \(\Value l \Def
+  F_\oplus(\Value s, \Value t)\), where
+  \vspace{1ex}\newline \(
+  \begin{array}{r@{\ \equiv\ } l@{\quad}r@{\ \equiv\ } l}
+      F_{\Eq}(X,Y) & \forall \alpha\in X\; \forall \beta\in Y\;\alpha=\beta, &
+      F_{\Incl}(X,Y) & X\subseteq Y,\\
+      F_{\Int}(X,Y) & X\cap Y\neq \es, &
+      F_{\neg\otimes}(X,Y) & \neg F_\otimes(X,Y);
+  \end{array}\)
+  \label {semantics3}
+\item for a clause \(C\), \(\Value C \Def
+  \bigvee_{l\in C} \Value{l} \), if \(C\neq \emptyset\) and \(\Value C \Def
+  \false\), otherwise.  
+  \label {semantics4}
+\vspace{-1ex}
+\end{enumerate}
+\end{definition}
+
+Definition of equality $\Eq$ is not perfect, because it makes empty set equal
+to any other set.  In our earlier works, like \cite{MW,KW}, only total
+functions were considered: the value sets of terms were always nonempty,
+and the definition worked well. In the case of partial functions applications
+of equality should be guarded somehow if one wants to focus on and 
+exclude this anomaly.
+
+\begin{definition}\label {def:satisfies}
+A \(\Funcs\)-multialgebra $A$ {\em satisfies} a clause $C$ if \(\Value C =
+\true\) for every interpretation of variables \(\epsi\).
+
+$A$ {\em satisfies} a literal $l$ iff it satisfies the clause
+\(\{ l\}\), and {\em satisfies} a specification \Spec\ iff it satisfies all
+clauses in \Spec.
+\end{definition}
+
+\section{Language of relational terms}\label {sec:rel-terms}
+
+\subsection{Syntax}
+
+We start with the same basic things as in the case of nondeterministic
+specifications: a countable set of variables $\Vars$ and a finite non-empty
+set of functional symbols $\Funcs$.  We allow now functional symbols to have
+results of any arity, not only equal one, therefore, for each \(f\in
+\Funcs\), the arity of results is \(re(f)\in \Nat\).  Symbols with \(re(p)
+=0\) are {\em predicate} symbols, while the ones with \(ar(c)=0\) are
+(multidimensional) {\em constants}.  We write the full profile of a
+functional symbol $f$ in the form \(\type{ar(f)}{re(f)}\).  The output
+dimension of functional symbols and, consequently, of terms is important for
+the definition of terms, which now are called {\em relational terms}.  Since
+it is cumbersome to indicate this explicitly for each functional symbol, we
+extend the arity functions $ar$ and $re$ to the set of all terms.  The way
+symbols are composed is now different from that described in Section~\ref
+{sec:nondet-spec}.  Variables are not relational terms and do not range over
+arbitrary sets -- we are restricting the language to the first-order level,
+where variables range only over individual elements.  In the following
+definition, $\dotminus$ is a restricted substraction: \(n\dotminus 1\) is
+equal $n-1$ if $n>0$, and $0$, otherwise.
+
+\begin{definition}\label {def:rel-terms}
+Let $\Vars$ be a set of variables, $\Funcs$ be a set of functional symbols.
+The set \(\Rterms \Funcs\Vars\) of {\em relational terms} and their arities
+are defined inductively as follows:
+\begin{enumerate}\smallerspaces
+\item $\true$ and $\false$ are relational terms of arity \(\type 00\);
+\item $\ident$ is a relational terms of arity \(\type 11\);
+\item each functional symbol \(f\in \Funcs\) is a relational term;
+\item for a variable \(x\in \Vars\) and a relational term $t$, $x.t$ and
+  $t.x$ are relational terms of arities \(\type {ar(t)\dotminus 1}{re(t)}\)
+  and \(\type {ar(t)}{re(t)\dotminus 1}\), respectively;
+\item for any relational term \(t\), there are relational terms \(\Neg t\) of
+  the same arity as $t$, and \(\rev t\) of arity \(\type {re(t)}{ar(t)}\); 
+\item for any two relational terms \(s,t\) there are relational terms \(s\pro
+  t\) and \(s\plu t\) of arity \(\type {ar(s)+ar(t)}{re(s)+re(t)}\);
+\item for relational terms $s$ and $t$ with \(ar(t)= re(s)\), there are
+  relational terms \(s\comp t\) and \(s\duck t\) of arity \(\type
+  {ar(s)}{re(t)}\);
+\item for relational terms $s$ and $t$, both of an arity \(\type nm\),
+  there are relational terms \(s\join t\) and \(s\meet t\) of the same
+  arity \(\type nm\).
+\end{enumerate}
+\end{definition}
+
+The terms of arity \(\type 00\) are called {\em atoms}, finite sets of
+atoms are {\em clauses}, and sets of clauses form {\em specifications}.
+
+\subsection{Semantics} 
+
+Models where relational terms are interpreted we also call {\em
+multialgebras}, but in the presence of reversal \(\rev t\) and complement
+\(\Neg t\) it is easier to deal with binary relations instead of set-valued
+functions.  Like in the case of functions we write \(R:D\to C\) to denote the
+fact \(R\subseteq D\times C\), then $D$ is called a {\em domain} and $C$ is a
+{\em codomain} of $R$.  The complement of $R$, \((D\times C)\setminus R\), is
+denoted $\Com R$.
+
+\begin{definition}
+A $\Funcs$-{\em multialgebra} $A$ is a tuple \(\<S^A,\Funcs^A\>\), where
+$S^A$ is a {\em carrier} set and $\Funcs^A$ is a set of binary relations
+\(\{f^A: (S^A)^{ar(f)}\to (S^A)^{re(f)}:\) \(f\in \Funcs\}\).
+\end{definition}
+
+Elements of a set $(S^A)^n$ are sequences of the length $n$ and $(S^A)^0$ is
+the set containing only the empty sequence $\emseq$.  Relations of type
+\(\type \emseq \emseq\) form very special case:  they are subsets of the set
+\((S^A)^0\times (S^A)^0 \cong(S^A)^0\).  Obviously, there are only two different
+relations of this type.  In this way we obtain very natural introduction of
+boolean values.
+
+For two binary relations $R$ and $Q$ having as domains and codomains sets of
+sequences, we denote
+\[R\times Q\Def \{\<xu,yv\>: \<x,y\>\in R\land \<u,v\>\in Q\}\]
+product of relations $R,Q$, and
+\[R+ S\Def \{\<xu,yv\>: \<x,y\>\in R\lor \< u,v\>\in Q\}\] 
+some kind of sum, which is dual (not in a categorical sense) to the product:
+\(R+ Q = \Com{(\Com R\times \Com Q)}\).  The composition of the same
+relations, assuming that the domain of $Q$ is the same as the codomain of
+$R$, is denoted
+\[R\circ Q\Def \{\<x,y\> :\exists z(\<x,z\>\in R\land \<z,y\>\in Q)\},\]
+while the operation dual to composition is called {\em relational sum} \cite
+{relsum}. We call it {\em co-composition} and, instead of the strange notation 
+used in \cite{relsum}
+($+$ with ``scorpion tail''), denote it by
+\[R\diamond Q \Def \Com{ (\Com R\circ \Com Q) }.\]  
+The reverse of the relation $R$ is denoted by $\rev R$ and not only
+interchanges arguments, but also reverses them as sequences:
+\[\rev R \Def \{\<\rev y ,\rev x\> :\<x,y\>\in R\},\]
+where \(\rev y ,\ \rev x\) denote reversed sequences $y$ and $x$.  This not
+very usual kind of reversal is necessary to obtain the property \(\rev {x.t}
+=\rev t.x\) (the last argument becomes the first result).
+
+We also need ``cuts'' of relations: if \(R: (S^A)^n\to (S^A)^m\) is
+some relation, and \(a\in S^A\) some carrier element, then
+\[aR\Def \cases{\{\<x,y\> :\<xa,y\>\in R\},& if \(n>0\),\cr R, & if \(n=0\)}\]
+  and
+\[Ra\Def \cases{\{\<x,y\> :\<x,ay\>\in R\},& if \(m>0\),\cr R, & if \(m=0\)}\]
+are two cuts of $R$ by some hyperplanes.  The identity relation on a set $S$,
+\(\{\<a,a\>: a\in S\}\), is denoted \(\I S\).
+
+\begin{definition} \label {def:rel-semantics}
+Let $A$ be a \(\Funcs\)-multialgebra, \(\epsi: \Vars \to S^A\) be an
+interpretation of variables.  Then the value \(\Value t\) of a relational term
+$t\in\Rterms \Funcs\Vars$ is a binary relation 
+\((S^A)^{ar(t)}\to (S^A)^{re(t)}\) defined as follows:
+\begin{enumerate}\smallerspaces
+\item \(\Value \true \Def \{\emseq\}\), \(\Value \false \Def
+  \emptyset\);
+\item \(\Value \ident\Def \I {S^A}\);
+\item for $f\in \Funcs$, \(\Value f\Def f^A\);
+\item for \(v\in\Vars\) and a relational term $s$, \(\Value {v.s}\Def
+  \epsi(v)\Value s\) and \(\Value {s.v}\Def \Value s\epsi (v)\);
+\item for a relational term $t$, \(\Value {\Neg
+  t}\Def \Com{\Value t}\) and \(\Value {\,\rev
+  t\,}\Def \rev{\Value t}\);
+\item for relational terms \(s,t\), \(\Value {s\pro t} \Def \Value s\times
+  \Value t\), \(\Value {s\plu t} \Def \Value s + \Value t\), \(\Value
+  {s\comp t} \Def \Value s\circ \Value t\), \(\Value {s\duck t} \Def
+  \Value s \diamond \Value t\), \(\Value {s\join t} \Def
+  \Value s \cup \Value t\) and \(\Value {s\meet t} \Def
+  \Value s \cap \Value t\).
+\vspace{-1ex}
+\end{enumerate}
+\end{definition}
+
+The set of connectives is not minimal --- we have included almost all dual
+connectives to have the possibility of moving the negation ``up'' and
+``down''.  Only the constant \(\ident\) is left without its dual.  Relational
+terms $s,t$ are {\em equivalent}, written \(s\equiv t\), iff, for any
+\(\Funcs\)-multialgebra $A$ and for every interpretation of variables
+$\epsi$, \(\Value s=\Value t\).  We write \(s=t\) if $s$ and $t$ (possibly
+variables) are syntacticaly {\em identical} terms.
+
+
+\begin{definition}\label {def:rel-satisfies}
+A \(\Funcs\)-multialgebra $A$ {\em satisfies} a clause $C$ if, for every
+interpretation of variables $\epsi$, there exists an atom $t\in C$ such that
+\(t \equiv \true \).
+
+$A$ {\em satisfies} an atom $a$ iff it satisfies the clause
+\(\{ a\}\), and {\em satisfies} a specification \Spec\ iff it satisfies all
+clauses in \Spec.
+\end{definition}
+
+Thus, the semantics of relational language is very similar to the semantics
+of nondeterministic specifications. Before comparing the two languages and
+translating the latter into the former, we make a brief digression.
+
+\subsection{Some equivalences}
+
+There are many equivalences relating relational terms which are well known in
+the theory of relations.  Many of them are included in Table~\ref
+{tbl:rewriting-rules} as rewriting rules which relate equivalent terms.  
+Here are some other laws:
+%Let us mention some others ($r^n$ denotes $n$-fold product of $r$):
+\begin{eqnarray*}
+\noalign{Units of composition and co-composition:}
+  I^{ar(t)}\comp t \equiv t \equiv t\comp I^{re(t)}, & \qquad
+ & {\Neg I}^{ar(t)}\duck t \equiv t \equiv t\duck {\Neg I}^{re(t)},\\[,5ex]
+%\noalign{(units of composition and co-composition)}
+\noalign{Distributivity:}
+   (s\meet t)\join u \equiv (s\join u)\meet (t\join u), & &
+ s\join(t\meet u) \equiv (s\join t)\meet (s\join u), \\
+  (s\join t)\comp u \equiv (s\comp u)\join (t\comp u), & &
+ s\comp(t\join u) \equiv (s\comp t)\join (s\comp u),\\
+%\noalign{($\join$-junctivity of composition)}
+  (s\meet t)\duck u \equiv (s\duck u)\meet (t\duck u), & &
+ s\duck(t\meet u) \equiv (s\duck t)\meet (s\duck u),\\[.5ex]
+%\noalign{$\meet$-junctivity of co-composition)}
+\noalign{If $g$ is a function, then for all $s:$}
+ g\comp s \equiv \Neg g \duck s, & & 
+ s\comp \rev g \equiv s \duck \Neg\rev g,\\
+%\noalign{which are true for all $s$ iff $g$ is a function,}
+\end{eqnarray*}
+Also, all binary connectives are associative, and 
+\(\join,\meet\) and $\Neg$ obey other laws of boolean algebras.
+
+Many relational laws are important for ``calculational'' purposes \cite
+{RelTh,Moor} but are out of scope of the current paper.  We just note here,
+that the most convenient formulation may use the inclusion connective
+\(\incl\):
+\[ s\incl t\equiv \cases{\true, & if \(s\join t\equiv t\),\cr \false, &
+otherwise,}
+\]
+which always forms atoms.  The monotonicity of connectives (all connectives
+but negation and inclusion are monotonic) is then expressible as
+\[
+(s\incl t) \incl ((s\comp u)\incl (t\comp u)),
+\]
+and so on.  The most important among the calculation laws are {\em Galois
+connections} \cite{RelTh}, for example,
+\[
+(s\comp t)\incl u \equiv t\incl (\Neg\rev s \duck u) \equiv s\incl
+(u\duck \Neg\rev t).
+\]
+
+\subsection{Translation of nondeterministic specifications \newline to
+relational terms} \label {sec:transl-nds}
+
+Terms, atoms and literals of nondeterministic specifications can be directly
+translated to relational terms of the same signature. Let \(\transl w\) be a
+relational term obtained by translating word $w$.  The translation function 
+$\transl {\_}$ is
+defined inductively on the structure of $w$ as follows:
+\begin{enumerate}
+\item for a variable \(x\in \Vars\), \(\transl x\Def x.I\);
+\item for a constant \(c\in \Funcs\), \(\transl c\Def c\);
+\item for a term \(t= f(\List tn,)\), where \(ar(f)=n>0\), \(\transl t\Def
+(\transl {t_1}\pro \cdots \pro \transl {t_n})\comp f\); 
+\item for an atom \(a=s\Incl t\), \(\transl a\Def \Neg\transl s\duck \rev 
+{\transl t}\); 
+\item for an atom \(a=s\Int t\), \(\transl a\Def \transl s\comp\rev {\transl t}\);
+\item for an atom \(a=s\Eq t\), \(\transl a\Def \Neg\transl s\duck
+\ident \duck\Neg\rev {\transl t}\);
+\item for a negated atom $\neg a$, \(\transl {\neg a}\Def \Neg \transl a\);
+\end{enumerate}
+
+It is interesting to note here that both intersection and functional
+application to arguments are translated to composition of relations.  The
+translation of equations is a bit complicated --- it demonstrates
+that the deterministic equality $\Eq$ is some hidden form of the identity
+relation $\ident$.
+
+The correctness of translation could be proved comparing semantics of the
+original word $w$ and of the relational term \(\transl w\).  For that we also need
+translate the definition of semantics.  This is rather trivial, because
+in the case of any term $t$, \(\Value t\) is a set, while \(\Value {\transl
+t}= \{\emseq\}\times \Value t\) is a relation of arity \(\<0,1\>\).  The
+literals are obviously translated to relational terms of the atom kind.  It
+is not hard to check all cases of Definition~\ref {def:nd-semantics} and
+prove the equivalence between a literal and the translated term.
+
+
+\section{Complete axiomatisation of valid relational clauses}
+\label {sec:axiomatisation}
+
+We present here the complete calculi in the style of \cite{R-S} for
+establishing validity of relational clauses.  We are influenced by work \cite
+{Marcin} of M.~Bia{\l}asik and B.~Konikowska.
+
+\subsection{Rewriting relation}
+
+Because of multiplicity of connectives in our language, there should be quite
+a lot of logical rules.  We try to reduce their number introducing
+a {\em rewriting relation} between relational terms.  The relation is
+defined by {\em rewriting rules}, which rewrite terms to equivalent ones.
+Their role is quite simple: to push negation down to functional symbols, 
+reversing sings and variable strings, and making some additional
+simplifications.  In particular, the rules allow to eliminate reverse at all:
+at the moment when there is enough variables ``around'' a reversed
+functional symbol to form an atom, this atom can be reversed (the rules with
+$\alpha$ and $\beta$ in Table~\ref {tbl:rewriting-rules}).  To formulate
+this particular kind of rules, we need to denote multiple variables surrounding
+a relational term, like \(x.y.x.F.y.z\) for $F$ of arity \(\type 32\).
+Let us call words like \(x.y.x\) {\em strings} of variables. Then a statement
+``$\alpha$ is a string of length $n$'' means that $\alpha$ is a sequence of
+$n$ variables from $\Vars$ (repetitions are allowed) separated by dot `$.$'.
+The reversed (as a word) string is denoted $\rev\alpha$.
+ 
+Each rewrite rule has the form \(s\rewr t\), the set \C R of rules is
+given in Table~\ref {tbl:rewriting-rules}.
+
+\begin{table}[htb]
+\hspace*{\fill}\(
+\begin{array}{r@{\;\rewr\;}l@{\qquad}r@{\;\rewr\;}l}
+\rev{s\plu t}  & \rev t\plu \rev s, & \Neg(s\plu t) & (\Neg s)\pro (\Neg t),\\
+\rev{s\pro t}  & \rev t\pro \rev s, & \Neg(s\pro t) & (\Neg s)\plu (\Neg t),\\
+\rev{s\comp t} & \rev t\comp \rev s,& \Neg(s\comp t)& (\Neg s)\duck (\Neg t),\\
+\rev{s\duck t} & \rev t\duck \rev s,& \Neg(s\duck t)& (\Neg s)\comp (\Neg t),\\
+\rev{s\join t} & \rev s\join \rev t,& \Neg(s\join t)& (\Neg s)\meet (\Neg t),\\
+\rev{s\meet t} & \rev s\meet \rev t,& \Neg(s\meet t)& (\Neg s)\join (\Neg t),\\
+x.(s\plu p)  & s\plu (x.p),  & x.(s\plu r)  & (x.s)\plu r,\\
+(o\plu t).y  & (o.y)\plu t,  & (q\plu t).y  & q\plu (t.y),\\
+x.(s\pro p)  & s\pro (x.p),  & x.(s\pro r)  & (x.s)\pro r,\\
+(o\pro t).y  & (o.y)\pro t,  & (q\pro t).y  & q\pro (t.y),\\
+x.(s\comp t) & (x.s)\comp t, & (s\comp t).y & s\comp (t.y),\\
+x.(s\duck t) & (x.s)\duck t, & (s\duck t).y & s\duck (t.y),\\
+x.(s\join t) & (x.s)\join(x.t), & (s\join t).y & (s.y)\join(t.y),\\
+x.(s\meet t) & (x.s)\meet(x.t), & (s\meet t).y & (s.y)\meet(t.y),\\
+\alpha.(\rev f).\beta & \rev\beta.f.\rev\alpha, & \alpha.(\Neg\rev f).\beta & \rev\beta.(\Neg f).\rev\alpha,\\
+x.(t.y) & x.t.y, & (x.t).y  & x.t.y,\\
+\end{array}\)\hspace*{\fill}\newline \hspace*{\fill}\(
+\begin{array}{r@{\;\rewr\;}l@{\qquad}r@{\;\rewr\;}l@{\qquad}r@{\;\rewr\;}l@{\qquad}r@{\;\rewr\;}l}
+\rev {t.y}  & y.\rev t, & \Neg (t.y) & (\Neg t).y, &  x.r & r, & q.y  & q,\\
+\rev {x.t}  & \rev t.x, & \Neg x.t   & x.(\Neg t), & \rev \ident & \ident, & \Neg\rev\ident & \Neg\ident,\\
+x.I.x  & \true, & \rev {(\Neg t)} & \Neg (\,\rev t\,), & \rev {\rev t} & t, & \Neg(\Neg t) & t,\\
+\rev \true  & \true, & \Neg \true  & \false, & \rev \false & \false, & \Neg \false & \true, \\
+\end{array}\)\hspace*{\fill}\\[1ex]
+where $x,y\in\Vars$, \(o,p,q,r,s, t\in\Rterms \Funcs\Vars\), \(re(o)>0\),
+\(ar(p)>0\), \(re(q)=0\), \(ar(r)=0\), \(f\in\Funcs\), $\alpha$ and $\beta$ are
+strings of variables of length $re(f)$ and $ar(f)$, respectively.
+\caption{The set of rewriting rules \C R}\label{tbl:rewriting-rules}
+\end{table}
+
+\begin{definition}\label {def:rewriting}
+For two relational terms $s,t$, \(s\Rewr t\) means that there exists a
+position $p$ in $s$ and a rule \(s|_p\rewr u\in\C R\) such that \(t
+=s[u]_p\), {\it i.e.}, the term $t$ is obtained from $s$ by replacement of
+the subterm $s|_p$ by the term $u$.  $\Rewr^+$ denotes the transitive closure
+of the relation $\Rewr$.
+\end{definition}
+
+\subsection{Proof system with invertible rules}
+
+The calculus derives {\em valid} clauses, {\it i.e.},
+clauses which are satisfied in any multialgebra.  We consider clauses as atom
+sets, so repetitions do not matter.  However, for the completeness proof it
+is convenient to fix some order of atoms in any clause.  Therefore we present
+axioms and rules in the form which assumes such an order, for example, a clause
+schema \(C ,\,r ,\, D ,\,s\) presents clauses with some (possibly empty) set
+$C$ of atoms to the left of a term $r$, then there is some set $D$ of
+atoms between $r$ and $s$, and $s$ is the last atom in the clause.  For an
+unordered version, the same set of clauses as above could be
+presented by a schema \(C ,\,r ,\,s\).  We do not want to waste space for
+presenting both versions -- an unordered variant may be easily obtained from the
+ordered one presented here.
+
+We also assume that, as in Table~\ref {tbl:rewriting-rules}, $\alpha$ and
+$\beta$ denote finite (possible empty) strings of variables, with length 
+defined by arity of the neigbouring relational term (variables are not
+relational terms, and variables cannot be surrounded by two terms, so there
+cannot be any ambiguity).
+
+\subsubsection{Axioms}
+
+The following two schemata define the axiomatic clauses:
+\begin{equation}
+C,\,\true,\, D \quad\mbox{ and }\quad C,\,\alpha. f.\beta ,\,D ,\,\alpha.(\Neg
+f).\beta ,\,E,
+\end{equation}
+where \(f\in\Funcs\).  Pairs of atoms of kind \(\alpha. f.\beta\) and
+\(\alpha.(\Neg f).\beta\) are called {\em contrary pairs}.  So, for a clause
+to be an axiom means to contain the atom $\true$ or some contrary pair.  It
+is obvious, that axioms are valid clauses.
+
+\subsubsection{Proof rules}
+
+The following rule (schema) incorporates rewriting rules from \C R into our
+proof system:
+\begin{equation}\label {eq:rewriting}
+\prule{C ,\,t ,\, D}{C ,\,s ,\,D},
+\end{equation}
+for any relational terms $s,t$ such that \( s\Rewr^+ t\)
+\begin{eqnarray}
+\prule{C,\, s.\beta ,\, D ,\, s\comp t\qquad  C,\, \beta.t ,\, D,\, s\comp
+t}{C,\, s\comp t,\, D},
+&\qquad & \label{eq:composition}
+\prule{C,\, s.\alpha ,\,\alpha.t ,\, D}{C,\, s\duck t,\, D},
+\\
+\omit$
+\prule{C,\, s,\, D\qquad  C,\, t,\, D}{C,\, s\meet t,\, D},
+$ \hfil
+& & \label{eq:choice}
+\prule{C,\, s,\, t,\, D}{C,\, s\join t,\, D},
+\\
+\omit$
+\prule{C,\, s,\, D\qquad  C,\, t,\, D}{C,\, s\pro t,\, D},
+$ \hfil
+& & \label{eq:product}
+\prule{C,\, s,\, t,\, D}{C,\, s\plu t,\, D},
+\\
+\omit$
+\prule{C,\, D}{C,\,\false ,\, D},
+$ \hfil
+& & \label{eq:false}
+\prule{[C,\, D]^x_y}{C,\, x.(\Neg\ident).y,\, D},
+\end{eqnarray}
+where $\alpha$ in (\ref {eq:composition}) consists of all distinct variables
+that do not occur in the conclusion of the rule, and \([C,\, D]^x_y\) in
+(\ref {eq:false}) denotes the clause obtained from $C,\,D$ by substitution of
+$x$ for all occurences of $y$.  This variable replacement is also  defined on
+the set of relational terms with the set of rewriting rules presented in
+Table~\ref {tbl:variable-repl}.  For a clause $C$, \([C]^x_y\Def \{[t]^x_y :
+t\in C\}\).  The rules should be also included into the set \C R. 
+\begin{table}[htb]
+\hspace*{\fill}\(
+\begin{array}{r@{\;\rewr\;}l@{\qquad}r@{\;\rewr\;}l}
+\varre txx & t,\\
+\varre Iyx & I, & \varre fyx & f,\\
+\varre {x.t}yx & y.\varre tyx, & \varre {t.x}yx & \varre tyx.y,\\
+\varre {z.t}yx & z.\varre tyx, & \varre {t.z}yx & \varre tyx.z,\\
+\varre {\Neg t}yx & \Neg \varre tyx, & \varre {\rev t}yx & \rev{\varre tyx},\\
+\varre {s\mathbin{\diamondsuit} t}yx & \varre syx \mathbin{\diamondsuit} \varre tyx,\\
+\end{array}\)\hspace*{\fill}\\[1ex]
+where \(x,y,z\in\Vars\), \(z\neq x\), \(f\in \Funcs\), and \(\diamondsuit \in
+\{\comp ,\duck ,\plu ,\pro ,\join ,\meet\}\).
+\caption{Rules for computation of variable replacement}\label{tbl:variable-repl}
+\end{table}
+
+As in Gentzen-style sequential calculus, so in the above system, the
+usual way to obtain proof of validity of some clause $C$ is to start from $C$
+and to build a proof bottom-up. The essential property of presented rules
+is that they are {\em invertible} in the sense of Lemma~\ref {le:invertible},
+what means that there can be no ``wrong'' steps in a proof which would make
+the proof impossible. Of course, some proof steps may be useless.
+
+\begin{lemma}\label {le:invertible}
+For all rules (\ref {eq:rewriting})--(\ref {eq:false}), the conclusion is
+valid iff all the premises are valid.
+\end{lemma}
+\begin{proof}
+Both sides of rewriting rules are equivalent terms, what means that lemma
+is satisfied in the case of rule (\ref {eq:rewriting}). Four rules form (\ref
+{eq:choice}) and (\ref {eq:product}) correspond to analogous rules for
+logical conjuction and disjunction, because in the case of atoms $\join$ and
+$\plu$ behave like disjunction, while $\meet$ and $\pro$ like conjunction.
+The rule with $\false$ is trivial and, in fact, is not needed for
+completeness.  The rule with $\Neg I$ follows from the observation, that
+\(x.I.y\) iff \(x=y\).  The rules from (\ref {eq:composition}) are most
+complicated, because they subsume quantifier rules of the first-order logic.
+Therefore, the rule with $\duck$ requires new variables in the premise, like
+the analogous rule for universal quantification.  The rule for $\comp$
+requires to repeat in the premise the term from the conclusion, because this
+is the only rule, in which we must guess values meant by existential
+quantification, which is hidden in composition. 
+\end{proof}
+
+The notion of proof is defined as usual.
+The completeness result is as follows:
+\begin{theorem}
+A clause is valid iff it has a proof in the presented proof system.
+\end{theorem}
+The proof is presented in Appendix~\ref{app:proof}
+
+\section{Adding $\lambda$-abstraction}\label {sec:lambda}
+
+The introduced language of relational terms have functional symbols with
+arguments firmly divided into two parts.  This is not always convenient
+when we are trying to specify applications described with usual relations, without
+partition of the arguments.  Then, in formulae, we need different partitions of the
+same relations.  It is possible to introduce many duplicates of the same
+relation, one for each necessary partition of arguments, but this is a hard way.
+ Another problem is the fixed order of arguments: sometimes we need
+to compose relations with some changed argument order, and this also causes
+the similar problems as above.
+
+One way to solve this problem would be to use some graphical interface
+language: it is easy to present any connection of arguments in the two
+dimensional plane.  Then, some graph language should be used for
+formalisation.  But we would like to have a more traditional
+``string-oriented'' language.  We found a convenient solution of the argument
+manipulation problems in introduction of the $\lambda$-abstraction
+construction, similar to the functional $\lambda$-calculus.  We use the same
+notation and name of the construction, because there is a close
+correspondence (at least at the syntactic level) with $\lambda$-calculus.
+One should however bear in mind that we consider more general objects than
+functions --- relations --- but with the restriction that values of variables
+are only carrier elements.  Without this last restriction we would have
+generalization of $\lambda$ calculus to the case of relations (or
+nondeterministic functions).
+
+The syntax of relational terms is extended with the following construction:
+\begin{definition}\label{def:syntax-lambda}
+For any relational term $t$ and any variable $x$, \(\lambda x.t\) and
+\(t.x\lambda\) are relational terms of arities \(\type {ar(t)+1}{re(t)}\)
+and, respectively, \(\type {ar(t)}{re(t)+1}\).
+\end{definition}
+
+The semantics of this construction is defined (in terms of Definition~\ref
+{def:rel-semantics}) as follows:
+\begin{definition}\label{def:semantics-lambda}
+\(\Value{\lambda x.t}\Def \{\<ua,v\> :\<u,v\>\in \Vvalue t{\epsi\{ x\mathbin
+{\mapsto }a\}}\}\), where \(\epsi\{ x\mathbin {\mapsto }a\}\) is just $\epsi$
+only updated to map $x$ to a value $a$; similarly, \(\Value{t.x\lambda }\Def
+\{\<u,av\> :\<u,v\>\in \Vvalue t{\epsi\{ x\mathbin {\mapsto }a\}}\}\).
+\end{definition}
+
+For $\lambda$-abstraction \(\lambda x.t\) or \(t.x\lambda\), there is no 
+syntactic restriction of the kind ``$x$ must be a free variable in $t$'',
+and a fictive argument $x$ may be introduced in this way, for example, the
+relation $U$ defined by
+\begin{equation}\label {eq:universal}
+U \Def \true.x\lambda
+\end{equation}
+is of type \(\type 01\) and will be used below.  Also, the multiple occurences of the variable $x$
+in both sides of the relational term $t$ may be resumed in one argument.
+Sequences of abstractions can rearrange argument order, and even change sides
+where arguments occur.  These tricks are used in the following translation of
+the language of first-order predicate calculus to the language of relational
+terms.
+
+\subsection{Translation of first-order predicate language}
+
+Let us fix some signature of first-order predicate language, consisting of
+finite sets $\cal F$ and $\cal P$ of functional and predicate symbols, and
+let \(\Funcs =\cal F\cup P\) be the  signature of relational terms to
+which formulae and terms of predicate language are translated.  We assume
+that predicate formulae are constructed using only logical connectives
+$\land$, $\lor$ and $\neg$.  In order to obtain shorter relational terms after
+translation, we also assume that quantified first-order formulae
+have some restricted form (or have been transformed to this form).  Indeed,
+if \(\forall x A\) is a formula, then $A$ contains free occurences of $x$ and
+is of one of the following forms:
+\begin{itemize}
+\item \(\forall y B\) or \(\exists y B\) for some $B$ (satisfying similar
+requirements);
+\item \(B\lor C\), where both $B$ and $C$ contain free occurences of $x$;
+\item $A$ does not contains binary connectives.
+\end{itemize}
+In the case of a formula \(\exists x A\), the second form is replaced by
+\(B\land C\), while the rest remains the same.  These restrictions collect
+all the cases when a quantifier can not be ``moved further down'' without
+changing the meaning of the whole formula.  For example, \(\forall x(B\land
+C)\) is equivalent to \(\forall x B\land \forall x C\), where quantifiers
+occur at one level lower than before, but an analogous transition when
+$\land$ is replaced by $\lor$ does not ensure equivalence. 
+
+We use the same translation function \(\transl .\) as in Section~\ref
+{sec:transl-nds} where nondeterministic terms and formulae were translated,
+because terms are translated in the same way.  The translation function is
+defined (ambigiously) inductively on the structure of formulae as follows:
+\begin{enumerate}
+\item \(\transl{s=t}\) is  either \(s.I.t\) if both $s,t$ are variables, or
+\((s.I)\comp \transl t\), if $s$ is a variable and $t$ is not, or \(\transl
+s\comp I\comp\transl t\) if both $s,t$ are not variables;
+\item \(\transl {\forall x(F\lor G)}\Def ((\transl F).x\lambda )\duck (\lambda
+x.(\transl G))\);\newline
+\(\transl {\forall x F}\Def U\duck (\lambda x.(\transl F))\);
+\item \(\transl {\exists x(F\land G)}\Def ((\transl F).x\lambda )\comp (\lambda
+x.(\transl G))\);\newline
+\(\transl {\exists xF}\Def U\comp (\lambda x.(\transl F))\);
+\item \(\transl{F\lor G}\Def \transl F\join\transl G\);\newline
+\(\transl{F\land G}\Def \transl F\meet\transl G\);
+\item \(\transl{\neg F}\Def \Neg \transl F\),
+\end{enumerate}
+where $U$ was defined by (\ref{eq:universal}).
+
+For the proof of correctness of translation, a translation of semantics
+would be needed, too.  We suppose that writing down  the definition of
+semantic translation and of the related proof is quite obvious and we do not
+present them here.
+
+\subsection{Supplement to the rewriting rules}
+
+The proof system presented above  remains complete after the extension of the
+language with $\lambda$-abstraction, if the rewriting rule system \C R is
+extended with the rules presented in Table~\ref {tbl:rewr-lambda}.
+\begin{table}[htb]
+\hspace*{\fill}\(
+\begin{array}{r@{\;\rewr\;}l@{\qquad}r@{\;\rewr\;}l}
+\Neg(\lambda x.t) & \lambda x.(\Neg t), & \Neg(t.x\lambda) & (\Neg t).x\lambda,\\
+\rev{\lambda x.t} & \rev t.x\lambda,    & \rev{t.x\lambda} & \lambda x.\rev t,\\
+y.(\lambda x.t) & \varre tyx,     & (t.x\lambda).y  & \varre tyx,\\
+z.(t.x\lambda)  & (z.t).x\lambda, & (\lambda x.t).z & \lambda x.(t.z),\\
+x.(t.x\lambda)  & (x.\varre tvx).v\lambda, & (\lambda x.t).x & \lambda v.(\varre tvx.x),\\ 
+\end{array}\)\hspace*{\fill}\\[1ex]
+where $z$ and $v$ are variables different from $x$ and $v$ does not
+occur in $t$.
+\caption{Rewriting rules for terms with $\lambda$}\label{tbl:rewr-lambda}
+\end{table}
+
+There are $\beta$-reduction rules between them, they are applied to variables
+only because of our restrictions for variables to have only elements as
+values.  Deterministic terms could be substituted in variables, but this kind
+of modification is out of scope of this paper.
+
+\begin{thebibliography}{MM99}
+\bibitem[ABHVW]{RelTh} C.J.~Aarts, R.C.~Backhouse, P.~Hoogendijk,
+   T.S.~Voermans, and J.~van der Woude.  A Relational Theory of Datatypes.
+   September 1992.  Available via World-wide web at {\sf
+   http://www.win.tue.nl/win/cs/wp/papers}.
+\bibitem[BK95]{Marcin} M.~Bia{\l}asik, B.~Konikowska. A Logic for
+   Nondeterministic Specifications. Submitted to {\it Journal  of
+   Nonclassical and Applied Logic}.
+\bibitem[Hes88]{PS1} W.H.~Hesselink. A Mathematical Approach to Nondeterminism
+   in Data Types. {\em ACM Transactions on Programming Languages and Systems},
+   10, pp.87-117, (1988).
+\bibitem[Hus92]{Hus} H.~Hussmann. Nondeterministic algebraic
+   specifications and nonconfluent term rewriting. {\em Journal of Logic
+   Programming}, 12, pp.237-235, (1992).
+\bibitem[Hus93]{HusB} H.~Hussmann. 
+   {\em Nondeterminism in Algebraic Specifications and Algebraic Programs.}
+   Birkh\"auser Boston, (1993).
+\bibitem[Kap88]{Kap} S.~Kaplan. Rewriting with a Nondeterministic Choice
+   Operator. {\it Theoretical Computer Science}, 56:1, pp.37-57, (1988).
+\bibitem[KW94]{KW} V.~Kriau\v ciukas, M.~Walicki.  Reasoning and Rewriting
+   with Set-Relations I: Ground-Completeness.  In {\it Proceedings of
+   CSL'94}, LNCS~933, pp.~264--278 (1995).  Also: Report no.96, Dept. of
+   Informatics, University of Bergen (1994).
+\bibitem[KW95]{KW-nong} V.~Kriau\v ciukas, M.~Walicki.  Reasoning and Rewriting
+   with Set-Relations II: The Non-Ground Completeness.  In {\it Proceedings of
+   ADT'11, Soria-Moria, Oslo, September 19--24, 1995}. LNCS, Springer-Verlag
+   (to appear)
+\bibitem[Mo92]{Moor} O.~de Moor. {\it Categories, Relations and Dynamic
+   Programming}.  D.Phil Thesis. PRG Technical Monograph PRG-98, Programming
+   Research Group, Oxford University Computing Laboratory (1992).
+\bibitem[Pr88]{relsum} V.~Pratt. Dynamic algebras as a well-behaved fragment
+   of relation algebras. \ In C.H.~Bergman, R.D.~Maddux, D.L.~Pigozzi (Eds.)%
+   {\it. Algebraic Logic and Universal Algebra in Computer Science}, Proc. of
+   Conf., Ames, Iowa, USA, June~1--4, 1988. {\it Lect.Notes in Comp.Sci}
+   Springer-Verlag, 425, pp.77--110, (1990).
+\bibitem[RS63]{R-S} H.~Rasiova, R.~Sikorski. {\it The Mathematics of
+   Metamathematics}. Polish Scientific Publishers, Warsaw (1963).
+\bibitem[WM95a]{MW-II} M.~Walicki, S.~Meldal. Multialgebras, Power algebras
+   and Complete Calculi of Identities and Inclusions. In {\it Recent Trends
+   in Data Type Specification, Selected papers of joint 10th ADT and 5th
+   COMPASS workshops, S.~Margherita, Italy, May 30 - June 3, 1994},
+   Springer-Verlag, LNCS~906, pp.~453--468 (1995).
+\bibitem[WM95b]{MW} M.~Walicki, S.~Meldal. A Complete Calculus for 
+   Multialgebraic and Functional Semantics of Nondeterminism. 
+   {\it ACM Trans. on Programming Languages and Systems}, vol.~17, N0.~2,
+   pp.~366--393 (1995).
+\end{thebibliography} 
+
+\appendix
+\section{The proof of completeness}\label {app:proof}
+
+Lemma~\ref{le:invertible} implies soundness of the proof rules, {\it i.e.},
+if there exists a proof of a clause $C$, then the clause $C$ is valid.  
+%This is because axioms are valid and then all derivable from them are also valid.
+As usual, the hardest part is completeness: to show that if there
+does not exist a proof of $C$ then there does exist a model (multialgebra)
+not satisfying $C$.  And what is quite usual for this kind of proofs of
+model existence, is to solve an even harder problem: to show, that if
+$C$ does not have a proof built according to some given strategy, then there
+exists a model not satisfying $C$.  
+
+\subsection{Proof strategy}
+
+The strategy used in our case supposes some order of atoms in any clause.
+According to this strategy, inference rules are always applied (bottom-up) to
+the first atom (from the left, or in some other ordering) 
+that allows application of some rule. The only atoms to which
+rules can not be applied are
+\begin{equation}\label {eq:primitive}
+x.I.y,\qquad \alpha.f.\beta,\qquad \alpha.(\Neg f).\beta,
+\end{equation} 
+where \(f\in\Funcs\), $\alpha$ and $\beta$ are variable strings of length,
+respectively, $ar(f)$ and $re(f)$.  
+
+All rules except two -- the rewriting rule (\ref{eq:rewriting}), and the 
+$\comp$-rule (\ref{eq:composition}) -- are {\em
+deterministic}, in the sense, that their conclusion defines premisses
+unambigiously, in the case of $\duck$-rule, up to renaming of new variables.
+
+
+The rule (\ref{eq:rewriting}) involving rewriting can be made deterministic too,
+ because of the following result.
+
+\begin{lemma}\label {le:confluent}
+The rule system \C R is terminating and confluent, {\it i.e.}, for any
+relational term $t$ there is no infinite sequence \(t\Rewr
+t_1\Rewr\cdots\) of rewritings, and, if $t$ can be rewritten in \C R,
+then there exists a unique term $t'$ such that $t\Rewr^+ t'$ and $t'$ can not
+be rewritten in \C R.
+\end{lemma}
+\begin{proof}
+Proof by induction on the levels of occurrences of negation, reverse and
+variables in $t$. 
+\end{proof}
+
+We can add to our strategy the requirement, that in the proof rule with
+rewritings, $t$ should be in {\em normal form}, {\it i.e.}, can not be
+rewritten in \C R.  Then uniqueness of the normal form guarantees determinism
+of this proof rule.  
+
+Only the $\comp$-rule is a possible source of infinite proofs.  The strategy must be
+{\em fair} with respect to this rule, i.e., if there is an
+infinite branch in some proof-tree built according to the strategy, and \C X is
+the set of all variables occurring in clauses along this branch, then for any
+term \(s\comp t\) that occurs in the branch and for any string \(\gamma\) of
+length $re(s)$ with variables from \C X, there exists in the branch an
+application of $\comp$-rule to \(s\comp t\) with $\beta=\gamma$.  We will
+construct the carriers of the model from variables, and we must be sure that the
+$\comp$-rule along an infinite branch exhausts all possible combinations of
+carrier elements.  This exhaustive search can be fixed in the strategy,
+because \C X is countable and hence \(\C X^{re(s)}\) is countable, too.  In
+this way the $\comp$-rule also can be made deterministic.  This
+determinization assumes some variable ordering, also needed for
+determinisation of the $\duck$-rule.
+
+As a result, we may assume, that our strategy is deterministic and fair.
+
+\subsection{Premultialgebras}
+
+{\em Premultialgebras}, which are derivable from sets of
+atoms of the forms listed in (\ref {eq:primitive}), will help us in the 
+construction of countermodel.
+
+\begin{definition}
+A {\em $\Funcs$-premultialgebra} is a triple \(P=\<S^P ,\Funcs^P ,I^P_-\>\),
+where $S^P$ is a {\em carrier}, \(\Funcs^P\) is a set of
+binary relations \(\{f^P_-,f^P_+: (S^P)^{ar(f)}\to (S^P)^{re(f)}:\) \(f\in
+\Funcs\}\) such that \(f^P_-\cap f^P_+ =\emptyset\) and \(I^P_-\subseteq
+S^P\times S^P\) is a binary relation, \(x.I^P_-.y\then x\neq y\).
+\end{definition}
+
+For a given set $C$ of atoms each having a form listed in (\ref
+{eq:primitive}), and not containing a contrary pair, 
+a premultialgebra $\Pre C$ is constructed in the following
+way: the carrier consists of all the free variables occuring in $C$, 
+$I_-$ is defined by \(xy\in
+I_-\iff x.I.y\in C\), and the rest of relations is defined as follows 
+(keeping in mind 1-1 correspondence between variable
+strings and sequences and therefore allowing ourselves 
+some unstrictness in notations)
+\begin{eqnarray}
+\alpha .\beta\in f_- & \iff & \alpha .f .\beta\in C,\\
+\alpha .\beta\in f_+ & \iff & \alpha .(\Neg f) .\beta\in C.
+\end{eqnarray}
+If $C$ does not contain a contrary pair, then \(\Pre C\) is a
+premultialgebra.
+
+When in a $\Funcs$-premultialgebra $P$, for all \(f\in\Funcs :
+\Com{(f^P_+)} = f^P_-\), and \(\Com I = I^P_-\), then $P$ determines a $\Funcs
+$-multialgebra. A multialgebra can be obtained by choosing the 
+interpretation of $f$ as either $f^P_+$ or as $f^P_-$.
+%\(\Pre C\) for a clause $C$ does not satisfy $C$. 
+Choosing the former
+interpretation (of $f$ as $f^P_+$) will yield a multialgebra which does not
+satisfy $C$, and it is this interpretation we will have in mind in the sequel.
+
+The following result is quite obvious, and we present it
+without proof.
+
+\begin{lemma}\label {le:pre-compl}
+Each $\Funcs $-premultialgebra can be completed to a $\Funcs $-multialgebra. \\
+More specifically, given a clause $C$ of atoms having the forms from (\ref{eq:primitive})
+which does not contain a contrary pair, $\Pre C$ can be 
+completed to a multialgebra which does not satisfy $C$.
+\end{lemma}
+
+For a function \(h: S\to T\) and a sequence \(\List ak{}\in S^*\) let us write
+\(h(\List ak{} )\) for the sequence of images \(h(a_1)\ldots h(a_k)\), 
+and for a subset \(S'\subseteq S\), let \(h(S' )\Def\{ h(a) :a\in S'\}\).
+
+\begin{definition}\label {def:homo} For two $\Funcs $-premultialgebras $P$
+and $Q$, a function \(h: S^P\to S^Q\) is a {\em pre-\-ho\-mo\-morphism},
+denoted \(h: P\to Q\), iff \(h(I^P_-)\subseteq I^Q_-\) and, for all \(f\in
+\Funcs\), \(h(f^P_+)\subseteq f^Q_+\) and \(h(f^P_-)\subseteq f^Q_-\).
+\end{definition}
+
+For example, an embedding of a premultialgebra $P$ into $P'$ obtained
+from $P$ according to Lemma~\ref{le:pre-compl} is a pre-homorphism.
+Pre-homomorphisms are closed under composition, what follows directly from
+Definition~\ref {def:homo}.  For us, the following result is essential:
+
+\begin{lemma}\label {le:contin}
+For any (finite or infinite) sequence of $\Funcs $-premultialgebras connected
+sequentially by pre-homomorphisms:
+\[
+P_0\mathop{\longrightarrow}^{h_0} P_1 \mathop{\longrightarrow}^{h_1} P_2
+\mathop{\longrightarrow}^{h_2} \cdots
+\]
+there exists a $\Funcs $-premultialgebra $P$ and pre-homomorphisms \(g_i:
+P_i\to P\) such that \(g_i=h_{i+1};g_{i+1}\).\footnote {The order of
+composition is diagramatic.}
+\end{lemma}
+\begin{proof}
+The construction is quite standard.  Form the set $S$ as a
+disjoint union of all carriers $S^{P_i}$, and let the relation $H$ be the
+union of all functions $h_i$ considered as relations.  Let $E\subseteq S\times S$
+be the reflexive, symmetric and transitive closure of $H$, and
+$S^P$ be the set of all equivalence classes over $S$ wrt. $E$.  Then define
+ $f^P_-$, $f^P_+$ and $I^P_-$ on these classes, if the corresponding relation holds 
+for some representatives in some of premultialgebras $P_i$.  
+Monotonicity along the whole
+sequence ensured by the existing pre-homomorphisms implies that requirements
+for $P$ to be a premultialgebra are satisfied. (In particular, 
+$f^P_-\cap f^P_+ =\emptyset$, for if not, then these two sets would intersect
+already for some $P_i$. A similar compactness argument shows that $I^P_-$ does not
+relate equal elements.)
+
+The required pre-homomorphisms $g_i$ simply map elements to their classes.
+\end{proof}
+
+\subsection{Model from variables}
+
+Assume that a clause $C$ does not have a proof. Then a proof-tree built according
+to the strategy is not a proof, i.e., it contains a branch which either is
+infinite or else ends with a clause that is not an axiom and consists only of
+atoms of the forms listed in (\ref {eq:primitive}).  In the latter case the
+clause $D$ ending the branch does not contain a contrary pair, so \(\Pre D\)
+can be completed to a multialgebra, which does not satisfy $D$ 
+by Lemma~\ref{le:pre-compl} and, by Lemma~\ref {le:invertible}, does not satisfy $C$.
+
+In the case of an infinite branch, let \(C=C_0,\List Ck,\ldots\) be the
+sequence of the clauses in this branch, \(D_i\subseteq C_i\) be the set
+of all atoms from $C_i$ that have the forms listed in (\ref {eq:primitive}).
+Each $D_i$ does not contain a contrary pair and therefore \(\Pre {D_i}\) is a
+premultialgebra.  Variable {\em embedings} are pre-homomorphisms in cases of all rules
+except the rule for \(\Neg I\), because this is the only rule which can change
+$D_i$ renaming its variables.  
+This rule replaces one of the variables from the active atom \(x.(\Neg I).y\)
+by the other one. 
+We therefore have to map both variables $x,y$ from this atom  to the one which is
+left, and all the remaining variables onto themselves.
+It is easy to see that such a map will be a pre-homomorphism.  
+
+This means that the sequence of premultialgebras
+\(\Pre{D_0},\Pre {D_1},\ldots\) is connected by pre-homomorphisms.  Lemma~\ref
+{le:contin} states, for such a case, the existence of a premultialgebra with 
+a pre-homomorphism from each $\Pre D_i$, which therefore does not satisfy
+any of $D_i$.
+By Lemma~\ref {le:pre-compl}, we can conclude the existence of a 
+multialgebra $M$ that does not satisfy any $D_i$.  
+The pre-homomorphisms whose existence is stated in Lemma~\ref {le:contin} are
+variable interpretations giving necessary counterexamples.  
+
+To show that $M$ also does not satisfy any $C_i$, induction on the length of formulae
+is used.  Special treatment is required for the formulae \(s\comp
+t\), but their unsatisfiability follows easily from the fairness of the strategy.
+\end{document}
+
+
+The analogous methods for the case of relational terms
+are theme for another paper, but here we only would like to see, to what
+properties of relational terms are translated the following properties:
+
+\begin{eqnarray*}
+s\Eq t & \impl &  u[s]_p \Seteq  u[t]_p, \\ 
+s\Incl t & \impl & u[s]_p \Incl  u[t]_p, \\   
+s\Int t & \impl & u[s]_p \Int  u[t]_p,\vspace{-1ex}
+\end{eqnarray*}
+where 
+\begin{equation} \label{eq:Seteq-definition}
+s\Seteq t\Def s\Incl t\land s\Cont t.
+\end{equation}
+ and following ones encoded in the table:
+\begin{table}[hbt]
+\[\begin{array}{|c||c|c|c|c|c|c|c|c|}
+\hline
+          & s\Eq u   & s\Incl u & s\Cont u & s\Int u   & s\notEq u   & s\notIncl u & s\notCont u & s\notInt u\\
+\hline \hline
+s\Eq t    & t\Eq u   & t\Incl u & t\Eq u   & t\Incl u  & t\notCont u & t\notInt u  & t\notCont u & t\notInt u\\
+\hline 
+s\Incl t  & t\Cont u & t\Int u  & t\Cont u & t\Int u   & t\notEq u   & t\notIncl u & t\notEq u   & t\notIncl u \\
+\hline 
+s\Cont t  & t\Eq u   & t\Incl u & -        & -         & -           &    -        & t\notCont u & t\notInt u\\
+\hline 
+s\Int t   & t\Cont u & t\Int u  & -        & -         & -           &    -        & t\notEq u   & t\notIncl u\\
+\hline 
+\end{array}\]
+\caption{Rules for literal composition}\label {tbl:composition}\vspace{-1ex}
+\end{table}
+

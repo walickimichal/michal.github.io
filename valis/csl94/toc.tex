@@ -1,0 +1,278 @@
+\documentstyle{llncs}
+
+
+\newcommand{\sekcja}[1]{{\vspace{.5cm} \noindent\large \sc \makebox[12.58cm]{#1}}} 
+
+%\input pstricks
+%\newgray{jasny}{.95}
+%\newcommand{\sekcja}[1]{{\vspace{.5cm} \noindent\large \sc \psframebox*[fillcolor=jasny]{\makebox[12.58cm]{#1}}}} 
+
+\newcommand{\paper}[3]{\contentsline {section} 
+{{\bf #2} \hfill\\{\em #1}}{#3}}
+
+\begin{document}
+
+The 1994 {\em Annual Conference of the European Association for Computer Science Logic, CSL'94\/} was held in Kazimierz (Poland) from September 25 through September 30 , 1994. CSL'94 was the eighth in the series of workshops and the third to be held as the Annual Conference of the European Association for Computer Science Logic. 
+
+The workshop was attended by 100 participants from over 15 countries. Invited lectures were given by M.~Ajtai, M.~Baaz, H.~Barendregt, J.-P.~Jouannaud, V.~Orevkov, P.~Pudlak, and A.~Tarlecki. Moreover, 39 contributed talks selected from 151 submissions were presented. The selection and nomination of invited speakers was done by the Program Committee consisting of E.~B\"orger, M.~Dezani, N.~Jones, P.~Kolaitis, J.~Krajicek, J.-L.~Krivine, L.~Pacholski, A.~Pitts, A.~Razborov, and \linebreak J.~Tiuryn (Chair). We would like to express our gratitude to the Program Committee for time and effort they contributed to the task of selecting the best papers from the unexpectedly large number of submissions. We are also thankful to over 200 subreferees who have helped the program committee.
+
+The conference was organized by Warsaw University. We would like very much to thank Dr. Igor Walukiewicz for the splendid work he has contributed to the success of the meeting. Special thanks go to R.~Maron and A.~Schubert for their help with organizing and running the conference office. We also wish to thank to M.~Benke and G.~Grudzi\'nski for taking care of the computers used during the conference.
+
+We gratefully acknowledge the generous sponsorship by the following institutions:
+\begin{itemize}
+\item Office of Naval Research, under the Grant Number N00014-94-J9001 \item
+%Polish State Research Granting Agency (KBN), Polish Committee for Scientific Research (KBN), \item Warsaw University
+\item Wroc\l aw University
+\item Mathematical Institute of the Polish Academy of Sciences \end{itemize}
+
+Due to the financial support of ONR and KBN we were able to offer a number of grants for participants who otherwise would not afford to come to the conference.
+
+The topics covered by the talks at the conference addressed all important aspects of the methods of mathematical logic in computer science: finite model theory, lambda calculus, type theory, modal logics, non-monotonic reasoning, decidability problems, as well as inter-play between complexity theory and logic. 
+
+The order of the papers in the proceedings, unlike in the previous ones, follows more closely the order they were presented during the conference and they are grouped according to the subjects. 
+
+Following the traditional procedure for CSL volumes, papers were collected after the presentation at the conference and after a regular reviewing process 38 papers have been selected for publication. We thank the referees of the final versions. Without them it would have been impossible to prepare this volume. Finally, we would like to thank W.~Charatonik for his help in collecting the papers for the proceedings.
+\vskip0.5in
+
+
+March, 1995 \hfill	Leszek Pacholski, Jerzy Tiuryn
+
+\vfill\eject
+
+
+
+\begin{center}
+{\Large \bf Table of contents}\\[.5cm]
+\end{center}
+
+\sekcja{Lambda Calculus}
+
+
+\paper{David Aspinall}
+{Subtyping with Singleton Types}
+{1}
+
+\paper{Viviana Bono, Luigi Liquori}
+{A Subtyping for the Fisher-Honsell-Mitchell Lambda Calculus of Objects} {16}
+
+\paper{Torben Bra\"uner}
+{The Girard Translation Extended with Recursion} {31}
+% 15 p.
+
+\paper{Adriana B. Compagnoni}
+{Decidability of Higher-Order Subtyping with Intersection Types} {46}
+
+\paper{Hugo Herbelin}
+{A $\lambda$-calculus Structure Isomorphic to Gentzen-style Sequent Calculus Structure}
+{61}
+
+\paper{Jan Kuper}
+{Usability: Formalising (un)definedness in Typed Lambda Calculus} {76}
+
+
+\paper{Marek Zaionc}
+{Lambda Representation of Operations Between Different Term Algebras} {91}
+
+
+\medskip
+
+
+
+\sekcja{Proof Theory}
+
+
+
+\paper{Matthias Baaz, Gernot Salzer}
+{Semi-Unification and Generalizations of Particularly Simple Form} {106}
+
+\paper{Nick Benton}
+{A Mixed Linear and Non-Linear Logic: Proofs, Terms and Models} {121}
+
+\paper{Lev Gordeev}
+{Cut Free Formalization of Predicate Logic with Finitely Many Variables} {136}
+
+
+\paper{Pavel Pudl\'ak, Samuel R. Buss}
+{How to Lie without Being (easily) Convicted and the Lengths of Proofs in Propositional Calculus} {151}
+\medskip
+
+
+
+\sekcja{Finite Model Theory}
+
+
+
+\paper{Bruno Courcelle}
+{Monadic Second-Order Logic and Linear Orderings of Finite Structures} {163}
+
+\paper{Arnaud Durand, Solomampionona Ranaivoson} {First-Order Spectra with One Binary Predicate} {177}
+
+\paper{Etienne Grandjean, Fr\'ed\'eric Olive} {Monadic Logical Definability of NP-Complete Problems} {190}
+
+\paper{Clemens Lautemann, Thomas Schwentick, Denis Th\'erien} {Logics For Context-Free Languages}
+{205}
+
+
+\paper{Anders Malmstr\"om}
+{Log-approximable Minimization Problems on Random Inputs} {217}
+
+\paper{Monica McArthur}
+{Convergence and 0-1 Laws for $L^k_{\infty,\omega}$ under Arbitrary Measures} {228}
+
+
+\paper{Alexei P. Stolboushkin, Michael A. Taitslin} {Is First Order Contained in an Initial Segment of PTIME?} {242}
+
+\medskip
+
+
+\sekcja{Logic Programming}
+
+
+\paper{Stacy E. Finkelstein, Peter Freyd, James Lipton} {Logic Programming in Tau Categories}
+{249}
+
+\paper{Valentinas Kriau\v ciukas, Micha{\l} Walicki} {Reasoning and Rewriting with Set-Relations I: Ground Completeness} {264}
+
+\paper{Hans de Nivelle}
+{Resolution Games and Non-Liftable Resolution Orderings} {279}
+
+\paper{Klaus U. Schulz}
+{On Existential Theories of List Concatenation} {294}
+
+\paper{Tanel Tammet}
+{Completeness of Resolution for Definite Answers with Case Analysis} {309}
+
+\paper{Paul J. Voda}
+{Subrecursion as a Basis for a Feasible Programming Language} {324}
+\medskip
+
+\sekcja{Semantics}
+
+\paper{Roy L. Crole, Andrew D. Gordon}
+{A Sound Metalogical Semantics for Input/Output Effects} {339}
+
+\paper{Matt Fairtlough, Michael Mendler} {An Intuitionistic Modal Logic with Applications to the Formal Verification of Hardware} {354}
+
+\paper{David Lester, Sava Mintchev}
+{Towards Machine-checked Compiler Correctness for Higher-order Pure Functional 
+Languages}
+{369}
+
+\paper{Yannis N. Moschovakis, Glen T. Whitney} {Powerdomains, Powerstructures and Fairness} {382}
+
+\paper{Frank Piessens, Eric Steegmans}
+{Canonical Forms for Data-Specifications} {397}\medskip
+
+
+\sekcja{Category Theory}
+
+
+\paper{Claudio Hermida, Bart Jacobs}
+{An algebraic view of structural induction} {412}
+
+\paper{Martin Hofmann}
+{On the Interpretation of Type Theory in Locally Cartesian Closed Categories} {427}
+\medskip
+
+
+
+\sekcja{Other Logical Systems}
+
+
+\paper{Alexander V. Chagrov, Valentin B. Shehtman} {Algorithmic Aspects of Propositional Tense Logics} {442}
+
+\paper{Pawe\l\ Cholewi\'nski}
+{Stratified Default Theories}
+{456}
+
+\paper{Nils Klarlund}
+{A Homomorphism Concept for $\omega$-Regularity} {471}
+
+\paper{Daniel Leivant, Jean-Yves Marion} {Ramified Recurrence and Computational Complexity II: Substitution and Poly-space} {486}
+
+\paper{Hrant Babkeni Marandjian}
+{General Form Recursive Equations I}
+{501}
+
+\paper{Vladimir V. Rybakov}
+{Modal Logics Preserving Admissible for S4 Inference Rules} {512}
+
+\paper{Vladimir Yu.\ Sazonov}
+{A Bounded Set Theory With Anti-Foundation Axiom and Inductive Definability} {527}
+\medskip
+
+\vspace{.5cm}
+\contentsline{section}{Author index}
+{542}
+
+
+\newpage
+\noindent
+{\Large \bf Author index}\\[.5cm]
+\begin{minipage}[t]{5cm}
+Aspinall	\dotfill 1 \\[.1cm]
+Baaz	\dotfill 106 \\[.1cm]
+Benton	\dotfill 121 \\[.1cm]
+Bono	\dotfill 16 \\[.1cm]
+Bra\"uner	\dotfill 31 \\[.1cm]
+Buss	\dotfill 151 \\[.1cm]
+Chagrov	\dotfill 442 \\[.1cm]
+Cholewi\'nski	\dotfill 456 \\[.1cm]
+Compagnoni	\dotfill 46 \\[.1cm]
+Courcelle	\dotfill 163 \\[.1cm]
+Crole	\dotfill 339 \\[.1cm]
+Durand	\dotfill 177 \\[.1cm]
+Fairtlough	\dotfill 354 \\[.1cm]
+Finkelstein	\dotfill 249 \\[.1cm]
+Freyd	\dotfill 249 \\[.1cm]
+Gordeev	\dotfill 136 \\[.1cm]
+Gordon	\dotfill 339 \\[.1cm]
+Grandjean	\dotfill 190 \\[.1cm]
+Herbelin	\dotfill 61 \\[.1cm]
+Hermida	\dotfill 412 \\[.1cm]
+Hofmann	\dotfill 427 \\[.1cm]
+Jacobs	\dotfill 412 \\[.1cm]
+Klarlund	\dotfill 471 \\[.1cm]
+Kriau\v ciukas	\dotfill 264 \\[.1cm]
+Kuper	\dotfill 76 \\[.1cm]
+Lautemann	\dotfill 205 \\[.1cm]
+Leivant	\dotfill 486 \\[.1cm]
+Lester	\dotfill 369 \\[.1cm]
+Lipton	\dotfill 249 \\[.1cm]
+\end{minipage}
+\hfill
+\begin{minipage}[t]{5cm}
+Liquori	\dotfill 16 \\[.1cm]
+Malmstr\"om	\dotfill 217 \\[.1cm]
+Marandjian	\dotfill 501 \\[.1cm]
+Marion	\dotfill 486 \\[.1cm]
+McArthur	\dotfill 228 \\[.1cm]
+Mendler	\dotfill 354 \\[.1cm]
+Mintchev	\dotfill 369 \\[.1cm]
+Moschovakis	\dotfill 382 \\[.1cm]
+Nivelle	\dotfill 279 \\[.1cm]
+Olive	\dotfill 190 \\[.1cm]
+Piessens	\dotfill 397 \\[.1cm]
+Pudl\'ak	\dotfill 151 \\[.1cm]
+Ranaivoson	\dotfill 177 \\[.1cm]
+Rybakov	\dotfill 512 \\[.1cm]
+Salzer	\dotfill 106 \\[.1cm]
+Sazonov	\dotfill 527 \\[.1cm]
+Schulz	\dotfill 294 \\[.1cm]
+Schwentick	\dotfill 205 \\[.1cm]
+Shehtman	\dotfill 442 \\[.1cm]
+Steegmans	\dotfill 397 \\[.1cm]
+Stolboushkin	\dotfill 242 \\[.1cm]
+Taitslin	\dotfill 242 \\[.1cm]
+Tammet	\dotfill 324 \\[.1cm]
+Th\'erien	\dotfill 205 \\[.1cm]
+Voda	\dotfill 309 \\[.1cm]
+Walicki	\dotfill 264 \\[.1cm]
+Whitney	\dotfill 382 \\[.1cm]
+Zaionc	\dotfill 91 \\[.1cm]
+\end{minipage}
+\eject
+~
+
+
+\end{document}

@@ -1,0 +1,197 @@
+This is TeX, Version 3.1415 (C version 6.1) (format=latex 94.6.28)  20 MAY 1996 11:37
+**&latex2e adt
+(adt.tex
+LaTeX2e <1994/06/01> patch level 2
+Hyphenation patterns for english, norsk, swedish, danish,
+german & francais loaded.
+(/local/TeX/macros/LaTeX/latex209.def
+File: latex209.def 1994/06/01 Standard LaTeX file
+
+Entering LaTeX 2.09 compatibility mode.
+\footheight=\dimen102
+\@maxsep=\dimen103
+\@dblmaxsep=\dimen104
+(/local/TeX/macros/LaTeX/tracefnt.sty
+Package: tracefnt 1994/05/29 v2.3k Standard LaTeX package (font tracing)
+\tracingfonts=\count82
+LaTeX Info: Redefining \selectfont on input line 113.
+)
+\symbold=\mathgroup4
+\symsans=\mathgroup5
+\symtypewriter=\mathgroup6
+\symitalic=\mathgroup7
+\symsmallcaps=\mathgroup8
+\symslanted=\mathgroup9
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 179.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 180.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 181.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 187.
+LaTeX Info: Redefining \em on input line 197.
+ (/local/TeX/macros/LaTeX/latexsym.sty
+Package: latexsym 1994/05/27 v2.1e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup10
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+LaTeX Font Info:    Redeclaring math delimiter \lgroup on input line 262.
+LaTeX Font Info:    Redeclaring math delimiter \rgroup on input line 264.
+LaTeX Font Info:    Redeclaring math delimiter \bracevert on input line 266.
+)
+Compatibility mode: loading llncs.sty rather than llncs.cls.
+
+(llncs.sty
+Document Style `llncs', <version 1.2>
+\c@part=\count83
+\c@section=\count84
+\c@subsection=\count85
+\c@subsubsection=\count86
+\c@paragraph=\count87
+\c@figure=\count88
+\c@table=\count89
+\c@@inst=\count90
+\c@@auth=\count91
+\c@theorem=\count92
+\c@example=\count93
+)
+\c@ITEM=\count94
+ (adt.aux)
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 125.
+LaTeX Font Info:    ... okay on input line 125.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 125.
+LaTeX Font Info:    ... okay on input line 125.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 125.
+LaTeX Font Info:    ... okay on input line 125.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 125.
+LaTeX Font Info:    ... okay on input line 125.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 125.
+LaTeX Font Info:    ... okay on input line 125.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 125.
+LaTeX Font Info:    ... okay on input line 125.
+LaTeX Font Info:    No math setup on input line 163.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 163.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 163.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 163.
+ (/local/TeX/macros/LaTeX/Ulasy.fd
+File: Ulasy.fd 1994/05/27 v2.1eLaTeX symbol font definitions
+)
+LaTeX Font Info:    No math setup on input line 163.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 163.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 163.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 163.
+LaTeX Font Info:    No math setup on input line 163.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <9> on input line 163.
+LaTeX Font Info:    No math setup on input line 195.
+ [1
+
+]
+LaTeX Font Info:    No math setup on input line 261.
+LaTeX Font Info:    No math setup on input line 268.
+LaTeX Font Info:    No math setup on input line 269.
+ [2]
+LaTeX Font Info:    No math setup on input line 353.
+LaTeX Font Warning: Font shape `U/lasy/b/n' in size <7> not available
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 353.
+LaTeX Font Warning: Font shape `U/lasy/b/n' in size <5> not available
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 353.
+LaTeX Font Info:    No math setup on input line 353.
+LaTeX Font Info:    No math setup on input line 390.
+LaTeX Font Info:    No math setup on input line 443.
+LaTeX Font Info:    No math setup on input line 461.
+ [3]
+LaTeX Font Info:    No math setup on input line 531.
+ [4] [5]
+LaTeX Font Info:    No math setup on input line 634.
+ [6]
+LaTeX Font Info:    No math setup on input line 677.
+LaTeX Font Info:    No math setup on input line 685.
+LaTeX Font Info:    No math setup on input line 685.
+LaTeX Font Info:    No math setup on input line 689.
+LaTeX Font Info:    No math setup on input line 689.
+LaTeX Font Info:    No math setup on input line 692.
+LaTeX Font Info:    No math setup on input line 692.
+LaTeX Font Info:    No math setup on input line 693.
+LaTeX Font Info:    No math setup on input line 693.
+LaTeX Font Info:    No math setup on input line 696.
+LaTeX Font Info:    No math setup on input line 696.
+LaTeX Font Info:    No math setup on input line 699.
+LaTeX Font Info:    No math setup on input line 699.
+LaTeX Font Info:    No math setup on input line 717.
+LaTeX Font Info:    No math setup on input line 733.
+LaTeX Font Info:    No math setup on input line 733.
+LaTeX Font Info:    No math setup on input line 733.
+LaTeX Font Info:    No math setup on input line 733.
+LaTeX Font Info:    No math setup on input line 733.
+LaTeX Font Info:    No math setup on input line 733.
+LaTeX Font Info:    No math setup on input line 733.
+LaTeX Font Info:    No math setup on input line 733.
+LaTeX Font Info:    No math setup on input line 733.
+LaTeX Font Info:    No math setup on input line 733.
+LaTeX Font Info:    No math setup on input line 733.
+LaTeX Font Info:    No math setup on input line 733.
+LaTeX Font Info:    No math setup on input line 733.
+LaTeX Font Info:    No math setup on input line 733.
+LaTeX Font Info:    No math setup on input line 733.
+LaTeX Font Info:    No math setup on input line 733.
+LaTeX Font Info:    No math setup on input line 739.
+LaTeX Font Info:    No math setup on input line 739.
+LaTeX Font Info:    No math setup on input line 739.
+LaTeX Font Info:    No math setup on input line 739.
+LaTeX Font Info:    No math setup on input line 739.
+LaTeX Font Info:    No math setup on input line 739.
+LaTeX Font Info:    No math setup on input line 739.
+LaTeX Font Info:    No math setup on input line 739.
+LaTeX Font Info:    No math setup on input line 740.
+LaTeX Font Info:    No math setup on input line 740.
+LaTeX Font Info:    No math setup on input line 740.
+LaTeX Font Info:    No math setup on input line 740.
+LaTeX Font Info:    No math setup on input line 740.
+LaTeX Font Info:    No math setup on input line 740.
+LaTeX Font Info:    No math setup on input line 740.
+LaTeX Font Info:    No math setup on input line 740.
+LaTeX Font Info:    No math setup on input line 744.
+ [7]
+LaTeX Font Info:    No math setup on input line 766.
+LaTeX Font Info:    No math setup on input line 786.
+LaTeX Font Info:    No math setup on input line 802.
+LaTeX Font Info:    No math setup on input line 816.
+
+[8]
+LaTeX Font Info:    No math setup on input line 841.
+LaTeX Font Info:    No math setup on input line 854.
+ [9]
+LaTeX Font Info:    No math setup on input line 903.
+LaTeX Font Info:    No math setup on input line 903.
+LaTeX Font Info:    No math setup on input line 904.
+LaTeX Font Info:    No math setup on input line 904.
+LaTeX Font Info:    No math setup on input line 905.
+LaTeX Font Info:    No math setup on input line 905.
+LaTeX Font Info:    No math setup on input line 927.
+LaTeX Font Info:    No math setup on input line 970.
+LaTeX Font Info:    No math setup on input line 982.
+ [10]
+LaTeX Font Info:    No math setup on input line 1006.
+LaTeX Font Info:    No math setup on input line 1106.
+ [11]
+LaTeX Font Info:    No math setup on input line 1273.
+LaTeX Font Info:    No math setup on input line 1273.
+ [12] [13]
+LaTeX Font Info:    No math setup on input line 1485.
+ [14]
+LaTeX Font Info:    No math setup on input line 1513.
+ [15] [16] (adt.aux) ) 
+Here is how much of TeX's memory you used:
+ 664 strings out of 11024
+ 6163 string characters out of 74866
+ 60963 words of memory out of 262141
+ 3465 multiletter control sequences out of 9500
+ 23643 words of font info for 86 fonts, out of 100000 for 255
+ 14 hyphenation exceptions out of 607
+ 24i,14n,22p,197b,327s stack positions out of 300i,40n,60p,3000b,4000s
+
+Output written on adt.dvi (16 pages, 72840 bytes).

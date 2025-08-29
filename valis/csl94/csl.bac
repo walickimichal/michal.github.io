@@ -1,0 +1,1056 @@
+\documentstyle[llncs]{article}
+\textwidth 12.2cm \textheight 19.3cm
+
+\newtheorem{CLAIM}{Proposition}[section] 
+\newtheorem{COROLLARY}[CLAIM]{Corollary} 
+\newtheorem{THEOREM}[CLAIM]{Theorem}
+\newtheorem{LEMMA}[CLAIM]{Lemma}
+\newcommand{\MyLPar}{\parsep -.2ex plus.2ex minus.2ex\itemsep\parsep 
+\vspace{-\topsep}\vspace{.5ex}}
+\newcommand{\MyNumEnv}[1]{\parskip 0pt\partopsep 0pt\trivlist \refstepcounter 
+{CLAIM}\item [\hskip \labelsep {\bf #1\ \theCLAIM\ }] \ignorespaces} 
+\newenvironment{DEFINITION}{\MyNumEnv{Definition}}{\par\addvspace{1.5ex}} 
+\newenvironment{EXAMPLE}{\MyNumEnv{Example}} {\par\addvspace{0.5ex}} %{\nopagebreak\finish} 
+\newenvironment{PROOF}{{\bf Proof.}} {\par\addvspace{0.5ex}} %{\nopagebreak\finish} 
+\newcommand{\finish}{\hspace*{\fill}\nopagebreak 
+\raisebox{-1ex}{$\Box$}\hspace*{1em}\par\addvspace{1ex}} 
+\newcommand{\B}[1]{{\rm I\hspace{-.2em}#1}} 
+\newcommand{\Nat}{{\B N}}
+\renewcommand{\c}[1]{{\cal #1}}
+\newcommand{\Funcs}{{\cal F}}
+\newcommand{\Terms}[1]{{\cal T}(#1)}
+\newcommand{\Vars}{{\cal V}}
+
+\newcommand{\red}[2]{\mbox{\sf red}(#1,#2)}
+\newcommand{\redC}[2]{\mbox{\sf red}({\cal #1},#2)}
+
+\newcommand{\eh}{\mathbin{\vdash\!\!\vdash}}
+\newcommand{\noteh}{\mathbin{\Not{\eh}}}
+\newcommand{\forc}[2]{\mathrel{#1 \eh #2}}
+\newcommand{\notforc}[2]{\mathrel{#1 \noteh #2}}
+
+\newcommand{\Incl}{\mathbin{\prec}}
+\newcommand{\Cont}{\mathbin{\succ}}
+\newcommand{\Int}{\mathbin{\frown}}
+\newcommand{\Seteq}{\mathbin{\asymp}}
+\newcommand{\Eq}{\mathbin{\approx}}
+
+\newcommand{\notEq}{\mathbin{\Not\approx}} 
+\newcommand{\notIncl}{\mathbin{\Not\prec}} 
+\newcommand{\notCont}{\mathbin{\Not\succ}} 
+\newcommand{\notInt}{\mathbin{\Not\frown}} 
+\newcommand{\notSeteq}{\mathbin{\Not\asymp}} 
+
+\newcommand{\Seq}{\mathrel{\mapsto}}
+\newcommand{\Ord}{\mathbin{\rightarrow}} 
+\newcommand{\M}[1]{\mathbin{\mathord{#1}^m}} 
+\newcommand{\Mset}[1]{{\cal M}(#1)}
+\newcommand{\interpret}[1]{[\![#1]\!]^{A}_{\rho}} 
+\newcommand{\Interpret}[1]{[\![#1]\!]^{A}} 
+\newcommand{\Comp}[2]{#1\diamond#2}
+\newcommand{\Repl}[2]{\mbox{\sf Repl}(#1,#2)} 
+\newcommand{\Sup}{\mbox{\sf Sup}}
+\renewcommand\SS[1]{{\cal S}^{#1}}
+\newcommand{\To}[1]{\mathbin{\stackrel{#1}{\longrightarrow}}} 
+\newcommand{\TTo}[1]{\mathbin{\stackrel{#1}{\Longrightarrow}}} 
+\newcommand{\oT}[1]{\mathbin{\stackrel{#1}{\longleftarrow}}} 
+\newcommand{\oTT}[1]{\mathbin{\stackrel{#1}{\Longleftarrow}}} 
+\newcommand{\es}{\emptyset}
+\newcommand{\C}[1]{\mbox{$\cal #1$}}
+\newcommand{\Mb}[1]{\mbox{#1}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\Def}{\mathrel{\stackrel{\mbox{\tiny def}}{=}}} 
+\newcommand{\impl}{\mathrel\Rightarrow}
+\newcommand{\then}{\mathrel\Rightarrow}
+\newcommand{\List}[3]{#1_{1}#3\ldots#3#1_{#2}} 
+\newcommand{\prule}[2]{{\displaystyle #1 \over \displaystyle#2}} 
+\newcounter{ITEM}
+\newcommand{\newITEM}[1]{\gdef\ITEMlabel{ITEM:#1-}\setcounter{ITEM}{0}} \makeatletter
+\newcommand{\Not}[1]{\mathbin {\mathpalette\c@ncel#1}} \def\l@bel#1${\edef\@currentlabel{(\roman{ITEM})}\label{#1}} 
+\newcommand{\ITEM}[2]{\par\addvspace{.7ex}\noindent 
+\refstepcounter{ITEM}\expandafter\l@bel\ITEMlabel#1${\advance\linewidth-2em \hskip2em \parbox{\linewidth}{\hskip-2em {\rm\bf \@currentlabel\ }\ignorespaces #2}}\par \addvspace{.7ex}\noindent\ignorespaces} \def\R@f#1${\ref{#1}}
+\newcommand{\?}[1]{\expandafter\R@f\ITEMlabel#1$} 
+\makeatother
+\newcommand{\PROOFRULE}[2]{\trivlist\item[\hskip\labelsep {\bf #1}]#2\par 
+\addvspace{1ex}\noindent\ignorespaces}
+\newenvironment{clauses}{\begin{array}{r@{.\ \ }r@{\;\Seq\;}l}}{\end{array}} 
+\newcommand{\Cs}{\varepsilon}
+\newcommand{\const}[3]{\Cs_{\scriptscriptstyle#2}(#1,#3)} 
+\newcommand{\Ein}{\sqsubset}%
+\newcommand{\Eineq}{\sqsubseteq}%
+\def\abstract#1{\par\noindent{\small{\bf Abstract.} #1}} 
+
+\begin{document}
+\title{Reasoning and Rewriting with Set-Relations I: \newline 
+Ground Completeness}
+\author{Valentinas Kriau\v ciukas\inst{1} 
+and Micha{\l} Walicki\inst{2} \thanks{Both authors gratefully acknowledge the financial support received from the Norwegian Research Council.}}
+\institute{Department of Mathematical Logic\\
+Institute of Mathematics and Informatics, Vilnius, LITHUANIA \\
+ \{valentinas.kriauciukas@mlats.mii.lt\}
+\and
+Deptartment of Informatics, University of Bergen, 
+ NORWAY\\ \{michal@ii.uib.no\} }
+\date{}
+
+\maketitle
+
+\abstract {The paper investigates reasoning with set-relations: intersection, 
+inclusion and identity of 1-element sets. A language is introduced which, 
+interpreted in a multialgebraic semantics, allows one to specify such 
+relations. An inference system is given and shown sound and 
+refutationally ground-complete for 
+a particular proof strategy which selects only maximal literals from the premise 
+clauses. Each of the introduced set-relations satisfies only two among the 
+three properties of the equivalence relations - we study rewriting with such 
+non-equivalence relations and point out differences from the equational case. 
+As a corollary of the main ground-completeness theorem we obtain 
+ground-completeness of the introduced rewriting technique.}
+
+\section{Introduction}
+
+Reasoning with sets becomes an important issue in different areas of computer 
+science. Its relevance can be noticed in constraint and logic programming e.g. 
+\cite{SD,DO,Jay,Sto}, in algebraic approach to nondeterminism e.g. 
+\cite{HusB,PS1,MW}, in term rewriting e.g. \cite{LA,Kap,HusB}.
+
+Our interest in the set concepts originates from an earlier study of 
+specifications of nondeterministic operations. Such operations are naturally 
+modelled as set-valued functions. The semantic structures serving this purpose 
+- {\em multialgebras} - generalize the traditional algebras allowing operations 
+which, for a given argument, return not necessarily a single value but a set of 
+values (namely, the set of all possible values returned by an arbitrary 
+application of the operation). In \cite{MW,Mich} we defined a specification 
+language using set-relations and its multialgebraic semantics. The 
+set-relations we considered were: inclusion, intersection and identity of 
+1-element sets. The first two are the usual set relations. Inclusion allows one 
+to define set equality which, for that reason, is not included in the language. 
+The third relation is particularly important: it provides the syntactic 
+\mbox{means}
+of distinguishing between sets and their elements, and is indispensable for 
+obtaining a complete reasoning system. Such a system is also given in the above 
+works.
+
+In the present paper we use the same set-relations but introduce a new 
+reasoning system. It is less general than the earlier one - we are studying only 
+the ground case - but it is much more prone to automation. Rewriting with 
+non-congruence relations becomes also an issue of increasing importance. The 
+set-relations we are considering are not even equivalences: equality is 
+symmetric and transitive (but not reflexive), inclusion is reflexive and 
+transitive (but not symmetric) and intersection is reflexive and symmetric (but 
+not transitive). We study the rewriting proofs in the presence of these 
+relations generalizing several classical notions (critical pair, confluence, 
+rewriting proof) to the present context. Our results on rewriting extend
+bi-rewriting \cite{LA} in that we consider three different 
+set-relations. We also take a step beyond the framework of 
+\cite{BG249} in that we study more general composition of relations 
+than chaining of transitive relations.
+
+Section~\ref{se:nd-specs} defines the syntax and the multialgebraic semantics 
+of the language and lists some basic properties of the set-relations. 
+Section~\ref{se:reasoning} introduces the reasoning system \C I, ordering of 
+words and specifies the {\em maximal literal} proof strategy for using \C I.
+Section~\ref{se:rewrite} discusses term rewriting with the introduced 
+set-relations. In section~\ref{se:completeness} we discuss the main theorem - refutational
+ground completeness of \C I with the maximal literal strategy and, as a simple 
+corollary, ground completeness of rewriting.
+
+The present paper is an improved and shortened version of the report \cite{KW}.
+Because of the space limitations, all the proofs had to be omitted in the
+present version of the paper.
+%
+\section{Specifications of Set-Relations} \label{se:nd-specs}
+%
+Specifications are written using a finite set of function symbols $\Funcs$
+having arity $ar:\Funcs\to \Nat$.\footnote
+{We are treating only the unsorted case --
+extension to many sorts is straightforward.}
+A symbol $f\in\Funcs^0$ %with $ar(f)=0$ is
+is called a {\em constant}.  Only ground case is considered here, and we do not
+introduce any variables.  We denote by $\Terms\Funcs$ the set of all (ground)
+terms.  There are only three atomic forms using binary predicates: {\em
+equation} $s\Eq t$, {\em inclusion} $s\Incl t$ and {\em intersection} $s\Int
+t$. A {\em specification} is a set of {\em clauses} -- finite sets of {\em
+literals}, where a {\em literal} is an atom or a negated atom written \(\neg 
+a\).
+ (In \cite{MW,Mich} a 
+restricted language is used, allowing only negated intersections, positive 
+inclusions and equations in clauses.) We will usually write negated atoms 
+explicitly as $s\notEq t$, $s\notIncl t$ and $s\notInt t$, and 
+assume \(\neg(\neg a)=a\). By
+{\em words} we will mean the union of the sets of terms, literals and
+clauses.  We will write $u[s]_p$ to denote that a term $s$ is a subterm of a
+term $u$ at a position $p$. Often the position will be omitted for the sake of
+simplicity.
+
+Syntactic expressions of the language are interpretated in {\em multialgebras}
+\cite{Kap,Hus,Mich}.
+\begin{DEFINITION}
+An $\Funcs$-{\em multialgebra} $A$ is a tuple \(\<S^A,\Funcs^A\>\) where $S^A$
+is a non empty {\em carrier} set, and $\Funcs^A$ is a set of set-valued functions
+\(f^A: (S^A)^{ar(f)}\to\C P^+(S^A)\), where \(f\in \Funcs\), and \(\C P^+(S^A)\)
+is the power-set of \(S^A\) with the empty set excluded.
+\end{DEFINITION}
+\noindent Defining the meaning of the words we follow \cite{MW,Mich}.
+\begin{DEFINITION} \label{def:semantics}
+An interpretation
+\(\Interpret d\) of any expression $d$ of the language is defined as follows: 
+\begin{itemize}\MyLPar
+\item \(\Interpret c \Def c^A\), if $c$ is a constant;
+\item \(\Interpret{f(\List tn,)} \Def \bigcup\{f^A(\List\alpha n,):
+  \alpha_i\in\Interpret {t_i}\}\) 
+for any \(f\in \Funcs^n\) and \(\{\List
+  tn,\}\subset \Terms\Funcs\);
+\item \(\Interpret{s\Eq t}\) is true if \(\Interpret s=\Interpret
+  t=\{\alpha\}\) for some $\alpha\in S^A$, and false otherwise;
+\item \(\Interpret{s\Incl t}\) is true if \(\Interpret s\subseteq\Interpret
+  t\), and false otherwise;
+\item \(\Interpret{s\Int t}\) is true if \(\Interpret s\cap \Interpret
+  t \Not = \es\), and false otherwise;
+\item for an atom $a$, \(\Interpret{\neg a}\) is true if \(\Interpret{a}\) 
+ is false, and is false otherwise;
+\item \(\Interpret{\List an,}\) is true if some
+  \(\Interpret{a_i}\) is true, and false otherwise.
+\end{itemize}
+\end{DEFINITION}
+\noindent Definition~\ref {def:semantics} implies that for each \(f\in \Funcs\), \(f^A\)
+is \(\subseteq\)-monotone (because it is defined by pointwise extension).
+Interpretation of a constant $c$ is, according to the definition of
+multialgebra, a non-empty set. Observe also that equality is not reflexive ---
+\(t\Eq t\) is not true in general. A term $t$ for which this equality is true
+is called {\em deterministic} because then it has only one possible value. The
+equality is merely a symmetric and transitive relation. An inclusion \(s\Incl
+t\) means that the term $s$ has the value set which is included in the value
+set of $t$. This relation is a partial preorder --- it is transitive and
+reflexive, but not symmetric. The intersection is reflexive (because of
+nonemptiness of term values) and symmetric, but lacks the transitivity
+property. Thus each of these relations satisfies two of the three properties
+of equivalence relations.  Now we present some other properties of these
+relations. 
+%
+\subsection{Basic Properties of Literals}
+%
+The following relation expresses equality of term value sets, and is the usual
+ interpretation of equality
+ in the set-valued approach to nondeterminism \cite{PS1,Kap}. 
+\MyLPar \begin{equation}\MyLPar \label{eq:Seteq-definition}
+s\Seteq t\Def s\Incl t\land s\Cont t.
+\end{equation}
+As can be expected, it does not increase 
+expressibility and therefore is not used in the language.
+For a discussion of the intended meaning and difference 
+between `$\Eq$' and `$\Seteq$' in the context of nondeterminism 
+see \cite{MW,Mich}. 
+
+The positive, resp. negative, relations are totally ordered by strength:
+\MyLPar\begin{equation}\MyLPar \label{eq:rel-order}
+u\Eq v \impl u \Seteq v \impl u\Incl v \impl u\Int v
+\hspace{2em} and \hspace{2em}
+ u\notEq v \Leftarrow u \notSeteq v \Leftarrow
+ u\notIncl v \Leftarrow u\notInt v 
+\end{equation}
+%
+ The following two lemmas present the subterm replacement and
+composition (chaining) properties. Replacement of
+``equals by equals'' occurs only in the case of two of the four relations.
+Nevertheless these properties will allow us later to develop techniques of
+ term-rewriting. 
+
+\begin{LEMMA} \label{le:replacement}
+The following properties hold for the introduced predicates:
+
+\noindent\(s\Eq t \impl   u[s]_p \Seteq  u[t]_p, \ 
+s\Seteq t  \impl  u[s]_p \Seteq  u[t]_p, \ 
+s\Incl t  \impl  u[s]_p \Incl  u[t]_p, \  
+s\Int t  \impl  u[s]_p \Int  u[t]_p.\) 
+\end{LEMMA}
+%
+\begin{LEMMA} \label{le:composition}
+The predicates satisfy the composition properties, giv\-en in
+Table~\ref {tbl:composition}.\vspace{-2ex}
+\begin{table}[hbt]\MyLPar
+\[\begin{array}{|c||c|c|c|c|c|c|c|c|}
+\hline
+          & s\Eq u   & s\Incl u & s\Cont u & s\Int u  
+& s\notEq u   & s\notIncl u & s\notCont u & s\notInt u\\
+\hline \hline
+s\Eq t    & t\Eq u   & t\Incl u & t\Eq u   & t\Incl u 
+& t\notCont u & t\notInt u  & t\notCont u & t\notInt u\\
+\hline 
+s\Incl t  & t\Cont u & t\Int u  & t\Cont u & t\Int u  
+& t\notEq u   & t\notIncl u & t\notEq u   & t\notIncl u \\
+\hline 
+s\Cont t  & t\Eq u   & t\Incl u & -        & -        
+& -           &    -        & t\notCont u & t\notInt u\\
+\hline 
+s\Int t   & t\Cont u & t\Int u  & -        & -        
+& -           &    -        & t\notEq u   & t\notIncl u\\
+\hline 
+\end{array}\]\MyLPar
+\caption{Rules for atom composition} \label{tbl:composition}\vspace{-3ex}
+\end{table}
+\end{LEMMA}
+%
+For convenience we will write the
+partial function coded in this table as \(\Comp\oplus\otimes=\odot\), meaning
+that $\odot$ is the strongest relation obtained by composing \(\oplus\) and
+\(\otimes\) for any terms, {\em i.e.}:
+\(\Comp\oplus\otimes=\odot\iff(s\oplus t\land t\otimes u\impl s\odot u)\) 
+for any terms $s,t,u$.
+Note that the table defines only the strongest
+composite of the arguments. Because of the ordering (\ref{eq:rel-order}) 
+the fact that, for instance, \(\Comp\Eq\notInt=\notInt\)
+will imply that also \(\notIncl\) can be obtained from composing \(\Eq\) and 
+\(\notInt\).
+
+Composition of negative and positive atoms is symmetric to the composition
+of the positive and the negative ones given in the table. Composition of
+two negative atoms does not allow one to draw any conclusion and therefore
+is not mentioned at all.
+%
+\begin{LEMMA} \label {le:composition-transitivity}
+The composition function \(\Comp\_\_\) is transitive. 
+\end{LEMMA}
+%
+The next lemma is an easy corollary of the two previous lemmas, 
+but it is important because it describes the situation known from 
+term rewriting as a {\em critical peak} \cite{Der} and is related 
+with generation of {\em critical pairs}.
+%
+\begin{LEMMA} \label{le:replacement-in-atoms}
+The atoms satisfy the replacement rules from
+Table~\ref {tbl:replacement}.\vspace{-2ex}
+\begin{table}[hbt]
+\[\begin{array}{|c||c|c|c|c|c|c|c|c|}
+\hline
+          & u[s]\Eq v   & u[s]\Incl v & u[s]\Cont v & u[s]\Int v & u[s]\notEq v & u[s]\notIncl v & u[s]\notCont v & u[s]\notInt v\\
+\hline
+\hline
+s\Eq t    & u[t]\Eq v   & u[t]\Incl v & u[t]\Cont v & u[t]\Int v & u[t]\notEq v & u[t]\notIncl v & u[t]\notCont v & u[t]\notInt v\\
+\hline
+s\Incl t  & u[t]\Cont v & u[t]\Int v  & u[t]\Cont v & u[t]\Int v & u[t]\notEq v & u[t]\notIncl v & u[t]\notEq v & u[t]\notIncl v \\
+\hline
+s\Cont t  & u[t]\Eq v & u[t]\Incl v & -  & - & -  & - & u[t]\notCont v & u[t]\notInt v \\
+\hline
+s\Int t   & u[t]\Cont v & u[t]\Int v  & -  & - & -  & -  & u[t]\notEq v & u[t]\notIncl v \\
+\hline 
+\end{array}\]
+\caption{Rules for term replacement in atoms} 
+\label{tbl:replacement}\vspace{-3ex}
+\end{table}
+\end{LEMMA}
+%
+The content of this table is also encoded as a partial function:
+\(\Repl\oplus\otimes=\odot\iff(s\oplus t\land u[s]_p\otimes v\impl u[t]_p\odot v)\) 
+for any terms $s,t,u,v$ and position $p$ at $u$.
+
+The two tables differ in predicate signs at four places --- 1:3 - 1:6
+(row 1, columns 3 through 6), where the relation resulting from
+Table~\ref{tbl:composition} is stronger than the one from
+Table~\ref{tbl:replacement}.  These cases must be distinguished when the 
+superposition rule (see below) is applied. Therefore we introduce the
+function \(\Sup(s,t,\oplus,\otimes)\), which will select the appropriate
+table. Its 
+value is \(\Comp\oplus\otimes\) in the
+case \(s=t\), and \(\Repl\oplus\otimes\), otherwise.
+%
+\section{The Inference System} \label{se:reasoning}
+%
+The following set of rules was constructed in analogy to the inference
+systems for first-order predicate calculus with equality \cite{BG,S-A}.
+However, there are some additional restrictions due to the composition laws
+as compared with the equational case.
+Very similar rules are presented in \cite{BG249} for transitive relations.
+ 
+\PROOFRULE{Reflexivity resolution}{\quad \(\prule{C, s\oplus s }{C}\),
+where \(\oplus\in\{\notIncl,\notCont,\notInt\}\).}
+
+\PROOFRULE{Superposition}{\quad \(\prule
+{C,s\oplus t \qquad D,u[s]_p\otimes v}{C,D,u[t]_p\odot v}\),
+where
+  \(\odot=\Sup(s,u[s]_p,\oplus,\otimes)\).}
+
+\PROOFRULE{%Contextual factoring
+Compositionality resolution}{\quad \(\prule
+{C,s\oplus t \qquad D,s\odot u}{C,t\otimes u,s\odot u}\),
+where \(\odot = \Comp{\oplus^{-1}}{\neg\otimes}\). }
+
+The analogous rule for equality called {\em equality factoring} \cite{BG,S-A}
+is a special case of our rule when both premise clauses coincide. In 
+\cite{BG249} analogous rule is called {\em transitivity resolution}.
+
+Let $\C I$ denote the inference system consisting of the above rules. 
+\begin{THEOREM} \label{th:soundness}
+The inference system $\C I$ is sound.
+\end{THEOREM}
+\begin{PROOF}
+Soundness of reflexivity resolution follows from reflexivity of
+ `$\Incl$' and `$\Int$'. 
+Soundness of superposition is a direct consequence of the replacement
+and composition laws (Lemmas~\ref{le:replacement-in-atoms}, \ref{le:composition}).
+Soundness of the
+compositionality
+rule is based on the following short deduction. Suppose that the first premise 
+clause and the implication
+\(s\oplus t \land \neg(t\otimes u)\impl s\odot u\)
+both are true. The later is equivalent to
+\(s\oplus t \impl t\otimes u \lor s\odot u \).
+A single application of the (usual) resolution rule gives the conclusion of the 
+rule. The second premise clause is not used in this step --- it only shows the
+goal atom.
+\end{PROOF}
+%
+\subsection{Ordering of Words}
+%
+Various orderings of terms and atoms are used extensively in the study of 
+automated deduction. We will apply such an ordering to define a more specific
+proof strategy for the system $\C I$, to study the possibility of rewriting
+wrt. the introduced predicates and, finally, to define the model in the
+completeness proof. We assume the existence of 
+a {\em simplification ordering} `$>$' \cite{Der} on ground terms which is
+{\em total} (\(\forall s\Not=t\in\Terms\Funcs : s>t\lor t>s\)), 
+{\em well-founded} (\(\forall t\in\Terms\Funcs : \{s:s<t\}\) is finite), 
+{\em monotone} (\(\forall u,s,t\in\Terms\Funcs :s>t\Rightarrow u[s]>u[t]\)) 
+and 
+{\em increasing} (\(\forall s\in\Terms\Funcs : u[s]\Not= s \Rightarrow u[s]>s\)).
+Ordering of other words is defined by the {\em multiset extension} \cite{DM} of this
+ordering.
+Let
+$\Mset T$ denote the set of all finite multisets of elements from $T$. Each
+element of $\Mset T$ can be represented by a function \(\beta:T\to \Nat\)
+such that \(\beta\equiv 0\) except for some finite number of elements of $T$.
+\(\beta(d)\) is a number of copies of $d$ in the multiset $\beta$.
+\begin{DEFINITION} \label{def:multiset-ordering}
+For an ordering `$\Ord$' on a given set $T$, an ordering `\(\M\Ord\)' on the
+set \(\Mset T\) is a {\em multiset extension} of `$\Ord$', if
+\[\beta\M\Ord\gamma\iff\forall d\in  T\,\exists c\in T\/ \left((\beta(c)>\gamma(c)
+\land (\beta(d)\geq \gamma(d) \lor c\Ord d)\right).\]
+\end{DEFINITION}
+\noindent In the particular case of total ordering of $T$,
+which is the only one considered here, \(\alpha\M\Ord\beta\) 
+means that there is some $c\in T$ such that:
+\(\alpha(c)>\beta(c)\land \forall d\Ord c\; \alpha(d)=\beta(d).\)
+This is a lexicographic ordering comparing biggest components first. In the
+general case it is known \cite{DM} that `$\M\Ord$' is total if `$\Ord$' is
+total and `$\M\Ord$' is well-founded if `$\Ord$' is well-founded.
+
+Writing a literal $s\oplus t$, we indicate that \(s\geq 
+t\). It explains why both
+signs `$\Incl$' and  `$\Cont$' are used. This rule, of course, is not applied to the
+conclusions of the proof rules. We assume that any
+term is bigger than any predicate symbol.
+A stronger positive predicate is bigger than a weaker one, the order between 
+negative predicates is reversed, and all negative predicates are bigger than 
+the positive ones:
+ \begin{equation} \label{eq:predicate-order}
+\notEq\ >\ \notIncl\ >\ \notCont\ >\ \notInt \ >\ \Eq\ >\ \Incl\ >\ \Cont\ >\ \Int.
+ \end{equation}
+By analogy with the commonly used approach in equational reasoning, we
+identify literals with multisets.
+A literal $s\oplus t$ is represented by the multiset
+\(\{\{s,\oplus\}, \{t,\oplus^{-1}\}\}\).
+The ordering of the predicates will make the negated form of an atom bigger
+than the atom itself.
+
+The ordering of literals is the twofold extension of `$<$' because each
+literal is a multiset of two multisets. The biggest literal in a clause $C$ w.r.t.
+this ordering is denoted by \(\max(C)\).  Clauses are compared as multisets of
+literals, so their ordering is the multiset extension of the
+ordering of literals (threefold multiset extension of `$<$'). Although
+we have here three different orderings, we will use the same symbol `$<$' to
+denote any of them. This should not introduce any confusion as the
+ sets of terms, literals and clauses are disjoint. %\\[8pt]
+%
+\subsection {\bf The {\sc maximal literal} Proof Strategy}
+The literals
+mentioned explicitly in the premises of the proof rules are called
+{\em active}. Various ways of selecting the active
+literals will lead to
+different proof strategies. The {\em maximal literal} strategy
+requires that the active
+literals in the premise clauses are the ones
+which are maximal wrt. the ordering defined above.
+Stated explicitly the strategy amounts
+to the following restrictions on the application of the rules:
+\begin{description}\MyLPar
+\item[Reflexivity resolution:] the literal \(s\oplus s\) is maximal 
+in the premise clause.
+\item [Superposition:]
+the atom \(s\oplus t\) and the literal \(u[s]_p\otimes v\)
+are maximal in their clauses.
+\item [Compositionality resolution:] the atom \(s\oplus t\) is maximal
+in its clause. The atom \(s\odot u\) {\bf is not} maximal in 
+the second premise clause,
+but the term $s$ {\bf is} maximal in this clause,  
+and the maximal literal in this clause is positive. Both \(\oplus\) and
+\(\odot\) are positive.
+\end{description}
+
+The restriction on the last rule is the only case where some active atom
+($s\odot u$) is not maximal in its clause. However, it is almost
+maximal because the maximal term $s$ of the clause occurs in it.  Another
+reason why this weakening of the strategy is not essential is that 
+the second
+clause in the premise provides merely the context allowing application
+of the rule, and in fact the atom $s\odot u$ is not so ``active''. 
+A particular consequence of this restriction is that the rule can be applied only
+when its second premise is a non-Horn clause.
+%
+\section{Rewriting Proofs} \label{se:rewrite}
+%
+In the next section we show that if the empty clause can not be deduced using 
+the maximal literal strategy, then a model exists satisfying the initial set of 
+clauses. The model is constructed from an appropriate set of ground atoms 
+which force all the initial clauses to be true. The notion of forcing requires 
+construction of a deductive closure of a given set of literals. This section 
+investigates the rewriting proofs in which ground literals are rewritten to 
+ground literals. The obtained results will serve as a basis for the 
+construction of forcing set in the completeness proof.
+
+Although, eventually, only atoms will be used in the model construction 
+ we give
+a more general account -- our definitions and lemmas
+apply to rewriting with both negative and positive literals.
+
+Rewriting of literals with the set-relations is based on the fact that the 
+relations satisfy  replacement properties from Lemma~\ref 
+{le:replacement-in-atoms}. For example, the implication: \(s\Int t\impl
+u[s]_p \Int  u[t]_p\) means that the atom \(u[s]_p \Int u[t]_p\) can be derived 
+applying the rule \(s\To\Int t\) to the term \(u[s]_p\).
+The following definition states what kind of literals can be derived directly 
+applying the replacement property to some set \C A of ground literals (also
+called {\em axioms}). 
+\begin{DEFINITION} \label{def:rewriting-step}
+A literal $r$ is a {\em rewriting step} in \C A if either 1) \(r\in\C A\),
+ or 2)
+$r$ is an atom $u[s]_p\oplus u[t]_p$,
+and  \(s\otimes t\in \C A\), where $\oplus=\otimes$, if
+$\otimes\Not=\Eq$, or \(\oplus\in\{\Incl,\Cont\}\), otherwise.
+\end{DEFINITION}
+\noindent The rule based
+directly on this kind of term-rewriting is superposition.
+The forcing set in the completeness proof will consist of ground 
+positive literals,
+which can be derived using only this one rule.
+The superposition rule takes two rewriting steps and composes them into one. 
+Consequtive applications of the superposition correspond to composition 
+of the finite 
+sequence of the corresponding rewriting steps \(\<s\oplus_1 t_1,\: t_1\oplus_2 
+t_2,\: t_2\oplus_3t_3,\: ...\:,\:t_n\oplus_n t\>\).
+Such a sequence is called a {\em rewriting sequence}, 
+and the predicate sign $\oplus$ of the resulting literal is
+computed using the function \(\Comp\_\_\): \(\oplus=\Comp {(\Comp {(\Comp 
+{\oplus _1^{-1}}{\oplus _2})^{-1}}{\cdots })^{-1}}{\oplus _n}\). The next 
+definition puts all such literals into {\em rewriting closure} of $\C A$. This 
+closure also contains atoms that are trivially true.
+\begin{DEFINITION}\label {def:rewriting-closure}
+For a set \C A of ground literals, the {\em rewriting closure} of \C A is the set
+of ground literals, $\C A^\ast$, defined as follows:
+\begin{itemize}\MyLPar
+\item  all atoms of the form $s\Incl s$ or $s\Int s$ belong to $\C A^\ast$;
+\item if an atom \(s\oplus t\in\C A\) and a literal \(u[s]\otimes v\in\C A^\ast\),
+then the literal \(u[t]\odot v\in\C A^\ast\), if 
+\(\odot=\Sup(s,u[s],\oplus,\otimes)\).
+\end{itemize}
+\end{DEFINITION}
+\noindent Primarily, we are interested in {\em reducing} rewriting sequences, {\em i.e.}, 
+such that rewriting is used to produce terms of lower complexity in some 
+well-founded ordering.  The term ordering is used to orient literals but it
+does not allow us to orient the {\em reflexive} literals of the form $s\oplus s$.
+However, the orientation problem of these particular literals
+turns out to be inessential for the following arguments (except the next 
+definition), and so we allow them to have orientation that is appropriate for 
+the context in which it is used. A literal \(s\oplus t\) can be written in the 
+form \(s\To\oplus t\) to emphasize that $s\geq t$, then it is also called a {\em
+rule}. The fact that this literal is derived by a rewriting sequence in which 
+terms do not increase in any step is written as \(s \TTo \oplus t\) or (the 
+same) as \(t \oTT{\oplus \rlap{${}^{-1}$}}s\).
+\begin{DEFINITION} \label{def:reducing-proof}
+A rewriting sequence is {\em reducing} (w.r.t. to an ordering of terms
+$<$) if it does not contain a {\em peak}, {\em i.e.}, a pair of consecutive
+rewriting steps \(s\oplus t,t\otimes u\) such that \(s\leq t\geq u\).
+A {\em rewriting proof} is a reducing rewriting sequence.
+\end{DEFINITION}
+%
+\noindent The non-strong inequalities in the last condition capture the cases of
+reflexive steps. A rewriting step \(s\oplus s\) does not form a peak
+in a rewriting sequence only at a locally minimal point,
+{\em i.e.}, in a rewriting proof where $s$ is the smallest term.
+Definition~\ref {def:reducing-proof} means that any reducing proof consists of 
+two decreasing branches like \(s\TTo{}u\oTT{}t\), or has only one \(s\TTo{}t\) 
+or \(s\oTT{}t\). The table from Lemma~\ref{le:composition} can be written as a 
+summary of all the possible combinations of the resulting predicate signs 
+appearing in two-branches rewriting proofs:
+\[\begin{array}%
+ {@{(s}c@{u}c@{t\lor s}c@{u}c@{t\lor s}c@{u}c@{t)\ \impl\ s}c@{t}c}
+\TTo\Eq   & \oTT\Eq   & \TTo\Eq   & \oTT\Cont & \TTo\Incl & \oTT\Eq   & \Eq   &,\\
+\TTo\Eq   & \oTT\Incl & \TTo\Eq   & \oTT\Int  & \TTo\Incl & \oTT\Incl & \Incl &,\\
+\TTo\Cont & \oTT\Cont & \TTo\Cont & \oTT\Eq   & \TTo\Int  & \oTT\Eq   & \Cont &,\\
+\TTo\Cont & \oTT\Int  & \TTo\Cont & \oTT\Incl & \TTo\Int  & \oTT\Incl & \Int  &.
+\end{array}\]
+Lemma~\ref{le:replacement-in-atoms} describes how the peaks can be eliminated
+from rewriting sequences. Let us take, for example, one implication from this lemma:
+\(s\Int t\land u[s]\Eq v\impl u[t]\Cont v.\)
+The premise can be interpreted as a possibility to have a peak \(u[t] \oT\Int
+u[s] \To\Eq v \) in proofs, if both atoms \(s\Int t\) and \(u[s]\Eq t\) are
+axioms. This peak can be ``cut down'' changing it by the consequence
+\(u[t]\Cont v\), if it is also among the axioms. The following notions are
+commonly used in similar situations. 
+%
+\begin{DEFINITION} \label {def:critical-atom}
+A rule \(r_1 = s\To\oplus t\) {\em overlaps} a rule \(r_2 = u[s]_p \To \otimes 
+v\). In this case the literal \(l = u[t]_p \odot v\), where \(\odot = 
+\Sup(s,u[s]_p,\oplus,\otimes)\), is called a {\em critical literal} formed by 
+the rules \(r_1,r_2\), if $l$ is different from \(r_1\) and \(r_2\).
+\end{DEFINITION}
+\noindent Critical literals correspond to {\em critical pairs} from equational reasoning 
+\cite{Der}. In our case the definition is more complex because the predicate 
+sign is important and replacement is not merely of ``equals by equals''. Also, 
+when the rule \(r_1\) is
+reflexive (which is not necessarily a tautology in our case) then
+the critical literal $l$ may be the same as \(r_2\). It is better to exclude
+such cases because they would complicate our model construction.
+\begin{DEFINITION} \label{def:confluent-system}
+A set \C R of ground rewriting rules is {\em confluent} if $\C R^\ast$ contains 
+all critical literals formed by overlapping rules from \C R.
+\end{DEFINITION}
+\noindent In term-rewriting theory \cite{Der} such systems are called {\em 
+locally-confluent}. Confluent systems have slightly different definition, but 
+both these notions are proved to be equivalent.  In \cite{LA} a similar 
+definition introduces bi-confluent systems.
+
+In completeness proofs like ours, {\em fully-reduced} \cite{PP} or {\em
+left-reduced} \cite{S-A,BG} rewriting systems are used.  We are not able to
+define the analogous notion, since deduction and reduction 
+are not the same in our language, and will apply
+Definition~\ref{def:confluent-system} instead. Its direct consequence is
+\begin{LEMMA} \label{le:proofs-in-confluent}
+Any literal derivable by a rewriting sequence in a confluent system \C R has
+a rewriting proof in \C R.
+\end{LEMMA}
+Since we have allowed both negative and positive literals to occur in 
+one set of axioms $\C A$,  the 
+unpleasant situation, when both an atom $a$ and its negation $\neg a$ 
+belong to
+$\C A^\ast$, is possible. The set $\C A$ is {\em consistent} if no such 
+atom 
+exists. A set containing only atoms is obviously consistent. 
+Although such a set will be of main importance in the following section,
+we again formulate stronger results, 
+taking into account the general situation of possibly inconsistent
+sets of literals.
+Next lemma, to be used in the completeness proof to construct confluent 
+systems incrementally, characterizes rules that can be added to 
+a confluent and consistent system preserving both these properties.
+Here we  have again the situation different  from the usual 
+equational reasoning, because
+the rule \(s\Eq t\) overlaps itself and produces the critical atom \(t \Eq t\) 
+which need not be always true. The following lemma characterizes the rules 
+which can be added to a system preserving its consistency and confluence.
+It serves as a basis for the construction of the forcing set in the next section.
+
+\begin{LEMMA} \label{le:preserve-confluency}
+For a confluent and consistent system \C R and a rule $r\notin\C R^\ast$ the 
+system \(\C R\cup \{r\}\) is confluent and consistent iff
+\newITEM{coco}
+\ITEM{triv}{$r$ does not have the form  \(s\To\oplus s\), where
+ \(\oplus\in\{\notIncl,\notCont,\notInt\}\),}
+\ITEM{critical}{ for any critical literal $l$ formed by any $r'\in \C R \cup\{r\}
+$ overlapping (or overlapped by) $r$, $l\in \C R^\ast$.}
+\end{LEMMA}
+%
+\section{The Completeness Theorem} \label{se:completeness}
+%
+The proof system \C I  is used to derive a clause from a given
+specification \C S ``by contradiction'':
+to prove that a clause
+$C = \{\List an,\}$ follows from \C S, one takes the
+negation of $C$, namely the set of unary clauses $neg(C)\Def\{ \List{\neg a}n;\}$,
+% \[neg(C)\Def \{\List{\Seq a}n{;\ };\ \List bm{\Seq;\ }\Seq;\}\]
+adds it to \C S, and tries to derive the empty clause from the resulting
+set of clauses.
+Proving {\em refutational completeness}, we have to show that 
+if some set of ground clauses \C S 
+has no model, then the empty clause is derivable using rules from \C I. 
+The
+usual way to prove this is to show that there exists a model satisfying all the
+clauses from \C S if the empty clause is not derivable from \C S. In our proof
+we follow the ideas from \cite{S-A} and \cite{BG249} which, in
+ turn, develop the ideas of \cite{Bez}. Similar
+proof using forcing is given in \cite{PP}. All these
+ works are concerned with first-order predicate calculus with equality.
+In \cite{BG249}, a similar proof method is used with respect to 
+transitive relations.
+
+Our construction proceeds in two main steps. Given a consistent set \C S
+of clauses, we select a set of atoms \C R (section~\ref{se:forcing-set})
+and show that \C R is a {\em forcing set}\/ for  the clauses from \C S.
+Then (section~\ref{se:multimodel}) we show that
+\C R can be used to construct a multimodel which satisfies \C S.
+
+We call a set of clauses \C S {\em consistent} if it does not contain the
+empty clause. The {\em redundancy} of clauses in \C S will be defined during
+the model construction. Redundancy notion was developed by Bachmair and
+Ganzinger \cite{BG} to cover simplification techniques commonly used in
+theorem provers.  Referring to this notion we fix a set \C S and assume it is
+consistent and {\em relatively closed}, meaning that any application of a
+rule from \C I with premises from \C S produces a clause that is in \C S or is
+redundant in \C S. The main result is
+
+\begin{THEOREM}[Ground-completeness] \label{th:ground-completeness}
+If a set of ground clauses \C S is consistent and relatively closed then it
+has a model.
+\end{THEOREM}
+
+\noindent In the following sections we merely indicate the main steps and results
+needed in the proof of this main theorem.
+%
+\subsection{Forcing Set, Redundancy and Productive Clauses} \label{se:forcing-set}
+%
+We borrow the notion of forcing from \cite{PP} where it is also used in a
+completeness proof:
+\begin{DEFINITION} \label{def:forcing}
+A set of ground atoms \C A {\em forces}
+\begin{itemize}\MyLPar
+\item  a ground atom  $a$ if \(a\in\C A^\ast\), and the literal \(\neg a\) if 
+\(a\notin \C A^\ast\);
+\item  a clause $C$ if it forces some literal \(l\in C\);
+\item  a set of clauses \C S if it forces all clauses from \C S.
+\end{itemize}
+\end{DEFINITION}
+%
+\noindent In the last case we say that \C A is a {\em forcing set} for \C S.
+We write $\forc{\C A}w$ if \C A forces $w$.
+For a consistent set \C S of ground clauses we will construct a set \C R of
+ground atoms forcing \C S.
+All such atoms can be oriented into rules because of our assumption about an
+ordering of terms, therefore we can treat \C R  as a
+system of rules. Since the constructed \C R will be confluent,
+it suffices to consider only rewriting proofs.
+
+The starting point of the model construction is the set of maximal literals
+\begin{equation} \label{eq:max-atoms-set}
+\C A_0 \Def \{\max(C) : C\in \C S\}.
+\end{equation}
+
+In rewriting proofs all terms are not bigger than the maximal term of the 
+literal being proved.  This admits an incremental construction of the model, 
+starting with $\C A_0$ and removing redundant literals. % !!!
+
+Redundancy of clauses is defined relatively to two sets: one set of clauses \C
+S and one of ground atoms \C A. This is an intermediate notion, the final one
+refers only to \C S. We have already fixed the set of clauses \C S to
+shorten our formulations. For a given literal $l$ and a set \C L of literals
+the set
+\(\C L_l\Def \{a\in\C L:a<l\}\)
+contains all the literals from \C L that are smaller than $l$.
+%
+\begin{DEFINITION} \label{def:redundant-clause}
+A clause \(C\in\C S\) with \(\max(C)=l\) is {\em redundant} in a set
+of ground atoms \C A if either
+\begin{itemize}\MyLPar
+\item $\forc{\C A_l}C$ or 
+\item  \C S contains  another clause \(C'<C\) with \(\max(C')=l\),
+such that $\notforc{\C A_l}{C'}$.
+\end{itemize}
+\end{DEFINITION}
+%
+\noindent The nature of the second condition of the definition may not be very clear, but
+thanks to this condition, the whole definition is a negated assertion about
+some minimality of a clause. Statements of this kind are very appropriate in
+inductive proofs, like our proof of completeness. 
+The redundancy of literals is based on redundancy of clauses and Lemma~\ref
+{le:preserve-confluency}.
+\begin{DEFINITION} \label{def:redundant-atom}
+A ground literal $l$ is {\em redundant} in a set of ground atoms \C A if either
+\begin{itemize}\MyLPar
+\item $l=s\oplus s$, where \(\oplus \in \{\notIncl,\notCont ,\notInt\}\), or
+\item $\C A\cup\{l\}$ contains a rule $r$ overlapping $l$ and forming
+ the critical literal $a$, such that $\notforc{\C A}a$, or
+\item every clause $C\in \C S$ with $\max(C)=l$ is redundant in \C A.
+\end{itemize}
+\end{DEFINITION}
+\noindent We write $\red{\C A}w$ to indicate that $w$ is redundant in \C A.
+Observe that Definitions~\ref {def:redundant-atom} and \ref {def:forcing} of
+redundancy and forcing are so related, that all negative literals that are not 
+forced are redundant. Since any forced literal makes all clauses 
+containing it redundant, any negative literal appears redundant. 
+%This overlapping of notions shortens our proofs.
+
+After all the preliminary definitions the definition of the forcing set is quite
+short. The set is defined as a limit of a decreasing sequence of sets, which 
+begins with $\C A_0$ defined in (\ref{eq:max-atoms-set}). Succeeding sets are 
+obtained removing minimal redundant literals. Suppose $\C A_i$ is already 
+known, and let \(l_i\) be the minimal redundant literal in \(\C A_i\):
+\begin{equation} \label{eq:atoms-model}
+\C A_{i+1} \Def \C A_i \setminus \{l_i\}, \hspace{7em}
+\C R \Def \bigcap_{i\in \Nat} \C A_i.
+\end{equation}
+%
+The next lemma shows that redundancy
+is preserved when taking the limit in the definition of $\C R$,
+and that redundancy of a word in some \(\C A_i\) is equivalent
+to its redundancy in $\C R$.
+\begin{LEMMA} \label{le:redundancy-limit}
+For a literal $l\in\C A_0$ (a clause $C$ with \(\max(C)=l\)) : 
+\[ \exists i, l_i>l : \red{\C A_i}l \iff
+ (\forall j>i: \red{\C A_j}l \iff \red{\C R}l ) .\]
+\end{LEMMA}
+As an immediate consequence of this lemma
+and Lemma~\ref {le:preserve-confluency} we obtain
+\begin{COROLLARY} \label{co:model-confluent}
+\C R is confluent.
+\end{COROLLARY}
+%
+With every atom $a$ from \C R there is associated a clause from $\C S$ which
+causes $a$ to be included in \C R. In \cite{S-A} such clauses are called {\em
+regular}, in \cite{BG} {\em productive} because they produce atoms being
+included in the forcing set. In \cite{PP}, where the forcing method is presented,
+no special notion for clauses of this kind is used.
+\begin{DEFINITION} \label{def:productive}
+A clause $C,l$ with $\max(C,l)=l$ is {\em productive} for $l$ in a set \C A 
+if $\notforc{\C A}C$.
+\end{DEFINITION}
+%
+\noindent The main properties of the set \C R are expressed in the following theorem:
+%
+\begin{THEOREM} \label{le:main-theorem}
+Let \C S be consistent and relatively closed set of ground clauses, \(\C A_0\) 
+and \C R be as defined by (\ref {eq:max-atoms-set}) and (\ref {eq:atoms-model}).
+Any literal \(l\in \C A_0\) satisfies the following conditions:
+\begin{description}\MyLPar
+\item[I1.] if \(\neg\redC{R}{l}\), then for any \(a\in\C R_l\) there
+  exists a clause $C\in \C S$ productive for $a$ in \(\C R_l\),
+\item[I2.] if \(\red{\C R}l\), then for any clause   
+  \(C\in \C S\) with \(\max(C)=l\) : $\forc{\C R_l}C$.
+\end{description}
+\end{THEOREM}
+The theorem is formulated in the form of an induction statement. 
+After taking the
+limit \(\C R=\bigcup_{l\in\C A_0} R_l\), the theorem
+means that any atom in \C R has productive clause in \C S
+(this is an auxiliary assertion) and that \(\forc{\C R}{\C S}\).
+This is the main technical result of this paper.
+%
+\subsection{From the Forcing Set to a Multialgebra} \label{se:multimodel}
+%
+Thus, we have shown that for a consistent and relatively closed set \C S of ground
+clauses, the set of ground atoms \C R is a model of \C S in the sense that it
+forces all the clauses from \C S. To complete the proof of Theorem~\ref
+{th:ground-completeness} we need to show that the existence of such an \C R
+implies the existence of a multialgebra $A$ which satisfies all the atoms from
+$\C R^\ast$ and only these ones. Then, from the definition of forcing 
+it follows that $A$ also satisfies all the clauses \C S.
+
+The rewriting closure \(\C R^\ast\) defines a reflexive transitive relation
+ `$\Incl$' on the set of terms \(\Terms\Funcs\).
+In multialgebras this partial (pre)order `\(\Incl\)' on terms is interpreted as
+set inclusion: an atom \(s\Incl t\) means that
+\(\Interpret s\subseteq \Interpret t\).
+Two other predicates
+of our language also have natural interpretation in partial order terms:
+\begin{itemize}\MyLPar
+\item \(s\Eq t\) means that both sets \(\Interpret s\) and \(\Interpret t\) are
+equal {\em minimal} elements in the partial order of nonempty sets, 
+{\em i.e.}, they denote the same set {\em with one element};
+\item \(s\Int t\) means that there exists some minimal element $\alpha$ such that
+\(\alpha\in\Interpret s\) and \(\alpha\in\Interpret t\).
+\end{itemize}
+The relation `$\Incl$' on the
+set \(\Terms\Funcs\) is partial preorder, because different terms may have the
+same value set. To turn it into a partial order 
+we have to take the quotient of \(\C R^\ast\) modulo
+`$\Seteq$' that was defined in (\ref {eq:Seteq-definition}).  
+Since $\Seteq$ denotes set equality, it is obviously a congruence: 
+reflexivity and
+transitivity follow from the analogous properties of inclusion `$\Incl$',
+symmetricity from (\ref {eq:Seteq-definition}), and
+the replacement property is given in (\ref {le:replacement}).
+
+First, given a set \C R of ground atoms, we construct a partially
+ordered set \(PO(\C R)=\<\C C,\Eineq\>\). 
+Then, we extend
+signature with new constants and \C R with new atoms, so that \(PO(\C R)\)
+defines a multialgebra satisfying all the atoms in \C R.
+
+Let \(\C C\Def \C R^\ast/_{\Seteq}\) be the quotient of \(\C R^\ast\) modulo
+`$\Seteq$'.
+\([t]\Def \{s\in\Terms\Funcs: s\Incl t\in\C R^\ast\land t\Incl s\in\C R^\ast\}\)
+denotes the equivalence class in \C C of a term $t$, and  
+\(\Eineq\ \Def\{\<[s],[t]\>: s\Incl t\in\C R^\ast \}\)
+is a partial order on \C C (`$\Ein$' is the irreflexive part of this
+relation).
+(That \(\<\C C,\Eineq\>\) is well defined, i.e, that all atoms in one
+equivalence class stand in the same relations, follows from Table~\ref 
+{tbl:composition}: for any atom
+\(s\oplus t\), any \(t\Incl u\) or \(t\Cont u\) is enough to derive
+also \(s\oplus u\).)
+Let \(\C D\Def \{[s]:s\in\Terms\Funcs,\, s\Eq s\in\C R^\ast\}\)
+be the set of {\em deterministic} elements in \C C,
+\(\C D(T)\Def \{S\in\C D:S\Eineq T\}\) be
+the set of deterministic elements which are smaller than or equal to $T\in\C
+C$, and 
+\(\C M\Def \{S\in\C C:\forall T\in\C C\;T\Not\Ein S\}\)
+be the set of {\em minimal} elements in \C C. \(\C M(S)\) denotes the set of
+elements from \C M that are smaller than or equal to $S$. We will write \(\C
+M[t]\) (or \(\C D[t]\)) instead \(\C M([t])\) (respectively, \(\C D([t])\)). 
+
+The set \C D is a subset of \C M, because from \(s\Eq s\) and \(s\Cont u\)
+it follows that \(s\Eq u\), meaning that no elements lie below the class \([s]\) if
+\([s]\in\C D\). The set \C D is a ``candidate'' to be a carrier of a
+multialgebra, and \(\C D(T)\) should be an interpretation mapping defining the
+multialgebra.  Definition~\ref {def:semantics} tells us what properties
+$\C D[\_]$ should have in order to be an interpretation mapping:
+\begin{description}\MyLPar
+\item [PO1.] \(\C D [f(\List tn,)] =
+\bigcup\{\C D [f(\List\alpha n,)]:\alpha_i\in \C D [t_i]\}\) 
+for any \(f\in \Funcs^n\), \(\{\List tn,\}\subset
+\Terms\Funcs\);
+\item [PO2.] \(\C D [s]=\{[s]\}\iff s\Eq s\in\C R^\ast\);
+\item [PO3.] \(\C D [s]\subseteq \C D [t] \iff s\Incl t\in\C R^\ast\);
+\item [PO4.] \(\C D [s]\cap \C D [t]\Not=\es \iff s\Int t\in\C R^\ast\).
+\end{description}
+\noindent If the mapping \(\C D[\_]\) satisfies PO1--PO4, then a multialgebra $A$
+satisfying \C R can be defined:
+\begin{description}\MyLPar
+\item[MA1.] the carrier \(S^A\Def \C D\);
+\item[MA2.] for any constant \(c\in\Funcs\): \(c^A\Def \C D[c]\);
+\item[MA3.] for any \(f\in\Funcs^n\) and
+\(\{[d_1] ,\ldots, [d_n]\}\subseteq\C D\):
+\(f^A([d_1] ,\ldots, [d_n])\Def \C D[f(\List dn,)]\).
+\end{description}
+In this case \(\Interpret\_=\C D[\_]\), what follows from PO1, and we say that
+\C R {\em defines} the multialgebra $A$. The next result is important, because
+the multialgebra is constructed from positive atoms only, while clauses from
+\C S may also contain negative atoms. We must be sure that the multialgebra
+makes true only atoms derivable from the forcing set \C R.
+\begin{LEMMA} \label{le:MA-exact}
+If \C R defines a multialgebra $A$ then, for any atom \(a :
+a\in\C R^\ast \iff \Interpret a\) is true.
+\end{LEMMA}
+However, the mapping $\C D[\_]$ defined from the forcing set \C R may violate any
+of the Requirements~PO1--PO4. We might therefore consider the mapping \(\C M[\_]\)
+instead, but also this one may violate these requirements.
+To meet these problems we have to extend
+ \C C (and mapping \(\C D[\_]\)) with new minimal elements. For instance, there 
+may be no (deterministic) element validating the atom $s\Int t \in \C R^*$, or even
+no such term included in a given term $t$ (which therefore would denote empty set).
+We do not give here the, rather elaborate, details of this extension. 
+Its result is that the signature is extended with new constants, and new atoms are added
+imposing the required properties on these new elements. In particular, 
+ all new elements are deterministic, which makes the mappings \(\C D[\_]\) and
+\(\C M[\_]\) coincide. The crucial property of this extension is that it is conservative.
+%\subsubsection{Conservative extension of the forcing set}
+\begin{DEFINITION} \label{def:conservative-extension}
+Let \(\Funcs\subset\Funcs_1\) be two signatures and \(\C R, \C R_1\) two sets of
+atoms over signature $\Funcs,$ resp. \(\Funcs_1.\)
+\(\C R_1\) is a {\em conservative extension} of \C R if for any 
+$\Funcs$-atom \(a\), \(a\in\C R_1^\ast\iff a\in\C R^\ast\).
+\end{DEFINITION} 
+\noindent Thus,  we can complete the set \C R with elements and atoms
+needed to construct a multialgebra satisfying exactly the same atoms which are 
+members of \C R. Since $\forc{\C R}{\C S}$, this means that we  obtain a
+multialgebraic model of \C S. This last step of the construction is expressed
+in:
+\newITEM H
+\begin{THEOREM} \label{th:multialgebra-exists}
+For any atom set \(\C R\) there exists an atom set \(\C R_1\) that is a
+conservative extension of \(\C R\) and defines a multialgebra.
+\end{THEOREM}
+%
+This ends the proof of the completeness theorem which also yields:
+\begin{COROLLARY} \label{co:rew-completeness}
+Any ground atom valid in all multimodels of a given set of ground atoms \C R 
+has a rewriting proof in \C R.
+\end{COROLLARY}
+%
+\section{Conclusion}
+%
+Motivated by the study of nondeterministic specifications, 
+we have introduced a system for reasoning with the set-relations: inclusion, intersection and
+identity of 1-element sets. The system gives rise to a rewriting technique where 
+atoms involving these relations are rewritten to other atoms, 
+and chaining is based on the explicitly specified composition
+laws for the introduced relations. We have shown that the reasoning system and, consequently,
+the associated rewriting is sound and complete for the ground case.
+
+We have not addressed the analogous problem for the general case involving variables.
+Admitting variables ranging over sets should not present particular problems and, probably, 
+can be incorporated without much difficulty into our framework.
+However, the significant role is played by the variables wich are allowed to range {\em only}
+over individuals (e.g., \cite{HusB}, \cite{MW1}). Unfortunately, since in general terms denote 
+arbitrary sets, such variables do not admit unrestricted substitution. Consequently, one
+should not expect the possibility of a straightforward lifting of the presented results to
+the language containing such variables. This issue is now under investigation.
+%
+
+\begin{thebibliography}{MM99}\MyLPar
+\bibitem[Bez90]{Bez} M.~Bezem. 
+   Completeness of Resolution Revisited. 
+   {\em TCS}, 74, pp.27-237, (1990).
+\bibitem[BG91]{BG} L.~Bachmair, H.~Ganzinger. 
+   {\em Rewrite-Based Equational Theorem Proving with 
+                           Selection and Simplification.}
+   Technical Report MPI-I-91-208, Max-Planck-Institut f. Informatik, 
+   Saarbr\"ucken, (1991).
+\bibitem[BG93]{BG249} L.~Bachmair, H.~Ganzinger. 
+   {\em Rewrite Techniques for Transitive Relations.}
+   Technical Report MPI-I-93-249, Max-Planck-Institut f. Informatik, 
+   Saarbr\"ucken, (1993). [to appear in LICS'94]
+\bibitem[DJ90]{Der} N.~Dershowitz, J.-P.~Jouannaud. 
+   Rewrite systems. In: J.~van Leeuwen (ed.) 
+   {\em Handbook of theoretical computer science}, vol. B,
+   chap. 6, pp.243-320. Amsterdam: Elsevier, (1990).
+\bibitem[DM79]{DM} N.~Dershowitz, Z.~Manna. 
+   Proving termination with multiset orderings. 
+   {\em Communications of the ACM}, 22:8,pp.465-476, (1979).
+\bibitem[DO92]{DO} A.~Dovier,E.~Omodeo,E.~Pontelli,G.-F.~Rossi. 
+   Embedding finite sets in a logic programming language. 
+   {\em LNAI}, 660, pp.150-167, Springer Verlag, (1993).
+\bibitem[Hes88]{PS1} W.H.~Hesselink. A Mathematical Approach to Nondeterminism
+   in Data Types. {\em ACM ToPLaS}
+   10, pp.87-117, (1988).
+\bibitem[Hus92]{Hus} H.~Hussmann. Nondeterministic algebraic
+   specifications and nonconfluent term rewriting. {\em Journal of Logic
+   Programming}, 12, pp.237-235, (1992).
+\bibitem[Hus93]{HusB} H.~Hussmann. 
+   {\em Nondeterminism in Algebraic Specifications and Algebraic Programs.}
+   Birkh\"auser Boston, (1993).
+\bibitem[Jay92]{Jay} B.~Jayaraman. Implementation of Subset-Equational 
+   Programs. {\em Journal of Logic Programming}, 12:4, pp.299-324, (1992).
+\bibitem[Kap88]{Kap} S.~Kaplan. Rewriting with a Nondeterministic Choice
+   Operator. {\em TCS}, 56:1, pp.37-57, (1988).
+\bibitem[KW94]{KW} V.~Kriau\v ciukas, M.~Walicki
+   {\em Reasoning and Rewriting with Set-Relations I: Ground-Completeness.}
+   Technical Report no.96, Dept. of Informatics, University of Bergen (1994).
+\bibitem[LA93]{LA} J.~Levy, J.~Agust\'i. Bi-rewriting, a term rewriting
+   technique for monotonic order relations. In {\em RTA'93, LNCS}, 
+   690, pp.17-31. Springer-Verlag, (1993).
+\bibitem[PP91]{PP} J.~Pais, G.E.~Peterson. Using Forcing to Prove Completeness
+   of Resolution and Paramodulation. {\em Journal of Symbolic Computation}, 
+   11:(1/2), pp.3-19, (1991).
+\bibitem [S-A92]{S-A} R.~Socher-Ambrosius. 
+   {\em Completeness of Resolution and Superposition Calculi.}
+   Technical Report
+   MPI-I-92-224, Max-Planck-Institut f. Informatik, Saarbr\"ucken, (1992).
+\bibitem [SD86]{SD} J.~Schwartz,R.~Dewar,E.~Schonberg,E.~Dubinsky. 
+   {\em Programming with sets, an introduction to SETL. }
+   Springer Verlag, New York, (1986).
+\bibitem[Sto93]{Sto} F.~Stolzenburg. 
+   {\em An Algorithm for General Set Unification.}
+   Workshop on Logic Programming with Sets, ICLP'93, (1993).
+\bibitem[Wal93]{Mich} M.~Walicki. 
+   {\em Algebraic Specifications of Nondeterminism.}
+   Ph.D. thesis, Institute of Informatics, University of Bergen, (1993).
+\bibitem[WM95]{MW} M.~Walicki, S.~Meldal. A Complete Calculus for 
+   Multialgebraic and Functional Semantics of Nondeterminism. 
+   [to appear in {\em ACM ToPLaS}, (1995).]
+\bibitem[WM95]{MW1} M.~Walicki, S.~Meldal. Multialgebras, Power Algebras and
+  Complete Calculi of Identities and Inclusions,
+   {\em Recent Trends in Data Type Specification, LNCS}, 906, (1995).
+\end{thebibliography} 
+
+\end{document}
+
+

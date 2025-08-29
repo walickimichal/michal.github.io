@@ -1,0 +1,242 @@
+\documentstyle[a4wide]{article}
+%%\documentstyle[11pt,a4wide]{article}
+% these pages are quite small. These are Springer LNCS pages for 12pt
+%\textwidth 16cm \textheight 23.5cm
+%%\textwidth 16cm \textheight 24cm
+\voffset=-.5in
+%\hoffset=-.7in
+
+\input{defs}
+
+\title{Complete Reasoning and Rewriting with Set-Relations}
+
+%changes:  interlines spaces decreased
+\author{ {\it Valentinas Kriau\v ciukas\thanks{Both authors gratefully 
+acknowledge the financial support received from the Norwegian Research Council.}}\\[-.5ex]
+\small Department of Mathematical Logic\\[-.5ex]
+\small Institute of Mathematics and Informatics\\[-.5ex]
+\small Vilnius, LITHUANIA\\[-.5ex]
+\footnotesize valentinas.kriauciukas@mlats.mii.lt 
+\and 
+{\it Micha{\l} Walicki\/\(^\ast\)}\\[-.5ex]
+\small Department of Computer Science\\[-.5ex]
+\small University of Bergen\\[-.5ex]
+\small Bergen, NORWAY\\[-.5ex]
+\footnotesize michal@ii.uib.no}
+
+
+\begin{document}
+
+\maketitle
+\abstract {The paper investigates reasoning with set-relations: intersection, 
+inclusion and identity of 1-element sets. A language is introduced which, 
+interpreted in a multialgebraic semantics, allows one to specify such 
+relations. 
+Each of these set-relations satisfies only two among the 
+three properties of the equivalence relations - we study rewriting with such 
+non-equivalence relations and point out differences from the equational case. 
+The introduced complete inference systems
+generalize ordered paramodulation and superposition calculi.  Notions
+of rewriting proof and confluent rule system are defined for such
+non-equivalence relations.
+ Together with the notions of forcing and redundancy
+they are applied  in the completeness proofs.  
+
+In the first part, an inference system is given and shown sound and 
+refutationally ground-complete for 
+a particular proof strategy which selects only maximal literals from the premise 
+clauses. 
+As a corollary of the ground-completeness theorem we obtain 
+ground-completeness of the introduced rewriting technique.
+
+The second part studies rewriting with the non-ground clauses.
+Ground completeness cannot be lifted to the non-ground case
+because substitution for variables is restricted to
+deterministic terms.
+To overcome the problems of restricted
+substitutivity and hidden (in relations) existential quantification,
+unification is defined as a three step process: substitution of determistic 
+terms, introduction of bindings and ``on-line'' skolemisation.
+The inference rules based on this unification derive non-ground clauses
+even from the ground ones, thus making an application of a standard
+lifting lemma impossible. The completness theorem is proved directly without 
+use of such a lemma.}
+
+
+\noindent{\bf Keywords:}
+rewriting, theorem proving, binary relations, nondeterminism, 
+completeness, ordered superposition
+
+
+
+\input{cslA}
+
+\input{cslProof}
+
+\input{adt}
+
+
+\begin{thebibliography}{MM99}\MyLPar
+\bibitem[Bez90]{Bez} M.~Bezem. 
+   Completeness of Resolution Revisited. 
+   {\em Theoretical Computer Science}, 74, pp.27-237, (1990).
+\bibitem[BG91]{BG} L.~Bachmair, H.~Ganzinger. 
+   {\em Rewrite-Based Equational Theorem Proving with 
+                           Selection and Simplification.}
+   Technical Report MPI-I-91-208, Max-Planck-Institut f. Informatik, 
+   Saarbr\"ucken, (1991).
+\bibitem[BG93]{BG249} L.~Bachmair, H.~Ganzinger. 
+   {\em Rewrite Techniques for Transitive Relations.}
+   Technical Report MPI-I-93-249, Max-Planck-Institut f. Informatik, 
+   Saarbr\"ucken, (1993). [to appear in LICS'94]
+
+\bibitem[BG95]{BG-Oslo} L.~Bachmair, H.~Ganzinger. 
+   {\it Ordered Chaining Calculi for First-Order Theories of Binary Relations}.
+   Technical Report MPI-I-95-2-009, Max-Planck-Institut f. Informatik, 
+   Saarbr\"ucken, (1995).
+\bibitem[BGLS95]{Basic-par} L.~Bachmair, H.~Ganzinger, C.~Lynch,  W.~Snyder. 
+   Basic paramodulation. {\it Information and Computation}, 121(2),
+   pp.~172--192 (1995). 
+\bibitem[BGS94]{rel-spec} R.~Berghammer, T.~Gritzner, G.~Schmidt. Prototyping
+   relational specifications using higher-order objects. In {\it
+   Proc.\ Int.\ Workshop on Higher Order Algebra, Logic and Term Rewriting
+   (HOA'93)}, Amsterdam, The Netherlands, Sept.\ 1993, LNCS, vol.~816,
+   pp.~56--75 (1994).
+\bibitem[BK95]{BK} M.~Bia{\l}asik, B.~Konikowska, {\it Reasoning with 
+   Nondeterministic Specifications}, ICS PAS Report no.~793, Institute
+  of Computer Science, Polish Academy of Sciences, (1995).
+
+\bibitem[DJ90]{Der} N.~Dershowitz, J.-P.~Jouannaud. 
+   Rewrite systems. In: J.~van Leeuwen (ed.) 
+   {\em Handbook of theoretical computer science}, vol. B,
+   chap. 6, pp.243-320. Amsterdam: Elsevier, (1990).
+\bibitem[DM79]{DM} N.~Dershowitz, Z.~Manna. 
+   Proving termination with multiset orderings. 
+   {\em Communications of the ACM}, 22:8,pp.465-476, (1979).
+\bibitem[DO92]{DO} A.~Dovier,E.~Omodeo,E.~Pontelli,G.-F.~Rossi. 
+   Embedding finite sets in a logic programming language. 
+   {\em LNAI}, 660, pp.150-167, Springer Verlag, (1993).
+\bibitem[Hes88]{PS1} W.H.~Hesselink. A Mathematical Approach to Nondeterminism
+   in Data Types. {\em ACM Transactions on Programming Languages and Systems},
+   10, pp.87-117, (1988).
+\bibitem[Hus92]{Hus} H.~Hussmann. Nondeterministic algebraic
+   specifications and nonconfluent term rewriting. {\em Journal of Logic
+   Programming}, 12, pp.237-235, (1992).
+\bibitem[Hus93]{HusB} H.~Hussmann. 
+   {\em Nondeterminism in Algebraic Specifications and Algebraic Programs.}
+   Birkh\"auser Boston, (1993).
+\bibitem[Jay92]{Jay} B.~Jayaraman. Implementation of Subset-Equational 
+   Programs. {\em Journal of Logic Programming}, 12:4, pp.299-324, (1992).
+\bibitem[Kap88]{Kap} S.~Kaplan. Rewriting with a Nondeterministic Choice
+   Operator. {\it Theoretical Computer Science}, 56:1, pp.37-57, (1988).
+\bibitem[KW94]{KW} V.~Kriau\v ciukas, M.~Walicki
+   {\em Reasoning and Rewriting with Set-Relations I: Ground-completeness.}
+   Proceedings of CSL'94, LNCS 933, (1995).
+\bibitem[KW95]{KW} V.~Kriau\v ciukas, M.~Walicki
+   {\em Reasoning and Rewriting with Set-Relations II: Completeness of the non-ground case.}
+   in Recent Trends in Data Type Specification, LNCS 1130, (1995).
+\bibitem[KW95a]{KMW}V.~Kriau\v ciukas, M.~Walicki.
+   Nondeterministic Algebraic Specifications in Relational Syntax, in
+   {\it Proc. of 7th Nordic Workshop on Programming Theory}, Report
+   No.~86, Programming Methodology Group, G\"oteborg University, (1995).
+\bibitem[LA93]{LA} J.~Levy, J.~Agust\'i. Bi-rewriting, a term rewriting
+   technique for monotonic order relations. In {\em RTA'93, LNCS}, 
+   690, pp.17-31. Springer-Verlag, (1993).
+\bibitem[Mos89]{uni-al} P.D.~Mosses. Unified algebras and institutions. In
+   {\it LICS'89, Proc. 4th Ann. Symp. on Logic in Computer Science},
+   pp.~304--312, IEEE, (1989).
+\bibitem[SL91]{relaxed-par} W.~Snyder, C.~Lynch. Goal directed strategies for
+   paramodulation. In {\it Proc. 4th Int. Conf, on Rewriting Techniques and
+   Applications}, LNCS, vol.~488, pp.~150--161,
+   Berlin, (1991).
+\bibitem[PP91]{PP} J.~Pais, G.E.~Peterson. Using Forcing to Prove Completeness
+   of Resolution and Paramodulation. {\em Journal of Symbolic Computation}, 
+   11:(1/2), pp.3-19, (1991).
+\bibitem [S-A92]{S-A} R.~Socher-Ambrosius. 
+   {\em Completeness of Resolution and Superposition Calculi.}
+   Technical Report
+   MPI-I-92-224, Max-Planck-Institut f. Informatik, Saarbr\"ucken, (1992).
+\bibitem [SD86]{SD} J.~Schwartz,R.~Dewar,E.~Schonberg,E.~Dubinsky. 
+   {\em Programming with sets, an introduction to SETL. }
+   Springer Verlag, New York, (1986).
+\bibitem[Sto93]{Sto} F.~Stolzenburg. 
+   {\em An Algorithm for General Set Unification.}
+   Workshop on Logic Programming with Sets, ICLP'93, (1993).
+\bibitem[Wal93]{Mich} M.~Walicki. 
+   {\em Algebraic Specifications of Nondeterminism.}
+   Ph.D. thesis, Institute of Informatics, University of Bergen, (1993).
+\bibitem[WM95a]{MW-II} M.~Walicki, S.~Meldal. Multialgebras, Power algebras
+   and Complete Calculi of Identities and Inclusions. In {\it Recent Trends
+   in Data Type Specification}, 
+\bibitem[WM95b]{MW} S.~Meldal, M.~Walicki. A Complete Calculus for 
+   Multialgebraic and Functional Semantics of Nondeterminism. 
+   {\em ACM TOPLAS}, Vol.~17, No.~2, (1993).
+\end{thebibliography} 
+
+\end{document}
+
+%%%%%%%%%% adt-bibliography
+\begin{thebibliography}{MM99}
+\bibitem[Bez90]{Bez} M.~Bezem. 
+   Completeness of Resolution Revisited. 
+   {\it Theoretical Computer Science}, 74, pp.27-237, (1990).
+\bibitem[BG94a]{BG} L.~Bachmair, H.~Ganzinger. 
+   Rewrite-Based Equational Theorem Proving with Selection and
+   Simplification. {\it Journal of Logic and Computation}, 4(3),
+   pp.~217--247 (1994).
+\bibitem[BG94b]{BG249} L.~Bachmair, H.~Ganzinger. 
+   Rewrite Techniques for Transitive Relations.
+   {\it Proc. 9th IEEE Symposium on Logic in Computer Science}, pp.~384--393.
+   IEE Computer Society Press (1994).
+\bibitem[DJ90]{Der} N.~Dershowitz, J.-P.~Jouannaud. 
+   Rewrite systems. In: J.~van Leeuwen (ed.)  {\it Handbook of
+   theoretical computer science}, vol. B, chap. 6,
+   pp.243-320. Amsterdam: Elsevier, (1990).
+\bibitem[DM79]{DM} N.~Dershowitz, Z.~Manna. 
+   Proving termination with multiset orderings. 
+   {\it Communications of the ACM}, 22:8,pp.465-476, (1979).
+\bibitem[DO92]{DO} A.~Dovier, E.~Omodeo, E.~Pontelli, G.-F.~Rossi. 
+   Embedding finite sets in a logic programming language. 
+   LNAI, vol.~660, pp.150-167, (1993).
+\bibitem[Hes88]{PS1} W.H.~Hesselink. A Mathematical Approach to Nondeterminism
+   in Data Types. {\it ACM Trans. on Programming Languages and Systems},
+   10, pp.87-117, (1988).
+\bibitem[Hus92]{Hus} H.~Hussmann. Nondeterministic algebraic
+   specifications and nonconfluent term rewriting. {\it Journal of Logic
+   Programming}, 12, pp.237-235, (1992).
+\bibitem[Hus93]{HusB} H.~Hussmann. 
+   {\it Nondeterminism in Algebraic Specifications and Algebraic Programs.}
+   Birkh\"auser Boston, (1993).
+\bibitem[Jay92]{Jay} B.~Jayaraman. Implementation of Subset-Equational 
+   Programs. {\it Journal of Logic Programming}, 12:4, pp.299-324, (1992).
+\bibitem[Kap88]{Kap} S.~Kaplan. Rewriting with a Nondeterministic Choice
+   Operator. {\it Theoretical Computer Science}, 56:1, pp.37-57, (1988).
+\bibitem[KW94]{KW} V.~Kriau\v ciukas, M.~Walicki.  Reasoning and Rewriting
+   with Set-Relations I: Ground-Completeness.  In {\it Proceedings of
+   CSL'94}, LNCS, vol.~933, pp.~264--278, (1995).
+\bibitem[LA93]{LA} J.~Levy, J.~Agust\'i. Bi-rewriting, a term rewriting
+   technique for monotonic order relations. In {\it RTA'93}, LNCS, 
+   vol.~690, pp.17-31, (1993).
+\bibitem[PP91]{PP} J.~Pais, G.E.~Peterson. Using Forcing to Prove Completeness
+   of Resolution and Paramodulation. {\it Journal of Symbolic Computation}, 
+   11:(1/2), pp.3-19, (1991).
+%\bibitem [S-A92]{S-A} R.~Socher-Ambrosius. 
+%   {\it Completeness of Resolution and Superposition Calculi}.
+%   Technical Report
+%   MPI-I-92-224, Max-Planck-Institut f\"ur Informatik, Saarbr\"ucken, (1992).
+\bibitem [SD86]{SD} J.~Schwartz, R.~Dewar, E.~Schonberg, E.~Dubinsky. 
+   {\it Programming with sets, an introduction to SETL. }
+   Springer Verlag, New York, (1986).
+%\bibitem[Sto93]{Sto} F.~Stolzenburg. 
+%   {\it An Algorithm for General Set Unification.}
+%   Workshop on Logic Programming with Sets, ICLP'93, (1993).
+\bibitem[Wal93]{Mich} M.~Walicki. 
+   {\it Algebraic Specifications of Nondeterminism.}
+   Ph.D. thesis, Institute of Informatics, University of Bergen, (1993).
+% Selected papers of joint 10th ADT and 5th COMPASS workshops, S.~Margherita, Italy, May 30 - June 3, 1994},
+   LNCS, vol.~906, pp.~453--468 (1995).
+\bibitem[WM95b]{MW} M.~Walicki, S.~Meldal. A Complete Calculus for 
+   Multialgebraic and Functional Semantics of Nondeterminism. 
+   {\it ACM Trans. on Programming Languages and Systems}, vol.~17, No.~2,
+   pp.~366--393 (1995).
+\end{thebibliography} 

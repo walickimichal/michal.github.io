@@ -1,0 +1,9 @@
+\documentstyle[a4wide]{article}
+%%\documentstyle[11pt,a4wide]{article}
+% these pages are quite small. These are Springer LNCS pages for 12pt
+%\textwidth 16cm \textheight 23.5cm
+%%\textwidth 16cm \textheight 24cm
+\voffset=-.5in
+%\hoffset=-.7in
+
+\input{cslA}

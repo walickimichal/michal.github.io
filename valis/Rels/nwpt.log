@@ -1,0 +1,315 @@
+This is TeX, Version 3.1415 (C version 6.1) (format=latex 94.6.28)  13 DEC 1995 13:32
+**&latex2e nwpt
+(nwpt.tex
+LaTeX2e <1994/06/01> patch level 2
+Hyphenation patterns for english, norsk, swedish, danish,
+german & francais loaded.
+(/local/TeX/macros/LaTeX/latex209.def
+File: latex209.def 1994/06/01 Standard LaTeX file
+
+Entering LaTeX 2.09 compatibility mode.
+\footheight=\dimen102
+\@maxsep=\dimen103
+\@dblmaxsep=\dimen104
+(/local/TeX/macros/LaTeX/tracefnt.sty
+Package: tracefnt 1994/05/29 v2.3k Standard LaTeX package (font tracing)
+\tracingfonts=\count82
+LaTeX Info: Redefining \selectfont on input line 113.
+)
+\symbold=\mathgroup4
+\symsans=\mathgroup5
+\symtypewriter=\mathgroup6
+\symitalic=\mathgroup7
+\symsmallcaps=\mathgroup8
+\symslanted=\mathgroup9
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 179.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 180.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 181.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 187.
+LaTeX Info: Redefining \em on input line 197.
+ (/local/TeX/macros/LaTeX/latexsym.sty
+Package: latexsym 1994/05/27 v2.1e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup10
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+LaTeX Font Info:    Redeclaring math delimiter \lgroup on input line 262.
+LaTeX Font Info:    Redeclaring math delimiter \rgroup on input line 264.
+LaTeX Font Info:    Redeclaring math delimiter \bracevert on input line 266.
+)
+(/local/TeX/macros/LaTeX/article.cls
+Document Class: article 1994/06/02 v1.2s Standard LaTeX document class
+(/local/TeX/macros/LaTeX/size12.clo
+File: size12.clo 1994/06/02 v1.2s Standard LaTeX file (size option)
+)
+\c@part=\count83
+\c@section=\count84
+\c@subsection=\count85
+\c@subsubsection=\count86
+\c@paragraph=\count87
+\c@subparagraph=\count88
+\c@figure=\count89
+\c@table=\count90
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+Compatibility mode: definition of \rm ignored.
+Compatibility mode: definition of \sf ignored.
+Compatibility mode: definition of \tt ignored.
+Compatibility mode: definition of \bf ignored.
+Compatibility mode: definition of \it ignored.
+Compatibility mode: definition of \sl ignored.
+Compatibility mode: definition of \sc ignored.
+\bibindent=\dimen105
+) (/local/TeX/macros/misc/a4.sty)
+\c@claim=\count91
+ (nwpt.aux)
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 104.
+LaTeX Font Info:    ... okay on input line 104.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 104.
+LaTeX Font Info:    ... okay on input line 104.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 104.
+LaTeX Font Info:    ... okay on input line 104.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 104.
+LaTeX Font Info:    ... okay on input line 104.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 104.
+LaTeX Font Info:    ... okay on input line 104.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 104.
+LaTeX Font Info:    ... okay on input line 104.
+LaTeX Font Info:    No math setup on input line 105.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 105.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 105.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 105.
+ (/local/TeX/macros/LaTeX/Ulasy.fd
+File: Ulasy.fd 1994/05/27 v2.1eLaTeX symbol font definitions
+)
+LaTeX Font Info:    No math setup on input line 105.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 105.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 105.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 105.
+LaTeX Font Info:    No math setup on input line 105.
+LaTeX Font Info:    No math setup on input line 105.
+LaTeX Font Info:    No math setup on input line 105.
+LaTeX Font Info:    No math setup on input line 105.
+LaTeX Font Info:    No math setup on input line 105.
+LaTeX Font Info:    No math setup on input line 105.
+LaTeX Font Info:    No math setup on input line 105.
+
+Overfull \hbox (2.97426pt too wide) in paragraph at lines 105--105
+ [][] 
+ []
+
+LaTeX Font Info:    No math setup on input line 115.
+LaTeX Font Info:    No math setup on input line 126.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 126.
+[1
+
+]
+Overfull \hbox (2.65376pt too wide) in paragraph at lines 181--181
+[]\OT1/cmr/bx/n/17.28 Language of non-de-ter-min-is-tic spec-i-fi-ca-tions 
+ []
+
+LaTeX Font Info:    No math setup on input line 198.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 198.
+LaTeX Font Info:    No math setup on input line 198.
+LaTeX Font Info:    No math setup on input line 199.
+LaTeX Font Info:    No math setup on input line 199.
+[2]
+Overfull \hbox (8.2236pt too wide) in paragraph at lines 210--214
+\OT1/cmr/m/n/12 Syntactic ex-pres-sions of the lan-guage are in-ter-pre-tated i
+n \OT1/cmr/m/it/12 mul-ti-al-ge-bras \OT1/cmr/m/n/12 [[],
+ []
+
+[3]
+LaTeX Font Info:    No math setup on input line 308.
+LaTeX Font Info:    No math setup on input line 308.
+ [4]
+LaTeX Font Info:    No math setup on input line 326.
+LaTeX Font Info:    No math setup on input line 326.
+LaTeX Font Info:    No math setup on input line 361.
+LaTeX Font Info:    No math setup on input line 361.
+LaTeX Font Info:    No math setup on input line 363.
+LaTeX Font Info:    No math setup on input line 363.
+LaTeX Font Info:    No math setup on input line 363.
+LaTeX Font Info:    No math setup on input line 363.
+LaTeX Font Info:    No math setup on input line 363.
+LaTeX Font Info:    No math setup on input line 363.
+ [5]
+LaTeX Font Info:    No math setup on input line 364.
+LaTeX Font Info:    No math setup on input line 364.
+LaTeX Font Info:    No math setup on input line 364.
+LaTeX Font Info:    No math setup on input line 364.
+LaTeX Font Info:    No math setup on input line 365.
+LaTeX Font Info:    No math setup on input line 365.
+LaTeX Font Info:    No math setup on input line 366.
+LaTeX Font Info:    No math setup on input line 366.
+LaTeX Font Info:    No math setup on input line 374.
+LaTeX Font Warning: Font shape `U/lasy/b/n' in size <8> not available
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 374.
+LaTeX Font Warning: Font shape `U/lasy/b/n' in size <6> not available
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 374.
+LaTeX Font Info:    No math setup on input line 374.
+LaTeX Font Info:    No math setup on input line 384.
+LaTeX Font Info:    No math setup on input line 384.
+LaTeX Font Info:    No math setup on input line 390.
+LaTeX Font Info:    No math setup on input line 390.
+LaTeX Font Info:    No math setup on input line 390.
+LaTeX Font Info:    No math setup on input line 390.
+ [6]
+LaTeX Font Info:    No math setup on input line 447.
+LaTeX Font Info:    No math setup on input line 447.
+LaTeX Font Info:    No math setup on input line 447.
+LaTeX Font Info:    No math setup on input line 447.
+
+Overfull \hbox (3.63065pt too wide) in paragraph at lines 453--457
+[]\OT1/cmr/m/n/12 Many re-la-tional laws are im-por-tant for ``cal-cu-la-tional
+'' pur-poses [[],
+ []
+
+LaTeX Font Info:    No math setup on input line 468.
+LaTeX Font Info:    No math setup on input line 468.
+LaTeX Font Info:    No math setup on input line 469.
+LaTeX Font Info:    No math setup on input line 469.
+[7]
+LaTeX Font Info:    No math setup on input line 486.
+LaTeX Font Info:    No math setup on input line 486.
+LaTeX Font Info:    No math setup on input line 487.
+LaTeX Font Info:    No math setup on input line 487.
+LaTeX Font Info:    No math setup on input line 489.
+LaTeX Font Info:    No math setup on input line 489.
+LaTeX Font Info:    No math setup on input line 533.
+LaTeX Font Info:    No math setup on input line 533.
+ [8]
+LaTeX Font Info:    No math setup on input line 541.
+LaTeX Font Info:    No math setup on input line 541.
+LaTeX Font Info:    No math setup on input line 541.
+LaTeX Font Info:    No math setup on input line 541.
+LaTeX Font Info:    No math setup on input line 541.
+LaTeX Font Info:    No math setup on input line 541.
+LaTeX Font Info:    No math setup on input line 542.
+LaTeX Font Info:    No math setup on input line 542.
+LaTeX Font Info:    No math setup on input line 542.
+LaTeX Font Info:    No math setup on input line 542.
+LaTeX Font Info:    No math setup on input line 542.
+LaTeX Font Info:    No math setup on input line 542.
+LaTeX Font Info:    No math setup on input line 543.
+LaTeX Font Info:    No math setup on input line 543.
+LaTeX Font Info:    No math setup on input line 543.
+LaTeX Font Info:    No math setup on input line 543.
+LaTeX Font Info:    No math setup on input line 543.
+LaTeX Font Info:    No math setup on input line 543.
+LaTeX Font Info:    No math setup on input line 544.
+LaTeX Font Info:    No math setup on input line 544.
+LaTeX Font Info:    No math setup on input line 544.
+LaTeX Font Info:    No math setup on input line 544.
+LaTeX Font Info:    No math setup on input line 544.
+LaTeX Font Info:    No math setup on input line 544.
+LaTeX Font Info:    No math setup on input line 545.
+LaTeX Font Info:    No math setup on input line 545.
+LaTeX Font Info:    No math setup on input line 545.
+LaTeX Font Info:    No math setup on input line 545.
+LaTeX Font Info:    No math setup on input line 545.
+LaTeX Font Info:    No math setup on input line 545.
+LaTeX Font Info:    No math setup on input line 546.
+LaTeX Font Info:    No math setup on input line 546.
+LaTeX Font Info:    No math setup on input line 546.
+LaTeX Font Info:    No math setup on input line 546.
+LaTeX Font Info:    No math setup on input line 546.
+LaTeX Font Info:    No math setup on input line 546.
+LaTeX Font Info:    No math setup on input line 555.
+LaTeX Font Info:    No math setup on input line 555.
+LaTeX Font Info:    No math setup on input line 555.
+LaTeX Font Info:    No math setup on input line 555.
+LaTeX Font Info:    No math setup on input line 555.
+LaTeX Font Info:    No math setup on input line 555.
+LaTeX Font Info:    No math setup on input line 555.
+LaTeX Font Info:    No math setup on input line 555.
+LaTeX Font Info:    No math setup on input line 555.
+LaTeX Font Info:    No math setup on input line 555.
+LaTeX Font Info:    No math setup on input line 555.
+LaTeX Font Info:    No math setup on input line 555.
+LaTeX Font Info:    No math setup on input line 559.
+LaTeX Font Info:    No math setup on input line 559.
+LaTeX Font Info:    No math setup on input line 559.
+LaTeX Font Info:    No math setup on input line 559.
+LaTeX Font Info:    No math setup on input line 560.
+LaTeX Font Info:    No math setup on input line 560.
+LaTeX Font Info:    No math setup on input line 560.
+LaTeX Font Info:    No math setup on input line 560.
+LaTeX Font Info:    No math setup on input line 560.
+LaTeX Font Info:    No math setup on input line 560.
+LaTeX Font Info:    No math setup on input line 560.
+LaTeX Font Info:    No math setup on input line 560.
+LaTeX Font Info:    No math setup on input line 561.
+LaTeX Font Info:    No math setup on input line 561.
+LaTeX Font Info:    No math setup on input line 561.
+LaTeX Font Info:    No math setup on input line 561.
+LaTeX Font Info:    No math setup on input line 561.
+LaTeX Font Info:    No math setup on input line 561.
+LaTeX Font Info:    No math setup on input line 561.
+LaTeX Font Info:    No math setup on input line 561.
+LaTeX Font Info:    No math setup on input line 562.
+LaTeX Font Info:    No math setup on input line 562.
+LaTeX Font Info:    No math setup on input line 562.
+LaTeX Font Info:    No math setup on input line 562.
+ [9] [10]
+LaTeX Font Info:    No math setup on input line 657.
+LaTeX Font Info:    No math setup on input line 657.
+LaTeX Font Info:    No math setup on input line 657.
+LaTeX Font Info:    No math setup on input line 657.
+ [11]
+LaTeX Font Info:    No math setup on input line 700.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <17.28> on input line 700.
+LaTeX Font Info:    No math setup on input line 717.
+ [12] [13]
+LaTeX Font Info:    No math setup on input line 817.
+LaTeX Font Info:    No math setup on input line 817.
+LaTeX Font Info:    No math setup on input line 817.
+LaTeX Font Info:    No math setup on input line 817.
+LaTeX Font Info:    No math setup on input line 817.
+LaTeX Font Info:    No math setup on input line 817.
+LaTeX Font Info:    No math setup on input line 817.
+LaTeX Font Info:    No math setup on input line 817.
+
+Underfull \hbox (badness 3291) in paragraph at lines 833--837
+[][]\OT1/cmr/m/n/12 C.J. Aarts, R.C. Back-house, P. Hoogendijk, T.S. Vo-er-
+ []
+
+
+Underfull \hbox (badness 5862) in paragraph at lines 833--837
+\OT1/cmr/m/n/12 mans, and J. van der Woude. A Re-la-tional The-ory of
+ []
+
+[14]
+Underfull \hbox (badness 1521) in paragraph at lines 851--855
+\OT1/cmr/m/n/12 Relations I: Ground-Completeness. In \OT1/cmr/m/it/12 Pro-ceed-
+ings of CSL'94\OT1/cmr/m/n/12 ,
+ []
+
+
+Underfull \hbox (badness 1960) in paragraph at lines 855--859
+\OT1/cmr/m/it/12 ADT'11, Soria-Moria, Oslo, Septem-ber 19--24, 1995\OT1/cmr/m/n
+/12 . LNCS,
+ []
+
+[15] [16] [17]
+LaTeX Font Info:    No math setup on input line 1022.
+LaTeX Font Info:    No math setup on input line 1025.
+ [18] [19] (nwpt.aux) ) 
+Here is how much of TeX's memory you used:
+ 593 strings out of 11024
+ 5915 string characters out of 74866
+ 61671 words of memory out of 262141
+ 3388 multiletter control sequences out of 9500
+ 28352 words of font info for 103 fonts, out of 100000 for 255
+ 14 hyphenation exceptions out of 607
+ 24i,20n,21p,484b,333s stack positions out of 300i,40n,60p,3000b,4000s
+
+Output written on nwpt.dvi (19 pages, 74880 bytes).

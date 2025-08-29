@@ -1,0 +1,467 @@
+This is TeX, Version 3.1415 (C version 6.1) (format=lplain 94.3.8)  4 MAR 1995 20:51
+**&latex209 llncs
+(llncs.tex
+LaTeX Version 2.09 <25 March 1992>
+Hyphenation patterns for english, german, francais, danish, norsk, swedish, 
+loaded.
+! I can't find file `llncs.sty'.
+<to be read again> 
+                   \relax 
+\@documentstyle ...ionfiles {}\input #2.sty\relax 
+                                                  \let \@elt \input \@option...
+l.4 \documentstyle[llncsdoc]{llncs}
+                                   
+Please type another input file name: ../llncs.sty
+(../llncs.sty
+Document Style `llncs', <version 1.2>
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@figure=\count84
+\c@table=\count85
+\c@@inst=\count86
+\c@@auth=\count87
+\c@theorem=\count88
+\c@example=\count89
+)
+! I can't find file `llncsdoc.sty'.
+<to be read again> 
+                   \relax 
+\@documentstyle ...let \@elt \input \@optionfiles 
+                                                  \let \@elt \relax \makeato...
+l.4 \documentstyle[llncsdoc]{llncs}
+                                   
+Please type another input file name: 
+(/local/TeX/macros/packages/tools/.tex File ignored) (llncs.aux)
+! Undefined control sequence.
+l.16 {\titelbffont for Authors Coding with \LaTex
+                                                 {}}\\[2cm]
+? r
+OK, entering \nonstopmode...
+[1
+
+] [2] (llncs.toc)
+\tf@toc=\write3
+ [3] [4]
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Environment alpherate undefined.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+l.210 \begin{alpherate}
+                       
+Your command was ignored. 
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Lonely \item--perhaps a missing list environment.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@item ...setbox \@tempboxa \hbox {\makelabel {#1}
+                                                  }\global \setbox \@labels ...
+<to be read again> 
+                   I
+l.212 I
+       n math mode \TeX{} and \LaTeX{} treat all letters as though they
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[5]
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Lonely \item--perhaps a missing list environment.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@item ...setbox \@tempboxa \hbox {\makelabel {#1}
+                                                  }\global \setbox \@labels ...
+<to be read again> 
+                   P
+l.226 P
+       lease ensure that {\em physical units\/} (e.g.\ pc, erg s$^{-1}$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Lonely \item--perhaps a missing list environment.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@item ...setbox \@tempboxa \hbox {\makelabel {#1}
+                                                  }\global \setbox \@labels ...
+<to be read again> 
+                   C
+l.238 C
+       hemical symbols and formulas should be coded for roman,
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Lonely \item--perhaps a missing list environment.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@item ...setbox \@tempboxa \hbox {\makelabel {#1}
+                                                  }\global \setbox \@labels ...
+<to be read again> 
+                   F
+l.241 F
+       amiliar foreign words and phrases, e.g.\ et al.,
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! \begin{document} ended by \end{alpherate}.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@checkend ...empa \@currenvir \else \@badend {#1}
+                                                  \fi 
+\end #1->\csname end#1\endcsname \@checkend {#1}
+                                                \expandafter \endgroup \if@e...
+l.244 \end{alpherate}
+                     
+Your command was ignored. 
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Environment alpherate undefined.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+l.259 \begin{alpherate}
+                       
+Your command was ignored. 
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Lonely \item--perhaps a missing list environment.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@item ...setbox \@tempboxa \hbox {\makelabel {#1}
+                                                  }\global \setbox \@labels ...
+<to be read again> 
+                   T
+l.261 T
+       he following should always be capitalized:
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Lonely \item--perhaps a missing list environment.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@item ...setbox \@tempboxa \hbox {\makelabel {#1}
+                                                  }\global \setbox \@labels ...
+<to be read again> 
+                   T
+l.274 T
+       he following should {\it not\/} be capitalized:
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! \begin{document} ended by \end{alpherate}.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@checkend ...empa \@currenvir \else \@badend {#1}
+                                                  \fi 
+\end #1->\csname end#1\endcsname \@checkend {#1}
+                                                \expandafter \endgroup \if@e...
+l.283 \end{alpherate}
+                     
+Your command was ignored. 
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Environment alpherate undefined.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+l.287 \begin{alpherate}
+                       
+Your command was ignored. 
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Lonely \item--perhaps a missing list environment.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@item ...setbox \@tempboxa \hbox {\makelabel {#1}
+                                                  }\global \setbox \@labels ...
+<to be read again> 
+                   T
+l.289 T
+       he following {\it should} be abbreviated when they appear in running
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[6]
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Lonely \item--perhaps a missing list environment.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@item ...setbox \@tempboxa \hbox {\makelabel {#1}
+                                                  }\global \setbox \@labels ...
+<to be read again> 
+                   I
+l.299 I
+       f abbreviations of names or concepts are used
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! \begin{document} ended by \end{alpherate}.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@checkend ...empa \@currenvir \else \@badend {#1}
+                                                  \fi 
+\end #1->\csname end#1\endcsname \@checkend {#1}
+                                                \expandafter \endgroup \if@e...
+l.303 \end{alpherate}
+                     
+Your command was ignored. 
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[7]
+Overfull \hbox (14.20988pt too wide) in paragraph at lines 376--380
+[]\tenrm Then the ab-stract should fol-low. Please re-fer to the demon-stra-tio
+n file \tentt llncs.dem
+
+\hbox(6.94444+0.0)x347.12354, glue set - 1.0
+.\hbox(0.0+0.0)x15.00002
+.\tenrm T
+.\tenrm h
+.\tenrm e
+.\tenrm n
+.etc.
+
+[8]
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Environment alpherate undefined.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+l.456 \begin{alpherate}
+                       
+Your command was ignored. 
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Lonely \item--perhaps a missing list environment.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@item ...setbox \@tempboxa \hbox {\makelabel {#1}
+                                                  }\global \setbox \@labels ...
+<to be read again> 
+                   {
+l.458 {
+       \bf Bold} run-in headings with italicized text
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Lonely \item--perhaps a missing list environment.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@item ...setbox \@tempboxa \hbox {\makelabel {#1}
+                                                  }\global \setbox \@labels ...
+<to be read again> 
+                   T
+l.467 T
+       he following must generally appear as {\it italic} run-in heading:
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Lonely \item--perhaps a missing list environment.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@item ...setbox \@tempboxa \hbox {\makelabel {#1}
+                                                  }\global \setbox \@labels ...
+<to be read again> 
+                   F
+l.472 F
+       urther {\it italic} or {\bf bold} run-in headings may also occur:
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[9]
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! \begin{document} ended by \end{alpherate}.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@checkend ...empa \@currenvir \else \@badend {#1}
+                                                  \fi 
+\end #1->\csname end#1\endcsname \@checkend {#1}
+                                                \expandafter \endgroup \if@e...
+l.483 \end{alpherate}
+                     
+Your command was ignored. 
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[10] [11] [12] [13] [14] [15] [16] [17]
+! Undefined control sequence.
+l.882 relevant \AmSTeX
+                      {} alphabet which are available from the
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.888 Use \AmSTeX
+                 {} gothic as explained above. For the real and the imaginary
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.905 the blackboard bold characters of \AmSTeX
+                                               {},  but there might arise
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.907 in loading additional \AmSTeX
+                                   {} fonts. Therefore  we created
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[18] [19]
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Environment alpherate undefined.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+l.1065 \begin{alpherate}
+                        
+Your command was ignored. 
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Lonely \item--perhaps a missing list environment.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@item ...setbox \@tempboxa \hbox {\makelabel {#1}
+                                                  }\global \setbox \@labels ...
+<to be read again> 
+                   O
+l.1068 O
+        ne author: list works chronologically;
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Lonely \item--perhaps a missing list environment.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@item ...setbox \@tempboxa \hbox {\makelabel {#1}
+                                                  }\global \setbox \@labels ...
+<to be read again> 
+                   A
+l.1070 A
+        uthor and same co-author(s): list works chronologically;
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! Lonely \item--perhaps a missing list environment.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@item ...setbox \@tempboxa \hbox {\makelabel {#1}
+                                                  }\global \setbox \@labels ...
+<to be read again> 
+                   A
+l.1072 A
+        uthor and different co-authors: list works alphabetically
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX error.  See LaTeX manual for explanation.
+              Type  H <return>  for immediate help.
+! \begin{document} ended by \end{alpherate}.
+\@latexerr ...for immediate help.}\errmessage {#1}
+                                                  
+\@checkend ...empa \@currenvir \else \@badend {#1}
+                                                  \fi 
+\end #1->\csname end#1\endcsname \@checkend {#1}
+                                                \expandafter \endgroup \if@e...
+l.1074 \end{alpherate}
+                      
+Your command was ignored. 
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Overfull \hbox (3.54381pt too wide) in paragraph at lines 1072--1079
+[] []\tenrm Author and dif-fer-ent co-authors: list works al-pha-bet-i-cally ac
+-cord-ing to co-authors.
+
+\hbox(6.94444+1.94444)x347.12354, glue set - 1.0
+.\hbox(0.0+0.0)x15.00002
+.\glue -15.00002
+.\hbox(0.0+0.0)x0.0
+..\glue 0.0
+..\glue -17.0
+..\glue -5.0
+..\hbox(0.0+0.0)x17.0
+..\glue 5.0
+.\penalty 0
+.\tenrm A
+.etc.
+
+[20]
+! Undefined control sequence.
+l.1114 \bibauthoryear
+                     
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[21] (llncs.aux) ) 
+Here is how much of TeX's memory you used:
+ 303 strings out of 11934
+ 2721 string characters out of 86605
+ 39478 words of memory out of 262141
+ 2265 multiletter control sequences out of 9500
+ 22669 words of font info for 86 fonts, out of 100000 for 255
+ 14 hyphenation exceptions out of 607
+ 16i,14n,15p,288b,336s stack positions out of 300i,40n,60p,3000b,4000s
+
+Output written on llncs.dvi (21 pages, 52408 bytes).

@@ -1,0 +1,189 @@
+This is TeX, Version 3.1415 (C version 6.1) (format=latex 94.6.28)  29 MAR 1995 12:45
+**&latex2e toc
+(toc.tex
+LaTeX2e <1994/06/01> patch level 2
+Hyphenation patterns for english, norsk, swedish, danish,
+german & francais loaded.
+(/local/TeX/macros/LaTeX/latex209.def
+File: latex209.def 1994/06/01 Standard LaTeX file
+
+Entering LaTeX 2.09 compatibility mode.
+\footheight=\dimen102
+\@maxsep=\dimen103
+\@dblmaxsep=\dimen104
+(/local/TeX/macros/LaTeX/tracefnt.sty
+Package: tracefnt 1994/05/29 v2.3k Standard LaTeX package (font tracing)
+\tracingfonts=\count82
+LaTeX Info: Redefining \selectfont on input line 113.
+)
+\symbold=\mathgroup4
+\symsans=\mathgroup5
+\symtypewriter=\mathgroup6
+\symitalic=\mathgroup7
+\symsmallcaps=\mathgroup8
+\symslanted=\mathgroup9
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 179.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 180.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 181.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 187.
+LaTeX Info: Redefining \em on input line 197.
+ (/local/TeX/macros/LaTeX/latexsym.sty
+Package: latexsym 1994/05/27 v2.1e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup10
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+LaTeX Font Info:    Redeclaring math delimiter \lgroup on input line 262.
+LaTeX Font Info:    Redeclaring math delimiter \rgroup on input line 264.
+LaTeX Font Info:    Redeclaring math delimiter \bracevert on input line 266.
+)
+Compatibility mode: loading llncs.sty rather than llncs.cls.
+
+(llncs.sty
+Document Style `llncs', <version 1.2>
+\c@part=\count83
+\c@section=\count84
+\c@subsection=\count85
+\c@subsubsection=\count86
+\c@paragraph=\count87
+\c@figure=\count88
+\c@table=\count89
+\c@@inst=\count90
+\c@@auth=\count91
+\c@theorem=\count92
+\c@example=\count93
+) (toc.aux)
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+
+Overfull \hbox (2.0715pt too wide) in paragraph at lines 17--18
+\OT1/cmr/m/n/10 speak-ers was done by the Pro-gram Com-mit-tee con-sist-ing of 
+E.B^^?orger, M.Dezani,
+ []
+
+
+Overfull \hbox (15.15494pt too wide) in paragraph at lines 17--18
+\OT1/cmr/m/n/10 N.Jones, P.Kolaitis, J.Krajicek, J.-L.Krivine, L.Pacholski, A.P
+itts, A.Razborov,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
+\OT1/cmr/m/n/10 and
+ []
+
+[1
+
+] [2]
+Overfull \hbox (10.81218pt too wide) in paragraph at lines 48--49
+[] 
+ []
+
+LaTeX Font Info:    No math setup on input line 53.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 53.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 53.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 53.
+(/local/TeX/macros/LaTeX/Ulasy.fd
+File: Ulasy.fd 1994/05/27 v2.1eLaTeX symbol font definitions
+)
+Overfull \hbox (10.81218pt too wide) in paragraph at lines 81--82
+[] 
+ []
+
+
+Overfull \hbox (2.85527pt too wide) in paragraph at lines 86--86
+ [][] \OT1/cmr/bx/n/10 Semi-Unification and Gen-er-al-iza-tions of Par-tic-u-la
+rly Sim-ple Form 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 86--86
+  
+ []
+
+
+Overfull \hbox (10.81218pt too wide) in paragraph at lines 101--102
+[] 
+ []
+
+[3]
+Overfull \hbox (10.81218pt too wide) in paragraph at lines 128--129
+[] 
+ []
+
+
+Overfull \hbox (0.34143pt too wide) in paragraph at lines 143--143
+ [][] \OT1/cmr/bx/n/10 Com-plete-ness of Res-o-lu-tion for Def-i-nite An-swers 
+with Case Anal- 
+ []
+
+
+Overfull \hbox (10.81218pt too wide) in paragraph at lines 149--150
+[] 
+ []
+
+
+Overfull \hbox (2.48322pt too wide) in paragraph at lines 159--159
+ [][] \OT1/cmr/bx/n/10 To-wards Machine-checked Com-piler Cor-rect-ness for Hig
+her-order 
+ []
+
+[4]
+Overfull \hbox (10.81218pt too wide) in paragraph at lines 167--168
+[] 
+ []
+
+
+Overfull \hbox (2.17616pt too wide) in paragraph at lines 174--174
+ [][] \OT1/cmr/bx/n/10 On the In-ter-pre-ta-tion of Type The-ory in Lo-cally Ca
+rte-sian Closed 
+ []
+
+
+Overfull \hbox (10.81218pt too wide) in paragraph at lines 179--180
+[] 
+ []
+
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 213--242
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 245--273
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [6]
+LaTeX Font Info:    No math setup on input line 278.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <9> on input line 278.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 278.
+
+[7] (toc.aux) ) 
+Here is how much of TeX's memory you used:
+ 464 strings out of 11024
+ 4393 string characters out of 74866
+ 52432 words of memory out of 262141
+ 3278 multiletter control sequences out of 9500
+ 16100 words of font info for 59 fonts, out of 100000 for 255
+ 14 hyphenation exceptions out of 607
+ 22i,5n,19p,803b,135s stack positions out of 300i,40n,60p,3000b,4000s
+
+Output written on toc.dvi (7 pages, 28876 bytes).

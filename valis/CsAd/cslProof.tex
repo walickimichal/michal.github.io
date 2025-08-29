@@ -1,0 +1,654 @@
+\section{The Ground-Completeness Theorem} \label{se:completeness}
+
+The proof system \C I  is used to derive a clause from a given
+specification \C S ``by contradiction'':
+to prove that a clause
+$C = \{\List an,\}$ follows from \C S, one takes the
+negation of $C$, namely the set of unary clauses $neg(C)\Def\{ \List{\neg a}n;\}$,
+% \[neg(C)\Def \{\List{\Seq a}n{;\ };\ \List bm{\Seq;\ }\Seq;\}\]
+adds it to \C S, and tries to derive the empty clause from the resulting
+set of clauses.
+Proving {\em refutational completeness}, we have to show that 
+if some set of ground clauses \C S 
+has no model, then the empty clause is derivable using rules from \C I. 
+The
+usual way to prove this is to show that there exists a model satisfying all the
+clauses from \C S if the empty clause is not derivable from \C S. In our proof
+we follow ideas of R.~Socher-Ambrosius \cite{S-A}, L.~Bachmair and 
+H.~Ganzinger \cite{BG249} which, in
+ turn, develop the ideas of M.~Bezem~\cite{Bez}. Similar
+proof using forcing is given by Pais and Peterson \cite{PP}. All these
+ works are concerned with first-order predicate calculus with equality.
+In \cite{BG249}, a similar proof method is used with respect to 
+transitive relations.
+
+Our construction proceeds in two main steps. Given a consistent set \C S
+of clauses, we select a set of atoms \C R (section~\ref{se:forcing-set})
+and show that \C R is a {\em forcing set}\/ for  the clauses from \C S
+(section~\ref{se:main-R}). Then (section~\ref{se:multimodel}) we show that
+\C R can be used to construct a multimodel which satisfies \C S.
+
+We call a set of clauses \C S {\em consistent} if it does not contain the
+empty clause. The {\em redundancy} of clauses in \C S will be defined during
+the model construction. Redundancy notion was developed by Bachmair and
+Ganzinger \cite{BG} to cover simplification techniques commonly used in
+theorem provers.  Referring to this notion we fix a set \C S and assume it is
+consistent and {\em relatively closed}, meaning that any application of a
+rule from \C I with premises from \C S produces a clause that is in \C S or is
+redundant in \C S. The main result is
+
+\begin{THEOREM}[Ground-completeness] 
+\label{th:ground-completeness}
+If a set of ground clauses \C S is consistent and relatively closed then it
+has a model.
+\end{THEOREM}
+
+\noindent The following section introduces the notions of forcing set,
+redundancy and productive clauses.
+
+\subsection{Forcing set, redundancy and productive clauses} \label{se:forcing-set}
+
+We borrow the notion of forcing from \cite{PP} where it is also used in a
+completeness proof:
+\begin{DEFINITION} \label{def:forcing}
+A set of ground atoms \C A {\em forces}
+\begin{itemize}\MyLPar
+\item  a ground atom  $a$ if \(a\in\C A^\ast\), and the literal \(\neg a\) if 
+\(a\notin \C A^\ast\);
+\item  a clause $C$ if it forces some literal \(l\in C\);
+\item  a set of clauses \C S if it forces all clauses from \C S.
+\end{itemize}
+\end{DEFINITION}
+
+In the last case we say that \C A is a {\em forcing set} for \C S.
+We write $\forc{\C A}w$ if \C A forces $w$.
+For a consistent set \C S of ground clauses we will construct a set \C R of
+ground atoms forcing \C S.
+All such atoms can be oriented into rules because of our assumption about an
+ordering of terms, therefore we can treat \C R  as a
+system of rules. We will show that \C R is confluent.
+In this case it is enough to consider only rewriting proofs.
+
+%changes : no S+, no S-
+The starting point of the model construction is
+%changes
+the set of maximal literals
+\begin{equation} \label{eq:max-atoms-set}
+\C L_0 \Def \{\max(C) : C\in \C S\}.
+\end{equation}
+%
+In rewriting proofs all terms are not bigger than the maximal term of the 
+literal being proved.  This admits an incremental construction of the model, 
+starting with $\C L_0$ and removing redundant literals. % !!!
+
+% \subsubsection{Redundant clauses and atoms}
+
+Redundancy of clauses is defined relatively to two sets: one set of clauses \C
+S and one of ground atoms \C A. This is an intermediate notion, the final one
+refers only to \C S. We have already fixed the set of clauses \C S to
+shorten our formulations. For a given literal $l$ and a set \C L of literals
+the set
+\(\C L_l\Def \{a\in\C L:a<l\}\)
+contains all the literals from \C L that are smaller than $l$.
+%
+\begin{DEFINITION} \label{def:redundant-clause}
+A clause \(C\in\C S\) with \(\max(C)=l\) is {\em redundant} in a set
+of ground atoms \C A if either
+\begin{itemize}\MyLPar
+\item $\forc{\C L_l}C$ or 
+%$C$ is forced by $\C L_l$  or 
+\item the set \C S contains  another clause \(C'<C\) with \(\max(C')=l\),
+such that $\notforc{\C L_l}{C'}$.
+% \(C'\) is not forced by $\C L_l$.
+\end{itemize}
+\end{DEFINITION}
+%
+The nature of the second condition of the definition may not be very clear, but
+thanks to this condition, the whole definition is a negated assertion about
+some minimality of a clause. Statements of this kind are very appropriate in
+inductive proofs, like our proof of completeness. 
+The redundancy of literals is based on redundancy of clauses and Lemma~\ref
+{le:preserve-confluency}.
+\begin{DEFINITION} \label{def:redundant-atom}
+A ground literal $l$ is {\em redundant} in a set of ground atoms \C A if either
+\begin{itemize}\MyLPar
+%changes
+\item $l=s\oplus s$, where \(\oplus \in \{\notIncl,\notCont ,\notInt\}\), or
+\item $\C A\cup\{l\}$ contains a rule $r$ overlapping $l$ and forming
+ the critical literal $a$, such that $\notforc{\C A}a$, or
+%where $a$ is the critical literal formed by $l$ and $r$, or
+% is not forced by \(\C A\), or
+\item every clause $C\in \C S$ with $\max(C)=l$ is redundant in \C A.
+\end{itemize}
+\end{DEFINITION}
+We will write $\red{\C L}w$ to indicate that $w$ is redundant in \C L.
+Observe that Definitions~\ref {def:redundant-atom} and \ref {def:forcing} of
+redundancy and forcing are so related, that all negative literals that are not 
+forced are redundant. Since any forced literal makes all clauses 
+containing it redundant, any negative literal appears redundant. 
+This overlapping of notions shortens our proofs.
+
+After all the preliminary definitions the definition of the forcing set is quite
+short. The set is defined as a limit of a decreasing sequence of sets, which 
+begins with $\C L_0$ defined in (\ref{eq:max-atoms-set}). Succeeding sets are 
+obtained removing minimal redundant literals. Suppose $\C L_i$ is already 
+known, and let \(l_i\) be the minimal redundant literal in \(\C L_i\):
+\begin{equation} \label{eq:atoms-model}
+\C L_{i+1} \Def \C L_i \setminus \{l_i\}, \hspace{7em}
+\C R \Def \bigcap_{i\in \Nat} \C L_i.
+\end{equation}
+%changes:
+%Notice that $\C L_0$ may be empty and, even if it is not, \C R may be empty.
+%These special cases do not cause much trouble but must be taken care of. If
+%\(\C L_0 = \es\) then \(\SS+ = \es\), what implies that all clauses in \C S
+%have non-trivial negative atoms (trivial ones like \(s\notIncl s\) or
+%\(s\notInt s\) can be deleted by the reflexivity rule). Empty set \C R forces
+%negation of any non-trivial atom.
+%This makes any non-trivial atom in the antecedent of a clause false. 
+%Hence, in this case, empty \C R forces all the
+%clauses. The case when $\C L_0$ is not empty but \C R is, will be covered by
+%Lemma~\ref {le:clauses-fromSplus}.
+%
+The next lemma shows that redundancy
+is preserved when taking the limit in the definition of $\C R$,
+and that redundancy of a word in some \(\C L_i\) is equivalent
+to its redundancy in $\C R$.
+\begin{LEMMA} \label{le:redundancy-limit}
+For a literal $l\in\C L_0$ (a clause $C$ with \(\max(C)=l\)), the three conditions are
+equivalent: 
+\begin{itemize}\MyLPar
+\item $\exists i, l_i>l : \red{\C L_i}l$
+\item $\forall j>i: \red{\C L_j}l$
+\item $\red{\C R}l$.
+\end{itemize}
+%\[ \exists i, l_i>l : \red{\C L_i}l \iff
+% \forall j>i: \red{\C L_j}l \iff \red{\C R}l .\]
+%is redundant in some
+%$\C L_i$ with $l_i>l \iff$  it is redundant in every $\C L_j$ with
+%$j>i \iff$ it is redundant in $\C R$.
+\end{LEMMA}
+As an immediate consequence of this lemma
+%changes
+and Lemma~\ref {le:preserve-confluency}
+we obtain
+\begin{COROLLARY} \label{co:model-confluent}
+\C R is confluent.
+\end{COROLLARY}
+
+% \subsubsection{Productive clauses}
+
+With every atom $a$ from \C R there is associated a clause from $\C S$ which
+causes $a$ to be included in \C R. In \cite{S-A} such clauses are called {\em
+regular}, in \cite{BG} {\em productive} because they produce atoms being
+included in the forcing set. In \cite{PP}, where the forcing method is presented,
+no special notion for clauses of this kind is used.
+\begin{DEFINITION} \label{def:productive}
+A clause $C,l$ with $\max(C,l)=l$ is {\em productive} for $l$ in a set \C L 
+if $\notforc{\C L}C$.
+% \C L does not force $C$.
+\end{DEFINITION}
+%In such situations we write $\prod{\C L}Cl$.
+The last lemma of this subsection 
+states the existence of productive clauses in somehow weaker form than
+we need, but the stronger form will be given in the proof of the theorem.
+
+\begin{LEMMA} \label{le:productive-clause}
+For any $l\in\C R$, there exists a clause \(C\in\C S\)
+which is productive for $l$ in \(\C R_l\).
+\end{LEMMA}
+\begin{PROOF}
+ If $l\in \C R$ then $l$ is non-redundant. The negated form of the redundancy
+ of a literal, 
+ Definition~\ref{def:redundant-atom}, is a conjunction including the (last)
+ condition that there is a non-redundant clause $C\in \C S$ with $\max(C)=l$.
+ Non-redundancy of $C$, {\em i.e.}, negation of
+ Definition~\ref{def:redundant-clause} implies that $C$ is not forced by \(\C
+ R_l\), what means productivity of $C$ for $l$ in \(\C R_l\).
+\end{PROOF}
+
+\subsection{The main properties of \protect\C R} \label{se:main-R}
+%changes
+For any \(l\in\C R\) we denote by \(\C R_{l'}\) the set \(\C R_l\cup\{l\}\);
+if \(l\notin\C R\) then $\C R_{l'}$ denotes simply \(\C R_l\).
+%the same for \(l\notin\C R\) denotes simply \(\C R_l\). 
+We can interpret \(l'\)
+as the next literal after \(l\) in the set of words with respect to the order 
+of literals.
+
+%The following theorem about the relation between \C R and the 
+%clauses from \C S is the main technical result of the paper:
+%changes: almost new things
+\begin{THEOREM} \label{le:main-theorem}
+Let \C S be consistent and relatively closed set of ground clauses, \(\C L_0\) 
+and \C R be as defined by (\ref {eq:max-atoms-set}) and (\ref {eq:atoms-model}).
+Any literal \(l\in \C L_0\) satisfies the following conditions:
+\begin{description}\MyLPar
+\item[I1.] if \(\neg\redC{R}{l}\), then for any \(a\in\C R_l\) there
+%$l$ is not redundant in \C R, 
+  exists a clause $C\in \C S$ productive for $a$ in \(\C R_l\),
+\item[I2.] if \(\red{\C R}l\), then for any clause   
+  \(C\in \C S\) with \(\max(C)=l\) : $\forc{\C R_l}C$.
+%$l$ is redundant in \C R, then \(\C R_l\) forces any clause
+%  \(C\in \C S\) with \(\max(C)=l\).
+\end{description}
+\end{THEOREM}
+The theorem is formulated in the form of an induction statement. 
+After taking the
+limit \(\C R=\bigcup_{l\in\C L_0} R_l\), the theorem
+means that any atom in \C R has productive clause in \C S
+(this is an auxiliary assertion) and that \(\forc{\C R}{\C S}\).
+% is forced by \C R. 
+This is the main technical result of this part.
+%
+\begin{PROOF} We assume that there exists some literal $l$ not satisfying
+the theorem and that $l$ is minimal in \(\C L_0\) with this property.
+Observe that any literal from \(\C L_0\) must satisfy one of the conditions 
+I1 or I2, therefore we have two non-intersecting cases:
+\begin{description}\MyLPar
+\item[B1.] $l$, being included in \C R, ``spoils'' productiveness of some 
+  clause \(C\in\C S\) with \(a=\max (C) \leq l\), {\em i.e.}, $C$ is productive
+  for $a$ in \(\C R_l\), but is not productive in \(\C R_l\cup\{l\}\);
+\item[B2.] $l$, being not included in \C R, leaves 
+ some clause \(C\in\C S\) with \(\max (C)=l\) unforced by \(\C R_l\) 
+(\(=\C R_{l'}\) in this case).
+\end{description}
+
+For both these cases we must get contradiction. The next lemma
+will provide a uniform way to reach this goal.
+\begin{LEMMA}\label {le:contradiction-way}
+The following conditions about a clause $D$ and a literal $a$ cannot be 
+satisfied simultaneously in a relatively closed \C S:
+\newITEM C
+\ITEM{iG}{ clause $D$ is a conclusion of some proof rule from \C I with
+premises from \C S,}
+\ITEM{iiG}{ for any clause \(D'\leq D\), if \(D\in\C S\), then 
+ \(\forc{\C R_a}{D'}\),}
+\ITEM{iiiG}{ \(\notforc{\C R_a}D\),}
+%{ \(\C R_a\) does not force $D$,}
+\ITEM{ivG}{\(\max(D)<a\).}
+\end{LEMMA}
+\begin{PROOF}
+The condition \?{iG} and relative-closeness of \C S mean that the clause $D$
+must be in \C S or be redundant in \C S. 
+By \?{iiiG}  and \?{iiG}, the
+clause \(D\notin\C S\), so it is redundant in \C S. The
+redundancy of $D$ in \C S, by Lemma~\ref {le:redundancy-limit} and \?{ivG}, means
+redundancy of $D$ in \(\C R_a\). The redundancy definition includes two cases:
+either
+\ITEM {vG}{$D$ is forced by $\C R_a$, or}
+\ITEM {viG}{ $\C S$ contains a clause \(D'<D\) with \(\max(D')=l\) that is not
+forced by $\C R_a$.} The case \?{vG} is excluded by \?{iiiG}. The case \?{viG} 
+contradicts \?{iiG}.
+\end{PROOF}
+
+\begin{COROLLARY} \label{cor:contradiction-way}
+Lemma~\ref {le:contradiction-way} holds if Condition~\?{iiG} is replaced by the
+following  statement:  $a$ is the minimal literal in \(\C L_0\) satisfying
+B1 or B2.
+\end{COROLLARY}
+\begin{PROOF}
+Minimality of $a$ with respect to Condition~B2
+means, that  for all clauses
+$C\in\C S$ from \(\max(C)<a\) follows that \(\C R_a\) forces $C$. Any clause
+\(D'\leq D\) by \?{ivG} has \(\max(D')<a\), and therefore satisfies \?{iiG}.
+\end{PROOF}
+\vspace{1ex}
+
+\noindent %{\bf B1.} 
+We continue the proof of the theorem by first:\\
+\underline{Assuming B1.}
+Productiveness conditions for $C$ in B1 mean that
+\ITEM{2}{ $\max(C)=a$, and \(\notforc{\C R_l}{C\setminus\{a\}}\),}
+%\(C\setminus\{a\}\) is not forced by \(\C R_l\),}
+\ITEM{4}{ but there exists \(b\in C\) such that \(b\not = a\) and \(b\in \C
+  R_{l'}^\ast\).}
+Let $D,l$ be a clause that exists by Lemma~\ref {le:productive-clause}, {\em
+i.e.},
+\ITEM{1}{\(l=\max(D)\) and \(\notforc{\C R_l}D\).}
+% $D$ is not forced by $\C R_l$.}
+We want to prove that the factoring rule can be applied to
+clauses \(D,l\) and $C$. The order of the atoms \(a,b,l\) is important:
+\ITEM{6}{ $b< a\leq l$ (it follows from \?{2} and B1).}
+The strong inequality between $a$ and $b$ follows from maximality of $a$ in 
+$C$. By Lemma~\ref {le:first-rule} applied to atoms $l\not= b$, we get that,
+if $l = s\oplus t$ and $b = s\odot u$, then there exists $\otimes$ such that
+\ITEM{FA}{\(\odot = \Comp {\oplus^{-1}}\otimes\) and \(c = t\otimes u< b\).}
+The first condition in \?{FA} is sufficient to apply  the factoring rule to 
+\(D,l\) and $C$ and derive the clause \(E = (D,b,\neg c)\).
+From \?{1}, \?{6} and \?{FA} it follows \(\max(E)<l\).
+From Lemma~\ref {le:first-rule} we also have, that $l$ is used only once in
+the proof of $b$, hence \(c\in\C R_l^\ast\) {\em i.e.}, 
+\(\notforc{\C R}{\neg c}\).
+This condition together with \?{1}, \?{2}, and \?{4} implies that
+\(\notforc{\C R}E\).
+% $E$ is not forced by \(\C R_l\).
+
+The literal $l$ and the clause $E$ satisfy the conditions of Lemma~\ref
+{le:contradiction-way}. Contradiction.\\[1ex]
+%
+\underline{Assuming B2,}
+%\noindent {\bf B2.} Let us now assume that B2 is true.
+there exists a clause $D$ such that
+\ITEM{2i}{\(C=(D,l)\), \(\max(D)<l\) and \(\notforc{\C R_l}C\).} % ????
+% $C$ is not forced by $\C R_l$.}
+Assume that $C$ is minimal with this property.
+The literal $l$ is redundant, and by Definition~\ref
+{def:redundant-atom} there are three alternatives:
+\ITEM{21}{ $l=s\oplus s$, where \(\oplus \in \{\notIncl,\notCont ,\notInt\}\),}
+\ITEM{22}{ there is some atom $r\in \C R_l\cup\{l\}$ that overlaps $l$ 
+forming the critical literal $a$ such that \(\notforc{\C R_l}a\),}
+%   critical literal \(a\) formed by $l$ and $r$ is not forced by \(\C R_l\),}
+\ITEM{23}{ for every clause $B\in \C S$ with $\max(B)=l$ : \(\red{\C R_l}B\).}
+% is redundant in $\C R_l$.}
+
+In the case of \?{21}, the reflexivity resolution rule can be applied to the
+clause $C$ to produce $D$. By Lemma~\ref {le:contradiction-way} we derive 
+contradiction in this case.
+
+The alternative \?{23} is false because $C$ is non-redundant ---
+Definition~\ref {def:redundant-clause} of redundancy subsumes the negated form
+of the minimality assumption about $C$ which we have just made.
+
+The alternative \?{22} after
+unfolding Definition~\ref {def:critical-atom} of critical literals looks as
+\ITEM{CA}{ $r=s\otimes t\in \C R_l$, $l=u[s]_p\oplus v$, and \(a = u[t]_p\odot 
+v\), where $\odot = \Sup(s,u[s],\otimes,\oplus)$.}
+
+Let \((C',r)\) be a productive clause for $r$ in \(\C R_r\) (that
+exists by Lemma~\ref {le:productive-clause}).
+From minimality of $l$ it follows, that no literal between $r$ and $l$
+destroys productivity of $(C',r)$. (By the way, \(r=l\)  is possible.)
+So, $(C',r)$ is also productive for $r$ in \(\C R_l\):
+\ITEM{PCl}{ \(C'\cap \C R^\ast_l=\es\).}
+ 
+By \?{CA}, there exists a clause
+\ITEM{28}{\(D' = D,C',a\)}
+deduced from clauses $C$ and $C',\,r$ by the superposition rule.
+ The condition
+\ITEM{9}{ $a<l$} is now derivable, but requires some care. The critical
+literal definition forbids \(a=l\), therefore we must only exclude the case 
+\(a>l\). If \(s>t\) and \(u[s]>v\), then by the properties of the simplification 
+ordering the maximal term in $l$ is bigger than the maximal one in $a$ (and
+thus \(l>a\)).
+
+In the remaining cases at least one of $r$ or $l$ is a reflexive literal. 
+Since \(\neg\red{\C R}r\) the only possible reflexive form is \(s\Eq s\).
+%$r$ is non-redundant in \C R, it allows only \(s\Eq s\) as a reflexive form. 
+By \?{2i}, \(\notforc{\C R_l}l\), so the only possibility for a positive 
+reflexive $l$ is \(u[s]\Eq u[s]\).
+%$l$ is not forced by \(\C R_l\) (by \?{2i}), so $l$ also allows only 
+% \(u[s]\Eq u[s]\) as a positive reflexive form. 
+If $l$ is negative, but not \(u[s]\notEq 
+u[s]\), then we have already considered the case allowing us to apply to 
+$C$ the reflexivity resolution rule.
+
+It follows from this short analysis, that we must check 
+the first and fifth columns (also at the first rows)
+in Tables~\ref {tbl:composition} and \ref {tbl:replacement},
+and verify that there is no  case when the predicate 
+sign is changed from a smaller to a bigger one. 
+In Table~\ref {tbl:composition} 
+(the case \(u[s]=s\)) all nontrivial changes are presented. The case when both 
+$r$ and $l$ are positive admits a sign change \(\Eq \to \Cont\).
+Other cases with 
+positive predicates are excluded by observation that \(l\geq r\), for example, 
+cases like \(r=s\Eq s\) and \(l=s\Incl v\) are impossible thanks to \(\Eq > 
+\Incl\). In the negative part of the table we find changes \(\notEq\to 
+\notCont\) and \(\notIncl\to\notInt\). All these changes are decreasing 
+according to the order defined in (\ref {eq:predicate-order}), what implies 
+\(l\geq a\), and, finally, \?{9}.
+
+Maximality of \(l\) and \(r\) in their clauses and \?{28} are sufficient to 
+conclude $\max(D')<l$. Productiveness of clauses $C$, $C'$ and \?{22} imply 
+that $D'$ is not forced in \(\C R_a\).  All conditions of Lemma~\ref 
+{le:contradiction-way} hold, and contradiction follows.
+\end{PROOF}
+
+
+\subsection{From the forcing set to a multialgebra} \label{se:multimodel}
+
+We have shown that for a consistent and relatively closed set \C S of ground
+clauses, the set of ground atoms \C R is a model of \C S in the sense that it
+forces all the clauses from \C S. To complete the proof of Theorem~\ref
+{th:ground-completeness} we need to show that the existence of such an \C R
+implies the existence of a multialgebra $A$ which satisfies all the atoms from
+$\C R^\ast$ and only these ones. Then, from the definition of forcing 
+it follows that $A$ also satisfies all the clauses \C S.
+% \subsubsection{Partial orders in multialgebras}
+
+The rewriting closure \(\C R^\ast\) defines a reflexive transitive relation
+ `$\Incl$' on the set of terms \(\GTerms\).
+% , namely
+% \begin{itemize}\MyLPar
+%\item for each term \(s\in\GTerms\), \(s\Incl s\in\C R^\ast\) (reflexivity of
+% preorder); 
+% \item if \(s\Incl t,\,t\Incl u\in\C R^\ast\), then \(s\Incl u\in \C R^\ast\)
+% (transitivity of preorder).
+% \end{itemize}
+In multialgebras this partial (pre)order `\(\Incl\)' on terms is interpreted as
+set inclusion: an atom \(s\Incl t\) means that
+\(\Interpret s\subseteq \Interpret t\).
+% , where for every term \(w\in\GTerms\),
+% \(\Interpret w\) denotes some nonempty subset of the carrier. 
+Two other predicates
+of our language also have natural interpretation in partial order terms:
+\begin{itemize}\MyLPar
+\item \(s\Eq t\) means that both sets \(\Interpret s\) and \(\Interpret t\) are
+equal {\em minimal} elements in the partial order of nonempty sets, 
+{\em i.e.}, they denote the same set {\em with one element};
+\item \(s\Int t\) means that there exists some minimal element $\alpha$ such that
+\(\alpha\in\Interpret s\) and \(\alpha\in\Interpret t\).
+\end{itemize}
+% Hence the inclusion as partial order and the property of being a 
+% 1-element set are the main relations of our language. 
+The relation `$\Incl$' on the
+set \(\GTerms\) is partial preorder, because different terms may have the
+same value set. To turn it into a partial order 
+we have to take the quotient of \(\C R^\ast\) modulo
+`$\Seteq$' that was defined in (\ref {eq:Seteq-definition}).  
+Since $\Seteq$ denotes set equality, it is obviously a congruence: 
+reflexivity and
+transitivity follow from the analogous properties of inclusion `$\Incl$',
+symmetricity from (\ref {eq:Seteq-definition}), and
+the replacement property is given in (\ref {le:replacement}).
+
+We will first construct, from a set \C R of ground atoms, a partially
+ordered set \(PO(\C R)=\<\C C,\Eineq\>\). 
+% where \(\C C\) is a set of elements
+% and `$\Eineq$' is a partial order relation on \C C. 
+Then, we will extend
+signature with new constants and \C R with new atoms so that \(PO(\C R)\)
+will define a multialgebra, satisfying all the atoms from \C R.
+
+Let \(\C C\Def \C R^\ast/_{\Seteq}\) be the quotient of \(\C R^\ast\) modulo
+`$\Seteq$'.
+\([t]\Def \{s\in\GTerms: s\Incl t\in\C R^\ast\land t\Incl s\in\C R^\ast\}\)
+denotes the equivalence class in \C C of a term $t$, and  
+\(\Eineq\ \Def\{\<[s],[t]\>: s\Incl t\in\C R^\ast \}\)
+is a partial order on \C C (`$\Ein$' is the irreflexive part of this
+relation).
+(That \(\<\C C,\Eineq\>\) is well defined, i.e, that all atoms in one
+equivalence class stand in the same relations, follows from Table~\ref 
+{tbl:composition}: for any atom
+\(s\oplus t\), any \(t\Incl u\) or \(t\Cont u\) is enough to derive
+also \(s\oplus u\).)
+Let \(\C D\Def \{[s]:s\in\GTerms,\, s\Eq s\in\C R^\ast\}\)
+be the set of {\em deterministic} elements in \C C,
+\(\C D(T)\Def \{S\in\C D:S\Eineq T\}\) be
+the set of deterministic elements which are smaller than or equal to $T\in\C
+C$, and 
+\(\C M\Def \{S\in\C C:\forall T\in\C C\;T\Not\Ein S\}\)
+be the set of {\em minimal} elements in \C C. \(\C M(S)\) denotes the set of
+elements from \C M that are smaller than or equal to $S$. We will write \(\C
+M[t]\) (or \(\C D[t]\)) instead \(\C M([t])\) (respectively, \(\C D([t])\)). 
+
+The set \C D is a subset of \C M, because from \(s\Eq s\) and \(s\Cont u\)
+it follows that \(s\Eq u\), meaning that no elements lie below the class \([s]\) if
+\([s]\in\C D\). The set \C D is a ``candidate'' to be a carrier of a
+multialgebra, and \(\C D(T)\) should be an interpretation mapping defining the
+multialgebra.  Definition~\ref {def:semantics} tells us what properties
+$\C D[\_]$ should have in order to be an interpretation mapping:
+\begin{description}\MyLPar
+\item [PO1.] \(\C D [f(\List tn,)] =
+\bigcup\{\C D [f(\List\alpha n,)]:\alpha_i\in \C D [t_i]\}\) 
+for any \(f\in \Funcs^n\), \(\{\List tn,\}\subset
+\GTerms\);
+\item [PO2.] \(\C D [s]=\{[s]\}\iff s\Eq s\in\C R^\ast\);
+\item [PO3.] \(\C D [s]\subseteq \C D [t] \iff s\Incl t\in\C R^\ast\);
+\item [PO4.] \(\C D [s]\cap \C D [t]\not=\es \iff s\Int t\in\C R^\ast\).
+\end{description}
+\noindent If the mapping \(\C D[\_]\) satisfies PO1--PO4, then a multialgebra $A$
+satisfying \C R can be defined:
+\begin{description}\MyLPar
+\item[MA1.] the carrier \(S^A\Def \C D\);
+\item[MA2.] for any constant \(c\in\Funcs\): \(c^A\Def \C D[c]\);
+\item[MA3.] for any \(f\in\Funcs^n\) and
+\(\{[d_1] ,\ldots, [d_n]\}\subseteq\C D\):
+\(f^A([d_1] ,\ldots, [d_n])\Def \C D[f(\List dn,)]\).
+\end{description}
+In this case \(\Interpret\_=\C D[\_]\), what follows from PO1, and we say that
+\C R {\em defines} the multialgebra $A$. The next result is important, because
+the multialgebra is constructed from positive atoms only, while clauses from
+\C S may also contain negative atoms. We must be sure that the multialgebra
+makes true only atoms derivable from the forcing set \C R.
+\begin{LEMMA} \label{le:MA-exact}
+If \C R defines a multialgebra $A$ then, for any atom \(a :
+a\in\C R^\ast \iff \Interpret a\) is true.
+\end{LEMMA}
+However, the mapping $\C D[\_]$ defined from the forcing set \C R may violate any
+of the Requirements~PO1--PO4. We might therefore consider the mapping \(\C M[\_]\)
+instead, but also this one may violate these requirements.
+To meet these problems we will extend
+ \C C (and mapping \(\C D[\_]\)) with new minimal elements. Making
+ all new elements deterministic, will also make mappings \(\C D[\_]\) and
+\(\C M[\_]\) coincide.
+%\subsubsection{Conservative extension of the forcing set}
+\begin{DEFINITION} \label{def:conservative-extension}
+Let \(\Funcs\subset\Funcs_1\) be two signatures and \(\C R, \C R_1\) two sets of
+atoms over signature $\Funcs,$ resp. \(\Funcs_1.\)
+\(\C R_1\) is a {\em conservative extension} of \C R if for any 
+($\Funcs$-)atom \(a\), \(a\in\C R_1^\ast\iff a\in\C R^\ast\).
+\end{DEFINITION} 
+
+\newITEM H
+\begin{THEOREM} \label{th:multialgebra-exists}
+For any atom set \(\C R\) there exists an atom set \(\C R_1\) that is a
+conservative extension of \(\C R\) and defines a multialgebra.
+\end{THEOREM}
+\begin{PROOF}
+Let \(M=PO(\C R)\) be a partially ordered set as defined above. We first extend
+\C R with some new (deterministic) constants and atoms obtaining \(\C R_1\). Then
+we show that \(\C R_1\) is a conservative extension of \C R and, finally, that
+\(PO(\C R_1)\) satisfies the conditions PO1--PO4. This will imply that 
+\(\C R_1\) defines a multialgebra satisfying exactly the atoms from \C R.
+
+For each nondeterministic element
+\(T\in\C C\setminus \C D\) add to $\C M$ a new deterministic element \(\chi(T)\),
+called the {\em characteristic} element for $T$. Each of these elements is 
+considered as an
+equivalence class \([c]=\{c\}\) containing only one new constant. Let \(\Psi\Def
+\{c: [c]=\chi(T), T\in\C C\setminus\C D\}\) be the set of these new constants. 
+The main
+property of the characteristic elements is
+\begin{equation} \label{eq:charact-constant}
+\chi(T)\Ein V\iff T\Eineq V.
+\end{equation}
+
+This corresponds to inclusion in \(\C R_1\) of all atoms
+\ITEM{char-elem}{ \(c\Eq c\) and \(c\Incl t\), where \(c\in\Psi\), \(t\in T\)
+and \(\chi(T)=[c]\).} 
+The mapping \(\chi\) is injective, so \(\chi^{-1}\) is a partial function. We
+extend the domain of \(\chi\) to the whole set \C C defining, for any \(D\in\C D\),
+\(\chi(D)\Def D\). This extension preserves injectivity of \(\chi\).
+
+This addition of characteristic elements makes PO2 and PO3 true.
+
+To meet the requirement PO4, we choose a new set of constants \(\Phi\),
+\(\Phi\cap(\Funcs\cup\Psi)=\es\). 
+For any terms \(s,t\) violating PO4, a new constant \(c\in\Phi\)
+and the atoms
+\ITEM{int-atoms}{\(c\Eq c\), \(c\Incl s\) and \(c\Incl t\)}
+are added to \(\C R_1\).This will make PO4 true.
+% Each \(c\in\Phi\) corresponds to one pair of corresponding
+% classes \(\{[s], [t]\}\). 
+
+We are left with PO1. In fact, as a consequence of the extensions, new cases
+violating PO1 may occur. To satisfy this last requirement, observe that
+we can define the function-values on the new elements in an arbitrary way
+(as long as we do not violate monotonicity). We need to include the following
+ new atoms:
+\ITEM{char-atoms}{\(t\Incl s\) for any terms \(t=f(\List tn,
+)\in\GTerms\) and \(s=f(\List dn,)\notin\GTerms\), where \(\chi[t_i]
+= [d_i]\).}
+% for any \(i\in[1,n]\).} 
+This will imply inclusion of the term $s$ in the
+equivalence class $[t]$ (because the opposite inclusion \(s\Incl t\) will hold
+in the rewriting closure of \(\C R_1\) by definition).
+
+To show that the set \(\C R_1\) is a conservative extension of \(\C R\),
+notice that all atoms in \(\C R_1\setminus\C R\) contain terms not
+belonging to \(\GTerms\). Furthermore, in the cases \?{char-elem} and
+\?{int-atoms} these new atoms have the form \(c\Eq c\) or \(c\Incl t\) for some
+new constant $c$ and some nondeterministic term \(t\in\GTerms\). Non-trivial
+rewriting steps produced by such atoms (rules) have the form \(u[c]_p\Incl
+u[t]_p\). If such a step is used in a rewriting proof, but the constant \(c\)
+does not occur in the resulting atom, at least two steps of this kind must be
+in the proof and they can be made consecutive. Any such two-step proof derives a
+(nontrivial) atom \(u[v]_p\Int u[t]_p\), where \(c\Incl t\) and \(c\Incl v\)
+are in \(\C R_1\). But this does not add anything to \(\C R^\ast\), if \(t\) and
+\(v\) are in the same equivalence class. If they are not, then we have the
+case \?{int-atoms}, and \(v\Int t\in\C R^\ast\), so again noting new is added
+to \C R. 
+
+In the case \?{char-atoms}, all we can prove about
+\(s=f(\List dn,)\) without using the fact \(s\Cont t\), are inclusions like
+\(u[s]_p\Incl u[v]_p\) for \(v\Cont t\). This observation is based on the
+uniqueness of characteristic elements. But this means, that the fact \(s\Cont
+t\) does not add anything new to the knowledge about \(t\) already contained in \C
+R. This ends the proof of conservativeness of \(\C R_1\) with respect to \C R.
+
+Before the final proof of the properties PO1--PO4, we have to include
+in \(\C R_1\) all atoms 
+\ITEM{min-terms}{\(t\Eq t\) for any class \([t]\in PO(\C R_1)\) that is
+minimal (but not yet deterministic),} thus forcing all minimal elements in \(PO(\C
+R_1)\) to be deterministic. Because of the characteristic elements, 
+all these \([t]\) are not in \(PO(\C R)\). Hence the extension preserves
+conservativeness of \(\C R_1\). \\[6pt]
+\noindent {\bf PO2.} After this last extension PO2 is satisfied by \(PO(\C R_1)\).\\[6pt]
+\noindent {\bf PO4.} There are no atoms of the form \(s\Int t\) in \(\C R_1\setminus
+\C R\), so \(PO(\C R_1)\) satisfies PO4.\\[6pt]
+\noindent {\bf PO3.} PO3 is satisfied for any \(S\Ein T\), if \(T\in PO(\C R)\), 
+because of the addition of the characteristic elements. 
+If \(T\notin PO(\C R)\), there are terms 
+% atoms
+\(s\in S\) and \(t\in T\), and in a rewriting proof of \(s\Incl t\) there is a
+rewriting step \(u[v]\Incl u[w]\), such that the atom \(v\Incl w\) is in \(\C
+R_1\), but the atom \(w\Incl v\notin\C R_1^\ast\). If \(w\in\GTerms\) is
+nondeterministic in \(\C C\) and \([c]=\chi[w]\), then \(u[z]\Incl u[w]\) is
+provable in \(\C R_1\), but \(u[z]\Incl u[v]\) is not, because of (\ref
+{eq:charact-constant}). From this it also follows that the atom \(u[z]\Incl s\)
+is not provable in \(\C R_1\), but \(u[z]\Incl t\) is.  If \(v\Incl w\) is in
+\C R, then \(w\) is nondeterministic, otherwise, it is easy to check all the cases
+ \?{char-elem}, \?{int-atoms}, \?{char-atoms}, and \?{min-terms} and to see
+that \(w\in\GTerms\) and is nondeterministic, too. Thus
+\(PO(\C R_1)\) satisfies PO3.\\[6pt]
+\noindent {\bf PO1.} Let
+\ITEM{singularity}{\(t=f(\List tn,)\), \(s=f(\List zn,)\), \(z_1\Incl t_1
+,\ldots,z_n\Incl t_n\in\C R_1^\ast\), and all \(\{\List zn,\}\) be
+deterministic.} 
+If $z$ is deterministic and \(z\Incl s\in\C R_1^\ast\), then also \(z\Incl
+t\in\C R_1^\ast\), because any \(z_i\) may be rewritten to
+\(t_i\). This proves one inclusion for PO1. Let now $z$ be a deterministic
+term, \(z\Incl t\in\C R_1^\ast\). We must find \(s,\List zn,\) such as in
+\?{singularity}, and show \(z\Incl s\in\C R^\ast_1\). For this it is
+enough to take \(z_i=\chi(t_i)\) and use \?{char-atoms}, which states \(t\Incl
+s\) for this case. This proves PO1 for \(PO(\C R_1)\).
+\end{PROOF}
+
+This ends the proof of the completeness theorem which also yields:
+\begin{COROLLARY} \label{co:rew-completeness}
+Any ground atom valid in all multimodels of a given set of ground atoms \C R 
+has a rewriting proof in \C R.
+\end{COROLLARY}
+
+
