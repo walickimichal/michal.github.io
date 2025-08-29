@@ -1,0 +1,175 @@
+\begin{thebibliography}{}
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:Bia1}
+\bibsc{Bia{\l}asik, M. and Konikowska, B.}
+\newblock Reasoning with nondeterministic specifications.
+\newblock Technical Report 793, Polish Academy of Sciences, Institute
+of Computer Science. \bibyear{(1995)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{BW97}
+\bibsc{Bia{\l}asik, M. and Walicki, M.}
+\newblock Relations, multialgebras and homomorphisms.
+\newblock Technical report 838, Polish Academy of Sciences, Institute
+of Computer Science. \bibyear{(1997)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{relhoms}
+\bibsc{Boyd, J.~P.}
+\newblock Relational homomorphisms.
+\newblock \bibemphic{Social Networks}~\bibemph{14}, 163--186. \bibyear{(1992)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{brink93}
+\bibsc{Brink, C.}
+\newblock Power structures.
+\newblock \bibemphic{Algebra Universalis}~\bibemph{30}, 177--216.
+  \bibyear{(1993)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{brink97}
+\bibsc{Brink, C., Jacobs, D., Netle, K., and Sekran, R.}
+\newblock Generalized quotient algebras and power algebras. \bibyear{(1997)},
+  [unpublished].
+
+\stepcounter{BIB}\bibitem[\theBIB]{Burmeister}
+\bibsc{Burmeister, P.}
+\newblock \bibemph{A Model Theoretic Oriented Approach to Partial Algebras}.
+\newblock Akademie-Verlag, Berlin. \bibyear{(1986)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{Cohn}
+\bibsc{Cohn, P.~M.}
+\newblock \bibemph{Universal Algebra}.
+\newblock D.~Reidel Publishing Company. \bibyear{(1981)}, [series ``Mathematics
+  and Its Applications'', vol.~6].
+
+\stepcounter{BIB}\bibitem[\theBIB]{eli:nondetaut}
+\bibsc{Elienberg, S. and Wright, J.}
+\newblock Automata in general algebras.
+\newblock \bibemphic{Information and Control}~\bibemph{11}, 425--470.
+  \bibyear{(1967)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{glenn}
+\bibsc{Glenn, P.}
+\newblock Identification of certain structures as split opfibrations over
+  $\Delta^{op}$. \bibyear{(1997)}, [to appear in Journal of Pure and Applied
+  Algebra].
+
+\stepcounter{BIB}\bibitem[\theBIB]{goldblatt89}
+\bibsc{Goldblatt, R.}
+\newblock Varieties of complex algebras.
+\newblock \bibemphic{Annals of Pure and Applied Logic}~\bibemph{44}, 173--242.
+  \bibyear{(1989)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{Gratzer}
+\bibsc{Gr\"{a}tzer, G.}
+\newblock \bibemph{Universal Algebra}.
+\newblock Springer. \bibyear{(1968)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{GW84}
+\bibsc{Gr\"{a}tzer, G. and Whitney, S.}
+\newblock Infinitary varieties of structures closed under the formation of
+  complex structures.
+\newblock \bibemphic{Colloq. Math.}~\bibemph{48}. \bibyear{(1984)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:57}
+\bibsc{Hu{\ss}mann, H.}
+\newblock Nondeterministic algebraic specifications and nonconfluent term
+  rewriting.
+\newblock In \bibemphic{Algebraic and Logic Programming}. LNCS vol.~343,
+  Springer. \bibyear{(1988)}.
+
+% \stepcounter{BIB}\bibitem[\theBIB]{c:58}
+% \bibsc{Hu{\ss}mann, H.}
+% \newblock \bibemph{Nondeterministic algebraic specifications}.
+% \newblock Ph.\ D. thesis, Fak. f. Mathematik und Informatik, Universitat
+%   Passau. \bibyear{(1990)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:59}
+\bibsc{Hu{\ss}mann, H.}
+\newblock \bibemph{Nondeterminism in Algebraic Specifications and Algebraic
+  Programs}.
+\newblock Birkh\"{a}user. \bibyear{(1993)}.
+%, [revised version of \cite{c:58}].
+
+\stepcounter{BIB}\bibitem[\theBIB]{JT1}
+\bibsc{J\'{o}nsson, B. and Tarski, A.}
+\newblock Boolean algebras with operators I.
+\newblock \bibemphic{American J. Mathematics}~\bibemph{73}, 891--939.
+  \bibyear{(1951)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{JT2}
+\bibsc{J\'{o}nsson, B. and Tarski, A.}
+\newblock Boolean algebras with operators II.
+\newblock \bibemphic{American J. Mathematics}~\bibemph{74}, 127--162.
+  \bibyear{(1952)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:64}
+\bibsc{Kapur, D.}
+\newblock \bibemph{Towards a Theory of Abstract Data Types}.
+\newblock Ph.\ D. thesis, Laboratory for CS, MIT. \bibyear{(1980)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{Los:relhoms}
+\bibsc{{\L}o\'{s}, J.}
+\newblock Homomorphisms of relations. \bibyear{(1985)}, [manuscript, Warszawa].
+
+\stepcounter{BIB}\bibitem[\theBIB]{adBrink93}
+\bibsc{Madar\'{a}sz, R.}
+\newblock Remarks on power structures.
+\newblock \bibemphic{Algebra Universalis}~\bibemph{34},~2, 179--184.
+  \bibyear{(1995)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{Most}
+\bibsc{Mostowski, A.}
+\newblock \bibemph{Mathematical Logic}.
+\newblock Warszawa-Wroc{\l}aw. \bibyear{(1948)}, [in Polish].
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:93}
+\bibsc{Nipkow, T.}
+\newblock Non-deterministic data types: models and implementations.
+\newblock \bibemphic{Acta Informatica}~\bibemph{22}, 629--661.
+  \bibyear{(1986)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:94}
+\bibsc{Nipkow, T.}
+\newblock \bibemph{Observing non-deterministic data types}.
+\newblock LNCS vol.~332, Springer. \bibyear{(1987)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{Pattison}
+\bibsc{Pattison, P.}
+\newblock The analysis of semigroups of multirelational systems.
+\newblock \bibemphic{J. Mathematical Psychology}~\bibemph{25}, 87--117.
+  \bibyear{(1982)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:101}
+\bibsc{Pickert, G.}
+\newblock Bemerkungen zum homomorphie-begriff.
+\newblock \bibemphic{Mathematische Zeitschrift}~\bibemph{53}. \bibyear{(1950)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:102}
+\bibsc{Pickett, H.}
+\newblock Homomorphisms and subalgebras of multialgebras.
+\newblock \bibemphic{Pacific J. of Mathematics}~\bibemph{21}, 327--342.
+  \bibyear{(1967)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{Topen:93}
+\bibsc{Topentcharov, V.~V.}
+\newblock Composition g\'{e}n\'{e}rale des relations.
+\newblock \bibemphic{Algebra Universalis}~\bibemph{30}, 119--139.
+  \bibyear{(1993)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:132}
+\bibsc{Walicki, M. and Broy, M.}
+\newblock Structured specifications and implementation of nondeterministic data
+  types.
+\newblock \bibemphic{Nordic Journal of Computing}~\bibemph{2}, 358--395.
+  \bibyear{(1995)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{c:130}
+\bibsc{Walicki, M. and Meldal, S.}
+\newblock \bibemph{Multialgebras, power algebras and complete calculi of
+  identities and inclusions}.
+\newblock LNCS vol.~906, Springer. \bibyear{(1995)}.
+
+\stepcounter{BIB}\bibitem[\theBIB]{survey}
+\bibsc{Walicki, M. and Meldal, S.}
+\newblock Algebraic approaches to nondeterminism -- an overview.
+\newblock \bibemphic{ACM Computing Surveys}, vol.~29, no.~1 \bibyear{(1997)}.
+
+\end{thebibliography}

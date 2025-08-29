@@ -1,0 +1,59 @@
+%----------------------------------------------------------------------------
+%
+%  Marcin Bialasik
+%  STYL                - courtesy of Andrzej Tarlecki
+%
+%  Based on
+%
+%  LETTER DOCUMENT STYLE -- Released 20 Sep 88
+%         for LaTeX version 2.09
+%  Copyright (C) 1987 by Leslie Lamport
+%
+%  by ANT, on 30.03.1990
+%
+
+\typeout{Document Style `marcin' <19 May 1992>.}
+
+\textheight 25cm              % Height of text (including footnotes and figures, 
+                              % excluding running head and foot). ******bylo 505pt
+\textwidth 16.5cm             % Width of text line. ******bylo 365pt
+
+\oddsidemargin   -0.3cm       % Left margin on odd-numbered pages.
+%				  *****bylo 53pt
+\evensidemargin  -0.3cm       % Left margin on even-numbered pages.
+%				  *****bylo 53pt
+
+\addtolength{\topmargin}{-1.9cm}
+\newdimen\firstpagetopspace
+\firstpagetopspace=-1.3cm
+                              % box containing running head.
+%				    *****bylo 27pt
+\headheight 0cm
+%           *****bylo 12pt
+\headsep 0pt                  % Space between running head and text.
+%        *****bylo 45pt
+
+\newdimen\longindentation
+\longindentation=.7\textwidth
+%                *****bylo 0.5\textwidth
+\newdimen\indentedwidth
+\indentedwidth=\textwidth
+\advance\indentedwidth -\longindentation
+
+%******************************ant
+% INICJALIZACJA
+%******************************ant
+
+
+\def\@texttop{\ifnum\c@page=1\thispagestyle{empty}%
+		\vskip \firstpagetopspace \relax\fi}
+%					-1.5cm \relax\fi}
+%		*****bylo dla \c@page=1 \vskip 0pt plus .00006fil\relax\fi
+
+\def\ps@plain{\def\@oddhead{}\def\@oddfoot{\rm\hfil -- \thepage{} --
+     \hfil}\def\@evenhead{}\let\@evenfoot\@oddfoot}%	****bylo bez kresek
+
+\ps@plain
+
+
+

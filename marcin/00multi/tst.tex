@@ -1,0 +1,163 @@
+\documentstyle[12pt,marcin]{article}
+
+% arbitrary institution
+
+\newcommand{\Mod}{\mbox{\rm\bf Mod}}
+\newcommand{\Sign}{\mbox{\rm\bf Sign}}
+\newcommand{\Sen}{\mbox{\rm\bf Sen}}
+\newcommand{\Set}{\mbox{\rm\bf Set}}
+\newcommand{\Cat}{\mbox{\rm\bf Cat}}
+
+% particular categories
+
+\newcommand{\MAlg}{\mbox{\rm\bf MAlg}}
+\newcommand{\Alg}{\mbox{\rm\bf Alg}}
+\newcommand{\AlgSig}{\mbox{\rm\bf AlgSig}}
+
+\newcommand{\MA}[2]{\MAlg(#1,#2)}
+
+\newcommand{\Nat}{{\sf Nat}}
+
+% homomorphisms & multCats
+
+\newcommand{\SSs}{{\rm SS}}
+\newcommand{\PS}{{\rm PS}}
+\newcommand{\PP}{{\rm PP}}
+\newcommand{\XX}{{\rm XX}}
+
+\newcommand{\mode}[2]{#1(#2)}
+
+% specifications
+
+\newcommand{\SMod}{\mbox{\sf Mod}}
+\newcommand{\SSig}{\mbox{\sf Sig}}
+\newcommand{\SP}{\mbox{\rm SP}}
+
+% symbols
+
+\newcommand{\reach}[3]{{\sf Reach}^{#1}_{#3}(#2)}
+
+\newcommand{\tinc}{\stackrel{\rm T}{\rightharpoonup}}
+\newcommand{\sinc}{\stackrel{\rm S}{\rightharpoonup}}
+\newcommand{\teq}{\stackrel{\rm T}{\rightleftharpoons}}
+\newcommand{\seq}{\stackrel{\rm S}{\rightleftharpoons}}
+
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+
+\newcommand{\ovr}[1]{\overline {#1}}
+\newcommand{\under}[1]{\underline {#1}}
+
+\newcommand{\quot}[2]{#1\!{\textstyle /}\!_#2}
+\newcommand{\prequot}[2]{#1\!{\textstyle /}\!\!{\textstyle /}\!_#2}
+
+\newcommand{\Comp}[2]{#1;#2}
+\newcommand{\impl}{\Rightarrow}
+\newcommand{\into}{\rightarrow}
+\newcommand{\Card}[1]{|#1|}
+\newcommand{\PSet}{{\cal P}} 
+
+\newcommand{\Terms}{{\cal T}}
+\newcommand{\GTerms}{\Terms_{\Sigma}}
+\newcommand{\XTerms}{\Terms_{\Sigma}(X)}
+
+% Partial orders
+
+\newcommand{\po}{\leq}
+\newcommand{\rpo}{\geq}
+\newcommand{\spo}{<}
+\newcommand{\posup}{\bigvee}
+\newcommand{\fposup}{\vee} % finite \posup
+% ponizej powinno byc \bigsqcap
+\newcommand{\poinf}{\bigwedge}
+\newcommand{\fpoinf}{\wedge}
+
+\newcommand{\setsup}{\bigcup}
+\newcommand{\fsetsup}{\cup}
+\newcommand{\setinf}{\bigcap}
+\newcommand{\fsetinf}{\cap}
+
+% other
+
+\newcommand{\Det}{\mbox{\sf Det}}
+\newcommand{\PDet}{\mbox{\sf PDet}}
+\newcommand{\CDet}{\mbox{\sf CDet}}
+\newcommand{\Mquo}{\mbox{$/\!\!/$}}
+\newcommand{\implem}{\mbox{$\sim\!\leadsto$}}
+
+\newcommand{\re}[1]{(\ref{#1})}
+
+% environments
+
+\newtheorem{Definition}{Definition}[section]
+\newtheorem{Fact}{Fact}[section]
+\newtheorem{Lemma}{Lemma}[section]
+\newtheorem{Example}{Example}[section]
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Corollary}{Corollary}[section]
+\newenvironment{Proof}
+               {\setlength{\parskip}{5pt}
+                \setlength{\parindent}{0pt}
+                {\sc Proof:}}{\hfill{\sc qed}\vspace{1.5ex}}
+%                {\sc Proof:}}{\hfill{\sc qed}$\:$\raisebox{-1pt}{$\Box$}}
+
+\newenvironment{REMARK}[1]{\vspace{1ex}\par\noindent{\bf #1}}
+            {\vspace{1ex}\par\noindent\ignorespaces}
+% and numbered version
+\newcounter{CLAIM}[section]
+\newenvironment{REMARKno}[1]{\refstepcounter{CLAIM}
+       \vspace{1ex}\par\noindent{\bf #1\ \theCLAIM .}}
+       {\vspace{1ex}\par\noindent\ignorespaces}
+
+% small remark
+\newenvironment{SREMARK}[1]{\vspace{1ex}\par\noindent\small{\bf #1}}
+            {\vspace{1ex}\par\noindent\normalsize\ignorespaces}
+\newenvironment{SREMARKno}[1]{\refstepcounter{CLAIM}
+       \vspace{1ex}\par\noindent\small {\bf #1\ \theCLAIM .}}
+       {\vspace{1ex}\par\noindent\normalsize\ignorespaces}
+
+
+% co-operation (sic!) 
+
+\newcommand{\marcin}[1]{\vspace{1ex}{\sf [][][ MB: #1 ][][]}\vspace{1ex}}
+\newcommand{\michal}[1]{\vspace{1ex}{\sf [][][ MW: #1 ][][]}\vspace{1ex}}
+
+
+%==============================================================================
+%
+%   The Document
+
+\input xypic
+
+\begin{document} 
+
+There are various equivalent ways of representing generated PO's and,
+occasionally, we will use alternative representations. For instance,
+$M=\{1,2,3,4,\{1,2\},\{1,2,3\},\{1,2,4\},\{1,2,3,4\}\}$ corresponds to the diagram to the left:
+
+\spreaddiagramrows{-0.5pc}
+\spreaddiagramcolumns{-1pc}
+\def\objectstyle{\scriptstyle}
+\diagram
+%& & \save\Drop{\{1,2,3,4\}}\restore &   & & & & & \save\Drop{\{\{\{1,2\},3\}, \{\{1,2\},4\} \}}\restore & \\
+& & \{1,2,3,4\} &   & & & & & \{\{\{1,2\},3\}, \{\{1,2\},4\} \} & \\
+ & \{1,2,3\} \xline[ur] & & \{2,3,4\} \xline[ul] & & &  & \{\{1,2\},3\} \xline[ur]& & \{\{1,2\},4\} \xline[ul] \\
+& \{1,2\} \xline[u] \xline[urr] & & & M\ \rrto<0.2pc>^{\_\in} & & \llto<0.2pc>^{sp} \ M^\in  & \{1,2\} \xline[u] \xline[urr] \\
+1 \xline[ur] & 2 \xline[u] & 3 \xline[uul] & 4 \xline[uu]  & & &
+                                1 \xline[ur] & 2 \xline[u] & 3 \xline[uul] & 4 \xline[uu]
+\enddiagram
+
+
+But we may interpret the relations indicated in the diagram as $\in$
+instead of $\subseteq$. In this case, $M$ corresponds to
+$M^\in=\{1,2,3,4, \{1,2\}, \{\{1,2\},3\}, \{\{1,2\},4\},\{\{\{1,2\},3\},\{\{1,2\},4\} \}\}$.  We have
+the obvious function $\_^\in:M\into M^\in$ which sends each $X\in M$ onto
+$X^\in=\{Y\in M:Y\subseteq X\lor Y\in X\cap\under M\}$ in
+$M^\in$. (Actually, we are confusing here minimal $Y$ with $\{Y\}$.)
+Similarly, the support function $sp:M^\in\into M$ sends $X^\in \mapsto
+\left\{\begin{array}{l} X\ {\rm if}\ X\in\under{M^\in} \\
+  \bigcup_{Y\in X} sp(Y)\ {\rm otherwise} \end{array}\right.$.
+
+
+
+\end{document}

@@ -1,0 +1,1142 @@
+\documentstyle[10pt]{article}
+%\documentstyle[a4,fullpage,12pt,oldlfont]{article}
+
+\makeatletter
+\input{a4wide}
+\makeatother
+
+\input{defs}
+
+% arbitrary institution
+%% \newcommand{\Mod}{\mbox{\rm\bf Mod}}
+%% \newcommand{\Sign}{\mbox{\rm\bf Sign}}
+%% \newcommand{\Sen}{\mbox{\rm\bf Sen}}
+%% \newcommand{\Set}{\mbox{\rm\bf Set}}
+%% \newcommand{\Cat}{\mbox{\rm\bf Cat}}
+
+% particular institutions
+%% \newcommand{\MAlg}{\mbox{\rm\bf MAlg}}
+%% \newcommand{\Alg}{\mbox{\rm\bf Alg}}
+%% \newcommand{\AlgSig}{\mbox{\rm\bf AlgSig}}
+
+% specifications
+
+%% \newcommand{\SMod}{\mbox{\sf Mod}}
+%% \newcommand{\SSig}{\mbox{\sf Sig}}
+%% \newcommand{\SP}{\mbox{SP}}
+\newcommand{\abs}[2]{{\rm \bf abstract}\ \mbox{#1}\ {\rm \bf wrt}\ #2}
+\newcommand{\beh}[2]{{\rm \bf behaviour}\ \mbox{#1}\ {\rm \bf wrt}\ #2}
+\newcommand{\deter}[1]{{\rm \bf determinize}\ \mbox{#1}}
+\newcommand{\derive}[2]{{\rm \bf derive}\ \mbox{#1}\ {\rm \bf by}\ #2}
+\newcommand{\der}[2]{{\rm \bf derive}\ \mbox{#1}\ {\rm \bf by}\ #2}
+\newcommand{\trans}[2]{{\rm \bf translate}\ \mbox{#1}\ {\rm \bf along}\ #2}
+\newcommand{\unite}[2]{{\rm \bf unite}\ \mbox{#1}\ {\rm \bf and}\ \mbox{#2}}
+
+%
+\newcommand{\Sort}{\mbox{\it Sorts}}
+\newcommand{\Op}{\mbox{\it Ops}}
+
+%--------------------------------------------------------------------
+% symbols
+
+\newcommand{\simH}{\by\sim H}
+\newcommand{\simV}{\by\sim F}
+
+%% \newcommand{\Det}{\mbox{\sf Det}}
+%% \newcommand{\CDet}{\mbox{\sf CDet}}
+\newcommand{\Beh}{\mbox{Beh}}
+\newcommand{\Abs}{\mbox{Abs}}
+%% \newcommand{\Mquo}{\mbox{$/\!\!/$}}
+\newcommand{\Eq}{\mbox{Eq}}
+\newcommand{\imp}{\mbox{$\sim\!\leadsto$}}
+\newcommand{\val}[1]{\mbox{$\overline{#1}$}}
+\newcommand{\Obs}{\rm Obs}
+\newcommand{\nlet}[3]{[{\sf let}\ #1 := #2\ {\sf in}\ #3\ {\sf ni}]}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\lc}{\langle}
+\newcommand{\rc}{\rangle}
+\newcommand{\ec}{\sim_c}
+\newcommand{\er}{\sim_r}
+\newcommand{\ep}{\sim_p}
+\newcommand{\obs}{\equiv_{\Obs}}
+\newcommand{\sqs}{\sqsubseteq}
+\newcommand{\close}[1]{|\!|#1|\!|}
+\newcommand{\smodels}{\:|\!\!\!\approx}
+\newcommand{\kap}{\kappa}
+
+%--------------------------------------------------------------------
+% pretty definitions
+
+\newcommand{\givedef}[2]
+            {\begin{tabular}{p{1.25cm}p{0.35cm}p{13.75cm}}
+                    #1 & {\rm iff} & #2 
+             \end{tabular} \\[2mm] }
+
+%--------------------------------------------------------------------
+% environments
+
+%% \newenvironment{Proof}
+%%                {\setlength{\parskip}{5pt}
+%%                 \setlength{\parindent}{0pt}
+%%                 {\sc Proof:}}{\hfill{\sc qed}$\:$\raisebox{-1pt}{$\Box$}}
+
+\newcommand{\Dybdy}[1]{\begin{Definition} \ \\
+                       \indent {\rm #1 } \hfill$\Box$ 
+                       \end{Definition} }
+
+\newcommand{\support}{This research was supported by the Polish
+Research Committee and by the Norwegian Research Council.}
+
+\input{xypic}
+
+%--------------------------------------------------------------------
+% the document
+
+\begin{document} 
+
+\
+
+\vspace{2cm}
+
+%% \begin{center}
+%% {\Large\bf Behavioural Satisfaction and Equivalence \\
+%%         in Nondeterministic Algebras\footnote{\support} }\\[0.8cm] 
+%% {\large Marcin Bia\l{}asik }\\[0.4cm] 
+%%         Institute of Computer Science \\
+%%         Polish Academy of Sciences \\
+%%         ul.\ Ordona 21, Warsaw, Poland \\
+%%         {\tt marcinb@ipipan.waw.pl} \\
+\today 
+%% \end{center}
+%% \medskip
+
+%==============================================================================
+%
+%
+
+\begin{enumerate}
+\item assuming: 
+\[\begin{array}{rcl}
+\SMod(\beh{SP}\sim) & = & \SMod(\abs{SP}\equiv) \\
+ \{A: A/_\sim\in\SMod(SP)\}  & = & \{A: \exists B\in\SMod(SP): A\equiv
+B\} \\
+ & = & \SMod(\{t=s:SP\vdash t=s:
+t,s\in T(X_{V})_V\})
+\end{array}
+\]
+\item ND does not replace Abs, and so ND+Abs $>$ ND
+\item three (++?) levels of definition:
+ \begin{enumerate}\MyLPar 
+ \item\label{it:h} $\simH$ defined by obervations on $H$-values
+  \begin{enumerate}\MyLPar
+   \item any 1-step transition -- full bisimilarity
+   \item any transition into $V$ -- visible bisimilarity (see Fig.~\ref{fi:Vbisim}),
+   context indistinguishability
+  \end{enumerate}
+ \item\label{it:vf} $\simV$ defined by preservation of $V$-formulae: observational
+ wrt. $\alpha$'s iff $A\models\alpha\Iff A/_{\sim}\models\alpha$ --
+ too rough, but... ($s^A=\es, t^A=\{1\}$ and $s^B=\{1,2\}, t^B=\{1,2,3\}\impl A\equiv B$ ?)
+ \item\label{it:ex} external $M\equiv N$ (? $\Iff \CDet(M)\iso\CDet(N)$ then same as \ref{it:vf}?)
+ \end{enumerate}
+Show: \ref{it:h} vs. formulae for \ref{it:vf}.
+\begin{figure}[ht]
+\[\maly{1.5}{0.5}
+\diagram
+V: &&&&& 0 & & 1 &&& 0 & & 1 \\
+H: \uto^f &&&&& x\uto &\simV & y\uto &&& & xy \ulto \urto & \\
+V: \uto^g &&&&& & a \xline[ul]\xline[ur] &  &&& & a \xline[u]
+\enddiagram
+\]
+\caption{}\label{fi:Vbisim}
+\end{figure}
+
+No matter what, we cannot have $x\simH y$, since $f(x)\not=f(y)$. But in both we do have
+$f(g(a))=\{0,1\}$ -- the same $V$-formulae are satisfied (unless we admit bindings).
+\item ? wish:
+% \begin{itemize}\MyLPar
+% \item 
+$\not\sim$ monototone wrt. the number of Obs-ervations; and
+\[\begin{array}{c@{\ }|@{\ }c@{\ \ }l}
+{\rm rel.} & {\rm  preserved\ under\ }Det & \\ \hline
+\sim &  no & f(x)\seteq f(y) \\
+\not\sim & no & f(x)\cap f(y)\not=\es \\ \hline
+\subseteq, \seteq, \frown & no \\
+\not\frown & yes & 
+\end{array}
+\]
+\item hierarchy of observations: $\{t(x), let, \in\}\times\{\subseteq,
+\frown,\ldots\}$
+\item does any of the above classes have largest observational
+equivalence?
+\item $\forall A\in\MAlg(\Sigma) \exists {\rm largest}\ \sim_A\  \impl 
+ (A \equiv B \Iff A/_{\sim_{A}} \simeq B/_{\sim_{B}})$ ?
+\end{enumerate}
+
+\noindent
+Hypergraph for the term $h(g(v_1,v_2),v_3)= \{0,1,2,3\}$ with
+$g(v_1,v_2)=\{a,b\}$ -- two hyperedges $h:
+\<a,v_3\>\by\into{h}\<0,1\>$ and $\<b,v_3\>\by\into{h}\<1,2,3\>$ and
+one $g:\<v_1,v_2\>\by\into{g}\<a,b\>$.
+\[\maly{1}{1}
+\diagram
+& 0 & 1 & 2 & 3   && \\
+& \save\go[]\merge\framed<5pt>\restore h \uto \urto 
+  & & \save\go[]\merge\framed<5pt>\restore h \ulto \uto \urto &  && \\
+& a \xline[u]& &  b \xline[u] & % c \xline[ul]  \xline[ulll] 
+   && \\
+& & \save\go[]\merge\framed<5pt>\restore g \ulto \urto  & &   &&  \\
+& v_1 \xline[ur] & & v_2 \xline[ul] &  v_3 \xline[uuulll] \xline[uuul]  &&
+\enddiagram
+\]
+
+
+
+
+\section{Introduction}
+
+In this paper we present some results concerning behavioural
+equivalence and satisfaction in multialgebras.  One of the principal
+claims made in the introduction is that multialgebras should be viewed
+as primary models of a specification. This necessitates for a
+behavioural abstraction at the nondeterministic level. We must however
+keep in mind that our final goal is a deterministic model and hence
+the abstracting equivalence relation on multialgebras should
+correspond to some equivalence on deterministic algebras.
+
+The paper is organised as follows. In Section 2 we present basic
+notions related to algebraic specification and program
+development. This covers the deterministic case only. In Section 3 we
+introduce nondeterministic algebras (multialgebras). Interpretation of
+terms in such algebras and logics to specify the multialgebras are
+discussed in Section 4. Section 5 deals with algebraic specifications
+that allow for nondeterministic models and introduces anew such
+notions as abstracting (behavioural) equivalence and implementation.
+Section 6 is entirely devoted to an example of program
+development. Results concerning the abstracting equivalence and
+behavioural satisfaction are discussed in Section 7.
+
+\section{Algebras and algebraic specifications}
+
+An {\em algebraic signature} $\Sigma$ is a pair $[S,F]$ where $S$ is a
+set of sort names and $F$ is a family of sets $\{F_{w,s}\}_{w \in
+S^\ast, s \in S}$ of sort names. We write $[f : w \rightarrow s] \in
+F$ to denote $w \in S^\ast, s \in S$ and $f \in F_{w,s}$. An {\em
+algebraic signature morphism} $\sigma : [S,F] \rightarrow [S',F']$ is
+a pair $[\sigma_S,\sigma_F]$ where $\sigma_S : S \rightarrow S'$ and
+$\sigma_F$ is a family of maps $\{\sigma_{w,s} : F_{w,s} \rightarrow
+F'_{\sigma^\ast_S(w),\sigma_S(s)}\}_{w \in S^\ast, s \in S}$ where
+$\sigma^\ast_S(s_1,\ldots,s_n)$ denotes
+$\sigma_S(s_1),\ldots,\sigma_S(s_n)$. We will write $\sigma(s)$ for
+$\sigma_S(s)$, $\sigma(w)$ for $\sigma^\ast_S(w)$ and $\sigma(f)$ for
+$\sigma_{w,s}(f)$ where $f \in F_{w,s}$.  The category of all
+algebraic signatures will be denoted \AlgSig. It has algebraic
+signatures as objects and algebraic signature morphisms as morphisms.
+
+Let $\Sigma = [S,F]$ be an algebraic signature. A (deterministic)
+$\Sigma$-algebra $A$ consists of an $S$-indexed family of carrier sets
+$\{A_s\}_{s \in S}$ and for each $[f : s_1 \times \ldots \times s_n
+\rightarrow s] \in F$ a function $f^A : A_{s_1} \times \ldots \times
+A_{s_n} \rightarrow A_s$.  A $\Sigma$-homomorphism $\phi$ from a
+$\Sigma$-algebra $A$ to a $\Sigma$-algebra $B$ is a family of mappings
+$\{\phi_s\}_{s \in S}, \phi_s: A_s \rightarrow B_s$ such that for all
+$[f:s_1 \times s_2 \times \ldots \times s_n \rightarrow s] \in F$ and
+for all $a_i \in A_{s_i}, i \in \{1,\ldots,n\}$ the following
+condition holds:
+\[ 
+\phi_s(f^A(a_1,\ldots,a_n)) =
+f^B(\phi_{s_1}(a_1),\ldots,\phi_{s_n}(a_n))
+\]
+
+\[
+\begin{array}{lcl}
+   \SSig[\lc\Sigma,\Psi\rc] & = & \Sigma \\
+   \SMod[\lc\Sigma,\Psi\rc] & = & \{ A \in \MAlg(\Sigma): 
+                                     A \models \Psi\}
+\end{array}
+\]
+
+Flat specifications, however, do not allow to structure our
+specifications -- the resulting one is a lengthy list of axioms
+difficult to manage and to reason with. Also, it requires us to work
+over a single signature.
+
+The following specification-building operations were proposed in the
+literature (for an overview see XXX or XXX):
+
+\begin{itemize}
+\item Union of $\Sigma$-specifications. \\
+$
+\begin{array}{lcl}
+   \SSig[\unite{\SP}{\SP'}] & = & \Sigma \\
+   \SMod[\lc\Sigma,\Psi\rc] & = & \SMod[\SP] \cap \SMod[\SP']
+\end{array}
+$
+
+\item Translation of a $\Sigma$-specification $\SP$ along some
+signature morphism $\sigma : \Sigma \ra \Sigma'$. \\ 
+$
+\begin{array}{lcl}
+   \SSig[\trans{\SP}{\sigma}] & = & \Sigma' \\
+   \SMod[\lc\Sigma,\Psi\rc] & = & \{ A' \in \MAlg(\Sigma'): 
+                                     A'\mid_\sigma \in \SMod[\SP]\}
+\end{array}
+$
+
+\item Derival of $\Sigma'$-specification from a $\Sigma$-specification
+by a morphism $\sigma : \Sigma' \ra \Sigma$. This operation allows to
+hide details whilst preserving the collection of models. \\
+$
+\begin{array}{lcl}
+   \SSig[\derive{\SP}{\sigma}] & = & \Sigma' \\
+   \SMod[\lc\Sigma,\Psi\rc] & = & \{ A'\mid_\sigma: 
+                                     A' \in \SMod[\SP]\}
+\end{array}
+$
+\end{itemize}
+
+
+
+
+%===========================================================================
+%
+\section{Multialgebras}
+
+We finally come to the definition of a multialgebra: 
+
+\begin{Definition}
+Let $\Sigma = [S,F]$ be a signature. A $\Sigma$-multialgebra is a
+tuple $M = [S^M,F^M]$ where $S^M = \{M_s\}_{s \in S}$ is a family of
+carrier sets for each sort $s \in S$ and $F^M = \{f^M\}_{f \in F}$ is
+a family of set-valued functions such that
+\[ 
+f^M : M_{s_1} \times \ldots \times M_{s_n} \rightarrow P^+(M_s) 
+\]
+for each $[f : s_1 \times \ldots s_n \rightarrow s] \in F$
+\hfill$\Box$
+\end{Definition} 
+%
+Since we are going to discuss deterministic and nondeterministic
+algebras in parallel, in order to avoid ambiguity we shall always use
+letters $A,B,\ldots$ for the former ones and $M,N,\ldots$ for the
+latter ones. The class of all $\Sigma$-algebras and all
+$\Sigma$-multialgebras will be denoted $\Alg(\Sigma)$ and
+$\MAlg(\Sigma)$, respectively.
+
+Below we present a definition of a tight multihomomorphism which is
+the most obvious extension of the original notion for deterministic
+algebras.
+
+\begin{Definition}
+Let $\Sigma = [S,F]$ be a signature, $M,N \in \MAlg(\Sigma)$.  A tight
+$\Sigma$-multi\-homo\-mor\-phism $\phi$ from $M$ to $N$ is a family of
+mappings $\phi = \{\phi_s\}_{s \in S}, \phi_s: M_s \rightarrow N_s$
+such that for all $[f : s_1 \times s_2 \times \ldots \times s_n
+\rightarrow s] \in F$ and for all $a_i \in M_{s_i}, i \in
+\{1,\ldots,n\}$ the following condition holds:
+\[ 
+\phi_s(f^M(a_1,\ldots,a_n)) =
+f^N(\phi_{s_1}(a_1),\ldots,\phi_{s_n}(a_n)) 
+\]
+\hfill$\Box$
+\end{Definition}
+%
+For many applications, however, it turns out to be too strong. In the
+next definition we cover other possible notions of a homomorphism that
+will come up in the discussion. For simplicity of presentation we
+restrict ourselves to single-argument functions.
+
+\begin{Definition}
+Let $\Sigma = [S,F]$ be a signature, $M,N \in \MAlg(\Sigma)$ and let
+$\phi$ be a mapping from $M$ to $N$ (i.e.\ a fimily of mappings 
+$\phi = \{\phi_s\}_{s \in S}, \phi_s: M_s \rightarrow N_s$).
+If for all $[f : s' \rightarrow s] \in F$ and for all $a \in M_{s'}$: 
+\begin{itemize}
+\item{ $\phi_s(f^M(a)) \subseteq f^N(\phi_{s'}(a))$ 
+       then $\phi$ is a loose $\Sigma$-homomorphism; }
+\item{ $\phi_s(f^M(a)) \supseteq f^N(\phi_{s'}(a))$ 
+       then $\phi$ is a closed $\Sigma$-homomorphism; }
+\item{ $\phi_s^{-1}(f^N(\phi_{s'}(a))) \subseteq
+       \phi^{-1}_s(\phi_s(f^M(\phi^{-1}_{s'}(\phi_{s'}(a)))))$
+      then $\phi$ is a strong $\Sigma$-homomorphism; }
+\item{ $f^N(\phi_{s'}(a)) \subseteq
+       \phi_s(f^M(\phi^{-1}_{s'}(\phi_{s'}(a))))$
+       then $\phi$ is a very strong $\Sigma$-homomorphism; \hfill$\Box$}
+\end{itemize}
+\end{Definition}
+%
+A {\em tight (loose, closed,...) subalgebra} $N$ of $M$ is a
+multialgebra such that $|N| \subseteq M$ the injective morphism
+$\imath : N \hookrightarrow M$ (i.e.\ the identity) is of respective
+type. We can now describe a class of deterministic algebras defined by
+a given multialgebra.
+
+\begin{Definition}
+Let $M,N \in \MAlg(\Sigma)$. We say that $N$ is a determinisation of
+$M$ iff $N$ is a loose subalgebra of $M$. Moreover, $N$ is a complete
+determinisation if it is deterministic i.e.\ for any $[f : s_1 \times
+s_2 \times \ldots \times s_n \rightarrow s] \in F$ and for all $a_i
+\in N_{s_i},\ i \in \{1,\ldots,n\}$ we have $|f^N(a_1,\ldots,a_n)| =
+1.$ 
+\hfill$\Box$
+\end{Definition}
+%
+We adopt notations $\Det(M)$ and $\CDet(M)$ for respective classes of
+all determinizations and complete determinisations of a given
+$\Sigma$-multialgebra $M$. Also, unless otherwise specified, a term
+``deterministic algebra'' will denote a multialgebra $M$ such that $M
+\in \CDet(M)$.
+
+We need yet another notion -- a quotient of a multialgebra. Unlike in
+the standard one, multialgebras allow us to drop the requirement that
+the relation is a congruence. It suffices to have an equivalence.
+
+\begin{Definition}
+Let $M \in \MAlg(\Sigma)$ and let $\sim_M$ be an equivalence relation
+on $M$. A quotient of the multialgebra $M$ w.r.t. $\sim_M$ (denoted
+$A\Mquo_{\sim_M}$) is a multialgebra $N$ such that:
+\[
+\begin{array}{l}
+N_s = \{ [a]_{\sim_M} : a \in M_s \} \\
+f^N([a_1]_{\sim_M},\ldots,[a_n]_{\sim_M}) = 
+\{ [b]_{\sim_M} : b \in f^M(a'_1,\ldots,a'_n), a'_i \in [a_i]_{\sim_M} \}
+\end{array}
+\]
+where $[f : s_1 \times s_2 \times \ldots \times s_n \rightarrow s] \in F$
+and $a_i \in A_{s_i}$ for $i \in \{1,\ldots,n\}$; $[a]_{\sim_M}$ denotes
+the equivalence class of $a$.
+\hfill$\Box$
+\end{Definition}
+%
+For any subset of $P \subseteq |M|$ we denote by $\close{P}_{\sim_M}$,
+or simply $\close{P}$ the closure of $P$ wrt.\ $\sim_M$. Note that a
+very special case occurs when the multialgebra $A$ is deterministic
+and $\sim$ is not a congruence and it leads to a concept of a {\em
+nondeterminisation} of an algebra.
+
+\section{Nondeterministic terms and formulae}
+
+The logic will be tailored to an arbitrarily chosen, but fixed,
+signature and, as usual, the formulae will be constructed over a set
+of terms. However, our set of terms will be an extension of the
+typical set of algebraic terms through an addition of a special ``{\sf
+let}'' construct, which is used to restrict the nondeterminism and
+henceforth to increase the expressive power.  We shall explain this in
+detail.
+
+Let $\Sigma = [S,F]$ be an arbitrary algebraic signature, to be fixed
+for the sequel, and let $X=\{X_s\}_{s\in S}$, where $X_s$ is an 
+enumerable set of variables of sort $s$. We shall use a short
+notation of the form $x\in X$ to denote the fact that $x\in X_s$ for
+some $s\in S$.
+
+\begin{Definition} 
+The set of nondeterministic $\Sigma$-terms (n-terms) over an $S$-sorted 
+set of variables $X$, denoted $NT_\Sigma(X)$, the least set of expressions 
+such that:
+\begin{itemize} 
+\item{each variable $x \in X_s$ is an n-term of sort $s$;} 
+\item{if $t_i$ are n-terms of sort $s_i$ and 
+      $[f:s_1 \times \ldots \times s_n \rightarrow s] \in F$, 
+      then $f(t_1, \ldots, t_n)$ is an n-term of sort s;} 
+\item{if $t,t'$ are n-terms and $x$ is a variable of the same sort 
+      as the term $t'$, then $\nlet{x}{t'}{t}$ is an n-term, iff $x$ is 
+      free in $t$;}
+\end{itemize}
+where a variable $x$ is free in an n-term $t$ iff it is not bound by 
+another {\sf let} construct in  $t$.
+\hfill$\Box$ 
+\end{Definition}
+%
+For the sake of simplicity, whenever possible we shall omit explicit
+references to sorts of variables, functions, terms and objects; the
+implicit sorts are always assumed to be such that the considered
+expression (object) is well-formed (well-defined).
+
+The interpretation of n-terms in a given $\Sigma$-multialgebra $A$
+will be given by multi-sorted valuation of variables. We have already
+mentioned that n-terms will be interpreted as sets. However, the
+valuation of variables is still deterministic and assigns to each $x
+\in X$ a single value from appropriate carrier sets of $A$.
+
+\begin{Definition}
+For any multialgebra $A\in \MAlg(\Sigma)$, by a (multi-sorted)
+valuation of variables in $X$ in $A$ we mean any mapping $v: X
+\rightarrow |A|$, with $v(x)\in s^{A}$ for every $s\in S$ and every
+$x\in X_s$.
+\hfill$\Box$ 
+\end{Definition}
+%
+The semantics of n-terms in a multialgebra $M$ is obtained by
+extending the valuation $v$ in a standard way, with two special
+prerequisites. The value of a set-valued function symbol $f$ on a set
+of elements will be interpreted as taking a set-theoretic union of the
+values of $f^M$ for all the elements of this set. In case of the
+$\nlet{x}{t'}{t}$ construct we proceed as follows: first, we pick a
+particular value $a$ of $t'$ in $M$ and substitute it for all the
+occurrences of $x$ in $t$ i.e. take the value of the n-term $t[a/x]$;
+the value of the ``{\sf let}'' term is a sum of values of all such
+terms formed for any value of $t'$ in $M$. Formally, we define the
+semantics as follows:
+
+\begin{Definition} Let $M$ be a multialgebra in $\MAlg(\Sigma)$, and
+let $v: X \rightarrow M$ be a multi-sorted valuation of variables
+from $X$ in $M$. For any $v:X\ra |M|, x\in X, a\in |M|$, we define
+\[
+v[a/y](x) = \left\{
+            \begin{array}{ll} 
+                   a    & \mbox{iff $x=y$}, \\
+                   v(x) & \mbox{otherwise}
+            \end{array}
+            \right.
+\]
+The interpretation of n-terms in $A$ induced by $v$ is a function 
+$\val{v}: NT_{\Sigma}(X) \rightarrow P(|M|)$ defined as follows:
+\begin{itemize} 
+\item{$\val{v}(x)$ is the singleton set $\{v(x)\}$}
+\item{$\val{v}(f(t_1,\ldots,t_n))$ is the set $\bigcup_{a_i \in
+      \val{v}(t_i)} f^{A}(a_1,\ldots,a_n)$}
+\item{$\val{v}(\nlet{x}{t'}{t})$ is the set 
+      $\bigcup_{a \in \val{v}(t')} \val{v[a/y]}(t)$}
+\end{itemize}
+\hfill$\Box$ 
+\end{Definition}
+%
+Often, if the valuation is not important or obvious in the context, we
+refer to a value of a term $t$ in $M$ by $t^M$ instead of
+$\val{v}(t)$. Now, in order to give the reader more insight into a
+difference between the usual substitution and the ``{\sf let}''
+substitution, we present the following example.
+\medskip
+
+\noindent
+{\bf Example:} Consider a signature $ \Sigma_r = [S_r,F_r]$ where $S_r
+= \{OhOne, AB\}$ and $F_r = \{g: AB \times AB \rightarrow OhOne; c:
+\rightarrow AB; One: \rightarrow OhOne\}$ and a
+$\Sigma_r$-multialgebra $A$ below:
+\[ 
+\begin{array}{lcll} 
+       OhOne  & = & \{0,1\} & \\ AB & = & \{a,b\} & \\
+       g(x,y) & = & \left\{\begin{array}{ll} 1 & \mbox{if $x = y$} \\ 
+                                              0 & \mbox{otherwise} 
+                           \end{array} \right. & \\ 
+       c      & = & \{a,b\} & \mbox{(a nondeterministic constant)} \\ 
+       One    & = & 1 & \mbox{(a deterministic constant)}
+\end{array} 
+\]
+Now, for any valuation $v$ we have $\nlet{x}{c}{g(x,x)}^{A} = \{1\}$, and
+$g(x,x)[c/x]^{A} = \{0,1\}$. \\. \hfill$\Box$ 
+
+\medskip
+However, we have defined n-terms over {\em all} variables. In a usual
+case, if we restrict the set of variables to some sorts only, the
+definition is just obvious. Here, we must keep in mind that we need to
+restrict only the free variables whilst the bound ones may range over
+the initial set. Hence, for any signature $\Sigma = [S,F]$ and $\Obs
+\subseteq S$ the set $NT_{\Sigma}(X_{\Obs})_{\Obs}$ is the set of terms
+$t_s \in NT_{\Sigma}(X)_s$ such that $s \in \Obs$ and ${\rm Free}(t_s)
+\subseteq X_{\Obs}$.
+
+In addition we shall need {\em contexts}. For a given signature
+$\Sigma = [S,F]$ a set of observable contexts $C(X_{\Obs})_{\Obs}$ is
+just the set $\bigcup_{s \not\in \Obs} NT(X_{\Obs} \cup 
+\{z_s\})_{\Obs}$ where $z_s$ is a variable of sort $s$ such that $z_s
+\not\in X$. We write $c\lc a \rc$ meaning the term obtained by
+substituting a value $a$ for $z$. 
+
+Finally, the formulae of our logic will be built over n-terms with a
+``rewrite'' symbol, i.e. ``$\ra$''.
+
+\begin{Definition}
+A formula over $\Sigma$ is any expression of the form $t \rightarrow
+t'$, where $t, t'\in NT_{\Sigma}(X)$ are n-terms of the same sort. \\
+The set of all $\Sigma$-formulae will be denoted by ${\cal
+F}_\Sigma$. Moreover, we write ${\cal F}_{\Sigma,\Obs}$ for
+the set of formulae built over terms from
+$NT_{\Sigma}(X_{\Obs})_{\Obs}$.
+\hfill$\Box$ 
+\end{Definition}
+%
+We read a formula $t \ra t'$ as {\em the n-term $t$ rewrites to $t'$}
+and this is supposed the capture the intuitive meaning that values of
+$t'$ are also the values of $t$. In other words, the rewrite operator
+``$\ra$'' is just the inclusion of appropriate sets of values of terms
+and it is reflected in the notion of satisfaction of a formula in a
+given model.
+
+\begin{Definition}
+The satisfaction of a formula $t\rightarrow t'$ in a multialgebra $M$
+under valuation $v$ is defined by
+\[ 
+M,v \models t\rightarrow t' \quad {\rm iff} \quad \val{v}(t)
+\supseteq \val{v}(t')
+\] 
+\hfill$\Box$ 
+\end{Definition}
+
+Last we introduce a concept of a {\em reachable subalgebra} of $M \in
+\MAlg(\Sigma)$ i.e.\ a subalgebra where every element of the carrier
+is in the set of results of some ground term $t \in T_{\Sigma}$ (this
+is one of the many definitions of reachability in nondeterministic
+algebras, cf.\ \cite{WM95} for details). We will also speak of a
+subalgebra {\em reachable from sorts \Obs,} where $\Obs$ is some subset
+of sorts in $\Sigma$ -- this means that carrier elements are in values
+of some term in $T_\Sigma(X_{\Obs})$ for some valuation of
+variables. Since the latter concept will be more often used, we denote
+such a subalgebra by $\val{M}$ assuming the set $\Obs$ is specified in
+the context.
+
+At the end we can state a basic fact concerning a relationship between
+a multialgebra and an abstracting equivalence among its
+determinisations.
+
+\begin{Lemma}
+Let $\Sigma = [S,F]$ be a signature. For any $\Sigma$-multialgebra $M$ and
+any two algebras $A,B \in \CDet(M)$ there holds $A \equiv_W B$ where $W$ is
+a set of terms deterministic in $M$.
+\hfill$\Box$
+\end{Lemma}   
+
+\begin{Proof} 
+Note that deterministic terms are the only ones whose
+value cannot change during the determinisation. Hence any equality
+between these terms is preserved.  
+\end{Proof}
+
+
+%========================================================================
+%
+%  MULTIALGEBRAS AND ALGEBRAIC SPECS
+
+\section{Multialgebras and algebraic specifications}
+
+
+
+\begin{Definition} 
+Given two multialgebras $M,N \in \MAlg(\Sigma)$ we say they are
+observationally equivalent (written $M \obs N$) iff there exists a set
+of variables $Y_{\Obs}$ and surjective valuations $v_M: Y_{\Obs} \ra
+|M|_{\Obs}, v_M: Y_{\Obs} \ra |M|_{\Obs}$ such that for any $t,t' \in
+NT(Y_{\Obs})_{\Obs}$ holds
+\[
+M,v_M \models t \ra t' \quad {\rm iff} \quad N,v_N \models t \ra t'
+\]
+\hfill$\Box$
+\end{Definition}
+%
+We will refer to the above equivalence on $\MAlg(\Sigma)$ as the
+observational abstraction. 
+
+
+%=========================================================================
+%
+%  AN EXAMPLE
+
+\section{An examples}
+
+
+In this section we would like to concentrate on some examples of
+nondeterministic specification and their use in program development.
+First, let us consider a simple specification of sets of natural
+numbers. We assume that {\sf Nat} and {\sf Bool} are the only
+observable sorts.
+
+\medskip 
+\begin{tabular}{ll}
+{\bf spec:}   & {\sf Spec-Set} \\
+              & {\bf using:} {\sf Spec-Nat, Spec-Bool}  \\
+{\bf sorts:}  & {\sf Set} \\
+{\bf opns:}   & $\emptyset: \rightarrow${\sf Set} \\
+              & {\sf ins: Nat $\times$ Set $\rightarrow$ Set} \\
+              & {\sf del: Nat $\times$ Set $\rightarrow$ Set} \\
+              & {\sf $\in$: Nat $\times$ Set $\rightarrow$ Bool} \\
+{\bf axioms:} & {\sf ins(x,ins(x,S)) $=$ ins(x,S)} \\
+              & {\sf ins(x,ins(y,S)) $=$ ins(y,ins(x,S))} \\
+              & {\sf del(x,$\emptyset$) $= \emptyset$} \\
+              & {\sf del(x,ins(x,S)) $=$ del(x,S)} \\
+              & {\sf x $\not=$ y $\Rightarrow$ del(x,ins(y,S)) $=$ 
+                 ins(y,del(x,S))} \\
+              & {\sf x $\in \emptyset =$ false} \\
+              & {\sf x $\in$ ins(x,S) $=$ true} \\
+              & {\sf x $\not=$ y $\Rightarrow$ x $\in$ ins(y,S) $=$ 
+                 x $\in$ S} \\  
+{\bf end;}
+\end{tabular} 
+
+We may wish to implement sets as lists, i.e.\ by the following
+specification (we omitt the axioms):
+
+\medskip 
+\begin{tabular}{ll}
+{\bf spec:}   & {\sf Spec-List} \\
+              & {\bf using:} {\sf Spec-Nat, Spec-Bool} \\
+{\bf sorts:}  & {\sf List}\\
+{\bf opns:}   & {\sf nil: $\rightarrow$ List} \\
+              & {\sf cons: Nat $\times$ List $\rightarrow$ List} \\
+              & {\sf tail: List $\rightarrow$ List} \\
+              & {\sf head: List $\rightarrow$ Nat} \\
+              & {\sf member: Nat $\times$ List $\rightarrow$ Bool} \\
+              & {\sf delete: Nat $\times$ List $\rightarrow$ List} \\
+{\bf axioms:} & {\sf [...]} \\
+{\bf end;}
+\end{tabular}
+
+\medskip
+Now, we have that:
+\[
+\abs{\sf Spec-Set}{\sf Nat, Bool} \quad \imp \quad
+\derive{\sf Spec-List}{\sigma}
+\]
+where $\sigma$ is the a signature morphism defined by: $\{{\sf Set
+\mapsto List, add \mapsto cons, \ \in\ \mapsto member,...}\}$ We need
+to close the class of models with respect to the observational
+equivalence since there may be many lists with the same set of
+elements.
+
+Now, let us enrich {\sf Spec-Set} with an additional operation {\sf
+choose}: 
+
+\medskip 
+\begin{tabular}{ll}
+{\bf spec:}   & {\sf Spec-Set-Choose} \\
+              & {\bf using:} {\sf Spec-Set}  \\
+{\bf sorts:}  & \\
+{\bf opns:}   & {\sf choose: Set $\rightarrow$ Nat} \\
+{\bf axioms:} & {\sf S $\not= \emptyset \Rightarrow$ choose(S) $\in$ S
+                 $=$ true} \\
+{\bf end;}
+\end{tabular} 
+
+\medskip 
+\noindent
+Consider now the following enrichment of {\sf Spec-List} with {\sf
+choose} defined as the head of a list.
+
+\medskip 
+\begin{tabular}{ll}
+{\bf spec:}   & {\sf Spec-List-Head} \\
+              & {\bf using:} {\sf Spec-List} \\
+{\bf sorts:}  & \\
+{\bf opns:}   & {\sf choose: List $\rightarrow$ Nat} \\
+{\bf axioms:} & {\sf choose(L) $=$ head(L)} \\
+{\bf end;}
+\end{tabular}
+
+\medskip
+\noindent
+However, in a deterministic setting it is not true that
+\[
+\abs{\sf Spec-Set-Choose}{\sf Nat} \quad \imp \quad
+\derive{\sf Spec-List-Head}{\sigma_h}
+\]
+where $\sigma_h = \sigma \cup \{{\sf choose \mapsto choose}\}$.  It is
+because from {\sf Spec-Set-Choose} it follows that ${\sf
+choose(add(n,add(m,A))) = choose(add(m,add(n,A)))}$ and, since this
+equation is observable, it must also hold for {\sf Spec-List-Head}.
+Obviously, it does not.  We may still implement {\sf Spec-Set-Choose}
+with lists but {\sf choose} has to be defined more carefully, e.g.\ as
+the maximal element of the list.
+
+What happens if we allow multialgebras? Note that {\sf
+Spec-Set-Choose} has (among many others) a model where all operations
+but {\sf choose} are determininistic and {\sf choose} itself is fully
+nondeterministic i.e.\ it may return any element of the set. We can
+implement {\sf Spec-Set-Choose} with lists where {\sf choose} returns
+a random element of a given list:
+
+\medskip 
+\begin{tabular}{ll}
+{\bf spec:}   & {\sf Spec-List-Random} \\
+              & {\bf using:} {\sf Spec-List} \\
+{\bf sorts:}  & \\
+{\bf opns:}   & {\sf choose: List $\rightarrow$ Nat} \\
+{\bf axioms:} & {\sf L $\not=$ nil $\Rightarrow$ 
+                member(choose(L),L) = true }\\
+{\bf end;}
+\end{tabular}
+
+\[
+\abs{\sf Spec-Set-Choose}{\sf Nat} \quad \imp \quad
+\derive{\sf Spec-List-Random}{\sigma_h}
+\]
+
+{\sf Spec-List-Random} has among its determinisations {\sf
+Spec-List-Head}:
+
+\[
+\deter{\sf Spec-List-Random} \quad \imp \quad {\sf Spec-List-Head}
+\]
+
+
+%=========================================================================
+%
+%  BEHAVIOURAL SATISFACTION AND EQUIVALENCE
+
+\section{Behavioural satisfaction}
+
+In this section we shall consider a generalisation of the standard
+satisfaction relation.
+
+\begin{Definition}
+Given a multialgebra $M \in \MAlg(\Sigma)$ an equivalence relation
+$\sim$ on $M$ is an observational equivalence iff for any $t,t' \in
+T_\Sigma(X_{\Obs})_{\Obs}$:
+\[
+M \models t \ra t' \quad {\rm iff} \quad 
+M\Mquo_{\sim} \models t \ra t'
+\]
+\hfill$\Box$
+\end{Definition}
+%
+We write $\Eq(M)$ for a class of observational equivalences on $M$ (we
+leave $\Obs$ implicit). Also, note the above definition implies that
+an observational equivalence is an identity on observable sorts. 
+However, unlike standard algebras we have that:
+
+\begin{Fact}
+In general, for a given multialgebra $M$ there is no largest element
+in $\Eq(M)$. There are maximal ones. 
+\hfill$\Box$
+\end{Fact}
+\input{fig1.tex}
+
+\begin{Proof} 
+See example on Fig~\ref{no-largest}. Both $\sim_1$ and $\sim_2$ are
+maximal observational equivalences but there is no largest one. The
+existence of maximal elements follows from Kuratowski-Zorn lemma:
+
+Given a multialgebra $M \in \MAlg(\Sigma)$, consider a chain of
+observational equivalences on $M$: $\{ \sim_i \}_{i \in \omega}$ such
+that $\sim_0\ \subseteq \ldots \subseteq\ \sim_i\ \subseteq\
+\sim_{i+1}\ \subseteq \ldots$ and denote $\sim\: = \bigcup_{i \in
+\omega} \sim_i$. Obviously, $\sim$ is an identity on observable sorts
+since all $\sim_i$'s were. Now, we have to show that $\sim\ \in
+\Eq(M)$. Assume it does not, i.e.\ for some $t \ra t'$ we have $M
+\models t \ra t'$ but $M\Mquo_\sim \not\models t \ra t'$. Since $\sim$
+is an identity on $\Obs$ then the above means that for some observable
+$t$, a valuation $v$ and $\pi : a \mapsto [a]_\sim$ we have
+\[ 
+\val{v}(t) \not= \val{v;\pi}(t) \quad\quad\quad (\ast) 
+\]
+The term $t$ must be of the form $l\lc r\rc $ where $r$ is of some
+non-observable sort $s$. By the definition of the quotient and
+$(\ast)$ we know that $\val{v}(l\lc r\rc ) \not=
+\val{v}(l\lc \close{r}_\sim\rc )$. Now, by the definition of $\sim$ there is
+some $\sim_n$ such that $\val{v}(l\lc \close{r}_\sim\rc ) =
+\val{v}(l\lc \close{r}_{\sim_n}\rc )$ and this means that $\sim_n$ is not an
+observational equivalence which leads to contradiction.
+\end{Proof}
+\medskip
+
+Next we proceed to define observational satisfaction:
+
+\begin{Definition}
+Given a multialgebra $M \in \MAlg(\Sigma)$ and an observational
+equivalence $\sim_M$ define an observational satisfaction of a formula
+$t \ra t'$ in $M$ under a valuation $v$:
+\[
+M,v \models_{\sim_M} t \ra t' \quad {\rm iff} 
+                \quad M\Mquo_{\sim_M},v;\pi \models t \ra t' 
+\]
+where $\pi: M \ra M\Mquo_\sim$ is the mapping $a \mapsto [a]_\sim$
+\hfill$\Box$
+\end{Definition}
+%
+There is an alternative definition that would require inclusion of
+appropriate equivalence classes instead of standard satisfaction in
+the quotient i.e.:
+\[
+M,v \models^{'}_\sim t \ra t' \quad {\rm iff} 
+                \quad [\val{v}(t)]_\sim \supseteq [\val{v}(t')]_\sim
+\]
+Note the above means that $[\val{v}(t)]_\sim \supseteq
+\val{v}(t')$. The latter definition is somewhat closer to the
+deterministic observational satisfaction but there the two definitions
+are equivalent. In our framework, the definitions are equivalent for
+observable formulae but in general it may not be so for unobservable
+ones. It is because $\val{v};\pi \subseteq \val{v;\pi}$ and need not
+$\val{v};\pi = \val{v;\pi}$.
+% A jak dla maksymalnych ?  
+Therefore, we may want to find conditions on $\sim$ to imply equality
+there.
+
+\begin{Fact}
+\label{f-tight}
+Given $M \in \MAlg(\Sigma)$, $\sim\ \in \Eq(M)$, a valuation $v$ and
+$\pi: M \ra M\Mquo_\sim$, if $\sim$ is a tight congruence on $M$ then
+$\val{v};\pi = \val{v;\pi}$.
+\hfill$\Box$
+\end{Fact}
+
+Finally, we want to find a definition of observational equivalence
+similar to context indistinguishability. In multialgebras this is just
+one of the three equivalences induced by observable sorts that we are
+to consider here. To give the reader some intuitions, we discuss the
+equivalences informally:
+\begin{itemize}
+\item Context equivalence is the obvious extension of the
+deterministic notion, i.e.\ two values are c-equivalent iff any
+observable context applied to them yields the same set of results.
+\item Result equivalence -- two values are r-equivalent iff they are
+results of the same terms of observable domain. This conveys an
+intuition that if some values always come up together during
+``execution'' of observable terms then we can ``glue'' them without
+affecting the observable behaviour of a multialgebra.
+\item Path equivalence is the most complex one and it is a further
+extension of the c-equivalence. Note that in a deterministic case each
+value reachable from $\Obs$ could be pointed at by some term and hence
+the c-equivalence could be rephrased as follows: a value $a$ is
+equivalent to $b$ iff for any terms $r,r'$ such that $a = r,\ b = r'$
+and any observable context $c$ we have $c\lc r\rc  = c\lc r'\rc $. Now, the
+p-equivalence is just that except that we require the compared values
+to be included in (and not necessarily equal to) the results of terms
+$r$ and $r'$.
+\end{itemize}
+
+\begin{Definition}
+Let $\Sigma = [S,F]$ and $\Obs \subseteq S$. Given $M \in
+\MAlg(\Sigma)$ define the following relations on $M$: \\ 
+\givedef
+{$a \ec b$} 
+{for any $v: X_{\Obs} \ra |M|$, and any $c \in
+C_{\Sigma}(X_{\Obs})_{\Obs}$ holds $(c\lc a \rc)^M = (c\lc b \rc)^M$}
+\givedef
+{$a \er b$} 
+{for any $v: X_{\Obs} \ra |M|$, and any $r \in T_{\Sigma}(X_{\Obs})$
+holds $a \in r^M$ iff $b \in r^M$}
+\givedef
+{$a \ep' b$}
+{for any $v: X_{\Obs} \ra |M|$, any $r,r' \in
+T_{\Sigma}(X_{\Obs})$ such that $a \in r^M, b \in r'^M$, and any
+$c \in C_{\Sigma}(X_{\Obs})_{\Obs}$ holds $(c\lc r \rc)^M =
+(c\lc r' \rc)^M$}
+\ \hfill$\Box$
+\end{Definition}
+%
+Note that, in a deterministic case, $\er$ is the identity whilst $\ec$
+and $\ep$ are both equivalent (to context indistiguishability).  In
+the nondeterministic case, $\ec$ and $\er$ are equivalences but $\ep'$
+need not be reflexive$\:$!\ \ Hence we are going to consider an
+equivalence $\ep$ defined as the reflexive closure of $\ep'$:
+\[
+\ep\ = (\ep')^\ast
+\]
+In general, the equivalences defined above are not tight and we cannot
+use Fact~\ref{f-tight} to prove they are observational. However, the
+condition that the equivalence must be tight is sufficient but not
+necessary:
+
+\begin{Lemma}
+For any $M \in \MAlg(\Sigma)$ the equivalences $\ec, \er$ and $\ep$ are
+observational. 
+\hfill$\Box$
+\end{Lemma}
+
+\begin{Proof} We have to show for $\sim\ \in \{\ec,\er,\ep\}$ that given
+any valuation $v: X_{\Obs} \ra |M_{\Obs}|$ and observable $t,t'$:
+\[
+M,v \models t \ra t' \quad {\rm iff} \quad 
+                         M\Mquo_{\sim} ,\pi;v \models t \ra t'
+\]
+where $\pi: a \mapsto [a]_{\sim}$. Therefore we need to prove
+$\val{v;\pi} = \val{v};\pi$ and we know that $\sim$ is an identity on
+$\Obs$.
+\begin{itemize}
+\item[($\ec$)] Assume it is not observational. Then there exists an
+observable term $t = l\lc r\rc $ for which the equality does not hold. It
+means, that for a subterm $r$ (of some sort $s$) there exist $a_s \in
+\val{v}(r), b_s \not\in \val{v}(r)$ such that $a \ec b$ and
+$\val{v}(l\lc a_s\rc ) \not= \val{v}(l\lc b_s\rc )$. But this leads to
+contradiction, since we can easily construct a context to distinguish
+between $a_s$ and $b_s$ simply by replacing the subterm $r$ with a
+variable $z$ in $t$.
+\item[($\er$)] 
+Simply note that for any $t$ we have $\close{\val{v}(t)}_{\er} =
+\val{v}(t)$.
+\item[($\ep$)] The reasoning is similar to the case with
+$(\ec)$. If $\ep$ is not observational then there is an observable
+term $t = l\lc r\rc $ such that $\val{v}(l\lc r\rc ) \not= 
+\val{v}(l\lc \close{r}_{\ep}\rc )$. But this means there are  $a_s \in
+\val{v}(r), b_s \not\in \val{v}(r)$ such that $a \ep b$. By the
+definition of $\ep$ for any $r'$ with $b_s \in \val{v}(r')$ we have
+$\val{v}(l\lc r\rc ) = \val{v}(l\lc r'\rc )$ -- a contradiction.
+\end{itemize}
+\end{Proof}
+A reader should be aware that a transitive sum of observational
+equivalences is not, in general, an observational equivalence.
+
+\begin{Definition}
+A multialgebra $M \in \MAlg(\Sigma)$ is said to be fully abstract iff
+any observational equivalence on $M$ is an identity.
+\hfill$\Box$
+\end{Definition}
+
+
+
+%=========================================================================
+%
+%  ABSTRACTING EQUIVALENCE
+
+\section{Abstracting equivalence}
+
+\begin{Definition} 
+Given two multialgebras $M,N \in \MAlg(\Sigma)$ we say they are
+observationally equivalent (written $M \obs N$) iff there exists a set
+of variables $Y_{\Obs}$ and surjective valuations $v_M: Y_{\Obs} \ra
+|M|_{\Obs}, v_M: Y_{\Obs} \ra |M|_{\Obs}$ such that for any $t,t' \in
+NT(Y_{\Obs})_{\Obs}$ holds
+\[
+M,v_M \models t \ra t' \quad {\rm iff} \quad N,v_N \models t \ra t'
+\]
+\hfill$\Box$
+\end{Definition}
+%
+We will refer to the above equivalence on $\MAlg(\Sigma)$ as the
+observational abstraction. 
+
+\begin{Definition}
+An abstraction $\equiv$ on $\MAlg(\Sigma)$ is said to be factorisable
+iff for any $M,N \in \MAlg(\Sigma)$ such that $M \equiv N$ there exist
+two equivalences $\sim_M, \sim_N$ on $M$ and $N$ respectively, such
+that:
+\[
+M\Mquo_{\sim_M} \cong N\Mquo_{\sim_N}
+\]
+that is, the quotients are isomorphic.
+\hfill$\Box$
+\end{Definition}
+
+In a classical deterministic case, the observational abstraction is
+factorisable, i.e.\ if $A \obs B$ then $A/_{\sim_A} \cong B/_{\sim_B}$
+where $\sim_A, \sim_B$ are context indistinguishability congruences on
+$A$ and $B$, respectively. However, in multialgebraic setting the
+observational abstraction is not factorisable:
+
+\begin{Lemma}
+Observational abstraction is not factorisable.
+\hfill$\Box$
+\end{Lemma}  
+
+\begin{Proof}
+See multialgebras $N_1$ and $N_2$ on Fig~\ref{no-largest}. They are
+observationally equivalent, fully abstract and not isomorphic.
+\end{Proof}
+
+\begin{Lemma}
+Let $M,N \in \MAlg(\Sigma)$ and $M \obs N$. Then for any $A \in
+\CDet(M)$ there exists $B \in \CDet(N)$ such that $A \obs B$.
+\hfill$\Box$
+\end{Lemma}
+
+\begin{Corollary}
+Let $M,N \in \MAlg(\Sigma)$ and $M \obs N$. Then $\Beh(M) = \Beh(N)$
+where $\Beh(M) = \{A/_{\ec} : A \in \CDet(M)\}$.
+\hfill$\Box$
+\end{Corollary}
+
+\begin{Theorem}
+Let $M,N \in \MAlg(\Sigma)$ and $M \obs N$. Then there exists $K \in
+MAlg(\Sigma)$ such that:
+\begin{itemize}
+\item $M \sqs K,\ N \sqs K$,
+\item $M \obs K,\ N \obs K$,
+\item $K$ is fully abstract. \hfill$\Box$
+\end{itemize}
+\end{Theorem}
+
+\begin{Proof}
+Let $M \obs N$. We know they have same deterministic behaviours and we
+construct $K$ of that set. Denote ${\cal B} = \Beh(M) = \Beh(N)$.
+\[
+\begin{array}{l}
+      |K| = \bigcup \{|A| : A \in {\cal B}\} \\
+      f^K(a_1,...,a_n) = \bigcup \{f^A(a_1,...,a_n) : A \in {\cal B}\}
+\end{array}
+\]
+This construction, however, does not cope with multi-argument
+functions -- $K$, as it is defined above, may be partial. 
+\end{Proof}
+
+
+
+
+
+\begin{thebibliography}{Nip 86}
+
+   \bibitem[BBK 92a]{BBK92a} G.\ Bernot, M.\ Bidoit, T.\ Knapik: {\em
+       Towards an Adequate Notion of Observation.}  report
+       LIENS--92--2, 1992.
+
+   \bibitem[BBK 92b]{BBK92b} G.\ Bernot, M.\ Bidoit, T.\ Knapik: {\em
+       Observational Specifications and Indistinguishability
+       Assumption.}  report LIENS--92--3, 1992.
+
+   \bibitem[BHW 95]{BHW95} M.\ Bidoit, R.\ Hennicker, M.\ Wirsing:
+       {\em Behavioural and Abstractor Specifications.}
+
+   \bibitem[Gla 90]{Gla90} R.J.\ van Glabbeek: {\em Comparative
+       Concurrency Semantics and Refinement of Actions.} Ph.D.\
+       Thesis, Vrije Universiteit te Amsterdam, 1990.
+
+   \bibitem[Hes 88]{Hes88} W.\ Hesselink: {\em A Mathematical Approach
+       to Nondeterminism in Data Types.} ACM Trans.\ on Programming
+       Lan.\ and Systems 10, 1988, pp.\ 87--117.
+
+   \bibitem[Hus 92]{Hus92} H.\ Hussmann: {\em Nondeterministic
+       Algebraic Specifications and Nonconfluent Term rewriting.} J.\
+       Logic Programming 12, 1992, pp.\ 237--255.
+
+   \bibitem[Hus 91]{Hus91} H.\ Hussmann: {\em Nondeterministic
+       Algebraic Specifications.} Technische Universit\"{a}t
+       M\"{u}nchen, TUM-I0104, March 1991.
+
+   \bibitem[Kna 92]{Kna92} T.\ Knapik: {\em Specifications with
+       Observable Formulae and Observational Satisfaction Relation.}
+       Recent Trends in Data Type Specification '91, LNCS 655, pp.\
+       271--291; Also: report LIENS--92--14, 1992.
+   
+   \bibitem[Nip 86]{Nip86} T.\ Nipkow: {\em Non-deterministic Data
+       Types: Models and Implementations.} Acta Informatica 22, 1986,
+       pp.\ 629--661.
+
+   \bibitem[Nip 87]{Nip87} T.\ Nipkow: {\em Observing Nondeterministic
+       Data Types.} LNCS 332.
+
+   \bibitem[NO 87]{NO87} P.\ Nivela, F.\ Orejas: {\em Initial
+       Behaviour Semantics for Algebraic Specification.} LNCS 332.
+
+   \bibitem[NOS 87]{NOS87} P.\ Nivela, F.\ Orejas, A.\ S\'{a}nchez:
+       {\em Implementation and Behaviour Equivalence: A Survey.}
+       Recent Trends in Data Type Specification '91, LNCS 655, pp.\
+       93--125.
+
+   \bibitem[ST 88a]{ST88a} D.\ Sannella, A.\ Tarlecki: {\em
+       Specifications in an Arbitrary Institution.} Information and
+       Computation 76, 1988.
+
+   \bibitem[ST 88b]{ST88b} D.\ Sannella, A.\ Tarlecki: {\em Towards
+       Formal Development of Programs from Algebraic Specifications:
+       Implementations Revisited.} Acta Informatics 25, 1988, pp.\
+       233--281.
+
+   \bibitem[ST 92]{ST92} D.\ Sannella, A.\ Tarlecki: {\em Towards
+       Formal Development of Programs from Algebraic Specifications:
+       Model--Theoretic Foundations.} ICALP'92, LNCS; Also: report
+       ECS-LFCS-92-204.
+
+   \bibitem[Sch 87]{Sch87} O.\ Schoett: {\em Data Abstraction and the
+       Correctness of Modular Programming.} Ph.D.\ Thesis, University
+       of Edinburgh, 1987.
+
+   \bibitem[Wal 93]{Wal93} M.\ Walicki: {\em Algebraic Specifications
+       of Nondeterminism.} Ph.D.\ Thesis, University of Bergen, 1993.
+
+   \bibitem[WM 95]{WM95} M.\ Walicki, S.\ Meldal: {\em Generated
+       models and the $\omega$-rule: the nondeterministic case.} 
+       TAPSOFT'95, LNCS 915, pp.\ 424--438. 
+       
+\end{thebibliography}
+
+
+\end{document}
+
+

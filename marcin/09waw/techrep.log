@@ -1,0 +1,412 @@
+This is TeX, Version 3.1415 (C version 6.1) (format=latex 94.6.28)  11 AUG 1997 12:00
+**&latex2e techrep
+(techrep.tex
+LaTeX2e <1994/06/01> patch level 2
+Hyphenation patterns for english, norsk, swedish, danish,
+german & francais loaded.
+(/local/TeX/macros/LaTeX/article.cls
+Document Class: article 1994/06/02 v1.2s Standard LaTeX document class
+(/local/TeX/macros/LaTeX/size10.clo
+File: size10.clo 1994/06/02 v1.2s Standard LaTeX file (size option)
+)
+\c@part=\count82
+\c@section=\count83
+\c@subsection=\count84
+\c@subsubsection=\count85
+\c@paragraph=\count86
+\c@subparagraph=\count87
+\c@figure=\count88
+\c@table=\count89
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (a4wide.tex) (defs.tex
+\c@CLAIM=\count90
+\c@ax=\count91
+\c@axA=\count92
+\c@axB=\count93
+\c@axC=\count94
+\c@axD=\count95
+\c@BIB=\count96
+)
+(/local/TeX/macros/XY-pic/xypic.tex (/local/TeX/macros/XY-pic/xyv2.tex
+(/local/TeX/macros/XY-pic/xy.tex Bootstrap'ing: catcodes, docmode,
+(/local/TeX/macros/XY-pic/xyidioms.tex)
+
+ XY-pic version 2.12 <1994/10/25>
+ Copyright (c) 1991-1994 by Kristoffer H. Rose <kris@diku.dk>
+ XY-pic is free software: see the User's Guide for details.
+
+Loading kernel: messages; fonts; allocations: state,
+\Xc=\dimen103
+\Yc=\dimen104
+\Uc=\dimen105
+\Dc=\dimen106
+\Lc=\dimen107
+\Rc=\dimen108
+\Edgec=\toks15
+\Xp=\dimen109
+\Yp=\dimen110
+\Up=\dimen111
+\Dp=\dimen112
+\Lp=\dimen113
+\Rp=\dimen114
+\Edgep=\toks16
+\Xorigin=\dimen115
+\Yorigin=\dimen116
+\Xxbase=\dimen117
+\Yxbase=\dimen118
+\Xybase=\dimen119
+\Yybase=\dimen120
+\Xmin=\dimen121
+\Ymin=\dimen122
+\Xmax=\dimen123
+\Ymax=\dimen124
+\lastobjectbox@=\box25
+\zerodotbox@=\box26
+ direction,
+\dX=\dimen125
+\dY=\dimen126
+\K=\count97
+\KK@=\count98
+\Direction=\count99
+\K@dXdY=\dimen127
+\K@dYdX=\dimen128
+\xyread@=\read1
+\xywrite@=\write4
+\csp@=\count100
+\quotPTK@=\dimen129
+
+utility macros; pictures: \xy, positions, objects, decorations;
+kernel objects: directionals, circles, text; options; algorithms: directions,
+edges, connections; XY-pic loaded)
+XY-pic option: Version 2 Compatibility feature v.2.12
+
+XY-pic Warning: `\stop' redefined.
+
+(/local/TeX/macros/XY-pic/xyframe.tex
+XY-pic option: Frame and Bracket extension v.2.12 loaded)
+(/local/TeX/macros/XY-pic/xymatrix.tex XY-pic option: Matrix feature v.2.12
+\row@=\count101
+\col@=\count102
+\queue@=\toks17
+\queue@@=\toks18
+\qcount@=\count103
+\qcount@@=\count104
+\matrixsize@=\count105
+
+loaded) (/local/TeX/macros/XY-pic/xyarrow.tex
+XY-pic option: Arrow and Path feature v.2.12 path, \ar, loaded)
+\xydiagramno@=\count106
+ loaded))
+(techrep.aux)
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 30.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 30.
+ (techrep.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <9> on input line 5.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 5.
+)
+\tf@toc=\write5
+ [1
+
+]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 102.
+ [2] [3] <xymatrix 21x4 1723> <xymatrix 3x3
+442> [4] [5] [6] <xymatrix 9x4 420> [7] [8]
+Overfull \hbox (6.14996pt too wide) in paragraph at lines 867--869
+[][]\OT1/cmr/m/n/10 is strongest: $\OMS/cmsy/m/n/10 8\OML/cmm/m/it/10 a[]:::a[]
+; b; a[]:::a[]; b[] \OT1/cmr/m/n/10 : \OML/cmm/m/it/10 R[]\OT1/cmr/m/n/10 (\OML
+/cmm/m/it/10 a[]:::a[]; b\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^ \OML/cmm/m/it/10 
+a[] \OMS/cmsy/m/n/10 ^^X \OML/cmm/m/it/10 a[]:::a[] \OMS/cmsy/m/n/10 ^^X \OML/c
+mm/m/it/10 a[] \OMS/cmsy/m/n/10 ^ \OML/cmm/m/it/10 b[] \OMS/cmsy/m/n/10 ^^X \OM
+L/cmm/m/it/10 b \OMS/cmsy/m/n/10 ) \OML/cmm/m/it/10 R[]\OT1/cmr/m/n/10 (\OML/cm
+m/m/it/10 a[]:::a[]; b[]\OT1/cmr/m/n/10 )$. 
+ []
+
+[9] [10] [11] [12]
+
+LaTeX Font Warning: Command \sl invalid in math mode on input line 1313.
+
+
+LaTeX Font Warning: Command \sl invalid in math mode on input line 1315.
+
+
+LaTeX Font Warning: Command \sl invalid in math mode on input line 1317.
+
+[13]
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1492.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1494.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1495.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1498.
+
+[14]
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1557.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1558.
+
+
+Overfull \hbox (11.3449pt too wide) detected at line 1579
+[]
+ []
+
+[15] [16]
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1775.
+
+<xymatrix 2x2 269>
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1839.
+
+[17] <xymatrix 13x3 532> [18]
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2011.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2012.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2019--2033
+
+ []
+
+[19]
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2124.
+
+[20]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 2230.
+ [21] [22] [23] [24] [25]
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2767.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2769.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2773.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2775.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2777.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2777.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2787.
+
+[26]
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2884.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2885.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2890.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2890.
+
+[27]
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2955.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2971.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2980.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2981.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 2982.
+
+[28]
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 3057.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 3060.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 3061.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 3069.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 3073.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 3076.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 3077.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 3080.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 3097.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 3113.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 3170.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 3171.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 3178.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 3179.
+
+[29]
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 3188.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 3196.
+
+
+Overfull \hbox (6.01683pt too wide) in paragraph at lines 3188--3198
+[]\OT1/cmr/m/n/10 Let $\OML/cmm/m/it/10 ^^^ \OT1/cmr/m/n/10 : \OML/cmm/m/it/10 
+E \OMS/cmsy/m/n/10 ! \OML/cmm/m/it/10 M$ \OT1/cmr/m/n/10 be de-fined by $\OML/c
+mm/m/it/10 ^^^\OT1/cmr/m/n/10 (\OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 X\OMS/cmsy/m/
+n/10 g\OT1/cmr/m/n/10 ) [] \OML/cmm/m/it/10 X$\OT1/cmr/m/n/10 . It is a weak PS
+-homomorphism: $\OML/cmm/m/it/10 ^^^\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 f[]\OT1/c
+mr/m/n/10 (\OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 X[]\OMS/cmsy/m/n/10 g\OML/cmm/m/i
+t/10 :::\OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 X[]\OMS/cmsy/m/n/10 g\OT1/cmr/m/n/10
+ )) =
+ []
+
+
+Overfull \hbox (5.44406pt too wide) in paragraph at lines 3199--3202
+\OT1/cmr/m/n/10 Finally, we have the fol-low-ing neg-a-tive re-sults about com-
+plete-ness of $[][](^^F)$ and co-completeness
+ []
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 3249.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 3249.
+
+
+LaTeX Font Warning: Command \relax \GenericWarning {(Font)              }{LaTeX
+ Font Warning: Command \relax \GenericWarning {(Font)              }{LaTeX Font
+ Warning: Command \relax \GenericWarning {(Font)              }{LaTeX Font Warn
+ing: Command \relax \GenericWarning {(Font)              }{LaTeX Font Warning: 
+Command \relax \GenericWarning {(Font)              }{LaTeX Font Warning: Comma
+nd \relax \GenericWarning {(Font)              }{LaTeX Font Warning: Command \r
+elax \GenericWarning {(Font)              }{LaTeX Font Warning: Command \relax 
+\GenericWarning {(Font)              }{LaTeX Font Warning: Command \relax \Gene
+ricWarning {(Font)              }{LaTeX Font Warning: Command \relax \GenericWa
+rning {(Font)              }{LaTeX Font Warning: Command \relax \GenericWarning
+ {(Font)              }{LaTeX Font Warning: Command \relax \fontsize {5}{6}\sel
+ectfont invalid in math mode}\fontsize {5}{6}\selectfont invalid in math mode}\
+fontsize {5}{6}\selectfont invalid in math mode}\fontsize {5}{6}\selectfont inv
+alid in math mode}\fontsize {5}{6}\selectfont invalid in math mode}\fontsize {5
+}{6}\selectfont invalid in math mode}\fontsize {5}{6}\selectfont invalid in mat
+h mode}\fontsize {5}{6}\selectfont invalid in math mode}\fontsize {5}{6}\select
+font invalid in math mode}\fontsize {5}{6}\selectfont invalid in math mode}\fon
+tsize {5}{6}\selectfont invalid in math mode}\fontsize {5}{6}\selectfont invali
+d in math mode on input line 3270.
+
+
+LaTeX Font Warning: Command \relax \GenericWarning {(Font)              }{LaTeX
+ Font Warning: Command \relax \GenericWarning {(Font)              }{LaTeX Font
+ Warning: Command \relax \GenericWarning {(Font)              }{LaTeX Font Warn
+ing: Command \relax \GenericWarning {(Font)              }{LaTeX Font Warning: 
+Command \relax \GenericWarning {(Font)              }{LaTeX Font Warning: Comma
+nd \relax \fontsize {5}{6}\selectfont invalid in math mode}\fontsize {5}{6}\sel
+ectfont invalid in math mode}\fontsize {5}{6}\selectfont invalid in math mode}\
+fontsize {5}{6}\selectfont invalid in math mode}\fontsize {5}{6}\selectfont inv
+alid in math mode}\fontsize {5}{6}\selectfont invalid in math mode on input lin
+e 3270.
+
+
+LaTeX Font Warning: Command \relax \GenericWarning {(Font)              }{LaTeX
+ Font Warning: Command \relax \GenericWarning {(Font)              }{LaTeX Font
+ Warning: Command \relax \GenericWarning {(Font)              }{LaTeX Font Warn
+ing: Command \relax \GenericWarning {(Font)              }{LaTeX Font Warning: 
+Command \relax \GenericWarning {(Font)              }{LaTeX Font Warning: Comma
+nd \relax \GenericWarning {(Font)              }{LaTeX Font Warning: Command \r
+elax \GenericWarning {(Font)              }{LaTeX Font Warning: Command \relax 
+\GenericWarning {(Font)              }{LaTeX Font Warning: Command \relax \Gene
+ricWarning {(Font)              }{LaTeX Font Warning: Command \relax \GenericWa
+rning {(Font)              }{LaTeX Font Warning: Command \relax \GenericWarning
+ {(Font)              }{LaTeX Font Warning: Command \relax \fontsize {5}{6}\sel
+ectfont invalid in math mode}\fontsize {5}{6}\selectfont invalid in math mode}\
+fontsize {5}{6}\selectfont invalid in math mode}\fontsize {5}{6}\selectfont inv
+alid in math mode}\fontsize {5}{6}\selectfont invalid in math mode}\fontsize {5
+}{6}\selectfont invalid in math mode}\fontsize {5}{6}\selectfont invalid in mat
+h mode}\fontsize {5}{6}\selectfont invalid in math mode}\fontsize {5}{6}\select
+font invalid in math mode}\fontsize {5}{6}\selectfont invalid in math mode}\fon
+tsize {5}{6}\selectfont invalid in math mode}\fontsize {5}{6}\selectfont invali
+d in math mode on input line 3271.
+
+
+LaTeX Font Warning: Command \relax \GenericWarning {(Font)              }{LaTeX
+ Font Warning: Command \relax \GenericWarning {(Font)              }{LaTeX Font
+ Warning: Command \relax \GenericWarning {(Font)              }{LaTeX Font Warn
+ing: Command \relax \GenericWarning {(Font)              }{LaTeX Font Warning: 
+Command \relax \GenericWarning {(Font)              }{LaTeX Font Warning: Comma
+nd \relax \fontsize {5}{6}\selectfont invalid in math mode}\fontsize {5}{6}\sel
+ectfont invalid in math mode}\fontsize {5}{6}\selectfont invalid in math mode}\
+fontsize {5}{6}\selectfont invalid in math mode}\fontsize {5}{6}\selectfont inv
+alid in math mode}\fontsize {5}{6}\selectfont invalid in math mode on input lin
+e 3271.
+
+[30] [31] [32] [33] [34] (techrep.bbl [35]
+Underfull \hbox (badness 1173) in paragraph at lines 49--53
+[][]\OT1/cmr/m/sc/10 Hu^^Ymann, H.  \OT1/cmr/m/it/10 Non-de-ter-min-ism in Al-g
+e-braic Spec-i-fi-ca-tions and Al-ge-braic Pro-grams\OT1/cmr/m/n/10 .
+ []
+
+) [36] [37] (techrep.aux) ) 
+Here is how much of TeX's memory you used:
+ 1896 strings out of 11024
+ 15883 string characters out of 74866
+ 147990 words of memory out of 262141
+ 4696 multiletter control sequences out of 9500
+ 13610 words of font info for 49 fonts, out of 100000 for 255
+ 14 hyphenation exceptions out of 607
+ 23i,14n,24p,398b,583s stack positions out of 300i,40n,60p,3000b,4000s
+
+Output written on techrep.dvi (37 pages, 228972 bytes).

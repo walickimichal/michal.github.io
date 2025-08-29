@@ -1,0 +1,10 @@
+\begin{thebibliography}{}
+
+\stepcounter{BIB}\bibitem[\theBIB]{behImpos}
+\bibsc{Schoett, O.}
+\newblock Two impossibility theorems on behaviour specification of abstract
+  data types.
+\newblock \bibemphic{Acta Informatica}~\bibemph{29}, 595--621.
+  \bibyear{(1992)}.
+
+\end{thebibliography}

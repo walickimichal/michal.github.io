@@ -1,0 +1,1447 @@
+\documentstyle[12pt,marcin]{article}
+
+% arbitrary institution
+
+\newcommand{\Mod}{\mbox{\rm\bf Mod}}
+\newcommand{\Sign}{\mbox{\rm\bf Sign}}
+\newcommand{\Sen}{\mbox{\rm\bf Sen}}
+\newcommand{\Set}{\mbox{\rm\bf Set}}
+\newcommand{\Cat}{\mbox{\rm\bf Cat}}
+
+% particular categories
+
+\newcommand{\MAlg}{\mbox{\rm\bf MAlg}}
+\newcommand{\Alg}{\mbox{\rm\bf Alg}}
+\newcommand{\AlgSig}{\mbox{\rm\bf AlgSig}}
+
+\newcommand{\MA}[2]{\MAlg(#1,#2)}
+
+\newcommand{\Nat}{{\sf Nat}}
+
+% homomorphisms & multCats
+
+\newcommand{\SSs}{{\rm SS}}
+\newcommand{\PS}{{\rm PS}}
+\newcommand{\PP}{{\rm PP}}
+\newcommand{\XX}{{\rm XX}}
+
+\newcommand{\mode}[2]{#1(#2)}
+
+% specifications
+
+\newcommand{\SMod}{\mbox{\sf Mod}}
+\newcommand{\SSig}{\mbox{\sf Sig}}
+\newcommand{\SP}{\mbox{\rm SP}}
+
+% symbols
+
+\newcommand{\reach}[3]{{\sf Reach}^{#1}_{#3}(#2)}
+
+\newcommand{\tinc}{\stackrel{\rm T}{\rightharpoonup}}
+\newcommand{\sinc}{\stackrel{\rm S}{\rightharpoonup}}
+\newcommand{\teq}{\stackrel{\rm T}{\rightleftharpoons}}
+\newcommand{\seq}{\stackrel{\rm S}{\rightleftharpoons}}
+
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+
+\newcommand{\ovr}[1]{\overline {#1}}
+\newcommand{\under}[1]{\underline {#1}}
+
+\newcommand{\quot}[2]{#1\!{\textstyle /}\!_#2}
+\newcommand{\prequot}[2]{#1\!{\textstyle /}\!\!{\textstyle /}\!_#2}
+
+\newcommand{\Comp}[2]{#1;#2}
+\newcommand{\impl}{\Rightarrow}
+\newcommand{\into}{\rightarrow}
+\newcommand{\Card}[1]{|#1|}
+\newcommand{\PSet}{{\cal P}} 
+
+\newcommand{\Terms}{{\cal T}}
+\newcommand{\GTerms}{\Terms_{\Sigma}}
+\newcommand{\XTerms}{\Terms_{\Sigma}(X)}
+
+% Partial orders
+
+\newcommand{\po}{\leq}
+\newcommand{\rpo}{\geq}
+\newcommand{\spo}{<}
+\newcommand{\posup}{\bigvee}
+\newcommand{\fposup}{\vee} % finite \posup
+% ponizej powinno byc \bigsqcap
+\newcommand{\poinf}{\bigwedge}
+\newcommand{\fpoinf}{\wedge}
+
+\newcommand{\setsup}{\bigcup}
+\newcommand{\fsetsup}{\cup}
+\newcommand{\setinf}{\bigcap}
+\newcommand{\fsetinf}{\cap}
+
+% other
+
+\newcommand{\Det}{\mbox{\sf Det}}
+\newcommand{\PDet}{\mbox{\sf PDet}}
+\newcommand{\CDet}{\mbox{\sf CDet}}
+\newcommand{\Mquo}{\mbox{$/\!\!/$}}
+\newcommand{\implem}{\mbox{$\sim\!\leadsto$}}
+
+\newcommand{\re}[1]{(\ref{#1})}
+
+% environments
+
+\newtheorem{Definition}{Definition}[section]
+\newtheorem{Fact}{Fact}[section]
+\newtheorem{Lemma}{Lemma}[section]
+\newtheorem{Example}{Example}[section]
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Corollary}{Corollary}[section]
+\newenvironment{Proof}
+               {\setlength{\parskip}{5pt}
+                \setlength{\parindent}{0pt}
+                {\sc Proof:}}{\hfill{\sc qed}\vspace{1.5ex}}
+%                {\sc Proof:}}{\hfill{\sc qed}$\:$\raisebox{-1pt}{$\Box$}}
+
+\newenvironment{REMARK}[1]{\vspace{1ex}\par\noindent{\bf #1}}
+            {\vspace{1ex}\par\noindent\ignorespaces}
+% and numbered version
+\newcounter{CLAIM}[section]
+\newenvironment{REMARKno}[1]{\refstepcounter{CLAIM}
+       \vspace{1ex}\par\noindent{\bf #1\ \theCLAIM .}}
+       {\vspace{1ex}\par\noindent\ignorespaces}
+
+% small remark
+\newenvironment{SREMARK}[1]{\vspace{1ex}\par\noindent\small{\bf #1}}
+            {\vspace{1ex}\par\noindent\normalsize\ignorespaces}
+\newenvironment{SREMARKno}[1]{\refstepcounter{CLAIM}
+       \vspace{1ex}\par\noindent\small {\bf #1\ \theCLAIM .}}
+       {\vspace{1ex}\par\noindent\normalsize\ignorespaces}
+
+
+% co-operation (sic!) 
+
+\newcommand{\marcin}[1]{\vspace{1ex}{\sf [][][ MB: #1 ][][]}\vspace{1ex}}
+\newcommand{\michal}[1]{\vspace{1ex}{\sf [][][ MW: #1 ][][]}\vspace{1ex}}
+
+
+%==============================================================================
+%
+%   The Document
+
+\input xypic
+
+\begin{document} 
+
+\
+
+\vspace{2cm}
+
+\begin{center}
+{\Large\bf Universal Multialgebra}\\[0.8cm]
+{\Large Marcin Bia\l{}asik \hspace{3cm} Micha\l{} Walicki}\\[0.4cm] 
+Draft: \today 
+\end{center}
+\medskip
+
+%==============================================================================
+%
+%
+\section{Introduction}
+
+Nondeterministic algebras seem to be paid increasingly more attention
+by theoretical computer science community. This is especially true
+among those interested in formal program specifications based on the
+algebraic paradigm.  These formalisms are widely recognized as a
+framework providing for a very natural program development
+methodology. Many concepts important in the area, such as modules and
+abstract data types, seem to be represented in a very intuitive yet
+formal fashion.
+
+In this report, however, we do not necessarily aim at proposing yet
+another methodology. We focus on particular models of nondeterminism,
+namely multialgebras, being essentially ``ordinary'' multi-sorted
+algebras with set-valued functions reflecting possible
+nondeterministic choices, in an attempt to gather as many mathematical
+facts concerning these as possible, and to find correspondences with
+other approaches and notions. In fact, multialgebras seem to lack a
+common theory similar to that offered by the universal algebra and
+hence, if they are to be used, there is an urgent need for the
+development of such strong mathematical foundations.
+
+We have embarked at this rather ambitious (as it has turned out) task
+and by no means we claim to have completed it. This version of the
+report presents mainly old concepts known from ordinary algebra and
+redefined for multialgebras. Many problems are posed by the number of
+possible defitions and the necessity to analise each one's value and
+applicability.
+
+%==============================================================================
+%
+%
+\section{Preliminary Definitions}
+
+An {\em algebraic signature} $\Sigma$ is a pair $[S,F]$ where $S$ is a
+set of sort names and $F$ is a family of sets $\{F_{w,s}\}_{w \in
+S^\ast, s \in S}$ of sort names. We write $[f : w \rightarrow s] \in
+F$ to denote $w \in S^\ast, s \in S$ and $f \in F_{w,s}$. An {\em
+algebraic signature morphism} $\sigma : [S.F] \rightarrow [S',F']$ is
+a pair $[\sigma_S,\sigma_F]$ where $\sigma_S : S \rightarrow S'$ and
+$\sigma_F$ is a family of maps $\{\sigma_{w,s} : F_{w,s} \rightarrow
+F'_{\sigma^\ast_S(w),\sigma_S(s)}\}_{w \in S^\ast, s \in S}$ where
+$\sigma^\ast_S(s_1,\ldots,s_n)$ denotes
+$\sigma_S(s_1),\ldots,\sigma_S(s_n)$. We will write $\sigma(s)$ for
+$\sigma_S(s)$, $\sigma(w)$ for $\sigma^\ast_S(w)$ and $\sigma(f)$ for
+$\sigma_{w,s}(f)$ where $f \in F_{w,s}$.  The category of all
+algebraic signatures will be denoted \AlgSig. It has algebraic
+signatures as objects and algebraic signature morphisms as morphisms.
+
+Let $\Sigma = [S,F]$ be an algebraic signature. A (deterministic)
+$\Sigma$-algebra $A$ consists of an $S$-indexed family of carrier sets
+$\{A_s\}_{s \in S}$ and for each $[f : s_1 \times \ldots \times s_n
+\rightarrow s] \in F$ a function $f^A : A_{s_1} \times \ldots \times
+A_{s_n} \rightarrow A_s$.  A $\Sigma$-homomorphism $\phi$ from a
+$\Sigma$-algebra $A$ to a $\Sigma$-algebra $B$ is a family of mappings
+$\{\phi_s\}_{s \in S}, \phi_s: A_s \rightarrow B_s$ such that for all
+$[f:s_1 \times s_2 \times \ldots \times s_n \rightarrow s] \in F$ and
+for all $a_i \in A_{s_i}, i \in \{1,\ldots,n\}$ the following
+condition holds:
+\[ 
+\phi_s(f^A(a_1,\ldots,a_n)) =
+f^B(\phi_{s_1}(a_1),\ldots,\phi_{s_n}(a_n))
+\]
+We denote the category of $\Sigma$-algebras by $\Alg(\Sigma)$, and for
+the rest of the paper we will assume an arbitrary but fixed signature
+$\Sigma$.  
+
+\subsection{Multialgebras}
+
+The above classical definition can be generalized to set structures
+depending on the way we introduce sets. Given sets $X$ and $Y$, there
+are three basic modes for a function $f$ going from $\PSet(X)$ to
+$\PSet(Y)$:
+\begin{itemize} 
+\item[\PP.] $f$ is {\em induced\/} by some function $f':X \into Y$
+which maps elements of $X$ to elements of $Y$ (Point-Point);
+\item[\PS.] $f$ is induced by some $f':X \into \PSet(Y)$ which maps
+elements of $X$ to sets of elements of $Y$ (Point-Set);
+\item[\SSs.] there is no function inducing $f$ (Set-Set).
+\end{itemize}
+where we say that $f$ is induced by $f'$ iff for any $A \in \PSet(X)$
+holds $f(A) = \setsup_{a \in A} f'(a)$ (note that this is not the only
+possible definition). 
+
+Given some set $X$ and its power set $\PSet(X)$ we will not
+distinguish between elements of $X$ and one-element sets in
+$\PSet(X)$, but we use capital letters to denote sets. Similarly, we
+will not distinguish between the operations returning individual
+elements and the ones returning one-element sets. In addition, we will
+consider only total case, i.e.\ the operations do not return the empty
+set and we exclude the set from the powerset.
+
+Writing $\XX(f)$ to indicate that $f$ has the $\XX$ mode, we have that
+$\PP(f)$ implies $\PS(f)$, and $\PS(f)$ implies $\SSs(f)$. These
+implications may be reversed under obvious conditions. That is, for
+all $f$, we have:
+\begin{eqnarray}%{lcl}
+\SSs(f) \impl \PS(f) & {\rm iff} 
+        & \mbox{for any } X: f(X)=\setsup_{x\in X}f(x) \\
+\PS(f) \impl \PP(f)  & {\rm iff} 
+        & \mbox{for any } X: |X|=1\impl |f(X)|=1
+\end{eqnarray}
+The first property is called {\em additivity\/} of an \SSs\ operation,
+and it implies monotonicity wrt.\ set inclusion.
+
+Each of the three notions can be applied to operations within an
+algebra and to homomorphisms between algebras. Thus, we obtain 9
+different categories of $\Sigma$ multialgebras -- $\MA{ops}{hom}$
+denotes the category of multilagebras with operations of mode $ops$
+and homomorphisms of mode $hom$. (We may occasionally put $\Sigma$ in
+some of these positions to indicate that a statement applies to all
+classes, e.g., $\MA\Sigma\SS$ will denote any of the three categories
+of \SS, \PS\ or \SSs\ algebras with \SSs\ homomorphisms.) Table
+\ref{ta:cats} contains the list of all possible combinations.
+
+\begin{table}
+\[
+\begin{array}{c||c@{\ \ \subset\ \ }c@{\ \ \subset\ \ }c}
+\ \ \ hom & \PP & \PS & \SSs \\
+\multicolumn{1}{l||}{ops} & \multicolumn{1}{c}{}& \multicolumn{1}{c}{} & \\ \hline\hline
+\PP & \MA\PP\PP & \MA\PP\PS & \MA\PP\SSs \\
+\bigcap & \multicolumn{1}{c}{\bigcap} & \multicolumn{1}{c}{\bigcap} & \multicolumn{1}{c}{\bigcap} \\
+\PS & \MA\PS\PP & \MA\PS\PS & \MA\PS\SSs \\
+\bigcap & \multicolumn{1}{c}{\bigcap} & \multicolumn{1}{c}{\bigcap} & \multicolumn{1}{c}{\bigcap} \\
+\SSs & \MA\SSs\PP & \MA\SSs\PS & \MA\SSs\SSs 
+\end{array}
+\]
+\caption{Combinations of operations and homomorphisms.}\label{ta:cats}
+\end{table}
+
+$\MA\PP\PP$ is the standard category $\Alg$. The objects of the
+categories from the first row are standard algebras and it seems
+little relevant to consider the two more general homomorphisms for
+this case. In the two other rows, targets of operations in an algebra
+are power sets, i.e.\ terms are interpreted as sets. This poses the
+next problem of choosing an appropriate extension of the homomorphism
+condition. The three basic possibilities for a homomorphism
+$\phi:M\into N$ are:
+\begin{itemize}
+\item[L)]  $\phi(f^M(\ovr a)) \subseteq f^N(\phi(\ovr a))$ - loose;
+\item[C)]  $\phi(f^M(\ovr a)) \supseteq f^N(\phi(\ovr a))$ - closed;
+\item[T)]  $\phi(f^M(\ovr a)) = f^N(\phi(\ovr a))$ - tight;
+\end{itemize}
+For the first two columns of table \ref{ta:cats}, $\ovr a$ is a list
+of elements in $\Card M$, while for the third it is a list of sets,
+i.e.\ elements of $\PSet{\Card M}$.
+
+Obviously, $T\iff (L\land C)$. These notions can be combined with (the
+last two rows of) the table \ref{ta:cats}, yielding two copies -- one
+for the loose, and one for the closed homomorphisms.  However, closed
+homomorphisms are not very relevant.  In Hussmann's work only loose
+and tight \PS-homomorphisms appear.  Closed {\SSs} and {\PS}
+homo\-mor\-phisms are not interesting because they always exist,
+simply by letting $\phi(a) = \Card N$. However, we will consider not
+the full power sets but their subsets, in which case closed
+homomorphisms are no longer trivial.
+We will indicate the mode of the homomorphisms by superscript, e.g., $\MA\PS{\PS^T},
+\MA\PS{\SSs^C}$.
+
+%Since $\MA\SSs\SSs$ is the most general category, we will attemt to
+%prove various theorems for this case, and hope that they will
+%specialize to the more specific subcategories. This is only our
+%general strategy. Such a specialization will not always be possible
+%while, on the other hand, some results may be obtained only for the
+%specific subcategories of $\MA\SSs\SSs$.
+%
+
+\subsubsection{The Underlying Set and the Carrier}
+%
+Let $\po$ be any transitive relation on a set $M$. We write $\under M$
+for the set of minimal elements of $M$, i.e., $\under M=\{x\in
+M:\forall y\in M: y= x\lor \neg(y\po x)\}$.  For an $r\in M$, $\under
+r$ denotes the set of minima which are below $r$, i.e., $\under r
+=\{m\in\under M : m\po r\}$. In general, we will consider $\po$ which
+are partial orders but occasionally, we may need the above notion for
+other relations.
+\begin{Definition}
+%Let $\under M$ be a set. 
+A partial order $\<M,\po\>$ is said to be
+{\em generated} by (based on) the set $\under M$ iff
+%\begin{enumerate}
+%\item $Min(M)=\under M$ ($\under M$ is the set of minima in $M$);
+%\item $\forall p\in M\ \exists! m\subseteq\under M : p = \posup m$
+%(each element of $M$ is supremum of a unique maximal subset of minimal
+%elements, denoted $Min(p)$ or $\under p$);
+%\item 
+$\forall p,r\in M: p\po r \iff \under p\subseteq \under r$.
+%\end{enumerate}
+\end{Definition}
+
+In particular, each element $p$ of a generated $M$ is a unique least
+upper bound of its members, $p=\posup \under p$. Notice that for a
+subset $m\subseteq M$, the lub $\posup m$ need not exist in $M$ (we do
+not require existence of arbitrary joins -- sums, or meets --
+intersections). Using the notation $\posup m$ in a generated $M$ we
+will always mean ``least upper bound of $m$ if it exists in M''.
+
+\michal{OLD formulations: The unique $m$ in the second point refers
+to the maximal set of minima such that $p=\posup m$. I.e., if there is
+another set $n\subseteq \under M$, such that $p=\posup n$ then
+$n\subseteq m$.  Notice that there may be several PO's generated by
+the same $\under M$. The intention of this definition is to capture
+the intuition that the carrier of a multialgebra (which will be a PO
+generated by some underlying set $\under M$) is a {\em subset} of the
+power set of $\under M$. The partial order $\po$ represents set
+inclusion $\subseteq$, and each element (set) of the carrier is just a
+collection of some minimal elements (individuals). Uniqueness of such
+a set, together with the last condition, mean extensionality.}
+
+Since the generating minima are all in the PO,
+the carriers will be always closed under underlying set. Although one
+may imagine that an
+\SSs\ algebra need not such a closure, we do impose it in this case as
+well because otherwise an
+\SSs\ algebra would be just a common (partially) ordered algebra (or
+even a standard algebra, if we did not insist on monotonicity of the
+operations within it). We want to deal with subsets of power sets and
+not arbitrary ordered algebras.
+
+If $y,Y$ are elements of a PO $M$ generated by $\under M$, we will use
+the notation $y\in Y$ as an abbreviation for $y\po Y\land y\in\under
+M$ (or $y\in\under Y$). In general, whenever using the set operations,
+we implicitly assume that they are applied to the underlying sets (of
+minima). E.g., $X\setminus Y$ means $\under X\setminus\under Y$,
+$X\cap Y$ means $\under X\cap\under Y$, etc. Also, we will ot
+distinguish between an element $x\in\under M$ of the underlying set,
+and the one-element set $\{x\}$ containing such an element.
+
+The least upper, respectively greatest lower, bounds of a collection of
+elements $m_i\in M$, if they exist, will be denoted by $\posup m_i$
+and $\poinf m_i$, respectively.
+
+The (set) least upper, respectively greatest lower, bounds will be
+defined not only relatively to the PO, but also to the set of
+minima. For $m_i\in M$, the (set) least upper bound $\setsup m_i$, if
+it exists, is an $X\in M$ such that $\under X = \setsup\under
+m_i$. Similarly, $\setinf m_i = X : \under X = \setinf \under m_i$. If
+ set lub/glb exist, we will have $\posup m_i =
+\setsup m_i$ and $\poinf m_i = \setinf m_i$.
+
+\begin{REMARK}{Remark.}
+Considering arbitrary subsets of a power set may look innocent but has
+some slightly unexpected consequences.  The definition of a generated
+PO requires only that each element corresponds to a collection of
+unique individuals. In this respect, we are not in the standard set
+theory but in its variant where the basic entities are not sets but (a
+set of) underlying individuals -- ``urelements''. Set theory with
+urelements goes back to \cite{K} and \cite{P}; \cite{KP} contains a
+good review. 
+
+Furthermore, unlike the the theory with ``urelements'' of \cite{KP},
+the definiton does not require the existence of arbitrary joins or
+meets, and in the case they exist, does not require their
+uniqueness. This brings us into a rather non-standard setting.  For
+instance, let $\under M=\{1,2,3,4\}$. Then $M=\under M\cup
+\{\{1,2,3\},\{2,3,4\}\}$ is generated and both sets are upper bounds
+of 2 and 3, without the two having a unique least upper bound which
+would require inclusion of $\{2,3\}$ into $M$. Also, there is no upper
+bound (union) of the two sets in $M$.
+
+Even worse, let $\under M$
+be the set of natural numbers with two additional elements $\Nat\cup
+\{a,b\}$, and let $X_n=\{x\in\Nat :x\geq n\}\cup\{a,b\}$. 
+Choose $M=\under M\cup \{X_n:n\in\Nat\}$. Then the partial order in
+$M$ is not well-founded, since we have $X_n\rpo X_{n+1}$, and $a,b$
+have no least upper bound, since all $X_n$ are upper bounds for $a,b$.
+
+These deviations should not worry us to much because, for us,
+the crucial possibility is this of relating sets to their
+elements and of defining the behaviour of operations on sets in terms
+of their behaviour on the elements. We will not deal with induction
+along the ordering relation $\po$ -- only with induction along $\in$,
+i.e., from elements to sets. Similarly, non-uniqueness of joins and
+meets is not a problem in this setting as long as we are able to
+uniquely identify the elements belonging to a given set.
+\end{REMARK}
+There are various equivalent ways of representing generated PO's and,
+occasionally, we will use alternative representations. For instance,
+$M=\{1,2,3,4,\{1,2\},\{1,2,3\},\{1,2,4\},\{1,2,3,4\}\}$ corresponds to
+the diagram to the left in figure \ref{fi:setin} -- we call this {\em flat-set representation}.
+\begin{figure}[hbt]
+\[
+\spreaddiagramrows{-0.5pc}
+\spreaddiagramcolumns{-1pc}
+\def\objectstyle{\scriptstyle}
+\diagram %compileto{setin}
+%& & \save\Drop{\{1,2,3,4\}}\restore &   & & & & & \save\Drop{\{\{\{1,2\},3\}, \{\{1,2\},4\} \}}\restore & \\
+& & \{1,2,3,4\} &   & & & & & \{\{\{1,2\},3\}, \{\{1,2\},4\} \} & \\
+ & \{1,2,3\} \xline[ur] & & \{2,3,4\} \xline[ul] & & &  & \{\{1,2\},3\} \xline[ur]& & \{\{1,2\},4\} \xline[ul] \\
+& \{1,2\} \xline[u] \xline[urr] & & & M\ \rrto<0.2pc>^{\_^\in} & & \llto<0.2pc>^{sp} \ M^\in  & \{1,2\} \xline[u] \xline[urr] \\
+1 \xline[ur] & 2 \xline[u] & 3 \xline[uul] & 4 \xline[uu]  & & &
+                                1 \xline[ur] & 2 \xline[u] & 3 \xline[uul] & 4 \xline[uu]
+\enddiagram
+\]
+\caption{}\label{fi:setin}
+\end{figure}
+
+But we may interpret the relations indicated in the diagram as $\in$
+instead of $\subseteq$. In this case, $M$ corresponds to
+$M^\in=\{1,2,3,4, \{1,2\}, \{\{1,2\},3\},
+\{\{1,2\},4\},\{\{\{1,2\},3\},\{\{1,2\},4\} \}\}$.  We call this {\em power-set representation}. 
+
+We have the obvious function $\_^\in:M\into M^\in$ which sends each
+$X\in M$ onto $X^\in=Max\{Y\in M:Y\subseteq X\lor Y\in X\cap\under
+M\}$ in $M^\in$. (Actually, we are confusing here minimal $Y$ with
+$\{Y\}$ -- for the minimal elements we pretend that $Y=\{Y\}$ and
+hence $Y\in X\iff Y\subseteq X$ and $\bigcup Y=Y$. These are to be
+understood merely as abbreviations simplifying the formulations: we do
+not want to split all the proofs into two cases -- one for the
+individuals and one for sets -- but we do not want to dwell on the
+situtations with $Y\in Y$ either.) We are taking only maximal elements
+below $X:$ thus, if $M=\{1,2,3,4,\{1,2\},\{1,2,3\},\{1,2,3,4\}\}$ then
+$\{1,2,3\}^in=\{\{1,2\},3\}$ and $\{1,2,3,4\}^in = \{\{\{1,2\},3\},4\}$.
+
+The support function $sp:M^\in\into M$ defined as
+\begin{equation}
+sp(X)=
+\left\{\begin{array}{l} X\ {\rm if}\ X =\{X\}\ (i.e.,\ X\in\under{M^\in}) \\
+  \bigcup_{Y\in X} sp(Y)\ {\rm otherwise} \end{array}\right.
+\end{equation}
+allows us to return to the flat set-representation yielding set of
+all individuals of the argument $X^\in$.
+
+Two significant properties of the power-set representation are:
+
+\begin{Fact}
+$M^\in$ is 
+\begin{enumerate}
+\item transitive, i.e., $\forall Y,X: Y\in X\land X\in M^\in\impl Y\in
+M^\in$ (or $X\in M^\in\impl X\subseteq M^\in$) ;
+\item  strongly extensional, i.e., $\forall X,Y\in M^\in: X=Y\iff sp(X)=sp(Y)$.
+\end{enumerate}
+\end{Fact}
+
+The second property excludes the possibility of having, for instance,
+both $\{\{1,2\},3\}$ and $\{1,\{2,3\}\}$ in $m^\in$. Notice that usual
+extensionality would still make these two sets different. It will also
+force $\{\{1,2\}\}=\{1,2\}$ and, since by the first property
+$\{\{1,2\}\}\in M^\in \impl \{1,2\}\in M^\in$, will simply ``reduce
+the number of parantheses $\{...\}$ to the necessary minimum''. (The
+identification $Y=\{Y\}$ for the minimal elements migt be viewed as a
+special case of this condition.)
+%
+%(In fact, using this representation we
+%might use only the maximal elements to represent the whole $M$.)
+
+The first property implies closure wrt. the underlying
+set. It also ensures a kind of ``well-definedness'' of the
+structure. For instance, it disallows the set
+$M^\in=\{1,2,3,\{1,2\},\{1,\{2,3\}\}$, which would say that $\{2,3\}
+both is in the structure -- since it is in $\{1,\{2,3\}\}$, and is not
+in it -- since it is not in $M$).
+
+%
+%
+\subsubsection{Algebras and Homomorphisms of Various Modes}
+%
+We now spell out the definitions of the introduced classes of
+multi-algebras.
+%We let the carriers of multialgebras correspond to the
+%mode of the source of the operations, and variables range over
+%elements of the carriers (even if operations may have target which has
+%different mode).
+
+\begin{Definition}
+Let $\Sigma = [S,F]$ be a signature. A $\Sigma$-multialgebra $M$ has a
+ carrier $\Card M=\setsup_{s\in S}M_s$, where for each $s\in S$, $M_s$
+ is a PO generated by some $\under M_s$. Interpretation of each
+ operation $f:s1\times...\times sn\into s\in F$ is a function
+ $f^M:M_{s1}\times...\times M_{sn}\into M_s$ satisfying some
+ conditions which determine the mode of the multialgebra as follows:
+\begin{itemize}
+\item for $M$ of mode \SSs : \\
+ -- $f^M$ is monotone, i.e.\ $\forall X,Y\in \Card M: X\po Y\impl f^M(X)\po f^M(Y)$;
+\item for $M$ of mode \PS :\\ %\ is an $M$ of mode \SSs\ where :\\
+%a set $M_s$ for each $s\in S$ (in this case we let
+% $\under M_s=M_s$); \\
+ -- $f^M$ is additive, i.e.\ $f^M(X_1,...,X_n) = \setsup_{x_i\in X_i} f^M(x_1,...,x_n)$.
+\item $M$ of mode \PP :\\ %\ is an $M$ of mode \PS\ where: \\
+ -- $f^M$ is deterministic, i.e.,\ for all $x_i\in\under M : f^M(x_1,...,x_n)\in \under M$.
+\end{itemize}
+\end{Definition}
+Obviously, $\mode\PP{f}\impl \mode\PS{f}\impl \mode\SSs{f}$, so a \PP\
+algebra is a \PS\ algebra is an \SSs\ algebra.
+\begin{Definition}
+A homomorphism  $\phi:M\into N$ for pair of algebras $M,N$ of the same mode is a
+sort compatible mapping $\Card M\into \Card N$ such that $\phi(f^M(\ovr a))
+\otimes f^N(\phi(\ovr a))$ (for $\otimes\in\{\po,\rpo,=\}$), satisfying additional conditions for the
+different modes: \\
+\begin{tabular}{l@{\ \ -\ \ }l}
+\SSs & is monotone $\forall X,Y\in\Card M: X\po Y \impl \phi(X)\po\phi(Y)$\\
+\PS & is additive and induced by $\under M\into \Card N$ \\
+\PP & is additive and induced by $\under M\into \under N$ 
+\end{tabular}
+\end{Definition}
+Notice that the \SSs-algebras are usual partially ordered algebras
+\cite{Moll} which ``just happen'' to have a (subset of) power set as
+the carrier. 
+%The different elements of such carriers are not related
+%by any additional relation. 
+Also when defining the homomorphisms
+we utilize the relation $\po$ which is not, strictly speaking,
+a part of the algebra. We may later introduce explicitly the predicate corresponding to $\po$ into the signature (as it was done, for instance, for unified algebras in \cite{UA}), but for the moment we follow the more traditional treatement of ordered algebras \cite{Moll},\cite{Reg}.
+
+%Observe also that, although the definitions of homomorphisms are
+%uniform (for various modes of algebras), they do not necessarily
+%coincide. For instance, let $\Sigma=[\{s\},\{c:\into s\}]$ and let
+%$M,N\in\MAlg(\SSs)$ be such that $\Card M=\{\{1,2\}\}, \Card
+%N=\{\{a,b\}\}$ with the only possible interpretation of $c$.  There is
+%only one homomorphism $\phi:M\into N$. We can look at $\phi$ as a
+%\PP-homomorphism, since it is induced by the mapping
+%$\phi_1=\{1\mapsto a, 2\mapsto b\}$, as well as by $\phi_1=\{1\mapsto
+%b, 2\mapsto a\}$.  If, on the other hand, $M$ and $N$ are considered
+%as \PS\ algebras (with the same interpretation of $c$), their carriers
+%must contain all the elements, i.e.\ $\Card M=\{\{1,2\},\{1\},\{2\}\}$
+%and $\Card N = \{\{a,b\},\{a\},\{b\}\}$, (we still have that $\under
+%M=\{1,2\},\ \under N=\{a,b\}$).  Thus now $\phi_1$ and $\phi_2$ are
+%two different \PP-morphisms.
+%
+\begin{Definition}
+For a multi-algebra $M$ and a set of variables $X$, an {\em assignment} is
+a function $\alpha:X\into\Card M$. For an algebra of mode \PS, we
+additionally require this mapping to go $X\into \under M$.
+\end{Definition}
+(I.e., variables
+are assigned individual elements in the mode \PS, while sets in the mode \SSs.)
+
+%====================================
+%
+%
+
+\section{General Properties of various $\MAlg(\Sigma)$}
+\subsection{Isomorphisms etc.}
+
+\begin{Lemma}\label{le:isotight}
+Let $M, N$ be two multialgebras of the same mode. If $\phi:M\into N$
+and $\psi:N\into M$ are isomorphisms (both of the same, but arbitrary
+mode), then they are tight.
+\end{Lemma}
+
+\begin{Proof}
+Let us consider the case when both $\phi$ and $\psi$ are loose. Then
+for all $X\in \Card M, Y\in \Card N: 1)\ \phi(f^M(X))\po
+f^N(\phi(X))$ and 2) $\psi(f^N(Y))\po f^M(\psi(Y))$.
+Substituting $\phi(X)$ for $Y$ in 2), we get 
+\[
+\begin{array}{rlr}
+\multicolumn{2}{l}{\psi(f^N(\phi(X))) \po f^M(\psi(\phi(X)))} & \phi\ monotoe\\
+\impl & \phi(\psi(f^N(\phi(X)))) \po \phi(f^M(\psi(\phi(X)))) & isomorphism \\
+\impl & f^N(\phi(X)) \po \phi(f^M(X))
+\end{array} \]
+Together with 1) this means that $\phi(f^M(X)) = f^N(\phi(X))$, and
+the same for $\psi$ follows by a symmetric argument.
+
+The case when $\phi$ and $\psi$ are closed is entirely analogous.
+\end{Proof}
+
+Notice that this lemma depends only on the assumption of
+loosenes/closedness but not on the mode of homomorphisms.
+This mode is inessential as the next lemma shows:
+
+\begin{Lemma}
+Let $M,N,\phi,\psi$ be isomorphic as in the previous lemma
+(\ref{le:isotight}). Then
+$\mode\SSs{\phi/\psi}\impl\mode\PS{\phi/\psi}\impl\mode\PP{\phi/\psi}$.
+\end{Lemma}
+\begin{Proof}
+First, we show that $\phi$ (and $\psi$) must map underlying sets onto
+underlying sets.  Suppose not, i.e.\ $\exists x\in\under M :
+\phi(x)=Y\not\in\under N$. Then $Y=\posup_i y_i$ for some set of
+indices $i$ with all $y_i\in\under N$. Isomorphism condition requires
+then $\psi(Y)=x$, and monotonicity of $\psi: \psi(y_i)=x$. But then
+$\phi(\psi(y_i))=Y\not=y_i$, so $\phi, \psi$ would not be an isomorphism.
+
+Now, consider $\mode\PS{\phi,\psi}$, and assume that
+$\neg\mode\PP\phi$, i.e.\ $\exists X\in\Card M : X=\posup_i x_i \land
+\phi(X)=Y\not=\posup_i \phi(x_i)$. Then $\exists y_j\in Y:y_j\not\in\posup_i \phi(x_i)$.
+By isomorphism condition $\psi(Y)=X$, and by monotonicity of
+homomorphisms $\psi(y_j)\in X$.(Monotonicity forces $\psi(y_j)\po X$
+and the first part of the proof makes this $\po$ into $\psi(y_j)\in
+X$.) But this means that there is an $x_i\in X$ such that
+$x_i=\psi(y_j)$ and we get $\phi(\psi(y_j) = \phi(x_i) \in\posup_i
+\phi(x_i)$. Since $y_j$ was assumed to be in
+$\under Y\setminus\under{\posup_i\phi(x_i)}$, we would then have
+$\phi(\psi(y_j))\not= y_j$, contradicting the assumption that $\phi,
+\psi$ are isomorphisms.
+
+Entirely
+analogous argument as above shows a contradiction under the assumption that
+ $\mode\SSs{\phi,\psi}$ and  $\neg\mode\PS\phi$. 
+\end{Proof}
+
+Thus isomorphisms in all different categories are actually \PP-isomorphisms.
+
+\subsection{Reachability and Subalgebras}
+One of the reasons for restricting the carriers of multi-algebras to
+subsets of power sets is the wish to define reachability in a natural
+way. As usual, we can replace $=$ with inclusion going either
+way.
+
+\begin{Definition}\label{de:genpo}
+Let $M$ be a $\Sigma$-multialgebra and $p\in\Card M$ and $m\subseteq\Card M$. 
+The element $p$ is reachable from $m$:
+
+\begin{tabular}{lcl}
+tightly  & iff & $\exists x\in m : p=x$ \\
+loosely  & iff & $\exists x\in m : p\po x$ \\
+closedly  & iff & $\exists x\in m : p\rpo x$ 
+\end{tabular}
+\end{Definition}
+We will write $\reach XmM$, for the part of the set $M$ (or algebra
+$M$) which is X-reachable from $m$. Occasionally, we may drop the $M$
+when it is clear from the context. (Loose reachability was used in
+\cite{Tapsoft} as a counterpart of inductive reasoning.) Picking only
+the T- or C-reachable elements does not necessarily yield a legal
+carrier.  For instance:
+\[
+\diagram
+\spreaddiagramcolumns{-1pc}
+\spreaddiagramrows{-1pc}
+& abc & 
+ & & & abc \\
+ab \xline[ur] & ac \xline[u] & bc \xline[ul] 
+ & & ab \xline[ur] & ac \xline[u] & bc \xline[ul] 
+ & & &   ac  & bc  \\
+a \xline[u] \xline[ur] & b \xline[ul] \xline[ur] & c \xline[ul] \xline[u]
+ & &  & b \xline[ul] \xline[ur] & c \xline[ul] \xline[u]
+ & & a  \xline[ur] & b  \xline[ur] & c \xline[ul] \xline[u] \\
+ & M & & & & \save\Drop{\reach C{b,c}M}\restore & & & & \save\Drop{\reach L{ac,bc}M}\restore & 
+\enddiagram
+\]
+$\reach C{b,c}M$ is not a PO generated by $b, c$, since for instance,
+$Min(abc)=\{b,c\}=Min(bc)$ while the two are distinct. Obviously $\reach
+TmM = m$ which can be an arbitrary subset of $M$, and hence need not
+satisfy the extensionality property.
+
+$\reach L{ac,bc}M$, on the other hand, does yield a legal carrier.
+ In fact, taking $\reach LmM$ for any $m$ yields a
+subset of $M$ which satisfies the conditions of definition \ref{de:genpo}.
+
+\begin{Fact}
+If $M$ is a PO generated by $\under M$ and $m\subseteq M$, then
+$R=\reach LmM$ is a PO generated by $\under R=\under M\cap R$.
+\end{Fact}
+\begin{Proof}
+Let $X$ be an arbitrary element in $R\subseteq M$. Since $X$ is
+L-reachable, all elements $x\in Min(X)$ will be also
+in $R$, and in $\under R$. Thus, for $X\in R : Min^R(X)=Min^M(X)$.
+
+This last equation proves also uniquness, since if $X\not= Y$ then this holds in $M$
+and so $Min^R(X)=Min^M(X)\not= Min^M(Y)=Min^R(Y)$.
+\end{Proof}
+
+L-reachability is ``propagated downwards'', C-reachability ``upwards''
+and T-reachability is not ``propagated'' at all. Thus, if we want the
+whole carrier $M$ to be reachable, the sufficient and necessary conditions
+on the set $m$ are as follows:
+\begin{eqnarray}
+M = \reach LmM & \iff & Max(M)\subseteq m \\
+M = \reach CmM & \iff & Min(M) \subseteq m \\
+M = \reach TmM & \iff & M = m
+\end{eqnarray} 
+In particular, reachability of the whole underlying set $\under M$
+implies only C-reachability (but not L or T) of the whole carrier $M$.
+We also have the obvious observation that
+\begin{eqnarray}
+Max(\reach LmM) & \subseteq & \reach TmM \\
+Min(\reach CmM) & \subseteq & \reach TmM \\
+\reach TmM & \subseteq & \reach LmM \cap \reach CmM
+\end{eqnarray}
+We will write $\reach X{\GTerms}M$ for the part of $M$ which is
+X-reachable from the interpretation of the ground terms, i.e., from
+$m=\{t^M:t\in\GTerms\}$.
+
+\subsubsection{Subalgebras}
+
+The first requirement for a standard subalgebra $N$ of $M$ is that
+$\Card N\subseteq\Card M$. Since our carriers are PO's, we will also
+require that the relation $\subseteq$ preserves the PO, i.e.,
+$X,Y\in\Card N \land X\po^M Y\impl X\po^N Y$.
+As usual,
+we have three notions instead of one:
+\begin{Definition}
+$N$ is a
+subalgebra of $M$ iff $\Card N\subseteq \Card M$ and 
+
+\begin{tabular}{lcl}
+tight & iff & $\forall f\ \forall x_i\in\Card N : f^N(x_i)=f^M(x_i)$ \\
+loose & iff & $\forall f\ \forall x_i\in\Card N : f^N(x_i)\po f^M(x_i)$ \\
+closed & iff & $\forall f\ \forall x_i\in\Card N : f^N(x_i)\rpo f^M(x_i)$ 
+\end{tabular}
+\end{Definition}
+
+In other words, $N$ is a T/L/C subalgebra of $M$ if $\Card N\subseteq
+\Card M$ and inclusion of the carrier $\iota:\Card
+N\hookrightarrow\Card M$ is a T/L/C homomorphism.
+
+When is the homomorphic image $\phi[N]$ a subalgebra of $M$? Since
+only loosely reachable part yields a leagal carrier, let us consider
+this question for the special case: when is $\reach L{\phi[N]}M$
+=$\{X\in\Card M : \exists Y\in\Card N:X\po\phi(Y)\}$ a subalgebra --
+and of what kind -- of $M$?
+
+\begin{Fact}\label{fa:TCsub}
+If $\phi:N\into M$ is tight (closed) then $\reach L{\phi[N]}{M}$
+is a tight subalgebra of $M$.
+\end{Fact}
+
+\begin{Proof}
+Consider first the case of tight $\phi$.  Let us abbreviate the
+obtained algebra as $[N]$. Its carrier is $\reach L{\phi[N]}{}$, and
+for each $X$ in this carrier, we let $f^{[N]}(X) = f^M(X)$. We have to
+show that the carrier is closed under all operations.
+
+Let $X$ be such that there exists $Y\in\Card N:X = \phi(Y)$.  Since
+$\phi$ is tight, we have that 
+\begin{equation}\label{eq:isin}
+f^{[N]}(X) = f^M(X) = f^M(\phi(Y))
+= \phi(f^N(Y))
+\end{equation}
+so these applications remain within $\reach L{\phi[N]}{}$, i.e., the
+carrier of $[N]$.  This yields a well-defined $f^{[N]}$ because
+if there exist two different $Y\not=Z\in\Card N: \phi(Y)=X=\phi(Z)$,
+then, by the tightness of $\phi:$
+\begin{equation}\label{eq:well}
+ \phi(f^N(Y))=f^M(X)=\phi(f^N(Z))
+\end{equation}
+%
+Let $X\in\reach L{\phi[N]}{}\setminus\phi[N]$, i.e.,  $X$ is not an image of any
+$Y\in\Card N$. Then $X$ must be below some element which is in the
+image  $\phi[N]$, i.e., there exists $Y\in\Card N:
+X\spo\phi(Y)$. But then also, by monotonicity of all the opeartions in
+$M:$
+\begin{equation}\label{eq:notin}
+ f^{[N]}(X)=f^M(X)\po f^M(\phi(Y))=\phi(f^N(Y))
+\end{equation}
+and hence
+also these applications remain within the carrier of $[N]$. Hence
+$[N]$ is a tight subalgebra of $M$.
+
+If $\phi$ is closed then the last equalities in \re{eq:isin} and
+\re{eq:notin} become $\po$. Thus the applications remain within the
+carrier $\reach L{\phi[N]}{}$. Well-definedness requires a bit closer
+look.  We may have the situation where \re{eq:well} does not hold,
+i.e., for $Y\not= Z$, with $\phi(Y)=X=\phi(Z):
+\phi(f^N(Y))\not=\phi(f^N(Z))$.  However, by closedness of $\phi$, we
+then know that both $f^M(X)\po\phi(f^N(Y))$, and
+$f^M(X)\po\phi(f^N(Z))$. Hence $f^{[N]}$ is still well-defined,
+and $[N]$ is again a tight subalgebra of $M$.
+%
+\end{Proof}
+
+\michal{If $\phi$ is loose, the equalities in \re{eq:isin} and \re{eq:notin}
+turn into $\rpo$, and so we are not guaranteed that the applications
+$f^{[N]}(X)=f^M(X)$ are within the carrier $\reach L{\phi[N]}{}$.
+Furthermore, \re{eq:well} need not hold, and we may have that
+$\phi(f^N(Y))\po f^M(X)$ and $\phi(f^N(Z))\po f^M(X)$. That $f^M(X)$
+is the common upper bound, does not mean both will have a least
+upper bound, and we cannot simply re-define the operations to yield such
+lub's. This would require their existence and extension of the carrier with these new
+elements, and everything becomes pretty messy.\\ Alternatively, we
+could require for each $f,\ S\subseteq\Card N: (\forall Y\in
+S:\phi(Y)=X) \impl \posup\phi(f^N(Y)) \po f^M(X))$ (to be able to
+choose the value $f^{[N]}(X)$ as such a lub). In addition,
+would still have to say what to do with $X$ which are not in the image
+of $\phi$.\\
+It does not help to restrict anything to \PS, or even to \PP-homomorphisms.}
+
+\begin{Fact}
+If $\phi:N\into M$ is loose then $\reach L{\reach C{\phi[N]}{}}{}$ is
+a tight subalgebra of $M$.
+\end{Fact}
+\begin{Proof}
+For any $X\in\Card{[N]}=\reach L{\reach C{\phi[N]}{}}{}$, we let $f^{[N]}(X)=f^M(X)$. 
+
+If $X\in\phi[N]$, i.e., $\exists Y\in\Card N: X=\phi(Y)$, then, by
+looseness of $\phi: \phi(f^N(Y))\po
+f^M(\phi(Y))=f^M(X)=f^{[N]}(X)$. So $f^{[N]}(X)\in \reach
+C{\phi[N]}{}$, and hence also in $\Card{[N]}$.
+
+If no such $Y$ exists, i.e., $X\in\Card{[N]}\setminus \phi[N]$, then
+there exist $Y\in\Card N, Z\in \Card{[N]}: \phi(Y)\po Z \land X\po
+Z$. By looseness of $\phi$ and then by monotonicity of $f^M$, we have
+$\phi(f^N(Y))\po f^M(\phi(Y))\po f^M(Z)$ and $f^M(X)\po f^M(Z)$. The
+first of these inequalities implies $f^M(Z)\in\reach C{\phi[N]}{}$,
+and then the second one $f^M(X)\in\reach L{\reach C{\phi[N]}{}}{}$.
+\end{Proof}
+
+Now, let us suppose that $\phi[N]$ is a legal carrier, i.e., we need
+not close it as we did above. It does not necessarily mean that
+$\phi[N]=\reach L{\phi[N]}{}$, since $\phi[N]$ may contain fewer
+elements than all those which are L-reachable in $M$ from $\phi[N]$.
+We now try to define the subalgebra $[N]$ by
+$f^{[N]}(\phi(Y))=\phi(f^N(Y))$.  Obviously, this goeas fine when
+$\phi$ is tight, since then $\phi(f^N(Y))=f^M(\phi(Y))$, and we are in
+the first case of fact \ref{fa:TCsub}. 
+
+If $\phi$ is loose, however, we
+have the problem with well-definedness: if $Z\not= Y$ and
+$\phi(f^N(Z))\not=\phi(f^N(Y))$ while $\phi(Z)=X=\phi(Y)$. The
+sufficient and necessary condition for obtaining a well-defined
+subalgebra $[N]$ is then that the images $\phi(f^N(Y_i))$ over all
+$Y_i$ such that $\phi(Y_i)=X$ be ordered in a way admitting a
+reasonable definition of $f^{[N]}(X)$. The two natural possibilities
+would be to require that there exists an $j$ such that either
+$\phi(f^N(Y_j))=\posup_i \phi(f^N(Y_i))$, or else
+$\phi(f^N(Y_j))=\poinf_i \phi(f^N(Y_i))$. In both cases we can then take
+$f^{[N]}(X)=\phi(f^N(Y_j))$. The construction will give a loose subalgebra of $M$.
+
+Quite analogous condition and requirement allows us to obtain a closed
+subalgebra of $M$ when $\phi$ is closed.
+
+\michal{
+Now, shall we look at reachable images obtained from $T_\Sigma$ ?}
+
+\subsection{Initial and terminal models}
+The following definition defines the word multistructure uniformly for
+ all $\Sigma$-multialgebras:
+\begin{Definition}
+The underlying set $\under T_\Sigma$ is the set of ground $\Sigma$-terms,
+ $\GTerms$, and the carrier $\Card{T_\Sigma}$ is simply $\under T_\Sigma$.
+%$\Card{T_\Sigma}=\{\{t\}:t\in\GTerms\}\subset \PSet{\under T_\Sigma}$.
+The interpretation of operations is defined in the obvious way.
+\end{Definition}
+We have the obvious
+\begin{Fact}
+ $T_\Sigma$ is initial in $\MA\Sigma{\SSs^T}$.
+\end{Fact}
+Since $T_\Sigma$ is essentially determinisitic the unique tight \SSs-morphism into
+any other structure is actually a \PS-morphism, so that $T_\Sigma$ is initial
+in $\MA\Sigma{\PS^T}$ as well. This result does not depend on the mode of the
+algebras considered, so we have that
+the word multistructure is an initial structure in the following cases:
+\[
+\begin{array}{|c@{\ \ }|@{\ \ }c@{\ \ }|@{\ \ }c@{\ \ }|@{\ \ \ }c@{\ \ \ }|}
+hom & \MAlg(\PP) & \MAlg(\PS) & \MAlg(\SSs) \\ \hline
+\PP  & T_\Sigma & --  & -- \\
+\PS^T  & T_\Sigma & T_\Sigma & T_\Sigma \\
+\SSs^T & T_\Sigma & T_\Sigma & T_\Sigma \\ \hline
+\end{array} 
+\]
+For loose (or closed) homomorphisms, there is no
+corresponding initiality result: the requirement
+$\phi(f^{{T_\Sigma}}(x))\po f^M(\phi(x))$ means that, for a
+$t\in\GTerms$, the image $\phi(t^{{T_\Sigma}})$ may be any point
+$p\in\Card M:p\po t^M$. Thus the homomorphisms from the word
+multistructure are no longer unique. The only thing we can say at the moment is:
+
+\begin{Fact}
+If $\phi:T_\Sigma\into M$ is loose (closed) then
+$\phi[T_\Sigma]\subseteq \reach L{\GTerms}M$ ($\reach C{\GTerms}M$).
+\end{Fact}
+
+In all nine cases, the usual collapsing of all the elements yields a
+terminal model. Unlike initiality, this applies to all T, C, and L-homomorphisms.
+
+\subsection{Epi-mono factorisation}
+
+\subsubsection{Quotients}
+Given a PO $M$, any equivalence relation $\sim\ \subseteq M\times M$
+allows us to construct a quotient $\quot M\sim$. If we want to ensure
+that taking a quotient of a generated PO yields a generated PO, we
+have to take more precautions. Consider the following examples in
+which we enforce $A\sim B:$
+\[
+\spreaddiagramrows{-1.2pc}
+\spreaddiagramcolumns{-1.2pc}
+\def\objectstyle{\scriptstyle}
+\diagramcompileto{ex1}
+& A & {\textstyle \sim} & B &  & & & &    & & [A,B] &  \\
+    & & &   &  & & {\textstyle  \Longrightarrow} \\
+a1 \xline[uur] &  a2 \xline[uu] & &  b1 \xline[uu] &  b2 \xline[uul]  & & & & 
+ a1 \xline[uurr] & a2 \xline[uur] & & b1 \xline[uul] & b2 \xline[uull]
+\enddiagram 
+\]
+In this case quotient gives a legal carrier, where the equivalence
+classes correspond to taking the union of its members.
+\[
+\spreaddiagramrows{-1.2pc}
+\spreaddiagramcolumns{-1.2pc}
+\def\objectstyle{\scriptstyle}
+\diagramcompileto{ex2}
+ & A\fposup X & &  B\fposup X & & & & & & A\fposup X \xdotted[rr] & & B\fposup X \\
+& A \xline[u] & {\textstyle \sim} & B \xline[u] & X \xline[ulll] \xline[ul] 
+   & & {\textstyle  \Longrightarrow}
+     & & & & [A,B] \xline[ul] \xline[ur] & & X \xline[ulll] \xline[ul] \\
+a1 \xline[ur] & a2 \xline[u] & & b1 \xline[u] &  b2 \xline[ul] &
+     & & & a1 \xline[urr] & a2 \xline[ur] & & b1 \xline[ul] & b2 \xline[ull]
+\enddiagram 
+\]
+Here, the result is not a carrier because we have that $\under
+{A\fposup X} = \under {B\fposup X}$, while $A\fposup X \not= B\fposup
+X$. The dotted line indicates the necessary identification to obtain a
+carrier.
+\[
+\spreaddiagramrows{-1.2pc}
+\spreaddiagramcolumns{-1.2pc}
+\def\objectstyle{\scriptstyle}
+\diagramcompileto{ex3}
+& A & {\textstyle \sim} & B &  & & &    & & [A,B] \\
+& &  X & &   &  &  {\textstyle \Longrightarrow} & & & X \xdotted[u] \\
+a1 \xline[uur] & a2 \xline[uu] \xline[ur] & &  b1 \xline[uu] \xline[ul] 
+     & b2 \xline[uul]  & & & 
+     a1 \xline[uurr] & a2 \xline[uur] \xline[ur] 
+        & & b1 \xline[uul] \xline[ul] & b2 \xline[uull]
+\enddiagram 
+\]
+Here, the result is a carrier with the exception that $\under
+X\subseteq \under{[A,B]}$, while the relation $X\po [A,B]$ is not
+induced by the partial order before taking the quotient.
+
+The examples illustrate the requirements we have to impose on the
+relation $\sim$ and the resulting quotient in order to obtain a legal
+carrier.
+
+\begin{Definition}
+Let $\sim$ be an arbitrary equivalence relation on a partial order
+$P=\<M,\po\>$.  The {\em pre-quotient} $\prequot P\sim$ is $\<\prequot
+M\sim,\preceq\>$ where
+\begin{enumerate}
+\item $\prequot M\sim = \{[X]:X\in M\}$, $[X]=\{Y\in M:Y\sim X\}$.
+\item $ [X]\preceq [Y] \iff \under{[X]}\subseteq \under{[Y]}$
+\end{enumerate}
+\end{Definition}
+We call $\prequot P\sim$ pre-quotient because, in general, it is not a
+partial order but only a pre-order. To obtain a partial order, we have
+to enforce antisymmetry, i.e., make further identifications:
+$[X]\preceq [Y]\land [Y]\preceq [X]\impl [X]=[Y]$. This construction
+yields then the quotient $\quot P\sim=\<\quot M\sim,\preceq\>$ which
+is a generated partial order.
+
+\michal{I do not like anything what follows in this subsection!!!}
+
+\begin{Fact}
+For any equivalence $\sim\ \subseteq M\times M$, $\<\quot
+M\sim,\preceq\>$ is a partial order generated by $\under{\prequot
+M\sim}=\under{\quot M\sim}$ and the following two ways of constructing
+the quotient are equivalent:
+\[
+\def\labelstyle{\scriptscriptstyle}
+\diagram
+& 1:\<\prequot M\sim,\po\> 
+    \xto[rrr]^{[X]=[Y]\iff}_{[X]\po[Y]\land [Y]\po [X]} 
+     & & & 2:\<{\quot M\sim}',\po\>
+     \drto|{\under{[X]}\subseteq\under{[Y]}\impl [X]\preceq [Y]} \\
+P=\<M,\po\> \urto|{X\po Y\impl [X]\po [Y]} \drto|{[X]\preceq
+        [Y]\iff \under{[X]} \subseteq\under{[Y]}} & & & & & % & &
+        \<\quot M\sim,\preceq\>=\quot P\sim \\ 
+& 3:\<\prequot M\sim,\preceq\>
+        \xto '[rrr]^>>>>>>{[X]=[Y]\iff}_>>>>>{[X]\preceq [Y] \land [Y]\preceq
+        [X]}[urrrr] & & &  & % &
+%& & 1:\<\prequot M\sim,\po\> 
+%    \xto[rrr]^{[X]=[Y]\iff}_{[X]\po[Y]\land [Y]\po [X]} 
+%     & & & 2:\<{\quot M\sim}',\po\>
+%     \drrto|{\under{[X]}\subseteq\under{[Y]}\impl [X]\preceq [Y]} \\
+%P=\<M,\po\> \urrto|{X\po Y\impl [X]\po [Y]} \drrto|{[X]\preceq
+%        [Y]\iff \under{[X]} \subseteq\under{[Y]}} & & & & & & &
+%        \<\quot M\sim,\preceq\>=\quot P\sim \\ 
+%& & 3:\<\prequot M\sim,\preceq\>
+%        \xto '[rrr]^>>>>>>{[X]=[Y]\iff}_>>>>>{[X]\preceq [Y] \land [Y]\preceq
+%        [X]}[urrrrr] & & &  & & 
+\enddiagram
+\]
+\end{Fact}
+
+\begin{Proof}
+Following the lower path, it is easy to see that $\under{\prequot
+M\sim}=\under{\quot M\sim}:$ the transition $3\into\quot P\sim$ will
+identify two elements iff both $[X]\preceq [Y]$ and $[Y]\preceq [X]$,
+in particular no minimal elements will be identified.  Similar remark
+shows that no minimal elements are identified in the transition
+$1\into 2$. We have to show that also transition $2\into\quot P\sim$
+does not identify any minimal elements. (Other elements may be
+identified here -- therefore we wrote ${\quot M\sim}'$ in 2.) But this
+is obvious since if $[X]$ is minimal in 2, then there is no other
+$[Y]$ such that $[Y]\po [X]$ in 2, and hence $\under{[X]}=[X]$. Thus,
+for all $[Y]\in{\quot M\sim}'$ and all minimal $[X]\in\under{{\quot
+M\sim}'}: [X]\preceq [Y]\iff [X]\po[Y]$. The identifications implied
+by the transition $2\into \quot P\sim$ are only of the kind
+illustrated in the second example above. Additionally, it will enforce
+new relations like the one from the third example.
+
+It is also easy to see that in 2 we have $[X]\po [Y]\impl
+\under{[X]}\subseteq\under{[Y]}$. Thus going both ways, we obtain the underlying set already in the first step (constructing the pre-order $\prequot M\sim$), and in the last step we obtain, in both cases, the same partial order generated by this underlying set.
+\end{Proof}
+
+The upper path is closer to the construction on (partial) orders as
+such, without invoking the set inclusions on the (subsets of) minimal
+elements as it is done in the lower path. The last transition $2\into
+\quot P\sim$ can be expressed equivalently as saying that we add the
+relation $[X]\preceq [Y]$ if $\forall X_i\in[X]\ \forall x_i\in\under
+X_i\ \exists Y_i\in[Y]: x_i\po Y_i$ in $P$. This, however, is just a
+round-about way of expressing the condition
+$\under{[X]}\subseteq\under{[Y]}$.
+
+Notice also that, because we have to add such relations, we are not
+able to express the conditions for $\quot P\sim$ to be a generated PO
+in terms of the conditions on $\sim$ only.  We could say that: 
+An equivalence relation $\sim$ on  $\<M,\po\>$ is {\em
+$\posup$-closed} iff $\forall A,B\in M, X\subseteq M : A\sim B \impl
+(A\posup X)\sim (B\posup X)$. 
+Considering only such relations
+would fix the problems like in the second example. But then, we would
+still have to add the relations $\preceq$ as illustrated in the third
+example, which are hardly expressible in terms of $\sim$.
+
+Of particular interest, there will be equivalence relations on the
+underlying sets or, more precisely, relations on $M$ induced by a
+relation on $\under M$.  The intention of such an inducing is to
+ensure that if two individuals are put in the relation $a\sim b$, then
+so are all sets $X\cup{a}\sim X\cup{b}$, i.e., to consider only
+$\posup$-closed relations. However, even in this particular case, we
+cannot dispense with the extension of the resulting partial order.
+If $P$ is
+$\{1,2,3,4,5,\{1,2,3\},\{4,5\}\}$ and we identify $2\sim 4$ and $3\sim
+5$, we obtain $\{1,24,35,\{1,23,45\},\{23,45\}\}$. The last set is now
+included in $\{1,23,45\}$ and this inclusion must be added to the
+resulting partial order.
+Thus, only the following fact is obvious from the construction in the last fact.
+
+\begin{Fact}
+Let $P=\<M,\po\>$ be a PO generated by $\under M$. 
+%If $\sim\ \subseteq \under M\times\under M$ is $\posup$-closed then 
+$\quot P\sim =\<\quot M\sim,\po\>$ is a PO generated by $\quot {\under M}\sim$.
+\end{Fact}
+
+\michal{Thus, $\posup$-closedness seems a redundant notion even in this case. In short: starting with an arbitrary generated PO $P$, there are no conditions on $\sim$ which would guarantee that $\quot P\sim$ is generated.}
+
+%\begin{Definition}
+%Let $\Sigma = [S,F]$ be a signature. A (total) $\Sigma$-multialgebra
+%is a tuple $M = [S^M,F^M]$ where $S^M = \{M_s\}_{s \in S}$ is a family
+%of carrier sets for each sort $s \in S$ and $F^M = \{f^M\}_{f \in F}$
+%is a family of set-valued functions such that 
+%\[ 
+%f^M : M_{s_1} \times \ldots \times M_{s_n} \rightarrow P^+(M_s) 
+%\] 
+%for each $[f : s_1 \times \ldots s_n \rightarrow s] \in F$ 
+%\hfill$\Box$
+%\end{Definition} 
+%
+%The class of all $\Sigma$-multialgebras will be denoted 
+%$\MAlg(\Sigma)$.
+
+\subsection{Existence of products (limits) and co-products (co-limits)}
+
+
+%==============================================================================
+%
+%
+%\section{Multialgebras and their homomorphisms}
+%
+%The number of various notions of a homomorphism between multialgebras
+%might be suprising for an unprepared reader. Nipkow \cite{Nip86}
+%introduces four kinds of a homomorphism whilst Hussmann
+%\cite{Hus91,Hus92} puts forward only two. The difference between them
+%is that the latter ones map elements of carriers of an algebra to
+%subsets of carriers of another algebra. We will refer to such
+%homomorphisms as P-homomorphisms (``powerset'' homomorphisms). Below
+%we give definitions of the former:
+%
+%\begin{Definition}
+%Let $\Sigma = [S,F],\ M,N \in \MAlg(\Sigma)$. A tight
+%$\Sigma$-homomorphism from $M$ to $N$ is a fimily of mappings $\phi =
+%\{\phi_s\}_{s \in S},\ \phi_s: |M|_s \rightarrow |N|_s$ such that for
+%all $[f : s_1 \times s_2 \times \ldots \times s_n \rightarrow s] \in
+%F$ and for all $a_i \in M_{s_i}, i \in \{1,\ldots,n\}$ the following
+%condition holds:
+%\[ 
+%\phi_s(f^M(a_1,\ldots,a_n)) = f^N(\phi_{s_1}(a_1),\ldots,\phi_{s_n}(a_n)) 
+%\]
+%\hfill$\Box$
+%\end{Definition}
+%
+%The tight homomorphism is the most obvious extention of the original
+%notion for deterministic algebras. However, for many applications it
+%turns out to be too strong. In the next definition we cover the
+%remaining ones. For the simplicity of presentation we restrict
+%ourselves to single-argument functions.
+%
+%
+
+
+%==============================================================================
+%
+%
+\section{Standard Notions and Theorems}
+
+One of the goals we would like to score here, is a more general view
+on various kinds of homomorphisms between multialgebras. We cannot
+proceed without other related notions, such as congruence and a
+quotient of a multialgebra:
+
+\begin{Definition}
+Let $\Sigma = [S,F],\ M \in \MAlg(\Sigma)$ and let $\sim$ be an
+($S$-sorted) equivalence relation on $M$.  If for all $[f : s'
+\rightarrow s] \in F$ and for any $a,b \in |M|_{s'}$:
+\begin{itemize}
+\item{the relation $\sim$ is a heavy congruence if
+      $a \sim b$ implies $f^M(a) \times f^M(b) \ \subseteq \ \sim$ }
+\item{the relation $\sim$ is a tight congruence if \\
+      $a \sim b$ implies
+      $\forall_{a' \in f^M(a)}\ \exists_{b' \in f^M(b)}\ a' \sim b'$}
+\item{the relation $\sim$ is a light congruence if 
+      $a \sim b$ implies
+      $\exists_{a' \in f^M(a)}\ \exists_{b' \in f^M(b)}\ a' \sim b'$}
+\item{the relation $\sim$ is a collapsing congruence if 
+      $\ \forall_{a \in M_{s'}}\ |\{ [a']_\sim : a' \in f^M(a) \}| = 1$ 
+      \hfill$\Box$}
+\end{itemize}
+\end{Definition}
+
+\begin{Fact}
+If $\sim$ is both a collapsing and a light congruence then it is a
+heavy congruence.
+\hfill$\Box$
+\end{Fact} 
+
+Each homomorphism $\phi: M \rightarrow N$ gives rise to a relation on
+its domain. As usuall, we called it a {\em kernel\/} of the
+homomorphism.
+
+\begin{Definition}
+Let $M,N \in \MAlg(\Sigma)$ and let $\phi$ be a homomorphism from $M$
+to $N$. Then the kernel of $\phi$ is a relation $\sim_\phi$ on $M$
+given by:
+\[ a \sim_\phi a' \quad {\rm iff}\quad \phi(a)=\phi(a') \]
+\hfill$\Box$
+\end{Definition} 
+
+We can now state two basic observations on dependence between types of
+homomorphisms and the induced congruence relations.
+    
+\begin{Fact}
+Let $M,N \in \MAlg(\Sigma),\ \phi$ be a homomorphism from $M$ to $N$
+and $\sim_\phi$ its kernel.
+\begin{itemize}
+  \item{$\sim_\phi$ is a tight congruence iff $\phi$ is a tight homomorphism;}
+  \item{if $\phi$ is a closed homomorphism then $\sim_\phi$ is a light 
+        congruence. \hfill$\Box$}
+\end{itemize}
+\end{Fact}
+
+\begin{Proof} We only prove the second part. Assume that $a \sim
+b$. Hence we need to show that $\phi(f^M(a)) \cap \phi(f^M(b)) \not=
+\emptyset$.  Since $\phi(a) = \phi(b)$ we get $f^N(\phi(a)) =
+f^N(\phi(b))$.  By the definition of the closed homomorphism
+$\phi(f^M(a)) \supseteq f^N(\phi(a)) = f^N(\phi(b)) \subseteq
+\phi(f^M(b))$.  Thus $\phi(f^M(a)) \cap \phi(f^M(b)) \supseteq
+f^N(\phi(a)) = f^N(\phi(b)) \not= \emptyset$.
+\end{Proof}
+
+\begin{Definition}
+Let $\Sigma = [S,F],\ M \in \MAlg(\Sigma)$ and let $\sim_M$ be an
+equivalence relation on $M$. Then a quotient of the multialgebra $M$
+wrt.\ $\sim_M$ (denoted $M\Mquo_\sim$) is a multialgebra $N$ such
+that:
+\[
+\begin{array}{l}
+|N|_s = \{ [a]_\sim : a \in M_s \} \\ 
+f^N([a_1]_\sim,\ldots,[a_n]_\sim) = 
+\{ [b]_\sim : b \in f^M(a'_1,\ldots,a'_n), a'_i \in [a_i]_\sim \}
+\end{array}
+\]
+where $[f : s_1 \times s_2 \times \ldots \times s_n \rightarrow s] \in
+F$ and $a_i \in M_{s_i}$ for $i \in \{1,\ldots,n\}$; $[a]_\sim$
+denotes the equivalence class of $a$.  
+\hfill$\Box$
+\end{Definition}
+
+The most important aspect of this definition, is that the relation
+$\sim$ does not need to be a congruence and this highlights the
+flexibility of multialgebras for many applications. A very special
+case occurs when the multialgebra $M$ is deterministic and $\sim$ is
+not a congruence and leads to a concept of a {\em nondeterminisation}
+of an algebra.
+
+\begin{Fact}
+If $\sim$ is a heavy congruence then $M\Mquo_\sim$ is a deterministic
+algebra.
+\hfill$\Box$
+\end{Fact}
+
+\begin{Lemma}
+Let $\Sigma$ be a signature and let $M \in \MAlg(\Sigma)$ and let
+$\sim$ be an equivalence relation on $M$. Then a mapping $\phi: A
+\longrightarrow M\Mquo_\sim$ such that $a \mapsto [a]_\sim$ is a loose
+homomorphism.
+\hfill$\Box$
+\end{Lemma}
+
+\begin{Proof} 
+$f^N(\phi(a)) = f^N([a]_\sim) = \{[b]_\sim : b \in f^M(a'), a' \in
+[a]_\sim\} \supseteq \{[b]_\sim : b \in f^M(a)\} = \phi(f^M(a))$
+\end{Proof}
+
+\begin{Theorem}
+Let $\Sigma$ be a signature and $M,N \in \MAlg(\Sigma)$.  Let $\phi: M
+\longrightarrow N$ be an onto homomorphism and $\sim$ the
+$\phi$-induced equivalence relation on $M$.  Define $\psi_1: M
+\longrightarrow M\Mquo_\sim$ and $\psi_2: M\Mquo_\sim \longrightarrow
+N$ as follows: $\psi_1(a) = [a]_\sim$ and $\psi_2([a]_\sim) =
+\phi(a)$.
+\begin{enumerate}
+\item{if $\phi$ is tight then both $\psi_1$ and $\psi_2$ are tight;}
+\item{if $\phi$ is closed then $\psi_1$ is loose and $\psi_2$ is closed;}
+\item{if $\phi$ is very strong then $\psi_1$ is loose and $\psi_2$ is closed.}
+\end{enumerate}
+\end{Theorem}
+
+\begin{Proof}
+(1) We have to show that $\psi_1(f^M(a)) = f^C(\psi_1(a))$ and
+$\psi_2(f^C([a]_\sim)) = f^N(\psi_2([a]_\sim))$. First consider
+$\psi_1$: $f^C(\psi_1(a)) = f^C([a]_\sim) = \{[b]_\sim : b \in
+f^M(a'), a' \in [a]_\sim\}$.  Since $\sim$ is tight i.e.\ if $a \sim
+a'$ then $\forall_{b \in f^M(a)}\ \exists_{b' \in f^M(a')}\ b \sim
+b'$, we have $\{[b]_\sim : b \in f^M(a'), a' \in [a]_\sim\} =
+\{[b]_\sim : b \in f^M(a)\} = \psi_1(f^M(a))$. \\ Now consider
+$\phi_2$: $\phi_2(f^C([a]_\sim)) = \psi_2(\{[b]_\sim : b \in f^M(a'),
+a' \in [a]_\sim\}) =$ (since $\sim$ is a tight congruence) $=
+\psi_2(\{[b]_\sim : b \in f^M(a)\}) = \phi(\{b: b \in f^M(a)\}) =
+\phi(f^M(a)) = f^N(\phi(a)) = f^N(\psi_2([a]_\sim)).$
+
+(2) $\psi_1$ is loose by previous lemma. Now, note that $[a]_\sim =
+\phi^{-1}\phi(a)$. Hence $\psi_2(f^C([a]_\sim)) = \psi_2(\{[b]_\sim :
+b \in f^M(a'), a' \in [a]_\sim\}) = \{\phi(b): b \in f^M(a'), a' \in
+[a]_\sim\} = \phi(f^M(\phi^{-1}(\phi(a)))) \supseteq \phi(f^M(a))
+\supseteq f^N(\phi(a)) = f^N(\psi_2([a]_\sim))$.
+
+(3) Similarly, $\psi_1$ is loose by lemma. We ought to prove that
+$\psi_2(f^C([a]_\sim)) \supseteq f^N(\psi_2([a]_\sim))$.
+$\psi_2(f^C([a]_\sim)) = \phi(f^M(\phi^{-1}(\phi(a)))) \supseteq
+f^N(\phi(a)) = f^N(\psi_2([a]_\sim))$.
+\end{Proof}
+\medskip
+
+The above theorem is an equivalent of the well-known Homomorphism Theorem.
+
+
+\marcin{We are also to consider: power algebras, power-homomorphisms
+and usual algebras and try to relate these, i.e.\ multi-homomorphisms
+as special cases of power-homomorphisms, etc. In addition, we are to
+look at relational algebras.}
+
+%==============================================================================
+%
+%
+\section{Relations between multialgebras}
+
+The relations we are to consider basically come from concurrency
+theory. 
+%Now we can present some relations:
+\begin{Definition}
+Let $\Sigma = [S,F],\ M,N \in \MAlg(\Sigma)$ and let $\phi$ be a
+mapping from $M$ to $N$ (i.e.\ a fimily of mappings $\phi =
+\{\phi_s\}_{s \in S},\ \phi_s: |M|_s \rightarrow |N|_s$). If for all
+$[f : s' \rightarrow s] \in F$ and for all $a \in |M|_{s'}$:
+\begin{itemize}
+\item{ $\phi_s^{-1}(f^N(\phi_{s'}(a))) \subseteq
+       \phi^{-1}_s(\phi_s(f^M(\phi^{-1}_{s'}(\phi_{s'}(a)))))$
+      then $\phi$ is a strong $\Sigma$-homomorphism; }
+\item{ $f^N(\phi_{s'}(a)) \subseteq
+       \phi_s(f^M(\phi^{-1}_{s'}(\phi_{s'}(a))))$
+       then $\phi$ is a very strong $\Sigma$-homomorphism; \hfill$\Box$}
+\end{itemize}
+\end{Definition}
+
+
+\begin{Definition}
+6 notions ++ ?
+\end{Definition}
+
+\michal{Valis' suggestion: specialization of L for \PS\ $\forall y\in f^M(x):\ 1)\
+\phi(y)\subseteq f^N(\phi(x))\ \ \land\ \ 2)\ (f^{N})^{-1}(\phi(y))\supseteq \phi(x)$.}
+
+\begin{Definition}
+Let $M,N \in \MAlg(\Sigma)$. A simulation of $M$ by $N$, denoted by
+$N \sinc M$, is an $S$-sorted relation $\sinc_s\ \subseteq\ N_s
+\times M_s$ such that: for all $[f : w \rightarrow s] \in F$, for all
+$b \in N_w, a \in M_w, b' \in f^N(b)$ if $a \sinc b$ then there
+exists $a' \in f^M(a)$ and $b' \sinc a'$. In other ``words'':
+\[
+\forall_{[f : w \rightarrow s] \in F} 
+\ \forall_{b \in N_w,\ a \in M_w,\ b' \in f^N(b)}
+\quad b \sinc a \Rightarrow \exists_{a' \in f^M(a)}\ b' \sinc a' 
+\]
+\hfill$\Box$
+\end{Definition}
+%
+We say that two $\Sigma$-multialgebras $M$ and $N$ are {\em similar\/}
+(or simulation equivalent, denoted $M \seq N$) iff there exist two
+simulations $\sinc_1$ and $\sinc_2$ such that $M \sinc_1 N$ and $N
+\sinc_2 M$.
+
+
+A useful concept in defining some relations, is that of a {\em
+determinisation\/} of a multialgebra:
+
+\begin{Definition}
+Let $M,N \in \MAlg(\Sigma)$. We say that $N$ is a determinisation of
+$M$ iff $N$ is a loose subalgebra of $M$. Moreover, $N$ is a complete
+determinisation if it is deterministic i.e.\ for any $[f : s_1 \times
+s_2 \times \ldots \times s_n \rightarrow s] \in F$ and for all $a_i
+\in N_{s_i},\ i \in \{1,\ldots,n\}$ we have $|f^N(a_1,\ldots,a_n)| =
+1.$ 
+\hfill$\Box$
+\end{Definition}
+%
+We adopt notations $\Det(M)$ and $\CDet(M)$ for respective classes of
+all determinizations and complete determinisations of a given
+$\Sigma$-multialgebra $M$. 
+
+\begin{Definition}
+Let $M,N \in \MAlg(\Sigma)$. We say that $N$ is trace included in $M$
+(written $N \tinc M$ iff for any $B \in \CDet(N)$ there is $A \in
+\CDet(M)$ such that $A \cong B$.  
+\hfill$\Box$
+\end{Definition}
+%
+$M$ and $N$ are {\em trace equivalent\/} iff $N \tinc M$ and $M
+\tinc N$. We then write $M \teq N$.
+
+%==============================================================================
+%
+%
+\section{Logics}
+
+\marcin{Closure of model classes (varieties, quasi-varieties),
+preservation of satisfaction of formulae.}
+
+%==============================================================================
+%
+%
+\section{Categories}
+
+\marcin{Self explanatory.}
+
+%==============================================================================
+%
+%
+\section{Applications}
+
+\marcin{Notions of a refinement and implementation.} 
+
+%==============================================================================
+%
+%
+\begin{thebibliography}{Nip 86}
+
+   \bibitem[Bar 75]{KP} J.~Barwise: {\em Admissible Sets and Structures.}
+       Series Perspective in Mathematical Logic, Springer-Verlag, 1975
+
+   \bibitem[BT 95]{Reg} M.~Bidoit, A.~Tarlecki: Regular Algebras -- a
+       Framework for Observational Specifications with Recursive Definitions.
+
+   \bibitem[Hes 88]{Hes88} W.\ Hesselink: A Mathematical Approach to
+       Nondeterminism in Data Types. {\em ACM ToPLaS},
+       10, 1988, pp.\ 87--117.
+
+   \bibitem[Hus 92]{Hus92} H.\ Hussmann: {\em Nondeterministic Algebraic
+       Specifications and Nonconfluent Term rewriting.} J.\ Logic Programming
+       12, 1992, pp.\ 237--255.
+
+   \bibitem[Hus 91]{Hus91} H.\ Hussmann: {\em Nondeterministic Algebraic
+       Specifications.} Technische Universit\"{a}t M\"{u}nchen, TUM-I0104,
+       March 1991.
+
+   \bibitem[Kri 64]{K} S.~Kripke: Transfinite recursion on admissible ordinals. 
+       {\em Journal of Symbolic Logic}, 29, 1964.
+
+   \bibitem[Mol 85]{Moll} B.~M\"{o}ller: On the Algebraic Specification of
+   Infinite Objects: Ordered and Continuous Models of Algebraic Types. {\em
+   Acta Informatica}, 22, 1985, pp. 537--578.
+
+   \bibitem[Mos ]{UA} P.~Mosses: Unified Algebras and Institutions
+
+   \bibitem[Nip 86]{Nip86} T.\ Nipkow: Non-deterministic Data Types: 
+       Models and Implementations. {\em Acta Informatica}, 22, 1986, pp.\ 629--661.
+
+   \bibitem[Nip 87]{Nip87} T.\ Nipkow: {\em Observing Nondeterministic Data
+       Types.} LNCS 332.
+
+   \bibitem[Pla 66]{P} R.~Platek: {\em Foundations of Recursion Theory.} PhD Thesis,
+       Stanford University, USA, 1966.
+
+   \bibitem[Sch 87]{Sch87} O.\ Schoett: {\em Data Abstraction and the 
+       Correctness of Modular Programming.} Ph.D.\ Thesis, University of
+       Edinburgh, 1987.
+
+   \bibitem[Wal 93]{Wal93} M.\ Walicki: {\em Algebraic Specifications of 
+       Nondeterminism.} Ph.D.\ Thesis, University of Bergen, 1993.
+
+   \bibitem[WM 95]{Tapsoft} M.~Walicki, S.~Meldal: Generated Models and the $\omega$-Rule:
+       The Nondeterministic Case. {\em Proceedings of TAPSOFT'95,} LNCS vol.~915, 1995.
+       
+\end{thebibliography}
+
+
+\end{document}
+
+

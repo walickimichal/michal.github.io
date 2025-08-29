@@ -1,0 +1,1699 @@
+\documentclass[10pt]{article}
+
+\makeatletter
+\input{a4wide}
+\makeatother
+
+\input{defs}
+
+\input xypic
+
+\title{Categories of Relational Structures}
+\author{{Marcin Bia{\l}asik} \and {Micha{\l} Walicki}}
+\date{}
+%{\small{\date{Preliminary version: \today} }}
+%   The Document
+
+\begin{document} 
+
+\maketitle
+
+%=====================================================================
+
+\section{Introduction}
+
+In the study of universal algebra, the central place occupies the pair
+of ``dual'' notions of congruence and homomorphism: every congruence
+on an algebra induces a homomorphism into a quotient and, dually, any
+homomorphism induces a congruence on the source algebra.  
+In categorical approach, {\em all} (internal) properties of algebras
+are expressed in (external) terms of homomorphisms. 
+When passing to relational structures, however, the close correspondence of 
+these internal and external aspects seems to get lost.
+%These (and many other convenient) facts, depending slightly on the definition 
+%of congruence and relational homomorphism, do not hold for relations.  
+The most common,
+and natural, generalisation of the definition of homomorphism to
+relations says that a set function $\phi:\under A\into \under B$,
+where both sets are equipped with respective relations $R^A\subseteq
+\under A^n$ and $R^B\subseteq \under B^n$, is a (weak) homomorphism
+from the relational structure $A$ to $B$ iff 
+\eq{ 
+\<x_1...x_n\>\in R^A\ \impl \<\phi(x_1)...\phi(x_n)\>\in R^B
+\label{eq:weak}}
+With this definition
+{\em any} equivalence on $\under A$ gives rise to a weak homomorphism
+and, conversely, a weak homomorphism induces, in general, only an
+equivalence relation on $\under A$.
+This is just one example of many (internal) properties of relational 
+structures which are not accounted for by relational homomorphisms
+(in various variants).
+Probably for this reason, the early literature on homomorphisms of relations 
+is extremely
+meagre \cite{Most,c:101} and most work on relations concerns the
+study of relation algebras, various relational operators and their
+axiomatizations.  The situation seems to have changed slightly in the
+recent years. Although a general treatement of relational
+homomorphisms is still missing, several authors find relational
+structures relevant in various contexts. This interest is reflected in
+numerous suggestions on how the definition of relational homomorphism
+could be specialized in order to obtain a more useful notion. 
+This issue is our main objective.
+
+In a more concise, relational notation, \refp{eq:weak} is written as
+$R^A;\phi\subseteq \phi;R^B$. This somehow presupposes that $R$ is a binary
+relation (of course, homomorphism $\phi$ is such a relation too) since composition
+$\_;\_$ has a standard definition only for binary relations.
+ There seems to be no generally accepted
+definition of composition of relations of arbitrary arities. In the following study
+of homomorphisms, 
+we will compose arbitrary relations (within the structures), like $R$ above, with
+binary relations (obtained from homomorphisms between the structures). 
+We choose to define the composition of relations
+$R^A\subseteq \under A^{n+1}$, resp.  $R^B\subseteq \under B^{n+1}$
+with a binary relation $\phi\subseteq \under A\times\under B$ as the
+relations on $\under A^n\times\under B$, as follows:
+%\begin{eqnarray}
+\eq{\begin{array}{rcl}
+\<a_1...a_n,b\>\in R^A;\phi &\Iff&
+\exists a\in\under A: 
+\<a_1...a_n,a\>\in R^A\ \land\ \<a,b\>\in\phi
+\\ 
+\<a_1...a_n,b\>\in \phi;R^B &\Iff& 
+\exists b_1...b_n\in\under B:
+\<b_1...b_n,b\>\in R^B\ \land\ \<a_i,b_i\>\in\phi 
+% \nonumber \end{eqnarray}
+\end{array}
+\label{eq:com}
+}
+%
+This definition is certainly not the only possible one.\footnote{It
+can be seen as a straightforward application of composition of binary
+relations if we view a tuple $\<a_1...a_n,x\>$ as a pair $\<\ovr
+a,x\>$ and let $\<\ovr a,\ovr b\>\in\phi \Iff \<a_i,b_i\>\in\phi$ for
+all $1\leq i\leq n$.}
+The reason for this choice (which, hopefully, will become convincing
+later) is our intension to treat relations in an algebraic way. It turns relational
+structures into algebraic ones ({\em algebras of complexes} from \cite{JT1,JT2}) 
+and, in
+fact, leads directly to the possibility of composing relations of arbitrary arities 
+in the same way as functions are composed. (For the moment let it suffice that it 
+is associative,
+i.e.\ $(\psi;R);\phi=\psi;(R;\phi)$, $(R;\psi);\phi=R;(\psi;\phi)$ and
+ subsumes composition of binary relations as a special case.)
+
+Now, table~\ref{de:relhomsde} presents
+a sample of proposed definitions of relational homomorphisms gathered from 
+\cite{Most,Gratzer,Cohn,Los:relhoms,Pattison,relhoms,c:93,c:94}. It uses binary
+relations but with the above definition (\ref{eq:com}) it may be used for relations
+$R$ of arbitrary arity.
+The names are taken from the articles introducing the respective
+definitions and they themselves should suffice to ilustrate the
+existing confusion.  
+
+{\small{
+\begin{table}[hbt]
+\[\begin{array}{rr@{\ \ }|rcl@{\ \ }|@{\ \ }rcl}
+\multicolumn{2}{r@{\ \ }|}{{\rm homomorphism}\ \phi} & \multicolumn{3}{c}{{\rm relational\ def.}} 
+     & \multicolumn{3}{c}{{\rm logical\ def.}\ \forall x,y:} 
+  \\ \hline
+1.& {\rm weak} & \Comp{\phi^-}{\Comp {R^A}\phi} & \subseteq & R^B
+            & R^A(x,y) & \Rightarrow & R^B(\phi(x),\phi(y)) \\
+2. & {\rm loose} & \Comp{R^A}\phi & \subseteq & \Comp\phi{R^B} & & 1. & \\
+3.& {\rm full} & \Comp{\phi^-}{\Comp {R^A}\phi} & = &
+            \Comp{\Comp{\Comp{\phi^-}\phi}{R^B}}{\Comp{\phi^-}\phi}
+           & \exists x',y':R^A(x',y') & \Iff & R^B(\phi(x),\phi(y)) \\
+4.& {\rm `strong'} & \Comp{\phi^-}{\Comp {R^A}\phi} & \supseteq &
+            \Comp{\Comp{\Comp{\phi^-}\phi}{R^B}}{\Comp{\phi^-}\phi} 
+           & \exists x',y':R^A(x',y') & \Leftarrow & R^B(\phi(x),\phi(y)) \\
+5.& {\rm outdegree} & \Comp{R^A}{\phi} &= &\Comp{\Comp{\phi}{R^B}}{\Comp{\phi^-}\phi}
+           & \exists x':R^A(x',y) & \Iff & R^B(\phi(x),\phi(y)) \\
+6.& {\rm indegree} & \Comp{\phi^-}{R^A} & = & \Comp{\Comp{\Comp{\phi^-}\phi}{R^B}}{\phi^-}
+             & \exists y':R^A(x,y') & \Iff & R^B(\phi(x),\phi(y)) \\
+7.& {\rm `very\ strong'} & \Comp{\Comp\phi{\phi^-}}{\Comp{R^A}{\phi}} & \supseteq &
+            \Comp{\phi}{R^B} 
+           & \exists x',y':R^A(x',y') & \Leftarrow & R^B(\phi(x),y) \\
+8.& {\rm regular} & 5. & \& & 6. & 5. & \& & 6. \\
+9.& {\rm closed} & \Comp{R^A}\phi&  \supseteq & \Comp\phi{R^B} 
+           & \exists y':R^A(x,y') & \Leftarrow & R^B(\phi(x),y) \\
+10.& {\rm strong} & R^A&  = & \Comp\phi{\Comp{R^B}{\phi^-}} 
+           &  R^A(x,y) & \Iff & R^B(\phi(x),\phi(y)) \\
+11.& {\rm tight} & \Comp{R^A}\phi & = & \Comp\phi{R^B} 
+            & 2. & \& & 9. \\
+\multicolumn{8}{c}{} \\[-.5ex]
+\multicolumn{8}{l}{{\rm -\ primed\ symbol}\ z'\ {\rm denotes\ some\ element\ such\ that\ } \phi(z')=\phi(z)} \\
+\multicolumn{8}{l}{{\rm -\ for}\ \phi\subseteq\under A\times\under B,\ \phi^-\ 
+ {\rm denotes\ the\ inverse\ } \<b,a\>\in\phi^-\Iff \<a,b\>\in\phi} \vspace*{-2ex}
+\end{array}
+\]
+\caption{Some definitions of relational homomorphisms} 
+\label{de:relhomsde}
+\end{table}
+}\normalsize}
+
+This paper is an attempt to bring, at least some, order into this
+chaos. 
+% We certainly do not want to suggest that we are going to
+%settle the issue. But i
+Instead of listing and defending new definitions
+we hope that approaching the problem from a more algebraic perspective
+may bring at least some clarification.  Section~\ref{se:comp}
+addresses the question of composition of homomorphisms of relations. 
+We show that there are exactly 9 such
+homomorphisms which are closed under composition and
+give their characterization  -- in fact, most of
+the suggested defintions, like most of those in
+table~\ref{de:relhomsde}, do {\em not} enjoy this property which we
+believe is crucial. The section ends with some remarks on the weaker notions
+of congruence related to these compositional homomorphisms.
+%
+In section~\ref{se:mult} we introduce {\em
+multialgebras} which are relational structures with composition of
+relations of arbitrary arities defined in the way (\ref{eq:com}) 
+reflecting the traditional algebraic way of
+composing functions.  We study in detail three categories of such structures with, 
+respectively, weak, tight and closed homomorphisms. Two of these categories
+turn out to have extremely poor structure indicating that the respective
+notions of homomorphisms may be less usefull than the remaining one.
+Then, in section~\ref{se:horel} we study the analogous
+categories with homomorphisms being themselves relations. Such notions have
+been occassionally introduced in the literature but our results here  do not 
+look promising for their further use.
+Section~\ref{se:pa} contains some remarks on
+the consequences of the results from section \ref{se:mult} for partial
+algebras which are special cases of multialgebras.
+
+The proofs of most results are rather straightforward. In section~\ref{se:comp} 
+they involve applications of simple facts from relational calculus. 
+The remaining sections present a comprehensive view of several results and
+space limitations do not allow us to include the long list of all their proofs.
+We include only few and indicate the
+basic ideas of some others. The full version of this paper is \cite{BW97}.
+
+\subsubsection*{Preliminary definitions and notation}
+
+A {\em relational signature\/}
+ is a pair $\<\Sorts,\Rels \>$ where $\Sorts$ is a set (of sort symbols)
+and $\Rels$ is a set of relation symbols with given arities (also called
+{\em type} of relation).
+%, written $[R_i:s_1\times...\times s_n]\in \Rels$. 
+An {\em algebraic signature\/} is a pair $\<\Sorts,\Funcs \>$ where 
+$\Funcs$ is a set of function symbols with associated arities.
+% written $[f:s_1\times...\times s_n\into s]\in \Funcs$. 
+A {\em relational structure\/} over a $\Sigma=\<\Sorts,\Rels\>$
+%% or a {\em $\Sigma$-structure} 
+is a pair $A= \<|A|, \Rels^A\>$, where $|A|$ is
+an $\Sorts$-sorted set called a {\em carrier\/} and $\Rels^A$ is a set of
+relations, such that for each $[R_i : s_1\times...\times s_n]\in \Rels$
+there is $R_i^A \subseteq |A|_{s_1}\times...\times |A|_{s_n}$. 
+An {\em algebra\/} over a signature $\Sigma=\<\Sorts,\Funcs\>$ 
+%% or a {\em $\Sigma$-structure} 
+is again a pair $A= \<|A|, \Funcs^A\>$, where $|A|$ is
+an $\Sorts$-sorted set carrier, and $\Funcs^A$ is a set of
+functions, with a function $f^A : |A|_{s_1}\times...\times |A|_{s_n} \into
+|A|_s$ for each $[f : s_1\times...\times s_n\into s]\in \Funcs$.~\footnote{In order 
+to reduce the complexity of notation, we shall limit
+ourselves to single sorted structures and algebras 
+($\Sorts$ has only  one element)
+claiming that the results carry over to a multi-sorted case.}
+
+We will study extensively algebras whose carriers are
+power sets. 
+For such an algebra $A$ with $|A|=\PSet(\under A)$, the
+set $\under A$ will be called the {\em underlying set}. 
+%% (In case of relational structures the terms ``carrier'' and ``underlying
+%% set'' are used to describe the same object, and so does the respective
+%% notation.)
+Given a (sub)set $X\subseteq\PSet(\under A)$, 
+we write $\under X$ for the set $\bigcup X\subseteq\under A$. 
+Given a function $f:\under A\into \under B$, we will often use additive pointwise extension
+without making it explicit in the notation -- for any $X\subseteq \under A$, we write
+$f(X)$ meaning $\bigcup_{x\in X} f(x)$.
+Finally, we do not make explicit the distinction
+between elements and 1-element sets, and if $|A|=\PSet(\under
+A)$, $a\in\under A$ we write $a\in A$ meaning $\{a\}\in A$.
+
+Structures (relational or algebraic) are denoted with capital letters $A,B,C$.
+% (sometimes we overload this notation to stand also
+%for the respective carrier sets).
+$R$ denotes a relation, $f,g,h$ functions, and lower case Greek letters
+$\phi,\psi$ homomoprphisms.
+%Relations will be denoted $R$ or $P$;
+%functions with $f,g,h$; morphisms between algebras or structures with
+%Greek letters $\phi,\psi,...$.
+ Lower case Latin letters $a,b,c,... 
+x,y$ are used for elements of carrier sets and (!) underlying sets. 
+
+
+%% Typically, the fact that we consider
+%% an $n$-ary function or relation is insignificant -- a proof for 
+%% the one-argument function/relation applies equally to many arguments. 
+%% Therefore, we write
+%% $x,a,b$ for sequences. In particular, given a function symbol $f$ with a fixed (but
+%% not necessarily specified)
+%% arity, the notation $f(x)$ implicitly assumes that $x$ is an appropriate sequence.
+%% Occassionally, we may use the explicit notation $\lis x$.
+%% However,
+%% given a sequence $x$ and a one argument function (typically, a homomorphism
+%%  $\phi$), we may be tempted to write $\phi(x)$ for the sequence
+%% $\clis x\phi()$, and similarly $[x]$ for the sequence $\clis x{}[]$, 
+%% $x\in A$ for $\lis x\in A$ (i.e., $x_1\in A\land...\land x_n\in A$).
+%% Also, given a binary relation $\sim$, 
+%% we may write $x\sim y$ for $x_1\sim y_1 \land...\land x_n\sim y_n$.
+
+Readers should be wary about the notion of a homomorphism.
+% between structures and algebras. 
+For relational structures,
+it is a mapping between carriers with some additional
+constraints imposed. It is just the same for ``ordinary''
+algebras. Confusion may arise in connection with 
+power set algebras, where various types of mappings are possible,
+including the ones between underlying sets or carriers (power
+sets). We will usually discuss them separately but they do come
+together on some occasions. 
+
+The {\em kernel\/} of a homomorphism $\psi :
+A \into B$ between two structures is a relation
+$\congo_\psi \subset \under A\times\under A$ 
+% (or $\congo_\psi \subset |A|\times |A|$, depending on the type of the 
+% homomorphism) 
+such that
+$a\congo_\psi b$ iff $\psi(a)=\psi(b)$. The equivalence classes under
+an equivalence relation $\sim$ are denoted $[x]_\sim$, or just $[x]$ if 
+$\sim$ is clear from the context.
+Composition of relations/functions is written in diagrammatic order
+as $f;g$ for $g(f(\_))$. For a binary relation/function $\phi$, $\phi^-$
+ denotes its inverse $=\{\<y,x\>:\<x,y\>\in\phi\}$
+
+
+%=====================================================================
+
+\section{Homomorphisms of relational structures}
+\label{se:comp}
+
+% Aiming at an algebraic treatement of relations we will later
+% (sections~\ref{se:cats}, \ref{se:horel}) study some categories where
+% objects are relational structures.  
+
+Confronted with a tremendous number of possible definitions of a
+homomorphism, we believe that the property of being compositional may
+serve as an important feature distinguishing the more ``relevant''
+ones. Theorem~\ref{th:comp}, which is the main result of this section, 
+gives an exhaustive characterization of
+compositional definitions.  We
+begin by giving counter-examples for compositionality of two of the
+homomorphisms from table~\ref{de:relhomsde}. 
+
+%\subsubsection*
+\paragraph{Full homomorphisms}
+%Full homomorphisms 
+were considered in \cite{Most,Los:relhoms} as {\em
+the} homomorphisms between relations. In a more special form, they also appear 
+in the study of partial algebras~\cite{Burmeister}. In the context of partial algebras,
+ it is known that these homomorphisms do not compose. But it is not clear if all the
+authors were aware of this fact in the general setting. The diagram
+to the left presents a many-sorted counter-example and the one to
+the right the single-sorted case.
+
+%In both, $\phi,\psi$ are full while $\Comp\phi\psi$ is not:
+
+\begin{Example}\label{ex:noncomp}
+Let $A,B,C$ be structures with one relation $R$:
+
+\[ \maly{1.3}{1}
+\diagram
+{\rm a)} & A & \rrto^{\phi} &&   & B & \rrto^{\psi} && & C &    %\\
+  &&&&& {\rm b)} &  A\rrto^{\phi} & & B\rrto^{\psi} & &  C \\
+\save\go[drr]\merge\framed<5pt>\restore a & b & c &&    
+\save\go[drr]\merge\framed<5pt>\restore a & b & c &&    
+\save\go[drr]\merge\framed<5pt>\restore a & b & c   %\\
+  &&&&&& \save\go[dd]\merge\framed<5pt>\restore 0 \xline[rr]^\phi|\tip & & 
+      \save\go[dd]\merge\framed<5pt>\restore 0 \dto \xline[rr]|\tip & &
+      \save\go[dd]\merge\framed<5pt>\restore 0 \todr \\
+& 0\xto[lu] \xline`d[dr][drr] & 1 \xto[lu] \xto`d[dr]`[rrr]|{\ \phi\ }[rrr]
+    && &  0\xto[u]\xto[ul] \xline[dr] & 1\xto[u] \xline[d] 
+    &&& 0\xto[u]\xto[ur]\xto[ul] & 1 % \\
+  &&&&&&  1 \xline[rrd]|\tip & & 1 \xline[urr]^\psi|\tip & & 1 \\
+%%  &&&&&&   && 1  \xline[urr]^\psi|\tip  &&  \\
+&&&&&& \psi \xto`r[rrru][rrru]&& & & %\\
+  &&&&&&  2 \xline[rr]^\phi|\tip & & 2 \xline[rr]^\psi|\tip & & 2
+%%  &&&&&&   &&  &&
+\enddiagram
+\]
+%
+Both $\phi$ and $\psi$ are full homomorphisms. However, due to
+non-surjectivity of $\phi$, the composition $\Comp\phi\psi$ is not
+full.  (Although $\Comp\phi\psi(0)=0$ and $\<0,0\>\in R^C$ there is no
+element $x$ in the pre-image of $0$ for which we would have
+$\<0,x\>\in R^A$.)
+\end{Example}
+
+%\subsubsection*
+\paragraph{In- and outdegree}
+%The indegree and outdegree 
+homomorphisms \cite{Pattison,relhoms} are
+not as common as the full ones. But since they do appear while authors seem to be
+unaware of the fact, we should also remark that they do not compose
+either:
+
+\begin{Example}
+\label{ex:degree} 
+
+This is essentially the same example as~\ref{ex:noncomp}.b).
+\[ 
+\maly{0}{0.5}
+\diagram
+ A \rto^\phi & B  \rto^\psi & C \\
+ x \rto^\phi & \save\go[d]\merge\framed<5pt>\restore y\dto|<{\rotate\tip} \rto & z \todr \\
+ & y' \urto^\psi
+\enddiagram
+\]
+Both $\phi$ and $\psi$ are obviously outdegree (and indegree, hence
+also regular).
+% We have $\equiv_\phi\ = id_{R_{1}}$ while $\equiv_\psi\ =\{(a,a'),(b,b')\}$.
+However, their composition is not, for while $\Comp{A}\rho = \es$,
+where $\rho=\Comp\phi\psi$, we have
+$\Comp{\Comp\rho{C}}{\Comp{\rho^-}\rho}=\{\<x,z\>\}$.
+\end{Example}
+
+\noindent
+These counter-examples are used in the proof of 
+theorem~\ref{th:comp} since many cases involved there reduce to one of these two.
+
+%----------------------------------------------------------------------------
+ \subsection{Compositional homomorphisms}\label{sub:comp}
+%
+We assume a fixed relational signature, with $R$ ranging over all relation symbols, 
+and consider definitions  of homomorphisms $\phi:A\into B$ of the form
+\eq{
+\Delta[\phi]\ \ \Iff\ \ \ \ l_1[\phi];R^A;r_1[\phi]\ \ \any\ \ l_2[\phi];R^B;r_2[\phi] 
+\label{de:compde}
+}
+where $l[\_]$'s and $r[\_]$'s are relational expressions
+(using only relational composition
+and inverse and parameterized by $\_$), and $\any$ is one of the set-relations
+$\{=,\subseteq,\supseteq\}$. A definition is {\em compositional} iff
+for all $\phi:A\into B$, $\psi:B\into C$, we have 
+$\Delta[\phi]\&\Delta[\psi]\impl \Delta[\phi;\psi]$, i.e.:
+\begin{eqnarray}
+l_1[\phi];R^A;r_1[\phi] & \any & l_2[\phi];R^B;r_2[\phi]\ \ \& \nonumber \\
+l_1[\psi];R^B;r_1[\psi] & \any & l_2[\psi];R^C;r_2[\psi] \\
+  & \impl & l_1[\phi;\psi];R^A;r_1[\phi;\psi]\ \ \any\ \
+    l_2[\phi;\psi];R^C;r_2[\phi;\psi] \nonumber
+\end{eqnarray}
+
+%% \michal{Leave out complementation for the moment}
+
+\begin{Theorem}\label{th:comp}
+A definition is compositional iff it is equivalent to one of the
+following forms: 
+\eq{
+\begin{array}{l@{)\ \ \ }rcl@{\ \ \ \ \ \ \ \ \ \ \ \ \ }l@{)\ \ \ }rcl}
+%
+1 & R^A;\phi & \any & \phi;R^B    & 
+2 & \phi^-;R^A;\phi & \almost & R^B  \\ 
+3 &\phi^-;R^A & \almost & R^B;\phi^-  & 
+4 & R^A & \almost & \phi;R^B;\phi^- 
+%
+% 5 & A;\phi &\subseteq &\phi;B;\phi^-;\phi & 6 &\phi^-;A & \subseteq 
+%   & \phi^-;\phi;B;\phi\\
+% 7 & \phi^-;A;\phi & \subseteq & B;\phi^-;\phi & 
+% 8 & \phi^-;A;\phi & \subseteq & \phi^-;\phi;B     \\
+% 9 & \phi^-;A;\phi & \subseteq & \phi^-;\phi;B;\phi^-;\phi  
+%
+\end{array}
+\label{eq:conj}
+} 
+where $\any\ \in\{=,\subseteq,\supseteq\}$ and
+$\almost\in\{=,\supseteq\}$.
+\end{Theorem}
+
+\noindent
+This yields exactly 9 compositional definitions. Inspecting the
+table~\ref{de:relhomsde}, we can see that 1. and 2. define actually the same
+notion, and the only other compositional definitions are 9., 10. and 11.
+
+To prove the ``if''part it is trivial to check that 1)--4) yield
+compositional definitions. In fact, the ``if'' part holds for {\em
+any} transitive set-relation $\any$ in cases 2)--4) but for
+$\subseteq$ 
+%$\antialmost$
+ they reduce to case 1) -- see Fact~\ref{fa:allincl}.
+For instance, for 3) we verify:
+\[ 
+\begin{array}{rclcrcl} 
+\phi^-;R^A &\any & R^B;\phi^- & 
+         \& &  \psi^-;R^B & \any & R^C;\psi^- \\
+\impl\ \ \psi^-;\phi^-;R^A & \any & \psi^-;R^B;\phi^- & 
+         \& & \psi^-;R^B;\phi^- &\any &R^C;\psi^-;\phi^-   \\%[.5ex]
+& & & \impl & (\phi;\psi)^-;R^A & \any & R^C;(\phi;\psi)^-
+\end{array}
+\]
+The ``only if'' part is more tedious but still quite simple.
+We show it by induction on the complexity of the
+expressions $l_i[\_]$ and $r_i[\_]$, keeping in mind that both sides
+must have the same type. We
+show that any expression either reduces to one of the forms
+(\ref{eq:conj}), or else yields a non-compositional
+definition.
+The following facts are utilized heavily in this proof.
+Since homomorphisms are functions we have
+\eq{
+\begin{array}{crcl}
+a) & \phi^-;\phi;\phi^- & = & \phi^-\\ 
+b) & \phi;\phi^-;\phi & = & \phi \\
+c) & \phi^-;\phi & = & id_{\phi[\under A]} \\
+\end{array}
+\label{eq:facts}
+} 
+%
+\begin{Fact}
+\label{fa:facts}
+Let $\any\ \in\{=,\subseteq,\supseteq\}$, and $\phi:A\into B$. Then
+\[
+\begin{array}{r@{)\ \ \ }r@{\ \ \any\ \ }l@{\ \Iff\ }r@{\ \ \any\ \ }l}
+1 & R^A;\phi;\phi^- & \phi;R^B;\phi^- & R^A;\phi & \phi;R^B;\phi^-;\phi \\
+2 & \phi^-;R^A;\phi & R^B;\phi^-;\phi &\phi^-;R^A;\phi;\phi^- & R^B;\phi^- \\
+3 & \phi^-;R^A;\phi & \phi^-;\phi;R^B  & \phi;\phi^-;R^A;\phi &\phi;R^B \\
+4 & \phi^-;R^A;\phi;\phi^-  & \phi^-;\phi;R^B;\phi^- &
+        \phi^-;R^A;\phi & \phi^-;\phi;R^B;\phi^-;\phi \\
+5 & \phi;\phi^-;R^A & \phi;R^B;\phi^- & 
+        \phi^-;R^A & \phi^-;\phi;R^B;\phi^- \\
+6 &\phi;\phi^-;R^A;\phi & \phi;R^B & 
+        \phi^-;R^A;\phi & \phi^-;\phi;R^B \\
+7 &\phi;\phi^-;R^A;\phi & \phi;R^B;\phi^-;\phi & 
+        \phi^-;R^A;\phi & \phi^-;\phi;R^B;\phi^-;\phi \\
+8 &\phi;\phi^-;R^A;\phi;\phi^- & \phi;R^B;\phi^- &
+        \phi^-;R^A;\phi;\phi^- & \phi^-;\phi;R^B;\phi^-
+\end{array}
+\]
+\end{Fact}
+%
+\begin{Proof} 
+All statements are proved essentially in the same way using equalities
+a) and b) from (\ref{eq:facts}). We illustrate it on the first case
+only.
+
+1) \ $R^A;\phi;\phi^-\any \phi;R^B;\phi^- \ \ 
+   \impl \ \ R^A;\phi;\phi^-;\phi \any \phi;R^B;\phi^-;\phi \ \ 
+   \Iff \ \ R^A;\phi \any \phi;R^B;\phi^-;\phi$,\ \ 
+   while from the right side we get \ 
+   $\impl \ R^A;\phi;\phi^- \any \phi;R^B;\phi^-;\phi;\phi^- \ \ 
+   \Iff \ \ R^A;\phi;\phi^-\any \phi;R^B;\phi^-$.
+%% 
+%% 2) $\phi^-;A;\phi \any B;\phi^-;\phi\impl 
+%%   \phi^-;A;\phi;\phi^-\any \phi^-;B;\phi^-;\phi;\phi^- \Iff
+%% \phi^-;A;\phi;\phi^- \any B;\phi^-$, and vice versa
+%% $\phi^-;A;\phi;\phi^- \any B;\phi^- \impl \phi^-;A;\phi;\phi^-;\phi \any B;\phi^-;\phi 
+%% \Iff \phi^-;A;\phi \any B;\phi^-;\phi$.
+%% 
+%% 3) Entirely analogous to 2).
+\end{Proof}
+
+\noindent
+One of the three possibilities for
+case 1) in the Theorem~\ref{th:comp} is
+$R^A;\phi\subseteq\phi;R^B$.  This is a very powerful
+case since it subsumes (or better, is equivalent to) {\em all} other
+definitions using $\subseteq$! 
+%
+\begin{Fact}
+\label{fa:allincl}
+%Let $\Delta$ stand for the following form of definition 
+For any definition of the form
+%\[
+\(\Gamma[\phi]\ \Iff\ \ \La;R^A;\Ra\ \subseteq\ \Lb;R^B;\Rb\ \ 
+\), %\]
+%where $l_i[\_]$, $r_i[\_]$ are arbitrary relational expressions (over 
+%composition and inverse)
+%yielding relations of the same type on both sides of $\subseteq$.
+we have $\Gamma[\phi] \Iff \Phi[\phi]$, where
+$\Phi[\phi] \Iff R^A;\phi\subseteq\phi;R^B$.
+\end{Fact}
+%
+\begin{Proof}
+In addition to (\ref{eq:facts}), we use the following facts:
+\eq{ 
+R^A\subseteq R^A;\phi;\phi^-\ \ \ \ \ \ \ \ 
+R^A\subseteq \phi;\phi^-;R^A\ \ \ \ \ \ \ \ 
+\phi^-;\phi;R^B\subseteq R^B\ \ \ \ \ \ \ \ 
+R^B;\phi^-;\phi\subseteq R^B
+\label{fa:incl}
+} 
+We verify $\Gamma[\phi]\Iff \Phi[\phi]$ for 
+all the possible cases for $l_i[\_]$ and $r_i[\_]$ in $\Gamma[\_]$. 
+For instance, the
+equivalence with 2) from the theorem and one other case 
+is shown as follows: 
+%\hspace*{-1em}\parbox{15cm}{
+\begin{enumerate}\MyLPar \setcounter{enumi}{1}
+\item 
+$\Gamma[\phi]\ \Iff\ \phi^-;R^A;\phi\subseteq R^B:$ \\
+$\Phi \impl\ \phi^-;R^A;\phi\subseteq\phi^-;\phi;R^B\subseteq R^B$ \\
+$\Gamma \impl\ \phi;\phi^-;R^A;\phi;\phi^-;\phi \subseteq
+    \phi;R^B;\phi^-;\phi$, \ 
+    i.e.\ $R^A;\phi\subseteq \phi;\phi^-;R^A;\phi \subseteq 
+    \phi;R^B;\phi^-;\phi \subseteq \phi;R^B$
+\item[$\bullet$)] 
+$\Gamma[\phi]\ \Iff\ \phi^-;R^A;\phi\subseteq R^B;\phi^-;\phi:$ \\
+$\Phi \impl \phi^-;R^A;\phi\subseteq \phi^-;\phi;R^B 
+    \impl \phi^-;R^A;\phi;\phi^-;\phi\subseteq\phi^-;\phi;R^B;\phi^-;\phi
+    \impl \phi^-;R^A;\phi\subseteq R^B;\phi^-;\phi$ \\
+$\Gamma \impl\ \phi;\phi^-;R^A;\phi\subseteq\phi;R^B;\phi^-;\phi$\ 
+    from which (\ref{fa:incl}) yields $\Phi[\phi]$
+\end{enumerate} 
+\vspace*{-4ex}
+\end{Proof}
+%% \michal{If, by $\co\phi$, we denote the complement relation of
+%% $\phi$, i.e. $\{\<x,y\>:\<x,y\>\not\in\phi\}$ then, due to the 
+%% fact that none of the set-relations $=$, $\subseteq$, $\supseteq$ 
+%% holds between $\co\phi;\co\psi$ and $\co{\phi;\psi}$, we
+%% can quickly conclude that this relational operation does not yield 
+%% new compositional definitions.}
+
+\noindent
+Although we have used a rather special definition of
+relational composition (\ref{eq:com}), all counter-examples involved in 
+the proof (like those at the begining of this section)
+use only binary relations. Thus, even if composition of relations were defined
+differently, as long as it subsumes the composition of binary
+relations, the theorem gives the maximal number of compositional
+definitions of homomorphisms.
+
+On the other hand, one might probably come up with other forms of
+homomorphism definition  that are not covered by (\ref{de:compde}), e.g., allowing
+complementation. However, all
+% it seems that the majority (if not all) of 
+commonly used forms do
+conform to this format. Occasionally, some authors consider certain
+modifications of the definitions from table~\ref{de:relhomsde},
+for example, requiring surjectivity. Thus, full, outdegree
+and indegree homomorphisms (3,5,6) with the extra surjectivity
+requirement do compose.  This restriction is but a round-about way of
+enforcing the equality $\phi^-;\phi=id_B$ (instead of the more limited
+case c) of (\ref{eq:facts})), and leads, respectively, to special cases of 2),
+1) and 3) from the Theorem~\ref{th:comp}.
+
+
+%------------------------------------------------------------------------
+
+\subsection{Congruences on relational structures}
+\label{sub:congrel}
+
+Congruences of relational and power structures %(see next section) 
+were investigated to some extent
+in \cite{relhoms, brink93, brink97}. The latter works study primarily the issue
+of lifting various properties of a structure to its power structure
+without focusing on the notion of homomorphism.
+
+As we have observed
+before, any equivalence gives rise to a (weak) homomorphism.
+However, the more specific definitions from theorem~\ref{th:comp} may
+lead to more specific relations. We consider only equational
+definitions from the theorem, i.e.: 
+\eq{
+\begin{array}{l@{)\ \ \ }rcl@{\ \ \ \ \ \ \ \ \ \ \ \ \ }l@{)\ \ \ }rcl}
+1 & R^A;\phi  & = & \phi;R^B    &   2 & \phi^-;R^A;\phi & = & R^B  \\  
+3 &\phi^-;R^A & = & R^B;\phi^-  &   4 & R^A & = & \phi;R^B;\phi^- 
+\end{array}
+\label{eq:eq}
+} 
+and characterize these kernels which turn out to be not merely
+equivalences but congruences of a sort. To proceed further we need a
+notion of a quotient of a relational structure:
+
+\begin{Definition}
+\label{de:quo}
+Given a relational structure $A=\<\under A,R_1^A,R_2^A...\>$ and an equivalence
+ $\congo\ \subseteq \under A\times\under A$, a
+quotient structure $A/_{\congo} = Q$ is defined by
+$\under Q = \{[a]_\sim : a\in\under A\}$ and $R_i^Q = \phi^-;R_i^A;\phi$,
+where $\phi:\under A\into \under Q$ maps $a\mapsto [a]_\sim$.
+\end{Definition}
+%
+%In logical terms, 
+Thus $R^Q(\clis a{}[]) \Iff \exists\lis{a'}:
+ a'_i\sim a_i\land R^A(\lis {a'})$;
+%Obviously, 
+$\phi(x)=\phi(y)$ iff $x\congo y$ and
+ $\congo\ = \phi;\phi^-$.
+
+\begin{Prop}
+\label{pro:cong}\label{le:canonichom}
+Let $\congo$ be an equivalence on $A$ and $Q,\phi$ be
+as in definition~\ref{de:quo}.
+\[
+\begin{array}{r@{\ \ \ \ }rcl@{\ \ }|@{\ \ }rcl}
+& \multicolumn{3}{l}{{\rm if\ }\congo\ {\rm satisfies}} & \multicolumn{2}{c}{{\rm then}} \\ \hline
+2) &   & &                               & \phi^-;R^A;\phi &=& R^Q \\
+1) & \congo;R^A;\congo & = & R^A;\congo  & R^A;\phi &=& \phi;R^Q \\
+3) & \congo;R^A;\congo & = & \congo;R^A  & \phi^-;R^A &=& R^Q;\phi^- \\
+4) & \congo;R^A;\congo & = & R^A         & R^A &=& \phi;R^Q;\phi^-
+\end{array}
+\]
+\end{Prop}
+
+\noindent
+In 1), 3) and 4) the relation $\congo$ is not just an arbitrary
+equivalence but has a flavour of a congruence:
+
+\begin{itemize}\MyLPar
+\item[1)] called a {\em tight} congruence,
+can be stated as: \\
+$\forall \lis a,b: (\exists b'\congo b,a'_1\congo
+a_1...a'_n\congo a_n:R^A(\lis{a'},b')) \Iff (\exists b'\congo b: R^A(\lis a,b'))$,
+\\ which gives: \\
+$\forall \lis a,b, \lis{a'}: R^A(\lis a,b)\land a_1\congo a'_1...a_n\congo a'_n 
+\impl \exists
+b'\congo b:R^A(\lis{a'},b')$ 
+% if $\ovr a\congo \ovr a'$ then 
+% $\forall b:[\ R^A(a_i,b) \impl \exists b':b'\congo b\land R^A(a_i',b')\ ]$.
+
+\item[3)]
+yields a dual condition: \\ $\forall \lis a, b,b': R^A(\lis a,b) \land
+b'\congo b \impl \exists a'_1\congo a_1...a'_n\congo a_n : R^A(\lis{a'},b')$;
+
+\item[4)] 
+is strongest: $\forall \lis a,b,\lis{a'},b': R^A(\lis a,b)\land
+ a'_1\congo a_1...a'_n\congo a_n \land b'\congo b\impl R^A(\lis{a'},b')$. 
+\end{itemize}
+%
+%% In this special situation of a homomorphism into a quotient (which is
+%% surjective and hence satisfies (\ref{eq:sur})), the four kinds of
+%% homomorphisms are ordered by strength: 
+%% \eq{ 
+%% \raisebox{.8ex}{4}
+%% \stackrel{\displaystyle{\nearrow}}\searrow \
+%% \stackrel{{\displaystyle{\raisebox{2.5ex}{1}} }}
+%% {\displaystyle{\raisebox{-1ex}{3}}} \
+%% \stackrel{\displaystyle{\searrow}}\nearrow \raisebox{.8ex}{2}
+%% \label{eq:homimpl}
+%% }
+%
+On the other hand, for any (at least weak) homomorphism we have the
+converse:
+
+\begin{Prop}\label{pro:congrev} 
+Given a homomorphism $\phi:A\into B$, let $\congo$ be the kernel of
+$\phi$
+
+\[
+\begin{array}{r@{\ \ \ \ }rcl@{\ \ }|@{\ \ }rcl}
+& \multicolumn{3}{l}{{\rm if\ }\phi:A\into B{\rm\ satisfies}} & \multicolumn{3}{c}{{\rm then\ }\congo\ 
+{\rm is\ an\ equivalence\ and} } \\ \hline
+%2) & \phi^-;R^A;\phi &=& R^B    &   & &  \\
+1) & R^A;\phi &=& \phi;R^B      & \congo;R^A;\congo & = & R^A;\congo   \\
+3) & \phi^-;R^A &=& R^B;\phi^-  & \congo;R^A;\congo & = & \congo;R^A \\
+4) & R^A &=& \phi;R^B;\phi^-    & \congo;R^A;\congo & = & R^A    
+\end{array}
+\]
+\end{Prop}
+
+\noindent
+There is no line for condition 2) since $\phi^-;R^A;\phi=R^B$
+obviously implies that $\congo$ is an equivalence but, in fact, this
+follows for any function $\phi$.
+
+This is not the strongest formulation of this fact.
+% For $\congo$ being
+%an equivalence it suffices, of course, that $\phi$ is a weak homomorphism.  
+For instance, 1) implies
+$R^A;\phi=\phi;R^B;\phi^-;\phi$ which is sufficient to establish the
+respective property of $\congo$. In general, since $\congo$ is induced
+only from the image of $A$ under $\phi$, restricting the
+homomorphisms' definitions on the $R^B$-side to this image (i.e.\ by
+$\phi^-;\phi$) will yield the same properties of $\congo$.
+
+%% Since the left column of the table expresses the only restrictions on
+%% $\phi$, we do not have here any relationships like those in
+%% (\ref{eq:homimpl}).
+
+
+%=====================================================================
+%=====================================================================
+
+\section{Multialgebras}
+\label{se:mult}
+Our interest in relational structures originates actually from earlier studies
+of multialgebras. These can be described as relational structures with
+a specific composition
+of relations of arbitrary arities. This issue offers several
+choices leading to possibly general and complicated solutions (see
+e.g.\ \cite{glenn,Topen:93}).  Definition \refp{eq:com} was motivated by
+the wish to view relations as set-valued functions where the last,
+$n$-th argument of an $n$-ary relation corresponds to an element of
+the result set obtained by applying the set-valued function to the first $n-1$
+arguments.  This view appears in \cite{c:101}, was elaborated in
+\cite{JT1,JT2}, then in \cite{c:102} and re-emerged in recent years in
+the algebraic approaches to nondeterminism
+\cite{c:64,c:59,c:Bia1,c:130,survey}. 
+It is based on the
+observation that any (set-valued) operation
+$f:A_1\times...\times A_n\into \PSet(A)$ determines a relation
+$R_f\subseteq A_1\times...\times A_n\times A$ and vice versa, via the
+isomorphism: 
+%
+\eq{
+\label{eq:isomr} 
+\begin{array}{r@{\ \ \ \iso\ \ \ }l}
+[A_1\times...\times A_n\into \PSet(A)] & [A_1\times...\times A_n\into
+[A\into Bool]] \\ & [A_1\times...\times A_n\times A\into Bool] \\ &
+\PSet(A_1\times...\times A_n\times A)
+\end{array} 
+}
+%
+Thus composition of relations becomes
+naturally the composition of the respective set-valued functions given
+by additive extension to sets.
+% , i.e.\ for $f:\under A^n\into\under A$
+% and $g:\under A^m\into\under A: f(x_1...g(y_1...y_m)...x_n) =
+%\setsup_{z\in g(y_{1}...y_{m})} f(x_1...z...x_n)$.  In general, 
+Given
+an $n$-ary $f$ and $n$ $m_i$-ary $g_i$'s, their composition
+$h=f\<g_1...g_n\>$ is a $(\sum_1^n m_i)$-ary function given 
+by:\footnote{As it is often the case, one draws here an advantage from
+the functional notation which, unlike the relational notation, allows
+one to write composition in a natural way (it was called
+``superposition'' in \cite{JT1}).}
+%
+\eq{
+%h(x_{11}...x_{1m_{1}}...x_{n1}...x_{nm_{n}})\ \ =\ \ 
+f(g_1(x^1_1...x^1_{m_{1}})...g_n(x^n_1...x^n_{m_{n}}))\ \ = 
+\bigcup_{x_{i}\in g_{i}(x^{i}_{1}...x^{i}_{m_{i}})}f(x_1...x_n) 
+}
+%where $\ovr x_i$ is an $m_i$-tuple.
+%
+We may now talk about similarity types, or signatures, for
+multialgebras in the way entirely analogous to standard algebras. 
+Another consequence of this change of perspective is 
+that the structure of the derived operators ceases to be simply
+a Boolean algebra relatively independent from the actual
+multialgebra.\footnote{Cohn~\cite{Cohn}, p.204 considers this to be the reason
+for lack of interest in the relational homomorphisms.} In fact, they become related to the signature in the
+same way as in classical universal algebra.
+Some universal algebraic aspects of power structures 
+are addressed in \cite{GW84,goldblatt89,brink93, adBrink93, brink97}.
+
+%----------------------------------------------------------------------
+
+%\subsection{Categories of Multialgebras}
+%\label{sub:cats}
+%
+\begin{Definition}\label{de:multi}
+Let $\Sigma = \pair \Sorts\Funcs$ be a signature. A $\Sigma$-multialgebra $A$
+is given by:
+\begin{itemize}
+\item 
+a carrier $\Card A=\{\Card{A}_s\}_{s\in \Sorts}$, where for each $s\in
+\Sorts$, $\Card{A}_s$ = $\PSet(\under A_s)$ of some {\em underlying set}
+$\under A_s$, with the obvious embedding $\under A_s\incl \PSet(\under
+A_s)$;
+\item 
+a function $f^A:\under A_{s_1}\times...\times \under A_{s_n}\into
+\PSet(\under A_s)$ for each $[f:s_1\times...\times s_n\into s]\in \Funcs$, 
+with composition defined through additive extension to sets, i.e.\
+ $f^A(X_1,...,X_n) = \setsup_{x_i\in X_i} f^A(x_1,...,x_n)$.
+\end{itemize}
+\end{Definition}
+%
+(Again, in what follows we treat 
+the single-sorted case.)
+Notice that, although the carrier of a multialgebra is a power set, and hence a Boolean
+algebra, this fact is not reflected in the signature, which contains only the 
+``declared'' operations. This does not
+change the actual structures but does have some implications for the
+possible homomorphisms (which do not have to preserve the set operations).
+This also distinguishes multialgebras from {\em algebras of complexes} 
+from \cite{JT1}.
+
+
+
+We will now consider three categories of multialgebras
+with homomorphisms corresponding to condition 1) of
+theorem~\ref{th:comp}. 
+The multialgebraic form of these definitions is as follows.
+
+\begin{Definition}
+A homomorphism $\phi:A\into B$ is a mapping $\phi: \under
+A\into \under B$ of one of the three modes 
+\[
+\begin{array}{r@{\ \ -\ \ {\rm when\ \ }}l@{,\ \ {\rm in\ particular\ \ }}l}
+{\sl weak} & \phi(f^A(\lis a))\subseteq f^B(\clis a\phi()) & \phi(c^A)\subseteq c^B \\
+% -- when $\otimes$ is $\po$,
+{\sl closed}& \phi(f^A(\lis a))\supseteq f^B(\clis a\phi())  & \phi(c^A)\supseteq c^B \\
+% -- when $\otimes$ is $\rpo$,
+{\sl tight} & \phi(f^A(\lis a))= f^B(\clis a\phi())  & \phi(c^A)= c^B 
+% -- when $\otimes$ is $=$.
+\end{array} 
+\]
+\end{Definition}
+%
+% We will refer (ambiguously) to the carrier of a multialgebra, $\Card
+% A$ as the set $\under A$ or $\PSet(\under A)$. Having the obvious
+% embedding of $\under A$ into $\Card A$, we will often treat $\under A$
+% as a subset of $\Card A$.  Also, for $X\subseteq\PSet(Y)$, $\under X$
+% stands for $\bigcup X\subseteq Y$.  The definitions are given
+% generally for the many-sorted case. For the sake of simplicity and
+% readability we will ignore sorting and, for the most, give arguments
+% for one-sorted case. Their generalization to many-sortedness is
+% straightforward and all the results reported here remain valid after
+% such a generalization.
+%
+% Any operation $f:B\into\PSet(A)$ has a unique pointwise extension to
+% the operation $\PSet(B) \into\PSet(A)$, and
+% composition of operations in a multialgebra is defined by such a
+% pointwise extension.
+
+\noindent
+Multialgebras are ``partial'' in the sense that operations may return
+empty set of values. By the pointwise extension of operations, they
+are strict in all arguments.  Notice also that we allow empty
+carriers, i.e.\ $\PSet(\es)=\{\emptyset\}$ is a possible carrier of a
+multialgebra. Thus we will often refer to three special multialgebras,
+namely:
+
+\begin{center}
+\begin{tabular}{r|r@{\ =\ }l@{\ \ }c}
+algebra     & \multicolumn{2}{c}{with carrier} & and all operations returning \\ \hline
+``empty''   & $\PSet(\es)$ & $\{\es\} $ & $\es$ \\[.5ex]
+``unit''    & $\PSet(\{\bullet\})$ & $\{\es,\{\bullet\}\}$ & $\{\bullet\}$  \\[.5ex]
+``e-unit''  & $\PSet(\{\bullet\})$ & $\{\es,\{\bullet\}\}$ & $\es$
+\end{tabular} 
+\end{center}
+
+\noindent
+Obviously, a homomorphism $\phi:A\into B$ maps not only the underlying
+sets $\under A\into \under B$ but also the whole carriers (through its
+unique extension) i.e.\ also $\PSet(\under A)\into\PSet(\under B)$.  When the source
+$A$ is ``more partial'' than the target $B$ (meaning the operations
+more often return $\es$), there will be neither a tight nor a closed
+homomorphism, but often a weak one $A\into B$.
+
+The category of $\Sigma$-multialgebras is denoted $\MAS$ when the mode
+of homomorphisms does not matter. When it does, we use $\MASw, \MASt,
+\MASc$ for the respective categories. The three cannot be mixed 
+%into one (meaningful) category 
+-- e.g.\ a composition of a weak and a closed
+homomorphism may yield a transformation which is of none of the three
+modes.
+First we register a few facts common to all three categories.
+%
+\begin{Prop}
+\label{fa:epimono}\label{le:isotight}
+Let $\phi$ be a homomorphism in any category $\MAS$
+\begin{enumerate}\MyLPar
+\item $\phi$ is epi (mono) iff it
+is surjective (injective) on the underlying set. 
+\item if $\phi$ is isomorphism then it is tight.
+\item $\phi$ is an isomorphism iff it is tight,
+surjective and injective.
+\end{enumerate}
+\end{Prop}
+
+\noindent
+The proof of the fact 1) is actually rather involved.
+One might take 2)-3), as well as the fact that
+the definition of tight homomorphisms is closest to the usual definition, as the
+indication that $\MASt$ is {\em the} appropriate category to work with. 
+However, as we will see, this category is much poorer then $\MASl$.
+%----------------------------------------------------------------------
+
+\subsection{Epi-mono factorisation}
+
+We show that categories $\MASl$ and $\MASt$ have
+epi-mono factorisations and construct factorization systems for
+these two categories. $\MASc$ does not enjoy
+this property.
+
+A {\em quotient\/} of a multialgebra $A$ wrt.\ an {\em equivalence} relation
+$\congo$ (denoted $A/_\sim$) was defined in definition~\ref{de:quo}: it is 
+a multialgebra $B$ such that $\under B
+= \{ [a]_\congo : a \in \under A \}$ and $f^B(\clis a{}[]) = \{ [a] : a
+\in f^A(\lis{a'}), a'_i\in [a_i]\}$ for any function
+$f$.\footnote{Observe that, if we perform this construction on a
+ usual algebra with $\sim$
+being an equivalence but not a congruence, we obtain a well-defined multialgebra.}
+Recall also that a kernel of a (weak) homomorphism is an
+equivalence and, more importantly, the mapping $\phi: A \into
+A/_\congo$ given by $\phi(a) = [a]$ is a weak homomorphism. We also
+have the following observation:
+
+\begin{Fact}
+\label{fa:subeq}
+For equivalences %on $A$ with 
+$\sim_1\
+\subseteq\ \sim_2\ \subseteq \under A\times\under A$, there is a weak homomorphism
+$\phi:A/_{\sim_{1}}\into A/_{\sim_{2}}$.
+\end{Fact}
+
+\noindent
+Multialgebraic definition of a tight congruence $\sim\ \subseteq \under A\times\under A$
+becomes:
+it is an equivalence and for all $f\in\Sigma$ we have $\forall
+\lis a,\lis b:a_i\sim  b_i \impl f^A(\lis a)\sim f^A(\lis b)$, where $\sim$ on sets
+is defined by the Egli-Milner extension $:A\sim B\Iff \forall a\in A\ 
+\exists b\in B:a\sim b\
+\land\ \forall b\in B\ \exists a\in A:a\sim b$.  We then have the
+familiar facts: if $\sim$ is a tight congruence on $A$ then
+$\phi:A\into\quot A{\sim}$ defined by $m\mapsto [m]_\sim$ is a tight
+homomorphism; and kernel of any tight homomorphism is a tight
+congruence.
+
+The following theorem is a counterpart of the well-known Homomorphism
+Theorem.
+
+\begin{Theorem}
+\label{th:epimono}
+Let $A,B \in \MAS$.  Let $\phi: A \into B$ be a homomorphism and
+$\congo$ its kernel. Define $\psi_1: A \into A/_\congo$ and $\psi_2:
+A/_\congo \into B$ as follows: $\psi_1(a) = [a]_\congo$ and
+$\psi_2([a]_\congo) = \phi(a)$.
+\begin{enumerate}\MyLPar
+\item{if $\phi$ is tight then both $\psi_1$ and $\psi_2$ are tight;}
+\item{if $\phi$ is closed then $\psi_1$ is weak and $\psi_2$ is closed;}
+\item{if $\phi$ is weak then both $\psi_1$ and $\psi_2$ are weak.}
+\end{enumerate}
+\end{Theorem}
+
+
+\noindent
+Thus, only $\MASl$ and $\MASt$ have epi-mono factorisations. 
+Precise characterization of the homomorphism into a quotient has presented some
+troubles (also in the context of partial algebras, which are special cases of 
+multialgebras). In the case of $\MASl$, surjectivity is not sufficient and, on the
+other hand, the actual construction can be subsumed by many different definitions,
+two of which are
+
+\begin{Definition}
+\label{de:jtight}
+We say that  $\eta:A\into B$ is
+\begin{itemize}\MyLPar
+\item
+{\em full} iff for all $f\in\Sigma$,
+$\lis a\in\under A : f^B(\clis a\eta()) \cap \eta[A] = 
+   \bigcup_{a'_{i}\in [a_{i}]} \eta(f^A(\lis{a'}))$.
+\item
+{\em fully-tight} iff for all $f\in\Sigma$,
+$\lis b\in\under B : f^B(\lis b) = \bigcup_{a_{i}\in \eta^{-}(b_{i})} \eta(f^A(\lis a))$.
+\end{itemize}
+\end{Definition}
+%
+Obviously, tight $\impl$ fully-tight $\impl$ full, while (full and
+surjective) $\impl$ fully-tight, but none of these implications can be
+reversed.
+Full are not compositional and to repair this, one might, additionally, require
+surjectivity. 
+However, fully-tight can be defined by
+$\eta^-;R^A_f;\eta=R^B_f$ (where $R_f$ is the relation for $f$), and hence, 
+by theorem~\ref{th:comp}, are compositional.\footnote{A
+non-compositional variant, used for the same purpose as here and 
+defined by $\forall \lis a\in\under A:f^B(\clis a\eta()) =
+\bigcup_{a'_{i}\in [a_{i}]} \eta(f^A(\lis{a'}))$, was called ``jointly-tight'' in
+\cite{c:132}.}
+We suggest that this is {\em the} right definition -- being compositional, it 
+also yields the left factor of a factorization system in $\MASl$.
+
+\begin{Theorem}
+\label{le:FSl}\label{le:FSt}
+$\<\epi,\mono\>$ is a factorisation system for 
+\begin{itemize}
+\item $\MASl$ with
+$\mu\in\mono$ iff it is injective, and $\eta\in\epi$ iff it is a full
+epi (hence fully-tight epi)
+\item
+$\MASt$ with $\epi$
+being all epi and $\mono$ all mono.
+\end{itemize}
+\end{Theorem}
+
+%------------------------------------------------------------------------
+
+\subsection{Subobjects}
+\label{sub:sub}
+
+Defining, as usual, a {\em subobject\/} to be an equivalence class of
+monomorphisms, we obtain three different notions of weak, tight and
+closed subobjects in the respective categories.  In plain terms 
+%classical algebra, for the respective categories $\MASt$, $\MASl$ and
+%$\MASc$, we obtain the following notions: 
+we have: $B$ is a {\em
+tight} ({\em weak, closed\/}) subalgebra of $A$ %(denoted $B\suba A$)
+iff $\Card B\subseteq\Card A$ and $\forall f\ \forall \lis b\in\Card B$
+holds $f^B(\lis b)=f^A(\lis b)$ (with $\subseteq$ and $\supseteq$, respectively).
+% $f^B(\lis b)\po f^A(\lis b)$, $f^B(x)\rpo f^A(x)$).
+Or else, $B$ is a tight (weak, closed) subalgebra of $A$ iff
+$\under B\subseteq\under A$ and the inclusion $\iota:B\incl A$ is a
+tight (weak, closed) homomorphism.
+
+%% For a homomorphism $\phi:B\into A$, let $\phi[B]$ denote the power set
+%% of the image of $\phi$ on the underlying set, i.e.\ $\PSet(\phi[\under
+%% B])$ where $\phi[\under B]=\{\phi(n):n\in\under B\}$.
+
+% Since $\phi$ maps $\under B\into\under A$, this set is actually a subset of
+% the power set of some subset $\phi[\under B]\subseteq \under A$.
+
+\begin{Prop}
+\label{le:subalgs}
+A homomorphism $\phi:B\into A$ induces a subalgebra $[B]$ of $A$,
+which is of the same mode as $\phi$, (and also a tight subalgebra $T$ of
+$A$).
+\end{Prop}
+
+\noindent
+The construction is straightforward in $\MASt$. In the other two cases
+it seems more arbitrary and involves taking unions, resp., intersections of
+the images of the result sets in order to endow the image with the 
+apropriate algebraic structure.
+
+The different modes of homomorphisms lead also to different
+constructions of minimal subalgebras or, more generally, of
+intersections of subobjects.
+
+\begin{Prop}
+\label{le:MASlintersect}
+For any $A$, any set $(B_i,\nu_i)$ of $A$'s subobjects in $\MASl$
+(resp. $\MASt$) has an intersection $(B,\nu)=\bigcap (B_i,\nu_i)$.
+\end{Prop}
+
+\noindent
+In particular, for any $\Sigma$, the minimal subobject of any algebra
+$A$ in $\MASl$ will be the empty algebra. For void $\Sigma$, this
+will also be the case in $\MASt$ and $\MASc$.
+
+% If $\Sigma$ is void (i.e.\ has no ground terms), the same will be
+% the case in $\MASt$. But for non-void $\Sigma$ (with some ground 
+% terms of each sort), the minimal subobject of an $A\in\MASt$ will 
+% be the tight subalgebra $B$ of $A$ with $\under B$ containing exactly
+% the elements which are in the sets interpreting ground
+% $\Sigma$-terms in $A$.
+
+In $\MASc$ the concept of a subobject is rather strange.  
+% We may restrict the carrier by removing some elements, but only those which
+% are not returned by any functions applied to some elements which
+% remained in the carrier.  
+On the one hand, empty subalgebra will be a
+closed subobject of a given algebra $A$. On the other hand, if we keep
+the same carrier $\Card B=\Card A$, and define all operations to
+return the full carrier, e.g., for any $\lis a\in\under B$
+and any $f\in\Sigma$, we let $f^B(\lis a)=\under B$, we
+get a closed subalgebra $B$ of $A$.
+
+% Thus, for a non-void $\Sigma$, a minimal subobject of an $A$ will be
+% algebra $B$ with the carrier as in $\MASt$ (all elements contained 
+% in the interpretation of the ground terms in $A$) but with 
+% the operations returning, for all arguments, the full carrier of 
+% the result sort.
+
+
+\begin{Example}
+\label{ex:nointersect}
+Take $\Sigma$ with one constant $c$, algebra $A$ with $\under
+A=\{1,2\}$ and $c^A=\{1\}$.  The algebras $B_1$ with
+$\under{B_1}=\{1\}=c^{B_{1}}$ and $B_2$ with
+$\under{B_2}=\{1,2\}=c^{B_{2}}$ are both (closed) subalgebras of $A$
+with the obvious injections. However neither is a subobject of
+another, nor is $A$ a (closed) subobject of any of them. %In fact, t
+The
+intersection of $B_1$ and $B_2$ in $\MASc$ will be the empty algebra.
+\end{Example}
+
+\noindent
+These two directions of constructing subobject seem somehow in conflict 
+with each other and make
+this concept in $\MASc$ rather far from the intended
+one, even if formally acceptable.
+
+\subsection{Limits and co-limits in $\MAS$.}
+\label{sub:limit}
+
+$\MASl$ has all (finite) limits and co-limits. The 
+categories $\MASt$ and $\MASc$ are neither (finitely) complete
+nor co-complete.  Since these statements involve long lists of specific results, 
+we only summarize them in table~\ref{tab:A}.
+
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{|r|c|c|c|}
+\hline 
+                   & $\MASl$ & $\MASt$ & $\MASc$ \\ \hline
+products           & +  & -- & -- \\
+equalizers         & +  & -- & -- \\
+{\bf finite completeness} & +  & -- & --  \\ \hline
+initial objects (of interest) & + (--) & -- & -- \\
+% (of interest)  & (--) & (--) & (--) \\
+co-products        & +  & --  &  -- \\
+co-equalizers      & +  & +  &  \\
+{\bf finite co-completeness} & +  & -- & -- \\ \hline
+epi-mono factorization & +  & +  & -- \\ \hline %\vspace*{-2ex}
+\end{tabular}
+\end{center}
+\caption{Properties of various $\MAS$.}\label{tab:A} %\vspace*{-3ex}
+\end{table}
+
+\noindent
+The initial object in $\MASl$ is empty algebra and for this reason we indicated
+that it is not ``of interest''. But at least this category has initial objects 
+as well as several other desirable basic properties -- 
+the two other categories possess almost none of them.
+
+It has perhaps been a prevailing opinion among mathematicians interested in the question
+that weak homomorphisms of relational structures provide the most useful notion.
+The above results do, if nothing more then at least justify and demonstrate
+this opinion. We have thus studied all the cases of one type of
+ compositional homomorphisms -- case 1) from theorem~\ref{th:comp}. We conjecture that
+the negative results about the tight and closed homomorphisms of this type will also
+occur for the tight and closed variants of the remaining three types.
+
+%====================================================================
+
+
+\section{Homomorphisms as Relations}
+\label{se:horel}
+
+Since carrier of a multialgebra is a power set, one might attempt to
+define a multialgebra as a usual algebra over such a carrier.  Such a
+generality, however, reduces to the considerations of standard
+algebras. In order to capture the intended (power-)set structure, some
+additional restrictions have to be imposed, the least of which is
+monotonicity of the operations within the algebra. (Such a variant,
+called power-algebras, was used, for instance in \cite{c:130}, for
+modelling a kind of ``call-by-name'' passing of nondeterministic
+parameters.)
+
+We will not consider this alternative here and, instead, will look
+closer at the alternative notions of homomorphisms between
+multialgebras. There are three
+immediate possibilities here; a homomorphism $\phi:A\into B$ may be of
+three kinds:
+
+\[ \begin{array}{rr@{\ \into\ }ll}
+\PP: & \under A & \under B & {\rm point-point} \\
+\PS: & \under A & \PSet(\under B) & {\rm point-set} \\
+\SSs:& \PSet(\under A) & \PSet(\under B) & {\rm set-set}
+\end{array}
+\]
+%
+Various modes of the first kind have been considered so far.
+The last kind, when
+taken without additional restrictions, treats multialgebras
+%analogously as in power-algebras, 
+as standard algebras which only ``by
+accident'' happen to have power sets as carriers.  Of course, a
+\PP-homomorphism induces a \PS\ one by pointwise extension, and a
+\PS-homomorphism induces an \SSs\ one by additive extension.  I.e.,
+modulo the obvious type-conversion, we have: $\mode\PP\phi \impl
+\mode\PS\phi \impl \mode\SSs\phi$. All three kinds can be further
+combined with the three modes -- tight, weak, or closed -- leading to
+a taxonomy of various possibilities which is simple in structure but
+messy in interrelations.  
+
+\PS-homomorphisms seem a natural counterpart of the set-valued functions within
+algebras and have received sporadical attention in the literature. 
+For these reasons, we cast a closer look at 
+the categories $\MAPS$, highlighting some points
+illustrating the lack of equally pleasing categorical properties as
+those possessed by the category $\MASl$.  
+
+The only positive result, and
+the one not present in $\MAS$, is that initial objects
+in $\MAPSt$ resemble the classical term algebras
+(theorem~\ref{le:MAPStADJ}). This seems the only reason for which they 
+attracted some attention, e.g., in \cite{c:57,c:58}.
+ Before proceeding further, we mention ...
+%
+\subsubsection*{... a general fact about isomorphisms}
+Proposition~\ref{le:isotight} showed that isomorphism of any mode
+is actually tight. The result was given for the 
+\PP-homomorphisms but, as it turns out, it does not depend on the kind
+of homomorphisms:
+
+\begin{Prop}
+\label{le:isopp}
+Let $\phi:A\into B$ be an isomorphism. Then: 
+\begin{enumerate}\MyLPar
+\item if $\phi$ is \SSs, then it is \PS;
+\item if $\phi$ is \PS, then it is \PP.
+\end{enumerate}
+\end{Prop}
+
+\noindent
+Thus isomorphisms in all different categories 
+%, also $\MAPS$ which we are about to study, 
+are actually point-to-point mappings from $\MASt$.
+
+
+
+%-------------------------------------------------------------------
+
+\subsection{The category \PSt }
+
+As a technical tool, we introduce the category
+\PSt, which is a closer counterpart of $\MAPS$ than \Set. In fact,
+\PSt\ is a special case of any of the three $\MAPS$ categories, when
+$\Sigma$ contains only one sort symbol. Thus the negative results for
+\PSt\ can be immediately applied to $\MAPS$.  Characterization of epis
+and monos, as well as non-existence of epi-mono factorizations for
+$\MAPS$ are obtained from the results in this subsection.
+
+\begin{Definition}
+The objects of \PSt\ are power sets, i.e.\ for each object $S$ of
+\Set, $\PSet(S)$ is an object of \PSt.  A morphism in \PSt,
+$\under\phi:\PSet(S)\into \PSet(T)$ is a \Set\ morphism
+$\under\phi:S\into\PSet(T)$ extended pointwise, i.e.\ for
+$X\in\PSet(S) : \under\phi(X) = \bigcup_{x\in X}\under\phi(x)$.
+\end{Definition}
+
+\begin{Prop}
+\label{le:adjSPS}
+Let $I:\PSt\into\Set$ be the inclusion and $\PSet:\Set\into\PSt$ send
+each set to its power set $S\mapsto\PSet(S)$, and each morphism to its
+pointwise extension to power set. These functors are adjoint
+$\PSet\adj I$.
+\end{Prop}
+
+\noindent
+In particular, the initial object (preserved by $\PSet$) in $\PSt$
+will be $\{\emptyset\}$.  It is initial in the same way as $\emptyset$
+is initial in \Set.  The terminal object in $\PSt$ isn't $\{\bullet\}$
+(which isn't an object in $\PSt$) nor $\PSet(\{\bullet\})$ but,
+actually, the same $\PSet(\es)=\{\emptyset\}$. It is terminal because
+morphisms send elements of the source to subsets of the target, and
+hence the unique morphism from any other set will send all its
+elements to $\emptyset$.
+
+\begin{Prop}
+\label{le:PStcompl}\label{le:PSnocoeq}
+\PSt\ is complete but not co-complete.
+\end{Prop}
+
+\noindent
+Another negative fact of importance is lack of epi-mono factorization. 
+First we characterize epis and monos in \PSt.
+
+\begin{Lemma}
+\label{le:charepimono}
+A morphism $\phi:S\into \PSet(T)$ in $\PSt$ is:
+\begin{enumerate}\MyLPar
+\item 
+mono iff its pointwise extension to $\PSet(S)$ is injective:
+$\forall X,Y\subseteq S: X\not=Y \impl \phi(X)\not=\phi(Y)$;
+\item 
+epi iff it is surjective on $T$, i.e.\ $\forall t\in T \exists s\in S:
+\phi(s)=\{t\}$.
+\end{enumerate}
+% \\ \marcin{dla tight: if $\phi$ is injective}
+\end{Lemma}
+
+\begin{Lemma}
+\label{le:noepi-mono}
+$\PSt$ does not have epi-mono factorisation.
+\end{Lemma}
+
+\begin{Proof}
+Let $S=\{a,b,c\}$ and $T=\{1,2,3\}$ and $\phi:S\into\PSet(T)$ be
+$\phi(a)=\{1,2\},\ \phi(b)=\{1,3\},\ \phi(c)=\{2,3\}$. $\phi$ is
+neither epi nor mono.  Assume it has an epi-mono factorisation
+$\phi=\Comp\eta\mu$, with an epi $\eta:S\into\PSet(Q)$ and a mono
+$\mu:Q\into\PSet(T)$. $Q$ must have at least three elements which
+$\mu$ sends, respectively, $\mu(x)=\{1,2\},\ \mu(y)=\{1,3\},\
+\mu(z)=\{2,3\}$ in order to yield $\phi$ in composition with
+$\eta$. But this means that $\mu$ cannot be mono, since we will have
+$\mu(\{x,y\})=\mu(\{y,z\})$.
+\end{Proof}
+
+\noindent
+Notice that it is not uniqueness that fails here -- there is simply {\em no}
+epi-mono pair factoring $\phi$. Consequently, we do not have to spend time
+looking for a factorization system.
+
+
+
+%%%%%%%%%%%%%%%% unnecessary Claim
+%%%% \begin{Claim}
+%%%% $\PSt$ does not have intersections (for arbitrary class of subobjects).
+%%%% \end{Claim}
+%%%% \begin{Proof}
+%%%% Lemma~\ref{le:noepi-mono} implies that $\PSt$ does not have strong
+%%%% epi-mono factorization.  Since it is (finitely) complete
+%%%% (lemma~\ref{le:PStcompl}), it can not have arbitrary intersections.
+%%%% \end{Proof}
+
+
+%----------------------------------------------------------------------
+
+\subsection{The categories $\MAPS$}
+
+Empty algebra is terminal in each $\MAPS$ category.
+It is also initial in $\MAPSl$.
+When homomorphisms are tight, the initial algebra begins to be interesting.
+
+\begin{Theorem}
+\label{le:MAPStADJ}
+Let $U:\MAPSt\into\PSt$ be the forgetful functor given by
+$U(A)\Def\PSet(\under A)$.  There is an adjunction $\GTerms\adj U$.
+\end{Theorem}
+
+\begin{Proof}
+For any object $\PSet(X)$, we let $\GTerms:\PSet(X)\mapsto \GTerms(X)$
+-- the free multialgebra over $X$. Its underlying set $\under
+{\GTerms(X)}$ comprises all 1-element (term) sets:
+
+\begin{itemize}\MyLPar
+\item 
+$X\cup\GTerms\subseteq \under{\GTerms(X)}$ 
+\item 
+if $f\in\Sigma$ and $x_1...x_n\in\under{\GTerms(X)}$ then
+$f(x_1...x_n)\in\under{\GTerms(X)}$,
+\end{itemize}
+%
+and operations are $f^{\GTerms(X)}(x_1...x_n)\Def \{f(x_1...x_n)\}$.
+A $\PSt$-morphism $\under\phi:\PSet(X)\into\PSet(Y)$, i.e.\ 
+$X\into\PSet(Y)$ is mapped obviously on the morphism
+$\phi:\GTerms(X)\into\GTerms(Y)$ given by $\phi(x)=\under\phi(x)$ for
+all $x\in X$ and $\phi(f^{\GTerms(X)}(x_1...x_n))=
+\bigcup_{y_{i}\in\phi(x_{i})}f^{\GTerms(Y)}(y_1...y_n)$.
+
+Let $A$ be a $\Sigma$ multialgebra, and $\under\phi:X\into U(A)$
+a morphism in $\PSt$. Then we define tight homomorphism $\phi
+:\GTerms(X)\into A$ by $\phi(x)\Def\under\phi(x)$, for $x\in X$,
+$\phi(\{t\})\Def t^A$ for $t\in\GTerms$, and
+$\phi(f^{\GTerms(X)}(x_1...x_n))\Def f^A(\phi(x_1)...\phi(x_n))$.
+
+The unit $\iota:\PSet(X)\into U(\GTerms(X))$ is simple
+inclusion. Obviously, we have that $\under\phi =
+\Comp{\iota}{U(\phi)}$. Also, $\phi$ is unique, for if there is
+another $\psi:\GTerms(X)\into A$, satisfying this last equality, then
+we must have $\psi(x)=\phi(x)$ for all $x\in X$. Furthermore,
+$\psi(t)=t^A$ for all $t\in\GTerms$, and
+$\psi(f^{\GTerms(X)}(x_1...x_n))=f^A(\psi(x_1)...\psi(x_n))$ since
+$\psi$ is a tight homomorphism. But this means $\psi=\phi$.
+\end{Proof}
+
+\noindent
+Unlike for $\MASl$ where an initial object was the empty algebra, here
+we obtain quite a natural initial algebra. Initiality of this term
+algebra depends heavily on the fact that we have \PS\ homomorphisms --
+they allow us to send a single element $t$ of term algebra to a {\em
+set} of elements $t^A$ in the target algebra $A$. In particular, such
+a $t$ can be sent onto empty set in cases when $t^A=\es$.
+The construction does not work for $\MAPSl$ or $\MAPSc$.\footnote{As a matter 
+of fact, almost the same
+construction would give us an adjunction between $\Set$ and
+$\MAPSt$. A specific subcategory of $\MAPSt$ (where all
+ground terms are determinisitc in each algebra) was used in
+\cite{eli:nondetaut} for studying nondeterministic automata and
+recognizable sets. The initiality result for this subcategory was also
+mentioned there.}
+
+Since both $U$ and $\GTerms$ are obviously
+faithful (but not full) we obtain, as a corollary and using 
+lemma~\ref{le:charepimono},
+the following characterization of epis and monos.
+
+\begin{Fact}
+Let $\phi:M\into N$ be in $\MAPSt$ and $\under\phi=U(\phi)$ be its
+image in $\PSt$.
+\begin{enumerate}\MyLPar
+\item $\phi$ is mono iff $\under\phi$ is mono,
+\item $\phi$ is epi if $\under\phi$ is epi.
+\end{enumerate}
+\end{Fact}
+% (I.e., iff the pointwise
+% extension of the mapping $\under\phi:\under M\into
+% \PSet(\under N)$ to $\PSet(\under M)$ is injective.)
+
+\noindent
+The opposite implication in 2) does not hold but, to our surprise, 
+finding a necessary condition for $\phi$ being epi in $\MAPSt$ presents serious
+problems which we were not able to overcome.
+
+Table~\ref{tab:B} summarizes the properties of the three \PS-categories.
+
+\begin{table}[htb] 
+\begin{center}
+\begin{tabular}{|r|c|c|c|}
+\hline
+    & $\MAPSl$ & $\MAPSt$ & $\MAPSc$ \\ \hline
+products       &+ & +   & + \\
+equalizers     &+ & +   & -- \\
+{\bf completeness} &+ & +   & -- \\ \hline
+initial objects (of interest) &+ (--) & + (+)  & -- \\
+co-products    &+ & --  & -- \\
+co-equalizers  &-- & --  & -- \\
+{\bf co-completeness}&-- & -- & -- \\ \hline
+epi-mono factorization   &-- & --   & -- \\ \hline
+\end{tabular}
+\caption{Properties of $\MAPS$.}\label{tab:B}
+\end{center} \vspace*{-4ex}
+\end{table} 
+
+
+%========================================================================
+%========================================================================
+
+\section{Partial Algebras}
+\label{se:pa}
+
+A partial function $f^A:\under A_1\times\under  A_2\into \under A_3$, undefined for,
+say second argument value $a\in \under A_2$, could be modeled by a multifunction
+such that $f^{\mof A}(x,a)=\under A_3$, i.e., one which is completely undetermined 
+returning possibly
+any value. This way of modelling partiality by nondeterminism seems to
+enable one to handle strictness in a more flexible fashion than the
+dogma underlying the theory of partial algebras that all
+functions are strict. 
+% Perhaps, it would also correspond better to the
+% ``real life'' of computers, where any function results in {\em
+% something}, even if it is an unpredictable system error or crash.  
+We do
+not follow this line because it would simply require development of a
+new approach.  We merely take partial algebras for what they are, and
+comment on the relationships with our results. 
+
+Given a partial algebra $A$ and a function $f^A$, $\dom(f^A)$ is the semantic 
+function returning the domain on which $f^A$ is defined.
+A given partial algebra $A$ can be modeled by a multialgebra $\mof A$ 
+obtained in the obvious way:
+\eq{
+\begin{array}{rcl}
+\lis a\in\dom(f^A) & \Iff & f^{\mof A}(\lis a)\not=\es \\
+\lis a\in\dom(f^A) & \impl & f^{\mof A}(\lis a) = \{f^A(\lis a)\}
+\end{array}
+\label{mof}}
+That is, all operations in $\mof A$ return either the empty set (undefined),
+ or else the set containing exactly the one element returned in $A$.
+
+We list a few relevant definitions concerning partial algebras
+\begin{Definition}\label{de:PAs}
+A mapping $\phi:A\into B$ 
+%between two partial algebras 
+is a {\em weak}
+homomorphism if %it satisfies 
+$\Comp{f^A}{\phi}\klee\Comp{\phi}{f^B}$, 
+i.e.:\vspace*{.8ex} 
+
+{\em 1a)}\  $\phi(\dom(f^A)) \subseteq \dom(f^B)$, and \vspace*{.5ex} 
+{\em 2)}\  $\forall \lis a\in \dom(f^A): \phi(f^A(\lis a))= f^B(\clis a\phi())$. 
+
+
+\noindent
+Other variants are obtained by imposing additional conditions:\vspace*{.5ex}
+
+\noindent\begin{tabular}{l@{\hspace*{.2em}}cl} %@{\hspace*{-.1em}}
+ {\em tight}\footnote[8]{}  & if &   
+$\Comp{f^A}{\phi}=\Comp{\phi}{f^B}$ \ \ \ \ 
+i.e.\  $\dom(f^A)= \phi^{-}(\dom(f^B))$ \\[.5ex]
+{\em full} & if & $\forall \lis a\in A:$ %\\  & & 
+$f^B(\clis a\phi())\in \phi[A]
+\impl \exists \lis{a'}\in \dom(f^A):\phi(a'_i)=\phi(a_i)$ \\[.5ex]
+{\em full injective}\footnote[8]{} & if & 
+ it is injective, and $f^A= \Comp{\Comp{\phi}{f^B}}{\phi^{-}}$
+\end{tabular}
+\end{Definition}
+
+\noindent
+We let $\PAS$ denote a category of partial algebras (with some
+homomorphisms).\addtocounter{footnote}{1}\footnotetext{The literature 
+on partial algebras calls tight
+homomorphisms {\em closed} and the full injective ones
+{\em  relative-injective}.}
+ To indicate a specific category, we use subscript --
+$\PAw$ is the category with weak and $\PAt$ with tight homomorphisms.
+$\mof \_:\PAS\into\MAS$ is the functor sending an algebra $A\in\PAS$
+to a multialgebra $\mof A$ with the underlying set $\under{\mof
+A}=\Card A$ as defined in (\ref{mof}); and a morphism $\phi:A\into B$ onto 
+the morphism $\mof\phi:\mof A\into\mof B$ given by $\mof\phi(a)=\phi(a)$.
+Thus $\mof\_$ is essentially an inclusion since,
+disregarding some obvious ``type conversion'' of elements into
+1-element sets and adding the power-set on the top of the underlying
+set, it does not do anything interesting with  objects or morphism.
+$\mof{\PASw}$ and $\mof{\PASt}$ can be seen as 
+full subcategories of $\MASl$, resp. $\MASt$ with objects being deterministic
+multialgebras.
+It is hardly surprising that
+
+\begin{Fact}
+\label{fa:faith} 
+Functors $\mof\_:\PASw\into\MASl$ and $\mof\_:\PASt\into\MASt$ 
+are full and faithful.
+\end{Fact}
+
+\noindent
+Thus $\mof\_$ reflect limits and co-limits and many properties of the
+two categories of partial algebras follow now by revisiting the proofs
+of the respective properties in multialgebras and checking whether the
+constructions, when applied to the deterministic multialgebras, yield
+deterministic objects.  One such consequence is, for instance, that
+any set of subobjects of any algebra in $\PASw$, resp. $\PASt$, has
+intersection, in particular, that intersection of a set of tight
+subalgebras is a tight subalgebra.
+
+%----------------------------------------------------------------------
+
+Another consequence 
+is that some factorization systems for $\MASl$, resp. $\MASt$,
+yield as the special cases factorization systems for $\PASw$, resp. $\PASt$.
+The definition~\ref{de:PAs} of full homomorphisms is a special case of the
+relational definition and so corresponds to the multialgebraic one
+\ref{de:jtight}.  Thus, there is also a one-to-one correspondence:
+%between the full homomorphisms which also are surjective and the full(y-tight)
+%epis, i.e.\ 
+$\phi$ is full-surjective iff $\mof\phi$ is full(y-tight) epi.  
+Both kinds compose.
+%This fact is interesting because full-surjective homomorphisms do
+%compose, and so do fully-tight epis.
+
+As we argued after definition~\ref{de:jtight}, 
+the simplest definition of compositional homomorphisms into quotients is
+$\phi^-;R^A;\phi=R^B$.
+Its specialization for partial algebras yields a notion 
+which falls between full and full-surjective, 
+retaining all the properties which made these two notions relevant:
+\eq
+{ \forall \lis b,b:\ f^B(\lis b) =b\
+\Iff\ [\exists \lis a,a: \phi(a)=b \land \phi(a_i)=b_i
+  \land f^A(\lis a)=a\ ]
+\label{eq:ftsPA}
+}
+Full-surjective homomorphisms used as the left factor of factorization system
+satisfy this condition and can be safely replaced by such homomorphisms.
+Similarly, the constructions of quotients and associated congruences
+from $\MASw$ and $\MASt$ yield the respective partial algebra 
+notions when specialized to $\PASw$, resp. $\PASt$.
+One should nevertheless keep in mind that $\MAS$, being more general, do not contain all
+the information relevant in the study of partial algebras. Various characterizations, 
+numerous factorization systems, etc. for the latter cannot be obtained from the former.
+
+%% Compositionality and correspondences of various homomorphisms are
+%% illustrated in table \ref{ta:homs}.
+%% 
+%% \begin{table}[hbt]
+%% \begin{center}
+%% \begin{tabular}{cr|c|lc}
+%% $\Comp{\_\ }\_$ & $\phi\in\PASw$\ \ \  & 
+%%  & \ \ \ $\mof{\phi}\in\mof{\PASw}$ & $\Comp{\_\ }\_$ \\ \hline
+%% + & weak & $\Iff$ & weak & + \\
+%% + & tight & $\Iff$  & tight & +\\
+%% -- & full & $\Iff$ & full  & -- \\
+%% + & (\ref{eq:ftsPA}) & $\Iff$ & fully-tight & + \\
+%% + & full-surjective & $\Iff$ & full(y-tight) epi  & +\\
+%% +& full-injective & $\Iff$ & full  mono &  + \\
+%% & (relative injective) 
+%% \end{tabular}
+%% \end{center}
+%% \caption{Homomorphisms in $\PASw$ and $\mof{\PASw}$.}\label{ta:homs}
+%% \end{table}
+
+%=====================================================================
+
+\section{Some Concluding Observations}
+
+According to theorem~\ref{th:comp} there are only 9 compositional
+homomorphisms of relations: 1 weak (subset), 4 tight (equality) and 4 closed (superset).
+A closer study of three of them (together with the 3 respective \PS-homomorphisms) 
+shows that closed homomorphisms yield
+categories which are extremely poor in structural properties and one
+may expect that the same will be the case for the other three
+closed homomorphisms. Thus, we conjecture that there are at most
+5 ``useful'' possibilities. Among them, the 4 tight ones can be expected
+to have significant weaknesses, exemplified by the one case, $\MASt$, which we
+have studied here. 
+In any case, even if one still does not want to work with weak homomorphisms, 
+the full characterization of compositional definitions which we have given
+ can be a useful tool preventing one from looking for new, idiosyncratic
+notions serving only very peculiar purposes.
+
+
+The suggested definition of composition of relations of arbitrary
+arities turns relational structures into algebras -- namely, multialgebras.
+These provide a convenient way for algebraic study of power set structures, 
+relational structures, as well as for modeling phenomena like
+partiality and nondeterminism.
+
+\begin{LS}
+\item
+Multialgebras do not give one a grasp on the individual elements --
+ground terms may denote sets. This causes trouble in many situations,
+in particular, when constructing unique homomorphisms. Two
+homomorphisms may reflect the $\Sigma$-algebraic structure in the same
+way but still be different.  E.g., algebras with carriers $\under
+A=c^A=\{1,2\}=c^B=\under B$, even with tight homomorphisms, will have
+``only one'' homomorphism in the sense that $\phi(c^A)=c^B$ but,
+actually, there are two $\phi_1 = id$ and $\phi_2(1)=2,\ \phi_2(2)=1$.
+
+\item
+Many (counter-)examples are based on empty signatures or signatures
+with only one constant.  It seems that some nice results follow only
+if $\Sigma$ is non-void (like relevant initial objects in $\MAPSt$),
+while others only if it is void.
+\begin{LSA}
+\item
+Weak homomorphisms seem to work best in combining these two poles --
+$\MASl$ and $\MAPSl$ had most desirable properties. However, this
+happens for the cost that many categorical constructions simply yield
+degenerated cases -- empty algebras or algebras where (all) operations
+return empty set.
+\item
+The mere look at the tables~\ref{tab:A}-\ref{tab:B} could suggest that
+the weak categories $\MASl$, resp. $\MAPSl$, are most interesting. In
+fact, the corresponding tight categories $\MASt$, resp. $\MAPSt$, lack
+many of the desirable properties possessed by these weak ones.
+
+However, consulting the actual proofs and constructions we observe
+that, in the situations when some construction works in the tight
+categories, it often yields a more natural -- less degenerate and
+closer to the classical -- result than the corresponding construction
+in the weak categories. Nonexistence of some constructions in the
+tight categories is often a side-effect of excluding the degenerate
+cases admissibile in the weak categories.
+\end{LSA}
+
+\item
+There is a certain sense of correspondence between the categories
+$\MASl$ and $\MAPSt$.  The weak $\PP$-homomorphisms allow the target
+to have ``larger result sets'' than the source. Similar effect is
+achieved in $\PS$-homomorphisms in that a single element from the
+source can be mapped on a set of elements in the target. It all
+depends on what homomorphisms are supposed to be used for, but
+assuming that this kind of ``reducing the result sets'' in the source
+is intended, there seems to be little point in combining
+\PS-homomorphisms (which do that) with the weakness requirement (which
+does the same again).
+
+In fact, $\MAPSt$ seems to be the most interesting among the
+\PS-categories, in particular, due to the natural homomorphism
+condition (involving set equality) and the existence of
+interesting initial objects (not present in any other category we have
+studied). However, it is not only easier to work with
+\PP-homomorphisms -- the category $\MASl$ had, in addition to initial
+objects, factorization system and all (finite) co-limits. These may be
+strengths making it the most attractive of all the structures we have
+reviewed.
+\end{LS}
+
+
+\bibliographystyle{bibNo}
+\bibliography{my}
+
+
+\end{document}

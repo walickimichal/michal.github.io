@@ -1,0 +1,337 @@
+%\usepackage{amssymb}
+
+\newcommand{\lismn}[3]{#1_{#2}...#1_{#3}}
+\newcommand{\lisn}[2]{\lismn{#1}1{#2}}
+\newcommand{\lis}[1]{\lisn{#1}n}
+
+\newcommand{\clismn}[6]{#2#3#1_{#5}#4...#2#3#1_{#6}#4}
+\newcommand{\clisn}[5]{\clismn{#1}{#2}{#3}{#4}1{#5}}
+\newcommand{\clis}[4]{\clisn{#1}{#2}{#3}{#4}n}
+ % eg. \clis x\phi() = \phi(x_1)...\phi(x_n)
+
+% arbitrary institution
+
+\newcommand{\Mod}{\mbox{\rm\bf Mod}}
+\newcommand{\Sign}{\mbox{\rm\sf Sign}}
+\newcommand{\Sen}{\mbox{\rm\sf Sen}}
+\newcommand{\Set}{\mbox{\rm\sf Set}}
+\newcommand{\Cat}[1]{\mbox{\rm\sf #1}}
+
+% particular categories
+
+\newcommand{\MAlg}{\mbox{\rm\sf MAlg}}
+\newcommand{\Alg}{\mbox{\rm\sf Alg}}
+\newcommand{\AlgSig}{\mbox{\rm\sf AlgSig}}
+
+\newcommand{\PSt}{\mbox{\rm\sf PSet}}
+
+\newcommand{\MAS}{\MAlg(\Sigma)}
+\newcommand{\MASt}{\MAlg_{\sf T}(\Sigma)}
+\newcommand{\MASc}{\MAlg_{\sf C}(\Sigma)}
+\newcommand{\MASl}{\MAlg_{\sf W}(\Sigma)}
+\newcommand{\MASw}{\MAlg_{\sf W}(\Sigma)}
+
+\newcommand{\SSAlg}{\mbox{\sf SSAlg}}
+\newcommand{\MASS}{\SSAlg(\Sigma)}
+\newcommand{\MASSl}{\SSAlg_{\sf W}(\Sigma)}
+\newcommand{\MASSc}{\SSAlg_{\sf C}(\Sigma)}
+\newcommand{\MASSt}{\SSAlg_{\sf T}(\Sigma)}
+
+\newcommand{\PSAlg}{\mbox{\sf PSAlg}}
+\newcommand{\MAPS}{\PSAlg(\Sigma)}
+\newcommand{\MAPSl}{\PSAlg_{\sf W}(\Sigma)}
+\newcommand{\MAPSc}{\PSAlg_{\sf C}(\Sigma)}
+\newcommand{\MAPSt}{\PSAlg_{\sf T}(\Sigma)}
+
+\newcommand{\MA}[2]{\MAlg(#1,#2)}
+
+\newcommand{\Nat}{{\sf Nat}}
+
+% homomorphisms & multCats
+
+\newcommand{\epi}{{\cal E}}
+\newcommand{\mono}{{\cal M}}
+
+\newcommand{\SSs}{{\rm SS}}
+\newcommand{\PS}{{\rm PS}}
+\newcommand{\PP}{{\rm PP}}
+\newcommand{\XX}{{\rm XX}}
+
+\newcommand{\mode}[2]{#1(#2)}
+
+% specifications
+
+\newcommand{\SMod}{\mbox{\sf Mod}}
+\newcommand{\SSig}{\mbox{\sf Sig}}
+\newcommand{\SP}{\mbox{\rm SP}}
+
+% symbols
+\newcommand{\by}[2]{\stackrel{\mbox{\tiny $#2$}}{#1}}
+
+\newcommand{\suba}{\mathrel{\sqsubseteq}}
+\newcommand{\genby}[1]{\lceil #1 \rceil}
+\newcommand{\genbyL}[1]{\lceil #1 \rceil_{\sf W}}
+\newcommand{\genbyT}[1]{\lceil #1 \rceil_{\sf T}}
+\newcommand{\adj}{\mathrel{\scriptstyle\dashv}}
+\newcommand{\uni}{\upsilon}  % for unique arrows
+\newcommand{\dcup}{\uplus}  % for disjoint union
+\newcommand{\bigdcup}{\biguplus}  % for disjoint union
+
+\newcommand{\pair}[2]{\langle #1,#2\rangle}
+\newcommand{\reach}[3]{{\sf Reach}^{#1}_{#3}(#2)}
+
+\newcommand{\tinc}{\stackrel{\rm T}{\rightharpoonup}}
+\newcommand{\sinc}{\stackrel{\rm S}{\rightharpoonup}}
+\newcommand{\teq}{\stackrel{\rm T}{\rightleftharpoons}}
+\newcommand{\seq}{\stackrel{\rm S}{\rightleftharpoons}}
+\newcommand{\seteq}{\mathrel{\asymp}}
+\newcommand{\deteq}{\mathrel{\doteq}}
+
+\newcommand{\Def}{\stackrel{{\rm \tiny{def}}}=}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+
+\newcommand{\ovr}[1]{\overline {#1}}
+\newcommand{\ovl}[1]{\overline {#1}}
+\newcommand{\under}[1]{\underline {#1}}
+
+\newcommand{\quot}[2]{#1\!{\textstyle /}\!_{#2}}
+%\newcommand{\Mquo}{\mbox{$\!/\!\!/\!$}}
+\newcommand{\Mquo}{\!{\textstyle /}\!}
+
+% \newcommand{\prequot}[2]{#1\!{\textstyle /}\!\!{\textstyle /}\!_#2}
+
+\newcommand{\Comp}[2]{#1;#2}       %composition
+\newcommand{\co}[1]{\overline{#1}} %complement
+\newcommand{\inv}[1]{{#1}^-}       %inverse
+\newcommand{\La}{l_1[\phi]}
+\newcommand{\Lb}{l_2[\phi]}
+\newcommand{\Ra}{r_1[\phi]}
+\newcommand{\Rb}{r_2[\phi]}
+\newcommand{\any}{\bowtie}
+\newcommand{\antialmost}{\triangleleft}
+\newcommand{\almost}{\triangleright}
+
+\newcommand{\congo}{\sim}
+
+\newcommand{\impl}{\Rightarrow}
+\newcommand{\Iff}{\Leftrightarrow}
+\newcommand{\into}{\rightarrow} %{\longrightarrow}
+\newcommand{\incl}{\hookrightarrow}
+
+\newcommand{\sur}{\twoheadrightarrow} %amssymb
+\newcommand{\match}{\mathrel{\rightleftharpoons}}
+
+\newcommand{\iso}{\mathrel{\simeq}}
+
+
+\newcommand{\Card}[1]{|#1|}
+\newcommand{\PSet}{\wp} 
+\newcommand{\carrier}[1]{\PSet{(#1)}} %{\pair{#1}{\PSet{(#1)}}}
+\newcommand{\es}{\emptyset}
+
+\newcommand{\Cons}{\Sigma_{\epsilon}}
+\newcommand{\Terms}{{\cal T}}
+\newcommand{\GTerms}{\Terms_{\Sigma}}
+\newcommand{\VTerms}[1]{\Terms_{\Sigma}(#1)}
+\newcommand{\XTerms}{\VTerms X}
+\newcommand{\Funcs}{{\cal F}}
+\newcommand{\Sorts}{{\cal S}}
+\newcommand{\Rels}{{\cal R}}
+
+\newcommand{\Paths}{{\cal P}}
+\newcommand{\viP}{{\cal{VP}}}
+\newcommand{\vcP}{{\cal{CP}}}
+\newcommand{\vis}{{\cal V}}
+\newcommand{\hid}{{\cal H}}
+
+% Partial orders
+
+\newcommand{\po}{\subseteq}  %{\leq}
+\newcommand{\rpo}{\supseteq} %{\geq}
+\newcommand{\spo}{\subset}   %{<}
+\newcommand{\posup}{\bigcup} %{\bigvee}
+\newcommand{\fposup}{\vee} % finite \posup
+% ponizej powinno byc \bigsqcap
+\newcommand{\poinf}{\bigwedge}
+\newcommand{\fpoinf}{\wedge}
+
+\newcommand{\setsup}{\bigcup}
+\newcommand{\fsetsup}{\cup}
+\newcommand{\setinf}{\bigcap}
+\newcommand{\fsetinf}{\cap}
+
+% other
+\newcommand{\MyLPar}{\parsep -.2ex plus.2ex minus.2ex\itemsep\parsep 
+\vspace{-\topsep}\vspace{.5ex}}
+
+\newcommand{\Det}{\mbox{\sf Det}}
+\newcommand{\PDet}{\mbox{\sf PDet}}
+\newcommand{\CDet}{\mbox{\sf CDet}}
+%\newcommand{\implem}{\mbox{$\sim\!\leadsto$}}
+
+\newcommand{\re}[1]{(\ref{#1})}
+\newcommand{\refp}[1]{(\ref{#1})}
+
+% environments
+\newcommand{\eq}[1]{\vspace*{-.5ex}\begin{equation}#1\vspace*{-.5ex}\end{equation}}
+\def\theequation{\arabic{section}.\arabic{equation}}
+
+\newcounter{CLAIM}[section]
+\def\theCLAIM{\arabic{section}.\arabic{CLAIM}}
+
+\newtheorem{Claim}[CLAIM]{? Claim}   %[section]
+\newtheorem{Definition}[CLAIM]{Definition} %[section]
+\newtheorem{Fact}[CLAIM]{Fact}       %[section]
+\newtheorem{Prop}[CLAIM]{Claim}       %[section]
+\newtheorem{Lemma}[CLAIM]{Lemma}     %[section]
+\newtheorem{Example}[CLAIM]{Example} %[section]
+\newtheorem{Theorem}[CLAIM]{Theorem} %[section]
+\newtheorem{Corollary}[CLAIM]{Corollary}   %[section]
+\newenvironment{Proof}
+               {\setlength{\parskip}{2pt}
+                \setlength{\parindent}{0pt}
+                {\sc Proof:}}{\hfill{\sc qed}\vspace{1.5ex}}
+\newenvironment{Proo}
+               {\setlength{\parskip}{2pt}
+                \setlength{\parindent}{0pt}
+                {\sc ?Proof:}}{\hfill{\sc qed}\vspace{1.5ex}}
+
+\newenvironment{enum}{\begin{enumerate}\MyLPar}{\end{enumerate}}
+\newenvironment{ite}{\begin{itemize}\MyLPar}{\end{itemize}}
+
+% short, \rm versions
+\newcommand{\Pro}[1]{\begin{Prop} {\rm #1 } \end{Prop} }
+\newcommand{\Cla}[1]{\begin{Claim} {\rm #1 } \end{Claim} }
+\newcommand{\The}[1]{\begin{Theorem} {\rm #1 } \end{Theorem} }
+\newcommand{\Cor}[1]{\begin{Corollary} {\rm #1 } \end{Corollary} }
+
+% \rm Definition
+\newcommand{\Deff}[1]{\begin{Definition} 
+{\rm #1 } \hfill $\diagram \save\go[]\merge\framed\restore\enddiagram$ 
+                       \end{Definition} }
+
+
+\newenvironment{REMARK}[1]{\vspace{1ex}\par\noindent{\bf #1}}
+            {\vspace{1ex}\par\noindent\ignorespaces}
+% and numbered version
+
+\newenvironment{REMARKno}[1]{\refstepcounter{CLAIM}
+       \vspace{1ex}\par\noindent{\bf Remark \theCLAIM.\ }#1\\ }
+       {\vspace{1ex}\par\noindent\ignorespaces}
+
+% small remark
+\newenvironment{SREMARK}[1]{\vspace{1ex}\par\noindent\small{\bf #1}}
+            {\vspace{1ex}\par\noindent\normalsize\ignorespaces}
+\newenvironment{SREMARKno}[1]{\refstepcounter{CLAIM}
+       \vspace{1ex}\par\noindent\small {\bf #1\ \theCLAIM .}}
+       {\vspace{1ex}\par\noindent\normalsize\ignorespaces}
+
+\def\labelenumi{\arabic{enumi})}
+\def\theenumi{\arabic{enumi}}
+
+\def\labelenumii{\arabic{enumi}.\alph{enumii})} % makes 2.c)
+\def\theenumii{.\alph{enumii}}
+
+% co-operation (sic!) 
+
+\newcommand{\marcin}[1]{\vspace{1ex}\noindent
+       {\small{\sf [][ {\rm MB} :--\ #1 ][]}}\vspace{1ex}}
+%\newcommand{\marcin}[1]{\footnote{#1}}
+\newcommand{\michal}[1]{\vspace{1ex}\noindent
+       {\small{\sf [][ {\rm MW} :--\ #1 ][]}}\vspace{1ex}}
+%\newcommand{\michal}[1]{\footnote{#1}}
+\newcommand{\emphas}[1]{{\rm #1}}
+
+\newcommand{\ou}{$\!\!,$} % do polskich ogonkow
+
+%%%% Partial Algebras
+\newcommand{\klee}{\mathrel{{\scriptstyle{\sqsubseteq}}}}
+\newcommand{\dual}[1]{\tilde{#1}}
+\newcommand{\dom}{\mbox{\sf dom}}
+\newcommand{\map}[3]{#1\stackrel{#2}{\into} #3}
+\newcommand{\mapp}[5]{#1\stackrel{#2}{\into} #3\stackrel{#4}{\into} #5}
+\newcommand{\ptm}[2]{{#2#1}}
+%\newcommand{\mof}[1]{M\!#1}
+\newcommand{\mof}[1]{\hat{#1}} %{\breve{#1}}
+
+\newcommand{\PAlg}{\mbox{\rm\sf PAlg}}
+\newcommand{\PAS}{\PAlg(\Sigma)}
+\newcommand{\PAw}{\PAlg_{\sf W}}
+\newcommand{\PAt}{\PAlg_{\sf T}}
+\newcommand{\PASw}{\PAw(\Sigma)}
+\newcommand{\PASt}{\PAt(\Sigma)}
+
+%%%%% diagrams
+\newcommand{\scol}[1]{\spreaddiagramcolumns{#1}}
+\newcommand{\srow}[1]{\spreaddiagramrows{#1}}
+\newcommand{\maly}[2]{
+  \scol{-#1pc}\srow{-#2pc}\def\objectstyle{\scriptstyle}\def\labelstyle{\scriptstyle}}
+
+%%%%% BAO
+\newcommand{\join}{\lor}
+\newcommand{\meet}{\land}
+
+%%%%%%%%%%%%%%%% Nested list-environments %%%%%%%%%%%%%%%%
+
+\newcounter{ax}
+\newcounter{axA}[ax]
+\newcounter{axB}[axA]
+\newcounter{axC}[axB]
+\newcounter{axD}[axC]
+\def\theax{{\normalsize{\sf \arabic{ax})}}}
+\def\theaxA{{\normalsize{\sf \arabic{ax}.\arabic{axA})}}}
+\def\theaxB{{\normalsize{\sf \arabic{ax}.\arabic{axA}.}}{\footnotesize{\sf \arabic{axB}}})}
+\def\theaxC{{\normalsize{\sf \arabic{ax}.\arabic{axA}.\arabic{axB}.}}{\footnotesize{\sf \arabic{axC}}})}
+\def\theaxD{{\normalsize{\sf
+\arabic{ax}.\arabic{axA}.\arabic{axB}.\arabic{axC}.}{\footnotesize{\sf \arabic{axD}}}})}
+
+\def\marg{1.2em}
+\def\margA{0em}
+\def\margB{.5em}
+\def\margC{.5em}
+\def\margD{.5em}
+
+\newenvironment{LS}{\begin{list}{\normalsize {\sf \arabic{ax}})}{\leftmargin
+\marg \usecounter{ax}}}{\end{list}}
+\newenvironment{LSA}{\begin{list}{{\normalsize {\sf \arabic{ax}.\arabic{axA}})}}
+ {\leftmargin \margA \labelwidth -\labelsep \topsep .8ex \itemsep 1ex \usecounter{axA}}} {\end{list}}
+\newenvironment{LSB}{\begin{list}{{\normalsize {\sf \arabic{ax}.\arabic{axA}.}}{\footnotesize{\sf \arabic{axB}}})}
+ {\leftmargin \margB \labelwidth -\labelsep \topsep .8ex \itemsep 1.5ex  \usecounter{axB}}} {\end{list}}
+\newenvironment{LSC}{\begin{list}{{\normalsize {\sf
+\arabic{ax}.\arabic{axA}.\arabic{axB}.}}{\footnotesize{\sf \arabic{axC}}})}
+ {\leftmargin \margC \labelwidth -\labelsep \topsep .8ex \itemsep 1.5ex \usecounter{axC}}} {\end{list}}
+\newenvironment{LSD}{\begin{list}{{\normalsize {\sf
+\arabic{ax}.\arabic{axA}.\arabic{axB}.\arabic{axC}.}}{\footnotesize {\sf \arabic{axD}}})}
+ {\leftmargin \margD \labelwidth -\labelsep \topsep 1ex \itemsep 1.5ex \usecounter{axD}}} {\end{list}} 
+
+%%%%%%%%%%%%%%%%%%%% end of nested-lists %%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%% hypergraphs etc. %%%%%%%%%%%%%
+\newcommand{\gr}[1]{{\sf Gr}(#1)}
+\newcommand{\hype}[3]{\<#1\>\by{\rightarrow}{#2}\{#3\}}
+\newcommand{\hypa}[3]{\<#1\> & \by{\longrightarrow}{#2} & \{#3\}}
+\newcommand{\hypd}[3]{\<#1\>\by{\rightarrow}{#2}#3}
+\newcommand{\hypcont}[2]{\by{\rightarrow}{#1}#2}
+\newcommand{\ngr}[1]{\{\ \begin{array}[t]{rcll}#1\ & \}\end{array}}
+\newcommand{\frl}{\save\go[]\merge\framed<5pt>\restore}
+%\newcommand{\frd}{{\ellipse<>{.}}}
+\newcommand{\ppath}[3]{#1^{#3}(#2)}
+\newcommand{\path}[2]{\ppath P{#1}{#2}}
+\newcommand{\din}{\mathrel{\triangleleft}}
+\newcommand{\dum}{\diamond}
+\newcommand{\cont}{C\<\dum\>}
+\newcommand{\contA}[1]{C\<#1\>}
+\newcommand{\dc}{[]}
+
+%%%% bullshit for bad bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{BIB}
+\newcommand{\citeauthoryear}[3]{{#2}~#3}
+\newcommand{\bibsc}[1]{{\sc{#1}}}
+\newcommand{\bibyear}[1]{#1}
+\newcommand{\bibemphic}[1]{{\em #1}}
+\newcommand{\bibemph}[1]{{\em #1}}
+
+%==============================================================================

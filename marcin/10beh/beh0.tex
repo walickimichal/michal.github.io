@@ -1,0 +1,296 @@
+\documentclass[10pt]{article}
+%\documentstyle[a4,fullpage,12pt,oldlfont]{article}
+
+\makeatletter
+\input{a4wide}
+\makeatother
+
+\input{defs}
+
+% specifications
+
+\newcommand{\abs}[2]{{\rm \bf abstract}\ \mbox{#1}\ {\rm \bf wrt}\ #2}
+\newcommand{\beh}[2]{{\rm \bf behaviour}\ \mbox{#1}\ {\rm \bf wrt}\ #2}
+\newcommand{\deter}[1]{{\rm \bf determinize}\ \mbox{#1}}
+\newcommand{\derive}[2]{{\rm \bf derive}\ \mbox{#1}\ {\rm \bf by}\ #2}
+\newcommand{\der}[2]{{\rm \bf derive}\ \mbox{#1}\ {\rm \bf by}\ #2}
+\newcommand{\trans}[2]{{\rm \bf translate}\ \mbox{#1}\ {\rm \bf along}\ #2}
+\newcommand{\unite}[2]{{\rm \bf unite}\ \mbox{#1}\ {\rm \bf and}\ \mbox{#2}}
+
+\newcommand{\Sort}{\mbox{\it Sorts}}
+\newcommand{\Op}{\mbox{\it Ops}}
+
+%--------------------------------------------------------------------
+% symbols
+
+\newcommand{\simH}{\by\sim H}
+\newcommand{\simV}{\by\sim F}
+
+%% \newcommand{\Det}{\mbox{\sf Det}}
+%% \newcommand{\CDet}{\mbox{\sf CDet}}
+\newcommand{\Beh}{\mbox{Beh}}
+\newcommand{\Abs}{\mbox{Abs}}
+%% \newcommand{\Mquo}{\mbox{$/\!\!/$}}
+\newcommand{\Eq}{\mbox{Eq}}
+\newcommand{\imp}{\mbox{$\sim\!\leadsto$}}
+\newcommand{\val}[1]{\mbox{$\overline{#1}$}}
+\newcommand{\Obs}{\rm Obs}
+\newcommand{\nlet}[3]{[{\sf let}\ #1 := #2\ {\sf in}\ #3\ {\sf ni}]}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\lc}{\langle}
+\newcommand{\rc}{\rangle}
+\newcommand{\ec}{\sim_c}
+\newcommand{\er}{\sim_r}
+\newcommand{\ep}{\sim_p}
+\newcommand{\obs}{\equiv_{\Obs}}
+\newcommand{\sqs}{\sqsubseteq}
+\newcommand{\close}[1]{|\!|#1|\!|}
+\newcommand{\smodels}{\:|\!\!\!\approx}
+\newcommand{\kap}{\kappa}
+
+%--------------------------------------------------------------------
+% pretty definitions
+
+\newcommand{\givedef}[2]
+            {\begin{tabular}{p{1.25cm}p{0.35cm}p{13.75cm}}
+                    #1 & {\rm iff} & #2 
+             \end{tabular} \\[2mm] }
+
+%--------------------------------------------------------------------
+% environments
+
+%% \newenvironment{Proof}
+%%                {\setlength{\parskip}{5pt}
+%%                 \setlength{\parindent}{0pt}
+%%                 {\sc Proof:}}{\hfill{\sc qed}$\:$\raisebox{-1pt}{$\Box$}}
+
+\newcommand{\Dybdy}[1]{\begin{Definition} \ \\
+                       \indent {\rm #1 } \hfill$\Box$ 
+                       \end{Definition} }
+
+\newcommand{\support}{This research was supported by the Polish
+Research Committee and by the Norwegian Research Council.}
+
+\input{xypic}
+%\xyoption{curve}
+\xyoption{arc}
+%--------------------------------------------------------------------
+% the document
+
+\begin{document} 
+
+%%\
+
+%%\vspace{2cm}
+
+%% \begin{center}
+%% {\Large\bf Behavioural Satisfaction and Equivalence \\
+%%         in Nondeterministic Algebras\footnote{\support} }\\[0.8cm] 
+%% {\large Marcin Bia\l{}asik }\\[0.4cm] 
+%%         Institute of Computer Science \\
+%%         Polish Academy of Sciences \\
+%%         ul.\ Ordona 21, Warsaw, Poland \\
+%%         {\tt marcinb@ipipan.waw.pl} \\
+\today 
+%% \end{center}
+%% \medskip
+
+%==============================================================================
+%
+%
+
+\section{Abs $>$ ND, and so ND+Abs $>$ ND}
+
+\section{assuming for determinism:}
+\[\begin{array}{rcl}
+\SMod(\beh{SP}\sim) & = & \SMod(\abs{SP}\equiv) \\
+ \{A: A/_\sim\in\SMod(SP)\}  & = & \{A: \exists B\in\SMod(SP): A\equiv
+B\} \\
+ & = & \SMod(\{t=s:SP\vdash t=s:
+t,s\in T(X_{V})_V\})
+\end{array}
+\]
+
+\section{three (++?) levels of definition:}
+ 
+\begin{enumerate}\MyLPar 
+\item\label{it:h} $\simH$ defined by obervations on $H$-values
+  \begin{enumerate}\MyLPar
+   \item any 1-step transition -- full bisimilarity
+   \item any transition into $V$ -- visible bisimilarity (see Fig.~\ref{fi:Vbisim}),
+   context indistinguishability
+  \end{enumerate}
+\item\label{it:vf} $\simV$ defined by preservation of $V$-formulae: observational
+ wrt. $\alpha$'s iff $A\models\alpha\Iff A/_{\sim}\models\alpha$ --
+ too rough, but... 
+\item\label{it:ext} external $M\equiv N$ 
+\end{enumerate}
+Consider:
+%
+\begin{itemize}
+\item [$\neg$3.a] \ref{it:h} vs. formulae for \ref{it:vf}.
+\begin{figure}[ht]
+ \[ \maly{1.5}{0.5}
+ \diagram
+ V: &&&&& 0 & & 1 &&& 0 & & 1 \\
+ H: \ar[u]^f &&&&& x\ar[u] &\simV & y\ar[u] &&& & xy \ar[ul] \ar[ur] & \\
+ V: \ar[u]^g &&&&& & a \ar @{-}[ul] \ar @{-}[ur] &  &&& & a \ar @{-}[u]
+ \enddiagram
+\]
+\caption{}\label{fi:Vbisim}
+\end{figure}
+
+No matter what, we cannot have $x\simH y$, since $f(x)\not=f(y)$. But in both we do have
+$f(g(a))=\{0,1\}$ -- the same $V$-formulae are satisfied (unless we admit bindings).
+\item[$\neg$3.b]
+On the other hand, \ref{it:vf}: $s^M=\es\subseteq \{3\}=t^M$ and 
+ $s^N=\{1,2\}\subseteq \{1,2,3\}=t^N$ -- should it $\impl M\equiv 
+ N$ ? Notice that this can be achieved using $H$ on fully abstract 
+ multis, with $s=f(g(a))$ and $t=h(g(a)):$
+\begin{figure}[ht]
+\[ \maly{1.5}{0.5}
+\diagram
+V: &&&&&   1 & 2& 3             
+  &&&&& 1 & 2 %{\ellipse(7,3){.}} 
+                & 3  \\
+H: \ar^{f}_{h}[u]   &&&&& & x \ar@{{}{.}{>}}_{h}[ur] &
+   &M&\by{\equiv}{?}&N&&   & x \ar^{f}[ul] \ar[u]\ar @{{}{.}{>}}_{h}[ur] &     \\
+ V: \uto^g &&&&& & a \ar @{-}[u] &
+   &&&&&   & a \ar @{-}[u] &     
+\enddiagram
+\]
+\caption{}\label{fi:noVF}
+\end{figure}
+
+This also shows that even if $M$ and $N$ are fully abstract, \\
+$M\equiv 
+N\not\impl\forall B\in\CDet(N)\exists A\in\CDet(M):A\equiv B$.
+\item[?3.c] $M\equiv N \by{\Iff}{?} \CDet(M)\iso\CDet(N)$ (implies \ref{it:vf}?)
+\end{itemize}
+
+\section{? wish:}
+% \begin{itemize}\MyLPar
+% \item 
+$\not\sim$ monototone wrt. the number of Obs-ervations; and
+\[\begin{array}{c@{\ }|@{\ }c@{\ \ }l}
+{\rm rel.} & {\rm  preserved\ under\ }Det & \\ \hline
+\sim &  no & f(x)\seteq f(y) \\
+\not\sim & no & f(x)\cap f(y)\not=\es \\ \hline
+\subseteq, \seteq, \frown & no \\
+\not\frown, ',\deteq & yes & 
+\end{array}
+\]
+
+\section{hierarchy of observations: }
+$\{t(x), let, \in\}\times\{\subseteq,
+\frown,\ldots\}$
+
+\section{does any of the above classes have largest observational
+equivalence?}
+$\forall A\in\MAlg(\Sigma) \exists {\rm largest}\ \sim_A\  \impl 
+ (A \equiv B \Iff A/_{\sim_{A}} \simeq B/_{\sim_{B}})$ ?
+
+\section{Perhaps: for \ref{it:ext}}
+Hypergraphs for terms: Given a multi $M$ and a term 
+$h(g(v_1,v_2),v_3)$, with 
+\begin{itemize}\MyLPar
+\item $h(a,v_3)^{M}= \{0,1\}$, $h(b,v_3)^{M}= \{1,2,3\}$ and
+$g(v_1,v_2)^{M}=\{a,b\}$,
+\end{itemize} 
+its hypergraph $\gr M = \ngr{ \hypa{a,v_{3}}{h}{0,1} \\ 
+\hypa{{b,v_{3}}}{h}{{1,2,3}} \\ \hypa{{v_{1},v_{2}}}{g}{{a,b}} }$ 
+
+is shown on the left
+\[\maly{.5}{1}
+\diagram
+M:& 0 & 1 & 2 & 3   &&&&&N:&  0 & 1 & 2 & 3 \\
+& \frl h \uto \ar @{{}{.}>}[ur] & & 
+\frl h \ulto \uto \urto &  &&&&&&
+ & & \frl h \uto \ar @{{}{.}>}[ul]  \ullto \urto \\
+& a \ar @{.}[u]|1 & &  b \ar@{-}[u]|1 &  &&&&&& 
+ & & c \ar @{.}[u]|1 \\
+& & \frl g \ar @{{}{.}>}[ul] \urto  & &   &&&&&&  
+ & \frl g \ar @{{}{.}>}[ur] \\
+& v_1 \ar @{.}[ur]|1 & & v_2 \ar @{.}[ul]|2 &  v_3 \ar @{.}[uuulll]|>>>2 
+\ar@{-}[uuul]|2  &&&&&&
+ v_1 \ar @{.}[ur]|1 & & v_2 \ar @{.}[ul]|2 &  v_3 \ar @{.}[uuul]|2
+\enddiagram
+\]
+On the right, there is a hypergraph for another multi $N$.
+
+A {\em path} for a term, e.g. $h(g(v_1,v_2),v_3)$, is indicated with 
+dotted arrows. It amounts to picking one unique element from the 
+target of each hyperedge of the term in a consistent way.
+The indicated paths on both graphs are the first two below; the last 
+one is yet another path in $\gr M:$
+\[\begin{array}{l@{\hspace*{2em}}l@{\hspace*{2em}}l}
+\ngr{ \hypa{{v_{1},v_{2}}}{g}{{a}} \\ \hypa{a,v_{3}}{h}{1} } & 
+\ngr{  \hypa{{v_{1},v_{2}}}{g}{c} \\ \hypa{c,v_{3}}{h}{1}  } &
+\ngr{ \hypa{{v_{1},v_{2}}}{g}{{b}} \\ \hypa{b,v_{3}}{h}{1} } 
+\end{array}
+\]
+The point is that, modulo the hidden values $a,b,c$, through which 
+these paths pass, they are equivalent and all correspond to a
+determinization of the term $h(g(v_1,v_2),v_3)$ which returns $1$.
+%
+\Dybdy{
+A (directed) hypergraph is a tuple $\<V,E,arg,res\>$ where:
+\begin{itemize}\MyLPar
+\item $V$ is a set of vertices and $E$ a set of edges
+\item $arg:E\into V^{*}$ -- the sequence of {\em arguments} for each edge
+\item $res:E\into \PSet(V)$ -- the set of {\em results} for each edge
+\end{itemize}
+A labelled hypergraph has, in addition, a set 
+of symbols $S$ and a function $lab:E\into S$. An edge is written 
+$\<arg,lab,res\>$.
+} %\end{Definition}
+Notice that, since $arg$ returns a sequence, we allow repetitions.
+%
+\begin{Definition}
+Given a signature $\Sigma=\<\Sorts,\Funcs\>$ and a $\Sigma$-multi $M$, its hypergraph 
+$\gr M$ is given by:
+\begin{itemize}\MyLPar
+\item $V=\bigcup_{S\in\Sorts}S^{M}\cup\{\cdot\}$
+\item for each constant $[c:\ \into S]\in\Funcs$, an edge 
+$E(c)=\<\cdot,c,c^{M}\>$
+\item for each function $[f:S_{1}\times\ldots\times S_{n}\into 
+S]\in\Funcs$ and each sequence $\lis x$ with $x_{i}\in 
+S^{M}_{i}$, an edge $E(\lis x,f) = \<\<\lis x\>,f, f^{M}(\lis x)\>$
+\end{itemize}
+\end{Definition}
+For an edge $e=\<\<\lis x\>,f, res\>$ we will often write 
+$arg_{i}(e)$ for its $i$-th argument. A $det$-edge is an edge $d$ 
+with $|res(d)|=1$ -- we write $d\in e$ if $lab(d)=lab(e)$, 
+$arg(d)=arg(e)$ and $res(d)\in res(e)$.
+%
+\begin{Definition}
+Given a term $t\in\XTerms$, and an 
+assignment $\alpha:X\into M$, a {\em path} $\path t{\alpha}$ for $t,\alpha$ 
+is a hypergraph with only $det$-edges defined 
+inductively:
+\begin{itemize}\MyLPar
+\item for $x\in X: \path x\alpha = \<\cdot,x,\alpha(x)\>$, with 
+$arg(\path x\alpha)=x$ and $res(\path x\alpha)=\alpha(x)$.
+\item for a constant $c$, a $\path c\alpha = e\in E(c)$, with 
+$arg(\path c\alpha)=c$ and $res(\path c\alpha)=res(e)$.
+\item for $t=f(\lis t)$, a path $\path{t}\alpha$ is 
+$[\ppath{P_{1}}{t_{1}}\alpha...\ppath{P_{n}}{t_{n}}\alpha,e]$ where 
+ \begin{itemize}
+  \item for each $i$, $\ppath{P_{i}}{t_{i}}\alpha$ is a path for $t_{i}$
+  \item $arg_{i}(e)=res(\ppath{P_{i}}{t_{i}}\alpha$ and 
+  \item $e\in E(arg_{1}(e)...arg_{n}(e),f)$
+ \end{itemize} 
+We then let $arg(\path{t}\alpha)=\bigcup_{i} 
+arg(\ppath{P_{i}}{t_{i}}\alpha$ and 
+$res(\path{t}\alpha = res(e)$.
+\end{itemize}
+\end{Definition}
+
+
+ Given 
+$A,B\in\CDet$ with $V^{A}=V^{B}$, we define $A\simeq B$ iff 
+
+
+\end{document}
+
+

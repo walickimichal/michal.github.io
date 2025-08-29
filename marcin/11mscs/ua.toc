@@ -1,0 +1,23 @@
+\protect \contentsline {section}{\protect \numberline {1}Introduction}{2}
+\protect \contentsline {section}{\protect \numberline {2}Relational structures and compositionality}{4}
+\protect \contentsline {paragraph}{Full homomorphisms}{5}
+\protect \contentsline {paragraph}{In- and outdegree}{5}
+\protect \contentsline {subsection}{\protect \numberline {2.1}Compositional Homomorphisms}{5}
+\protect \contentsline {subsection}{\protect \numberline {2.2}Congruences on relational structures}{8}
+\protect \contentsline {section}{\protect \numberline {3}Multialgebras}{10}
+\protect \contentsline {subsection}{\protect \numberline {3.1}Boolean algebras with operators}{11}
+\protect \contentsline {subsection}{\protect \numberline {3.2}Categories of Multialgebras}{13}
+\protect \contentsline {subsection}{\protect \numberline {3.3}Epi-mono factorisation}{16}
+\protect \contentsline {subsection}{\protect \numberline {3.4}Subobjects}{19}
+\protect \contentsline {subsubsection}{\protect \numberline {3.4.1}A few remarks on Generatedness}{20}
+\protect \contentsline {subsection}{\protect \numberline {3.5}Limits and co-limits in $\unhbox \voidb@x \hbox {\protect \rm \protect \sf MAlg}(\Sigma )$.}{22}
+\protect \contentsline {subsubsection}{\protect \numberline {3.5.1}Completeness and Co-completeness of $\unhbox \voidb@x \hbox {\protect \rm \protect \sf MAlg}_{\protect \sf W}(\Sigma )$.}{22}
+\protect \contentsline {subsubsection}{\protect \numberline {3.5.2}The categories $\unhbox \voidb@x \hbox {\protect \rm \protect \sf MAlg}_{\protect \sf T}(\Sigma )$ and $\unhbox \voidb@x \hbox {\protect \rm \protect \sf MAlg}_{\protect \sf C}(\Sigma )$.}{23}
+\protect \contentsline {section}{\protect \numberline {4}Homomorphisms as Relations}{25}
+\protect \contentsline {subsection}{\protect \numberline {4.1}The category \unhbox \voidb@x \hbox {\protect \rm \protect \sf PSet}}{27}
+\protect \contentsline {subsection}{\protect \numberline {4.2}The categories $\unhbox \voidb@x \hbox {\protect \sf PSAlg}(\Sigma )$}{28}
+\protect \contentsline {section}{\protect \numberline {5}Partial Algebras}{32}
+\protect \contentsline {subsection}{\protect \numberline {5.1}Partial algebras -- basics}{32}
+\protect \contentsline {subsection}{\protect \numberline {5.2}Some relationships}{33}
+\protect \contentsline {subsection}{\protect \numberline {5.3}Full and fully-tight homomorphisms.}{34}
+\protect \contentsline {section}{\protect \numberline {6}Some Concluding Observations}{35}

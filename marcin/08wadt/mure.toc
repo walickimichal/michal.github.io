@@ -1,0 +1,18 @@
+\protect \contentsline {section}{\protect \numberline {1}Introduction}{1}
+\protect \contentsline {section}{\protect \numberline {2}Relational structures and compositionality}{4}
+\protect \contentsline {subsection}{\protect \numberline {2.1}Compositional Homomorphisms}{5}
+\protect \contentsline {subsection}{\protect \numberline {2.2}Congruences on relational structures}{7}
+\protect \contentsline {section}{\protect \numberline {3}Multialgebras}{8}
+\protect \contentsline {subsection}{\protect \numberline {3.1}Epi-mono factorisation}{10}
+\protect \contentsline {subsection}{\protect \numberline {3.2}Subobjects}{11}
+\protect \contentsline {subsection}{\protect \numberline {3.3}Limits and co-limits in $\unhbox \voidb@x \hbox {\protect \rm \protect \sf MAlg}(\Sigma )$.}{11}
+\protect \contentsline {subsubsection}{\protect \numberline {3.3.1}Completeness and Co-completeness of $\unhbox \voidb@x \hbox {\protect \rm \protect \sf MAlg}_{\protect \sf W}(\Sigma )$.}{12}
+\protect \contentsline {subsubsection}{\protect \numberline {3.3.2}The categories $\unhbox \voidb@x \hbox {\protect \rm \protect \sf MAlg}_{\protect \sf T}(\Sigma )$ and $\unhbox \voidb@x \hbox {\protect \rm \protect \sf MAlg}_{\protect \sf C}(\Sigma )$.}{13}
+\protect \contentsline {section}{\protect \numberline {4}Homomorphisms as Relations}{15}
+\protect \contentsline {subsection}{\protect \numberline {4.1}The category \unhbox \voidb@x \hbox {\protect \rm \protect \sf PSet}}{16}
+\protect \contentsline {subsection}{\protect \numberline {4.2}The categories $\unhbox \voidb@x \hbox {\protect \sf PSAlg}(\Sigma )$}{18}
+\protect \contentsline {section}{\protect \numberline {5}Partial Algebras}{22}
+\protect \contentsline {subsection}{\protect \numberline {5.1}Partial algebras -- basics}{22}
+\protect \contentsline {subsection}{\protect \numberline {5.2}Some relationships}{23}
+\protect \contentsline {subsection}{\protect \numberline {5.3}Full and fully-tight homs.}{24}
+\protect \contentsline {section}{\protect \numberline {6}Some Concluding Observations}{25}

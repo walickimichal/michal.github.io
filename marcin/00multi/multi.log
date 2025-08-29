@@ -1,0 +1,205 @@
+This is TeX, Version 3.1415 (C version 6.1) (format=latex 94.6.28)  6 NOV 1995 20:20
+**&latex2e multi
+(multi.tex
+LaTeX2e <1994/06/01> patch level 2
+Hyphenation patterns for english, norsk, swedish, danish,
+german & francais loaded.
+(/local/TeX/macros/LaTeX/latex209.def
+File: latex209.def 1994/06/01 Standard LaTeX file
+
+Entering LaTeX 2.09 compatibility mode.
+\footheight=\dimen102
+\@maxsep=\dimen103
+\@dblmaxsep=\dimen104
+(/local/TeX/macros/LaTeX/tracefnt.sty
+Package: tracefnt 1994/05/29 v2.3k Standard LaTeX package (font tracing)
+\tracingfonts=\count82
+LaTeX Info: Redefining \selectfont on input line 113.
+)
+\symbold=\mathgroup4
+\symsans=\mathgroup5
+\symtypewriter=\mathgroup6
+\symitalic=\mathgroup7
+\symsmallcaps=\mathgroup8
+\symslanted=\mathgroup9
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 179.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 180.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 181.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 187.
+LaTeX Info: Redefining \em on input line 197.
+ (/local/TeX/macros/LaTeX/latexsym.sty
+Package: latexsym 1994/05/27 v2.1e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup10
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+LaTeX Font Info:    Redeclaring math delimiter \lgroup on input line 262.
+LaTeX Font Info:    Redeclaring math delimiter \rgroup on input line 264.
+LaTeX Font Info:    Redeclaring math delimiter \bracevert on input line 266.
+)
+(/local/TeX/macros/LaTeX/article.cls
+Document Class: article 1994/06/02 v1.2s Standard LaTeX document class
+(/local/TeX/macros/LaTeX/size12.clo
+File: size12.clo 1994/06/02 v1.2s Standard LaTeX file (size option)
+)
+\c@part=\count83
+\c@section=\count84
+\c@subsection=\count85
+\c@subsubsection=\count86
+\c@paragraph=\count87
+\c@subparagraph=\count88
+\c@figure=\count89
+\c@table=\count90
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+Compatibility mode: definition of \rm ignored.
+Compatibility mode: definition of \sf ignored.
+Compatibility mode: definition of \tt ignored.
+Compatibility mode: definition of \bf ignored.
+Compatibility mode: definition of \it ignored.
+Compatibility mode: definition of \sl ignored.
+Compatibility mode: definition of \sc ignored.
+\bibindent=\dimen105
+) (marcin.sty
+Document Style `marcin' <19 May 1992>.
+\firstpagetopspace=\dimen106
+\longindentation=\dimen107
+\indentedwidth=\dimen108
+)
+\c@Definition=\count91
+\c@Fact=\count92
+\c@Lemma=\count93
+\c@Example=\count94
+\c@Theorem=\count95
+\c@Corollary=\count96
+\c@CLAIM=\count97
+ (/local/TeX/macros/XY-pic/xypic.tex (/local/TeX/macros/XY-pic/xyv2.tex
+(/local/TeX/macros/XY-pic/xy.tex Bootstrap'ing: catcodes, docmode,
+(/local/TeX/macros/XY-pic/xyidioms.tex)
+
+ XY-pic version 2.12 <1994/10/25>
+ Copyright (c) 1991-1994 by Kristoffer H. Rose <kris@diku.dk>
+ XY-pic is free software: see the User's Guide for details.
+
+Loading kernel: messages; fonts; allocations: state,
+\Xc=\dimen109
+\Yc=\dimen110
+\Uc=\dimen111
+\Dc=\dimen112
+\Lc=\dimen113
+\Rc=\dimen114
+\Edgec=\toks15
+\Xp=\dimen115
+\Yp=\dimen116
+\Up=\dimen117
+\Dp=\dimen118
+\Lp=\dimen119
+\Rp=\dimen120
+\Edgep=\toks16
+\Xorigin=\dimen121
+\Yorigin=\dimen122
+\Xxbase=\dimen123
+\Yxbase=\dimen124
+\Xybase=\dimen125
+\Yybase=\dimen126
+\Xmin=\dimen127
+\Ymin=\dimen128
+\Xmax=\dimen129
+\Ymax=\dimen130
+\lastobjectbox@=\box25
+\zerodotbox@=\box26
+ direction,
+\dX=\dimen131
+\dY=\dimen132
+\K=\count98
+\KK@=\count99
+\Direction=\count100
+\K@dXdY=\dimen133
+\K@dYdX=\dimen134
+\xyread@=\read1
+\xywrite@=\write4
+\csp@=\count101
+\quotPTK@=\dimen135
+
+utility macros; pictures: \xy, positions, objects, decorations;
+kernel objects: directionals, circles, text; options; algorithms: directions,
+edges, connections; XY-pic loaded)
+XY-pic option: Version 2 Compatibility feature v.2.12
+
+XY-pic Warning: `\stop' redefined.
+
+(/local/TeX/macros/XY-pic/xyframe.tex
+XY-pic option: Frame and Bracket extension v.2.12 loaded)
+(/local/TeX/macros/XY-pic/xymatrix.tex XY-pic option: Matrix feature v.2.12
+\row@=\count102
+\col@=\count103
+\queue@=\toks17
+\queue@@=\toks18
+\qcount@=\count104
+\qcount@@=\count105
+\matrixsize@=\count106
+
+loaded) (/local/TeX/macros/XY-pic/xyarrow.tex
+XY-pic option: Arrow and Path feature v.2.12 path, \ar, loaded)
+\xydiagramno@=\count107
+ loaded))
+(multi.aux)
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    No math setup on input line 182.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 182.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 182.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 182.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 182.
+ (/local/TeX/macros/LaTeX/Ulasy.fd
+File: Ulasy.fd 1994/05/27 v2.1eLaTeX symbol font definitions
+) [1
+
+] [2] [3] <xymatrix 10x4 894>
+Overfull \hbox (21.60936pt too wide) in paragraph at lines 423--444
+\OT1/cmr/m/n/12 use al-ter-na-tive rep-re-sen-ta-tions. For in-stance, $\OML/cm
+m/m/it/12 M \OT1/cmr/m/n/12 = \OMS/cmsy/m/n/12 f\OT1/cmr/m/n/12 1\OML/cmm/m/it/
+12 ; \OT1/cmr/m/n/12 2\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 3\OML/cmm/m/it/12 ; \O
+T1/cmr/m/n/12 4\OML/cmm/m/it/12 ; \OMS/cmsy/m/n/12 f\OT1/cmr/m/n/12 1\OML/cmm/m
+/it/12 ; \OT1/cmr/m/n/12 2\OMS/cmsy/m/n/12 g\OML/cmm/m/it/12 ; \OMS/cmsy/m/n/12
+ f\OT1/cmr/m/n/12 1\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 2\OML/cmm/m/it/12 ; \OT1/
+cmr/m/n/12 3\OMS/cmsy/m/n/12 g\OML/cmm/m/it/12 ; \OMS/cmsy/m/n/12 f\OT1/cmr/m/n
+/12 1\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 2\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 4\O
+MS/cmsy/m/n/12 g\OML/cmm/m/it/12 ; \OMS/cmsy/m/n/12 f\OT1/cmr/m/n/12 1\OML/cmm/
+m/it/12 ; \OT1/cmr/m/n/12 2\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 3\OML/cmm/m/it/12
+ ; \OT1/cmr/m/n/12 4\OMS/cmsy/m/n/12 gg$
+ []
+
+[4] [5]
+LaTeX Font Info:    No math setup on input line 555.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <17.28> on input line 555.
+LaTeX Font Info:    No math setup on input line 559.
+ [6] <xymatrix 11x4 970> [7] [8] [9] (ex1.xyc
+compiled 1995/10/30:1213 [multi:816] loaded) (ex2.xyc
+compiled 1995/10/30:1213 [multi:831] loaded) (ex3.xyc
+compiled 1995/10/31:1116 [multi:851] loaded) [10] <xymatrix 6x3 379> [11]
+[12] [13] [14] [15] [16] (multi.aux) ) 
+Here is how much of TeX's memory you used:
+ 1754 strings out of 11024
+ 15518 string characters out of 74866
+ 116993 words of memory out of 262141
+ 4523 multiletter control sequences out of 9500
+ 18196 words of font info for 68 fonts, out of 100000 for 255
+ 14 hyphenation exceptions out of 607
+ 23i,15n,21p,472b,482s stack positions out of 300i,40n,60p,3000b,4000s
+
+Output written on multi.dvi (16 pages, 86760 bytes).

@@ -1,0 +1,959 @@
+\documentclass[10pt]{article}
+%\documentstyle[a4,fullpage,12pt,oldlfont]{article}
+
+%\usepackage{amssymb}
+
+\makeatletter
+\input{a4wide}
+\makeatother
+
+\input{defs}
+
+\newcounter{COMMENT}
+\def\margCom{2em}
+\newenvironment{comm}{\refstepcounter{COMMENT}\begin{list}{\normalsize}
+  {\leftmargin\margCom \rightmargin\margCom}}{\end{list}}
+\newcommand{\com}[1]{\begin{comm}\item[{\large\bf ?\ }] 
+   {\small\bf{\theCOMMENT.#1}} \dotfill{{\large\bf ?}} \end{comm}}
+
+\newcounter{CONT}
+% specifications
+
+\newcommand{\abs}[2]{{\rm \bf abs}\ \mbox{#1}\ {\rm \bf wrt}\ #2}
+\newcommand{\beh}[2]{{\rm \bf beh}\ \mbox{#1}\ {\rm \bf wrt}\ #2}
+\newcommand{\deter}[1]{{\rm \bf det}\ \mbox{#1}}
+\newcommand{\derive}[2]{{\rm \bf derive}\ \mbox{#1}\ {\rm \bf by}\ #2}
+\newcommand{\der}[2]{{\rm \bf derive}\ \mbox{#1}\ {\rm \bf by}\ #2}
+\newcommand{\trans}[2]{{\rm \bf translate}\ \mbox{#1}\ {\rm \bf along}\ #2}
+\newcommand{\unite}[2]{{\rm \bf unite}\ \mbox{#1}\ {\rm \bf and}\ \mbox{#2}}
+
+\newcommand{\Sort}{\mbox{\it Sorts}}
+\newcommand{\Op}{\mbox{\it Ops}}
+
+%--------------------------------------------------------------------
+% symbols
+
+\newcommand{\simH}{\by\sim H}
+\newcommand{\simV}{\by\sim F}
+\newcommand{\simC}{\by\sim C}
+\newcommand{\simP}{\by\sim P}
+
+\newcommand{\nsimP}{\by{\nsim} P}
+\newcommand{\nsimC}{\by{\nsim} C}
+
+\newcommand{\vv}[1]{{\cal V}_{#1}}
+\newcommand{\vm}{\vv M}
+\newcommand{\vn}{\vv N}
+\newcommand{\va}{\vv A}
+
+%% \newcommand{\Det}{\mbox{\sf Det}}
+%% \newcommand{\CDet}{\mbox{\sf CDet}}
+\newcommand{\Beh}[1]{\mbox{\sf Beh}(#1)}
+\newcommand{\Abs}[1]{\mbox{\sf Abs}(#1)}
+%% \newcommand{\Mquo}{\mbox{$/\!\!/$}}
+\newcommand{\Eq}{\mbox{Eq}}
+\newcommand{\imp}{\mbox{$\sim\!\leadsto$}}
+\newcommand{\val}[1]{\mbox{$\overline{#1}$}}
+\newcommand{\Obs}{\rm Obs}
+\newcommand{\nlet}[3]{[{\sf let}\ #1 := #2\ {\sf in}\ #3\ {\sf ni}]}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\lc}{\langle}
+\newcommand{\rc}{\rangle}
+\newcommand{\ec}{\sim_c}
+\newcommand{\er}{\sim_r}
+\newcommand{\ep}{\sim_p}
+\newcommand{\obs}{\equiv_{\Obs}}
+\newcommand{\sqs}{\sqsubseteq}
+\newcommand{\close}[1]{|\!|#1|\!|}
+\newcommand{\smodels}{\:|\!\!\!\approx}
+\newcommand{\kap}{\kappa}
+
+%--------------------------------------------------------------------
+% pretty definitions
+
+\newcommand{\givedef}[2]
+            {\begin{tabular}{p{1.25cm}p{0.35cm}p{13.75cm}}
+                    #1 & {\rm iff} & #2 
+             \end{tabular} \\[2mm] }
+
+%--------------------------------------------------------------------
+% environments
+
+%% \newenvironment{Proof}
+%%                {\setlength{\parskip}{5pt}
+%%                 \setlength{\parindent}{0pt}
+%%                 {\sc Proof:}}{\hfill{\sc qed}$\:$\raisebox{-1pt}{$\Box$}}
+
+
+\newcommand{\support}{This research was supported by the Polish
+Research Committee and by the Norwegian Research Council.}
+
+\input{xypic}
+%%% \xyoption{arc}
+\definemorphism{none}{}{}{} 
+ % use as \rnone|= \lunone|\sim to get just =,\sim
+
+
+%--------------------------------------------------------------------
+% the document
+
+\begin{document} 
+
+%%\
+
+%%\vspace{2cm}
+
+%% \begin{center}
+%% {\Large\bf Behavioural Satisfaction and Equivalence \\
+%%         in Nondeterministic Algebras\footnote{\support} }\\[0.8cm] 
+%% {\large Marcin Bia\l{}asik }\\[0.4cm] 
+%%         Institute of Computer Science \\
+%%         Polish Academy of Sciences \\
+%%         ul.\ Ordona 21, Warsaw, Poland \\
+%%         {\tt marcinb@ipipan.waw.pl} \\
+\today 
+%% \end{center}
+%% \medskip
+
+%==============================================================================
+%
+%
+
+\section{Abs $>$ ND, and so ND+Abs $>$ ND}
+This does follow from the theorem 4.1 from \cite{behImpos}. Although
+the theorem there was proved for a restricted first-order language (no
+predicate symbols except equality), its proof, based on the
+Ultrafilter Theorem, can be applied directly to a first-order language involving
+also predicate symbols, in particular, a language of ND specifications.
+
+\section{assuming for determinism:}
+\[\begin{array}{rcl}
+\SMod(\beh{SP}\sim) & = & \SMod(\abs{SP}\equiv)\ =\ \Abs {SP}\\
+ \{A: A/_\sim\in\SMod(SP)\}  & = & \{A: \exists B\in\SMod(SP): A\equiv
+B\} \\
+ & = & \SMod(\{t=s:SP\vdash t=s:
+t,s\in T(X_{V})_V\})
+\end{array}
+\]
+and 
+\eq{\label{de:viF}
+\begin{array}{rcl}
+A\equiv B & \iff & {\rm exists\ a\ set\ }X\ 
+         {\rm of\ }\vis{\rm -variables,\ and} \\ 
+ & & \vis{\rm -surjective\ valuations\ }
+      \alpha:X\sur \vis^A,\ \beta:X\sur \vis^B, \\
+ & & {\rm such\ that,\ for\ all\ } s,t\in(\XTerms)_\vis: 
+% \\ & & 
+A\models_\alpha s\odot t \Iff B\models_\beta s\odot t
+\end{array}
+}
+One might use a more general form admitting some formulae $\phi$ instead of
+$s\odot t$. In the deterministic case $\odot$ is simply $=$, but later we
+may use some other relation.
+
+\section{three (++?) levels of definition:}
+Sorts of a signature are partitioned into $\vis$isible and $\hid$idden. A {\em visible term}
+is a term with no variables of $\hid$ sorts returning a value of a $\vis$ sort. 
+A {\em visible context} is a visible term $\cont$ with one ``variable'' $\dum$ 
+which may be of a $\hid$ sort.
+\begin{enum}
+\item\label{it:h} $\simH$ defined by obervations on $\hid$-values:  
+ context indistinguishability
+  \begin{enumerate}\MyLPar
+   \item any 1-step transition -- full bisimilarity (all contexts)
+   \item any transition into $\vis$ -- visible bisimilarity (visible contexts), see Fig.~\ref{fi:Vbisim},
+  \end{enumerate}
+\item\label{it:vf} $\simV$ defined by preservation of $\vis$-formulae: observational
+ wrt. $\phi$'s iff $A\models\phi\Iff A/_{\sim}\models\phi$ --
+ too rough, but... 
+\item\label{it:ext} external $M\equiv N$ 
+\end{enum}
+Consider:
+%
+\begin{ite}
+\item [$\neg$\ref{it:h})] $\simH$ vs. $\simV$ (formulae for \ref{it:vf})
+\begin{figure}[ht]
+ \[ \maly{1.5}{0.5}
+ \diagram
+ V:           &&&&& 0 & & 1                      &&&& 0 & & 1 
+     &&&& 0 && 1 \\
+ H: \xto[u]^f &&&&& x\xto[u] &\simV & y\xto[u]   &&&& & xy \xto[ul] \xto[ur] & 
+     &&&& x \uto && y \ullto \uto \\
+ V: \xto[u]^g &&&&& A& a \xline[ul] \xline[ur]&  &&&& B& a \xline[u] &
+     &&&&  C & a \xline[ul] \xline[ur]
+ \enddiagram
+\]
+\caption{}\label{fi:Vbisim}
+\end{figure}
+
+No matter what, we cannot have $x\simH y$ in $A$, 
+since $f^A(x)\not=f^A(y)$. But in all three we do have
+$f(g(a))=\{0,1\}$ -- the same $\vis$-formulae are satisfied (unless we admit bindings).
+\item[?\ref{it:vf})] Ok, here I do not say what I said before....but what 
+formulae, what terms? -- will get them from paths.
+%
+\item[?\ref{it:ext})] 
+$M\equiv N \by{\Iff}{?} \CDet(M)\match\CDet(N)$ (implies \ref{it:vf}?)
+\end{ite}
+
+\section{Perhaps: hypergraphs?}
+For \ref{it:ext} -- external obs-equivalence, but also for internal (?).
+We will define the relation $\CDet(M)\simeq\CDet(N)$ as equality of 
+observable path-patterns, $\viP(M)=\viP(N)$.
+
+Given a multi $M$ and a term 
+$h(g(v_1,v_2),v_3)$, with 
+\begin{itemize}\MyLPar
+\item $h(a,v_3)^{M}= \{0,1\}$, $h(b,v_3)^{M}= \{1,2,3\}$ and
+$g(v_1,v_2)^{M}=\{a,b\}$,
+\end{itemize} 
+its hypergraph $\gr M = \ngr{ \hypa{a,v_{3}}{h}{0,1} \\ 
+\hypa{{b,v_{3}}}{h}{{1,2,3}} \\ \hypa{{v_{1},v_{2}}}{g}{{a,b}} \\
+\hypa{{v_{2},v_{1}}}{g}{{a,b}} }$ 
+
+\noindent
+is shown on the left
+\[\maly{.5}{1}
+\diagram
+M:& 0 & 1 & 2 & 3   &&&&&N:&  0 & 1 & 2 & 3 \\
+& \frl h \uto \xdotted[ur]|>{\tip} & & 
+\frl h \ulto \uto \urto &  &&&&&&
+ & & \frl h \uto \xdotted[ul]|>{\tip}  \ullto \urto \\
+& a \xdotted[u]|1 & &  b \xline[u]|1 &  &&&&&& 
+ & & c \xdotted[u]|1 \\
+& & \frl g \xdotted[ul]|>{\tip} \urto  & &   &&&&&&  
+ & \frl g \xdotted[ur]|>{\tip} \\
+& v_1 \xdotted[ur] & & v_2 \xdotted[ul] &  v_3 \xdotted[uuulll]|>>>2 
+\xline[uuul]|2  &&&&&&
+ v_1 \xdotted[ur] & & v_2 \xdotted[ul] &  v_3 \xdotted[uuul]|2
+\enddiagram
+\]
+On the right, there is a hypergraph for another multi $N$.
+
+A {\em path} for a term, e.g. $h(g(v_1,v_2),v_3)$, is indicated with 
+dotted arrows. It amounts to picking one unique element from the 
+target of each hyperedge of the term in a consistent way.
+The indicated paths on both graphs are the first two below; the last 
+one is yet another path in $\gr M:$
+\[\begin{array}{l@{\hspace*{2em}}l@{\hspace*{2em}}l}
+\ngr{ \hypa{{v_{1},v_{2}}}{g}{{a}} \\ \hypa{a,v_{3}}{h}{1} } & 
+\ngr{  \hypa{{v_{1},v_{2}}}{g}{c} \\ \hypa{c,v_{3}}{h}{1}  } &
+\ngr{ \hypa{{v_{1},v_{2}}}{g}{{b}} \\ \hypa{b,v_{3}}{h}{1} } 
+\end{array}
+\]
+The point is that, modulo the hidden values $a,b,c$, through which 
+these paths pass, they are equivalent and all correspond to a
+determinization of the term $h(g(v_1,v_2),v_3)$ which returns $1$.
+%
+\Deff{
+A (directed) hypergraph is a tuple $\<N,E,arg,res\>$ where:
+\begin{ite}
+\item $N$ is a set of vertices and $E$ a set of edges
+\item $arg:E\into N^{*}$ -- the sequence of {\em arguments} for each edge
+\item $res:E\into \PSet(N)$ -- the set of {\em results} for each edge
+\end{ite}
+A labelled hypergraph has, in addition, a set 
+of symbols $S$ and a function $lab:E\into S$. 
+}
+An edge is written 
+$\<arg,lab,res\>$ or $\hype{arg}{lab}{res}$.
+Notice that, since $arg$ returns a sequence, we allow repetitions.
+%
+\Deff{
+The hypergraph $\gr M$ for a multi $M$ over a signature $\Sigma=\<\Sorts,\Funcs\>$ 
+is given by:
+\begin{ite}
+\item $N=\bigcup_{S\in\Sorts}S^{M}\cup\{\cdot\}$
+\item for each
+$m\in\Card M,\ E(m)=\<\<\cdot\>,{\es},m\>$ 
+\item for each constant $[c:\ \into S]\in\Funcs$, an edge 
+$E(c)=\<\cdot,c,c^{M}\>$
+\item for each function $[f:S_{1}\times\ldots\times S_{n}\into 
+S]\in\Funcs$ and each sequence $\lis x$ with $x_{i}\in 
+S^{M}_{i}$ such that $f^M(\lis x)\not=\es$, 
+an edge $E(\lis x,f) = \<\<\lis x\>,f, f^{M}(\lis x)\>$ \vspace*{-4ex}
+\end{ite}
+} 
+For an edge $e=\<\<\lis x\>,f, res\>$ we will often write
+$arg_{i}(e)$ for its $i$-th argument. A $det$-edge is an edge $d$ with
+$|res(d)|=1$ -- we write $d\din e$ if $lab(d)=lab(e)$, $arg(d)=arg(e)$
+and $res(d)\in res(e)$. (In a given $\gr M$ no two edges are so
+related, but we will use this notion for expressing determinizations.)
+%
+\Deff{\label{de:path}
+The set $\Paths(M)$ of {\em paths} for a given $\Sigma$-multi $M$, is
+defined inductively (for each path we define the sequence of its
+$arg$uments and the $res$ult): 
+\begin{enum}
+\item for each
+$m\in\Card M,\ P(m)=\hypd{\cdot}{\es}{m}\in\Paths(M)$ \hfill --
+$arg(P(m))=\<m\>$, $res(P(m))=m$; 
+\item for each constant $c$ and
+ $m\in c^M$, $P=\hypd{\cdot}cm\in\Paths(M)$ \hfill -- $arg(P)=\<m\>$, $res(P)=m$; 
+\item if $P_1...P_n\in\Paths(M)$, with
+$m_i=res(P_i)\in S_i^M$, and $[f:S_1\times...\times S_n\into
+S]\in\Funcs$, then $P=[P_1...P_n,\hypd{m_1...m_n}fm]\in\Paths(M)$ for
+each $m\in f^M(m_1...m_n)$, \\ -- $arg(P)=\<arg(P_1)...arg(P_n)\>$ and
+$res(P)=m$. %\vspace*{-4ex} 
+\end{enum} 
+%The set $\Paths_\Sigma(M)$ of {\em ground paths} 
+%contains all paths without edges of type 1).  
+The edges  with label $\es$ are called {\em variable}; $var(P)$ are
+all variable edges in a path $P$.
+} 
+%
+We can trivially extract from a given path $P$ the corresponding term $T(P)$, possibly,
+with some elements $res(e)$ for each variable edge $e\in P$. On the other hand, 
+given a term $t$ and an assignment $\alpha:var(t)\into M$, a path $\path t\alpha$ is
+any path with $T(P)=t$ and respective variable edges $\hypd\cdot\es{\alpha(x)}$ for
+each $x\in var(t)$.
+%% \Deff{
+%% Given a term $t\in\XTerms$, and an 
+%% assignment $\alpha:X\into M$, a {\em path for} $t$ and $\alpha$, $\path t{\alpha}$, 
+%% is a path defined inductively 
+%% \begin{enumerate}\MyLPar
+%%  \item for $x\in X: \path x\alpha = \hypd{\cdot}{\es}{\alpha(x)}$;
+%% \item for a constant $c$,  $\path c\alpha$ is any $e\in E(c)$;
+%% \item for $t=f(\lis t)$, a path $\path{t}\alpha$ is 
+%% $[\ppath{P_{1}}{t_{1}}\alpha...\ppath{P_{n}}{t_{n}}\alpha,e]$ where 
+%%  for each $i$, $\ppath{P_{i}}{t_{i}}\alpha$ is a path for $t_{i}$, 
+%%  $arg_{i}(e)=res(\ppath{P_{i}}{t_{i}}\alpha)$ and 
+%%  $e\din E(arg_{1}(e)...arg_{n}(e),f)$
+%% \end{enumerate} \vspace*{-4ex}
+%% }
+%
+
+Consider a function $c:V\into H$ and $f:H\times H\into V_1$ in multialgebras
+$L$ and $R$ as shown in Fig.~\ref{fi:let} (we let here $f(x,y)=f(y,x)$).
+\begin{figure}[ht]
+\[ \maly{0.8}{1}
+\diagram
+L& 1 &     &&&&   R& 1 &   &&&&     & K &\\
+& 0 &      &&&&   & 0 &    &&&&    0 && 1\\
+\frl f \xdotted[uur]|>{\tip} & \frl f \xto[u] & \frl f \xto[uul] &&&& 
+  \frl f \xto[uur]\xdotted[ur]|>{\tip} & \frl f \xto[u] \uutor & \frl f \xto[uul] \xto[ul]  &&&&  & \frl f \ulto \urto & \\
+a \xdotted[u]<0.5ex> \xdotted[u]<-0.5ex> \xline[ur] & & 
+ b \xline[u]<0.5ex> \xline[u]<-0.5ex> \xline[ul]  &&&&
+      a \xdotted[u]<0.5ex> \xdotted[u]<-0.5ex> \xline[ur] & & 
+       b \xline[u]<0.5ex> \xline[u]<-0.5ex> \xline[ul] 
+ &&&&   & a \xline[u]<0.5ex> \xline[u]<-0.5ex> & \\
+& \frl c \xdotted[ul]|>{\tip} \xto[ur] &  &&&&
+  & \frl c \xdotted[ul]|>{\tip} \xto[ur] &  &&&&   & \frl c \uto & \\
+& v \xline[u] &  &&&& & v \xline[u] &  &&&&       & v\xline[u] &
+\enddiagram
+\]
+\caption{}\label{fi:let}
+\end{figure}
+
+The double lines correspond to repeating arguments, e.g., $f(x,x)$ which, in $L$
+will return $1$, while in $R$ either $1$ or $0$. 
+
+Given a partition of sorts into $\vis$ and $\hid$, we will abstract
+the hidden elements from a path. This amounts to replacing {\em all}
+hidden elements occurring on the path by a dummy placeholder $\dum$.
+Two (different) paths for $f(v,v)$ are indicated in Fig.~\ref{fi:let}
+with dotted lines, namely:
+\[ L1:\ [\hypd vca,\hypd vca, \hypd{a,a}f1]\ \ \ \ \ and\ \ \ \ \ 
+   R1:\ [\hypd vca,\hypd vca, \hypd{a,a}f0]
+\]
+If we consider
+$H$ to be the only $\hid$-sort, the visible parts of these two paths will look like
+\[ V(L1)=\ [\hypd vc{\dum},\hypd vc{\dum}, \hypd{\dum,\dum}f1]\ \ \ \ \ and\ \ \ \ \ 
+   V(R1)=\ [\hypd vc{\dum},\hypd vc{\dum}, \hypd{\dum,\dum}f0]
+\]
+They differ in that $res(V(L1))=1$ while $res(V(R1))=0$. However,
+there is a path in $L$, namely $L2: 
+[\hypd vca,\hypd vcb, \hypd{a,b}f0]$ with visible part $V(L2)=\
+[\hypd vc{\dum},\hypd vc{\dum}, \hypd{\dum,\dum}f0]\ = V(R1)$.  In fact, if we
+let $\viP(M)$ denote all visible
+parts of all paths, we will here obtain $\viP(L)=\viP(R)$.
+\Deff{\label{de:vip}
+Given  a set $\vis\subseteq\Sorts$ 
+\begin{enum}
+\item the {\em visible part}, $V(P)$, of a path $P$
+is obtained by replacing in all edges $e\in P$, all elements 
+$x\in arg(e)$ and $x\in res(e)$ of sort $S\not\in \vis$ by $\dum$.
+\item
+a {\em visible pattern} is $V(P)$ for any path $P$ with $var(P)$ and $res(P)$ 
+of visible sorts; the set of all visible patterns for a multi $M$ is denoted $\viP(M)$.
+\item
+two multi $M,N$ are behaviourally-equivalent wrt. $\vis$, $M\equiv_\vis N$
+iff for all $V\in\vis: V^M\iso V^N$ and $\viP(M)=\viP(N)$.  \vspace*{-4ex}
+\end{enum}
+}
+The last equality is actually an abuse of notation. It should rather be
+written as a relation $\viP(M)\match\viP(N)$ denoting lifting of the 
+bijection between 
+the $\vis$-sorts to visible patterns. If $\nu:V^M\leftrightarrow V^N:\mu$
+is the bijection for each $V\in\vis$
+then, for any $P\in\viP(M)$, $\nu(P)$ is a visible pattern obtained by 
+applying $\nu(x)$ to all $x$ occurring in $P$. Thus, $\viP(M)\match\viP(N)$
+indicates that this extension yields double isomorphism: 
+1) $\forall P\in\viP(M): P\iso \nu(P)$, and $\forall P\in\viP(N): P\iso \mu(P)$, 
+and  2) $\nu\circ \mu= id_{\viP(M)}$ and $\mu\circ \nu= id_{\viP(N)}$.
+We will use the notation $\viP(M)=\viP(N)$ or $\viP(M)\subseteq\viP(N)$ as
+an abbreviation for this more elaborate formulation.
+\com{
+This might be relaxed so that we only require $\viP(M)\equiv_\vis \viP(N)$ 
+(Egli-Milner).
+}
+%
+Notice that $L$ and $R$ from fig.~\ref{fi:let} are equivalent also to the 
+multialgebra $K$.
+%
+\Pro{
+If $M\equiv N$ then, for any visible term $t:\lis V\into V$ the following 
+diagram commutes (in all directions, $\nu:\vis^M\leftrightarrow \vis^N:\mu$ is 
+the bijection on visible sorts):
+\[ %\maly{0}{0.5}
+\diagram
+M \dnone|{\equiv} & \lis{V^M} \dto<-0.5ex>_\nu \rrto^{t^M} & & V^M \dto<-0.5ex>_\nu \\
+N  & \lis{V^N} \uto<-0.5ex>_\mu \rrto^{t^N} & & V^N \uto<-0.5ex>_\mu \\
+\enddiagram
+\]
+%and assignment
+%$\alpha:X\into \under M: \nu(t^M(\clis x\alpha()))=t^N(\clis x{\nu(\alpha}({))})$, and vice versa.
+}
+\Cor{
+If $M\equiv N$ then (\ref{de:viF}) holds with $\subseteq$ for $\odot$.
+}
+\com{
+This is not trace-equivalence:
+\begin{enum}
+\item we have many-argument functions
+\item (an `action' $f$ from a value $x$ may lead to different results)
+\item we have $\vis$ and $\hid$ sorts and 
+\item observe values of these sorts and not actions
+\end{enum}
+It is ako. trace-equiv if all funcs 1) have 1 argument, 2) are det
+and 3) all sorts are hidden.
+}
+We will mostly use examples with 1-argument operations and in such cases we 
+will not draw explicitly the ``label vertices'' but rather draw several 
+appropriately annotated edges.
+
+\subsection{Factorizability}
+In general, there is no largest path-equivalence on an $M$ (Claim~\ref{cl:maxP})
+but the class  $\Abs M$, in fact also
+$\CDet(\Abs M)$, can be represented by
+something like an initial object,
+not necessarily ``the most nondeterministic'' one, but ...admitting most 
+determinizations and where all $\hid$-operations are as deterministic as 
+possible.
+Instead of the usual factorizability, we will have an analogous result
+with another construction of the canonical representative $\vm$ for
+$\Abs M$.
+
+Given $\viP(M)$ construct a multi $\vm$ by taking the $\vis^M$ and then, 
+for each $V(P)\in\viP(M):$
+\com{ OLD: replace each occurrence of $\dum$ with a new element $x_i$ --
+this is $\under \vm$, and functions are defined by the obtained paths.} 
+\begin{enum}
+\item
+for each edge $e\in V(P)$ replace all $\dum\in arg(e)$ of the same sort with the same, 
+new element $z_e$ (e.g. $\hypd{x_1,\dum,x_2,\dum}f\dum$ becomes
+$\hypd{x_1,z_e,x_2,z_e}f\dum$). Call the resulting pattern $ZV(P)$.
+\item 
+Let $ZV(P)= [\clis P{ZV}(),\hypd{\lis x}fv]$. Since $v\in\vis$ so
+ $v\not=\dum$, and $x_i\not=\dum$ by 1). For any $i$ such that $res(ZV(P_{i}))=\dum$
+put $res(ZV(P_{i}))=x_i$.
+\item Proceeding recursively down $ZV(P)$, we will replace all occurrences
+of $\dum$ by some elements (possibly some new $z_e$'s). The result is a path $\vm(V(P))$.
+\end{enum}
+The new elements $z_e$ will constitute the carriers of $\hid$-sorts.
+Whenever, after that, some function remains undefined for some $x_i$'s, let 
+$f^{\vm}(..x_i..)=\es$. 
+Following should be easy to show :
+\begin{enum}
+\item $\vm\equiv M$, 
+\item $M\equiv N\Iff \vm\iso \vn$, 
+%\item $M\equiv N\Leftarrow \vm\iso \vn$, 
+\item[$\vm$] \begin{ite}\MyLPar
+ \item is partial; 
+ \item removes ``redundant nondeterminism'':
+There is only one visible pattern in $\viP(M):\hypd vg\dum\hypcont f0$, 
+so $\vm$ has only one $z$. 
+\begin{figure}[ht]
+ \[ \maly{1}{1}
+ \diagram
+ V &&& \vm:&   0  &&&  M:&& 0 && \\
+ H \uto_f &&&& z_1 \uto &&& a\urrto & b\urto \rrnone|\ldots && x\ulto & y\ullto \\
+ V \uto_g &&&& v \uto   &&&         & & v\ullto \ulto \urto \urrto
+ \enddiagram
+\]
+\caption{}\label{fi:nonu}
+\end{figure}
+\item
+removes all hidden nondeterminism -- operations taking only 
+$\hid$-arguments will be deterministic, the only nondeterminism remains at 
+the operations with $\vis$-arguments. In fig.~\ref{fi:nmax}, for instance,
+the construction -- for any of the three algebras, in particular, for
+$\quot M{\sim_{2}}$ -- will yield $\vm\iso M$.
+ \end{ite}
+\item 
+see claim~\ref{cl:Pabs}
+\end{enum}
+
+
+\section{Internal  $\simH$ in multis}\label{se:MCD}
+
+Henceforth ``pattern''
+means a visible pattern. 
+Let's say an equivalence on values of $\hid$ sorts
+\eq{\label{eq:pathobs}
+\sim\ {\rm is\ a\ {\mbox{\rm path-equivalence}}\ }\Iff \viP(A)=\viP(\quot A{\sim})
+}
+For $x\in V$ we won't distinguish $x$ from $[x]=\{x\}$.
+
+\Pro{\label{cl:maxP}
+In general, there does not exist a largest path-equivalence $\sim$ on a multialgebra $M$.
+}
+\begin{Proof}
+%This follows from claim~\ref{cl:max} but w
+We have the ``famous'' counter-example given in fig.~\ref{fi:nmax}.
+\begin{figure}[hbt]
+\[ \maly{2}{0.5}
+\diagram
+&&&&&& &&& M &&&     &&&&&&&&&
+  && \quot M{\sim_{1}} &&  &&&&&&&&&
+  && \quot M{\sim_{2}} && \\
+V&&&&&& 0 &&& 1 &&& 2  &&&&&&&&&
+  0 && 1 && 2     &&&&&&&&& 
+  0  && 1 && 2 \\
+H\uto^g&&&&&& a \uto & \sim_1 & b\urto & \sim_2 & c\ulto &\sim_1 & d \uto &&&&&&&&&
+  a \uto &  & bc\uto  &   & d \uto &&&&&&&&&
+  & ab \ulto\urto && cd\ulto\urto & \\
+V\uto^f&&&&&& & v \ulto\urto &&&& w\ulto\urto &  &&&&&&&&&
+  & v \ulto\urto && w\ulto\urto &  &&&&&&&&&
+  & v \uto && w\uto &  &&&
+\enddiagram
+\]
+\caption{}\label{fi:nmax}
+\end{figure}
+
+\end{Proof}
+
+\noindent
+This is natural. Since nondeterminism on the $\hid$ sorts 
+is abstracted away, one can expect that many non-isomorphic multis, with very
+different operations, in particular varying degree of nondeterminism, 
+on $\hid$ sorts, will display the same observable behaviour.
+
+\com{This lack is not, perhaps, so dangerous as it may seem.
+All quotients by any, also maximal path-equivalence $\sim$ will, by definition, have
+the same classes of visible paths...}
+%
+\Pro{\label{cl:hom}
+If $h:M\into N$ (weak) homomorphism then 
+$\viP(M)\subseteq\viP(N)$.
+}
+\begin{Proo}
+If $P$ is a path in $M$ then $h(P)$ is a path in $N$ 
+obtained from $P$ by replacing each element $m$ by $h(m)$. But $V(P)=V(h(P))$.
+\end{Proo}
+
+\Cor{\label{co:vpmsub}
+For any $M$ and any equivalence $\sim\ :\viP(M)\subseteq\viP(\quot M\sim)$.
+}
+%
+The opposite inclusion does not hold in general, as illustrated by the example
+in fig.~\ref{fi:cp}.a: in $C$ there is no path giving rise to the visible pattern
+$[\hypd wf{\dum},\hypd{\dum}g0]$ which does exist in $\viP(\quot C\sim)$.
+\begin{figure}[hbt]
+\[ \maly{1.5}{1}
+\diagram
+0 & 1 &&& 0 && 1 &&&&&  V &&&&&
+0 & 1 & 2             &&& 0 & 1 & 2 \\
+a\uto \rnone|{\sim} & b\uto &C \rrto&&\quot C\sim & ab\ulto\urto & &&&&& H\uto^g &&&&&
+a\uto &b \uto &c \uto &&& a\uto & bc\uto \urto \\
+v\uto & w\uto &&& v\urto && w\ulto &&&&& V\uto^f &&&&&
+v \uto &   & A         &&& v \uto & & B \\
+ & && {\txt{a)}}& &&   &&&&&&&&&&      & &           & {\txt{b)}} &&  &&
+\enddiagram
+\]
+\caption{}\label{fi:cp}
+\end{figure}
+
+\noindent
+Path-equivalence in multi does not
+have much to do with context indistinguishability as illustrated in
+fig.~\ref{fi:Vbisim} or~\ref{fi:nmax}.
+\com{
+But I think that the former fits our intuition about observability 
+better than the latter. I do not want to distinguish the three algebras
+in fig.~\ref{fi:nmax}, nor the three from fig.~\ref{fi:ndmax}.
+The nice thing is that, except for the ``patological'' cases of unreachable
+hidden values, the two notions coincide in the deterministic case.
+}
+In fact, generalizing the notion of visible contexts for multi, 
+we should be able to 
+get some relations between context indistinguishability and path-equivalence.
+We let $\cont$ range over visible contexts and write $\simC$ for context 
+indistinguishability, i.e.
+$a\simC b \Iff \forall \cont: \contA a=\contA b$. In multis, this last equality
+denotes equality of the respective result sets.
+Nevertheless, even if correct, the following fact is not very interesting -- 
+$\simC$ is the largest path-equivalence only because
+the assumption of reachability of all hidden values prevents us from identifying
+a lot of things which, typically (without such an assumption), could be safely
+identified.
+\com{
+\Cla{For any $M:\viP(\quot M{\simC})\subseteq\viP(M)$.
+}
+\begin{Proof}
+Now, again, I believe it. But do it directly, showing that nothing can go wrong...
+By reference to terms? By induction on the path-length, that all paths are reflected? 
+0 nad 1 are excluded, for 2 we have 
+\[ [\ [\ P_i:\hypd{\lisn {v_{i}}k}{f_i}{[x_i]}\ ]_1^n,\ \hypd{\clis x{}[]}gv\ ]
+\]
+What can go wrong?
+\end{Proof}
+}
+%
+\Cla{\label{cl:MPisC}
+Let $M$ be a multi such that for any $H\in\hid$ and
+any $h\in H^M$, there is a sequence of visible elements $v$ and
+a term $t_h$ such that $t_h^M(v)=\{h\}$ (possibly,  
+a constant $c^M=\{h\}$). Then 
+\begin{enum}
+\item\label{it:PC} for any path-equivalence on $M:\ \sim\ \subseteq\ \simC$;
+\item\label{it:MsimCP} $\viP(M)=\viP(\quot M{\simC})$
+\com{ -- this is now previous lemma?;}
+\item\label{it:MPisC} $\simC$ is the largest path-equivalence on $M$.
+\end{enum}
+}
+\begin{Proof}
+\ref{it:PC})
+Assume $a\sim b$, $t_a^M=a, t_b^M=b$ and let $\cont$ be a visible context.
+If $\contA a\not=\contA b$, we can, without loss of generality, 
+let $v\in \contA a\setminus \contA b$. That is, in $M$ there is a path $P_a$ for
+$\contA{t_a}$ with $res(P_a)=v$ but there is no path $P_b$ for $\contA{t_b}$ 
+with $res(P_b)=v$.
+Since $a\sim b$, we have that $t_a^{\quot M{\sim}}=t_b^{\quot M{\sim}}$ and hence
+there is a path $P_b$ in $\quot M{\sim}$ for $\contA{t_b}$ with $res(P_b)=v$. But then 
+$\viP(M)\not=\viP(\quot M\sim)$, so $\sim$ is not a path-equivalence contrary to the assumption.
+
+\ref{it:MsimCP}) ??? -- $\simC$ is NOT necessarily a tight congruence: 
+in fig.~\ref{fi:ntig}, $b\simC b_1$
+but $g(b)\nsimC g(b_1)$; possible $t_i\into H$ would not change anything.
+\begin{figure}[hbt]
+\[ \maly{1}{0.8}
+\diagram
+V&&& 0 & & 1 \\
+H\uto_f &&& a \uto \urrto & & a_1 \ullto  & a_2 \ulto \\
+H\uto_g &&& b \uto & &   b_1 \uto \urto  &
+%\\  H\uto_h &&& c \uto & & c_1 \uto
+\enddiagram
+\]
+\caption{}\label{fi:ntig}
+\end{figure}
+
+
+\ref{it:MPisC}) Directly from \ref{it:PC} and \ref{it:MsimCP}.
+\end{Proof}
+
+\noindent
+Fig.~\ref{fi:nmax} shows that weakening the reachability assumption to
+ -- for any hidden element $h$, there is 
+an operation such that $h\in f^M(v)$ -- does not suffice for the existence of a 
+largest path-equivalence $\sim$.~\footnote{By the way, the figure 
+also shows that as long as we 
+want to consider these three multis equivalent, there is no chance to get
+factorisability.
+% Furthermore, it indicates that it may be fruitless to search for
+% a ``correspondence'', not to speak about homomorphism, which
+% characterizes $\equiv$.
+}
+
+
+\section{Internal $\simH$ in  deterministic algebras}
+The definition (\ref{eq:pathobs}) of an internal path-equivalence 
+applies to deterministic algebras. 
+%$\sim$ in a multi.
+
+The three algebras in fig.~\ref{fi:vpH} are $\equiv$ having the same patterns
+$[\hypd vh{\dum},\hypd{\dum}{f^{n}}{\dum},\hypd{\dum}g1]$, for each $n\geq 0$.
+We have, for $a\sim b:\quot A{\sim} = C = \quot B{\sim}$
+\begin{figure}[ht]
+\[ \maly{1}{0.5}
+\diagram
+ & 1 & A    &&& B & 1 &    &&& C & 1 \\
+a \urto^g \tolu^f && b \ulto \llto_f  &&& a \urto^g \rrto^f && b \ulto  \toru_f
+     &&& & c \uto_g\todl_f \\
+& v \ulto^h &  &&& & v \urto_h &  &&& & v \uto_h
+\enddiagram
+\]
+\caption{}\label{fi:vpH}
+\end{figure}
+\com{
+This actually makes sense:
+\begin{enum}
+\item First, for any
+$P\in\viP(A)$, all $\dum$ must occur for the first time as a result
+of some edge -- hidden values must be somehow ``produced'', before
+they are propagated (otherwise they would be among the variables of
+the pattern; see def.~\ref{de:path} and~\ref{de:vip}.2). This is the main
+difference from context indistinguishability, $\simC$, which allows us
+to probe hidden values directly. Here, if there is a $\hid$ sort with no
+operations producing $\hid$ values, all its elements can be safely made
+equivalent $x\sim y$. Then the quotient may turn out to be a multi,
+but this does not seem to be problematic -- no visible test will ever
+reach this nondeterminsm.
+%
+\com{I think this is nice, since we should not run into particular 
+problems with unreachable hidden values -- they are treated uniformly.}
+%
+\item It seems relevant that in a deterministic algebra we do not need $\dum$ -- 
+a visible pattern with $\dum$ and without is the same, since any
+edge $\hypd vf{\dum}$ determines unique element $x:f(v)=x$. 
+In other words, requiring visibility of our
+patterns amounts to forbidding variables of $\hid$ sorts in our observation
+(terms).
+\item
+If $g:V\into H$, $f:H\into V1$ and, say $g^A(v)=a$ while $f^A(a)=1$
+and $f^A(b)=1$, checking the pattern equivalence will amount to varying
+the possible result of $g^A(v)$ - somehow, nondeterminizing $A$. 
+If we get $a\sim b$ (here we do),
+this means that we may change our algebra so that $g^A(v)=blatex beh
+$ or even
+$g^A(v)=\{a,b\}$.  This seems to be the meaning of $a\simC b$ -- it
+does not matter which value we pick, the end-results will be always
+the same.
+\end{enum}
+}
+Corollary~\ref{co:vpmsub} carries over to deterministic algebras.
+\Cor{\label{co:vpsub}
+For any $A$ and any equivalence $\sim\ :\viP(A)\subseteq\viP(\quot A\sim)$.
+}
+Unlike for multis, path-equivalence in deterministic algebras is closely 
+related to context indistinguishability.
+\Pro{\label{cl:simCP}
+For any $\Sigma$-algebra $A: \viP(A)=\viP(\quot A{\simC})$
+}
+\begin{Proof}
+Let $P$ be a path in $\quot A\simC$ such that $V(P)\in\viP(\quot A\simC)$. 
+By induction on $P$ we construct a path $P'$ in $A$ with $V(P')=V(P).$
+\[\begin{array}{r@{\ \ }|@{\ \ }l@{\ \ \ \ }l}
+ P\ \ \ \ & \ \ \ \ P' \\ \hline
+\hypd\cdot\es{[x]} & \hypd\cdot\es x &  \\
+\hypd\cdot c{[x]} & \hypd\cdot c a & :{\rm arbitrary}\ a\in [x] \\
+\lis P,\hypd{\clis x{}[]}f{[x]} & \lis {P'},\hypd{\lis a}fa &
+:a_i=res(P'_i)\in[x_i],\  a=f^A(\lis a) \\
+\end{array}
+\]
+Variable edges must all be visible, hence in 1. $[x]=\{x\}$.
+Step 3. yields a desired result because $\simC$ is a congruence --
+for any edge $f^{\quot{A}{\simC}}(\clis x{}[])=[x]$ and
+any $a_i\in[x_i]$, there is an $a\in[x]$ such that $f^A(\lis a)=a$.
+Trivially, $V(P')=V(P).$
+ Thus $\viP(\quot A\simC)\subseteq\viP(A)$.
+\end{Proof}
+
+\noindent
+Thus context indistinguishability is a special case of our path-equivalence relation.
+The opposite implication does not hold. There exist path-equivalences which may
+identify context-distinguishable elements.
+A typical example is given in fig.~\ref{fi:cp}.b.
+
+\Pro{\label{cl:max}
+In general, there does not exist a largest path-equivalence $\sim$ on 
+an $A$.
+}
+\begin{Proof} Both $\sim_1$ and $\sim_2$ are maximal path-equivalences.
+\begin{figure}[hbt]
+\[ \maly{1}{0.5}
+%\definemorphism{none}{}{}{} 
+ % use as \rnone|= \lunone|\sim to get just =,\sim
+\diagram
+0 &  & 1             &&& 0 &  1              &&& 0 &  1 \\
+a\uto \rnone|{\sim_1}&b \rnone|{\sim_2}\ulto &c \uto &&& ab\uto & c\uto     &&& a\uto & bc\uto \ulto \\
+v \uto &   & A    &&& v \uto & \quot A{\sim_{1}}  &&& v \uto & \quot A{\sim_{2}}
+\enddiagram
+\]
+\caption{}\label{fi:ndmax}
+\end{figure}
+
+\end{Proof}
+
+\noindent
+In fact, the only reason for this are unreachable $\hid$-elements. 
+\Pro{\label{cl:PisC}
+Let $A$ be a (deterministic) algebra such that for any $H\in\hid$ and
+any $h\in H^A$, there is a sequence of visible elements $v$ and
+a term $t$ such that $t^A(v)=h$ (possibly,  
+a constant $c^A=h$). Then there is a
+largest path-equivalence, in fact, $\simC$.
+}
+\begin{Proof}
+From claim~\ref{cl:simCP} we know that $\simC$ is a path-equivalence.
+Assume that there is another equivalence, $\sim\ \not\subseteq\ \simC$,
+such that 
+for some $a,b\in H^A:a\sim b \land a\nsimC b$. 
+The latter conjunct means that there
+is a visible context $\cont$ with $\contA a\not=\contA b$. 
+By assumption, let $t(v)=a$ and 
+let $P$ be the path for
+$\contA{t(v)}$, in particular, $res(V(P))=res(P)=\contA a$ in $A$.
+Due to determinacy of $A$ it is the only result of $V(P)$.
+But in $\quot A\sim$ there are at least two visible patterns 
+for $\contA{t(v)}$, one with $res(V(P_a))=[\contA a]$ and another with 
+$res(V(P_b))= [\contA b]$.
+ Hence $\viP(\quot A\sim)\not=\viP(A)$.
+\end{Proof}
+
+\noindent
+We can carry out the construction of $\va$ in the deterministic case 
+but, typically, the result will be a partial algebra. This is not
+necessarily a vice -- in fact, all our concepts can be applied to partial
+algebras.
+
+\section{Multis and $\CDet$'s}
+Thus, what we mean by $\CDet(M)\simeq\CDet(N)$ is $M\equiv N$. Notice that this
+does not mean $\CDet(M)=\CDet(N)$. In fig.~\ref{fi:nmax}, for instance, 
+an $A$ with $f^A(v)=b$ and $f^A(w)=c$ is in $\CDet(M)$ but $A\not\in\CDet(\quot M{\sim_1})$. $A$ is not even isomorphic to any $B\in\CDet(\quot M{\sim_{1}})$.
+%
+\begin{enum}
+\item\label{it:aa}
+$A\in\CDet(M) \land A\equiv B \impl \exists N: N\equiv M\land B\in\CDet(N)$
+%% \setcounter{CONT}{\theenumi}
+%% \end{enumerate}
+%% and:
+%% \begin{enumerate}\MyLPar \setcounter{enumi}{\theCONT}
+\item\label{it:ee}
+$A\in\CDet(N) \land N\equiv M \impl \exists B\in\CDet(\vm):B\iso A$ 
+  and\\
+  $A\in\CDet(\vm) \impl \exists N\equiv M : A\in\CDet(N)$
+\item 
+from \ref{it:aa} and \ref{it:ee} we should get:
+ $A\in\CDet(\vm) \land A\equiv B \impl B\in\CDet(\vm)$
+\item $A\in\CDet(M) \impl \Card A\subseteq \under M$ ($\Card A=\under M$ -- no) \\
+$A\in\CDet(M) \Iff \forall f,\lis a\in\Card A :
+E^A(\lis a,f)\din E^M(\lis a,f)$,
+in particular, {\em any} selection of $det$-edges among the edges of 
+$\gr M$ yields an $A\in\CDet(M)$.
+\item
+Obviously $A,B\in\CDet(M)\not\impl A\equiv B$.
+\item $A\in\CDet(M)\land A\equiv B \not\impl B\in\CDet(M)$.
+\item 
+$M\equiv N \not\impl \CDet(M)\equiv\CDet(N)$, i.e., \\
+$\forall A\in\CDet(M)\exists B\in\CDet(N):A\equiv B\ (\viP(A)=\viP(B))\ \land$ 
+vice versa.
+\begin{figure}[hbt]
+\[ \maly{1}{0.8}
+\diagram
+V&&&      M  & 0 & 1 &   &&&& 0 && 1 & N\\
+H\uto_f &&& x_1 \urto & x_2\urto & x_3 \ulto & x_4\ulto  &&&&  & x\ulto\urto & \\
+V\uto_g &&& & v \uto\ulto  &  w\uto\urto & &&&&  v \urto && w \ulto
+\enddiagram
+\]
+\caption{}\label{fi:MCDet}
+\end{figure}
+
+\noindent
+In fig.~\ref{fi:MCDet}, $\forall B\in\CDet(N):B\models f(g(v))=f(g(w))$ -- 
+$\CDet(N)=\{B_1,B_2\}$ with $f^{B_{1}}(x)=0$ and $f^{B_{2}}(x)=1$. None of these
+is $\equiv A\in\CDet(M)$ where $g^A(v)=x_1$, $g^A(w)=x_4$.
+%
+\end{enum}
+
+\section{Wrong, undesirable or uncertain ...}
+\subsection{Context indistinguishability (ci)}
+\begin{enum}
+\item
+Fine, we observe hidden values but where do they come from? In (ci)
+I just have some access to them, no matter what they are. But in an actual program
+they must be somehow produced -- by the constructors returning values of $\hid$-sorts.
+Thus, given $c_1,c_2:\ \into H$, I may say that their results are distinguishable
+iff for some context $\cont:\contA{c_1}\not=\contA{c_2}$, but I cannot say that 
+$x$ and $y$ are distinguishable if they are arbitrary, in particular, unreachable
+values of $\hid$-sort. Or: whatever is unreachable is indistinguishable.
+
+Saying that two terms $t_1,t_2:V\into H$ are $\simC$ iff for each context $\cont:
+\contA{t_1}=\contA{t_2}$ is just a special case of (ci) but it is too strong for
+nondeterminism.
+\item
+Is too strong disabling identification in fig.~\ref{fi:Vbisim}.
+\item
+In fig.~\ref{fi:let}, in $L:a\simC b$, for the only contexts are $f(c(v),\dum),
+f(\dum,c(v))$ which yield $\{0,1\}$, and $f(\dum,\dum)$ yielding $0$.
+In $R$ all these yield $\{0,1\}$. Thus $b\in L$ is distinguishable from $b\in R$
+by the context $f(\dum,\dum)$.
+\end{enum}
+%
+\subsection{another one}
+$x\sim y\in H$ iff they are returned by the same terms and are 
+contex-indistinguishable, i.e. 
+\[\forall t\in(\VTerms{X_{\vis}})_H\ \forall v : x\in t^M(v)\Iff y\in t^M(v)
+\land
+\forall \cont\in(\VTerms{X_{\vis},\dum})_\vis\ \forall v: \contA x=\contA y
+\]
+Already context indistinguishability is too strong disabling identification 
+in fig.~\ref{fi:Vbisim}.
+\subsubsection*{I suspect it to be the same as this:}
+\Deff{
+Given an $m\in \under M$, define paths {\em passing through} $m$, 
+$P(m)\subseteq P(M)$:
+\begin{enum}
+\item $[\hypd \cdot\es x] \in P(m) \Iff x=m$
+\item $[\hypd \cdot cx] \in P(m) \Iff x=m$
+\item $[\lis P, \hypd{\lis m}fx]\in P(m)  \Iff (P_i\in P(m)$ for some 
+$1\leq i\leq n$ or $x=m)$.
+\end{enum}
+Then $\viP(m) = \{V(P):P\in P(m)\}$ and $x\simP y \Iff \viP(x)=\viP(y)$.
+}
+We should have:\ 
+\Cla{
+$\simP$ is a path-equivalence (obvious?), i.e., 
+$\viP(M) = \viP(\quot M{\simP})$.
+}
+In fig.~\ref{fi:nmax} $\sim_2\ =\ \simP$, in particular, we cannot identify
+$a\sim_1 b$ since they do have different visible paths passing through them. 
+In fig.~\ref{fi:Vbisim}, I cannot identify $x$ and $y$.
+[This, I think, makes possible only these identifications which do not change
+anything in nondeterminism. (Is it a congruence?)]
+\Cla{\label{cl:Pabs}
+$\vm\iso\quot{\vm}{\simP}$, i.e. $\forall x,y\in\under\vm: x\nsimP y$
+-- depends on $\vm$.}
+%
+$\vm$ is not initial in 
+$\{\quot N{\simP}: N\equiv M\}$ (fig.~\ref{fi:nonu}: $\quot M{\simP}\iso \vm$).
+In fig.~\ref{fi:Vbisim} $\vm\iso A$ and $C\iso\quot C{\simP}$ since $x\nsimP y$.
+But there are two homs $A\into C$, the other one sending both $x$ and $y$ to $y$.
+
+
+\subsection{Other junk}
+\subsubsection*{-- hierarchy of observations: }
+$\{t(x), let, \in\}\times\{\subseteq,
+\frown,\ldots\}$
+
+\subsubsection*{-- does any of the above classes have largest observational
+equivalence?}
+Is a rather irrelevant question. I do want the algebras from fig.~\ref{fi:nmax}
+to be equivalent.
+
+However ?
+\[
+\forall A\in\MAlg(\Sigma) \exists {\rm largest}\ \sim_A\  \impl 
+ (A \equiv B \Iff A/_{\sim_{A}} \simeq B/_{\sim_{B}})
+\]
+
+\subsubsection*{? wish:}
+$\not\sim$ monototone wrt. the number of Obs-ervations; and
+\[\begin{array}{c@{\ }|@{\ }c@{\ \ }l}
+{\rm rel.} & {\rm  preserved\ under\ }Det & \\ \hline
+\sim &  no & f(x)\seteq f(y) \\
+\not\sim & no & f(x)\cap f(y)\not=\es \\ \hline
+\subseteq, \seteq, \frown & no \\
+\not\frown, ',\deteq & yes & 
+\end{array}
+\]
+
+
+
+
+\bibliographystyle{bibNo}
+\bibliography{my}
+
+\end{document}
+
+

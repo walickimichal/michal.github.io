@@ -1,0 +1,306 @@
+This is TeX, Version 3.1415 (C version 6.1) (format=latex 94.6.28)  19 DEC 1997 16:23
+**&latex2e wadt
+(wadt.tex
+LaTeX2e <1994/06/01> patch level 2
+Hyphenation patterns for english, norsk, swedish, danish,
+german & francais loaded.
+(/local/TeX/macros/LaTeX/latex209.def
+File: latex209.def 1994/06/01 Standard LaTeX file
+
+Entering LaTeX 2.09 compatibility mode.
+\footheight=\dimen102
+\@maxsep=\dimen103
+\@dblmaxsep=\dimen104
+(/local/TeX/macros/LaTeX/tracefnt.sty
+Package: tracefnt 1994/05/29 v2.3k Standard LaTeX package (font tracing)
+\tracingfonts=\count82
+LaTeX Info: Redefining \selectfont on input line 113.
+)
+\symbold=\mathgroup4
+\symsans=\mathgroup5
+\symtypewriter=\mathgroup6
+\symitalic=\mathgroup7
+\symsmallcaps=\mathgroup8
+\symslanted=\mathgroup9
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 179.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 180.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 181.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 187.
+LaTeX Info: Redefining \em on input line 197.
+ (/local/TeX/macros/LaTeX/latexsym.sty
+Package: latexsym 1994/05/27 v2.1e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup10
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+LaTeX Font Info:    Redeclaring math delimiter \lgroup on input line 262.
+LaTeX Font Info:    Redeclaring math delimiter \rgroup on input line 264.
+LaTeX Font Info:    Redeclaring math delimiter \bracevert on input line 266.
+)
+Compatibility mode: loading llncs.sty rather than llncs.cls.
+
+(llncs.sty
+Document Style `llncs', <version 1.1>
+\c@part=\count83
+\c@section=\count84
+\c@subsection=\count85
+\c@subsubsection=\count86
+\c@paragraph=\count87
+\c@figure=\count88
+\c@table=\count89
+\c@@inst=\count90
+\c@@auth=\count91
+\c@theorem=\count92
+\c@example=\count93
+) (defs.tex
+\c@CLAIM=\count94
+\c@ax=\count95
+\c@axA=\count96
+\c@axB=\count97
+\c@axC=\count98
+\c@axD=\count99
+\c@BIB=\count100
+) (/local/TeX/macros/xypic-3.5/xypic.tex
+(/local/TeX/macros/xypic-3.5/xyv2.tex (/local/TeX/macros/xypic-3.5/xy.tex
+Bootstrap'ing: catcodes, docmode, (/local/TeX/macros/xypic-3.5/xyrecat.tex)
+(/local/TeX/macros/xypic-3.5/xyidioms.tex)
+
+ Xy-pic version 3.5 <1997/05/28>
+ Copyright (c) 1991-1997 by Kristoffer H. Rose <krisrose@brics.dk>
+ Xy-pic is free software: see the User's Guide for details.
+
+Loading kernel: messages; fonts; allocations: state,
+\X@c=\dimen105
+\Y@c=\dimen106
+\U@c=\dimen107
+\D@c=\dimen108
+\L@c=\dimen109
+\R@c=\dimen110
+\Edge@c=\toks15
+\X@p=\dimen111
+\Y@p=\dimen112
+\U@p=\dimen113
+\D@p=\dimen114
+\L@p=\dimen115
+\R@p=\dimen116
+\Edge@p=\toks16
+\X@origin=\dimen117
+\Y@origin=\dimen118
+\X@xbase=\dimen119
+\Y@xbase=\dimen120
+\X@ybase=\dimen121
+\Y@ybase=\dimen122
+\X@min=\dimen123
+\Y@min=\dimen124
+\X@max=\dimen125
+\Y@max=\dimen126
+\lastobjectbox@=\box25
+\zerodotbox@=\box26
+\almostz@=\dimen127
+ direction,
+\d@X=\dimen128
+\d@Y=\dimen129
+\K@=\count101
+\KK@=\count102
+\Direction=\count103
+\K@dXdY=\dimen130
+\K@dYdX=\dimen131
+\xyread@=\read1
+\xywrite@=\write4
+\csp@=\count104
+\quotPTK@=\dimen132
+
+utility macros; pictures: \xy, positions,
+\swaptoks@@=\toks17
+\connectobjectbox@@=\box27
+ objects,
+\styletoks@=\toks18
+ decorations;
+kernel objects: directionals, circles, text; options; algorithms: directions,
+edges, connections;  Xy-pic loaded)
+ Xy-pic option: Version 2 Compatibility v.3.4
+
+Xy-pic Warning: `\stop' redefined.
+
+(/local/TeX/macros/xypic-3.5/xyframe.tex
+ Xy-pic option: Frame and Bracket extension v.3.4 loaded)
+(/local/TeX/macros/xypic-3.5/xymatrix.tex  Xy-pic option: Matrix feature v.3.4
+\Row=\count105
+\Col=\count106
+\queue@=\toks19
+\queue@@=\toks20
+\qcount@=\count107
+\qcount@@=\count108
+\matrixsize@=\count109
+
+loaded) (/local/TeX/macros/xypic-3.5/xyarrow.tex
+ Xy-pic option: Arrow and Path feature v.3.5 path, \ar, loaded) loaded))
+(wadt.aux)
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    No math setup on input line 25.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 25.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 25.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 25.
+ (/local/TeX/macros/LaTeX/Ulasy.fd
+File: Ulasy.fd 1994/05/27 v2.1eLaTeX symbol font definitions
+)
+LaTeX Font Info:    No math setup on input line 48.
+ [1
+
+]
+LaTeX Font Info:    No math setup on input line 122.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <9> on input line 122.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 122.
+LaTeX Font Info:    No math setup on input line 138.
+LaTeX Font Info:    No math setup on input line 145.
+
+Overfull \hbox (10.30266pt too wide) detected at line 178
+| []
+ []
+
+[2]
+LaTeX Font Info:    No math setup on input line 242.
+LaTeX Font Info:    No math setup on input line 255.
+LaTeX Font Info:    No math setup on input line 266.
+ [3]
+LaTeX Font Info:    No math setup on input line 303.
+
+Overfull \hbox (6.12718pt too wide) in paragraph at lines 310--328
+\OT1/cmr/m/n/10 tional def-i-ni-tions. We give only one counter-example show-in
+g non-compositionality
+ []
+
+<xymatrix 11x4 791> [4]
+Overfull \hbox (24.21564pt too wide) in paragraph at lines 526--533
+[][]\OT1/cmr/m/it/10 For any def-i-ni-tion of the form $\OML/cmm/m/it/10 ^^@\OT
+1/cmr/m/n/10 [\OML/cmm/m/it/10 ^^^\OT1/cmr/m/n/10 ]  \OMS/cmsy/m/n/10 ,  \OML/c
+mm/m/it/10 l[]\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 ^^^\OT1/cmr/m/n/10 ]; \OML/cmm/
+m/it/10 R[]\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 r[]\OT1/cmr/m/n/10 [\OML/cmm/m/it
+/10 ^^^\OT1/cmr/m/n/10 ]  \OMS/cmsy/m/n/10 ^^R  \OML/cmm/m/it/10 l[]\OT1/cmr/m/
+n/10 [\OML/cmm/m/it/10 ^^^\OT1/cmr/m/n/10 ]; \OML/cmm/m/it/10 R[]\OT1/cmr/m/n/1
+0 ; \OML/cmm/m/it/10 r[]\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 ^^^\OT1/cmr/m/n/10 ]\
+OML/cmm/m/it/10 ; $
+ []
+
+LaTeX Font Info:    No math setup on input line 602.
+[5]
+Overfull \hbox (16.08618pt too wide) in paragraph at lines 715--724
+[]\OT1/cmr/m/n/10 This isn't the strongest for-mu-la-tion. For in-stance, 1) im
+-plies $\OML/cmm/m/it/10 R[]\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 ^^^ \OT1/cmr/m/n
+/10 = \OML/cmm/m/it/10 ^^^\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 R[]\OT1/cmr/m/n/10
+ ; \OML/cmm/m/it/10 ^^^[]\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 ^^^$
+ []
+
+LaTeX Font Info:    No math setup on input line 736.
+[6]
+LaTeX Font Info:    No math setup on input line 785.
+LaTeX Font Info:    No math setup on input line 797.
+ [7]
+LaTeX Font Info:    No math setup on input line 920.
+LaTeX Font Info:    No math setup on input line 934.
+LaTeX Font Info:    No math setup on input line 936.
+
+Overfull \hbox (6.50291pt too wide) in paragraph at lines 927--940
+\OT1/cmr/m/n/10 fined in2.4[]: it is a mul-ti-al-ge-bra $\OML/cmm/m/it/10 Q$ \O
+T1/cmr/m/n/10 such that $[] = \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 [\OML/cmm/m/it/
+10 a\OT1/cmr/m/n/10 ] : \OML/cmm/m/it/10 a \OMS/cmsy/m/n/10 2 []g$ \OT1/cmr/m/n
+/10 and $\OML/cmm/m/it/10 f[]\OT1/cmr/m/n/10 ([\OML/cmm/m/it/10 a[]\OT1/cmr/m/n
+/10 ]\OML/cmm/m/it/10 :::\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 a[]\OT1/cmr/m/n/10 ]
+) =
+ []
+
+[8]
+Overfull \hbox (10.27408pt too wide) in paragraph at lines 1001--1005
+[][]\OT1/cmr/m/n/10 full \OT1/cmr/m/it/10 iff $\OMS/cmsy/m/n/10 8\OML/cmm/m/it/
+10 f \OMS/cmsy/m/n/10 2 \OML/cmm/m/it/10 ^^F$\OT1/cmr/m/it/10 , $\OML/cmm/m/it/
+10 a[]:::a[] \OMS/cmsy/m/n/10 2 [] \OT1/cmr/m/n/10 : \OML/cmm/m/it/10 f[]\OT1/c
+mr/m/n/10 (\OML/cmm/m/it/10 ^^^\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 a[]\OT1/cmr/m/
+n/10 )\OML/cmm/m/it/10 :::^^^\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 a[]\OT1/cmr/m/n/
+10 )) \OMS/cmsy/m/n/10 \ \OML/cmm/m/it/10 ^^^\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 
+A\OT1/cmr/m/n/10 ] = [][] \OML/cmm/m/it/10 ^^^\OT1/cmr/m/n/10 (\OML/cmm/m/it/10
+ f[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 a[]:::a[]\OT1/cmr/m/n/10 ))$\OT1/cmr/m/it
+/10 . 
+ []
+
+LaTeX Font Info:    No math setup on input line 1043.
+[9]
+LaTeX Font Info:    No math setup on input line 1128.
+LaTeX Font Warning: Font shape `U/lasy/b/n' in size <7> not available
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 1128.
+LaTeX Font Warning: Font shape `U/lasy/b/n' in size <5> not available
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 1128.
+LaTeX Font Info:    No math setup on input line 1128.
+LaTeX Font Info:    No math setup on input line 1138.
+LaTeX Font Info:    No math setup on input line 1157.
+LaTeX Font Info:    No math setup on input line 1176.
+ [10]
+LaTeX Font Info:    No math setup on input line 1252.
+ [11]
+LaTeX Font Info:    No math setup on input line 1350.
+LaTeX Font Info:    No math setup on input line 1350.
+
+Overfull \hbox (12.42143pt too wide) in paragraph at lines 1352--1356
+\OT1/cmr/m/n/10 Empty al-ge-bra is ter-mi-nal in each $[](\OML/cmm/m/it/10 ^^F\
+OT1/cmr/m/n/10 )$ cat-e-gory. It is also ini-tial in $[][](\OML/cmm/m/it/10 ^^F
+\OT1/cmr/m/n/10 )$.
+ []
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1360.
+LaTeX Font Info:    No math setup on input line 1414.
+LaTeX Font Info:    No math setup on input line 1416.
+LaTeX Font Info:    No math setup on input line 1443.
+LaTeX Font Info:    No math setup on input line 1463.
+[12]
+LaTeX Font Info:    No math setup on input line 1498.
+
+Overfull \hbox (0.93279pt too wide) in paragraph at lines 1489--1499
+[][]$\OML/cmm/m/it/10 ^^^ \OT1/cmr/m/n/10 : \OML/cmm/m/it/10 A \OMS/cmsy/m/n/10
+ ! \OML/cmm/m/it/10 B$ \OT1/cmr/m/it/10 is a \OT1/cmr/m/n/10 weak \OT1/cmr/m/it
+/10 ho-mo-mor-phism iff $\OML/cmm/m/it/10 ^^^\OT1/cmr/m/n/10 ([](\OML/cmm/m/it/
+10 f[]\OT1/cmr/m/n/10 )) \OMS/cmsy/m/n/10 ^^R []\OT1/cmr/m/n/10 (\OML/cmm/m/it/
+10 f[]\OT1/cmr/m/n/10 )$
+ []
+
+LaTeX Font Info:    No math setup on input line 1501.
+
+Overfull \hbox (8.94875pt too wide) in paragraph at lines 1501--1510
+[][] 
+ []
+
+[13]
+LaTeX Font Info:    No math setup on input line 1603.
+ [14] (wadt.bbl
+LaTeX Font Info:    No math setup on input line 1.
+LaTeX Font Info:    No math setup on input line 51.
+ [15]
+Underfull \hbox (badness 2837) in paragraph at lines 141--144
+[][]\OT1/cmr/m/sc/9 Pickert, G.  \OT1/cmr/m/n/9 Be-merkun-gen zum homomorphie-b
+egriff.  \OT1/cmr/m/it/9 Math-e-ma-tis-che
+ []
+
+) [16] (wadt.aux) ) 
+Here is how much of TeX's memory you used:
+ 2458 strings out of 11024
+ 22498 string characters out of 74866
+ 122843 words of memory out of 262141
+ 5233 multiletter control sequences out of 9500
+ 18894 words of font info for 71 fonts, out of 100000 for 255
+ 14 hyphenation exceptions out of 607
+ 24i,14n,23p,223b,524s stack positions out of 300i,40n,60p,3000b,4000s
+
+Output written on wadt.dvi (16 pages, 78672 bytes).
