@@ -1,0 +1,143 @@
+This is TeX, Version 3.1415 (C version 6.1) (format=latex 94.6.28)  9 APR 1997 13:00
+**&latex2e fig
+(fig.tex
+LaTeX2e <1994/06/01> patch level 2
+Hyphenation patterns for english, norsk, swedish, danish,
+german & francais loaded.
+(/local/TeX/macros/LaTeX/article.cls
+Document Class: article 1994/06/02 v1.2s Standard LaTeX document class
+(/local/TeX/macros/LaTeX/size10.clo
+File: size10.clo 1994/06/02 v1.2s Standard LaTeX file (size option)
+)
+\c@part=\count82
+\c@section=\count83
+\c@subsection=\count84
+\c@subsubsection=\count85
+\c@paragraph=\count86
+\c@subparagraph=\count87
+\c@figure=\count88
+\c@table=\count89
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/local/TeX/macros/AMS-LaTeX-1.2/amssymb.sty
+Package: amssymb 1995/02/01 v2.2a
+
+(/local/TeX/macros/AMS-LaTeX-1.2/amsfonts.sty
+Package: amsfonts 1995/02/01 v2.2b
+\@emptytoks=\toks15
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 128.
+))
+(/local/TeX/macros/XY-pic/xypic.tex (/local/TeX/macros/XY-pic/xyv2.tex
+(/local/TeX/macros/XY-pic/xy.tex Bootstrap'ing: catcodes, docmode,
+(/local/TeX/macros/XY-pic/xyidioms.tex)
+
+ XY-pic version 2.12 <1994/10/25>
+ Copyright (c) 1991-1994 by Kristoffer H. Rose <kris@diku.dk>
+ XY-pic is free software: see the User's Guide for details.
+
+Loading kernel: messages; fonts; allocations: state,
+\Xc=\dimen103
+\Yc=\dimen104
+\Uc=\dimen105
+\Dc=\dimen106
+\Lc=\dimen107
+\Rc=\dimen108
+\Edgec=\toks16
+\Xp=\dimen109
+\Yp=\dimen110
+\Up=\dimen111
+\Dp=\dimen112
+\Lp=\dimen113
+\Rp=\dimen114
+\Edgep=\toks17
+\Xorigin=\dimen115
+\Yorigin=\dimen116
+\Xxbase=\dimen117
+\Yxbase=\dimen118
+\Xybase=\dimen119
+\Yybase=\dimen120
+\Xmin=\dimen121
+\Ymin=\dimen122
+\Xmax=\dimen123
+\Ymax=\dimen124
+\lastobjectbox@=\box25
+\zerodotbox@=\box26
+ direction,
+\dX=\dimen125
+\dY=\dimen126
+\K=\count90
+\KK@=\count91
+\Direction=\count92
+\K@dXdY=\dimen127
+\K@dYdX=\dimen128
+\xyread@=\read1
+\xywrite@=\write4
+\csp@=\count93
+\quotPTK@=\dimen129
+
+utility macros; pictures: \xy, positions, objects, decorations;
+kernel objects: directionals, circles, text; options; algorithms: directions,
+edges, connections; XY-pic loaded)
+XY-pic option: Version 2 Compatibility feature v.2.12
+
+XY-pic Warning: `\stop' redefined.
+
+(/local/TeX/macros/XY-pic/xyframe.tex
+XY-pic option: Frame and Bracket extension v.2.12 loaded)
+(/local/TeX/macros/XY-pic/xymatrix.tex XY-pic option: Matrix feature v.2.12
+\row@=\count94
+\col@=\count95
+\queue@=\toks18
+\queue@@=\toks19
+\qcount@=\count96
+\qcount@@=\count97
+\matrixsize@=\count98
+
+loaded) (/local/TeX/macros/XY-pic/xyarrow.tex
+XY-pic option: Arrow and Path feature v.2.12 path, \ar, loaded)
+\xydiagramno@=\count99
+ loaded))
+(fig.aux)
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Try loading font information for U+msa on input line 8.
+ (/local/TeX/macros/packages/mfnfss/Umsa.fd
+File: Umsa.fd 1994/05/12 v2.2b Standard AMS font definitions
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 8.
+
+(/local/TeX/macros/packages/mfnfss/Umsb.fd
+File: Umsb.fd 1994/05/12 v2.2b Standard AMS font definitions
+) <xymatrix 3x5 323> [1
+
+]
+Overfull \hbox (14.82936pt too wide) detected at line 40
+[][][]
+ []
+
+[2] (fig.aux) ) 
+Here is how much of TeX's memory you used:
+ 1669 strings out of 11024
+ 15213 string characters out of 74866
+ 77161 words of memory out of 262141
+ 4473 multiletter control sequences out of 9500
+ 9311 words of font info for 39 fonts, out of 100000 for 255
+ 14 hyphenation exceptions out of 607
+ 23i,14n,24p,171b,355s stack positions out of 300i,40n,60p,3000b,4000s
+
+Output written on fig.dvi (2 pages, 2292 bytes).

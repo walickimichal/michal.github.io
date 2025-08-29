@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amssymb}
+
+\input xypic
+
+\begin{document}
+
+\[
+\spreaddiagramrows{-.5pc}
+\spreaddiagramcolumns{-.5pc}
+\diagram
+x^* \ddto_{\displaystyle{\theta}} \rrto^{\displaystyle{\beta}}
+    && \upharpoonleft M \\ \\
+W_{\Sigma,x} \rrto^{\displaystyle{\alpha[\_]}} 
+    && M \uuto_{\displaystyle{\upharpoonleft}} \\ \\
+x \uuto \xto[uurr]_{\displaystyle{\alpha}}
+\enddiagram
+\]
+
+\newpage
+
+{\small{\[
+\raisebox{1.5ex}{\begin{tabular}{c}
+R8 \\ R7 \\ R7
+\end{tabular} }
+\begin{array}{clcc}
+   x\frown z^*, y\frown z^* \mapsto x\sqcup y\prec z^* &&& \\ \cline{1-1}
+x\frown p, y\frown p \mapsto x\sqcup y\prec p & \ \ &
+  & \mapsto t\prec p\ \ \ \ \mapsto p\sqcup p\prec p\sqcup p  \\ 
+  \cline{1-1}\cline{4-4} 
+y\frown p \mapsto p\sqcup y\prec p &  \ \ 
+  & \mapsto s\prec p & \mapsto t\sqcup p\prec p\sqcup p  \\ \cline{1-1} \cline{3-4} 
+\mapsto p\sqcup p\prec p 
+&& \multicolumn{2}{c}{\mapsto t\sqcup s\prec p\sqcup p}  \\ \cline{1-4}
+   \multicolumn{4}{c}{\mapsto t\sqcup s\prec p} 
+\end{array}
+\raisebox{-1.5ex}{\begin{tabular}{c}
+R3 \\ R3 \\ R3
+\end{tabular} }
+\] }}
+
+\end{document}

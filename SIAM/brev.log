@@ -1,0 +1,108 @@
+This is TeX, Version 3.1415 (C version 6.1) (format=latex 94.6.28)  10 APR 1997 11:40
+**&latex2e brev
+(brev.tex
+LaTeX2e <1994/06/01> patch level 2
+Hyphenation patterns for english, norsk, swedish, danish,
+german & francais loaded.
+(/local/TeX/macros/LaTeX/article.cls
+Document Class: article 1994/06/02 v1.2s Standard LaTeX document class
+(/local/TeX/macros/LaTeX/size11.clo
+File: size11.clo 1994/06/02 v1.2s Standard LaTeX file (size option)
+)
+\c@part=\count82
+\c@section=\count83
+\c@subsection=\count84
+\c@subsubsection=\count85
+\c@paragraph=\count86
+\c@subparagraph=\count87
+\c@figure=\count88
+\c@table=\count89
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/local/TeX/macros/packages/graphics/epsfig.sty
+Package: epsfig 94/06/071.3(SPQR)
+Package: epsfig 94/06/071.3(SPQR)
+
+(/local/TeX/macros/packages/graphics/graphicx.sty
+Package: graphicx 1994/05/30 v0.4b Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/local/TeX/macros/packages/graphics/keyval.sty
+Package: keyval 1994/03/15 v1.07 sin cos tan (DPC)
+Package: keyval 1994/02/01 v1.06 (DPC)
+Package: keyval 1994/02/01 v1.06 (DPC)
+)
+(/local/TeX/macros/packages/graphics/graphics.sty
+Package: graphics 1994/05/30 v0.4e Standard LaTeX Graphics (DPC,SPQR)
+
+(/local/TeX/macros/packages/graphics/trig.sty
+Package: trig 1994/03/15 v1.07 sin cos tan (DPC)
+)
+(/local/TeX/macros/packages/graphics/dvips.def
+File: dvips.def 1994/06/08 v1.6 Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+\epsfxsize=\dimen105
+\epsfysize=\dimen106
+) (a4letter.tex) (brev.aux)
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+File: uib.ps Graphic file (type eps)
+
+<uib.ps>
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 41.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 41.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 41.
+
+Overfull \hbox (9.74347pt too wide) in paragraph at lines 41--42
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--45
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 46--47
+
+ []
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <9> on input line 60.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 60.
+
+Overfull \hbox (1.06587pt too wide) in paragraph at lines 60--60
+[][]|  []| 
+ []
+
+[1
+
+] (brev.aux) ) 
+Here is how much of TeX's memory you used:
+ 617 strings out of 11024
+ 6421 string characters out of 74866
+ 52241 words of memory out of 262141
+ 3429 multiletter control sequences out of 9500
+ 9146 words of font info for 32 fonts, out of 100000 for 255
+ 14 hyphenation exceptions out of 607
+ 32i,9n,24p,198b,244s stack positions out of 300i,40n,60p,3000b,4000s
+
+Output written on brev.dvi (1 page, 2032 bytes).

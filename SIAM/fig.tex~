@@ -1,0 +1,16 @@
+\documentclass{article}
+
+\input xypic
+
+\begin{document}
+
+\[
+\diagram
+x^* \dto^\theta \rrto^\beta && \uparrow M \\
+W_{\Sigma,x} \rrto^{\alpha[\_]} && M \\
+x \uto \urrto_{\alpha}
+\enddiagram
+\]
+
+
+\end{document}

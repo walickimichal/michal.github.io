@@ -1,0 +1,64 @@
+\documentclass[11pt]{article}
+
+\usepackage{epsfig}
+
+\makeatletter
+\input{a4letter}
+\makeatother
+
+\newcommand{\pd}[1]{{\sc{#1}}} %appears only in the footer
+
+\def\thepage{{}} % removes pagenumbers
+\def\thefootnote{{}}
+
+\newcommand{\listdo}[1]{\noindent\parbox[b]{12cm}{#1} \\[12ex]  
+    \hspace*{1em}  \hfill{\today} \\ }
+\newcommand{\opening}[1]{\noindent \hspace*{-.5ex}#1 \\[1ex] }
+
+\newcommand{\reg}[1]{\noindent {\bf Re:} #1 \\[1ex] }
+
+\newcommand{\signature}[1]{\ \\[4ex] \hspace*{22em}#1\commu \\[8ex] 
+                   \hspace*{23em}Micha{\l} Walicki}
+\newcommand{\head}{\epsfxsize=2cm\epsfysize=2cm
+\noindent
+ \raisebox{11ex}{\noindent \hspace*{-1em}\raisebox{-3.5ex}{\mbox{\epsffile{uib.ps}}}
+ \begin{tabular}[b]{l} 
+ {\Large\sc{University of Bergen, Department of Informatics}} \hspace*{1em} \\
+ \hline  {\sc{associate professor, dr. Micha{\l} Walicki}}
+ \end{tabular} 
+}}
+
+\renewcommand{\footnoterule}{\hspace*{-2em}\hrulefill}
+\newcommand{\commu}{\footnotetext{\hspace*{-2.5em}
+  \begin{tabular}{l@{\ \ \ \ \ \ \ \ \ \ \ \ }l@{\ \ \ \ \ \ \ \ \ \ \ \ \ }l}
+   {\pd{Postal Address:}} & {\pd{Visiting Address:}} & {\pd{Communication:}} \\
+ \ \ {HiB, 5020 Bergen} &\ \ {Thorm{\o}lensgt. 55} &\ \ {ph.: +47 55 58-41-78, \hfill fax: +47 55 58-41-99} \\
+ \ \ Norway &\ \ Bergen, Norway  & \ \ michal@ii.uib.no,\ \ \ \hfill
+          http:$/\!\!/$www.ii.uib.no/{\~{}}michal
+  \end{tabular} }}
+
+\begin{document}
+\head
+
+\listdo{ {\bf SIAM} \\  
+  3600 University City Center \\ Phila., PA 19104-2688 }
+
+\reg{E13-2-sicomp; {\em Singular and Plural Nondeterministic Parameters}}
+%%%% DATE: April, 10 1997
+
+\opening{ Dear Sirs,}
+My corrections in the proofs are marked with red color and symbols/letters which 
+should replace the ones in the text are indicated in the margin and marked 
+with an additional exclamation mark `!'. 
+
+I am also enclosing the two figures -- the first one has been set up anew
+with a much better result than the original one.
+
+I can be contacted at the address below during the next five months except for
+the first week of June (1-7.06.97) and the whole of July.
+
+
+\signature{With best regards}
+
+
+\end{document}
