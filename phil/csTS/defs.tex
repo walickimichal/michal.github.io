@@ -1,0 +1,18 @@
+
+\newcounter{EQ}
+\newcommand{\equ}[1]{\refstepcounter{EQ}\vspace{.5ex}\par\noindent\ 
+    \hfill $#1$\hfill{(\theEQ)}\\[.5ex]}
+\newcommand{\refe}[1]{(\ref{#1})}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+
+\newcommand{\MyLPar}{\parsep -.2ex plus.2ex minus.2ex\itemsep\parsep
+   \vspace{-\topsep}\vspace{.5ex}}
+\newenvironment{ite}{\begin{itemize}\MyLPar}{\end{itemize}}
+\newenvironment{enu}{\begin{enumerate}\MyLPar}{\end{enumerate}}
+
+
+\newcommand{\co}[1]{{\sf{#1}}}
+\newcommand{\wo}[1]{`#1'}
+\newcommand{\thi}[1]{{\sl{#1}\/}}
+

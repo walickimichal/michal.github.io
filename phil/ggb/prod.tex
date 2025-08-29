@@ -1,0 +1,15 @@
+As an example for the uninitiated, conside the standard Cartesian product
+$A_1\times A_2$ of sets $A_1$ and $A_2$ -- it is the set of all ordered pairs
+$\langle a_1,a_2\rangle$ where $a_1\in A_1$ and $a_2\in A_2$. We are given a
+construction of an explicit object. In category theory, one defines a product
+$A_1\otimes A_2$ of two objects, as an object with two morphisms,
+\wo{projections}, $\pi_i:A_1\times A_2\into A_i$ with the universal property
+that for any other object $B$ with two morphisms $\phi_i:B\into A_i$ there
+exists a {\em unique} morphism $u:B\into A$ such that $u;\pi_i=\phi_i$. One
+verifies easily that, for instance for the category of sets and functions, the
+Cartesian product $A_1\times A_2$ can be taken as a product $A_1\otimes A_2$ but
+so can be, for instance, the isomorphic object $A_2\times A_1$. In the category
+of propositions with the logical consequence relations as morphisms, the same
+definition of categorical product, now applied to two propositions $A\otimes B$,
+turns out to be the logical conjunction $A\land B$.
+

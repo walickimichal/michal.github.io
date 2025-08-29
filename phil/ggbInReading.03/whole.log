@@ -1,0 +1,552 @@
+This is TeX, Version 3.14159 (Web2C 7.3.1) (format=latex 2002.9.13)  8 OCT 2004 12:29
+**whole
+(whole.tex
+LaTeX2e <1999/12/01> patch level 1
+Babel <v3.6Z> and hyphenation patterns for american, french, german, ngerman, n
+ohyphenation, loaded.
+(bookMY.cls
+Document Class: bookMY 1994/07/13 v1.2u Standard LaTeX document class
+(/sw/share/texmf/tex/latex/base/bk10.clo
+File: bk10.clo 1999/09/10 v1.4a Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/sw/share/texmf/tex/latex/graphics/epsfig.sty
+Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
+
+(/sw/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/sw/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/sw/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 1999/02/16 v1.0l Standard LaTeX Graphics (DPC,SPQR)
+
+(/sw/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/sw/share/texmf/tex/latex/config/graphics.cfg)
+Package graphics Info: Driver file: dvips.def on input line 80.
+
+(/sw/share/texmf/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+\epsfxsize=\dimen105
+\epsfysize=\dimen106
+)
+(/sw/share/texmf/tex/latex/base/latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 42.
+)
+(/sw/share/texmf/tex/latex/natbib/natbib.sty
+Package: natbib 1999/05/28 7.0 (PWD)
+\bibhang=\skip43
+\bibsep=\skip44
+LaTeX Info: Redefining \cite on input line 508.
+\c@NAT@ctr=\count88
+)
+(/sw/share/texmf/tex/latex/auncial/auncial.sty
+Package: auncial 1999/05/22 v1.0 package for Artificial Uncial fonts
+)
+(/sw/share/texmf/tex/latex/uncial/uncial.sty
+Package: uncial 1999/05/15 v1.1 package for uncial fonts
+) (a4wide.tex)
+(/sw/share/texmf/tex/generic/xypic/xypic.tex
+(/sw/share/texmf/tex/generic/xypic/xyv2.tex
+(/sw/share/texmf/tex/generic/xypic/xy.tex Bootstrap'ing: catcodes, docmode,
+(/sw/share/texmf/tex/generic/xypic/xyrecat.tex)
+(/sw/share/texmf/tex/generic/xypic/xyidioms.tex)
+
+ Xy-pic version 3.7 <1999/02/16>
+ Copyright (c) 1991-1998 by Kristoffer H. Rose <krisrose@ens-lyon.fr>
+ Xy-pic is free software: see the User's Guide for details.
+
+Loading kernel: messages; fonts; allocations: state,
+\X@c=\dimen107
+\Y@c=\dimen108
+\U@c=\dimen109
+\D@c=\dimen110
+\L@c=\dimen111
+\R@c=\dimen112
+\Edge@c=\toks15
+\X@p=\dimen113
+\Y@p=\dimen114
+\U@p=\dimen115
+\D@p=\dimen116
+\L@p=\dimen117
+\R@p=\dimen118
+\Edge@p=\toks16
+\X@origin=\dimen119
+\Y@origin=\dimen120
+\X@xbase=\dimen121
+\Y@xbase=\dimen122
+\X@ybase=\dimen123
+\Y@ybase=\dimen124
+\X@min=\dimen125
+\Y@min=\dimen126
+\X@max=\dimen127
+\Y@max=\dimen128
+\lastobjectbox@=\box26
+\zerodotbox@=\box27
+\almostz@=\dimen129
+ direction,
+\d@X=\dimen130
+\d@Y=\dimen131
+\K@=\count89
+\KK@=\count90
+\Direction=\count91
+\K@dXdY=\dimen132
+\K@dYdX=\dimen133
+\xyread@=\read1
+\xywrite@=\write3
+\csp@=\count92
+\quotPTK@=\dimen134
+
+utility macros; pictures: \xy, positions,
+\swaptoks@@=\toks17
+\connectobjectbox@@=\box28
+ objects,
+\styletoks@=\toks18
+ decorations;
+kernel objects: directionals, circles, text; options; algorithms: directions,
+edges, connections;  Xy-pic loaded)
+ Xy-pic option: Version 2 Compatibility v.3.4
+
+Xy-pic Warning: `\stop' redefined.
+
+(/sw/share/texmf/tex/generic/xypic/xyframe.tex
+ Xy-pic option: Frame and Bracket extension v.3.7 loaded)
+(/sw/share/texmf/tex/generic/xypic/xymatrix.tex
+ Xy-pic option: Matrix feature v.3.4
+\Row=\count93
+\Col=\count94
+\queue@=\toks19
+\queue@@=\toks20
+\qcount@=\count95
+\qcount@@=\count96
+\matrixsize@=\count97
+ loaded)
+(/sw/share/texmf/tex/generic/xypic/xyarrow.tex
+ Xy-pic option: Arrow and Path feature v.3.5 path, \ar, loaded) loaded))
+(/sw/share/texmf/tex/generic/xypic/xycurve.tex
+ Xy-pic option: Curve and Spline extension v.3.7 curve,
+\crv@cnt@=\count98
+\crvpts@=\toks21
+\splinebox@=\box29
+\splineval@=\dimen135
+\splinedepth@=\dimen136
+\splinetol@=\dimen137
+\splinelength@=\dimen138
+ circles,
+\L@=\dimen139
+ loaded)
+(/sw/share/texmf/tex/generic/xypic/xyframe.tex
+ Xy-pic option: Frame and Bracket extension v.3.7 not reloaded) (defs.tex
+(/sw/share/texmf/tex/latex/base/fontenc.sty
+Package: fontenc 1999/12/08 v1.9x Standard LaTeX package
+
+(/sw/share/texmf/tex/latex/base/t1enc.def
+File: t1enc.def 1999/12/08 v1.9x Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 38.
+))
+\wordwidth=\skip45
+\letterheight=\skip46
+\c@PARAGRAPH=\count99
+\c@SUBPARAGRAPH=\count100
+\c@KOM=\count101
+\c@SUBSUB=\count102
+\c@SUBSUBI=\count103
+\c@LEVELS=\count104
+) (whole.aux)
+\openout1 = `whole.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 40.
+LaTeX Font Info:    ... okay on input line 40.
+LaTeX Font Info:    Try loading font information for OT1+auncl on input line 42
+.
+
+(/sw/share/texmf/tex/latex/auncial/ot1auncl.fd)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 42.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 42.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 42.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 42.
+
+(/sw/share/texmf/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2eLaTeX symbol font definitions
+) [1
+
+
+] [0
+
+] (whole.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 1.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 1.
+ [1])
+\tf@toc=\write4
+\openout4 = `whole.toc'.
+
+ [2] (00sc.tex [3] [4]) [5] [6
+
+]
+Book I.
+(01InTheBeg.tex
+Underfull \hbox (badness 10000) in paragraph at lines 52--1
+
+ []
+
+[1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13]
+File: Pschrods.eps Graphic file (type eps)
+ <Pschrods.eps>
+File: Pschcont.eps Graphic file (type eps)
+
+<Pschcont.eps> [14] [15] [16] [17] [18] [19] [20] [21] [22] [23] [24] [25]
+[26] [27] [28] [29] [30] [31] [32] [33] [34] <xymatrix 9x6 516> [35] [36]
+[37] <xymatrix 13x3 770> [38] <xymatrix 9x6 504>
+Underfull \vbox (badness 2096) has occurred while \output is active []
+
+ [39]
+File: spiral.eps Graphic file (type eps)
+
+<spiral.eps> [40] [41] [42] [43] [44] [45] [46]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [47]
+[48] [49] [50] [51]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [52]
+[53] [54] <xymatrix 3x1 55> <xymatrix 3x1 96> [55] <xymatrix 3x1 55> [56]
+[57] [58] [59]
+Underfull \vbox (badness 4634) has occurred while \output is active []
+
+ [60]
+[61]
+Underfull \vbox (badness 3396) has occurred while \output is active []
+
+ [62]
+[63] [64] [65] [66] [67] [68] [69] [70] [71]
+Underfull \vbox (badness 1052) has occurred while \output is active []
+
+ [72]
+[73] [74]
+Underfull \vbox (badness 1642) has occurred while \output is active []
+
+ [75]
+[76] [77] [78] [79]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [80]
+[81] [82] [83] [84] [85] [86]
+Underfull \vbox (badness 5050) has occurred while \output is active []
+
+ [87]
+[88] [89] <xymatrix 11x2 158> <xymatrix
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.9047 }
+        
+? r
+OK, entering \nonstopmode...
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.9047 }
+        
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.9047 }
+        
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+12x5 414> <xymatrix 14x6 454>
+Overfull \hbox (2.69958pt too wide) detected at line 9064
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [90]
+[91] <xymatrix 14x8 680> [92] [93] [94] [95] [96] [97] [98] [99]) [100]
+Book II.
+(02levels.tex <xymatrix
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.134 }
+       
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.134 }
+       
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.134 }
+       
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.134 }
+       
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.134 }
+       
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.134 }
+       
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.134 }
+       
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.134 }
+       
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.134 }
+       
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.134 }
+       
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.134 }
+       
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.134 }
+       
+You meant to type ## instead of #, right?
+Or maybe a } was forgotten somewhere earlier, and things
+are all screwed up? I'm going to assume that you meant ##.
+
+16x8 482>
+Overfull \hbox (93.50662pt too wide) detected at line 135
+| []
+ []
+
+[101
+
+] [102] [103] [104] [105] [106] [107] [108] [109] [110] [111] [112]
+[113] [114] [115] [116] [117] [118] [119] [120] [121] [122] [123] [124]
+[125] [126] [127] [128] [129] [130] [131] [132] [133] [134] [135] [136]
+[137] [138]
+Underfull \vbox (badness 2680) has occurred while \output is active []
+
+ [139]
+[140] [141] [142] [143] [144] [145] [146] [147] [148] [149] [150] [151]
+[152] [153] [154] [155]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [156]
+[157] [158] [159] [160] [161] [162] [163] [164] [165] [166] [167] [168]
+[169] [170] [171] [172] [173] [174] [175] [176]
+Overfull \hbox (14.048pt too wide) in paragraph at lines 7738--7738
+[][] 
+ []
+
+<xymatrix 4x4
+
+LaTeX Font Warning: Command \sl invalid in math mode on input line 7798.
+
+
+LaTeX Font Warning: Command \sl invalid in math mode on input line 7798.
+
+
+LaTeX Font Warning: Command \sl invalid in math mode on input line 7798.
+
+
+LaTeX Font Warning: Command \sl invalid in math mode on input line 7798.
+
+329> [177] [178] [179] [180] [181] [182] [183] [184] [185] [186] [187] [188]
+[189] [190] [191] [192] [193] [194] [195] [196] [197] [198] [199] [200]
+[201] [202] [203]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <9> on input line 10680.
+ [204] [205] [206] [207] [208] [209] [210] [211] [212]
+[213] <xymatrix 3x1 65> [214] [215] [216] [217] [218] [219] [220] [221]
+[222] [223] [224] [225]
+Underfull \vbox (badness 1360) has occurred while \output is active []
+
+ [226]
+[227] [228] [229] [230] [231] [232] [233] [234] [235] [236] [237] [238]
+[239] [240] [241] [242]) [243] [244
+
+]
+Book III.
+(03visInvis.tex [245] [246] [247] [248] [249] [250] [251] [252] [253] [254]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [255]
+[256] [257] [258] [259] [260] [261] [262] [263] [264] [265] [266] [267]
+[268] [269] [270] [271] [272] [273] [274] [275] [276] [277] [278] [279]
+[280] [281] [282] [283] [284] [285] [286] [287] [288] [289] [290] [291]
+[292] [293] [294] [295] [296] [297] [298] [299] [300] [301] [302]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [303]
+[304] [305] [306] [307] [308]
+Overfull \hbox (8.73291pt too wide) in paragraph at lines 6654--6670
+[]\T1/cmr/m/n/10 All the \T1/cmr/m/sl/10 in-ver-sions \T1/cmr/m/n/10 may be see
+n as vari-a-tions of the ap-par-ent op-po-si-tion \T1/cmr/m/sl/10 tran-scen-den
+ce\T1/cmr/m/n/10 -\T1/cmr/m/sl/10 immanence\T1/cmr/m/n/10 .
+ []
+
+[309] [310] [311] [312] [313] [314] [315] [316] [317] [318] [319] [320]
+[321] [322] [323] [324] [325] [326] [327] [328] [329] [330] [331] [332]
+[333] [334] [335] [336] [337] [338] [339] [340] [341] [342] [343] [344]
+[345] [346] [347] [348] [349] [350] [351] [352]) [353] [354
+
+]
+LaTeX Font Info:    Try loading font information for OT1+uncl on input line 84.
+
+
+(/sw/share/texmf/tex/latex/uncial/ot1uncl.fd) (04x.tex) (whole.bbl [355]
+[356
+
+] [357] [358] [359] [360]
+Underfull \hbox (badness 1199) in paragraph at lines 598--601
+[]\T1/cmr/m/sc/10 Diogenes Laer-tius\T1/cmr/m/n/10 , \T1/cmr/m/it/10 Lives, Tea
+ch-ings and Say-ings of Fa-mous Philoso-phers\T1/cmr/m/n/10 , Pa«st-wowe
+ []
+
+[361] [362] [363] [364] [365] [366]
+Underfull \hbox (badness 10000) in paragraph at lines 1330--1332
+[]\T1/cmr/m/sc/10 Locke, John\T1/cmr/m/n/10 , \T1/cmr/m/it/10 An Es-say Con-cer
+n-ing Hu-man Un-der-stand-ing\T1/cmr/m/n/10 ,
+ []
+
+[367]
+Underfull \hbox (badness 3189) in paragraph at lines 1365--1367
+[]\T1/cmr/m/sc/10 Malcolm, N.\T1/cmr/m/n/10 , \T1/cmr/m/it/10 ``Wittgen-stein's
+ Philo-soph-i-cal In-ves-ti-ga-tions''\T1/cmr/m/n/10 , \T1/cmr/m/it/10 The Phil
+o-soph-i-cal Re-view\T1/cmr/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 1484) in paragraph at lines 1402--1404
+[]\T1/cmr/m/sc/10 Marlowe, Christo-pher\T1/cmr/m/n/10 , \T1/cmr/m/it/10 Doc-tor
+ Faus-tus\T1/cmr/m/n/10 , Rout-ledge, 1988, [edited and an-no-tated by
+ []
+
+[368]
+Underfull \hbox (badness 10000) in paragraph at lines 1501--1504
+[]\T1/cmr/m/sc/10 Montaigne, Michel Eyquem\T1/cmr/m/n/10 , \T1/cmr/m/it/10 Of L
+y-ers\T1/cmr/m/n/10 , in \T1/cmr/m/it/10 Mon-taigne's Es-says, I:9\T1/cmr/m/n/1
+0 ,
+ []
+
+[369] [370] [371] [372] [373]) [374] (whole.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 4549 strings out of 10900
+ 47484 string characters out of 72563
+ 222718 words of memory out of 263001
+ 7422 multiletter control sequences out of 10000+0
+ 31098 words of font info for 80 fonts, out of 400000 for 1000
+ 14 hyphenation exceptions out of 1000
+ 32i,21n,32p,1462b,1147s stack positions out of 300i,100n,500p,50000b,4000s
+
+Output written on whole.dvi (382 pages, 2607676 bytes).

@@ -1,0 +1,2337 @@
+%\begin{thebibliography}{457}
+%\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\chapter*{Subject bibliography}\markboth{Subject bibliography}{Subject bibliography}
+%\addcontentsline{toc}{chapter}{Subject bibliography}
+
+%1.Philosophy -- original sources
+%2.Philosophy -- secondary sources
+%             history
+%3.Religious
+%4.Mathematics and computer science
+%5.Psychology
+%   infant development
+%6.History
+%7.Literature
+%8.Poetry
+
+%1.Philosophy -- original sources
+\section*{Philosophy -- primary sources}
+
+\bibitem[P.~Abelard, {\em Dialogue between a Philosopher, a Jew and a
+  Christian\/}(Dialogue between a Philosopher a Jew and a
+  Christian)]{}%{AbelardPJC}
+{\sc Abelard, Peter}, {\em Dialogue between a Philosopher, a Jew and a
+  Christian\/},  in  \citeauthor*{AbelardEthical}.
+
+\bibitem[P.~Abelard, {\em Ethical Writings\/}(Ethical
+  Writings)]{}%{AbelardEthical}
+---, {\em Ethical Writings\/}, Hackett Publishing Company, Inc., 1995,
+  [translated by Paul Vincent Spade].
+
+\bibitem[P.~Abelard, {\em Ethics\/}(Ethics)]{}%{AbelardEthics}
+---, {\em Ethics\/},  in  \citeauthor*{AbelardEthical}.
+
+\bibitem[Alcinous, {\em Didaskalikos\/}(Didaskalikos The Handbook of
+  Platonism)]{}%{HandPlat}
+{\sc Alcinous}, {\em Didaskalikos [The Handbook of Platonism]\/}, Clarendon
+  Press, Oxford, 1993, [translated by J.~Dillon].
+
+\bibitem[\Anselm{}St.~Anselm \NOOP{of}~Canterbury, {\em De Concordia\/}(De
+  Concordia The compatibility of Gods foreknowledge predestination and grace
+  with human freedom)]{}%{AnselmConcord}
+{\sc \Anselm{}St.~Anselm \NOOP{of}~Canterbury}, {\em De Concordia: The
+  compatibility of God's foreknowledge, predestination, and grace with human
+  freedom\/},  all works of St.~Anselm are from \citeauthor*{Anselm}.
+
+\bibitem[\Anselm{}St.~Anselm \NOOP{of}~Canterbury, {\em
+  Monologion\/}(Monologion)]{}%{Monologion}
+---, {\em Monologion\/}.
+
+\bibitem[\Anselm{}St.~Anselm \NOOP{of}~Canterbury, {\em On Free Will\/}(On Free
+  Will)]{}%{AnselmFreeWill}
+---, {\em On Free Will\/}.
+
+\bibitem[\Anselm{}St.~Anselm \NOOP{of}~Canterbury, {\em On the Fall of the
+  Devil\/}(On the Fall of the Devil)]{}%{AnselmFall}
+---, {\em On the Fall of the Devil\/}.
+
+\bibitem[\Anselm{}St.~Anselm \NOOP{of}~Canterbury, {\em On Truth\/}(On
+  Truth)]{}%{AnselmTruth}
+---, {\em On Truth\/}.
+
+\bibitem[\Anselm{}St.~Anselm \NOOP{of}~Canterbury, {\em Philosophical
+  Fragments\/}(Philosophical Fragments)]{}%{AnselmFrag}
+---, {\em Philosophical Fragments\/}.
+
+\bibitem[\Anselm{}St.~Anselm \NOOP{of}~Canterbury, {\em
+  Proslogion\/}(Proslogion)]{}%{Proslogion}
+---, {\em Proslogion\/}.
+
+\bibitem[\Anselm{}St.~Anselm \NOOP{of}~Canterbury, {\em Reply to
+  Gaunilo\/}(Reply to Gaunilo)]{}%{ReplyG}
+---, {\em Reply to Gaunilo\/}.
+
+  
+\bibitem[B.~Davies and G.~R. Evans, eds., {\em Anselm {of} Canterbury: The
+  major works\/}(Anselm of Canterbury The major works)]{}%{Anselm}
+{\sc Davies, Brian}, and {\sc Evans, Gillian~Rosemary} (editors), {\em Anselm
+  {of} Canterbury: The major works\/}, Oxford University Press, 1998.
+
+\bibitem[Gaunilon \NOOP{of}~Marmoutiers, {\em On behalf of the fool\/}(On
+  behalf of the fool)]{}%{Gaunilon}
+{\sc Gaunilon \NOOP{of}~Marmoutiers}, {\em On behalf of the fool\/},  in
+  \citeauthor*{Anselm}.
+
+
+\bibitem[\Aquinas{}St.~Thomas~Aquinas, {\em On Being and Essence\/}(On Being
+  and Essence)]{}%{BeingEssence}
+{\sc \Aquinas{}St.~Thomas~Aquinas}, {\em On Being and Essence\/}
+  [translated by Robert.~T.~Miller].
+
+\bibitem[\Aquinas{}St.~Thomas~Aquinas, {\em Contra Gentiles\/}(Contra
+  Gentiles)]{}%{CG}
+---, {\em Contra Gentiles\/}, Benziger Brothers, 1924, [translated by Fathers
+  of the English Dominican Province].
+
+\bibitem[\Aquinas{}St.~Thomas~Aquinas, {\em Summa Theologica\/}(Summa
+  Theologica)]{}%{SumTh}
+---, {\em Summa Theologica\/}, Benziger Brothers, 1947, [translated by Fathers
+  of the English Dominican Province].
+
+\bibitem[M.~\Arabi{}Ibn'Arabi, {\em The Treatise on Love\/}(The Treatise on
+  Love)]{}%{Ibn}
+{\sc \Arabi{}Ibn'Arabi, Muhammad}, {\em The Treatise on Love\/}, Pa\'{n}stwowe
+  Wydawnictwo Naukowe, 1995, [my retranslation from Polish \btit{Traktat o
+  Mi{\l}o\'{s}ci}].
+
+\bibitem[Aristotle, {\em Metaphysics\/}(Metaphysics)]{}%{AristMeta}
+{\sc Aristotle}, {\em Metaphysics\/} [translated by W.~D.~Ross].
+
+\bibitem[Aristotle, {\em Physics\/}(Physics)]{}%{AristPhysics}
+---, {\em Physics\/} [translated by R.~P.~Hardie and R.~K.~Gaye].
+
+\bibitem[Aristotle, {\em Posterior Analytics\/}(Posterior Analytics)]{}%{PostAnal}
+---, {\em Posterior Analytics\/} [translated by G.~R.~G.~Mure].
+
+\bibitem[Aristotle, {\em On the Soul\/}(On the Soul)]{}%{AristAnima}
+---, {\em On the Soul\/}, The Peripatetic Press, 1981, [translated by
+  H.~G.~Apostle].
+
+\bibitem[Aristotle, {\em Nicomachean Ethics\/}(Nicomachean Ethics)]{}%{AristNico}
+---, {\em Nicomachean Ethics\/}, Macmillan Publishing Company, 1989,
+  [translated by M.~Ostwald].
+
+\bibitem[\August{}St.~Augustine, {\em On Order\/}(On Order)]{}%{AugustOrder}
+{\sc \August{}St.~Augustine}, {\em On Order\/}.
+
+\bibitem[\August{}St.~Augustine, {\em On True Religion\/}(On True
+  Religion)]{}%{AugustTrueRel}
+---, {\em On True Religion\/}.
+
+\bibitem[\August{}St.~Augustine, {\em Christian Doctrine\/}(Christian
+  Doctrine)]{}%{AugustChrist}
+---, {\em Christian Doctrine\/},  in  \citeauthor*{PNF}, vol. II of series I.
+
+\bibitem[\August{}St.~Augustine, {\em The City of God\/}(The City of
+  God)]{}%{CityGod}
+---, {\em The City of God\/},  in  \citeauthor*{PNF}, vol. II of series I.
+
+\bibitem[\August{}St.~Augustine, {\em Homilies on the First Epistle of
+  John\/}(Homilies on the First Epistle of John)]{}%{AugustJohn}
+---, {\em Homilies on the First Epistle of John\/},  in  \citeauthor*{PNF},
+  vol. VII of series I.
+
+\bibitem[\August{}St.~Augustine, {\em On The Holy Trinity\/}(On The Holy
+  Trinity)]{}%{DeTrinitate}
+---, {\em On The Holy Trinity\/},  in  \citeauthor*{PNF}, vol. III of series I.
+
+\bibitem[\August{}St.~Augustine, {\em Confessions\/}(Confessions)]{}%{AugustConf}
+---, {\em Confessions\/}, New American Library, 1963.
+  
+\bibitem[J.~L. Austin, {\em Truth\/}(Truth)]{}%{Austin}
+{\sc Austin, J.~L.}, {\em ``Truth''\/}, {\em Aristotelian Society\/}, vol.~24,
+  1950, in \citeauthor*{Truth}.
+
+\bibitem[G.~Bataille, {\em The Use Value of D.~A.~F.~de Sade\/}(The Use Value
+  of D A F de Sade)]{}%{BatailleSade}
+{\sc Bataille, Georges}, {\em The Use Value of D.~A.~F.~de Sade\/} in
+  \citeauthor*{BatailleSel}.
+
+\bibitem[G.~Bataille, {\em Visions of Excess: Selected Writings,
+  1927-1939\/}(Visions of Excess Selected Writings 1927 1939)]{}%{BatailleSel}
+---, {\em Visions of Excess: Selected Writings, 1927-1939\/}, Minneapolis, UMP,
+  1985, [translated by A.~Stoekl, C.~R.~Lovitt and D.~M.~Leslie, Jr.].
+
+\bibitem[G.~Bataille, {\em Erotism: Death and Sensuality\/}(Erotism Death and
+  Sensuality)]{}%{BatailleErotism}
+---, {\em Erotism: Death and Sensuality\/}, City Lights, San Francisco, 1986,
+  [translated by M.~Dalwood].
+
+\bibitem[G.~Bataille, {\em The Trial of Gilles de Rais\/}(The Trial of Gilles
+  de Rais)]{}%{BatailleRais}
+---, {\em The Trial of Gilles de Rais\/}, Subterrean Co., 1991.
+
+\bibitem[N.~Berdyayev, {\em I and the world of objects\/}(I and the world of
+  objects An essay in philosophy of loneliness and participation)]{}%{Bier}
+{\sc Berdyayev, Nicolay}, {\em I and the world of objects. An essay in
+  philosophy of loneliness and participation.\/}, Paris, 1934, [my
+  retranslation from Polish \btit{Rozwa\.{z}ania o egzystencji}, Antyk, 2002].
+
+\bibitem[H.~Bergson, {\em Time and Free Will\/}(Time and Free Will an Essay on
+  the Immediate Data of Consciousness)]{}%{BergTime}
+{\sc Bergson, Henri}, {\em Time and Free Will, an Essay on the Immediate Data
+  of Consciousness\/}, Kessinger Publishing Company, Montana [translated by
+  F.~L.~Pogson].
+
+\bibitem[H.~Bergson, {\em The Two Sources of Morality and Religion\/}(The Two
+  Sources of Morality and Religion)]{}%{BergTwo}
+---, {\em The Two Sources of Morality and Religion\/}, University of Notre Dame
+  Press, 1986, [translated by R.~A.~Audra and C.~Brereton].
+
+\bibitem[H.~Bergson, {\em Matter and Memory\/}(Matter and Memory)]{}%{MattMem}
+---, {\em Matter and Memory\/}, Zone Books, New York, 1991, [translated by
+  N.~M.~Paul and W.S.~Palmer].
+
+\bibitem[G.~Berkeley, {\em A Treatise...\/}(A Treatise Concerning the
+  Principles of Human Knowledge)]{}%{BerkeleyPrinc}
+{\sc Berkeley, George}, {\em A Treatise Concerning the Principles of Human
+  Knowledge\/}.
+
+\bibitem[G.~Berkeley, {\em Three Dialogues...\/}(Three Dialogues between Hylas
+  and Philonous in Opposition to Sceptics and Atheists)]{}%{BerkeleyDial}
+---, {\em Three Dialogues between Hylas and Philonous in Opposition to Sceptics
+  and Atheists\/}, The Harvard Classics, 1909-14.
+
+\bibitem[Boethius, {\em Commentary to Isagoge\/}(Commentary to
+  Isagoge)]{}%{Isagoge}
+{\sc Boethius}, {\em Commentary to Isagoge\/}.
+
+\bibitem[Boethius, {\em The Consolation of Philosophy\/}(The Consolation of
+  Philosophy)]{}%{Console}
+---, {\em The Consolation of Philosophy\/}, Electronic Text Center, University
+  of Virginia Library, http:\lin etext.lib.virginia.edu, 1902, [translated by
+  W.~V.~Cooper].
+
+\bibitem[C.~\Bovelles{}de~Bovelles, {\em De nihilo\/}(De nihilo)]{}%{Bovelles}
+{\sc \Bovelles{}de~Bovelles, Charles}, {\em De nihilo\/}, Vrin, Paris, 1983,
+  [translated by P.~Magnard].
+
+\bibitem[F.~H. Bradley, {\em On truth and copying\/}(On truth and
+  copying)]{}%{BradleyTruth}
+{\sc Bradley, Francis~Herbert}, {\em ``On truth and copying''\/}, {\em Mind\/},
+  vol.~16, 1907, in \citeauthor*{Truth}.
+
+\bibitem[M.~Buber, {\em Dialog\/}(Dialog Zwiesprache)]{}%{Zwie}
+{\sc Buber, Martin}, {\em Dialog (Zwiesprache)\/},  in  \citeauthor*{Dialog}.
+
+\bibitem[M.~Buber, {\em The Dialogical Principle\/}(The Dialogical
+  Principle)]{}%{Dialog}
+---, {\em The Dialogical Principle\/}, Verlag Lambert Schneider, Gerlingen,
+  1992, [my translation from German \btit{Das Dialogische Prinzip}].
+
+\bibitem[M.~Buber, {\em I and You\/}(I and You)]{}%{IchDu}
+---, {\em I and You\/},  in  \citeauthor*{Dialog}.
+
+\bibitem[M.~Buber, {\em The Problem of Man\/}(The Problem of Man)]{}%{ProbMen}
+---, {\em The Problem of Man\/}, Aletheia, Spacja, Warszawa, 1993, [my
+  retranslation from Polish \btit{Problem Cz{\l}owieka}].
+
+\bibitem[M.~Buber, {\em Man's way according to the Chassid teaching\/}(Mans way
+  according to the Chassid teaching)]{}%{BuberChasyd}
+---, {\em Man's way according to the Chassid teaching\/}, Cyklady, Warszawa,
+  1994, [my retranslation from Polish \btit{Droga cz{\l}owieka wed{\l}ug
+  nauczania chasyd\'{o}w}].
+
+\bibitem[Celsus, {\em On the True Doctrine\/}(On the True Doctrine a Discourse
+  against the Christians)]{}%{Celsus}
+{\sc Celsus}, {\em On the True Doctrine: a Discourse against the Christians\/},
+  Oxford University Press, 1987, [translated by R.~J.~Hoffmann].
+
+\bibitem[M.~T. Cicero, {\em On the Nature of the Gods\/}(On the Nature of the
+  Gods)]{}%{CiceroGods}
+{\sc Cicero, Marcus~Tullius}, {\em On the Nature of the Gods\/}, London:
+  Metheuen, 1896, [translated by F.~Brooks].
+
+\bibitem[\Clarembald{}Clarembald \NOOP{of}~Arras, {\em The Gloss on Boethius'
+  ``De Trinitate''\/}(The Gloss on Boethius De Trinitate)]{}%{ClaremTrinitate}
+{\sc \Clarembald{}Clarembald \NOOP{of}~Arras}, {\em The Gloss on
+  Boethius' ``De Trinitate''\/} in \citeauthor*{Clarem}.
+
+\bibitem[D.~B. George and J.~R. Fortin, eds., {\em The Boethian Commentaries of
+  Clarembald of Arras\/}(The Boethian Commentaries of Clarembald of
+  Arras)]{}%{Clarem}
+{\sc George, David~B.}, and {\sc Fortin, John~R.} (editors), {\em The Boethian
+  Commentaries of Clarembald of Arras\/}, University of Notre Dame Press, 2002,
+  [translated by the editors].
+
+\bibitem[D.~Davidson, {\em On the very idea of a conceptual scheme\/}(On the
+  very idea of a conceptual scheme)]{}%{DavidsonFormContent}
+{\sc Davidson, Donald}, {\em ``On the very idea of a conceptual scheme''\/},
+  {\em Proceedings and Addresses of the American Philosophical Association\/},
+  ~(47), 1974.
+
+\bibitem[D.~Davidson, {\em A coherence theory of truth and knowledge\/}(A
+  coherence theory of truth and knowledge)]{}%{DavidsonCoherence}
+---, {\em A coherence theory of truth and knowledge\/},  in {\em Subjective,
+  Objective, Intersubjective\/}, Clarendon Press, Oxford, (1983) 2001.
+
+\bibitem[D.~Davidson, {\em Epistemology Externalized\/}(Epistemology
+  Externalized)]{}%{DavidsonEpistExt}
+---, {\em Epistemology Externalized\/},  in {\em Subjective, Objective,
+  Intersubjective\/}, Clarendon Press, Oxford, (1990) 2001.
+
+\bibitem[G.~Deleuze, {\em Bergsonism\/}(Bergsonism)]{}%{DeleuzeBergson}
+{\sc Deleuze, Gilles}, {\em Bergsonism\/}, Presses Universitaires de France,
+  1966, [my retranslation from Polish \btit{Bergsonizm}, Wydawnictwo KR, 1999].
+
+\bibitem[G.~Deleuze, {\em Difference and Repetition\/}(Difference and
+  Repetition)]{}%{DeleuzeDiff}
+---, {\em Difference and Repetition\/}, Presses Universitaires de France, 1968,
+  [my retranslation from Polish \btit{R\'{o}\.{z}nica i powt\'{o}rzenie},
+  Wydawnictwo KR, 1997].
+
+\bibitem[D.~Dennett, {\em Consciousness Explained\/}(Consciousness
+  Explained)]{}%{DennConsc}
+{\sc Dennett, Daniel}, {\em Consciousness Explained\/}, Penguin, 1991.
+
+\bibitem[D.~Dennett, {\em The self as a center of narrative gravity\/}(The self
+  as a center of narrative gravity)]{}%{DennSelf}
+---, {\em The self as a center of narrative gravity\/},  in {\sc Kessel, F.}
+  and {\sc Cole, P.}, and {\sc Johnson, D.} (editors), {\em Self and
+  Consciousness: Multiple Perspectives\/}, Hillsdale, NJ: Erlbaum, 1992.
+
+\bibitem[D.~Dennett, M.~Kinsbourne, {\em Time and the observer...\/}(Time and
+  the observer the where and when of consciousness in the brain)]{}%{DennTime}
+{\sc Dennett, Daniel}, and {\sc Kinsbourne, Marcel}, {\em ``Time and the
+  observer: the where and when of consciousness in the brain''\/}, {\em
+  Behavioral and Brain Sciences\/}, vol.~15, pp.~183-247, 1992.
+
+\bibitem[J.~Derrida, {\em Diff\'{e}rance\/}(Differance)]{}%{Differance}
+{\sc Derrida, Jaques}, {\em Diff\'{e}rance\/} in \citeauthor*{DerMargins}.
+
+\bibitem[J.~Derrida, {\em The supplement of Copula\/}(The supplement of
+  Copula)]{}%{DerCopula}
+---, {\em The supplement of Copula\/} in \citeauthor*{DerMargins}.
+
+\bibitem[J.~Derrida, {\em Margins of Philosophy\/}(Margins of
+  Philosophy)]{}%{DerMargins}
+---, {\em Margins of Philosophy\/}, The University of Chicago Press, 1982,
+  [translated by A.~Bass].
+
+\bibitem[J.~Derrida, {\em Roundtable at the conference \btit{Religion and
+  Postmodernism III}\/}(Roundtable at the conference btitReligion and
+  Postmodernism III)]{}%{DerDivine}
+---, {\em Roundtable at the conference \btit{Religion and Postmodernism
+  III}\/}, Villanova, 2001.
+
+\bibitem[J.~Derrida, {\em The Problem of Genesis...\/}(The Problem of Genesis
+  in Husserls Philosophy)]{}%{DerGen}
+---, {\em The Problem of Genesis in Husserl's Philosophy\/}, The University of
+  Chicago Press, 2003, [translated by M.~Hobson].
+
+\bibitem[R.~Descartes, {\em Discourse on Method\/}(Discourse on the Method of
+  Rightly Conducting the Reason and Seeking Truth in Sciences)]{}%{DesMethod}
+{\sc Descartes, Ren\'{e}}, {\em Discourse on the Method of Rightly Conducting
+  the Reason, and Seeking Truth in Sciences\/}, Pa\'{n}stwowe Wydawnictwo
+  Naukowe, 1981, [my retranslation from Polish \btit{Rozprawa o Metodzie}].
+
+\bibitem[R.~Descartes, {\em Principles of Philosophy\/}(Principles of
+  Philosophy)]{}%{Principles}
+---, {\em Principles of Philosophy\/}, Reidel, Dodrecht-Boston-Lancaster, 1983,
+  [translated by V.~R.~Miller and R.~P.~Miller].
+
+\bibitem[M.~Dummett, {\em What is a theory of meaning?\/}(What is a theory of
+  meaning)]{}%{DummettM}
+{\sc Dummett, Michael}, {\em What is a theory of meaning?\/},  in {\sc
+  Guttenplan, Samuel} (editor), {\em Mind and Language\/}, Oxford, 1975, in
+  \citeauthor*{Truth}.
+%\subsection*{Duns Scotus}
+\bibitem[J.~Duns~Scotus, {\em De Anima\/}(De Anima)]{}%{ScotAnima}
+{\sc Duns~Scotus, John}, {\em De Anima\/}.
+
+\bibitem[J.~Duns~Scotus, {\em Opus Oxoniense\/}(Opus Oxoniense)]{}%{ScotOrdinatio}
+---, {\em Opus Oxoniense\/} [mostly in \citeauthor*{ScotAll}].
+
+\bibitem[J.~Duns~Scotus, {\em Questions on the Metaphysics\/}(Questions on the
+  Metaphysics)]{}%{ScotMet}
+---, {\em Questions on the Metaphysics\/} [quoted after other authors as
+  specified in the text].
+
+\bibitem[J.~Duns~Scotus, {\em A Treatise on God as First Principle\/}(A
+  Treatise on God as First Principle)]{}%{ScotPrimo}
+---, {\em A Treatise on God as First Principle\/}, Pa\'{n}stwowe Wydawnictwo
+  Naukowe, 1988, [my retranslation from Polish \btit{Traktat of Pierwszej
+  Zasadzie}].
+
+\bibitem[A.~Wolter, ed., {\em Duns Scotus: Philosophical Writings\/}(Duns
+  Scotus Philosophical Writings)]{}%{ScotAll}
+{\sc Wolter, Allan} (editor), {\em Duns Scotus: Philosophical Writings\/},
+  Hackett Publishing Company, 1987, [translated by the editor].
+
+\subsection*{Meister Eckhart}
+
+\bibitem[Eckhart, {\em The Book of Divine Consolation\/}(The Book of Divine
+  Consolation)]{}%{EckDivConsol}
+{\sc Eckhart}, {\em The Book of Divine Consolation\/} in
+  \citeauthor*{EckSelected}.
+
+\bibitem[Eckhart, {\em Commentary on the Book of Wisdom\/}(Commentary on the
+  Book of Wisdom)]{}%{EckWisdom}
+---, {\em Commentary on the Book of Wisdom\/} Latin works in \citeauthor*{LW}
+  vol.~II.
+
+\bibitem[Eckhart, {\em Last Word to His Friends\/}(Last Word to His
+  Friends)]{}%{EckLastWord}
+---, {\em Last Word to His Friends\/}.
+  
+\bibitem[O.~Davis, ed., {\em Selected Writings\/}(Meister Eckhart Selected
+  Writings)]{}%{EckSelected}
+{\sc Davis, Oliver} (editor), {\em Meister Eckhart: Selected Writings\/},
+  Penguin, 1994, [selected and translated by the editor].
+
+\bibitem[B.~McGinn, ed., {\em Meister Eckhart...\/}(Meister Eckhart Teacher and
+  Preacher)]{}%{Eckhart}
+{\sc McGinn, Bernard} (editor), {\em Meister Eckhart: Teacher and Preacher\/},
+  Paulist Press, New York/Mahwah/Toronto, 1986.
+
+\bibitem[J.~Quint and J. Koch, eds., {\em Meister Eckhart...\/}(Meister Eckhart
+  Die deutschen und lateinischen Werke)]{}%{LW}
+{\sc Quint, J.}, and {\sc Koch, J.} (editors), {\em Meister Eckhart: Die
+  deutschen und lateinischen Werke\/}, W.~Kohlhammer, Stuttgart/Berlin, 1936-.
+
+\bibitem[M.~O. Walshe, ed., {\em Meister Eckhart...\/}(Meister Eckhart German
+  Sermons and Treatises)]{}%{W}
+{\sc Walshe, M.~O'C.} (editor), {\em Meister Eckhart: German Sermons and
+  Treatises\/}, Element Books, London and Dulverton, 1985.\dotfill
+
+\bibitem[Epictetus, {\em The Discourses\/}(The Discourses)]{}%{Epictet}
+{\sc Epictetus}, {\em The Discourses\/}.
+
+\bibitem[J.~S. \Eriugena{}Eriugena, {\em Periphyseon\/}(Periphyseon On the
+  Division of Nature)]{}%{Periphy}
+{\sc \Eriugena{}Eriugena, Johannes~Scotus}, {\em Periphyseon: On the Division
+  of Nature\/}, The Bobbs-Merrill Company, Indianapolis, 1976, [fragments
+  translated by M.~L.~Uhlfelder, with summaries by J.~A.~Potter].
+
+\bibitem[J.~S. \Eriugena{}Eriugena, {\em
+  Periphyseon\/}(Periphyseon)]{}%{Periphyseon}
+---, {\em Periphyseon\/}, vol. I,II,IV, Dublin Institute for Advanced Studies,
+  1999,1983,1995, [translated by I.~P.~Sheldon-Williams and J.~J.~O'Meara].
+
+\bibitem[L.~Feuerbach, {\em Lectures on the Nature of Religion\/}(Lectures on
+  the Nature of Religion)]{}%{Feuerbach}
+{\sc Feuerbach, Ludwig}, {\em Lectures on the Nature of Religion\/},
+  Pa\'{n}stwowe Wydawnictwo Naukowe, 1981, [my retranslation from Polish
+  \btit{Wyk{\l}ady o Istocie Religii}].
+
+\bibitem[J.~G. Fichte, {\em Grundlage der gesammten
+  Wissenschaftslehre\/}(Grundlage der gesammten Wissenschaftslehre)]{}%{FichteWL}
+{\sc Fichte, Johann~Gottlieb}, {\em Grundlage der gesammten
+  Wissenschaftslehre\/},  in {\em Gesamtausgabe\/}, vol.~II.
+
+\bibitem[J.~G. Fichte, {\em The Vocation of Man\/}(The Vocation of
+  Man)]{}%{FichteVocation}
+---, {\em The Vocation of Man\/}, The Open Court Publishing Company, La Salle,
+  Illinois, 1965, [translated by W.~Smith].
+
+\bibitem[Fridugisus \NOOP{of}~Tours, {\em On the Being of Nothing and
+  Shadows\/}(On the Being of Nothing and Shadows)]{}%{Fridu}
+{\sc Fridugisus \NOOP{of}~Tours}, {\em On the Being of Nothing and
+  Shadows\/} \NIX a letter to Charlemagne (according to
+  \citeauthor*{GilsonHCPh}, it is an anonymous letter addressed to Louis the
+  Pious and to Einhard).
+
+\bibitem[Galen, {\em On the Usefulness of the Parts of the Body\/}(On the
+  Usefulness of the Parts of the Body)]{}%{Galen}
+{\sc Galen}, {\em On the Usefulness of the Parts of the Body\/} [quoted after
+  \citeauthor*{ChristiansRomans}].
+
+\bibitem[A.~H. al~Ghazali, {\em There Is No evil in Allah's Perfect
+  World\/}(There Is No evil in Allahs Perfect World)]{}%{Al-Ghazali}
+{\sc al~Ghazali, Abu~Hamid}, {\em There Is No evil in Allah's Perfect World\/},
+   in \citeauthor*{EvilFaces}, 2001.
+
+\bibitem[F.~Hebbel, {\em Werke\/}(Werke)]{}%{Hebbel}
+{\sc Hebbel, Friedrich}, {\em Werke\/} [fragments in \citeauthor*{Wokol}].
+
+\bibitem[M.~Heidegger, {\em Augustin and Neoplatonism\/}(Augustin and
+  Neoplatonism early Freiburg lecture summer 1921)]{}%{AugustinNeopl}
+{\sc Heidegger, Martin}, {\em Augustin and Neoplatonism (early Freiburg
+  lecture, summer 1921)\/} in \citeauthor*{PhenomReligio}.
+
+\bibitem[M.~Heidegger, {\em Introduction to Phenomenology of
+  Religion\/}(Introduction to Phenomenology of Religion)]{}%{IntroPhenomReligio}
+---, {\em Introduction to Phenomenology of Religion\/} in
+  \citeauthor*{PhenomReligio}.
+
+\bibitem[M.~Heidegger, {\em Philosophical Fundaments of Medieval
+  Mysticism\/}(Philosophical Fundaments of Medieval Mysticism notes to an
+  undelivered lecture 191919)]{}%{MidMist}
+---, {\em Philosophical Fundaments of Medieval Mysticism (notes to an
+  undelivered lecture 1919/19)\/} in \citeauthor*{PhenomReligio}.
+
+\bibitem[M.~Heidegger, {\em The Essence of Truth\/}(The Essence of Truth)]{}%{vWW}
+---, {\em The Essence of Truth\/}, Vittorio Klostermann, Frankfurt a.M., 1954,
+  [my translation from German \btit{Vom Wesen der Wahrheit}].
+
+\bibitem[M.~Heidegger, {\em Being and Time\/}(Being and Time)]{}%{SuZ}
+---, {\em Being and Time\/}, Basil Blackwell, 1962, [translated by
+  J.~Macquarrie and E.~Robinson].
+
+\bibitem[M.~Heidegger, {\em Phenomenology of Religious Life\/}(Phenomenology of
+  Religious Life)]{}%{PhenomReligio}
+---, {\em Phenomenology of Religious Life\/}, Vittorio Klostermann, Frankfurt
+  a.M., 1995, [my retranslation from Polish \btit{Fenomenologia \.{z}ycia
+  religijnego}, Znak 2002].
+
+\bibitem[Henry \NOOP{of}~Ghent, {\em Quodlibet\/}(Quodlibet)]{}%{GhentQ}
+{\sc Henry \NOOP{of}~Ghent}, {\em Quodlibet\/}.
+
+\bibitem[Henry \NOOP{of}~Ghent, {\em Summa Theologica\/}(Summa
+  Theologica)]{}%{Ghent}
+---, {\em Summa Theologica\/} [fragments after \citeauthor*{ScotAll}].
+
+\bibitem[T.~Hobbes, {\em De Corpore\/}(De Corpore)]{}%{HobbesCor}
+{\sc Hobbes, Thomas}, {\em De Corpore\/}.
+
+\bibitem[\Hrabanus{}Hrabanus~Maurus, {\em De universo\/}(De universo)]{}%{Hraban}
+{\sc \Hrabanus{}Hrabanus~Maurus}, {\em De universo\/}.
+
+\bibitem[D.~Hume, {\em A Treatise of Human Nature\/}(A Treatise of Human
+  Nature)]{}%{Hume}
+{\sc Hume, David}, {\em A Treatise of Human Nature\/}, Oxford at the Clarendon
+  Press, 1978.
+
+\bibitem[E.~Husserl, {\em Phenomenology of the Consciousness of Inner
+  Time\/}(Phenomenology of the Consciousness of Inner Time)]{}%{Zeit}
+{\sc Husserl, Edmund}, {\em Phenomenology of the Consciousness of Inner
+  Time\/},  in {\sc Boehm, Rudolf} (editor), {\em Gesammelte Werke\/}, vol.~10,
+  Martinus Nijhoff, Haag, 1966, [my translation from \btit{Zur
+  Ph\"{a}nomenologie des Inneren Zeitbewusstseins (1893-1917)}].
+
+\bibitem[E.~Husserl, {\em The Crisis of European Science and Transcendental
+  Phenomenology\/}(The Crisis of European Science and Transcendental
+  Phenomenology)]{}%{Crisis}
+---, {\em The Crisis of European Science and Transcendental Phenomenology\/},
+  Northwestern University Press, Evanston, 1970, [translated by D.~Carr].
+
+\bibitem[E.~Husserl, {\em Ideas\/}(Ideas of Pure Phenomenology and
+  Phenomenological Philosophy)]{}%{IdeasI}
+---, {\em Ideas of Pure Phenomenology and Phenomenological Philosophy\/},
+  Pa\'{n}stwowe Wydawnictwo Naukowe, 1975, [my retranslation from Polish
+  \btit{Idee}].
+
+\bibitem[R.~Ingarden, {\em About Responsibility...\/}(About Responsibility and
+  its Ontic Foundations)]{}%{Resp}
+{\sc Ingarden, Roman}, {\em About Responsibility and its Ontic Foundations\/},
+  Reclam, Stuttgart, 1970, [my retranslation from Polish version included in
+  \citeauthor*{Ksiazeczka}].
+
+\bibitem[R.~Ingarden, {\em The Controversy about World's Existence\/}(The
+  Controversy about Worlds Existence)]{}%{Swiat}
+---, {\em The Controversy about World's Existence\/}, Pa\'{n}stwowe Wydawnictwo
+  Naukowe, Warszawa, 1987, [my translation from Polish \btit{Sp\'{o}r o
+  Istnienie \'{S}wiata}].
+
+\bibitem[R.~Ingarden, {\em Ksi\c{a}\.{z}eczka o Cz{\l}owieku\/}(Ksicazeczka o
+  Czlowieku A Booklet about Man)]{}%{Ksiazeczka}
+---, {\em Ksi\c{a}\.{z}eczka o Cz{\l}owieku (A Booklet about Man)\/},
+  Wydawnictwo Literackie, Krak\'{o}w, 1987.
+
+\bibitem[\Isidore{}Isidore \NOOP{of}~Seville, {\em
+  Etymologies\/}(Etymologies)]{}%{Etymologies}
+{\sc \Isidore{}Isidore \NOOP{of}~Seville}, {\em Etymologies\/}.
+
+\bibitem[W.~James, {\em Pragmatism\/}(Pragmatism)]{}%{Pragmatism}
+{\sc James, William}, {\em Pragmatism\/} in \citeauthor*{PragmOW}.
+
+\bibitem[W.~James, {\em The Principles of Psychology\/}(The Principles of
+  Psychology)]{}%{PrincPsych}
+---, {\em The Principles of Psychology\/}, York University, Toronto, Ontario
+  internet resource developed by Ch.~D.~Green.
+
+\bibitem[W.~James, {\em What the Will Effects?\/}(What the Will Effects)]{}%{Will}
+---, {\em ``What the Will Effects?''\/}, {\em Scribner's Magazine\/},
+  vol.~3~(2), 1888, http:\lin cdl.library.cornell.edu.
+
+\bibitem[W.~James, {\em A World of Pure Experience\/}(A World of Pure
+  Experience)]{}%{PureExp}
+---, {\em ``A World of Pure Experience''\/}, {\em Journal of Philosophy,
+  Psychology and Scientific Methods\/}, vol.~1, 1904, in \citeauthor*{PragmOW}.
+
+\bibitem[W.~James, {\em Pragmatism's conception of truth\/}(Pragmatisms
+  conception of truth)]{}%{JamesTruth}
+---, {\em Pragmatism's conception of truth\/},  in {\em Pragmatism: A New Name
+  for Some Old Ways of Thinking\/}, pp. 197-236, Longman Green and Co., 1907,
+  in \citeauthor*{PragmOW}.
+
+\bibitem[W.~James, {\em Essays in Radical Empiricism\/}(Essays in Radical
+  Empiricism)]{}%{Radical}
+---, {\em Essays in Radical Empiricism\/},  in  \citeauthor*{ERE}.
+
+\bibitem[W.~James, {\em Radical Empiricism and A Pluralistic
+  Universe\/}(Radical Empiricism and A Pluralistic Universe)]{}%{ERE}
+---, {\em Radical Empiricism and A Pluralistic Universe\/}, Longman Green and
+  Co., 1943.
+
+\bibitem[W.~James, {\em The thing and its relations\/}(The thing and its
+  relations)]{}%{ThingRel}
+---, {\em The thing and its relations\/},  in  \citeauthor*{ERE}, [also:
+  Appendix A in \btit{A Pluralistic Universe}].
+
+\bibitem[W.~James, {\em Essays in Pragmatism\/}(Essays in Pragmatism)]{}%{Pragm}
+---, {\em Essays in Pragmatism\/}, Hefner Publishing, New York, 1964.
+
+\bibitem[W.~James, {\em Varieties of Religious Experience\/}(Varieties of
+  Religious Experience)]{}%{Varieties}
+---, {\em Varieties of Religious Experience\/}, Penguin, 1985.
+
+\bibitem[W.~James, {\em Pragmatism and Other Writings\/}(Pragmatism and Other
+  Writings)]{}%{PragmOW}
+---, {\em Pragmatism and Other Writings\/}, Penguin, 2000, edited by G.~Gunn.
+
+\bibitem[H.~H. Joachim, {\em The Nature of Truth\/}(The Nature of
+  Truth)]{}%{JoachimTruth}
+{\sc Joachim, Harold~H.}, {\em The Nature of Truth\/}, Oxford Clarendon Press,
+  1906.
+
+\bibitem[John \NOOP{of}~Salisbury, {\em Metalogicon\/}(Metalogicon)]{}%{Salisbury}
+{\sc John \NOOP{of}~Salisbury}, {\em Metalogicon\/}, Gloucester, Mass.,
+  1971, [translated by D.~McGray].
+
+\bibitem[I.~Kant, {\em Critique of Practical Reason\/}(Critique of Practical
+  Reason)]{}%{KantPrakt}
+{\sc Kant, Immanuel}, {\em Critique of Practical Reason\/}, Philipp Reclam
+  jun., Stuttgart, 1961, [my translations interspersed with translations by
+  T.~Kingsmill Abbott].
+
+\bibitem[I.~Kant, {\em Critique of Pure Reason\/}(Critique of Pure
+  Reason)]{}%{CrPR}
+---, {\em Critique of Pure Reason\/}, MacMillan Publishers, 1985, [translated
+  by N.~Kemp Smith].
+
+\bibitem[W.~Kandinsky, {\em Concerning the Spiritual in Art\/}(Concerning the
+  Spiritual in Art)]{}%{Kand}
+{\sc Kandinsky, Wassily}, {\em Concerning the Spiritual in Art\/}, Benteli
+  Verlag, Bern, 1952, [my translation from German \btit{\"{U}ber das Geistige
+  in der Kunst}].
+
+\bibitem[S.~Kierkegaard, {\em The Concept of Anxiety\/}(The Concept of
+  Anxiety)]{}%{Angest}
+{\sc Kierkegaard, S{\o}ren}, {\em The Concept of Anxiety\/}, Gyldendalske
+  Boghandel, Copenhagen, 1960, [my translation from Danish \btit{Begrebet
+  Angest}].
+
+\bibitem[S.~Kierkegaard, {\em The Concept of Irony\/}(The Concept of Irony with
+  Constant View to Socrates)]{}%{Irony}
+---, {\em The Concept of Irony, with Constant View to Socrates\/},  in {\em
+  Samlede Verker\/}, vol.~I, Gyldendalske Boghandel, Copenhagen, 1962, [my
+  translation from Danish \btit{Om Begrebet Ironi}].
+
+\bibitem[S.~Kierkegaard, {\em Eighteen Edifying Discourses\/}(Eighteen Edifying
+  Discourses)]{}%{Taalmod}
+---, {\em Eighteen Edifying Discourses\/},  in {\em Samlede Verker\/}, vol.~IV,
+  Gyldendalske Boghandel, Copenhagen, 1982, [my translation from Danish
+  \btit{Atten opbyggelige taler}].
+
+\bibitem[S.~Kierkegaard, {\em The Sickness unto Death\/}(The Sickness unto
+  Death A Christian Psychological Exposition for Edification and
+  Awakening)]{}%{Despair}
+---, {\em The Sickness unto Death. A Christian Psychological Exposition for
+  Edification and Awakening\/}, Penguin, 1989, [translated by A.~Hannay].
+
+\bibitem[G.~W. Leibniz, {\em Correspondence with Arnauld\/}(Correspondence with
+  Arnauld)]{}%{LeibnizArnauld}
+{\sc Leibniz, Gottfried~Wilhelm}, {\em Correspondence with Arnauld\/} in
+  \citeauthor*{LeibnizAll}.
+
+\bibitem[G.~W. Leibniz, {\em Discourse on Metaphysics\/}(Discourse on
+  Metaphysics)]{}%{LeibnizDM}
+---, {\em Discourse on Metaphysics\/} in \citeauthor*{LeibnizAll}.
+
+\bibitem[G.~W. Leibniz, {\em The Monadology\/}(The Monadology)]{}%{Monad}
+---, {\em The Monadology\/} [translated by R.~Latta].
+
+\bibitem[G.~W. Leibniz, {\em Philosophical Texts\/}(Philosophical
+  Texts)]{}%{LeibnizAll}
+---, {\em Philosophical Texts\/}, Oxford University Press, 1998, [translated by
+  R.~S.~Woolhouse].
+
+\bibitem[E.~L\'{e}vinas, {\em Beyond the Stanza\/}(Beyond the
+  Stanza)]{}%{LevinasChas}
+{\sc L\'{e}vinas, Emmanuel}, {\em Beyond the Stanza\/}, Editions de Minuit,
+  Paris, 1981.
+
+\bibitem[J.~Locke, {\em An Essay Concerning Human Understanding\/}(An Essay
+  Concerning Human Understanding)]{}%{LockUnd}
+{\sc Locke, John}, {\em An Essay Concerning Human Understanding\/}, http:\lin
+  www.arts.cuhk.edu.hk/Philosophy/Locke/echu.
+
+\bibitem[T.~Lucretius, {\em On the Nature of Things\/}(On the Nature of
+  Things)]{}%{Things}
+{\sc Lucretius, Titus}, {\em On the Nature of Things\/} [translated by
+  W.~E.~Leonard].
+
+\bibitem[M.~Maimonides, {\em Laws Concerning Character Traits\/}(Laws
+  Concerning Character Traits)]{}%{MaimoTraits}
+{\sc Maimonides, Moses}, {\em Laws Concerning Character Traits\/} [fragments in
+  \citeauthor*{EvilFaces}].
+
+\bibitem[M.~Maimonides, {\em Guide of the Perplexed\/}(Guide of the
+  Perplexed)]{}%{Perplex}
+---, {\em Guide of the Perplexed\/}, University of Chicago Press, 1963,
+  [translated by S.~Pines].
+
+\bibitem[P.~Mainl\"{a}nder, {\em Die Philosophie der Erl\"{o}sung\/}(Die
+  Philosophie der Erlosung)]{}%{Mainl}
+{\sc Mainl\"{a}nder, Philipp}, {\em Die Philosophie der Erl\"{o}sung\/}
+  [fragments in \citeauthor*{Wokol}].
+
+\bibitem[J.~E. McTaggart, {\em The Unreality of Time\/}(The Unreality of
+  Time)]{}%{McTaggart}
+{\sc McTaggart, John~Ellis}, {\em ``The Unreality of Time''\/}, {\em Mind\/},
+  vol.~XVII, pp.~456-473, 1908.
+
+\bibitem[M.~Merleau-Ponty, {\em Phenomenology of Perception\/}(Phenomenology of
+  Perception)]{}%{PontyPerc}
+{\sc Merleau-Ponty, Maurice}, {\em Phenomenology of Perception\/}, Routledge \&
+  Kegan Paul, 1962, [translated by C.~Smith].
+
+\bibitem[M.~Merleau-Ponty, {\em The child's relations with others\/}(The childs
+  relations with others)]{}%{Ponty64}
+---, {\em The child's relations with others\/},  in {\em The Primacy of
+  Perception\/}, Northwest University Press, 1964.
+
+\bibitem[M.~Merleau-Ponty, {\em Indirect Language and the Voices of
+  Silence\/}(Indirect Language and the Voices of Silence)]{}%{PontyIndir}
+---, {\em Indirect Language and the Voices of Silence\/}, {\em Signs\/},
+  Northwestern University Press, 1964.
+
+\bibitem[M.~Merleau-Ponty, {\em Visible and Invisible\/}(Visible and
+  Invisible)]{}%{VisInvis}
+---, {\em Visible and Invisible\/}, Editions Gallimard, 1964, [my retranslation
+  from Polish, \btit{Widzialne i niewidzialne}, Aletheia, 1996].
+
+\bibitem[G.~P. della Mirandola, {\em Conclusions or 900 Theses\/}(Conclusions
+  or 900 Theses)]{}%{PicoConcl}
+{\sc della Mirandola, Giovanni~Pico}, {\em Conclusions or 900 Theses\/}
+  [translated by S.~A.~Farmer].
+
+\bibitem[G.~P. della Mirandola, {\em Oration on the Dignity of Man\/}(Oration
+  on the Dignity of Man)]{}%{Pico}
+---, {\em Oration on the Dignity of Man\/}, Regnery Gateway, 1956.
+
+\bibitem[J.~Nabert, {\em Essay on the Evil\/}(Essay on the Evil)]{}%{Nabert}
+{\sc Nabert, Jean}, {\em ``Essay on the Evil''\/}, 1970, [fragments of
+  \btit{Essai sur le mal} in \citeauthor*{Tischner}].
+
+\bibitem[T.~Nagel, {\em What is it like to be a bat?\/}(What is it like to be a
+  bat)]{}%{NagelBat}
+{\sc Nagel, Thomas}, {\em ``What is it like to be a bat?''\/}, {\em
+  Philosophical Review\/}, vol.~83, pp.~435-445, 1974.
+
+\bibitem[Nicholas \NOOP{of}~Cusa, {\em Dialogue on the Hidden God\/}(Dialogue
+  on the Hidden God)]{}%{CusaHidden}
+{\sc Nicholas \NOOP{of}~Cusa}, {\em Dialogue on the Hidden God\/} in
+  \citeauthor*{CusaSel}.
+
+\bibitem[Nicholas \NOOP{of}~Cusa, {\em On Sacred Ignorance\/}(On Sacred
+  Ignorance)]{}%{DDI}
+---, {\em On Sacred Ignorance\/} in \citeauthor*{CusaSel}.
+
+\bibitem[Nicholas \NOOP{of}~Cusa, {\em Trialogus de possest\/}(Trialogus de
+  possest)]{}%{DP}
+---, {\em Trialogus de possest\/},  in {\em A Concise Introduction to the
+  Philosophy of Nicholas of Cusa\/}, The Arthur J.~Banning Press, Minneapolis,
+  1986, [translated by J.~Hopkins].
+
+\bibitem[Nicholas \NOOP{of}~Cusa, {\em On Not-other\/}(On Not other)]{}%{NotOther}
+---, {\em On Not-other\/}, The Arthur J.~Banning Press, Minneapolis, 1987,
+  [translated by J.~Hopkins, from \btit{De Li Non Aliud}].
+
+\bibitem[Nicholas \NOOP{of}~Cusa, {\em De Beryllo\/}(De Beryllo)]{}%{Beryl}
+---, {\em De Beryllo\/},  in {\em Metaphysical Speculations: Six Latin Texts
+  Translated into English\/}, The Arthur J.~Banning Press, Minneapolis, 1996,
+  [translated by J.~Hopkins].
+
+\bibitem[Nicholas \NOOP{of}~Cusa, {\em On Wisdom and Knowledge\/}(On Wisdom and
+  Knowledge)]{}%{CusaSap}
+---, {\em On Wisdom and Knowledge\/}, The Arthur J.~Banning Press, Minneapolis,
+  1996, [translated by J.~Hopkins, from \btit{Idiota de Sapienta}].
+
+\bibitem[Nicholas \NOOP{of}~Cusa, {\em Selected Spiritual Writings\/}(Selected
+  Spiritual Writings)]{}%{CusaSel}
+---, {\em Selected Spiritual Writings\/}, Paulist Press, 1997, [translated by
+  H.~L.~Bond].
+
+\bibitem[Nicholas \NOOP{of}~Cusa, {\em On the Pursuit of Wisdom\/}(On the
+  Pursuit of Wisdom)]{}%{VenSap}
+---, {\em On the Pursuit of Wisdom\/},  in {\em Metaphysical Speculations: Six
+  Latin Texts Translated into English\/}, The Arthur J.~Banning Press,
+  Minneapolis, 1998, [translated by J.~Hopkins, from \btit{De Venatione
+  Sapientiae}].
+
+\bibitem[Nicholas \NOOP{of}~Cusa, {\em On Surmises\/}(On Surmises)]{}%{CusaCon}
+---, {\em On Surmises\/}, The Arthur J.~Banning Press, Minneapolis, 2000,
+  [translated by J.~Hopkins, from \btit{De Coniecturis}].
+
+\bibitem[F.~Nietzsche, {\em Human, All Too Human\/}(Human All Too Human)]{}%{HATH}
+{\sc Nietzsche, Friedrich}, {\em Human, All Too Human\/}, http:\lin
+  www.publicappeal.org/library/nietzsche [translated by H.~Zimmern
+  (1909-1913)].
+
+\bibitem[F.~Nietzsche, {\em Nietzsche on Parmenides\/}(Nietzsche on
+  Parmenides)]{}%{onParm}
+---, {\em Nietzsche on Parmenides\/}, http:\lin
+  www.publicappeal.org/library/nietzsche.
+
+\bibitem[F.~Nietzsche, {\em Notes about Nihilism\/}(Notes about Nihilism from
+  years 1885 1889)]{}%{NietNihil}
+---, {\em Notes about Nihilism (from years 1885-1889\/},  in {\em S\"{a}mtliche
+  Werke. Kritische Studienausgabe\/}, Deutscher Taschenbuch Verlag.
+
+\bibitem[F.~Nietzsche, {\em On the Genealogy of Morals\/}(On the Genealogy of
+  Morals)]{}%{GM}
+---, {\em On the Genealogy of Morals\/}, http:\lin
+  www.geocities.com/thenietzschechannel/onthe.html.
+
+\bibitem[F.~Nietzsche, {\em Beyond Good and Evil\/}(Beyond Good and
+  Evil)]{}%{BeyondGE}
+---, {\em Beyond Good and Evil\/}, Penguin, 1973, [translated by
+  R.~J.~Hollingdale].
+
+\bibitem[F.~Nietzsche, {\em My Sister and I\/}(My Sister and I)]{}%{SisterI}
+---, {\em My Sister and I\/}, AMOK Books, 1990.
+
+\bibitem[F.~Nietzsche, {\em The Wanderer and His Shadow\/}(The Wanderer and His
+  Shadow)]{}%{WS}
+---, {\em The Wanderer and His Shadow\/}, Penguin, 1994, [translated by
+  W.~Kaufmann].
+
+\bibitem[W.~Ockham, {\em Sentences\/}(Commentary on the Sentences)]{}%{OckSent}
+{\sc Ockham, William}, {\em Commentary on the `Sentences'\/}.
+
+\bibitem[W.~Ockham, {\em Ordinatio\/}(Ordinatio)]{}%{OckOrd}
+---, {\em Ordinatio\/}.
+
+\bibitem[W.~Ockham, {\em Quaestiones in lib. I Physicorum\/}(Quaestiones in lib
+  I Physicorum)]{}%{OckPhysicorum}
+---, {\em Quaestiones in lib. I Physicorum\/} [fragments in
+  \citeauthor*{OckAll}].
+
+\bibitem[W.~Ockham, {\em Quodlibeta\/}(Quodlibeta)]{}%{OckQuod}
+---, {\em Quodlibeta\/} [fragments in \citeauthor*{OckAll}].
+
+\bibitem[W.~Ockham, {\em Summa totius logicae\/}(Summa totius
+  logicae)]{}%{OckSumLog}
+---, {\em Summa totius logicae\/} [fragments in \citeauthor*{OckAll}].
+
+\bibitem[P.~Boehner, ed., {\em Ockham: Philosophical Writings\/}(Ockham
+  Philosophical Writings)]{}%{OckAll}
+{\sc Boehner, Philothetus} (editor), {\em Ockham: Philosophical Writings\/},
+  Hackett Publishing Company, 1990, [translated by the editor].
+
+\bibitem[Origen, {\em Against Celsus\/}(Against Celsus)]{}%{aCelsus}
+{\sc Origen}, {\em Against Celsus\/},  in  \citeauthor*{ANF}, vol.~IV.
+
+\bibitem[B.~Pascal, {\em Pens\'{e}es\/}(Pensees)]{}%{Pensees}
+{\sc Pascal, Blaise}, {\em Pens\'{e}es\/} [transalted by W.~F.~Trotter].
+
+\bibitem[\Philo{}Philo \NOOP{of}~Alexandria, {\em On the Creation\/}(On the
+  Creation)]{}%{PhiloCreation}
+{\sc \Philo{}Philo \NOOP{of}~Alexandria}, {\em On the Creation\/},  in
+  {\sc Bohn, H.~G.} (editor), {\em The Works of Philo Judaeus\/}, London,
+  1854-1890, [translated by Charles Duke Yonge].
+
+\bibitem[C.~S. Pierce, {\em Some consequences of four incapacities\/}(Some
+  consequences of four incapacities)]{}%{PierceFourIncap}
+{\sc Pierce, Charles~S.}, {\em ``Some consequences of four incapacities''\/},
+  {\em Journal of Speculative Philosophy\/}, vol.~2, pp.~140-157, 1868, [page
+  references in the text to \citeauthor*{Pierce}].
+
+\bibitem[C.~S. Pierce, {\em Critical Review of Berkeley's idealism\/}(Critical
+  Review of Berkeleys idealism)]{}%{PierceBerkeley}
+---, {\em ``Critical Review of Berkeley's idealism''\/}, {\em North American
+  Review\/}, vol.~93, pp.~449-472, 1871, [page references in the text to
+  \citeauthor*{Pierce}].
+
+\bibitem[C.~S. Pierce, {\em The fixation of belief\/}(The fixation of
+  belief)]{}%{PierceFix}
+---, {\em ``The fixation of belief''\/}, {\em Popular Sicence Monthly\/},
+  vol.~12, pp.~1-15, 1877, [page references in the text to
+  \citeauthor*{Pierce}].
+
+\bibitem[C.~S. Pierce, {\em What is pragmatism\/}(What is
+  pragmatism)]{}%{WhatisPragm}
+---, {\em ``What is pragmatism''\/}, {\em The Monist\/}, vol.~15, pp.~161-181,
+  1905, [page references in the text to \citeauthor*{Pierce}].
+\bibitem[P.~P. Wiener, ed., {\em Charles S. Pierce: Selected
+  Writings\/}(Charles S Pierce Selected Writings)]{}%{Pierce}
+{\sc Wiener, Philip~P.} (editor), {\em Charles S. Pierce: Selected Writings\/},
+  Dover Publications Inc., New York, 1958.
+
+\bibitem[Plato, {\em Parmenides\/}(Parmenides)]{}%{Parmenides}
+{\sc Plato}, {\em Parmenides\/}, http:\lin classics.mit.edu [translated by
+  B.~Jowett].
+
+\bibitem[Plato, {\em Phaedrus\/}(Phaedrus)]{}%{Phaedrus}
+---, {\em Phaedrus\/}, http:\lin www.textkit.com [translated by B.~Jowett].
+
+\bibitem[Plato, {\em Republic\/}(Republic)]{}%{PlatoRep}
+---, {\em Republic\/}, http:\lin classics.mit.edu [translated by B.~Jowett].
+
+\bibitem[Plato, {\em Timaeus\/}(Timaeus)]{}%{Timaeus}
+---, {\em Timaeus\/}, http:\lin classics.mit.edu [translated by B.~Jowett].
+
+\bibitem[Plato, {\em Letters\/}(Letters)]{}%{PlatoLetters}
+---, {\em Letters\/}, Pa\'{n}stwowe Wydawnictwo Naukowe, 1987, [my
+  retranslation from Polish].
+
+\bibitem[Plotinus, {\em Enneads\/}(Enneads)]{}%{Plotinus}
+{\sc Plotinus}, {\em Enneads\/} [translated by S. MacKenna and B. S. Page;
+  although considered dated and inferior to the newer translation by
+  A.~H.~Armstrong, this one is in public domain].
+
+\bibitem[Porphyry, {\em On the Life of Plotinus...\/}(On the Life of Plotinus
+  and the Arrangement of his Work)]{}%{lifePlot}
+{\sc Porphyry}, {\em On the Life of Plotinus and the Arrangement of his Work\/}
+  [translated by S.~MacKenna].
+
+\bibitem[Porphyry, {\em Against the Christians\/}(Porphyrys Against the
+  Christians the Literary Remains)]{}%{Porphyry}
+---, {\em Porphyry's Against the Christians, the Literary Remains\/},
+  Prometheus Books, New York, 1994, [edited and translated by R.~J.~Hoffmann].
+
+\bibitem[Proclus, {\em Platonic Theology\/}(Platonic Theology)]{}%{ProclusTP}
+{\sc Proclus}, {\em Platonic Theology\/}, Selene Books, New York, 1995,
+  [translated by T.~Taylor, 1816].
+
+\bibitem[Proclus, {\em Elements of Theology\/}(Elements of Theology)]{}%{Proclus}
+---, {\em Elements of Theology\/}, Akme, Warszawa, 2002, [my retranslation from
+  Polish].
+
+\bibitem[S.~Radhakrishnan, {\em An Idealist View of Life\/}(An Idealist View of
+  Life)]{}%{IdealistView}
+{\sc Radhakrishnan, Servepalli}, {\em ``An Idealist View of Life''\/}, 1988.
+
+\bibitem[S.~Radhakrishnan and C.~A. Moore, eds., {\em Indian
+  Philosophy\/}(Indian Philosophy)]{}%{Indian}
+{\sc Radhakrishnan, Servepalli}, and {\sc Moore, Charles~A.} (editors), {\em
+  Indian Philosophy\/}, Princeton University Press, 1957.
+
+\bibitem[P.~Ricoeur, {\em Life: a story in search of a narrator\/}(Life a story
+  in search of a narrator)]{}%{RicSearch}
+{\sc Ricoeur, Paul}, {\em ``Life: a story in search of a narrator''\/}, {\em
+  Facts and Values\/}, vol.~10, pp.~121-132, 1986.
+
+\bibitem[A.~O. Rorty, {\em How to harden your heart...\/}(How to harden your
+  heart six easy ways to become corrupt)]{}%{ARorty}
+{\sc Rorty, Am\'{e}lie~Oksenberg}, {\em ``How to harden your heart: six easy
+  ways to become corrupt''\/}, {\em Yale Review\/}, 1998, in
+  \citeauthor*{EvilFaces}.
+
+\bibitem[A.~O. Rorty, ed., {\em The Many Faces of Evil\/}(The Many Faces of
+  Evil)]{}%{EvilFaces}
+{\sc Rorty, Am\'{e}lie~Oksenberg} (editor), {\em The Many Faces of Evil\/},
+  Routledge, London, 2001.
+
+\bibitem[R.~Rorty, {\em The Pragmatist's Progress\/}(The Pragmatists
+  Progress)]{}%{RortyPP}
+{\sc Rorty, Richard}, {\em The Pragmatist's Progress\/} in
+  \citeauthor*{Collini}.
+
+\bibitem[R.~Rorty, {\em Genus as matter: a reading of Metaphysics Z-H\/}(Genus
+  as matter a reading of Metaphysics Z H)]{}%{SubstanceMatterY}
+---, {\em Genus as matter: a reading of Metaphysics Z-H\/},  in {\em Exegesis
+  and Argument: Studies in Greek Philosophy Presented to Gregory Vlastos\/},
+  pp. 393-420, Van Gorcum, Assen, The Netherlands, 1973.
+
+\bibitem[R.~Rorty, {\em Pragmatism, Davidson, and truth\/}(Pragmatism Davidson
+  and truth)]{}%{RortyPDT}
+---, {\em Pragmatism, Davidson, and truth\/},  in {\sc Lepore, E.} (editor),
+  {\em Truth and Interpretation\/}, pp. 333-355, Blackwell, 1986, [also in
+  \citeauthor*{Truth}].
+
+\bibitem[R.~Rorty, {\em Contingency, Irony and Solidarity\/}(Contingency Irony
+  and Solidarity)]{}%{RortyCIS}
+---, {\em Contingency, Irony and Solidarity\/}, Cambridge University Press,
+  1989.
+
+\bibitem[J.-P. Sartre, {\em The Transcendence of the Ego\/}(The Transcendence
+  of the Ego An Existentialist Theory of Consciousness)]{}%{TEgo}
+{\sc Sartre, Jean-Paul}, {\em The Transcendence of the Ego. An Existentialist
+  Theory of Consciousness\/}, Farrar, Straus and Giroux, New York [translated
+  by F.~Williams, Forrest and R.~Kirkpatrick].
+
+\bibitem[J.-P. Sartre, {\em Being and Nothingness\/}(Being and
+  Nothingness)]{}%{BandN}
+---, {\em Being and Nothingness\/}, Washington Square Press, 1966, [translated
+  by Hazel~E.~Barnes].
+
+\bibitem[M.~Scheler, {\em Resentment in the Building of Morals\/}(Resentment in
+  the Building of Morals)]{}%{MaxRess}
+{\sc Scheler, Max}, {\em Resentment in the Building of Morals\/},  in {\em Vom
+  Umsturz der Werte, Gesammelte Werke\/}, vol.~3, Bern, 1955, [my retranslation
+  from Polish \btit{Resentyment a Moralno\'{s}\'{c}, Czytelnik, 1997}].
+
+\bibitem[M.~Scheler, {\em Repentance and Rebirth\/}(Repentance and
+  Rebirth)]{}%{MaxReue}
+---, {\em Repentance and Rebirth\/},  in {\em Vom Ewigen in Menschen,
+  Gesammelte Werke\/}, vol.~5, Francke Verlag, Bern und M\"{u}nchen, 5 , 1968,
+  [my translation from German \btit{Reue und Wiedergeburt}].
+
+\bibitem[M.~Scheler, {\em Formalism in Ethics...\/}(Formalism in Ethics and Non
+  Formal Ethics of Values)]{}%{MaxForm}
+---, {\em Formalism in Ethics and Non-Formal Ethics of Values\/},  in {\em
+  Gesammelte Werke\/}, vol.~2, Francke Verlag, Bern und M\"{u}nchen, 6 , 1980,
+  [my translation from German \btit{Der Formalismus in der Ethik und die
+  materiale Wertethik}].
+
+\bibitem[M.~Scheler, {\em The Nature of Sympathy\/}(The Nature of
+  Sympathy)]{}%{Sympatia}
+---, {\em The Nature of Sympathy\/}, Pa\'{n}stwowe Wydawnictwo Naukowe,
+  Warszawa, 1986, [my retranslation from Polish \btit{Istota i Formy
+  Sympatii}].
+
+\bibitem[M.~Scheler, {\em Anthropological Writings\/}(Anthropological
+  Writings)]{}%{MaxAnthro}
+---, {\em Anthropological Writings\/}, Reclam, Stuttgart, 1994, [my translation
+  from German \btit{Schriften zur Anthropologie}].
+
+\bibitem[L.~A. Seneca, {\em By Way of Abstract\/}(By Way of
+  Abstract)]{}%{SenecaAbs}
+{\sc Seneca, Lucius~Annaeus}, {\em By Way of Abstract\/}.
+
+\bibitem[L.~A. Seneca, {\em Natural questions\/}(Natural questions)]{}%{SenecaNat}
+---, {\em Natural questions\/}.
+
+\bibitem[B.~Spinoza, {\em Ethics\/}(Ethics)]{}%{SpinozaEthics}
+{\sc Spinoza, Baruch}, {\em Ethics\/}, Hafner Press, New York, 1949, [edited by
+  J.~Gutmann].
+
+\bibitem[M.~de~Unamuno, {\em Tragic Sense of Life\/}(Tragic Sense of
+  Life)]{}%{Unamuno}
+{\sc de~Unamuno, Miguel}, {\em Tragic Sense of Life\/}, Dover Publications,
+  1954, [translated by J.~E.~Crawford Flitch].
+
+\bibitem[S.~Weil, {\em Waiting for God\/}(Waiting for God)]{}%{WeilWaiting}
+{\sc Weil, Simone}, {\em Waiting for God\/}, Perennial Classics, HarperCollins
+  Publishers, New York, 2001, [translated by E.~Craufurd].
+
+\bibitem[L.~Wittgenstein, {\em Philosophical Investigations\/}(Philosophical
+  Investigations)]{}%{WittPI}
+{\sc Wittgenstein, Ludwig}, {\em Philosophical Investigations\/}, Blackwell
+  Publishing, 1953 (2001), [translated by G.~E.~M.~Anscombe].
+
+\bibitem[L.~Wittgenstein, {\em Remarks on the Foundations of
+  Mathematics\/}(Remarks on the Foundations of Mathematics)]{}%{WFM}
+---, {\em Remarks on the Foundations of Mathematics\/}, Blackwell, 1956,
+  [edited by G.~H.~von Wright, R.~Rhees, G.~E.~M.~Anscombe].
+
+\bibitem[L.~Wittgenstein, {\em Philosophical Remarks\/}(Philosophical
+  Remarks)]{}%{WittRemarks}
+---, {\em Philosophical Remarks\/}, 1968, [translated by G.~E.~M.~Anscombe].
+
+\bibitem[L.~Wittgenstein, {\em On Certainty\/}(On Certainty)]{}%{Certain}
+---, {\em On Certainty\/}, Basil Blackwell, 1969, [\"{U}ber Gewissheit,
+  G.~E.~M.~Anscombe and G.~H.~von Wright (editors), translated by
+  G.~E.~M.~Anscombe and D.~Paul].
+
+\bibitem[L.~Wittgenstein, {\em Culture and Value\/}(Culture and
+  Value)]{}%{WittCultValue}
+---, {\em Culture and Value\/}, Blackwell, 1980, [edited by Georg H. von
+  Wright].
+
+\bibitem[L.~Wittgenstein, {\em Tractatus Logico-Philosophicus\/}(Tractatus
+  Logico Philosophicus)]{}%{Tract}
+---, {\em Tractatus Logico-Philosophicus\/}, Routledge \& Kegan Paul, London
+  and Henley, 1981, [translated by D.~F.~Pears and B.~F.~McGuinness].
+
+  
+%2.Philosophy -- secondary sources
+\section*{Philosophy -- secondary sources/collections}  
+
+\subsection*{Aristotle}
+
+\bibitem[R.~J. Blackwell, {\em Matter as a subject of predication in
+  Aristotle\/}(Matter as a subject of predication in
+  Aristotle)]{}%{SubstanceMatterX}
+{\sc Blackwell, Richard~J.}, {\em ``Matter as a subject of predication in
+  Aristotle''\/}, {\em The Modern Schoolman\/}, vol.~XXXIII, pp.~19-30, 1955.
+
+\bibitem[M.~Furth, {\em Substance, Form and Psyche: An Aristotelean
+  Metaphysics\/}(Substance Form and Psyche An Aristotelean
+  Metaphysics)]{}%{AristNoPrime}
+{\sc Furth, Montgomery}, {\em Substance, Form and Psyche: An Aristotelean
+  Metaphysics\/}, Cambridge University Press, 1988.
+
+\bibitem[J.~Kung, {\em Can substance be predicated of matter?\/}(Can substance
+  be predicated of matter)]{}%{SubstanceMatter}
+{\sc Kung, Joan}, {\em ``Can substance be predicated of matter?''\/}, {\em
+  Archiv f\"{u}r Geschichte der Philosophie\/}, vol.~60, pp.~140-159, 1978.
+
+\bibitem[F.~A. Lewis, {\em Substance and Predication in Aristotle\/}(Substance
+  and Predication in Aristotle)]{}%{AristPrime}
+{\sc Lewis, Frank~A.}, {\em Substance and Predication in Aristotle\/},
+  Cambridge University Press, 1991.
+
+\bibitem[T.~Scaltsas, {\em Substances and Universals in Aristotle's
+  Metaphysics\/}(Substances and Universals in Aristotles
+  Metaphysics)]{}%{AristSubsUniv}
+{\sc Scaltsas, Theodore}, {\em Substances and Universals in Aristotle's
+  Metaphysics\/}, Cornell University Press, 1994.\dotfill
+
+\bibitem[B.~Allen, {\em Truth in Philosophy\/}(Truth in Philosophy)]{}%{Text}
+{\sc Allen, Barry}, {\em Truth in Philosophy\/}, Cambridge, Mass., 1993.
+
+\bibitem[D.~Arendt, ed., {\em Der Nihilismus als Ph\"{a}nomen der
+  Geistesgeschichte\/}(Der Nihilismus als Phanomen der
+  Geistesgeschichte)]{}%{NihilA}
+{\sc Arendt, Dieter} (editor), {\em Der Nihilismus als Ph\"{a}nomen der
+  Geistesgeschichte\/}, Wissenschaftliche Buchgesellschaft, Darmstadt, 1974.
+
+\bibitem[D.~M. Armstrong, {\em Universals and Scientific Realism: A Theory of
+  Universals\/}(Universals and Scientific Realism A Theory of
+  Universals)]{}%{ArmstrongUniv}
+{\sc Armstrong, David~M.}, {\em Universals and Scientific Realism: A Theory of
+  Universals\/}, Cambridge University Press, 1980.
+
+\bibitem[G.~P. Baker, P.~M.~S. Hacker, {\em Malcolm on language and
+  rules\/}(Malcolm on language and rules)]{}%{LanguageRules}
+{\sc Baker, Gordon~P.}, and {\sc Hacker, P.~M.~S.}, {\em ``Malcolm on language
+  and rules''\/}, {\em Philosophy\/}, vol.~65, pp.~167-179, 1990.
+
+\bibitem[S.~Blackburn and K. Simmons, eds., {\em Truth\/}(Truth)]{}%{Truth}
+{\sc Blackburn, Simon}, and {\sc Simmons, Keith} (editors), {\em Truth\/},
+  Oxford University Press, 1999.
+
+\bibitem[B.~Brody, {\em Identity and Essence\/}(Identity and Essence)]{}%{Impred}
+{\sc Brody, Baruch}, {\em Identity and Essence\/}, Princeton University Press,
+  1980.
+
+\bibitem[G.~Calogero, {\em Studi sull'eleatismo\/}(Studi
+  sulleleatismo)]{}%{ParmenidesIt}
+{\sc Calogero, G.}, {\em Studi sull'eleatismo\/}, Rome, 1932, [my retranslation
+  of fragments from \citeauthor*{ParmenidesD}].
+
+\bibitem[J.~Caputo, {\em Without sovereignty, without being...\/}(Without
+  sovereignty without being unconditionality the comig of God and Derridas
+  democracy to come)]{}%{Caputo}
+{\sc Caputo, John}, {\em ``Without sovereignty, without being:
+  unconditionality, the comig of God and Derrida's democracy to come''\/}, {\em
+  Journal of Cultural and Religious Study\/}, ~(4.3), 2003.
+
+\bibitem[V.~Chappell, {\em Matter\/}(Matter)]{}%{SubstanceMatterZ}
+{\sc Chappell, Vere}, {\em ``Matter''\/}, {\em Journal of Philosophy\/},
+  vol.~70, 1973.
+
+\bibitem[S.~Collini, ed., {\em Interpretation and
+  Overinterpretation\/}(Interpretation and Overinterpretation)]{}%{Collini}
+{\sc Collini, Stefan} (editor), {\em Interpretation and Overinterpretation\/},
+  Cambridge University Press, 1992.
+
+\subsection*{Eriugena, John Scotus}%JSE
+  
+\bibitem[H.~Bett, {\em Johannes Scotus Erigena\/}(Johannes Scotus
+  Erigena)]{}%{adEriugena}
+{\sc Bett, Henry}, {\em Johannes Scotus Erigena\/}, Russell\&Russell
+  Inc.~New York, 1964 (1925).
+
+\bibitem[D.~Carabine, {\em John Scottus Eriugena\/}(John Scottus
+  Eriugena)]{}%{adEriugena2}
+{\sc Carabine, Deirdre}, {\em John Scottus Eriugena\/}, Oxford University
+  Press, 2000.
+
+\bibitem[D.~Moran, {\em Pantheism in Eriugena and Cusa\/}(Pantheism in Eriugena
+  and Cusa)]{}%{PanErCusa}
+{\sc Moran, Dermot}, {\em ``Pantheism in Eriugena and Cusa''\/}, {\em American
+  Catholic Philosophical Quarterly\/}, vol.~LXIV~(1), 1990.\dotfill
+
+
+\bibitem[E.~F. Edinger, {\em The Creation of Consciousness\/}(The Creation of
+  Consciousness)]{}%{CC}
+{\sc Edinger, Edward~F.}, {\em The Creation of Consciousness\/}, Inner City
+  Books, Toronto, 1984.
+
+\bibitem[J.~N. Findlay, {\em Can God's existence be disproved?\/}(Can Gods
+  existence be disproved)]{}%{Findlay}
+{\sc Findlay, J.~N.}, {\em ``Can God's existence be disproved?''\/}, {\em
+  Mind\/}, ~(57), pp.~176-183, 1948.
+
+\bibitem[J.~A. Fodor, {\em Concepts\/}(Concepts)]{}%{Fodor}
+{\sc Fodor, Jerry~A.}, {\em Concepts\/}, Oxford University Press, 1998.
+
+\bibitem[W.~Kaufmann, {\em Nietzsche and the Seven Sirens\/}(Nietzsche and the
+  Seven Sirens)]{}%{Sirens}
+{\sc Kaufmann, Walter}, {\em Nietzsche and the Seven Sirens\/} [introductory
+  note to \citeauthor*{SisterI}].
+
+\bibitem[W.~Kraus, {\em Nihilismus heute oder Die Geduld der
+  Weltgeschichte\/}(Nihilismus heute oder Die Geduld der
+  Weltgeschichte)]{}%{NihilC}
+{\sc Kraus, Wolfgang}, {\em Nihilismus heute oder Die Geduld der
+  Weltgeschichte\/}, Fischer Taschenbuch Verlag, Frankfurt, 1985.
+
+\bibitem[L.~Landgrebe, {\em Zur \"{U}berwindung des europ\"{a}ischen
+  Nihilismus\/}(Zur Uberwindung des europaischen Nihilismus)]{}%{NihilB}
+{\sc Landgrebe, Ludwig}, {\em Zur \"{U}berwindung des europ\"{a}ischen
+  Nihilismus\/}, 1947, in \citeauthor*{NihilA}.
+
+\bibitem[N.~Malcolm, {\em Anselm's ontological arguments\/}(Anselms ontological
+  arguments)]{}%{MalcolmOnto}
+{\sc Malcolm, Norman}, {\em ``Anselm's ontological arguments''\/}, {\em The
+  Philosophical Review\/}, vol.~LXIX~(1), pp.~41-62, 1960, [my retranslation
+  from Polish].
+
+\bibitem[N.~Malcolm, {\em Wittgenstein's Philosophical
+  Investigations\/}(Wittgensteins Philosophical
+  Investigations)]{}%{LanguageRulesMalcolm}
+{\sc Malcolm, Norman}, {\em ``Wittgenstein's Philosophical Investigations''\/},
+  {\em The Philosophical Review\/}, vol.~LXIII, pp.~530-559, 1954.
+
+\bibitem[J.~Mansfeld and L.~M. de~Rijk, eds., {\em KEPHALAION: Studies in Greek
+  Philosophy and its Continuation Offered to Professor C.~J.
+  de~Vogel\/}(KEPHALAION Studies in Greek Philosophy and its Continuation
+  Offered to Professor C J de Vogel)]{}%{Kephalaion}
+{\sc Mansfeld, J.}, and {\sc de~Rijk, L.~M.} (editors), {\em KEPHALAION:
+  Studies in Greek Philosophy and its Continuation Offered to Professor C.~J.
+  de~Vogel\/}, van Gorcum \& Comp. B.V., Assen, The Netherlands, 1975.
+
+\bibitem[C.~McGinn, {\em Logical Properties\/}(Logical Properties)]{}%{McGinn}
+{\sc McGinn, Colin}, {\em Logical Properties\/}, Oxford, Blackwell, 2000.
+
+\bibitem[M.~S. Muldoon, {\em Ricoeur and Merleau-Ponty on narrative
+  identity\/}(Ricoeur and Merleau Ponty on narrative identity)]{}%{CathQuat}
+{\sc Muldoon, Marc~S.}, {\em ``Ricoeur and Merleau-Ponty on narrative
+  identity''\/}, {\em The American Catholic Philosophical Quarterly\/},
+  vol.~71~(1), pp.~1-18, 1997.
+
+\bibitem[S.~Pessin, {\em Matter, metaphor, and privative pointing...\/}(Matter
+  metaphor and privative pointing Maimonides on the complexity of human
+  being)]{}%{MaimonMatter}
+{\sc Pessin, Sarah}, {\em ``Matter, metaphor, and privative pointing:
+  Maimonides on the complexity of human being''\/}, {\em American Catholic
+  Philosophical Quarterly\/}, vol.~LXXVI~(1), 2002.
+  
+%Plotinus
+\subsection*{Plotinus}
+\bibitem[S.~R.~L. Clark, {\em A Plotinian account of intellect\/}(A Plotinian
+  account of intellect)]{}%{ClarkPlotIntell}
+{\sc Clark, Stephen~R.~L.}, {\em ``A Plotinian account of intellect''\/}, {\em
+  American Catholic Philosophical Quarterly\/}, vol.~LXXI~(3), 1997.
+
+\bibitem[J.~J. Cleary, ed., {\em Traditions of Platonism\/}(Traditions of
+  Platonism Essays in Honour of John Dillon)]{}%{TradPlat}
+{\sc Cleary, John~J.} (editor), {\em Traditions of Platonism: Essays in Honour
+  of John Dillon\/}, Ashgate, 1999.
+
+\bibitem[C.~D. Costa, {\em Separation and the forms: a Plotinian
+  approach\/}(Separation and the forms a Plotinian approach)]{}%{SeparateForms}
+{\sc Costa, Cristina~D'Ancona}, {\em ``Separation and the forms: a Plotinian
+  approach''\/}, {\em American Catholic Philosophical Quarterly\/},
+  vol.~LXXI~(3), 1997.
+
+\bibitem[C.~D'Ancona, {\em Traditions of Platonism\/}(Rereading Ennead V
+  1107)]{}%{Rereading}
+{\sc D'Ancona, Cristina}, {\em Rereading Ennead V 1[10],7\/},  in
+  \citeauthor*{TradPlat}.
+
+\bibitem[E.~K. Emilsson, {\em Plotinus on the object of thought\/}(Plotinus on
+  the object of thought)]{}%{EmilssonIntellect}
+{\sc Emilsson, Eyj\'{o}lfur~Kjalar}, {\em ``Plotinus on the object of
+  thought''\/}, {\em Archiv f\"{u}r Geschichte der Philosophie\/}, vol.~77,
+  pp.~21-41, 1995.
+
+\bibitem[J.~H. Fielder, {\em Chorismos and Emanation\/}(Chorismos and
+  Emanation)]{}%{Fielder}
+{\sc Fielder, John~H.}, {\em Chorismos and Emanation\/},  in {\sc Baine~Harris,
+  R.} (editor), {\em The Significance of Neoplatonism\/}, vol.~I, Old Dominion
+  University, Norfolk, Virginia, 1976.
+
+\bibitem[L.~P. Gerson, {\em Traditions of Platonism\/}(The concept in
+  Platonism)]{}%{ConceptPlat}
+{\sc Gerson, Lloyd~P.}, {\em The concept in Platonism\/},  in
+  \citeauthor*{TradPlat}.
+
+\bibitem[J.~P. Kenney, {\em Mysticism and contemplation in the
+  Enneads\/}(Mysticism and contemplation in the Enneads)]{}%{PlotMystB}
+{\sc Kenney, John~Peter}, {\em ``Mysticism and contemplation in the
+  Enneads''\/}, {\em American Catholic Philosophical Quarterly\/},
+  vol.~LXXI~(3), 1997.
+
+\bibitem[E.~D. Perl, {\em The One as pure giving in Plotinus\/}(The One as pure
+  giving in Plotinus)]{}%{OneGives}
+{\sc Perl, Eric~D.}, {\em ``The One as pure giving in Plotinus''\/}, {\em
+  American Catholic Philosophical Quarterly\/}, vol.~LXXI~(3), 1997.
+  
+\bibitem[A.~N.~M. Rich, {\em The Platonic idea as thoughts of God\/}(The
+  Platonic idea as thoughts of God)]{}%{DivineForms}
+{\sc Rich, A.~N.~M.}, {\em ``The Platonic idea as thoughts of God''\/}, {\em
+  Mnemosyne\/}, vol.~4~(7), pp.~123-133, 1954.
+
+\bibitem[H.-R. Schwyzer, {\em The intellect in Plotinus and the archetypes of
+  C.~G.~Jung\/}(The intellect in Plotinus and the archetypes of C G
+  Jung)]{}%{JungPlotinus}
+{\sc Schwyzer, Hans-Rudolf}, {\em The intellect in Plotinus and the archetypes
+  of C.~G.~Jung\/} in \citeauthor*{Kephalaion}.\dotfill
+  
+
+\bibitem[A.~Santogrossi, {\em Duns Scotus on potency opposed to act...\/}(Duns
+  Scotus on potency opposed to act in Questions on the Metaphysics
+  IX)]{}%{ScotPotAct}
+{\sc Santogrossi, Ansgar}, {\em ``Duns Scotus on potency opposed to act in
+  Questions on the Metaphysics, IX''\/}, {\em American Catholic Philosophical
+  Quarterly\/}, vol.~LXVII~(1), 1993.
+
+\bibitem[H.~von Steuben, ed., {\em Parmenides: \"{U}ber das Sein\/}(Parmenides
+  Uber das Sein)]{}%{ParmenidesD}
+{\sc von Steuben, Hans} (editor), {\em Parmenides: \"{U}ber das Sein\/},
+  Philipp Reclam Jun., Stuttgart, 1981.
+
+\bibitem[M.~Stocker, {\em Desiring the Bad...\/}(Desiring the Bad An Essay in
+  Moral Psychology)]{}%{EvilOwn}
+{\sc Stocker, Michael}, {\em ``Desiring the Bad: An Essay in Moral
+  Psychology''\/}, {\em Journal of Philosophy\/}, vol.~LXXVI~(12), 1979.
+
+\bibitem[A.~Szahaj, {\em Irony and Love\/}(Irony and Love The Neopragmatism of
+  Richard Rortys in the Context of the Discussion about
+  Postmodernism)]{}%{RortyIM}
+{\sc Szahaj, Andrzej}, {\em Irony and Love; The Neopragmatism of Richard
+  Rorty's in the Context of the Discussion about Postmodernism\/}, Fundacja Na
+  Rzecz Nauki Polskiej, 1996, [my retranslation from Polish \btit{Ironia i
+  Mi{\l}o\'{s}\'{c}}].
+
+\bibitem[J.~Tischner, {\em The Controversy about Man's Existence\/}(The
+  Controversy about Mans Existence)]{}%{Tischner}
+{\sc Tischner, J\'{o}zef}, {\em The Controversy about Man's Existence\/}, Znak,
+  Krak\'{o}w, 2001, [my translation from Polish \btit{Sp\'{o}r o Istnienie
+  Cz{\l}owieka}].
+
+\bibitem[S.~Toulmin, {\em Human Understanding...\/}(Human Understanding The
+  Collective Use and Evolution of Concepts)]{}%{EvolConcept}
+{\sc Toulmin, Stephen}, {\em Human Understanding: The Collective Use and
+  Evolution of Concepts\/}, Princeton University Press, 1972.
+
+%2a.HistPhil  
+\section*{History of philosophy, philosophers and ideas}
+\bibitem[M.~Brumlik, {\em Der Gnostiker: der Traum von der Selbserl\"{o}sung
+  des Menschen\/}(Der Gnostiker der Traum von der Selbserlosung des
+  Menschen)]{}%{Gnostics}
+{\sc Brumlik, Micha}, {\em Der Gnostiker: der Traum von der Selbserl\"{o}sung
+  des Menschen\/}, Vito von Eichborn GmbH \& Co Verlag KG, Frankfurt am Main,
+  1992.
+
+\bibitem[F.~Copleston, {\em A History of Philosophy\/}(A History of
+  Philosophy)]{}%{Cople}
+{\sc Copleston, Frederick}, {\em A History of Philosophy\/}, Image Books,
+  Garden City, New York, 1977.
+
+\bibitem[F.~M. Cornford, {\em From Religion to Philosophy\/}(From Religion to
+  Philosophy a Study in the Origins of Western Speculation)]{}%{Moirai}
+{\sc Cornford, F.~M.}, {\em From Religion to Philosophy; a Study in the Origins
+  of Western Speculation\/}, Humanities Press, Atlantic Heighlands, N.J.,
+  (1912) 1980.
+
+\bibitem[G.~Cotkin, {\em William James: Public Philosopher\/}(William James
+  Public Philosopher)]{}%{Cotkin}
+{\sc Cotkin, George}, {\em William James: Public Philosopher\/}, University of
+  Illinois Press, 1994.
+
+\bibitem[Diogenes~Laertius, {\em Lives, Teachings...\/}(Lives Teachings and
+  Sayings of Famous Philosophers)]{}%{DiogenesL}
+{\sc Diogenes~Laertius}, {\em Lives, Teachings and Sayings of Famous
+  Philosophers\/}, Pa\'{n}stwowe Wydawnictwo Naukowe, 1982, [my retranslation
+  from Polish \btit{\.{Z}ywoty i pogl\c{a}dy s{\l}ynnych filozof\'{o}w}].
+
+\bibitem[E.~R. Dodds, {\em The Greeks and the Irrational\/}(The Greeks and the
+  Irrational)]{}%{GreekIr}
+{\sc Dodds, E.~R.}, {\em The Greeks and the Irrational\/}, University of
+  California Press, 1951.
+
+\bibitem[E.~Gilson, {\em The Spirit of Medieval Philosophy\/}(The Spirit of
+  Medieval Philosophy)]{}%{Gilson}
+{\sc Gilson, Etienne}, {\em The Spirit of Medieval Philosophy\/}, New York,
+  1940.
+
+\bibitem[E.~Gilson, {\em History of Christian Philosophy...\/}(History of
+  Christian Philosophy in the Middle Adges)]{}%{GilsonHCPh}
+---, {\em History of Christian Philosophy in the Middle Adges\/}, Random House,
+  1954.
+
+\bibitem[R.~Heinzmann, ed., {\em The Medieval Philosophy\/}(The Medieval
+  Philosophy)]{}%{FilSr}
+{\sc Heinzmann, Richard} (editor), {\em The Medieval Philosophy\/} [my
+  translation from Polish \btit{Filozofia \'{S}redniowiecza}].
+
+\bibitem[W.~T. Jones, {\em The Medieval Mind\/}(The Medieval Mind)]{}%{Jones}
+{\sc Jones, W.~T.}, {\em The Medieval Mind\/}, vol.~II of {\em A History of
+  Western Philosophy\/}, Harcourt Brace Jovanovich, 1969.
+
+\bibitem[G.~Kirk {\em et~al.\/}, eds., {\em The Presocratic Philosophers\/}(The
+  Presocratic Philosophers)]{}%{Vorsokr}
+{\sc Kirk, G.S.} and {\sc Raven, J.E.}, and {\sc Schofield, M.} (editors), {\em
+  The Presocratic Philosophers\/}, Cambridge University Press, 1957/1983.
+
+\bibitem[G.~May, {\em Sch\"{o}pfung aus dem Nichts...\/}(Schopfung aus dem
+  Nichts Die Entstehung der Lehre von der Creatio ex Nihilo)]{}%{exNihilo}
+{\sc May, Gerhard}, {\em ``Sch\"{o}pfung aus dem Nichts. Die Entstehung der
+  Lehre von der Creatio ex Nihilo''\/}, {\em Arbeiten zur Kirchengeschichte\/},
+  vol.~48, pp.~63-85, 1978, [quoted after \citeauthor*{ChristiansRomans}].
+
+\bibitem[J.~Miernowski, {\em God-Nothingness\/}(God Nothingness Negative
+  Theologies at the Threshold of Modern Times)]{}%{BogNic}
+{\sc Miernowski, Jan}, {\em God-Nothingness: Negative Theologies at the
+  Threshold of Modern Times\/}, Polish Academy of Science, Institute of
+  Philosophy and Sociology, Warszawa, 2002, [my retranslation from Polish
+  \btit{B\'{o}g-Nico\'{s}\'{c}: Teologie negatywne u progu czas\'{o}w
+  nowo\.{z}ytnych}].
+
+\bibitem[G.~Minois, {\em The Devil\/}(The Devil)]{}%{SatanMinois}
+{\sc Minois, Georges}, {\em The Devil\/}, PAX, 2001, [my retranslation from
+  Polish \btit{Diabe{\l}}].
+
+\bibitem[A.~Murray, {\em Reason and Society in the Middle Ages\/}(Reason and
+  Society in the Middle Ages)]{}%{ReasonMiddle}
+{\sc Murray, Alexander}, {\em Reason and Society in the Middle Ages\/}, Oxford
+  University Press, 1978.
+
+\bibitem[M.-A. Ouaknin, {\em Ouvertures hassidiques\/}(Ouvertures
+  hassidiques)]{}%{Chasydzi}
+{\sc Ouaknin, Marc-Alain}, {\em Ouvertures hassidiques\/}, J.~Grancher, 1990,
+  [my retranslation from Polish \btit{Chasydzi}, Cyklady, 2002].
+
+\bibitem[A.~Roberts and J. Donaldson, eds., {\em Ante-Nicene Fathers\/}(Ante
+  Nicene Fathers)]{}%{ANF}
+{\sc Roberts, Alexander}, and {\sc Donaldson, James} (editors), {\em
+  Ante-Nicene Fathers\/}, vol. I-VIII,X, Wm. B. Eerdmans Publishing Company,
+  Edinburgh, American edition by A.~Cleveland Coxe, in \btit{Early Chrstian
+  Writings}, http:\lin www.earlychristianwritings.com, 1884-86.
+
+\bibitem[P.~Schaff, ed., {\em Nicene and Post-Nicene Fathers\/}(Nicene and Post
+  Nicene Fathers)]{}%{PNF}
+{\sc Schaff, Philip} (editor), {\em Nicene and Post-Nicene Fathers\/}, vol. I
+  \& II, New York, in \btit{Early Chrstian Writings}, http:\lin
+  www.earlychristianwritings.com, 1886.
+
+\bibitem[H.~Rauschning, {\em Masken und Metamorphosen des Nihilismus\/}(Masken
+  und Metamorphosen des Nihilismus)]{}%{NihilZ}
+{\sc Rauschning, Hermann}, {\em Masken und Metamorphosen des Nihilismus\/},
+  1955.
+
+\bibitem[L.~Salom\'{e}, {\em Nietzsche\/}(Nietzsche)]{}%{LouN}
+{\sc Salom\'{e}, Lou}, {\em Nietzsche\/}, University of Illinois Press, 2001,
+  [translated and edited by S.~Mandel].
+
+\bibitem[L.~Salom\'{e}, {\em You Alone are Real to Me\/}(You Alone are Real to
+  Me    Remembering Rainer Maria Rilke)]{}%{LouR}
+---, {\em You Alone are Real to Me -- Remembering Rainer Maria Rilke\/}, BOA
+  Editions Ltd., 2003, [translated by A.~von der Lippe].
+
+\bibitem[G.~Sowi\'{n}ski, ed., {\em Around Nihilism\/}(Around Nihilism)]{}%{Wokol}
+{\sc Sowi\'{n}ski, Grzegorz} (editor), {\em Around Nihilism\/}, Wydawnictwo A,
+  2001, [my retranslation from Polish \btit{Wok\'{o}{\l} nihilizmu}].
+
+\bibitem[W.~Szczerba, {\em The Concept of Eternal Return...\/}(The Concept of
+  Eternal Return in Early Christian Thought)]{}%{Powrot}
+{\sc Szczerba, Wojciech}, {\em The Concept of Eternal Return in Early Christian
+  Thought\/}, Wydawnictwo Uniwersytetu Wroc{\l}awskiego, 2001, [my translation
+  from Polish \btit{Koncepcja wiecznego powrotu w my\'{s}li
+  wczesnochrze\'{s}cija\'{n}skiej}].
+
+\bibitem[A.~Walicki, {\em Marxism and the Leap to the Kingdom of
+  Freedom\/}(Marxism and the Leap to the Kingdom of Freedom The Rise and Fall
+  of the Communist Utopia)]{}%{Walicki}
+{\sc Walicki, Andrzej}, {\em Marxism and the Leap to the Kingdom of Freedom.
+  The Rise and Fall of the Communist Utopia\/}, Stanford University Press,
+  1995, [my retranslations from Polish \btit{Marksizm i skok do kr\'{o}lestwa
+  wolno\'{s}ci}, Pa\'{n}stwowe Wydawnictwo Naukowe, 1996].
+
+\bibitem[R.~L. Wilken, {\em The Christians as the Romans Saw Them\/}(The
+  Christians as the Romans Saw Them)]{}%{ChristiansRomans}
+{\sc Wilken, Robert~L.}, {\em The Christians as the Romans Saw Them\/}, Yale
+  University Press, 1984.
+
+\bibitem[H.~Wolfson, {\em Philo\/}(Philo)]{}%{PhiloAD}
+{\sc Wolfson, Harry}, {\em Philo\/}, Harvard University Press, Cambridge, MA,
+  1947.
+
+\bibitem[F.~Yates, {\em The Occult Philosophy in the Elizabethan Age\/}(The
+  Occult Philosophy in the Elizabethan Age)]{}%{YatesRen}
+{\sc Yates, Frances}, {\em The Occult Philosophy in the Elizabethan Age\/},
+  Routledge Classics, 1979.
+
+\bibitem[F.~Yates, {\em Giordano Bruno and the Hermetic Tradition\/}(Giordano
+  Bruno and the Hermetic Tradition)]{}%{YatesGnosis}
+---, {\em Giordano Bruno and the Hermetic Tradition\/}, University of Chicago
+  Press, 1991 [1964].
+
+\bibitem[E.~Zeller, {\em Outlines of the History of Greek
+  Philosophy\/}(Outlines of the History of Greek Philosophy)]{}%{Zeller}
+{\sc Zeller, Eduard}, {\em Outlines of the History of Greek Philosophy\/},
+  Meridian Books, New York, 1960.
+  
+%3.Religious
+\section*{Religion/theology}  
+
+\bibitem[\Alphonsus{}St.~Alphonsus~Liguori, {\em Homo apostolicus\/}(Homo
+  apostolicus)]{}%{Alphonsus}
+{\sc \Alphonsus{}St.~Alphonsus~Liguori}, {\em Homo apostolicus\/}.
+
+\bibitem[{\em \Ashtavakra{}The Ashtavakra-Gita\/}(AshtavakraThe Ashtavakra
+  Gita)]{}%{Ash}
+{\em \Ashtavakra{}The Ashtavakra-Gita\/}, http:\lin www.indiadomain.com
+  [translated by T.~Byrom].
+  
+\bibitem[\Basil{}St.~Basil, {\em Nine Homilies of the Hexaemeron\/}(Nine
+  Homilies of the Hexaemeron)]{}%{Basil}
+{\sc \Basil{}St.~Basil}, {\em Nine Homilies of the Hexaemeron\/},  in
+  \citeauthor*{PNF}, vol. VIII of series II.
+
+\bibitem[{\em Bereshet Rabbati\/}(Bereshet Rabbati midruash to The Book of
+  Genesis)]{}%{Bereszit}
+{\em Bereshet Rabbati (midr\u{a}sh to The Book of Genesis)\/}, Hanoch Albeck,
+  Jerusalem, 1940, [my retranslation after \citeauthor*{MityHebr}].
+
+\bibitem[\Bernard{}St.~Bernard \NOOP{of}~Clairvaux, {\em On Consideration\/}(On
+  Consideration)]{}%{BernardConsider}
+{\sc \Bernard{}St.~Bernard \NOOP{of}~Clairvaux}, {\em On
+  Consideration\/}.
+
+\bibitem[\Bernard{}St.~Bernard \NOOP{of}~Clairvaux, {\em On Loving God\/}(On
+  Loving God)]{}%{BernardLove}
+---, {\em On Loving God\/}, Grand Rapids: Christian Classics Ethereal Library,
+  http:\lin www.ccel.org, 2000.
+
+\bibitem[{\em Bet Ha-midr\u{a}sh\/}(Bet Ha midruash)]{}%{BHM}
+{\em Bet Ha-midr\u{a}sh\/}, Adolph Jellinek, Leipzig, 1853-77, 6 vols.,
+  reprinted in Jerusalem, 1938.
+
+\bibitem[{\em \Bhagavad{}The Bhagavad-Gita\/}(BhagavadThe Bhagavad
+  Gita)]{}%{Bhagavad}
+{\em \Bhagavad{}The Bhagavad-Gita\/}, Penguin, 1962, [translated by
+  J.~Mascar\'{o}].
+
+\bibitem[\Bona{}St.~Bonaventura, {\em Commentaries on the Four
+  Books...\/}(Commentaries on the Four Books of Sentences of Master Peter
+  Lombard)]{}%{Bona}
+{\sc \Bona{}St.~Bonaventura}, {\em Commentaries on the Four Books of
+  Sentences of Master Peter Lombard\/}.
+
+\bibitem[J.~Butler, {\em The Analogy of Religion\/}(The Analogy of
+  Religion)]{}%{Butler}
+{\sc Butler, Joseph}, {\em The Analogy of Religion\/}, http:\lin
+  posner.library.emu.edu/Posner.
+
+\bibitem[J.~Calvin, {\em Institutes of the Christian Religion\/}(Institutes of
+  the Christian Religion)]{}%{Calvin}
+{\sc Calvin, John}, {\em Institutes of the Christian Religion\/} [fragments in
+  \citeauthor*{EvilFaces}].
+
+\bibitem[\Clement{}St.~Clement \NOOP{of}~Alexandria, {\em
+  Exhortation\/}(Exhortation to the Heathen)]{}%{Zacheta}
+{\sc \Clement{}St.~Clement \NOOP{of}~Alexandria}, {\em Exhortation to the
+  Heathen\/},  in  \citeauthor*{ANF}, vol.~II, [\btit{Protreptikos}].
+
+\bibitem[\Clement{}St.~Clement \NOOP{of}~Alexandria, {\em The Instructor\/}(The
+  Instructor)]{}%{Paidagogos}
+---, {\em The Instructor\/},  in  \citeauthor*{ANF}, vol.~II,
+  [\btit{Paidagogos}].
+
+\bibitem[\Clement{}St.~Clement \NOOP{of}~Alexandria, {\em
+  Miscellanies\/}(Miscellanies)]{}%{Stromata}
+---, {\em Miscellanies\/},  in  \citeauthor*{ANF}, vol.~II, [\btit{Stromata}].
+
+\bibitem[\Dionysius{}Dionysius \NOOP{the}~Areopagite, {\em The Divine
+  Names\/}(The Divine Names)]{}%{DivNames}
+{\sc \Dionysius{}Dionysius \NOOP{the}~Areopagite}, {\em The Divine
+  Names\/},  in  \citeauthor*{Areopagite}.
+
+\bibitem[\Dionysius{}Dionysius \NOOP{the}~Areopagite, {\em The Mystical
+  Theology\/}(The Mystical Theology)]{}%{MysticalTh}
+---, {\em The Mystical Theology\/},  in  \citeauthor*{Areopagite}.
+
+\bibitem[\Dionysius{}Dionysius \NOOP{the}~Areopagite, {\em On the Divine Names
+  and Mystical Theology\/}(On the Divine Names and Mystical
+  Theology)]{}%{Areopagite}
+---, {\em On the Divine Names and Mystical Theology\/}, Kessinger Publishing
+  Company [translated by C.~E.~Rolt].
+
+\bibitem[\Dionysius{}Dionysius \NOOP{the}~Areopagite, {\em The Celestial
+  Hierarchy\/}(The Celestial Hierarchy)]{}%{Celestial}
+---, {\em The Celestial Hierarchy\/}, The Shrine of Wisdom, Fintry, Brook,
+  England, 1935.
+
+\bibitem[J.~Edwards, {\em Original Sin\/}(Original Sin)]{}%{Edwards}
+{\sc Edwards, Jonathan}, {\em Original Sin\/} [fragments in
+  \citeauthor*{EvilFaces}].
+
+\bibitem[{\em \Gospel{}The Gospel of Philip\/}(GospelThe Gospel of
+  Philip)]{}%{Philip}
+{\em \Gospel{}The Gospel of Philip\/}, in \btit{Early Christian Writings},
+  http:\lin www.earlychristianwritings.com [translated by W.~W.~Isenberg].
+
+\bibitem[{\em \Gospel{}The Gospel of Thomas\/}(GospelThe Gospel of
+  Thomas)]{}%{Thomas}
+{\em \Gospel{}The Gospel of Thomas\/}, in \btit{Early Christian Writings},
+  http:\lin www.earlychristianwritings.com.
+
+\bibitem[R.~Graves, R.~Patai, {\em Hebrew Myths\/}(Hebrew Myths The Book of
+  Genesis)]{}%{MityHebr}
+{\sc Graves, Robert}, and {\sc Patai, Raphael}, {\em Hebrew Myths. The Book of
+  Genesis\/}, 1964, [my retranslation from Polish \btit{Mity hebrajskie},
+  Cyklady, 2002].
+
+\bibitem[\Gregory{}St.~Gregory~the Great, {\em
+  Epistles\/}(Epistles)]{}%{GregoryEpist}
+{\sc \Gregory{}St.~Gregory~the Great}, {\em Epistles\/},  in {\em Early
+  Christian Writings; Nicene and Post-Nicene Fathers\/}, vol. XII of series II,
+  http:\lin www.earlychristianwritings.com.
+
+\bibitem[A.~Huxley, {\em The Perennial Philosophy\/}(The Perennial
+  Philosophy)]{}%{Huxley}
+{\sc Huxley, Aldous}, {\em The Perennial Philosophy\/}, Harper \& Row, 1970.
+
+\bibitem[\John{}St.~John \NOOP{of the}~Cross, {\em The Poems\/}(The
+  Poems)]{}%{StJohnPoems}
+{\sc \John{}St.~John \NOOP{of the}~Cross}, {\em The Poems\/}, A New
+  Directions Book, New York, 1972, [translated by W.~Barnstone].
+
+\bibitem[\Justin{}St.~Justin~Martyr, {\em Second Apology\/}(Second
+  Apology)]{}%{Martyr}
+{\sc \Justin{}St.~Justin~Martyr}, {\em Second Apology\/},  in
+  \citeauthor*{ANF}, vol.~I.
+
+\bibitem[R.~Laurentina, {\em Satan, a myth or reality?\/}(Satan a myth or
+  reality)]{}%{SatanRene}
+{\sc Laurentina, Ren\'{e}}, {\em Satan, a myth or reality?\/}, IW Pax,
+  Warszawa, 1997, [my retranslation from Polish \btit{Szatan, mit czy
+  rzeczywisto\'{s}\'{c}?}].
+
+\bibitem[M.~Luther, {\em Luther's Works\/}(Luthers Works)]{}%{Luther}
+{\sc Luther, Martin}, {\em Luther's Works\/}, Concordia Publishing House and
+  Fortress Press, American Edition, Philadelphia and St.~Luis, 1955-.
+
+\bibitem[P.~Althaus, {\em The Theology of Martin Luther\/}(The Theology of
+  Martin Luther)]{}%{LutherTheol}
+{\sc Althaus, Paul}, {\em The Theology of Martin Luther\/}, Fortress Press,
+  Philadelphia, 1981, [translated by R.~C.~Schultz].
+
+\bibitem[J.-L. Marion, {\em Idol and Distance\/}(Idol and
+  Distance)]{}%{MarionChas}
+{\sc Marion, Jean-Luc}, {\em ``Idol and Distance''\/}, 1997, [fragments of
+  \btit{L'idole et la distance} in \citeauthor*{Chasydzi}].
+
+\bibitem[J.~Milton, {\em Paradise Lost\/}(Paradise Lost)]{}%{Milton}
+{\sc Milton, John}, {\em Paradise Lost\/}, David Campbell Publishers, London,
+  1992.
+
+\bibitem[{\em \NayaSutra{}The Ny{a}ya S{u}tra\/}(NayaSutraThe Nyovraya
+  Sovrutra)]{}%{NayaSutra}
+{\em \NayaSutra{}The Ny\ovr{a}ya S\ovr{u}tra\/} in \citeauthor*{Indian}, X:A.
+
+\bibitem[R.~Otto, {\em The Mysticism of East and West\/}(The Mysticism of East
+  and West)]{}%{Mistyka}
+{\sc Otto, Rudolf}, {\em The Mysticism of East and West\/}, Leopold Klotz
+  Verlag, Gotha, 1929, [my retranslation from Polish].
+
+\bibitem[R.~Otto, {\em The Idea of the Holy\/}(The Idea of the Holy Das
+  Heilige)]{}%{Heilige}
+---, {\em The Idea of the Holy [Das Heilige]\/}, Verlag C.~H.~Beck,
+  M\"{u}nchen, 1963.
+
+\bibitem[J.~Ratzinger and V.~Messori, {\em The Ratzinger Report\/}(The Ratzinger
+  Report)]{}%{RatzingerRep} 
+{\sc Ratzinger, Joseph Cardinal} and {\sc Messori, Vittorio}, {\em The Ratzinger
+  Report. An exclusive interview on the state of the Church\/}, Ignatius, 
+  1985.
+
+\bibitem[R.~Sokolowski, {\em The God of Faith and Reason\/}(The God of Faith
+  and Reason)]{}%{Sokolowski}
+{\sc Sokolowski, Robert}, {\em The God of Faith and Reason\/}, University of
+  Notre Dame Press, 1982.
+
+\bibitem[G.~Scholem, {\em Major Trends in Jewish Mysticism\/}(Major Trends in
+  Jewish Mysticism)]{}%{Scholem}
+{\sc Scholem, Gershom}, {\em Major Trends in Jewish Mysticism\/}, Jerusalem,
+  1941.
+
+\bibitem[{\em The Epic of Gilgamesh\/}(The Epic of Gilgamesh)]{}%{Gilgamesh}
+{\em The Epic of Gilgamesh\/}, Stanford University Press, 1989, [translated by
+  M.~G.~Kovacs].
+
+\bibitem[{\em Theologia Germanica\/}(Theologia Germanica)]{}%{TheolGerm}
+{\em Theologia Germanica\/}, Golden Treasury Series, 1874 (version reprinted in
+  1893), [translated by S.~Winkworth].
+
+\bibitem[W.~D.~J.~C. Thompson, {\em Luther and the right of resistance to the
+  emperor\/}(Luther and the right of resistance to the emperor)]{}%{LutherResist}
+{\sc Thompson, W.~D.~J.~Cargill}, {\em Luther and the right of resistance to
+  the emperor\/} [fragments after \citeauthor*{ChurchSoc}.
+
+\bibitem[P.~Tillich, {\em The Question about the Unconditional\/}(The Question
+  about the Unconditional)]{}%{TilUnbed}
+{\sc Tillich, Paul}, {\em The Question about the Unconditional\/},
+  Evangelisches Verlagsverk Stuttgart, 1964, [\btit{Die Frage nach dem
+  Unbedingten, Schriften zur Religionsphilosophie}].
+
+\bibitem[P.~Tillich, {\em What is religion?\/}(What is religion)]{}%{TilRel}
+---, {\em What is religion?\/}, Harper \& Row Publishers, New York, 1969.
+
+\bibitem[{\em \Trent{}The~Council \NOOP{of} Trent\/}(TrentThe Council NOOPof
+  Trent)]{}%{Trent}
+{\em \Trent{}The~Council \NOOP{of} Trent\/}, Dolman, London, 1848, [edited and
+  translated by J.~Waterworth].
+
+%4.Mathematics and computer science
+\section*{Mathematics and computer science}
+
+\bibitem[J.~Barwise, L.~Moss, {\em Vicious Circles\/}(Vicious Circles On the
+  Mathematics of Non Wellfounded Phenomena)]{}%{ViciousCircles}
+{\sc Barwise, Jon}, and {\sc Moss, Lawrence}, {\em Vicious Circles; On the
+  Mathematics of Non-Wellfounded Phenomena\/}, CSLI Publications, 1996.
+
+\bibitem[P.~Benacerraf, {\em What numbers could not be\/}(What numbers could
+  not be)]{}%{Benacer}
+{\sc Benacerraf, Paul}, {\em ``What numbers could not be''\/}, {\em
+  Philosophical Review\/}, vol.~74, pp.~47-73, 1965, in \citeauthor*{PhilMath}.
+
+\bibitem[P.~Benacerraf and H. Putnam, eds., {\em Philosophy of
+  Mathematics\/}(Philosophy of Mathematics Selected Readings)]{}%{PhilMath}
+{\sc Benacerraf, Paul}, and {\sc Putnam, Hilary} (editors), {\em Philosophy of
+  Mathematics; Selected Readings\/}, Cambridge University Press, 2 , 1983.
+
+\bibitem[R.~A. Brooks, {\em A robust layered control system for a mobile
+  robot\/}(A robust layered control system for a mobile robot)]{}%{SubsumeA}
+{\sc Brooks, R.~A.}, {\em ``A robust layered control system for a mobile
+  robot''\/}, {\em IEEE Journal of Robotics and Automation\/}, vol.~2,
+  pp.~14-23, 1986.
+
+\bibitem[R.~A. Brooks, {\em Intelligence without representation\/}(Intelligence
+  without representation)]{}%{SubsumeB}
+---, {\em ``Intelligence without representation''\/}, {\em Artificial
+  Intelligence\/}, vol.~47, pp.~139-159, 1987.
+
+\bibitem[G.~Cantor, {\em Foundations of a General Theory of
+  Aggregates\/}(Foundations of a General Theory of Aggregates)]{}%{CantorAggr}
+{\sc Cantor, Georg}, {\em Foundations of a General Theory of Aggregates\/},
+  Teubner, Leipzig, 1883, [\btit{Grundlagen einer allgemeinen
+  Mannichfaltigkeitslehre}; in \citeauthor*{CantorGes}].
+
+\bibitem[G.~Cantor, {\em Gesammelte Abhandlungen\/}(Gesammelte Abhandlungen
+  mathematischen und phlosophischen Inhalts)]{}%{CantorGes}
+---, {\em Gesammelte Abhandlungen mathematischen und phlosophischen Inhalts\/},
+  Springer, 1932, edited by E.~Zermelo.
+
+\bibitem[G.~Cantor, {\em Contributions...\/}(Contributions to the Founding of
+  the Theory of Transfinite Numbers)]{}%{CantorCont}
+---, {\em Contributions to the Founding of the Theory of Transfinite
+  Numbers\/}, Dover, 1952, [translation by P.~E.~B. Jourdain of
+  \btit{Beitr\"{a}ge zur Begr\"{u}ndung der transfiniten Mengenlehre}, 1895; in
+  \citeauthor*{CantorGes}].
+
+\bibitem[M.~Capella, {\em Arithmetica\/}(Arithmetica)]{}%{Arithmetica}
+{\sc Capella, Martianus}, {\em Arithmetica\/} [fragments in
+  \citeauthor*{ReasonMiddle}].
+
+\bibitem[R.~Carnap, {\em The logicist foundation of mathematics\/}(The logicist
+  foundation of mathematics)]{}%{CarnapLog}
+{\sc Carnap, Rudolf}, {\em ``The logicist foundation of mathematics''\/}, {\em
+  Erkenntnis\/}, 1931, in \citeauthor*{PhilMath}.
+
+\bibitem[J.~Dee, {\em The Mathematicall Praeface to the Elements...\/}(The
+  Mathematicall Praeface to the Elements of Geometry of Euclid of
+  Megara)]{}%{DeePref}
+{\sc Dee, John}, {\em The Mathematicall Praeface to the Elements of Geometry of
+  Euclid of Megara\/}, Science History Publications, New York, 1975.
+
+\bibitem[Euclid, {\em The Elements\/}(The thirteen books of Euclids Elements
+  translated from the text of Heiberg with introduction and
+  commentary)]{}%{Elements}
+{\sc Euclid}, {\em The thirteen books of Euclid's Elements translated from the
+  text of Heiberg with introduction and commentary\/}, Cambridge University
+  Press, 1925, [edited and translated by Sir T.~ Little Heath].
+
+\bibitem[R.~Fagin {\em et~al.\/}, {\em Reasoning about Knowledge\/}(Reasoning
+  about Knowledge)]{}%{ReasoningKnowledge}
+{\sc Fagin, Ronald} and {\sc Halpern, Joseph~Y.} and {\sc Moses, Yoram}, and
+  {\sc Vardi, Moshe~Y.}, {\em Reasoning about Knowledge\/}, The MIT Press,
+  1995.
+
+\bibitem[G.~Frege, {\em The concept of number\/}(The concept of
+  number)]{}%{FregeNum}
+{\sc Frege, Gottlob}, {\em The concept of number\/},  in {\em Die Grundlagen
+  der Arithmetik\/}, Breslau, 1884, [translated by M.~S.~Mahoney, in
+  \citeauthor*{PhilMath}].
+
+\bibitem[G.~Frege, {\em On Meaning and Denotation\/}(On Meaning and
+  Denotation)]{}%{FregeSinn}
+---, {\em ``On Meaning and Denotation''\/}, {\em Zeitschrift f\"{u}r
+  Philosophie und philosophische Kritik\/}, vol.~NF 100, 1892, [my translation
+  from German \btit{\"{U}ber Sinn und Bedeutung}].
+
+\bibitem[G.~Frege, {\em Review of Husserl's Philosophie der
+  Arithmetik\/}(Review of Husserls Philosophie der Arithmetik)]{}%{FregeHusserl}
+---, {\em Review of Husserl's Philosophie der Arithmetik\/},  in {\em
+  Translations from Philosophical Writings of Gottlob Frege\/}, Basil
+  Blackwell, Oxford, 1980.
+
+\bibitem[G.~Frege, {\em The thought: a logical inquiry\/}(The thought a logical
+  inquiry)]{}%{FregeTruth}
+---, {\em The thought: a logical inquiry\/},  in  \citeauthor*{Truth}.
+
+\bibitem[J.-Y. Girard, {\em Locus Solum: From the Rules of Logic to the Logic
+  of Rules\/}(Locus Solum From the Rules of Logic to the Logic of
+  Rules)]{}%{LocusSolum}
+{\sc Girard, Jean-Yves}, {\em ``Locus Solum: From the Rules of Logic to the
+  Logic of Rules''\/}, {\em Mathematical Structures in Computer Science\/},
+  vol.~11~(3), pp.~301-506, 2001.
+
+\bibitem[A.~Gupta, {\em Truth and paradox\/}(Truth and
+  paradox)]{}%{GuptaRevisionA}
+{\sc Gupta, Anil}, {\em ``Truth and paradox''\/}, {\em Journal of Philosophical
+  Logic\/}, vol.~11, pp.~1-60, 1982.
+
+\bibitem[A.~Gupta, N.~Belnap, {\em The Revision Theory of Truth\/}(The Revision
+  Theory of Truth)]{}%{GuptaRevisionB}
+{\sc Gupta, Anil}, and {\sc Belnap, Nuel}, {\em The Revision Theory of
+  Truth\/}, MIT Press, Cambridge, MA, 1993.
+
+\bibitem[W.~Hartner, {\em Zahlen und Zahlensysteme...\/}(Zahlen und
+  Zahlensysteme bei Primitiv  und Hochkulturvolkern)]{}%{Hartner}
+{\sc Hartner, Willy}, {\em Zahlen und Zahlensysteme bei Primitiv- und
+  Hochkulturv\"{o}lkern\/},  in {\em Oriens-Occidens (collected essays)\/}, pp.
+  57-116, Hildesheim, 1968.
+
+\bibitem[H.~Herzberger, {\em Notes on naive semantics\/}(Notes on naive
+  semantics)]{}%{RevisionAB}
+{\sc Herzberger, Hans}, {\em ``Notes on naive semantics''\/}, {\em Journal of
+  Philosophical Logic\/}, vol.~11, pp.~61-102, 1982.
+
+\bibitem[W.~F. Lawvere, S.~H. Schanuel, {\em Conceptual
+  Mathematics\/}(Conceptual Mathematics A First Introduction to
+  Categories)]{}%{Lawvere}
+{\sc Lawvere, William~F.}, and {\sc Schanuel, Stephen~Hoel}, {\em Conceptual
+  Mathematics: A First Introduction to Categories\/}, Cambridge University
+  Press, 1997.
+
+\bibitem[S.~MacLane, {\em Category Theory for the Working
+  Mathematician\/}(Category Theory for the Working Mathematician)]{}%{MacLane}
+{\sc MacLane, Sounders}, {\em Category Theory for the Working Mathematician\/},
+  Graduate Texts in Mathematics, Springer Verlag, 1971.
+
+\bibitem[G.~Priest, {\em The Structure of the Paradoxes of
+  Self-Reference\/}(The Structure of the Paradoxes of Self Reference)]{}%{Priest}
+{\sc Priest, Graham}, {\em ``The Structure of the Paradoxes of
+  Self-Reference''\/}, {\em Mind\/}, vol.~409, pp.~25-34, 1994.
+
+\bibitem[G.~Spencer-Brown, {\em Laws of Form\/}(Laws of Form)]{}%{LawsForm}
+{\sc Spencer-Brown, G.}, {\em Laws of Form\/}, George Allen and Unwin, Ltd.,
+  London, 1969.
+
+\bibitem[A.~Tarski, {\em The semantical conception of truth\/}(The semantical
+  conception of truth)]{}%{Fruth}
+{\sc Tarski, Alfred}, {\em ``The semantical conception of truth''\/}, {\em
+  Philosophy and Phenomenological Research\/}, vol.~4, pp.~13-47, 1944.
+
+\bibitem[S.~Yablo, {\em Circularity and Paradox\/}(Circularity and
+  Paradox)]{}%{Yablo}
+{\sc Yablo, Stephen}, {\em Circularity and Paradox\/},  in {\sc Bolander,
+  Thomas} and {\sc Hendricks, Vincent}, and {\sc Pedersen, Stig~Andur}
+  (editors), {\em Self-Reference\/}, CSLI Publications, 2004.
+
+%5.Psychology
+\section*{Psychology}
+
+\bibitem[M.-L. von Franz, {\em The Process of Individuation\/}(The Process of
+  Individuation)]{}%{MHSFranz}
+{\sc von Franz, Marie-Louise}, {\em The Process of Individuation\/} [Part 3 in
+  \citeauthor*{MHS}].
+
+\bibitem[M.-L. von Franz, {\em Science and the Unconscious\/}(Science and the
+  Unconscious)]{}%{MHSFranzB}
+---, {\em Science and the Unconscious\/} [Conclusion in \citeauthor*{MHS}].
+
+\bibitem[M.-L. von Franz, {\em On Divination and Synchronicity\/}(On Divination
+  and Synchronicity The Psychology of Meaningful Chance)]{}%{Synchronicity}
+---, {\em On Divination and Synchronicity. The Psychology of Meaningful
+  Chance\/}, Inner City Books, 1980.
+
+\bibitem[S.~Freud, {\em Neue Folge...\/}(Neue Folge der Vorlesungen zur
+  Einfuhrung in die Psychoanalyse)]{}%{FreudN}
+{\sc Freud, Sigmund}, {\em Neue Folge der Vorlesungen zur Einf\"{u}hrung in die
+  Psychoanalyse\/},  in {\em Gesammelte Werke\/}, vol.~XV, Fisher Taschenbuch
+  Verlag, Frankfurt a.M., 1999.
+
+\bibitem[A.~Jaff\'{e}, {\em Symbolism in the Visual Arts\/}(Symbolism in the
+  Visual Arts)]{}%{MHSJaffe}
+{\sc Jaff\'{e}, Aniela}, {\em Symbolism in the Visual Arts\/} [Part 4 in
+  \citeauthor*{MHS}].
+
+\bibitem[A.~Jaff\'{e}, ed., {\em Memories, Dreams, Reflections of
+  C.~G.~Jung\/}(Memories Dreams Reflections of C G Jung)]{}%{JungMDR}
+{\sc Jaff\'{e}, Aniela} (editor), {\em Memories, Dreams, Reflections of
+  C.~G.~Jung\/}, (Erinnerungen, Tr\"{a}ume, Gedanken von C.~G.~Jung), Rascher
+  Verlag, 1963.
+
+\bibitem[C.~G. Jung, {\em Approaching the Unconscious\/}(Approaching the
+  Unconscious)]{}%{MHSJung}
+{\sc Jung, Carl~Gustav}, {\em Approaching the Unconscious\/} [Part 1 in
+  \citeauthor*{MHS}].
+
+\bibitem[C.~G. Jung, {\em Synchronicity: An Acausal Connecting
+  Principle\/}(Synchronicity An Acausal Connecting
+  Principle)]{}%{SynchronicityJung}
+---, {\em Synchronicity: An Acausal Connecting Principle\/}, Collected Works,
+  vol. VIII.
+
+\bibitem[C.~G. Jung, {\em Mysterium Coniunctionis\/}(Mysterium
+  Coniunctionis)]{}%{JungMC}
+---, {\em Mysterium Coniunctionis\/}, Collected Works, vol. XIV, Princeton
+  University Press, 1989, [translated by R.~F.~C.~Hull].
+
+\bibitem[C.~G. Jung, {\em The Archetypes and the Collective Unconscious\/}(The
+  Archetypes and the Collective Unconscious)]{}%{JungArche}
+---, {\em The Archetypes and the Collective Unconscious\/}, Collected Works,
+  vol. IX, part 1, Princeton University Press, 1990, [translated by
+  R.~F.~C.~Hull].
+
+\bibitem[C.~G. Jung, {\em The Answer to Job\/}(The Answer to Job)]{}%{JungJob}
+---, {\em The Answer to Job\/}, Ethos, Warszawa, 1995, [my retranslation from
+  Polish \btit{Odpowied\'{z} Hiobowi}].
+
+\bibitem[C.~G. Jung and M.-L. von Franz, eds., {\em Man and His Symbols\/}(Man
+  and His Symbols)]{}%{MHS}
+{\sc Jung, Carl~Gustav}, and {\sc von Franz, Marie-Louise} (editors), {\em Man
+  and His Symbols\/}, Dell Publishing, New York, 1968.
+
+\bibitem[P.~A. Kolers, M.~von Gr\"{u}nau, {\em Shape and color in apparent
+  motion\/}(Shape and color in apparent motion)]{}%{ColorPhiKolers}
+{\sc Kolers, Paul~A.}, and {\sc von Gr\"{u}nau, M.}, {\em ``Shape and color in
+  apparent motion''\/}, {\em Vision Research\/}, vol.~16, pp.~329-335, 1976.
+
+\bibitem[D.~Lester, {\em Multiple personality: a review\/}(Multiple personality
+  a review)]{}%{Lester}
+{\sc Lester, D.}, {\em ``Multiple personality: a review''\/}, {\em
+  Psychology\/}, vol.~XIV, 1977.
+
+\bibitem[M.~J. Mataric, {\em Behavioral synergy without explicit
+  integration\/}(Behavioral synergy without explicit integration)]{}%{SubsumeC}
+{\sc Mataric, Maja~J.}, {\em ``Behavioral synergy without explicit
+  integration''\/}, {\em SIGART Bulletin\/}, vol.~2~(4), pp.~130-133, 1991.
+
+\bibitem[A.~Moir, D.~Jessel, {\em Brain Sex\/}(Brain Sex)]{}%{BrainSex}
+{\sc Moir, Anne}, and {\sc Jessel, David}, {\em Brain Sex\/}, Dell Publishing,
+  New York, 1989.
+
+\bibitem[J.~Piaget, {\em The Construction of Reality in the Child\/}(The
+  Construction of Reality in the Child)]{}%{PiagetReality}
+{\sc Piaget, Jean}, {\em The Construction of Reality in the Child\/}, Routledge
+  \& Kegan Paul, London, 1954.
+
+\bibitem[J.~Piaget, {\em Play, Dreams, and Imitation in Childhood\/}(Play
+  Dreams and Imitation in Childhood)]{}%{Piaget62}
+---, {\em Play, Dreams, and Imitation in Childhood\/}, Norton, New York, 1962.
+
+\bibitem[J.~Piaget, {\em Memory and Intelligence\/}(Memory and
+  Intelligence)]{}%{PiagetMem}
+---, {\em Memory and Intelligence\/}, Basic Books, New York, 1973.
+
+\bibitem[D.~A.~F. de~Sade, {\em Fragments\/}(Fragments)]{}%{Sade}
+{\sc de~Sade, Donatien Alphonse~Fran\c{c}oise}, {\em Fragments\/} [various
+  Internet resources].
+
+\bibitem[D.~A.~F. de~Sade, {\em The 120 Days of Sodom\/}(The 120 Days of
+  Sodom)]{}%{SadeSodom}
+---, {\em The 120 Days of Sodom\/}, supervert.com, 2002, [translated by
+  R.~Seaver and A.~Wainhouse].
+
+\bibitem[D.~A.~F. de~Sade, {\em Philosophy in the Bedroom\/}(Philosophy in the
+  Bedroom)]{}%{SadeBed}
+---, {\em Philosophy in the Bedroom\/}, supervert.com, 2002, [translated by
+  R.~Seaver and A.~Wainhouse].
+
+\bibitem[H.~J. Silverman, ed., {\em Piaget, Philosophy and the Human
+  Sciences\/}(Piaget Philosophy and the Human Sciences)]{}%{PiagetPhil}
+{\sc Silverman, Hugh~J.} (editor), {\em Piaget, Philosophy and the Human
+  Sciences\/}, Northwestern University Press, 1980.
+
+\bibitem[W.~Stern, {\em Psychische Pr\"{a}senzzeit\/}(Psychische
+  Prasenzzeit)]{}%{SternPresence}
+{\sc Stern, William}, {\em ``Psychische Pr\"{a}senzzeit''\/}, {\em Zeitschrift
+  f\"{u}r Psychologie und Physiologie der Sinnesorgane\/}, vol.~XIII,
+  pp.~325-349, 1897.
+
+\bibitem[M.~Wertheimer, {\em Experimentelle Studien \"{u}ber das Sehen von
+  Bewegung\/}(Experimentelle Studien uber das Sehen von
+  Bewegung)]{}%{ColorPhiWert}
+{\sc Wertheimer, M.}, {\em ``Experimentelle Studien \"{u}ber das Sehen von
+  Bewegung''\/}, {\em Zeitschrift f\"{u}r Psychologie\/}, vol.~61, pp.~161-265,
+  1912.
+
+\bibitem[H.~G. van~der Waals, C.~O. Roelofs, {\em Optische
+  Scheinbewegung\/}(Optische Scheinbewegung)]{}%{ColorPhi}
+{\sc van~der Waals, H.~G.}, and {\sc Roelofs, C.~O.}, {\em ``Optische
+  Scheinbewegung''\/}, {\em Zeitschrift f\"{u}r Psychologie und Physiologie des
+  Sinnesorgane\/}, vol.~114/115, pp.~241-288/91-190, 1931.
+
+%5a.Infant development
+\subsection*{Infant development}
+
+\bibitem[G.~Bremner {\em et~al.\/}, eds., {\em Infant Development: Recent
+  Advances\/}(Infant Development Recent Advances)]{}%{ID}
+{\sc Bremner, Gavin} and {\sc Slater, Alan}, and {\sc Butterworth, George}
+  (editors), {\em Infant Development: Recent Advances\/}, Psychology Press, An
+  imprint of Erlbaum Taylor \& Francis Ltd., UK, 1997.
+
+\bibitem[E.~S. Casey, {\em Piaget and Freud on Childhood Memory\/}(Piaget and
+  Freud on Childhood Memory)]{}%{Casey}
+{\sc Casey, Edward.~S.}, {\em Piaget and Freud on Childhood Memory\/} in
+  \citeauthor*{PiagetPhil}.
+
+\bibitem[J.~F. Cohn, E.~Tronick, {\em Three-month-old infants' reaction to
+  simulated maternal depression\/}(Three month old infants reaction to
+  simulated maternal depression)]{}%{IndifMom}
+{\sc Cohn, J.~F.}, and {\sc Tronick, E.}, {\em ``Three-month-old infants'
+  reaction to simulated maternal depression''\/}, {\em Child Development\/},
+  vol.~54, pp.~185-193, 1983.
+\bibitem[S.~Gallagher, A.~Meltzoff, {\em The earliest sense of self and
+  others...\/}(The earliest sense of self and others Merleau Ponty and recent
+  developmental studies)]{}%{Gall96}
+{\sc Gallagher, Shaun}, and {\sc Meltzoff, Andrew}, {\em ``The earliest sense
+  of self and others: Merleau-Ponty and recent developmental studies''\/}, {\em
+  Philosophical Psychology\/}, vol.~9~(2), pp.~213-236, 1996.
+
+\bibitem[G.~Harris, {\em Development of taste perception and appetite
+  regulation\/}(Development of taste perception and appetite regulation)]{}%{ID1}
+{\sc Harris, Gillian}, {\em Development of taste perception and appetite
+  regulation\/},  in  \citeauthor*{ID}.
+
+\bibitem[M.~Harris, {\em Language and its pathology\/}(Language and its
+  pathology)]{}%{ID13}
+{\sc Harris, Margaret}, {\em Language and its pathology\/},  in
+  \citeauthor*{ID}.
+
+\bibitem[J.~M. Mandler, {\em Development of categorisation: perceptual and
+  conceptual categories\/}(Development of categorisation perceptual and
+  conceptual categories)]{}%{ID7}
+{\sc Mandler, Jean~M.}, {\em Development of categorisation: perceptual and
+  conceptual categories\/},  in  \citeauthor*{ID}.
+
+\bibitem[A.~Meltzoff, M.~K. Moore, {\em Imitation of facial and manual gestures
+  by human neonates\/}(Imitation of facial and manual gestures by human
+  neonates)]{}%{Meltz77}
+{\sc Meltzoff, Andrew}, and {\sc Moore, M.~Keith}, {\em ``Imitation of facial
+  and manual gestures by human neonates''\/}, {\em Science\/}, vol.~198,
+  pp.~75-78, 1977.
+
+\bibitem[A.~Meltzoff, M.~K. Moore, {\em Newborn infants imitate adult facial
+  gestures\/}(Newborn infants imitate adult facial gestures)]{}%{Meltz83}
+---, {\em ``Newborn infants imitate adult facial gestures''\/}, {\em Child
+  Development\/}, vol.~54, pp.~702-709, 1983.
+
+\bibitem[A.~Meltzoff, M.~K. Moore, {\em Imitation in newborn
+  infants\/}(Imitation in newborn infants)]{}%{Meltz89}
+---, {\em ``Imitation in newborn infants''\/}, {\em Developmental
+  Psychology\/}, vol.~25, pp.~954-962, 1989.
+
+\bibitem[D.~Messer, {\em Referential communication: making sense of the social
+  and physical worlds\/}(Referential communication making sense of the social
+  and physical worlds)]{}%{ID12}
+{\sc Messer, David}, {\em Referential communication: making sense of the social
+  and physical worlds\/},  in  \citeauthor*{ID}.
+
+\bibitem[L.~Murray, {\em Intersubjectivity, object relations theory and
+  empirical evidence from mother-infant interactions\/}(Intersubjectivity
+  object relations theory and empirical evidence from mother infant
+  interactions)]{}%{IndifMom2}
+{\sc Murray, Lynne}, {\em ``Intersubjectivity, object relations theory and
+  empirical evidence from mother-infant interactions''\/}, {\em Infant Mental
+  Health Journal\/}, vol.~12, pp.~219-232, 1991.
+
+\bibitem[L.~Murray, C.~Threvarthen, {\em Emotional regulation of interactions
+  between two-month-olds and their mothers\/}(Emotional regulation of
+  interactions between two month olds and their mothers)]{}%{TVproto}
+{\sc Murray, Lynne}, and {\sc Threvarthen, Colwyn}, {\em Emotional regulation
+  of interactions between two-month-olds and their mothers\/}, pp. 177-197,
+  Norwood, N.J.: Ablex, 1985.
+
+\bibitem[V.~Reddy {\em et~al.\/}, {\em Communication in infancy: mutual
+  regulation of affect and attention\/}(Communication in infancy mutual
+  regulation of affect and attention)]{}%{ID10}
+{\sc Reddy, Vasudevi} and {\sc Hay, Dale} and {\sc Murray, Lynne}, and {\sc
+  Trevarthen, Colwyn}, {\em Communication in infancy: mutual regulation of
+  affect and attention\/},  in  \citeauthor*{ID}.
+
+\bibitem[E.~Seidler, {\em Der Neugeborenversuch Friedrichs II von
+  Hohenstaufen\/}(Der Neugeborenversuch Friedrichs II von Hohenstaufen)]{}%{Hohen}
+{\sc Seidler, Eduard}, {\em ``Der Neugeborenversuch Friedrichs II von
+  Hohenstaufen''\/}, {\em Deutsche \"{A}rztblatt\/}, ~(39), 1964.
+
+\bibitem[A.~Slater, {\em Visual perception and its organisation in early
+  infancy\/}(Visual perception and its organisation in early infancy)]{}%{ID2}
+{\sc Slater, Alan}, {\em Visual perception and its organisation in early
+  infancy\/},  in  \citeauthor*{ID}.
+
+\bibitem[A.~Slater, G.~Butterworth, {\em Perception of social stimuli: face
+  perception and imitation\/}(Perception of social stimuli face perception and
+  imitation)]{}%{ID9}
+{\sc Slater, Alan}, and {\sc Butterworth, George}, {\em Perception of social
+  stimuli: face perception and imitation\/},  in  \citeauthor*{ID}.
+
+\bibitem[P.~Willatts, {\em Beyond the `Couch Potato' infant...\/}(Beyond the
+  Couch Potato infant how infants use their knowledge to regulate action solve
+  problems and achieve goals)]{}%{ID5}
+{\sc Willatts, Peter}, {\em Beyond the `Couch Potato' infant: how infants use
+  their knowledge to regulate action, solve problems, and achieve goals\/},  in
+   \citeauthor*{ID}.
+
+
+%6.History
+\section*{History, anthropology, sociology...}
+
+\bibitem[R.~Aron, {\em The Opium of the Intellectuals\/}(The Opium of the
+  Intellectuals)]{}%{Opium}
+{\sc Aron, Raymond}, {\em The Opium of the Intellectuals\/}, Transaction
+  Publishers, 2003.
+
+\bibitem[D.~Baker, ed., {\em Church, Society and Politics\/}(Church Society and
+  Politics)]{}%{ChurchSoc}
+{\sc Baker, Derek} (editor), {\em Church, Society and Politics\/}, Basil
+  Blackwell, Oxford, 1975.
+
+\bibitem[B.~Bettelheim, {\em Owners of Their Faces\/}(Owners of Their
+  Faces)]{}%{Bettel}
+{\sc Bettelheim, Bruno}, {\em Owners of Their Faces\/},  in {\em Surviving and
+  Other Essays\/}, Alfred A.~Knopf, New York, 1979 (1952).
+
+\bibitem[W.~Churchill, {\em A Little Matter of Genocide\/}(A Little Matter of
+  Genocide Holocaust and Denial in America 1492 to the Present)]{}%{Genocide}
+{\sc Churchill, Ward}, {\em A Little Matter of Genocide: Holocaust and Denial
+  in America, 1492 to the Present\/}, City Light Books, 1997.
+  
+\bibitem[E.~Durkheim, {\em The Suicide\/}(The Suicide)]{}%{Suicide}
+{\sc Durkheim, Emile}, {\em The Suicide\/}, Gyldendal Norsk Forlag, 2001, [my
+  retranslation from Norwegian \btit{Selvmordet}].
+
+\bibitem[L.~Eitinger, {\em Concentration Camp Survivors in Norway and
+  Israel\/}(Concentration Camp Survivors in Norway and Israel)]{}%{Eiti}
+{\sc Eitinger, Leo}, {\em Concentration Camp Survivors in Norway and Israel\/},
+  Universitetsforlaget, Oslo, 1964.
+
+\bibitem[S.~Grzesiuk, {\em Five years of KZ\/}(Five years of KZ)]{}%{Grzesiuk}
+{\sc Grzesiuk, Stanis{\l}aw}, {\em Five years of KZ\/}, Ksi\c{a}\.{z}ka i
+  Wiedza, 1996 (1958) [my translation from Polish \btit{Pi\c{e}\'{c} lat
+  kacetu}].
+
+\bibitem[Herodotus, {\em The Histories\/}(The Histories)]{}%{Herodotus}
+{\sc Herodotus}, {\em The Histories\/}, Cambridge University Press, 1920,
+  [translated and edited by A.~D.~Godley].
+
+\bibitem[C.~Hutt, {\em Males and Females\/}(Males and Females)]{}%{MaleFemale}
+{\sc Hutt, Corinne}, {\em Males and Females\/}, Penguin, 1972.
+
+\bibitem[E.~Kantorowicz, {\em Kaiser Friedrich der Zweite\/}(Kaiser Friedrich
+  der Zweite)]{}%{HohenKantor}
+{\sc Kantorowicz, Ernst}, {\em Kaiser Friedrich der Zweite\/}, D\"{u}sseldorf,
+  1963.
+
+\bibitem[G.~Le~Bon, {\em The Crowd\/}(The Crowd)]{}%{LeBon}
+{\sc Le~Bon, Gustave}, {\em The Crowd\/}, Paris, 1929, [my retranslation from
+  Polish \btit{Psychologia T{\l}umu}, Pa\'{n}stwowe Wydawnictwo Naukowe, 1986].
+
+\bibitem[C.~L\'{e}vi-Strauss, {\em The Savage Mind\/}(The Savage
+  Mind)]{}%{SavageMind}
+{\sc L\'{e}vi-Strauss, Claude}, {\em The Savage Mind\/}, London, 1962.
+
+\bibitem[C.~L\'{e}vi-Strauss, {\em R\'{e}sponses \`{a} quelques
+  questions\/}(Responses a quelques questions)]{}%{CLSesprit}
+---, {\em ``R\'{e}sponses \`{a} quelques questions''\/}, {\em Esprit\/}, ~(11),
+  1963.
+
+\bibitem[C.~L\'{e}vi-Strauss, {\em From Honey to Ashes\/}(From Honey to
+  Ashes)]{}%{CLShoney}
+---, {\em From Honey to Ashes\/}, 1966.
+
+\bibitem[R.~Bellour, {\em Conversations with Claude
+  L\'{e}vi-Strauss\/}(Conversations with Claude Levi Strauss)]{}%{BellourCLS}
+{\sc Bellour, Raymond}, {\em ``Conversations with Claude L\'{e}vi-Strauss''\/},
+  {\em Les Lettres Fran\c{c}aises\/}, ~(1165), 1967.
+
+\bibitem[M.~Mauss, {\em The Gift\/}(The Gift)]{}%{Mauss}
+{\sc Mauss, Marcel}, {\em The Gift\/}, Routledge, 2002, [translated by
+  W.~D.~Halls].
+
+\bibitem[J.~Smaga, {\em The Birth and Fall of the Empire, CCCP 1917-1991\/}(The
+  Birth and Fall of the Empire CCCP 1917 1991)]{}%{CCCP}
+{\sc Smaga, J\'{o}zef}, {\em The Birth and Fall of the Empire, CCCP
+  1917-1991\/}, Znak, Krak\'{o}w, 1992, [my translation from Polish
+  \btit{Narodziny i Upadek Imperium}].
+
+\bibitem[S.~Sturluson, {\em H{\aa}vam{\aa}l\/}(Havamal    Words of the High
+  One)]{}%{Haavamaal}
+{\sc Sturluson, Snorri}, {\em H{\aa}vam{\aa}l -- Words of the High One\/},  in
+  {\em Edda-kvede\/}, Det Norske Samlaget, 1974.
+
+\bibitem[L.~Trotsky, {\em Literature and Revolution\/}(Literature and
+  Revolution)]{}%{Trotsky}
+{\sc Trotsky, Leon}, {\em Literature and Revolution\/}, University of Michigan
+  Press, Ann Arbor, 1966.
+
+\bibitem[K.~Wolicki, {\em Convictions of the theatre of counterculture
+  (2)\/}(Convictions of the theatre of counterculture 2)]{}%{Wolicki}
+{\sc Wolicki, K.}, {\em ``Convictions of the theatre of counterculture
+  (2)''\/}, {\em Dialog\/}, ~(1), 1977, [my translation from Polish
+  \btit{Prze\'{s}wiadczenia teatru kontrkultury}].
+  
+  
+%7.Literature
+\section*{Literature}
+
+\bibitem[J.~L. Borges, {\em Funes, his Memory\/}(Funes his Memory)]{}%{Funes}
+{\sc Borges, Jorge~Luis}, {\em Funes, his Memory\/},  in {\em Collected
+  Fictions\/}, Penguin Putnam Inc., 1999, [translated by A.~Hurley].
+
+\bibitem[F.~Dostoevsky, {\em The Brothers Karamazov\/}(The Brothers
+  Karamazov)]{}%{Karam}
+{\sc Dostoevsky, Fyodor}, {\em The Brothers Karamazov\/} vol.~VI in
+  \citeauthor*{DostSelect}.
+
+\bibitem[F.~Dostoevsky, {\em Notes from the Underground\/}(Notes from the
+  Underground)]{}%{Underground}
+---, {\em Notes from the Underground\/}.
+
+\bibitem[F.~Dostoevsky, {\em The Possessed\/}(The Possessed)]{}%{Devils}
+---, {\em The Possessed\/} vol.~IV in \citeauthor*{DostSelect}.
+
+\bibitem[F.~Dostoevsky, {\em Selected Works\/}(Selected Works)]{}%{DostSelect}
+---, {\em Selected Works\/}, Pa\'{n}stwowy Instytut Wydawniczy, Warszawa,
+  1955-59, [my retranslation from Polish].
+
+\bibitem[W.~Gombrowicz, {\em The Diaries\/}(The Diary)]{}%{Diaries66}
+{\sc Gombrowicz, Witold}, {\em The Diary\/}, Instytut Literacki, Paris, 1971,
+  [my translation from Polish \btit{Dziennik}].
+
+\bibitem[W.~Gombrowicz, {\em Cosmos\/}(Cosmos)]{}%{Cosmos}
+---, {\em Cosmos\/},  in {\em Ferdydurke, Pornografia, Cosmos: Three novels by
+  Witold Gombrowicz\/}, Grove Press, Inc., New York, 1978, [english version by
+  E.~Mosbacher].
+
+\bibitem[W.~Gombrowicz, {\em Trans-Atlantic\/}(Trans Atlantic)]{}%{TransAtl}
+---, {\em Trans-Atlantic\/}, Wydawnictwo Literackie, Krak\'{o}w, 1986, [my
+  translation from Polish].
+
+\bibitem[Homer, {\em The Iliad\/}(The Iliad)]{}%{Iliad}
+{\sc Homer}, {\em The Iliad\/} [translated by S.~Butler].
+
+\bibitem[Homer, {\em The Odyssey\/}(The Odyssey)]{}%{Odyssey}
+---, {\em The Odyssey\/} [translated by S.~Butler].
+
+\bibitem[J.-K. Huysmans, {\em A Rebours\/}(A Rebours)]{}%{aRebours}
+{\sc Huysmans, Joris-Karl}, {\em A Rebours\/}, Bokvennen, Oslo, 1998,
+  [Norwegian translation, \btit{Mot str{\o}mmen}, by J.~O.~Gatland].
+
+\bibitem[T.~Mann, {\em Doctor Faustus\/}(Doctor Faustus)]{}%{Faustus}
+{\sc Mann, Thomas}, {\em Doctor Faustus\/}, Czytelnik, Warszawa, 1962, [my
+  retranslation from Polish].
+
+\bibitem[T.~Mann, {\em My Times\/}(My Times)]{}%{MannCzasy}
+---, {\em My Times\/},  in {\sc Or{\l}owski, Hubert} (editor), {\em Moje Czasy;
+  Eseje\/}, Pozna\'{n}ska Biblioteka Niemiecka, 2001, [my retranslation from
+  Polish].
+
+\bibitem[C.~Marlowe, {\em Doctor Faustus\/}(Doctor Faustus)]{}%{FaustMarlowe}
+{\sc Marlowe, Christopher}, {\em Doctor Faustus\/}, Routledge, 1988, [edited
+  and annotated by J.~D.~Jump].
+
+\bibitem[M.~E. Montaigne, {\em Of Lyers\/}(Of Lyers)]{}%{Lyers}
+{\sc Montaigne, Michel~Eyquem}, {\em Of Lyers\/},  in {\em Montaigne's Essays,
+  I:9\/}, http:\lin darkwing.uoregon.edu/\~{}rbear; \btit{Renascence Editions}
+  [translated by J.~Florio (1603)].
+
+\bibitem[M.~Proust, {\em John Ruskin\/}(John Ruskin)]{}%{ProustRuskin}
+{\sc Proust, Marcel}, {\em ``John Ruskin''\/}, 1900-1904, in
+  \citeauthor*{PamiecStyl}.
+
+\bibitem[M.~Proust, {\em Against Sainte-Beuve\/}(Against Sainte
+  Beuve)]{}%{ProustSB}
+---, {\em ``Against Sainte-Beuve''\/}, 1908, in \citeauthor*{PamiecStyl}.
+
+\bibitem[M.~Proust, {\em Memory and Style\/}(Memory and Style)]{}%{PamiecStyl}
+---, {\em Memory and Style\/}, Znak, Krak\'{o}w, 2000, [my retranslation from
+  Polish \btit{Marcel Proust: Pami\c{e}\'{c} i styl}].
+
+\bibitem[J.~Saramago, {\em Baltasar and Blimunda\/}(Baltasar and Blimunda)]{}%{SarBB}
+{\sc Saramago, Jos\'{e}}, {\em Baltasar and Blimunda\/}, The Harvill Press,
+London, 2001 [translated
+  by G.~Pontiero].
+
+\bibitem[P.~Val\'{e}ry, {\em About Corot\/}(About Corot)]{}%{ValeryCorot}
+{\sc Val\'{e}ry, Paul}, {\em About Corot\/},  in {\em Degas, Manet, Morisot\/},
+  Princeton University Press, (1932) 1989, [translated by D.~Paul].
+
+%8.Poetry
+\section*{Poetry}
+
+\bibitem[C.~Baudelaire, {\em Paris Spleen\/}(Paris Spleen)]{}%{BaudSpleen}
+{\sc Baudelaire, Charles}, {\em Paris Spleen\/}, 1860.
+
+\bibitem[C.~Baudelaire, {\em My Heart Laid Bare\/}(My Heart Laid
+  Bare)]{}%{BaudHeart}
+---, {\em My Heart Laid Bare\/}, 1897.
+
+
+\bibitem[W.~Blake, {\em There is no natural religion\/}(There is no natural
+  religion)]{}%{BlakeNoNatRel}
+{\sc Blake, William}, {\em There is no natural religion\/}.
+
+\bibitem[W.~Blake, {\em Visions of the Daughters of Albion\/}(Visions of the
+  Daughters of Albion)]{}%{BlakeAlbion}
+---, {\em Visions of the Daughters of Albion\/}.
+
+\bibitem[W.~Blake, {\em Letter to Rev.~Dr.~Trusler\/}(Letter to Rev Dr
+  Trusler)]{}%{BlakeLet}
+---, {\em Letter to Rev.~Dr.~Trusler\/}, 23.08.1799.
+
+\bibitem[Z.~Herbert, {\em The prayer of the traveling Mr.~Cogito\/}(The prayer
+  of the traveling Mr Cogito)]{}%{HerbertPray}
+{\sc Herbert, Zbigniew}, {\em ``The prayer of the traveling Mr.~Cogito''\/}.
+
+\bibitem[Z.~Herbert, {\em King of the Ants\/}(King of the Ants)]{}%{HerbertAnts}
+---, {\em King of the Ants\/}, Wydawnictwo a5, 2001, [my translation from
+  Polish \btit{Kr\'{o}l Mr\'{o}wek}].
+
+\bibitem[F.~H\"{o}lderlin, {\em The Source of All Evil\/}(The Source of All
+  Evil Poems from 1795 1799)]{}%{Holderlin}
+{\sc H\"{o}lderlin, Friedrich}, {\em The Source of All Evil (Poems from
+  1795-1799)\/},  in {\sc Lam, Andrzej} (editor), {\em Night Wanderer;
+  Poetries\/}, Dom Wydawniczy Elipsa, 2002, [my retranslation from Polish].
+
+\bibitem[Ovid, {\em Amores\/}(Amores)]{}%{OvidAmor}
+{\sc Ovid}, {\em Amores\/}.
+
+\bibitem[R.~M. Rilke, {\em Das Stunden-Buch\/}(Das Stunden Buch)]{}%{RilkeStunden}
+{\sc Rilke, Reiner~Maria}, {\em Das Stunden-Buch\/}, http:\lin
+  rainer-maria-rilke.de.
+
+\bibitem[R.~M. Rilke, {\em Es winkt zu F\"{u}hlung...\/}(Es winkt zu
+  Fuhlung)]{}%{RilkeEsWinkt}
+---, {\em Es winkt zu F\"{u}hlung...\/}, http:\lin rainer-maria-rilke.de, 1914.
+
+\bibitem[W.~Shakespeare, {\em As You Like It\/}(As You Like It)]{}%{AsYouLikeIt}
+{\sc Shakespeare, William}, {\em As You Like It\/}, Electronic Text Center,
+  University of Virginia Library, http:\lin
+  etext.lib.virginia.edu/modeng/modengS.browse.html.
+
+\bibitem[W.~Shakespeare, {\em Hamlet\/}(Hamlet)]{}%{Hamlet}
+---, {\em Hamlet\/}, Electronic Text Center, University of Virginia Library.
+
+\bibitem[L.~Stryk and T. Ikemoto, eds., {\em Zen Poetry\/}(Zen
+  Poetry)]{}%{ZenPoetry}
+{\sc Stryk, Lucien}, and {\sc Ikemoto, Takashi} (editors), {\em Zen Poetry\/},
+  Penguin, 1981.
+
+\bibitem[Virgil, {\em The Aeneid\/}(The Aeneid)]{}%{Virgil}
+{\sc Virgil}, {\em The Aeneid\/}, Litrix Reading Room, http:\lin
+  www.litrix.com, 2003, [translated by J.~Dryden].
+
+%\end{thebibliography}

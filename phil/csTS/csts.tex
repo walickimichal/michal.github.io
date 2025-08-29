@@ -1,0 +1,132 @@
+\documentclass[10pt]{article}
+\usepackage{latexsym,amssymb}
+\makeatletter
+\input{a4wide}
+\makeatother
+
+\input{defs}
+
+\begin{document}
+
+\section{TM and complexity}
+\begin{enu}
+\item TM is ...
+\item {\bf simplicity creates complexity}\\
+reductionism: physics $\leadsto$ biology ?
+\end{enu}
+
+\section{Observability}\label{se:obs}
+
+\begin{enu}
+\item Complexity {\em is there}, but we have to abstract. Traditionally:
+assumed full information; Now: essentially partial, incomplete information
+\item Observation $\simeq$
+chunk-of-reality $\simeq$ abstraction from complexity.
+\item\label{obs} observation, abstraction and model
+\begin{enu}
+\item $a:1,1$ -- $a_i=1$\\
+ $b:2,6$ -- $b_1=2, b_{i+1}=3*b_i$\\
+ $c:5,11$ --  $c_1=5,c_{i+1}=2c_i+1$
+\item $a:1,1,2,3,2,3,3,1,3,3,1,3,3,2,3,3,3...$ -- $\lim_a=3$\\
+$b:2,6,7,3,6,7,6,7,7,3,7,6...$ --  $\lim_b=7$\\
+ $c:5,11,11,13,15,7,14,15,14...$ -- $\lim_c=15$ ?
+\item for $c$, let $B=4$ and ... apply formula below: \\
+6-th tall for $c:21,22,23,24 \to 21=\frac{6^2+6}{2} \to 8*0+4*1+2*1+1*1=7$
+\item $basis:a=2, b=3, c=4$; $n$-te tall ved basis $B$ given by:
+\begin{itemize}
+\item $f(n)=x_1x_2...x_B$ where
+\item $x_1=Bn-B+1,x_2=Bn-B+2...x_B=Bn$; then 
+\item $h(x_i)=0\iff\exists z:x_i=\frac{z^2+z}{2}$ and $h(x_i)=1$ otherwise; and 
+\item $tall(n)= 2^{B-1}*h(x_1)+2^{B-2}*h(x_2)+...+h(x_B)$
+\end{itemize}
+It is a theory -- It gives full control! It identifies invariant across various
+observation-series! Operationally it is all we may need to predict, apply, etc.
+\item But it does not ``explain''! There are only interconnections between
+observations but no ``hierarchy'' of entities; no ontology beyond
+observations?
+\item If one of the series, say $a$, could be used to construct the others, we
+would feel that we have a kind of ``model'' ``explaining'' the rest, or else ...
+\item\label{mod} construct a ``model'' 
+\[\underline{\underline{\underline{01}0}1}101110111101111101111110...\]
+Is it something ``more real'' than observations? Because it ``explains'' the
+observations? It is just a more abstract construction!
+\item Model is an abstraction from observations just like theory. It may
+happen that it will lead to new observed entities but as well it may not.
+\end{enu}
+\item In sciences \refe{mod} may be never reached, or it may remain forever
+an unobservable, construction. In CS, we rather start with \refe{mod} and
+proceed towards more abstract observations -- but using it is an ontological
+paradigm is unjustified.
+\item ``What do we {\em really} observe?'' makes no sense. $a$ is as good as
+$b$ and ant's observations may be as legitimate as ours.
+\item In CS: abstraction $\simeq$ intuition, due to underlying simplicity
+\begin{enu}
+\item ``Black box'' -- observational -- approach to complexity
+\item Instead of designing a concrete model, describe rather desired
+behaviour of the system\\
+Stack vs. $pop(push(s,x))=s$, $top(push(s,x))=x$
+\item language of observations; granularity and memory: $a$ or $b$ or $c$
+or...? Observations are, typically, sequences...
+\item causality = necessary succession; how do we observe necessity? only by
+inspecting the mechanism, the actual model
+\item independence = possible reversal of order; how do we verify it, observe all
+possibilities? only by inspecting the model
+\item[{...}] unless we have a more powerful observational mechanisms and language
+\item It is very natural to think in terms of a ``model'' rather than
+properties (observations)\\
+Yet, because of the need of abstraction, we would like to say that we
+need only observable equivalence, indistinguishability, reversal of Leibniz
+law
+\item {\bf trade-off between observation (properties) and model (mechanism)}
+\end{enu}
+\item In CS, we know there may be different models realising the same
+behaviour; in science, we have only observations...
+\item {\bf sciences differ primarily by what they consider as relevant
+observations}, object of interest, granularity... These should be reproducible
+\end{enu}
+
+\section{Identity and haecceity}
+\begin{enu}
+\item What did we observe in \ref{se:obs}.\ref{obs}? ``Something''.
+\item They were ''chunks-of-reality'' -- not unreal phenomena!
+\item But we tend to think that there is ``something'', a real ``substance''
+which presents itself through various observations.
+\item ``What are {\em the} observations, the basic things?'' does not make
+sense. $a$ is as real and good as $b$, as $c$, as ... \\
+In CS, choice of the observational language is determined by the application;
+in science -- we do not know, and it is the basic activity to design
+appropriate languages; \\
+AI - sometimes reversal of Leibniz, sometimes ``nucleus''
+\item Scientifically, we can get at most as far as reversal of Leibniz law
+\item ...
+\item {\bf Haecceity forever beyond sicence}, still, what is observed is real, only,
+not the {\em whole} real\\
+unity = one reality; diversity = accessible only partially through observations
+\end{enu}
+
+\section{Intertranslability}
+\begin{enu}
+\item Meaning is the invariant of translation; and so is truth
+\begin{enu}
+\item Tarski
+\item BG
+\item ...
+\end{enu}
+\item reductionism = translation into one, all-embracing language (also
+``General Theory of Everything''); vs. partial mutual translations
+\item there are ``isolated islands'' and larger, ``connected continents'' --
+connected by translatability 
+\item {\bf ant's science would be as legitimate as ours} -- even if not translable
+into our language\\
+{\bf the unity is not a GTE but a network of intertranslations}
+\end{enu}
+
+\section{Antireductionism}
+\begin{enu}
+\item I can compute with $\pi$ -- TM cannot; because I use the abstraction, a
+symbol ``$\pi$'', which TM cannot use
+\item infinite processes -- redefine the meaning of computation's result
+\item emergent behaviour -- beyong Turing computability
+\end{enu}
+
+\end{document}

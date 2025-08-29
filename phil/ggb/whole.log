@@ -1,0 +1,2067 @@
+This is TeX, Version 3.14159 (Web2C 7.4.5) (format=latex 2005.11.10)  28 NOV 2005 13:04
+**whole
+(./whole.tex
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, d
+anish, norsk, russian, turkish, nohyphenation, loaded.
+(./bookMY.cls
+Document Class: bookMY 1994/07/13 v1.2u Standard LaTeX document class
+(/usr/share/texmf/tex/latex/base/bk11.clo
+File: bk11.clo 2001/04/21 v1.4e Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf/tex/latex/graphics/epsfig.sty
+Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
+
+(/usr/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2001/08/31 v1.1 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: dvips.def on input line 80.
+
+(/usr/share/texmf/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+\epsfxsize=\dimen105
+\epsfysize=\dimen106
+)
+(/usr/share/texmf/tex/latex/base/latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 42.
+)
+(/usr/share/texmf/tex/latex/natbib/natbib.sty
+Package: natbib 2000/07/24 7.0a (PWD)
+\bibhang=\skip43
+\bibsep=\skip44
+LaTeX Info: Redefining \cite on input line 508.
+\c@NAT@ctr=\count88
+) (./auncial.sty
+Package: auncial 1999/05/22 v1.0 package for Artificial Uncial fonts
+) (./uncial.sty
+Package: uncial 1999/05/15 v1.1 package for uncial fonts
+)
+(./a4wide.tex) (/usr/share/texmf/tex/generic/xypic/xypic.tex
+(/usr/share/texmf/tex/generic/xypic/xyv2.tex
+(/usr/share/texmf/tex/generic/xypic/xy.tex Bootstrap'ing: catcodes, docmode,
+(/usr/share/texmf/tex/generic/xypic/xyrecat.tex)
+(/usr/share/texmf/tex/generic/xypic/xyidioms.tex)
+
+ Xy-pic version 3.7 <1999/02/16>
+ Copyright (c) 1991-1998 by Kristoffer H. Rose <krisrose@ens-lyon.fr>
+ Xy-pic is free software: see the User's Guide for details.
+
+Loading kernel: messages; fonts; allocations: state,
+\X@c=\dimen107
+\Y@c=\dimen108
+\U@c=\dimen109
+\D@c=\dimen110
+\L@c=\dimen111
+\R@c=\dimen112
+\Edge@c=\toks15
+\X@p=\dimen113
+\Y@p=\dimen114
+\U@p=\dimen115
+\D@p=\dimen116
+\L@p=\dimen117
+\R@p=\dimen118
+\Edge@p=\toks16
+\X@origin=\dimen119
+\Y@origin=\dimen120
+\X@xbase=\dimen121
+\Y@xbase=\dimen122
+\X@ybase=\dimen123
+\Y@ybase=\dimen124
+\X@min=\dimen125
+\Y@min=\dimen126
+\X@max=\dimen127
+\Y@max=\dimen128
+\lastobjectbox@=\box26
+\zerodotbox@=\box27
+\almostz@=\dimen129
+ direction,
+\d@X=\dimen130
+\d@Y=\dimen131
+\K@=\count89
+\KK@=\count90
+\Direction=\count91
+\K@dXdY=\dimen132
+\K@dYdX=\dimen133
+\xyread@=\read1
+\xywrite@=\write3
+\csp@=\count92
+\quotPTK@=\dimen134
+
+utility macros; pictures: \xy, positions,
+\swaptoks@@=\toks17
+\connectobjectbox@@=\box28
+ objects,
+\styletoks@=\toks18
+ decorations;
+kernel objects: directionals, circles, text; options; algorithms: directions,
+edges, connections;  Xy-pic loaded)
+ Xy-pic option: Version 2 Compatibility v.3.4
+
+Xy-pic Warning: `\stop' redefined.
+
+(/usr/share/texmf/tex/generic/xypic/xyframe.tex
+ Xy-pic option: Frame and Bracket extension v.3.7 loaded)
+(/usr/share/texmf/tex/generic/xypic/xymatrix.tex
+ Xy-pic option: Matrix feature v.3.4
+\Row=\count93
+\Col=\count94
+\queue@=\toks19
+\queue@@=\toks20
+\qcount@=\count95
+\qcount@@=\count96
+\matrixsize@=\count97
+ loaded)
+(/usr/share/texmf/tex/generic/xypic/xyarrow.tex
+ Xy-pic option: Arrow and Path feature v.3.5 path, \ar, loaded) loaded))
+(/usr/share/texmf/tex/generic/xypic/xycurve.tex
+ Xy-pic option: Curve and Spline extension v.3.7 curve,
+\crv@cnt@=\count98
+\crvpts@=\toks21
+\splinebox@=\box29
+\splineval@=\dimen135
+\splinedepth@=\dimen136
+\splinetol@=\dimen137
+\splinelength@=\dimen138
+ circles,
+\L@=\dimen139
+ loaded)
+(/usr/share/texmf/tex/generic/xypic/xyframe.tex
+ Xy-pic option: Frame and Bracket extension v.3.7 not reloaded) (./defs.tex
+(/usr/share/texmf/tex/latex/base/fontenc.sty
+Package: fontenc 2001/06/05 v1.94 Standard LaTeX package
+
+(/usr/share/texmf/tex/latex/base/t1enc.def
+File: t1enc.def 2001/06/05 v1.94 Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 38.
+))
+\wordwidth=\skip45
+\letterheight=\skip46
+\c@PARAGRAPH=\count99
+\c@SUBPARAGRAPH=\count100
+\c@KOM=\count101
+\c@SUBSUB=\count102
+\c@SUBSUBI=\count103
+\c@LEVELS=\count104
+) (./whole.aux
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+
+Package natbib Warning: Citation `' multiply defined.
+
+)
+\openout1 = `whole.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Try loading font information for OT1+auncl on input line 29
+.
+ (./ot1auncl.fd)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 29.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 29.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 29.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 29.
+ (/usr/share/texmf/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+) [1
+
+
+] [0
+
+]
+(./whole.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 1.
+ [1] [2])
+\tf@toc=\write4
+\openout4 = `whole.toc'.
+
+ [3] (./00intr.tex
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <9> on input line 54.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 54.
+ [4] [5] [6] [7]
+Underfull \vbox (badness 2035) has occurred while \output is active []
+
+ [8]
+[9] [10]) [11] [12
+
+]
+Book I.
+(./01InTheBeg.tex
+Underfull \hbox (badness 10000) in paragraph at lines 38--1
+
+ []
+
+[1] [2] [3] [4] [5] [6] [7]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [8]
+[9] [10] [11] [12] [13] [14] [15]
+File: Pschrods.eps Graphic file (type eps)
+ <Pschrods.eps> [16]
+File: Pschcont.eps Graphic file (type eps)
+ <Pschcont.eps> [17]
+[18] [19] [20] [21] [22] [23] [24] [25] [26] [27] [28] [29] [30] [31] [32]
+[33] [34] [35] [36] [37] [38] [39] [40] [41] <xymatrix 9x6 516> [42] [43]
+[44] <xymatrix 13x3 770> [45] <xymatrix 9x6 504> [46] [47]
+File: spiral.eps Graphic file (type eps)
+ <spiral.eps>
+[48] [49] [50] [51] [52] [53] [54] [55]
+Underfull \vbox (badness 1460) has occurred while \output is active []
+
+ [56]
+[57] [58] [59] [60]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [61]
+[62] [63] [64] [65] [66] <xymatrix 3x1 55> [67] <xymatrix 3x1 96> <xymatrix
+3x1 55> [68] [69] [70] [71] [72] [73]
+Underfull \vbox (badness 2285) has occurred while \output is active []
+
+ [74]
+[75] [76] [77] [78] [79] [80] [81] [82] [83] [84] [85] [86] [87] [88] [89]
+[90] [91] [92] [93]
+Underfull \vbox (badness 4060) has occurred while \output is active []
+
+ [94]
+[95] [96] [97] [98] [99] [100] [101] [102] [103] [104] [105] [106] [107]
+[108] [109]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [110]
+<xymatrix 11x2 158> <xymatrix
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.9435 }
+        
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.9435 }
+        
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.9435 }
+        
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.9435 }
+        
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.9435 }
+        
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.9435 }
+        
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.9435 }
+        
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.9435 }
+        
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.9435 }
+        
+? 
+12x5 418> <xymatrix
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.9491 }
+        
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.9491 }
+        
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.9491 }
+        
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.9491 }
+        
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.9491 }
+        
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.9491 }
+        
+? 
+14x6 458>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [111]
+<xymatrix 14x8 680> [112] [113] [114] [115] [116] [117] [118] [119] [120]
+[121]) [122]
+Book II.
+(./02levels.tex [123
+
+] <xymatrix
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.155 }
+       
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.155 }
+       
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.155 }
+       
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.155 }
+       
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.155 }
+       
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.155 }
+       
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.155 }
+       
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.155 }
+       
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.155 }
+       
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.155 }
+       
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.155 }
+       
+? 
+! Illegal parameter number in definition of \lastprentry@@.
+<to be read again> 
+                   1
+l.155 }
+       
+? 
+16x8 482>
+Overfull \hbox (80.71887pt too wide) detected at line 156
+| []
+ []
+
+[124] [125] [126] [127] [128] [129] [130] [131] [132] [133] [134] [135]
+[136] [137] [138] [139] [140] [141] [142] [143] [144] [145] [146] [147]
+[148] [149] [150] [151] [152] [153] [154] [155] [156] [157] [158] [159]
+[160] [161] [162] [163] [164] [165] [166] [167] [168] [169] [170]
+Underfull \vbox (badness 1394) has occurred while \output is active []
+
+ [171]
+[172] [173] [174] [175] [176] [177] [178] [179] [180] [181] [182] [183]
+[184] [185]
+Underfull \vbox (badness 1675) has occurred while \output is active []
+
+ [186]
+[187]
+Overfull \hbox (3.26013pt too wide) in paragraph at lines 5446--5453
+\T1/cmr/m/n/10.95 which the an-a-lytic of Da-sein gives rise, ob-tained by con-
+sid-er-ing Da-sein's existence-structure''[].
+ []
+
+[188] [189] [190] [191] [192] [193] [194] [195] [196] [197] [198] [199]
+[200] [201] [202] [203] [204] [205] [206] [207] [208] [209] [210]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [211]
+[212] [213]
+Overfull \hbox (44.61755pt too wide) in paragraph at lines 7697--7697
+[][] 
+ []
+
+<xymatrix 4x4
+
+LaTeX Font Warning: Command \sl invalid in math mode on input line 7757.
+
+
+LaTeX Font Warning: Command \sl invalid in math mode on input line 7757.
+
+
+LaTeX Font Warning: Command \sl invalid in math mode on input line 7757.
+
+
+LaTeX Font Warning: Command \sl invalid in math mode on input line 7757.
+
+329> [214] [215] [216] [217] [218]
+Underfull \vbox (badness 6893) has occurred while \output is active []
+
+ [219]
+[220] [221] [222] [223] [224] [225] [226] [227] [228] [229] [230] [231]
+[232] [233] [234] [235] [236] [237] [238] [239] [240] [241] [242] [243]
+[244] [245] [246]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 10666.
+ [247] [248] [249] [250] [251] [252] [253] [254] [255]
+[256] [257] [258] <xymatrix 3x1 65> [259] [260] [261] [262]
+Underfull \vbox (badness 1515) has occurred while \output is active []
+
+ [263]
+[264] [265] [266] [267] [268] [269] [270] [271] [272] [273] [274] [275]
+Underfull \vbox (badness 1400) has occurred while \output is active []
+
+ [276]
+[277] [278] [279] [280]
+Overfull \hbox (1.08873pt too wide) in paragraph at lines 13605--13652
+[]\T1/cmr/m/n/10.95 The set-theoretical con-struc-tion of car-di-nal num-bers (
+as rep-re-sen-ta-tives of classes of equinu-
+ []
+
+[281] [282] [283] [284] [285] [286] [287] [288] [289] [290] [291] [292]
+[293]) [294]
+Book III.
+(./03visInvis.tex [295
+
+] [296] [297] [298] [299] [300] [301] [302] [303]
+[304] [305] [306] [307] [308] [309] [310] [311] [312] [313] [314] [315]
+Underfull \vbox (badness 2744) has occurred while \output is active []
+
+ [316]
+[317] [318] [319] [320] [321] [322] [323] [324] [325] [326] [327] [328]
+[329] [330] [331] [332] [333] [334] [335] [336] [337] [338] [339] [340]
+[341] [342] [343] [344] [345] [346] [347] [348]
+Overfull \hbox (4.34766pt too wide) in paragraph at lines 4588--4599
+ |  \T1/cmr/m/it/10.95 Aliq-uid, quo maius cog-i-tari non potest\T1/cmr/m/n/10.
+95 , `be-ing greater than which noth-ing can be thought'...The
+ []
+
+[349] [350] [351] [352] [353] [354] [355] [356] [357]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [358]
+[359] [360]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [361]
+[362] [363] [364] [365] [366] [367] [368] [369] [370] [371] [372] [373]
+[374] [375] [376] [377] [378] [379] [380] [381] [382] [383] [384] [385]
+[386] [387] [388] [389] [390] [391] [392] [393] [394] [395] [396] [397]
+[398] [399] [400] [401] [402] [403] [404] [405] [406]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [407]
+[408] [409] [410] [411] [412] [413] [414] [415] [416] [417] [418] [419]
+[420] [421] [422] [423] [424]) [425] [426
+
+] (./04x.tex) (./whole.bbl [427]
+[428
+
+] [429] [430] [431] [432] [433] [434] [435] [436] [437] [438]
+Underfull \hbox (badness 10000) in paragraph at lines 1124--1126
+[]\T1/cmr/m/n/10.95 ---, \T1/cmr/m/it/10.95 ``What the Will Ef-fects?''\T1/cmr/
+m/n/10.95 , \T1/cmr/m/it/10.95 Scrib-ner's Mag-a-zine\T1/cmr/m/n/10.95 , vol. 3
+ (2), 1888,
+ []
+
+[439] [440] [441]
+Underfull \hbox (badness 10000) in paragraph at lines 1364--1366
+[]\T1/cmr/m/sc/10.95 Locke, John\T1/cmr/m/n/10.95 , \T1/cmr/m/it/10.95 An Es-sa
+y Con-cern-ing Hu-man Un-der-stand-ing\T1/cmr/m/n/10.95 ,
+ []
+
+
+Underfull \hbox (badness 3514) in paragraph at lines 1398--1401
+[]\T1/cmr/m/sc/10.95 Malcolm, Nor-man\T1/cmr/m/n/10.95 , \T1/cmr/m/it/10.95 ``A
+nselm's on-to-log-i-cal ar-gu-ments''\T1/cmr/m/n/10.95 , \T1/cmr/m/it/10.95 The
+ Philo-soph-i-cal Re-view\T1/cmr/m/n/10.95 ,
+ []
+
+[442]
+Underfull \hbox (badness 3690) in paragraph at lines 1529--1531
+[]\T1/cmr/m/sc/10.95 della Mi-ran-dola, Gio-vanni Pico\T1/cmr/m/n/10.95 , \T1/c
+mr/m/it/10.95 Con-clu-sions or 900 The-ses \T1/cmr/m/n/10.95 [trans-lated by
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1541--1544
+[]\T1/cmr/m/sc/10.95 Montaigne, Michel Eyquem\T1/cmr/m/n/10.95 , \T1/cmr/m/it/1
+0.95 Of Ly-ers\T1/cmr/m/n/10.95 , in \T1/cmr/m/it/10.95 Mon-taigne's Es-says, I
+:9\T1/cmr/m/n/10.95 ,
+ []
+
+
+Underfull \hbox (badness 4366) in paragraph at lines 1541--1544
+\T1/cmr/m/n/10.95 http:/$ $/darkwing.uoregon.edu/^^Crbear; \T1/cmr/m/it/10.95 R
+e-nascence Edi-tions \T1/cmr/m/n/10.95 [trans-lated by J. Flo-rio
+ []
+
+[443]
+Overfull \hbox (20.0249pt too wide) in paragraph at lines 1635--1638
+[]\T1/cmr/m/sc/10.95 Nietzsche, Friedrich\T1/cmr/m/n/10.95 , \T1/cmr/m/it/10.95
+ Hu-man, All Too Hu-man\T1/cmr/m/n/10.95 , http:/$ $/www.publicappeal.org/libra
+ry/nietzsche
+ []
+
+[444] [445] [446] [447] [448]
+Underfull \hbox (badness 1048) in paragraph at lines 2104--2108
+[]\T1/cmr/m/sc/10.95 Szczerba, Wo-j-ciech\T1/cmr/m/n/10.95 , \T1/cmr/m/it/10.95
+ The Con-cept of Eter-nal Re-turn in Early Chris-tian Thought\T1/cmr/m/n/10.95 
+,
+ []
+
+[449] (./whtem.bbl [450] [451
+
+] [452] [453] [454] [455]
+Underfull \hbox (badness 10000) in paragraph at lines 554--556
+[]\T1/cmr/m/n/10.95 ---, \T1/cmr/m/it/10.95 ``What the Will Ef-fects?''\T1/cmr/
+m/n/10.95 , \T1/cmr/m/it/10.95 Scrib-ner's Mag-a-zine\T1/cmr/m/n/10.95 , vol. 3
+ (2), 1888,
+ []
+
+[456]
+Underfull \hbox (badness 10000) in paragraph at lines 667--669
+[]\T1/cmr/m/sc/10.95 Locke, John\T1/cmr/m/n/10.95 , \T1/cmr/m/it/10.95 An Es-sa
+y Con-cern-ing Hu-man Un-der-stand-ing\T1/cmr/m/n/10.95 ,
+ []
+
+
+Underfull \hbox (badness 3690) in paragraph at lines 717--719
+[]\T1/cmr/m/sc/10.95 della Mi-ran-dola, Gio-vanni Pico\T1/cmr/m/n/10.95 , \T1/c
+mr/m/it/10.95 Con-clu-sions or 900 The-ses \T1/cmr/m/n/10.95 [trans-lated by
+ []
+
+[457]
+Overfull \hbox (20.0249pt too wide) in paragraph at lines 779--782
+[]\T1/cmr/m/sc/10.95 Nietzsche, Friedrich\T1/cmr/m/n/10.95 , \T1/cmr/m/it/10.95
+ Hu-man, All Too Hu-man\T1/cmr/m/n/10.95 , http:/$ $/www.publicappeal.org/libra
+ry/nietzsche
+ []
+
+[458] [459] [460] [461]
+Underfull \hbox (badness 3514) in paragraph at lines 1182--1185
+[]\T1/cmr/m/sc/10.95 Malcolm, Nor-man\T1/cmr/m/n/10.95 , \T1/cmr/m/it/10.95 ``A
+nselm's on-to-log-i-cal ar-gu-ments''\T1/cmr/m/n/10.95 , \T1/cmr/m/it/10.95 The
+ Philo-soph-i-cal Re-view\T1/cmr/m/n/10.95 ,
+ []
+
+[462] [463]
+Underfull \hbox (badness 1048) in paragraph at lines 1436--1440
+[]\T1/cmr/m/sc/10.95 Szczerba, Wo-j-ciech\T1/cmr/m/n/10.95 , \T1/cmr/m/it/10.95
+ The Con-cept of Eter-nal Re-turn in Early Chris-tian Thought\T1/cmr/m/n/10.95 
+,
+ []
+
+[464] [465] [466] [467] [468] [469] [470] [471]
+Underfull \hbox (badness 10000) in paragraph at lines 2247--2250
+[]\T1/cmr/m/sc/10.95 Montaigne, Michel Eyquem\T1/cmr/m/n/10.95 , \T1/cmr/m/it/1
+0.95 Of Ly-ers\T1/cmr/m/n/10.95 , in \T1/cmr/m/it/10.95 Mon-taigne's Es-says, I
+:9\T1/cmr/m/n/10.95 ,
+ []
+
+
+Underfull \hbox (badness 4366) in paragraph at lines 2247--2250
+\T1/cmr/m/n/10.95 http:/$ $/darkwing.uoregon.edu/^^Crbear; \T1/cmr/m/it/10.95 R
+e-nascence Edi-tions \T1/cmr/m/n/10.95 [trans-lated by J. Flo-rio
+ []
+
+[472])) [473] (./changes.tex)
+
+Package natbib Warning: There were multiply defined citations.
+
+[474] (./whole.aux
+
+Package natbib Warning: Citation(s) may have changed.
+(natbib)                Rerun to get citations correct.
+
+) ) 
+Here is how much of TeX's memory you used:
+ 4650 strings out of 95794
+ 49257 string characters out of 1194520
+ 251402 words of memory out of 1000001
+ 7506 multiletter control sequences out of 10000+50000
+ 32318 words of font info for 80 fonts, out of 500000 for 1000
+ 24 hyphenation exceptions out of 1000
+ 32i,18n,32p,1467b,2096s stack positions out of 1500i,500n,5000p,200000b,5000s
+
+Output written on whole.dvi (488 pages, 2833120 bytes).
