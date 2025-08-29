@@ -1,0 +1,83 @@
+This is TeX, Version 3.14159 (Web2C 7.3.1) (format=latex 2001.10.19)  22 APR 2002 11:13
+**Wiersze
+(Wiersze.tex
+LaTeX2e <1999/12/01> patch level 1
+Babel <v3.6Z> and hyphenation patterns for american, french, german, ngerman, d
+anish, norsk, swedish, nohyphenation, loaded.
+(/local/teTeX/share/texmf/tex/latex/base/article.cls
+Document Class: article 1999/09/10 v1.4a Standard LaTeX document class
+(/local/teTeX/share/texmf/tex/latex/base/size10.clo
+File: size10.clo 1999/09/10 v1.4a Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/local/teTeX/share/texmf/tex/generic/babel/babel.sty
+Package: babel 1999/09/09 v3.6Z The Babel package
+
+(/local/teTeX/share/texmf/tex/generic/babel/polish.ldf
+Language: polish 1999/04/13 v1.2g Polish support from the babel system
+
+(/local/teTeX/share/texmf/tex/generic/babel/babel.def
+File: babel.def 1999/09/09 v3.6Z Babel common definitions
+\babel@savecnt=\count87
+\U@D=\dimen103
+)
+
+Package babel Warning: No hyphenation patterns were loaded for
+(babel)                the language `Polish'
+(babel)                I will use the patterns loaded for \language=0 instead.
+
+\l@polish = a dialect from \language0
+Package babel Info: Making " an active character on input line 63.
+\pl@left=\dimen104
+\pl@down=\dimen105
+\pl@right=\dimen106
+\pl@temp=\dimen107
+)) (Wiersze.aux)
+\openout1 = `Wiersze.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 39.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 39.
+ [1
+
+] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11]
+Overfull \hbox (15.25069pt too wide) in paragraph at lines 564--564
+[]\OT1/cmr/m/n/10 Przykrywaj[]ace ryt-miczne ud-erzenia krwi, kt^^Sora op lywa 
+cienkimi _zy lkami
+ []
+
+[12] [13] [14] [15] [16] (Wiersze.aux) ) 
+Here is how much of TeX's memory you used:
+ 550 strings out of 10888
+ 5625 string characters out of 71977
+ 58138 words of memory out of 263001
+ 3544 multiletter control sequences out of 10000+0
+ 5160 words of font info for 19 fonts, out of 400000 for 1000
+ 14 hyphenation exceptions out of 1000
+ 24i,5n,24p,150b,271s stack positions out of 300i,100n,500p,50000b,4000s
+
+Output written on Wiersze.dvi (16 pages, 39500 bytes).

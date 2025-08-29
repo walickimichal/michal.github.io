@@ -1,0 +1,16 @@
+\setlength{\unitlength}{0.012500in}%
+\begin{picture}(160,80)(10,750)
+\thicklines
+\put( 91,804){\oval(82,42)}
+\put( 63,809){\circle{4}}
+\put(112,791){\circle{4}}
+\put( 76,793){\oval(22,10)}
+\put( 82,793){\circle{4}}
+\put(108,814){\makebox(0,0)[lb]{\raisebox{0pt}[0pt][0pt]{\sixrm W}}}
+\put( 90,790){\oval(160,80)}
+\put( 35,800){\circle{10}}
+\put(130,765){\circle{10}}
+\put( 60,770){\oval(40,20)}
+\put( 70,770){\circle{10}}
+\put(140,805){\makebox(0,0)[lb]{\raisebox{0pt}[0pt][0pt]{\twlrm W}}}
+\end{picture}

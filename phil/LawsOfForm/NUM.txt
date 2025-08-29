@@ -1,0 +1,753 @@
+                             What is a Number?
+
+                            by Louis H. Kauffman
+
+  Mathematics Department University of Illinois at Chicago 851 South Morgan
+                    Street Chicago, Illinois 60607-7045
+
+I. Introduction
+
+In 1961 Warren McCulloch wrote an essay entitled "What is a Number, that a
+Man May Know It, and a Man that He May Know a Number?" [M] . McCulloch's
+essay indicates a birthdate for second order cybernetics that is somewhat
+earlier than what is usually assumed. In fact, on careful reading, it
+indicates that second order cybernetics is neccessarily born at once with
+the concept of cybernetics and that there is no such thing as a separate
+field of second order cybernetics. Such is the power of arithmetic, or
+rather, such is the power of the non-numerical basis of numerical
+arithmetic!
+
+It is through the non-numerical mathematics of the observer - the
+mathematics of form, reference, self-reference and logic, that arithmetic
+emerges into the world, and that world learns to count and do science, even
+to do first order cybernetics. This paper will discuss the foundations of
+arithmetic in the non-numerical worlds of perception, action and
+distinction. This paper will discuss the construction of the peculiar
+smokescreen that is taken to be an eternal world of distinct forms, a world
+that we have made, a world that we are making and can never be completed.
+
+I take up the theme of number in three sections. Each section orbits the
+source at a somewhat different distance from the center. The common theme is
+the relation of simple recursion, awareness of awareness and the apparent
+generation of multiplicity. Section 2 is a non-technical discussion in the
+light of Russell's definition of number and Russell's paradox of the set of
+all sets that are not members of themselves. Section 3 is a constructive
+account of numbers from the empty set. Section 4 is a brief direct
+discussion of number and self-reference. Section 5, in the form of a
+dialogue, shows how Cantor's transfinite numbers become a metalanguage for
+the the finite numbers, a field of self-reference where the metalanguage and
+the language are one.
+
+II. Approaching the Numerical from the Non-Numerical
+
+What is a number?
+
+Language betrays us even as we speak. For the existence of a number is
+unlike any existence that we call physical or mental. To obtain the isness
+of number you need to call up the Platonic realm of eternal forms. Where is
+the number of the Platonic realm in the cosmic telephone directory? You
+cannot even get a call through to the Platonic realm without the existence
+of number and you cannot get the existence of number without the Platonic
+realm.
+
+But I can count! I do count! So you say. Everybody counts, but who knows the
+nature of number. Well we all do know it. It?
+
+How can a number exist?
+
+This
+
+                                    ***
+
+consists in three stars. But three stars is not the number three. Where is
+the number three? Could it be that the number three is not a thing?
+
+Lets try to be quite down to earth about this. We use the concept of the
+number three with some ease. It is easy to agree that concepts are not
+things in the sense of physical objects. In fact concepts often have a
+precision that is never found in the physical. But numbers are peculiar and
+central concepts indeed, and we need to get a look at them from a new angle.
+
+Lets begin by recalling the famous and remarkable definition of number due
+to Bertrand Russell: " A number is the class of all classes similar to a
+given class." Here the numbers under discussion are zero and the positive
+integers. In Russell's definition, a concept (number) has been identified
+with a class. This Russell class is a set of classes and each class in this
+set has the same "number" of members (that is what similarity of classes
+means). Now we see that underlying Russell's definition is the notion of
+when two classes "have the same number" of members. And this notion of
+having the same number of members (called similarity) does not depend upon
+the definition of or the existence of any given number. Similarity of
+classes is utterly non-numerical.
+
+Let's recall the meaning of similarity: Two classes are said to be similar
+if there is a one-to-one correspondence between the members of the one class
+and the members of the other class. That is, A and B are similar if and only
+if there is a way to match the members of A with the members of B so that
+each member of A is paired with a unique member of B and each member of B is
+paired with a unique member of A. Similarity can be checked without the
+ability to count. An illiterate shepherd can obtain the similarity between
+the set of notches on a stick and the sheep in his flock by herding them
+past and marking the stick.
+
+Similarity is fundamental and non-numerical. You do not have to be able to
+count to see that {*#@} and {!&^} are both instances of three. But you do
+have to be able to read out ! as one and not two. How do you do that? How do
+you know that an exclamation point, with its two parts, represents a single
+form and is taken as a single instance of that form? For that matter, how do
+you know that the form {*#@} is not five rather than three? Certainly, its
+parts can be put into one to one correspondence with the row of letters
+ABCDE.
+
+How do you know to take a given form as foreground against which to make the
+comparisons? How does the shepherd recognize his sheep and how does he know
+where and when to notch the stick?
+
+How does the shepherd know when to start working the stick and when to stop?
+How does he know when the sheep are starting through the gate? How does he
+know when the field is empty and all the sheep have passed?
+
+None of these questions can be addressed by a formal system alone. The
+ability perform the relations indicated by these questions is a prerequisite
+to being able to make any formal system at all. The non-numerical
+capabilities that we are wondering about here can all be summarized in the
+injunction: Make a distinction!
+
+It is not the intent of this essay to worry about the question - how do
+distinctions get made? In fact, we had best worry first whether there are
+any such "things" as distinctions in the first place. Again language gets in
+the way, for a distinction is not a thing. A distinction is a process or
+relationship between an observer and his/her world. A distinction arises in
+the condition of observation. The condition of observation is itself a
+distinction of a self and a world observed by that self. To the extent that
+the self understands that the world observed is not distinct from the self,
+the world and self cohere into one whole, but the full coherence cannot be
+seen by any individuated self. "It" cannot be seen because "it", the
+coherence, is not observable directly. The act of observation puts the
+coherence into the blind spot of the eye of the beholder.
+
+A system that observes itself cannot see all of itself, for (paraphrasing
+Spencer-Brown [SB]) in order to see at all, it must evidently divide itself
+into a part that sees and a part that is seen. The part that is seen will
+not be all. Perhaps the "system" has the capability of absorbing the
+distinction of seer and seen into a whole and moving to a new level of
+observation. In this new level the fundamental limitations will hold once
+again, but a wider vision has been obtained.
+
+Imagine an observing system so subtle as to always be able, in the presence
+of any distinction to recognise the process of distinction as such and to
+rise to the level of comment on the condition of the distinction itself.
+This subtle observing system may, from the point of an outside observer,
+make many distinctions of which it is unaware. (I am unaware of the direct
+activity of the neurons in my brain.) But whenever our observing system
+recognises distinction, it also sees a unity and can look again at the two
+sides and their join.
+
+I am aware of my distinction of self and world and that they are
+intertwined. I can indicate the unity of self and world in language. I can
+make maps and models of the unity of self and world. This unity will never
+fully come into view. Every attempt to map out the unity of self and world
+becomes a map of unknown territory that is enfolded once again into the
+fundamental ground of the original self/world distinction.
+
+Language acts to simplify and speaks of the original self/world distinction,
+as though there were only one such and that it existed in eternity. Language
+must be respected for its invocation of ideals, but is this not an illusion
+generated by the very words themselves? The words would have us imagine that
+they are independent of their temporal contexts. They would have us believe
+in the possibility of immutable forms. They rest their case on the stability
+of typography and the repeatability of sounds and thoughts. They rest their
+case on our ability to distinguish them. We are able to distinguish langauge
+through our ability to distinguish anything at all. Language and world live
+in a circular round. The self does not manage to lift out of that round and
+look upon it from above. The self occurs only in relation to a given world
+through a given language.
+
+What then of the Russell definition of number? The set of all classes
+similar to a given class is the number of that class. To the extent that the
+observer can distinguish and match the elements of a given class with a
+reference class, he/she can determine the numerosity of the given class. The
+Russell definition assumes the ability to compare and distinguish, assumes
+the existence of all the possible classes similar to the given class,
+assumes all this and achieves logical closure. Is this closure not an image
+of our confidence in our own ability to count? We arrive at a concept of
+number though our ability to compare and distinguish. We can compare and we
+know it. The observing system has become aware of itself.
+
+Russell circumvents talk of self and reference. If one can speak of all sets
+similar to a given set, if one speak of all and give to it eternity, then
+why not speak of all sets? And if we speak of all sets why not speak of all
+sets that are not members of themselves. And so Russell did speak - of all
+sets not members of themselves. And this act of speech brought forth an
+endless creation of new sets, not to be allowed in the static eternity. And
+it was forbidden.
+
+It was forbidden. It could not be avoided. The observing system looked at
+any construction from outside and Remade it anew. The building was never
+completed. Eternity did not submit to construction. There was no exit except
+in silence.
+
+III. Counting Distinctions
+
+A set is a special sort of distinction. Sets are concepts held by an
+observing system. The empty set { } is the bare concept of collecting.
+
+Two sets are identical if they have the same members.
+
+The identity of a set is derived solely from its members. Any set is
+identical to itself, and there is only one empty set (See the proof below).
+
+(Perhaps you do not like the idea that A=A. After all A may have changed by
+the time you reached the second version. But in set theory it is assumed
+that the members of a set do not change. Since nothing in the observed world
+has such a property, we see that set theory is not a perfect model of the
+temporal world. Well, nothing is perfect.)
+
+By defining identity in terms of membership, set theory makes a notion of
+identity possible in a shifting world of representations. When we say A=B,
+for sets A and B, it means that they share the property of having the same
+members. There is no difference between two sets that have the same members.
+
+Theorem Zero. There is only one empty set.
+
+Proof. Suppose that S and T are both empty sets. Then S and T have exactly
+the same members, namely none. Therefore S=T. Hence the empty set is unique.
+//
+
+Theorem One. The empty set exists.
+
+Proof. Suppose that there is no empty set. Let S denote the collection of
+all sets that have no members. Then S is neccessarily empty. But we said
+that empty sets do not exist! S is empty. This is a contradiction. Therefore
+the empty set exists.//
+
+The uniqueness of the empty set heralds the uniqueness of its successors.
+There is only one set whose sole member is the empty set: { { } }. There is
+only one set whose members are the empty set and the set whose member is the
+empty set: { { } { { } } }.
+
+(I use {{A} {B} {C}} as notation for the set whose members are {A}, {B} and
+{C}. The locations of outermost pairs of closed brackets delineates the
+members of a set. No commas are required in this notation.)
+
+Let the successor A' of a set A consist in the set whose members are the
+members of A plus a new member consisting in A itself.
+
+Thus
+
+{ }' = { { } }
+
+{ { } }' = { { } { { } } }
+
+{ { } { { } } }' = { { } { { } } { { } { { } } } }.
+
+If E denotes the empty set, then the successor sequence
+
+                           E, E', E'', E''', ...
+
+provides a unique sequence of sets each having one more member than the
+previous set. No two of these sets are equal to one another (because they
+have different members). Each set in this successor sequence becomes a
+reference set for the corresponding number. Thus the empty set is a
+reference for 0, E' is a reference for 1, E'' is a reference for 2 and so
+on. The successors of the empty set provide a specific construction of
+multiplicities and thereby bring the numbers into mathematical existence.
+
+In the modern version of Russell's definition, two sets A and B are said to
+have the same cardinality if there is a one-to-one correspondence between A
+and B. 0 is the cardinality of E. 1 is the cardinality of E'. 2 is the
+cardinality of E''. If N is the cardinality of X , then N+1 is the
+cardinality of X' ( as long as X is not a member of itself).
+
+(Notice how this classical point of view wants to avoid self membership at
+every turn.)
+
+No longer do we say that a number "is" the collection of all sets of a given
+cardinality. In fact, a number is not a noun in modern mathematics, it is a
+relationship. We have returned to the position of the shepherd and the
+notched stick. The notched stick is now the successor sequence of the empty
+set. It is a stick that all practicioners of set theoretic shepherding have
+agreed upon.
+
+Do you have three sheep? Well let me see. Three according to my Von Neumann
+calculator (John Von Neumann discovered the successor sequence of the empty
+set.) is the cardinality of { { } { { } } { { } { { } } } }. As your sheep
+pass the gate I shall erase successive members of my reference set. Now I
+erase { { } { { } } } , leaving { { } { { } } }. Another sheep passes by and
+I erase { { } }, leaving { { } }. One more sheep goes through the gate and I
+erase { } leaving { }. This last set is empty and there are no more sheep.
+Indeed, you have exactly three sheep.
+
+Three is an adjective, not a noun.
+
+But wait! Lets look at the last erasure operation you did in that sheep
+count. You had the set { { } }. You erased the member { } and obtained { }.
+You erased the empty set as a member of { { } } and you obtained as a result
+the empty set { }. You erased the empty set and were immediately handed the
+empty set! If there is only one empty set and I erase it, how can that
+result in the creation of the empty set?
+
+The standard answer: E={ } is the empty set and E is distinct from E' = { {
+} } = { E }. If I erase E from E' it does not mean that I erase E. It means
+that I delete E from membership in E'. This changes E' to E. We did not
+erase E, we changed E'.
+
+But in order to handle the standard answer you have to be an observer who is
+capable of looking both inside and outside of E'. You have to be aware of E'
+as a system with a boundary. You have to understand that when the present
+instance of E disappears it does not mean that E has gone. You have to be an
+observer that can reconstruct and recognise the empty set.
+
+It would be a bit irreverent to say that numbers arise at that level of
+consciousness that is just beyond peek-a-boo. Just beyond that place where
+things exist only in the eye of the observer. Out of sight out of mind.
+
+How is this trick established? It is established through our second theorem.
+If there is no empty set in sight, the observer immediately finds one in the
+act of set formation. This is the pure act of distinction. It is beyond
+peek-a-boo. The observer has become aware not only of awareness, but also of
+awareness of awareness. This is awareness of awareness. That is the
+prerequisite for number.
+
+IV. Self-Reference Counts
+
+The counting process is self-referential. It uses its production to produce
+itself. Counting is as simple as one, two three
+
+or | . ||. |||
+
+or { {} }, { {} { {} } }, { {} { {} } { {} { {} } } }
+
+In the case of stick counting we see the essential self-reference as soon as
+we get a row too large to count.
+
+If R = |||||||..., then R = | R.
+
+In the successor sequence described in the last section X = X' means that X
+is a member of itself.
+
+Time arises by taking circularity and unfolding it into sequence. It is no
+wonder that the construction of number is fraught with the avoidance of
+self-reference. Nevertheless it is time (time!) to see that what is based on
+awareness of awareness need not avoid awareness.
+
+Numbers do not exist eternally. We have made them. The universe brings forth
+number just as It becomes aware of itself.
+
+IV. Counting - A Dialogue.
+
+The learned professors Jeremy and Lou decided to discuss the nature of
+arithmetic. The motivation for this dialogue was a sleepless night spent
+trying to prove that A+B = B+A for any natural numbers A and B. Lou had
+decided to represent a number as a row of stars. The number 1 is * ,2 is **
+and 3 is *** in Lou's world [K5]. In this world, A+B is denoted by AB, the
+left-to-right juxtaposition of the strings for A and for B. Lou had decided
+to assume nothing, start at the very beginning and derive the well-known
+properties of numbers from his rows of stars. And he had difficulty proving
+that A+B=B+A. This looks obvious, and yet it baffled him for a long time.
+Then it dawned on him that he could begin with AB and slowly move B around A
+until it was on the other side, transforming AB into BA.
+
+This proof that AB = BA was perfectly convincing to Lou. In fact, he
+realized that he had deliberately forgotten a key concept about numbers
+during his attempt to prove AB = BA. This concept was the notion that a
+number is a number of some specific collection, and that the number assigned
+to this collection does not change when the collection is moved about.
+
+Then Burt came along and said "Why don't you turn the row AB around by 180
+degrees? Surely the number of stars does not change while you rotate the
+row, and just as surely, the row AB will become the row BA under this
+turning!" {Burt Voorhees at the June 1995, Brussels Conference -"Einstein
+Meets Magritte".}
+
+Burt's solution was startling to Lou even though it had essentially the same
+structure as his own proof. In Burt's viewpoint it was possible to let the
+"number" AB retain its form and yet be transformed into BA by a rotation
+that reversed the order of its parts. This was rather like turning the
+number inside out! In both cases the key concept of a number as an invariant
+assigned to a collection or a form was the vantage point from which the
+proof became comprehensible.
+
+Jeremy and Lou continued their discussion in the direction of recursions and
+infinity.
+
+Lou. Consider a theory of natural numbers (1,2,3,...) that begins by
+representing each number by a row of stars. Thus
+
+1=*
+
+2=**
+
+3=***
+
+4=****
+
+and of course
+
+N+1 = N*.
+
+In this system, we assume that every number N has a successor N* and we
+define the sum of two star rows N and M by their juxtaposition: N+M = NM.
+Thus 2+2 = **** = 4.
+
+Jeremy. But what is the meaning of equality in your system? It would beg the
+question to say that two rows are equal if and only if they have the same
+number of stars.
+
+Lou. Indeed, you are right . What we must do is give a procedure whereby the
+equality of rows can be determined. Let us assume that it is possible to
+recognise if a row is empty. Given a non-empty row N, let N-1 be the row
+obtained by removing a star from the left of N. Thus *** -1 = **. Let N-k
+denote the result of subtracting 1 successively from N, k times.
+
+Let 0 denote the empty row. There is only one empty row.
+
+We shall say that N=M if N-k = M-k =0 for some k. This definition does not
+require us to count, it only requires that we make successive subtractions
+from N and from M and that we find they both reach zero after the same
+number of subtractions. For example, if we wish to determine whether
+
+                              ****** ?=? *****
+
+we apply successive subtraction from each row:
+
+                               ***** ?=? ****
+
+                                **** ?=? ***
+
+                                 *** ?=? **
+
+                                  ** ?=? *
+
+                                   * ?=?
+
+and conclude that the original numbers are not equal. Note that it is not
+neccessary to have a name for a number or to know how to count up to this
+number to apply the criterion of equality.
+
+Jeremy. Well, I see that you do have a notion of equality, but what is this
+business about recognising an empty row? An empty row is an empty row. Since
+the only distinguishing characteristic of a row is its members, I grant you
+that there is only one empty row. And somehow, all the distinctions among
+the numbers arise from this ability to recognise emptiness!
+
+Lou. Jeremy, you have put your finger on it! A number is not just its stars.
+It is a row of stars and even the empty row is a kind of number (called zero
+in these late days). The empty row is far from empty of concept, it just has
+no contents! In fact, the empty row embodies the very concept of number and
+so it becomes our reference point in the act of counting. The idea of a row
+(even an empty one) is a piece of virtual logic in our construction of
+number.
+
+Jeremy. Well, if you can make such a fuss about zero, I shall counter with
+infinity! Consider an "infinite" number w = *****... . An endless number of
+stars appear at the right of w. Hence w-1 = w and w-k is never zero for any
+finite k. On the other hand
+
+w+1 = w* = *****...*
+
+is obviously different from w. You will never be able to prove this
+difference by your method since w+1 is also inexhaustible as far as removing
+stars from the left is concerned. I say that you should call two "numbers"
+equal if you can match them up structurally. From that point of view
+*****... and *****...* and *****...** are all different even though you
+cannot take any of them to zero in a finite number of steps! In fact, I
+challenge you to consider the following beginnings in a vast sea of infinite
+numbers:
+
+w= *****...
+
+w+1 = [*****...]*
+
+w+2 = [*****...]**
+
+w+3 = [*****...]***
+
+...
+
+2w = w+w = [*****...][*****...]
+
+3w = [*****...][*****...][*****...]
+
+... w2 = [*****...][*****...][*****...][*****...] ...
+
+w2 + w +1 = ([*****...][*****...][*****...][*****... ] ... )[*****...]*
+
+The pictures begin to fail me, but it is clear that once you allow that
+first infinite number w, and the idea of infinite repetition that underlies
+it, then we can make a great medley of infinite numbers heading on out
+beyond all the ordinary numbers of our experience.
+
+Lou. The infinite numbers you are describing are called ordinals. They are
+the discovery of Georg Cantor, the famous proponent of infinity from the
+last century. I am glad we are fully agreed on the commutativity of the
+finite ordinals because that commutativity can no longer hold for the
+infinite ordinals. For example,
+
+1+w = *[*****...] = ******... = w
+
+while w+1 = [*****...]*, and this is not equal to w.
+
+Jeremy. Our old arguments about commutativity do not apply to these
+structures. The order in an ordinal is important. Even w herself cannot be
+turned around by 180 degrees as I was so fond of doing with the finite
+numbers. We have decided that the indeterminate part of the infinity
+continues off to the right in these representations. Commutativity goes out
+the window, but we get the self embedding or self-reference of the equation
+*w=w coupled with the fact that we can say of any two ordinals whether one
+is larger or smaller than the other!
+
+Lou. How do you do that?
+
+Jeremy. It is very easy. All ordinals are constructed from previous
+ordinals. If you truncate an ordinal, taking everything from the left only
+up to a certain point, then you get another ordinal. This ordinal is called
+a truncate of the first ordinal. I shall write X=T(Y) to indicate that X is
+a truncate of Y. Thus *** = T(****) and *** = T(***...) and
+www...=T(www...w*). I say that X
+
+Lou. We can speak of products of ordinals. If X#Y denotes the product of X
+and Y, then X#Y is obtained by replacing every * in Y by a copy of X. Thus
+X#2 = X#** = XX. I cannot specify 2#Y until you tell me the structure of Y.
+Lets do an example w#2= w#[**] = [***...][***...] 2#w = **#[***...] =
+[(**)(**)(**) ...] = ******... = w. Multiplication of ordinals is not
+commutative either!
+
+Jeremy. I have always disliked the notations that send exponents running up
+the page along incomprehensible diagonals. Do you mind if we use A{B} to
+denote A raised to the B-th power? Then A{B{C}} denotes A raised to the (B
+raised to the C) power and A{B}{C} denotes (A raised to the B) raised to the
+C power.
+
+We can go ahead and construct powers. w{2} = w#w=
+www...=(**...)(**...)(**...)... w{3} = w#(w#w) =(ww...)(ww...)(ww...)...
+=([(**...)(**...)...][(**...)(**...)...]...)([(**...)(**...)...][(**...)(**...)...]...)
+.... I am tempted to find w{w}. What does this look like?
+
+Lou. Well, it is clear that for ordinals we should have the rule a{(b+c)} =
+a{b} #a{c}, so w{w} = w{1+w} = w{1}#w{w } = w#w{w}. w{w} is a solution of
+the equation X = w#X.
+
+Jeremy. Yes, but what does w{w} look like?! It is the limit of the sequence
+
+*
+
+**...
+
+[**...][**...]...
+
+[[**...][**...]...][[**...][**...]...]...
+
+[[[**...][**...]...][[**...][**...]...]...][[[**...][**...]...][[**...][**...]...]...]...
+
+...
+
+s
+
+s' = s#w=ss...
+
+...
+
+The parentheses are present to indicate the self-embeddings and repetitions
+that are present at each stage of the recursion. If s denotes the sequence
+at a given stage, then s'= s#w = ss... is the next stage. Each stage in the
+series is a truncate of the next stage and so ww is simply the union of all
+the stages in this infinite series. Indeed, this limit will satisfy w#(w{w})
+= w{w} and so we get a specific model for this infinite product.
+
+Lou. Now you have convinced me that we can go on building these ordinals
+forever. Are they of any real use in thinking about numbers?
+
+Jeremy. As a matter of fact they are useful, but we need a few more facts
+about ordinals. Did you know that there are no infinite descending sequences
+of ordinals?
+
+Lou. Lets see, I'll try to make an infinite descending sequence. Lets start
+with w{w}. Now I must choose something smaller than w{w}. I guess I could
+take w{137}. This is a big jump down, but ordinary integers are the only
+ordinals strictly less than w. Now I have to choose something less than
+w{137} and of course I could take w{136}, w{135}, w{134},..., w{3},w{2},w,
+but this is a finite sequence. Then I need to take an ordinal less than w
+and this causes another big jump down to say, 13. And so I get the
+descending sequence w{w}, w{137},w{136},...,w{2},w,13,12,11,...,1. It is
+finite, even though I did my best to create an infinite descending sequence.
+The jumps down are too big!
+
+Jeremy. You can try higher exponentiations. We can consider large ordinals
+such as L = w{w{w{w{...}}}}. L is exponentially self-referential with L =
+w{L}. I could try to make a descending sequence starting with L and I will
+again find that it will stop after a finite number of steps.
+
+Lou. You are giving me enough time to puzzle this thing out. Any ordinal is
+either obtained from a previous ordinal by adding 1, or it is the limit of a
+sequence of ordinals as we have seen in our examples. An ordinal less than a
+limit ordinal will be a big jump down into the limit sequence with only a
+finite number of members of the sequence below it. It is clear that the
+finite descent property is inherited in the process of adding one or taking
+limits. So all ordinals have the finite descent property.
+
+Jeremy. Good. Now I can show you a use for ordinals. We can use them to
+analyze the behaviour of certain sequences of natural numbers. First recall
+how a number can be written uniquely in a given base. For example 87 in base
+3 is
+
+                              3{4}.1 +3{1}.2.
+
+Here I am writing the number as a sum of powers of B with each power of B
+multiplied by one of the numbers 0,1,..., (B-1) where B is the base (B is 3
+in this example). We are using . to denote multiplication and X{Y} to denote
+exponentiation just as we did with ordinals a moment ago. In such an
+expression, we get exponents in the powers of 3 and these may themselves be
+expressed in base 3. For example, we can re-write the 4 in 3{4} and get 3{4}
+= 3{3{1}.1 + 3{0}.1} giving
+
+                         87 = 3{3{1}.1 + 1}+3{1}.2.
+
+Every number that occurs in this expression for 87 is expressed in base 3.
+We say that 3{3{1}.1 + 1}+3{1}.2 is the complete base 3 expression for 87.
+<\p>
+
+I am going to define a method for producing sequences of natural numbers.
+These are called Goodstein sequences [LN]. Take a given number N and base B.
+Let B[N] be the complete base B expression for N. Let B[N]C be the result of
+replacing all instances of B in B[N] by C. For example, 3[87] = 3{3{1}.1 +
+1}+3{1}.2, 3[87]11 = 11{11{1}.1 + 1}+11{1}.2. As long as C is greater than
+B, we have that B[N]C will be a number written in complete base C. To define
+the Goodstein sequence, start with B and N and let N' = (B+1)[ B[N](B+1) -1
+].
+
+N' is the next number in the sequence and (B+1) is the next base. Each time
+we have a number fully expressed in a given base B, we shift it up to the
+next base (B+1), subtract 1 and re-express this number in base (B+1). A
+Goodstein sequence is the potentially infinite sequence of numbers obtained
+by this process from any starting point (N,B).
+
+Lou. These sequences tend to get very large quite rapidly.
+
+3{3} + 3{2}
+
+4{4} + 4{2} -1 = 4{4} + 4{1}.3 + 4{0}.3
+
+5{5} + 5{1}.3 + 5{0}.2
+
+6{6} + 6{1}.3 + 6{0}.1
+
+7{7} + 7{1}.3
+
+8{8} + 8{1}.2 + 8{0}.7
+
+9{9} + 9{1}.2 + 9{0}.6
+
+10{10} + 10{1}.2 + 10{0}.5
+
+In this example I started with 36 = 27 + 9 = 3{3} +3{2} in complete base
+three. By the time the sequence has gotten to the base 10, the value has
+skyrocketed to a number larger than 10 to the 10th power. This is
+astronomical, and only the beginning of the rise.
+
+Jeremy. Yes they do get big, but the surprising result is
+
+Theorem (See [LN]). Every Goodstein sequence terminates at zero in a finite
+number of steps.
+
+Proof. With the help of the ordinals the proof is very simple. Map each
+element N (base B) of the Goodstein sequence to the ordinal obtained by
+replacing each occurrence of B in N (written in complete base B) by the
+ordinal w. Call this ordinal O(N). Then it is easy to check that O(N') <
+O(N) as ordinals. Hence if the Goodstein sequence is N, N', N'', N''', ...
+then we have descending sequence of ordinals O(N) > O(N') > O(N'') > ... .
+Since there are no infinite descending sequences of ordinals, this descent
+must terminate. The theorem follows at once from this termination. Q.E.D.
+
+Lou. Can't you prove this Theorem without invoking the ordinals?
+
+Jeremy. As a matter of fact I do need a structure like the ordinals to prove
+the Theorem. It can be shown [LN] that there is no proof that the Goodstein
+sequences terminate that is just based on the classical Peano axioms for the
+natural numbers. One needs key concepts related to higher induction such as
+our results about the ordinals. There may be other proofs, but the ordinals
+provide the most beautiful ground for understanding the Goodstein sequence.
+We see from the proof that ordinals are not just ways to consider infinity.
+They in fact are a kind of algebra that reflects just the right properties
+of numbers to see into the problem about the Goodstein sequence. The proof
+is logical, but it depends upon the concept and logic of the ordinals in
+order to attain our comprehension.
+
+Lou. The ordinals are a language that talks about natural numbers without
+getting involved in all their particularities. Since the ordinals are in
+fact an extension of the natural numbers this is a new arithmetic that
+speaks about the old arithmetic. Language and meta-language are entwined.
+
+Jeremy. In the whole discourse, the language is the meta-language.
+
+                                 References
+
+[B] H. F. Barendregt. The Lambda Calculus - Its Syntax and Semantics. North
+Holland - Amsterdam (1984).
+
+[BGW] G.C. Berkowitz, D.R.Greenberg, C.A.White. An approach to a mathematics
+of phenomena: canonical aspects of reentrant form eigenbehaviour in the
+extended calculus of indications. Cybernetics and Systems: An International
+Journal, 19 (1988) 123-167.
+
+[G] K. Gsdel. On formally undecidable propositions in "Principia
+Mathematica" and related systems. translated by B. Meltzer, edited by R.B.
+Braithwaite. New York: Basic Books (1962).
+
+[HVF] Heinz von Foerster. Objects: Tokens for (Eigen-)behaviours.
+(reprinted) in Observing Systems, Intersystems Publications (1981) 274-285.
+
+[KV] L.H. Kauffman and F.G. Varela, Form dynamics, Journal of Social and
+Biological Structures, 3 (1980) 171-206.
+
+[K1] L.H. Kauffman. Knot Logic. In Knots and Applications. edited by L. H.
+Kauffman, World Scientific Pub. (1995), 1-110.
+
+[K2] L.H.Kauffman. On Knots. Princeton University Press (1987).
+
+[K3] L.H.Kauffman. Knots and Physics. World Scientific Pub. (1991 and 1993).
+
+[K4] L.H.Kauffman. Self reference and recursive forms. Journal of Social and
+Biological Structures (1987), 53-72.
+
+[K5] L. H. Kauffman. Arithmetic in the Form. Cybernetics and Systems, 26
+(1995), 1-57.
+
+[K6]. L.H. Kauffman. Ways of the game - play and position play. Cybernetics
+and Human Knowing - A Journal of Second Order Cybernetics and
+Cyber-Semiotics. Vol.2, No. 3. (1994) 17-34.
+
+[K6] L.H. Kauffman. Virtual Logic. Systems Research Vol. 13 No. 3 (1996) ,
+pp. 293-310.
+
+[J] J.P.Laraudogoitia. This article should not be rejected by Mind. Mind.
+Vol. 99 (1990) 598-599.
+
+[L] M.H. Lsb. Solution of a problem of Leon Henkin. Journal of Symbolic
+Logic. 20 (1955) 115-118.
+
+[LN] M. Loebel and J. Nestril. Fast and slow growing (a combinatorial study
+of unprovability). London Math. Soc. Lecture Notes Ser. 166 (1990).
+
+[M] W. S. McCulloch. What is a number that a man may know it, and a man,
+that he may know a number? (the Ninth Alfred Korzybski Memorial Lecture),
+General Semantics Bulletin, Nos. 26 and 27 (Lakeville, Conn: Institute of
+General Semantics, 1961) , p 7-18. Reprinted in "Embodiments of Mind", MIT
+Press (1989).
+
+[M] E. Mendelson. Introduction to Mathematical Logic. Wadsworth and
+Brooks/Cole (1987).
+
+[P1] A. Pedretti (editor). Self-Reference on the Isle of Wight - Transcripts
+of the first International conference on Self-Reference - August 24 -27
+(1979), Princelet Editions.
+
+[P2] A. Pedretti. Cybernetics of Language. Princelet Editions (1981). [in
+The I of Language. (2nd edition of Cybernetics of Language) (to appear)].
+
+[SB] G. Spencer-Brown. Laws of Form. E.P. Dutton (1979).
+
+[U] R. Uribe. Tractatus Paradoxico-Philosophicus (preprint 1995).
+
+[W] L. Wittgenstein. Tractatus Logicus Philosophicus. First Published
+(1921). Routledge and Kegan Paul Pub. (1961).

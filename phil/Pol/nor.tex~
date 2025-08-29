@@ -1,0 +1,96 @@
+\documentclass[12pt]{article}
+
+
+\newenvironment{wier}
+	{\begin{verse}}
+	{\end{verse} \begin{center}$\bullet\ \bullet\ \bullet$\end{center}}
+\newenvironment{wiersz}[1]
+	{\begin{verse} \hspace*{-1em}{\bf #1}}
+	{\end{verse} \begin{center}$\bullet\ \bullet\ \bullet$\end{center}}
+\newenvironment{wierszd}[2]
+	{\begin{verse} \hspace*{-1em}{\bf #1}\hfill{\small{(#2)}}\\[.5ex] }
+	{\end{verse} \begin{center}$\bullet\ \bullet\ \bullet$\end{center}}
+\newcommand{\chap}[1]{\section*{#1}}
+
+\begin{document}
+
+\section*{Fors{\o}k p{\aa} norsk oversettelse}
+\begin{wier}
+Omfavnet av havet, tungt som rommet,\\
+Tiende med tyngdens dybde, hvor fra usikre b{\o}lger\\
+Fors{\o}ker {\aa} hviske ut skjulte hemmeligheter,\\
+{\AA} vekke monsteret fra evig s{\o}vn ...
+
+Omfavnet av en kraft fortettet som forventing\\
+Uroer overflaten med b{\aa}ten, men aner sp{\aa}domer,\\
+Pirrer b{\o}lger, fra kyst til kyst, aldr i dybde,\\
+Og venter p{\aa} et utbrudd, som m{\aa}tte aldri komme.
+
+Omfavnet av en {\aa}nde fra et tamt dyr\\
+Stryker stillheten med garn p{\aa} letting etter skatter\\
+Og vet at hans tilfallende del\\
+Er kun en gave fra en fremmed kraft -- mild, urovekkende.
+\end{wier}
+
+\begin{wier}
+Hva var spr{\aa}ket? Hvilket?\\
+N{\aa}r det vevde kyssenes ord\\
+P{\aa} en uendelig tr{\aa}d ... fra dybde,\\
+Fra hjertets overflod er ordenes rikdom.
+
+Og fra rikdom av usagte ord\\
+F{\o}des handling, som et kyss\\
+Som skaper det som alerede var...\\
+Men n{\aa}r den stillner -- hva vitner det om?
+
+Der ordene stillner ender jorden\\
+Og hvorfra kan en b{\aa}t hentes for {\aa} seile?\\
+Hva var spr{\aa}ket? -- at det kunne glemmes,\\
+Kan noe glemmes, noe som var?
+
+Eller er noe som var for evig?\\
+Som hjertets ring sunket i havet\\
+I midten av ringer, b{\o}lger\\
+Stillnende i evighet, liksom ordene.
+
+Verdens biter, ord, gjenglemte\\
+I havet uten klager, som forst{\aa}else,\\
+P{\aa} en uendelig tr{\aa}d, stille tiende\\
+Gjennom b{\o}lgenes evige smil .. stille og evige.
+\end{wier}
+
+\begin{wiersz}
+{Jeg s{\aa} et par}\\
+I m{\aa}neskinn, bland\\
+Forvirrede smug av en ukjent by,\\
+D{\o}mt til n{\ae}rv{\ae}r -- av den elskede.
+
+Med blikk forsvinnende bland piper,\\
+Langsomt og skjelvende som r{\o}yk,\\
+Flyktende fra den andres blikk.
+
+De g{\aa}r, flyr vekk\\
+Mens de b{\o}yer mot hverandre usikkerhet,\\
+Stolthet av uventede ensomheter
+
+Som siv forstyrret av vinden ...
+\end{wiersz}
+
+\begin{wier}
+For et enkelt smils stjerneskudd,\\
+For en lys `hei' n{\aa}r den letter forventingens h{\aa}p\\
+Gjennom et blikk fra under {\o}yebrynn senket\\
+Som en munks hette, ydmykt og v{\aa}galt,
+
+For din enkel glede ville jeg gitt\\
+Verden ...
+
+Og sjelen? Forsvinnende i uroens dybde,\\
+Merket med risser av usynlige betydninger,\\
+Der fra sprekker str{\o}mmer livets vann,\\
+Som h{\aa}r, som t{\aa}rer, ydmykt og stille,
+
+For din gledes ro ville jeg gitt ...
+\end{wier}
+
+\end{document}

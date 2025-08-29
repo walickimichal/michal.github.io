@@ -1,0 +1,786 @@
+%\documentstyle[a4paper]{article}
+\newenvironment{wiersz}[1]
+	{\begin{verse} \hspace*{-1em}{\bf #1}}
+	{\end{verse} \begin{center}$\bullet\ \bullet\ \bullet$\end{center}}
+\newenvironment{wierszd}[2]
+	{\begin{verse} \hspace*{-1em}{\bf #1}\hfill{\small{(#2)}}\\[.5ex] }
+	{\end{verse} \begin{center}$\bullet\ \bullet\ \bullet$\end{center}}
+\newcommand{\chap}[1]{\newpage\section*{#1}}
+
+\newcommand{\old}[1]{}
+
+\usepackage[polish]{babel}
+
+%\newcommand{\e}{\c{e}}
+%\renewcommand{\a}{\c{a}}
+\newcommand{\e}{\eob}
+\renewcommand{\a}{\aob}
+
+\renewcommand{\o}{\'{o}}
+\newcommand{\z}{\'{z}}
+\newcommand{\n}{\'{n}}
+\newcommand{\s}{\'{s}}
+\renewcommand{\S}{\'{S}}
+
+\newcommand{\ci}{\'{c}}
+\newcommand{\Z}{\'{Z}}
+%\newcommand{\rz}{\.{z}}
+\newcommand{\rz}{\zkb}
+\newcommand{\Rz}{\Zkb}
+
+\begin{document}
+
+%\section*{}\vspace*{-3ex}
+\chap{Czas rzeszywisto{\s}ci} 
+%
+\begin{wierszd} {Powierzchnie rzeczy}{1983}
+Czego szuka szalbiercza niepewno{\s}{\ci} w wieku prawdy,\\
+Wciele{\n} w trwanie rzeczy? \\
+Czy\.{z} huk bomb, p{\e}kaj{\a}cych czerep{\o}w, \\
+Krzyki {\s}mierci, \.{z}ar ca{\l}opale{\n}, \\
+Nie wysuszy{\l}y {\z}r{\o}de{\l} {\l}ez, kt{\o}rymi B{\o}g \\
+Przelewa{\l} serca? Odchodz{\a} spojrzenia, \\
+Kobiety ze wzgardzon{\a} mi{\l}o{\s}ci{\a}; \\
+Wiemy -- jeste{\s}my poza niewinno{\s}ci{\a}. 
+
+Bracia z przypadku, spytajcie filozof{\o}w. \\
+Zbyt wiele rzeczy nazwano ma{\l}ymi,  \\
+Zbyt d{\l}ugo pr{\o}bowali{\s}my patrze{\ci} w niebo, \\
+Wyprowadza{\ci} kszta{\l}ty z chmur. Jest, co musi by{\ci}. \\
+Jak kamieniarze, ze szlachetnego marmuru \\
+Wykuwajmy ko{\l}yski dom{\o}w -- by ros{\l}y \\
+W ko{\s}cio{\l}y ziemi, wie\.{z}e {\s}wiadomo{\s}ci! \\
+Lecz by je ogrza{\ci}, czy starczy wieczno{\s}ci? 
+
+Fa{\l}szywe pi{\e}kno s{\l}{\o}w b{\o}lem jest tym wi{\e}kszym, \\
+\.{Z}e od b{\o}lu ucieka. \\
+Czy to z cieniem szacunku patrz{\a} na nas \\
+Rzeczy, czy z ogniem nienasycenia?\\
+A gdy wygasaj{\a}? Nie ciche ptak{\o}w umieranie \\
+Lecz {\s}mier{\ci}, jak kamie{\n} obcy, o kt{\o}rej te\.{z} wiemy -- \\
+Zwyci{\e}\.{z}aj{\a}cy, i znowu zwyci{\e}\.{z}eni. 
+
+St{\e}\.{z}a{\l}a bry{\l}a \.{z}elaza wyj{\e}ta z ognia w rzeczwisto{\s}{\ci}, \\
+Ostatni{\a} nami{\e}tno{\s}{\ci}, narkotyk. \\
+Niech sprosta naszej sile, jak obc{\e}gi kowala.  \\
+Atlasy milcz{\a}ce {\s}wiatem, \\
+Ludzie zapomniani w nieodwracalnym \\
+Odpowiadaj{\a} tylko za siebie. \\
+Serca, jak powierzchnie rzeczy si{\e} {\s}cieraj{\a} -- \\
+Zdumione -- i poza w{\l}asny niebyt trwaj{\a}. 
+\vspace*{-1ex}\end{wierszd}\vspace*{-3ex}
+%
+\begin{wierszd} {Boja{\z}{\n} i dr\.{z}enie}{198?}
+T{\l}um zapatrzony w wyroki m{\e}drc{\o}w, \\ 
+Grzej{\a}cy si{\e} przy ogniu o{\l}tarzy. \\ 
+Jak uci{\e}ty w niesko{\n}czono{\s}ci wzrok schizofrenika \\ 
+Goni{\a}cy wierzcho{\l}ek {\s}wiecy, \\ 
+Przyt{\l}oczony ci{\e}\.{z}arem ko{\s}cielnych pie{\s}ni, \\ 
+Kt{\o}re ze sklepienia wal{\a} si{\e} \\ 
+Na g{\l}owy wiejskich prostaczk{\o}w, \\ 
+Kobiecin w haftowanych chustkach, \\ 
+Odnosz{\a}cych na r{\e}kach modlitwy do nieba. \\ 
+Monolit {\s}wi{\a}tyni, wobec kt{\o}rej \\ 
+Jedni daj{\a} pewno{\s}{\ci} drugim, \\ 
+Kt{\o}rej nigdy nie przenika zak{\l}{\o}cenie, fa{\l}szywy ton, \\ 
+Do kt{\o}rej nigdy nie dociera \\ 
+Szelest li{\s}ci poruszanych niewidocznym cia{\l}em w{\e}\.{z}a, \\ 
+Szmer, ruch dziwny pytaj{\a}cych oczu i serc, \\ 
+Niepok{\o}j i zagubienie, szamoc{\a}ce si{\e} pod powierzchni{\a} ceremoni, \\ 
+Jak nieodkryta istota rzeczy.
+
+\end{wierszd}
+
+\begin{wierszd}{}{1999}
+Czym by{\l} j{\e}zyk? Jaki? \\
+Gdy prz{\a}d{\l} s{\l}{\o}w poca{\l}unki\\
+Na niesko{\n}czonej nici ... Z g{\l}{\e}bi,\\
+Z nadmiaru serca jest bogactwo s{\l}{\o}w.
+
+A z obfito{\s}ci s{\l}{\o}w -- niewys{\l}owionych -- \\
+Rodzi si{\e} czyn, jak poca{\l}unek,\\
+I stwarza to, co ju\.{z} by{\l}o.\\
+Lecz gdy zamiera -- o czym {\s}wiadczy?
+
+Gdzie s{\l}owa milkn{\a}, ziemia si{\e} ko{\n}czy, \\
+A by \.{z}eglowa{\ci}, sk{\a}d wzi{\a}{\ci} {\l}{\o}d{\z}?\\
+Czym by{\l} j{\e}zyk -- \.{z}e mog{\l}em zapomnie{\ci}?\\
+Czy mo\.{z}na zapomnie{\ci} to, co by{\l}o?
+
+Czy, co raz by{\l}o, jest na wieczno{\s}{\ci}?\\
+Jak pier{\s}cie{\n} serca zatopiony w morzu,\\
+Po{\s}r{\o}d wiecznych kr{\e}g{\o}w, fal\\
+Co z czasem milkn{\a}, jak s{\l}owa ...
+
+Kawa{\l}ki {\s}wiata, s{\l}owa, zapomniane\\
+W morze bez skargi, jak zrozumienie\\
+Na niesko{\n}czonej nici, milcz{\a}c\\
+Przez u{\s}miechy fal wiecznie ... cicho i wiecznie.
+\end{wierszd}
+%
+%%%% uspokojenie....
+\begin{wierszd} {Przyzwyczajenie}{198?}
+Do ciszy jezior, \\ 
+Szumu drzew wierzcho{\l}k{\o}w, \\ 
+I d{\l}ugodziobych czapli \\ 
+Po wodzie brodz{\a}cych \\ 
+W cieniu gwiazd \ldots \\ 
+\ldots do tego si{\e} przyzwyczaj{\e}. \\ 
+I dym{\o}w miast \\ 
+Rozdrapywanych chmurami wie\.{z}owc{\o}w, \\ 
+I samochod{\o}w za oknami, \\ 
+W lampami gwiezdnym niebie \ldots \\ 
+\ldots do tego si{\e} jeszcze przyzwyczaj{\e}. \\ 
+Ale splecionych d{\l}oni \\ 
+Wspieraj{\a}cych twarz wpatrzon{\a} w siebie \ldots \\ 
+W pokoju, z kt{\o}rego mroku tylko oczy {\s}wiec{\a} \\ 
+W podmiejskim barze, czy luksusowym hotelu. \\ 
+Cho{\ci}by od tysi{\a}cleci jednym wpatrzeniem \\ 
+Znajduje siebie - dzi{\s} tylko, \\ 
+Mi{\e}dzy jutro, a wczoraj \ldots \\ 
+\ldots I nie staje si{\e} to przyzwyczajeniem. 
+
+\end{wierszd}
+%
+\newpage
+\begin{wierszd} {Wspomnienia}{198?}
+{\S}lady zaszele{\s}ci{\l}y - znajomego kroku, \\ 
+Jak martwy smutek li{\s}ci zapoznanych. \\ 
+B{\l}ysk oczu zgasi{\l} {\s}wiat{\l}o w mroku \\ 
+Niezgrabnych wspomnie{\n} w ciszy popl{\a}tanych. 
+
+	Na wieczno{\s}{\ci}, kt{\o}ra przecie\.{z} \.{z}yciem kusi \\ 
+	Niewydarzonych zdarze{\n} rocznice obchodzi{\ci}? \\ 
+	Dlaczego wzrok spojrzeniem zabi{\ci} musi \\ 
+	To wszystko, co pragn{\a}{\l}by odrodzi{\ci}? 
+
+Dzie{\n} mnie wyprzedzi{\l}. Wieko nieba \\ 
+Zamyka w czasie moje niebycie. \\ 
+Komu, i czemu zaprzeczy{\ci} trzeba \\ 
+By zn{\o}w mo\.{z}na by{\l}o rozpocz{\a}{\ci} \.{z}ycie? 
+
+	Rozwia{\l} obrazy z mg{\l}y utkane brzask \\ 
+	I przesta{\l} kusi{\ci} ich spe{\l}nieniem. \\ 
+	Wzrokiem swym dzie{\n} wy{\l}uska{\l} z gwiazd \\ 
+	I nadziej{\e}, kt{\o}ra te\.{z} jest wspomnieniem.
+\end{wierszd}
+%
+
+%
+%\newpage
+
+\begin{wierszd}{}{1983}
+
+Wzrok wpatrzony we mg{\l}{\e}. \\ 
+Przed po{\l}udniem deszcz obrazy rozma\.{z}e \\ 
+I pami{\e}{\ci}. \\ 
+{\L}agodnym szelestem pokaleczy twarze \\ 
+Nim zastygn{\a}, jak nieme zwierz{\e}ta, \\ 
+Kt{\o}re nie zna{\l}y {\s}mierci, \\ 
+A straci{\l}y zmys{\l}y z b{\o}lu trwa{\l}ego, \\ 
+Bez {\z}r{\o}d{\l}a. 
+
+I niebo sp{\l}ywa {\s}cie\.{z}kami deszczu  \\ 
+W gar{\s}cie dolin. Obleka poszukiwaczy imion \\ 
+Zw{\a}tpieniem. \\ 
+Jakby bogowie znu\.{z}eni {\s}piewem \\ 
+Z{\l}{\a}czyli r{\o}\.{z}ne kr{\o}lestwa \\ 
+Wi{\e}zi{\a} silniejsz{\a} ni\.{z} w{\e}dr{\o}wka samotno{\s}ci \\ 
+Bez pocz{\a}tku.  
+
+A\.{z} cisza poch{\l}ania oddechy kwiat{\o}w, \\ 
+{\S}pi{\a}cych kobiet uspokojonych mi{\l}o{\s}ci{\a} \\ 
+I noc{\a}. \\ 
+U{\s}miech ta{\n}czy po nagim ciele \\ 
+Do bezg{\l}o{\s}nej muzyki ksi{\e}\.{z}yca \\ 
+I schodzi w g{\l}{\e}bi{\e} milczenia, \\ 
+Kt{\o}ra ucisza nawet krzyk duszy, \\ 
+Bezgwiezdny. 
+
+Co da miar{\e} przesz{\l}o{\s}ci \\ 
+I z{\l}agodzi cierpienie, \\ 
+Je{\s}li B{\o}g zdj{\a}{\l} zas{\l}on{\e} mi{\l}o{\s}ci \\ 
+Ze {\s}wiata, i marzenie? 
+
+\end{wierszd}
+
+\newpage
+\begin{wierszd} {Niewolnicy}{1981}
+Dni pop{\e}ka{\l}y w{\s}r{\o}d trz{\e}sienia ziemi, \\ 
+Kt{\o}re po{\l}kn{\e}{\l}y ko{\s}cio{\l}y, rado{\s}{\ci} rze{\z}bionych cherubink{\o}w \\ 
+Powieka morza zakry{\l}a tajemnic{\e} pocz{\a}tku, \\ 
+Przymykaj{\a}c oczy Boga usypiaj{\a}cym szumem. 
+ 
+	W podwodnych katedrach niewolnicy \\ 
+	Sp{\e}dzaj{\a} stulecia samotno{\s}ci \\ 
+	Poszukuj{\a}c w{\s}r{\o}d skarb{\o}w klucza, \\ 
+	Kt{\o}rego tylko oni mog{\a} u\.{z}y{\ci}. 
+
+A noc{\a} tylko B{\o}g patrzy {\l}agodnym okiem ksi{\e}\.{z}yca \\ 
+Na ich rany migoc{\a}ce po o{\l}owianych wrotach fal \\ 
+I wspomina ciep{\l}ym u{\s}miechem wiatru \\ 
+Trz{\e}sienia ziemi, kt{\o}rych nigdy nie by{\l}o.
+
+\end{wierszd}
+
+\begin{wierszd}{}{2000}
+%Jak ranne ptaki, w b{\o}lu zagubione,\\
+Zranione ptaki, w b{\o}lu zagubione,\\
+Wznosz{\a} ku niebu skrzydlate spojrzenia,\\
+By w samotno{\s}ci niebem utulonej\\
+Odnale{\z}{\ci} drog{\e} -- drog{\e} ukojenia?
+
+W otwartym lustrze nieba, cisz{\a} czystym,\\
+Szukaj{\a} odbi{\ci} -- ze {\s}wietln{\a} osnow{\a} -- \\
+Rzeczy powykrzywianych, nieprzej\.{z}ystych,\\
+Kt{\o}re przesta{\l}y si{\e} zgadza{\ci} ze sob{\a}.
+
+I lec{\a} wy\.{z}ej, ku kra{\n}com wiatru, w gwiazd\\
+Samotno{\s}{\ci}, co cierpieniu daje miar{\e},\\
+Przeszukuj{\a}c puste szlaki, raz po raz, \\
+Jakby ni{\ci}mi cierpienia tka{\l}y wiar{\e}.
+
+Tam, hen, na dnie ciszy, gdzie si{\e} ko{\n}czy czas,\\
+W oddali, w g{\l}{\e}bi ostatniego tchnienia,\\
+Nim martwym deszczem spadn{\a} na pola, w las,\\
+Dzi{\e}kuj{\a} za b{\o}l -- jak dow{\o}d istnienia.
+\end{wierszd}
+
+\chap{Uspokojenie}\vspace*{-3ex}
+
+\begin{wierszd}{}{1983}
+Zanurzony by{\l} w parskanie i dziki t{\e}tent koni, \\  
+W oszala{\l}y kaszel suchotniczej ziemi. \\ 
+Rozwiane ogony smaga{\l}y go po twarzy, \\ 
+Wplata{\l}y si{\e} we w{\l}osy i wyrywa{\l}y je z kawa{\l}kami sk{\o}ry. \\ 
+Wzniecony kurz opada{\l} w szczeliny kroplami krwi, \\ 
+{\L}okcie i kolana otarte mia{\l} tward{\a} sier{\s}ci{\a} przewalaj{\a}cej si{\e} fali - \\ 
+Fali zad{\o}w, grzbiet{\o}w i {\l}b{\o}w, \\ 
+Fali za{\s}lepionej ob{\l}{\a}ka{\n}czym p{\e}dem cia{\l}. \\ 
+.  .  .  \\ 
+ I jeszcze przez chwil{\e} zwielokrotniony huk wype{\l}nia{\l} mu czaszk{\e}, \\ 
+Mimo \.{z}e odg{\l}os powtarza{\l} si{\e} ju\.{z} tylko s{\l}abn{\a}cym echem, \\ 
+{\S}wiadomy swojej bliskiej {\s}mierci. \\  
+Rozwiane grzywy wtopi{\l}y si{\e} w s{\l}upy drgaj{\a}cego powietrza i py{\l}u. \\ 
+Sta{\l} oszo{\l}omiony, pr{\o}buj{\a}c zatrzyma{\ci} ogrom zdumienia ... 
+
+A teraz zag{\l}{\e}bia si{\e} w wilgotn{\a} ziele{\n} lasu, \\ 
+Wdycha szmer wody i ptasie g{\l}osy, \\ 
+I w stonowanych promieniach s{\l}o{\n}ca czuje puls, czuje \.{z}ycie, \\ 
+Mimo \.{z}e wko{\l}o nie rusza si{\e} \.{z}adne zwierz{\e}.
+
+\end{wierszd}
+
+\begin{wierszd}{}{1981}
+
+Deszcze spragnione sp{\e}kanej ziemi, \\ 
+Wiatry zg{\l}odnia{\l}e spokojnych w{\l}os{\o}w, \\ 
+I struna dr\.{z}{\a}ca w ruszeniu cieni, \\ 
+T{\e}tent kaszl{\a}cy w rozgwarze g{\l}os{\o}w. 
+
+	Eksplozja spok{\o}j przyogarnia{\l}a \\ 
+	Ko{\s}cio{\l}a w palc{\o}w swych rozchylenie, \\ 
+	Huk nadd{\z}wi{\e}kowc{\o}w, eskadra ca{\l}a \\ 
+	Pomi{\e}dzy s{\l}owa, w ust rozchylenie. 
+ 
+Zamknij bicie op{\e}tanych dzwon{\o}w, \\ 
+Zamknij wiatry odwieczystej burzy \\ 
+W sen g{\l}{\e}boki, r{\o}wny, m{\e}\.{z}czyzn nocnej str{\o}\.{z}y, \\ 
+W splocie ramion, w pi{\a}stce dziecka, w ciszy zgon{\o}w. 
+
+	Krzyk, jak jedwab cienki z szaty umierania, \\ 
+	Sploty {\l}ez w rozpaczy wyrywane z dna \\ 
+	{\S}wi{\a}tyni zanikania, wydumania \\ 
+	W rozchylenie jasnych oczu, w {\s}wiat{\l}o dnia.
+
+\end{wierszd}
+
+\newpage
+\begin{wierszd}{}{1983}
+Niepokoj{\a}ce wirowanie  \\ 
+Garncarskich k{\o}{\l} \\ 
+Jakgdyby trwa{\l}o, p{\o}ki nie stanie, \\ 
+Ruch st{\o}p \.{z}ylastych w g{\o}r{\e}, i w d{\o}{\l}. 
+ 
+	Jak wszyscy, kt{\o}rzy potrafi{\a} zdradza{\ci}, \\ 
+	Zerwane wi{\e}zy i rzeczy niechciane, \\ 
+	Jak z{\l}o, co zwyk{\l}o samotnie chadza{\ci} \\ 
+	Szalej{\a} ko{\l}a zbuntowane, 
+
+Lecz zwyk{\l}ym ruchem si{\e} palce wczepiaj{\a} \\ 
+W glin{\e}, i zwyk{\l}e si{\e} wczepia spojrzenie, \\ 
+I krople potu na ko{\l}a padaj{\a}, \\ 
+I z potem razem - uspokojenie.
+
+\end{wierszd}
+
+\begin{wierszd}{}{1999}
+Ogarni{\e}ty przez morze, ci{\e}{\rz}kie jak przestrze{\n},\\
+Milcz{\a}ce ci{\e}{\rz}arem g{\l}{\e}bi, z kt{\o}rej niepewne fale\\
+Pr{\o}buj{\a} wyszumie{\ci} ukryte tajemnice,\\
+Obudzi{\ci} potwora z wiecznego snu...
+
+Ogarni{\e}ty przez si{\l}{\e} skupion{\a} jak wyczekiwanie\\
+Dra{\rz}ni {\l}odzi{\a} powierzchni{\e}, ale przeczuwa wyroki,\\
+Niepokoi fale, od brzegu do brzegu, nigdy w g{\l}{\a}b,\\
+Czekaj{\a}c wybuchu, kt{\o}ry oby nie nast{\a}pi{\l}.
+
+Ogarni{\e}ty tchnieniem oswojonego zwierz{\e}cia,\\
+G{\l}aszcze sieciami cisz{\e} szukaj{\a}c skarb{\o}w\\
+Lecz wie, {\rz}e przypadaj{\a}ca mu cz{\a}stka\\
+Jest tylko darem obcej si{\l}y -- {\l}agodnej, niepokoj{\a}cej.
+\end{wierszd}
+
+\begin{wierszd} {Dwie {\s}wiece}{1981}
+P{\l}omienie {\s}wiec \\ 
+Ta{\n}cz{\a} nieprzytomnie, ob{\l}{\a}kane \\ 
+Pragnieniem wyrwania si{\e} sobie. \\ 
+W nienasyconych podskokach \\ 
+Nie maj{\a} nawet czasu na zdziwienie, \\ 
+Gdy ich gor{\a}cy rytua{\l} urywa si{\e} nagle \\ 
+Zatrzymany bezmy{\s}lnym podmuchem \ldots \\ 
+Pozostawiaj{\a} tylko chwil{\e} drgaj{\a}cego wspomnienia, \\ 
+Smu\.{z}k{\e} dymu, \\ 
+Kt{\o}ry bezwolnie oddaje swe cia{\l}o \\ 
+Spokojnym obj{\e}ciom ciemno{\s}ci. 
+
+Lecz je{\s}li pomy{\s}lny wiatr \\ 
+Pozwoli im do ko{\n}ca \\ 
+Cieszy{\ci} oczy \.{z}ywym {\s}wiat{\l}em, \\ 
+Dopalaj{\a} si{\e} powoli \\ 
+Rozwa\.{z}aj{\a}c pokornie sw{\o}j koniec \\ 
+A\.{z} ich prosta {\s}wiadomo{\s}{\ci} \\ 
+Przechodzi w niesamowite kszta{\l}ty ciep{\l}ego wosku \\ 
+Zdradzaj{\a}ce przesz{\l}y niepok{\o}j, \\ 
+Kt{\o}ry zastyga powoli, \\ 
+Uk{\l}adaj{\a}c si{\e} z wieczno{\s}ci{\a}.
+
+\end{wierszd}
+
+%\newpage
+%\vspace*{-4ex}
+
+%\newpage
+\begin{wierszd}{}{198?}
+
+\.{Z}eglarze odm{\e}t{\o}w! \\ 
+Dr{\o}g znanych z bajek i ksi{\a}g \\ 
+Zapomnianych w dzeci{\n}stwie. \\ 
+Twarde jak liny, \\ 
+Wasze serce to kad{\l}ub okr{\e}tu. \\ 
+\.{Z}eglarze odm{\e}t{\o}w! \\ 
+Nie ciep{\l}ych piask{\o}w, lecz ciemnego morza, \\ 
+Nie s{\l}odyczy fig i s{\l}{\o}w jasnych starc{\o}w, \\ 
+Lecz szmeru powszedniej grozy, s{\l}onej wody, \\*
+Uciszeni spojrzeniem w niesko{\n}czono{\s}{\ci} \\* 
+Szukacie ... 
+ 
+Mieszka{\n}cy wysp! \\ 
+Spokojni, jak lot albatrosa \\ 
+Oswoili{\s}cie lwy i ziemi{\e}. \\ 
+W nadbrze\.{z}nych ska{\l}ach \\ 
+Przechowali{\s}cie m{\a}dro{\s}ci ojc{\o}w, \\ 
+Kt{\o}re chroni{\a} przed sztormem. \\ 
+Mieszka{\n}cy wysp! \\ 
+Uciszeni prac{\a}, w cieniu palm \\ 
+Spo\.{z}ywacie owoce S{\l}o{\n}ca, \\ 
+Gorzkie mleko i s{\l}odycz daktyli. \\ 
+W sercach nie ma trwogi, \\ 
+Wzrok nie szuka otch{\l}ani.
+
+\end{wierszd}
+\vspace*{-4ex}
+
+%\newpage
+\begin{wierszd}{}{198?}
+
+Ws{\l}uchani jak tropiciele {\s}lad{\o}w \\ 
+W niewidoczn{\a} obecno{\s}{\ci}, \\ 
+W odciski st{\o}p na piasku \\ 
+Zalewane cisz{\a} fal, \\ 
+Gdy ofiarowuj{\a} si{\e} brzegom. 
+
+Z twardych w{\l}{\o}kien rzeczy \\ 
+Wysnuwaj{\a} lot ptak{\o}w. \\ 
+Wie\.{z}ami si{\e}gaj{\a} po oddech wiatru, \\ 
+Kt{\o}ry owiewa kolumnady s{\l}{\o}w \\ 
+Cieniem niedotykalnego zdziwienia. 
+
+W koszykach ognisk odnajduj{\a} \\ 
+{\S}wiat{\l}o promieni s{\l}onecznych \\ 
+Zebranych na zim{\e} wok{\o}{\l} osad, \\ 
+Gdzie ta{\n}cz{\a} do muzyki, \\ 
+Kt{\o}ra te\.{z} jest stamt{\a}d. 
+
+Posiadaj{\a} to, co przeczuwaj{\a} \\ 
+W oczach starc{\o}w bez skargi, \\ 
+Niemych s{\l}owach matek, \\ 
+I w mi{\l}o{\s}ci - znikome {\s}lady \\ 
+Trwania poza ich trwaniem.
+\end{wierszd} \vspace*{-3ex}
+
+
+
+
+\begin{wierszd} {Cisza i {\s}piew I} {198?}
+Martwi milcz{\a} - bo pustka nie rozumie s{\l}{\o}w. \\ 
+\.{Z}ywi m{\o}wi{\a} z obfito{\s}ci serca. \\ 
+Tych, kt{\o}rzy kochaj{\a} sta{\ci} na {\s}piew. \\ 
+
+\end{wierszd}\vspace*{-3ex}
+
+\begin{wierszd} {Cisza i {\s}piew II}{198?}
+Przedwcze{\s}nie zmarli w milczeniu \\ 
+Zapomnieli mi{\l}o{\s}ci, \\ 
+Zamykaj{\a} cisz{\e} swojej duszy. \\ 
+Sp{\e}tani strachem przed niemoc{\a} wys{\l}owienia nieznanego \\ 
+Rzucaj{\a} zazdrosne spojrzenia 
+
+	Ku pogodnym twarzom \.{z}yj{\a}cych, \\ 
+	Kt{\o}rzy z pe{\l}ni serca m{\o}wi{\a} \\ 
+	O wszystkim, co ma by{\ci} powiedziane, \\ 
+	O tych, kt{\o}rzy odeszli, \\ 
+	A w pokornym zachwycie 
+
+O tych, kt{\o}rzy s{\a}cz{\a} wino cierpliwego zrozumienia \\ 
+I \.{z}yj{\a} nieswoim \.{z}yciem, \\ 
+Wyra\.{z}aj{\a} niwyra\.{z}alne \ldots \\ 
+O kochaj{\a}cych - jedynych, kt{\o}rych sta{\ci} na {\s}piew \\ 
+I modlitw{\e} za \.{z}ywych i umar{\l}ych.
+
+\end{wierszd}\vspace*{-3ex}
+
+\chap{Impresje}
+%
+
+\begin{wierszd} {Dzie{\n}} {1984}
+{\S}wit, nim uczucia wczorajsze na nowo rozbudzi \\ 
+Wyjmuje z ciszy kszta{\l}ty bez formy, na wp{\o}{\l} znane. \\ 
+Ich o\.{z}ywieniem i spe{\l}nieniem {\l}udzi, \\ 
+Lecz one wol{\a} swoje p{\o}{\l}\.{z}ycie nad ranem 
+
+Ni\.{z} w dzie{\n} - oddany na w{\l}asno{\s}{\ci} pr{\o}bom uchwycenia \\ 
+Sensu, pokory i mi{\l}o{\s}ci, kt{\o}rym grozi zdrada, \\ 
+{\Z}r{\o}d{\l}a rado{\s}ci dzieci - pocz{\a}tk{\o}w istnienia \ldots \\ 
+Bo wszystko nim si{\e} wypowie ju\.{z} znowu zapada 
+
+W wiecz{\o}r, co odchodz{\a}cych ludzi \\ 
+W ch{\l}odzie czerwonego wina powoli zatraca. \\ 
+Kr{\o}tkim spojrzeniem chwil{\e} jeszcze trudzi, \\ 
+A\.{z} wszystko w powracaj{\a}c{\a} ciemno{\s}{\ci} z u{\s}miechem obraca.
+\end{wierszd}\vspace*{-2ex}
+
+\begin{wierszd} {Pory roku}{1988}
+Spopiela{\l}e dni, jak nagie drzewa \\ 
+Powtykane w zimowy krajobraz, \\ 
+Przykryte {\s}niegiem szkielet{\o}w. \\ 
+Si{\l}a - z{\l}amana brakiem wiary  
+
+W odrodzenie przebi{\s}nieg{\o}w \\ 
+I rado{\s}{\ci} ka\.{z}dego kwiatu \\ 
+Budz{\a}cego si{\e} w nadziei, \\ 
+Kt{\o}ra jest jego m{\a}dro{\s}ci{\a}. 
+
+Zieleni traw i dojrzewaj{\a}cym owocom \\ 
+Niebo, rozmarzone gor{\a}cym powietrzem \\ 
+U\.{z}ycza przestrzeni i - czasem - \\ 
+Zakre{\s}la granice wolno{\s}ci.  
+
+A\.{z} nasycone spe{\l}nieniem sady \\ 
+Zrzucaj{\a} ci{\e}\.{z}kie owoce \\ 
+W kosze cierpliwych zbieraczy \\ 
+Gotuj{\a}cych si{\e} na d{\l}ugie rozmowy ze {\s}mierci{\a}.
+
+\end{wierszd}
+
+\begin{wierszd}{Spacer zimowy}{1988}
+Stalowe, ciemne niebo, \\ 
+Stalowoszary l{\o}d, \\ 
+Z{\l}owrog{\a} brzytw{\a} u{\s}miechu \\ 
+Wdziera si{\e} w sk{\o}r{\e} ch{\l}{\o}d;
+
+Przez futra nastroszone, \\ 
+Swetry, we{\l}niane chustki, \\ 
+Zcina cichn{\a}ce serca \\ 
+W lodowe sople pustki.
+
+\end{wierszd}
+
+%\newpage
+\begin{wierszd} 
+{Msza barokowa} {1984}
+Klawesynowe d{\z}wi{\e}ki \\ 
+Sp{\l}ywaj{\a} po szatach barokowych anio{\l}k{\o}w \\ 
+W r{\e}ce kap{\l}ana \\ 
+Wznosz{\a}cego t{\l}um wiernych \\ 
+Ku zagmatwanym jak boskie tajemnice \\ 
+Zdobieniom stropu.
+
+\end{wierszd}
+
+\begin{wierszd}
+{Praga}{1995}
+Flety, fujarki, sypi{\a} koralami \\
+Mi{\e}dzy b{\e}benki i dzwonki, w r{\e}kawy \\
+\.{Z}ak{\o}w, muzykant{\o}w jarmarcznych \\
+Wko{\l}o rynku zastyg{\l}ych \\
+\hspace*{6em}{w kamienne fasady.}
+\end{wierszd}
+
+
+\chap{Portrety\hfill{\small{(1984)}}}\vspace*{2ex}
+
+\begin{wiersz} {Heideggerowi  \\*[1ex]}
+Cisz{\e} pr{\o}buj{\a} wype{\l}ni{\ci} \\ 
+Dymem papierosa, \\ 
+Muzyk{\a} nienasycenia. \\ 
+W ukrytym strachu \\ 
+Uchylaj{\a} si{\e} od upadku \\ 
+pr{\o}buj{\a}c zaw{\l}adn{\a}{\ci} pustk{\a}. \\ 
+Odwracaj{\a} wzrok \\ 
+Od tchnienia {\s}mierci \\ 
+I zab{\o}jczej niesko{\n}czno{\s}ci \.{z}ycia. \\ 
+Lecz czy\.{z} nie istniej{\a}!? \\ 
+Jak ka\.{z}da istota \\*
+Nie mog{\a} sobie pozwoli{\ci} na k{\l}amstwo niebycia.
+
+\end{wiersz}
+
+
+\begin{wiersz}  
+{Porter Kanta \\*[1ex]}
+Bia{\l}e po{\n}czochy w czarnych lakierach stukaj{\a}cych miarowo, \\ 
+Jeden przed drugim, jeden przed drugim, jeden ... \\ 
+Jak bezosobowe obroty planet. \\ 
+Asceza szczup{\l}ej sylwetki, w{\l}asnego cienia popychanego za{\l}o\.{z}onymi z ty{\l}u r{\e}kami. \\ 
+Bia{\l}y ko{\l}nierzyk. \\ 
+Lodowato blada maska z wyr\.{z}ni{\e}tymi kraw{\e}dziami ust, \\ 
+Z bezosobowym dwojgiem oczu, kt{\o}re nie nale\.{z}{\a} do tego 
+  przed\-sta\-wi\-cie\-la gatunku. \\ 
+I nitki jedwabistej peruki \\ 
+Przykrywaj{\a}ce rytmiczne uderzenia krwi, kt{\o}ra op{\l}ywa cienkimi \.{z}y{\l}kami m{\o}zg, pulsuje, jak j{\a}dra s{\l}o{\n}c. \\ 
+I tylko oniemia{\l}e zdziwienie - gdzie znale{\z}{\ci} centrum, \\ 
+Oplataj{\a}ce wszystkie te guziki, po{\l}y fraka, spodnie, g{\l}ow{\e}, \\ 
+Przenikaj{\a}ce wszystko jednym, kategorycznym nakazem? \\ 
+W prawym lakierze? W splecionych d{\l}oniach? {\Z}renicy? \\ 
+W niesko{\n}czono{\s}ciach kosmosu?  \\ 
+
+\end{wiersz}
+
+\begin{wierszd} {Vivaldi - 4 pory roku}{1988}
+Przedrze{\z}niaj{\a} skrzypce pierwsze drugie \\ 
+Cicho, nie{\s}mia{\l}o, jak kwiat{\o}w pierwsze p{\a}ki. \\ 
+Dr\.{z}{\a} w nadziei nim wybuchn{\a} d{\l}ugie, \\ 
+Jak wiotkie {\l}odygi w{\s}r{\o}d wiosennej {\l}{\a}ki.  
+
+Wnet si{\e} splot{\a} z upa{\l}em. O\.{z}ywi{\a} \\ 
+Klawesynowi dni d{\l}ugie od gor{\a}ca, \\ 
+Kt{\o}re ten przelicza klawiszami, \\ 
+Kroplami, co ta{\n}cz{\a} po promieniach s{\l}o{\n}ca.  
+
+Ruszy{\l}y smyki wiatr{\o}w jesiennych, \\ 
+Zaszele{\s}ci{\l}y li{\s}{\ci}mi struny le{\s}nych harf. \\ 
+{\S}wiat powoli schodzi do podziemi ciemnych, \\ 
+Fale zb{\o}\.{z} p{\l}on{\a} rzek{\a} z{\l}otych szarf. 
+
+Gruba wiolonczela ledwie drgn{\e}{\l}a \\ 
+Nienawyk{\l}a do szybkiego skrzypiec biegu. \\ 
+Szalone iskry nut zgarn{\e}{\l}a \\ 
+I ju\.{z} --  \\ 
+Zamar{\l}a orkiestra w bia{\l}ej ciszy {\s}niegu.
+
+\end{wierszd}
+
+\begin{wierszd}{}{1988} %\ \\
+	Mozart ... \\* 
+Gra do snu wszystkim - dzeciom i doros{\l}ym \\ 
+Ma{\l}{\a}, wieczorn{\a} muzyk{\e}. I wype{\l}nia pok{\o}j \\ 
+Raz menuetem przeci{\a}g{\l}ym, raz ta{\n}cem radosnym, \\ 
+Co z g{\l}{\e}bi lekkie pi{\e}kno nios{\a}, a z pi{\e}knem spok{\o}j. 
+ 
+	Berlioz ... \\* 
+Hardy, zgorzknia{\l}y, {\s}wiadomy wolno{\s}ci \\ 
+Marsz na szafot w ironii i {\s}miechu fanfar{\o}w. \\ 
+Ci{\e}cie. I ju\.{z} b{\e}bny zapraszaj{\a} go{\s}ci \\ 
+Na sabat, orgie psyche i do dusznych czar{\o}w. 
+ 
+	Chopin ... \\*
+Z t{\e}sknot{\a} d{\l}ugich klawiszy i dr\.{z}eniem \\ 
+Wspomina wygnany ksi{\a}\.{z}{\e} falowanie p{\o}l. \\ 
+Elegi{\e} smutku k{\l}adzie na fortepian cieniem \\ 
+I sw{\o}j b{\o}l przywo{\l}uj{\a}c, koi {\s}wiata b{\o}l. 
+
+	Bach ... \\*
+Po stopniach fugi, w organowym szyku \\ 
+Ci{\e}\.{z}kozbrojni rycerze w gmach katedry wstaj{\a}. \\ 
+P{\l}yn{\a} konno pod sklepienia gotyku, \\ 
+Kt{\o}re d{\z}wi{\e}ki Te Deum w niebo otwieraj{\a}. 
+ 
+	Czajkowski ... \\*
+Wiatr okrywa p{\l}aszczem dziewcz{\e}ta kwitn{\a}ce, \\ 
+Gnie {\l}ab{\e}dzie szyje polnych drzew w zawieje, \\ 
+Czasami wiosenn{\a} burz{\e} rozp{\e}ta na {\l}{\a}ce \\ 
+I zaraz czystym okiem jeziora si{\e} {\s}mieje. 
+\end{wierszd}
+
+\chap{Ty}
+
+
+\begin{wierszd}{Widzia{\l}em par{\e}}{1999}
+W ksi{\e}\.{z}ycow{\a} noc, w{\s}r{\o}d\\
+Spl{\a}tanych uliczek obcego miasta,\\
+Skazani na obecno{\s}{\ci} -- kochaj{\a}cego.
+
+Wysnuwaj{\a} z komin{\o}w\\
+Smu\.{z}ki dymu dr\.{z}{\a}cym wzrokiem,\\
+Uciekaj{\a}c przed spojrzeniem drugiego.
+
+Odchodz{\a}, odlatuj{\a}, ponad dachy\\
+Chyl{\a}c ku sobie niepewnie\\
+Dum{\e} niespodziewanej samotno{\s}ci.
+
+Jak trzciny zak{\l}{\o}cone wiatrem ...
+
+\end{wierszd}
+
+
+\begin{wiersz} {Poca{\l}unki \\*[1ex]}
+S{\a} poca{\l}unki pierwsze, \\ 
+Co ods{\l}aniaj{\a} {\s}wiat \\ 
+Znany z woni marze{\n} ... \\ 
+Z oddaniem wr{\e}czane  \\ 
+W skupieniu wieczornych jezior, \\ 
+W dr\.{z}enie le{\s}nej ciszy ... \\ 
+Gdy dzwonki s{\l}owik{\o}w zacznaj{\a} gra{\ci} \\ 
+Obejmuj{\a} czule usta obietnice \\ 
+Tego, co si{\e} nie sta{\l}o, lecz musi si{\e} sta{\ci}. 
+ 
+S{\a} poca{\l}unki chwil \\ 
+Rzucane jak r{\o}\.{z}e w ziemi{\e}, \\ 
+Z kt{\o}rej nie wyro{\s}nie nic ... \\ 
+Czerwone rany duszy \\ 
+Uk{\l}adane na piersiach \\ 
+W kobierce niepami{\e}ci ... \\ 
+Mi{\e}dzy korale naszyjnik{\o}w cienia,  \\ 
+W rozgwar wieczor{\o}w i dni  \\ 
+Wplataj{\a} spragnione usta warkocze zapomnienia. 
+
+S{\a} poca{\l}unki zm{\e}czone, \\ 
+Co g{\l}usz{\a} \\ 
+Nieszcz{\e}{\s}cia innych czas{\o}w. \\ 
+Nieszczere, bo zdradzone \\ 
+Gin{\a} nienarodzone \\ 
+W jednostajno{\s}ci dni ... \\ 
+W bezwolnych chwilach rabunku \\ 
+Wci{\a}\.{z} na nowo wydaj{\a} \\ 
+Gorzki smak - gorzki smak poca{\l}unku. 
+
+I s{\a} poca{\l}unki jedyne \\ 
+Jak bukiet niezapominajek  \\ 
+Wpi{\e}tych we w{\l}osy. \\ 
+A ka\.{z}da jest {\s}wie\.{z}a wiosn{\a}, \\ 
+Jak niespodzianka i dar \\ 
+Dobrej wr{\o}\.{z}ki, o oczach skrz{\a}cych rado{\s}ci{\a} ... \\ 
+I {\s}wiat zapomina krzywdy, \\ 
+A usta kochane m{\o}wi{\a} \\ 
+"Na wieczno{\s}{\ci}" - czyli - "teraz lub nigdy".
+
+\end{wiersz}
+
+
+\begin{wierszd}{}{1983}
+Nie wspominam Ci{\e} s{\l}owami. One skoczne \\
+Jak szaliki, latawce odlatuj{\a}. \\
+Ani spojrzeniem, ani my{\s}lami, gdy mroczne  \\
+Popi{\o}{\l} pami{\e}ci bezg{\l}o{\s}nie przesypuj{\a}.
+
+Nie z front{\o}w samotnych {\s}mierci, odleg{\l}o{\s}ci, \\
+Lecz z g{\l}{\e}bi domu, z ciszy przenikanej \\
+Wzrokiem Boga gdy na nas patrzy, z chwil rado{\s}ci, \\
+I z wdzi{\e}czno{\s}ci za przesz{\l}o{\s}{\ci} - zapoznanej.
+
+Wstajesz nagle - nikt nie pyta, nikt nie przeczy \\
+Z kapci, kt{\o}re w pod{\l}odze {\s}cie\.{z}k{\e} star{\l}y, \\
+Z kartek, nad kt{\o}rymi u{\s}miech zawis{\l}, z rzeczy, \\
+Kt{\o}re Twoim \.{z}yciem \.{z}y{\l}y - i zamar{\l}y,
+
+\end{wierszd}
+
+\old{
+\begin{wierszd}{}{1999}
+To by{\l}y dni bez liczb, bez godzin,\\
+Gdy w twoich w{\l}osach {\s}piewa{\l}y ptaki\\
+{\S}wit zwiastuj{\a}c z g{\l}{\e}bi parku\\
+Milcz{\a}cego wiekami ciemno{\s}ci.
+
+I twoje oczy patrzy{\l}y spo{\s}r{\o}d drzew\\
+Skrzeniem stawu z zieleni, w cieniu\\
+Marze{\n} gotowych do lotu,\\
+Skrzyde{\l} ufnych nadziej{\a} przestrzeni.
+
+Wi{\e}c by{\l}y dni bez liczb, bez godzin,\\
+Gdy cisza przenika{\l}a samotno{\s}{\ci} cia{\l}\\
+Dr\.{z}eniem oczekiwania na poprzedni dzie{\n},\\
+A u{\s}miech koi{\l} serce zapatrzone.
+\end{wierszd}
+}
+\begin{wierszd}{}{1999}
+To by{\l}y dni bez liczb, bez godzin,\\
+Twoje w{\l}osy {\s}piewa{\l}y ptakami\\
+{\S}wit zwiastuj{\a}c z g{\l}{\e}bi parku\\
+Milcz{\a}cego ciemno{\s}ci wiekami.
+
+I twoje oczy patrzy{\l}y spo{\s}r{\o}d drzew\\
+Skrzeniem stawu i {\z}r{\o}de{\l} z zieleni,\\
+W cieniu marze{\n} gotowych do lotu,\\
+Skrzyde{\l} ufnych nadziej{\a} przestrzeni.
+
+Wi{\e}c by{\l}y dni bez liczb, bez godzin,\\
+Gdy obietnic{\a} by{\l} najl\.{z}ejszy cie{\n},\\
+A cisza dr\.{z}a{\l}a w samotno{\s}ci cia{\l}\\
+Oczekiwaniem na poprzedni dzie{\n}.\\
+\end{wierszd}
+
+
+\begin{wierszd}{}{1999}
+Za jeden gwiezdny b{\l}ysk u{\s}miechu,\\
+Za jasne `witaj', gdy ul\.{z}y{\l}o nadzieji czekania\\
+W spojrzeniu spod brwi spuszczonych,\\
+Jak kaptur mnicha, kornie i zuchwale.
+
+Za jedn{\a} rado{\s}\'c twoj{\a} odda{\l}bym\\
+{\S}wiat  ...
+
+A dusz{\e}? Zapatrzon{\a} w g{\l}{\e}bi{\e} niepokoju\\
+Sp{\e}kanego rysami niewidzialnych znacze{\n},\\
+Gdzie spo{\s}r{\o}d szczelin sp{\l}ywa woda \.{z}ycia,\\
+Jak w{\l}osy, jak {\l}zy, kornie i cicho.
+
+Za spok{\o}j twej rado{\s}ci odda{\l}bym ...
+\end{wierszd}
+
+\newpage
+\begin{wierszd}{}{1999}
+There are things which no man can ever own,\\
+%Like things of which no man is the master,\\
+Deep, quiet seas under the face of days,\\
+Surrounding life by silent horison,\\
+Whence love and peace into this world are sown.
+
+Removing veils and fogg of confusion,\\
+Incessant search for truths, the proud ``I know''\\
+Breed only restless doubt for, in due time,\\
+The new truths turn into old illusions.
+
+Chaos is not calmed by ``I will'', ``I know''\\
+Which scatter fancy toys around soul's room.\\
+Simple peace is time's gift to the patience\\
+Which humbly thanks for things it cannot own.
+
+May you with joy millennium celebrate,\\
+And Merry Christmas and Happy New Year.\\
+I wasn't enough? -- had only myself to give.\\
+Greetings! With love -- which failed to incarnate.
+\end{wierszd}
+
+\end{document}

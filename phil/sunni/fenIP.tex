@@ -1,0 +1,559 @@
+\documentstyle[a4wide,11pt]{article}
+
+\newcommand{\qpa}[1]{[???\hspace*{1em} {\em #1}\hspace*{1em} ???]}
+\newcommand{\lev}[1]{{\sf{#1}}}
+%\newcommand{\prg}[1]{\paragraph{[#1]}}
+\newcommand{\prg}[1]{\vspace*{1.5ex}\par\noindent{\lev{#1.}}\par }
+
+\newcounter{THESIS}
+\def\theTHESIS{\arabic{section}.\arabic{THESIS}}
+\newcommand{\thesis}[1]{\refstepcounter{THESIS} \\[1ex]
+% \vspace*{1ex}\par\noindent
+  (\theTHESIS)\hspace*{1em}{\parbox[t]{13.5cm}{\sf #1}\\[2ex]}}
+%     \vspace*{2ex}\par\noindent}
+ %%     \begin{center}{(\theTHESIS)\hfill\sf 
+ %%         #1}\hfill{$\bullet$}\end{center}}
+%%%     \vspace*{1.5ex}\par\noindent{\em #1}\hfill{(\theTHESIS)}\par }
+
+\newcommand{\comment}[1]{\\[1ex] {\small{$\lceil$#1$\rfloor$}}\\[1ex]}
+
+\newcommand{\co}[1]{{\sl{#1\/}}}
+\newcommand{\wo}[1]{``#1''}
+\newcommand{\thi}[1]{`{\sl{#1\/}}'}
+\newcommand{\phe}[1]{\thi{#1}} %{{\sf{#1}}}
+
+\newcommand{\quo}[1]{``{\em #1\/}''}
+\newcommand{\quot}[1]{\begin{quote} #1\end{quote}}
+
+\newcommand{\MyLPar}{\parsep -.2ex plus.2ex minus.2ex\itemsep\parsep
+   \vspace{-\topsep}\vspace{.5ex}}
+
+\renewcommand{\abstract}[1]{{\small{#1}}}
+
+\renewcommand{\baselinestretch}{1.5}
+
+\begin{document}
+
+\title{The \co{Principle of Intentionality}  -- limitiations of the method}
+\author{ }
+
+\date{\hfill\small\today}  % August 8, 1996
+\maketitle \vspace*{-3ex}
+%\vspace*{-5ex}\section{What and Why}
+\abstract{Phenomenology, like any method, 
+has its limitations. The study of intentional acts and 
+objects of consciousness under the guidance of phenomenological 
+reductions excludes important aspects of experience. 
+More precisely, it does not exclude them in the sense of ignoring
+them. 
+%is inappropriate for their adequate description. 
+As a universal method, it attempts to squeeze them to fit into its 
+methodological corset, thus making them appear in a disguised, inadequate form.
+Section~\ref{sec:over} gives a brief overview 
+of some aspects of the phenomenological method -- with the particular emphasis on the 
+principle of intentionality -- which are relevant for the argument following in
+section~\ref{sec:limits}.}
+
+\section{A Brief Overview}\label{sec:over}
+
+Husserl's project begins with the same complain as Kant's: 
+\quo{I do not say that philosophy is an imperfect sicence; I say 
+simply that it is not {\em yet} a science at all, that as science it 
+has not {\em yet} begun} (\cite{RS}, my emphasis).
+Having seen some hundreds years of the development of 
+various sciences, Husserl, unlike Descartes or Kant, did not claim
+that science 
+provides the absolute, final truth. Its distinguished feature is not so much the 
+indubitable certainity of its results, but rather the fact that these 
+results are obtained and accumulated under the guidance of a \co{method}. 
+In fact, method is the essential feature of science:
+science does not need a method -- it {\em is} a method; and 
+phenomenology is {\em the} methodology for scientific 
+philosophy.\footnote{A very fine balance must be kept here because, after all, the 
+initial intention is to gain access to {\em indubitable} knowledge. 
+However, since the ideal of such a knowledge cannot, any more, be 
+found 
+even in science, one is forced to renounce it also in philosophy. 
+What is then left, so it seems, is methodology.}
+The rigor, precision and certainity of mathematics has fascinated many philosophers.
+As Descartes and Kant did, so does Husserl begin his search for 
+a methodology with this paradigmatic science. 
+
+\subsection{The Mathematical Ideal}
+
+In mathematics, there is no doubt as 
+to \wo{what one is talking about} -- the objects in question are 
+given 
+fully, or \co{adequately}; their definitions exhaust the given 
+content, even if their consequences may remain unclear. When a
+mathematician considers \thi{natural numers} or \thi{triangles}, he is 
+fully aware of 
+what they are -- even if he is not aware (at the same moment, or in 
+general) of all the properties they may possess. 
+
+Husserl recognizes that the rigor and certainity
+achievable in mathematics are due to the purely \co{intentional} 
+character of 
+the objects with which it deals. Discussions between platonists, 
+intuitionists and formalists 
+notwithstanding, the objects of mathematics are \wo{constructed} 
+rather than \wo{discovered}, they are results of ingenious 
+definitions 
+and constructions, and not of a confrontation with some external 
+objects and experiences.
+
+The phenomenological method is not a straightforward application of
+mathematics (or mathematical method) to philosophy. 
+Nevertheless, the aim is to unveil the structures of consciousness
+and modes of givenness of its objects which could match
+the certainity and precision of mathematical thinking and objects.
+% and the precision of mathematical objects.
+ 
+\subsection{Intentionality}
+% \subsubsection{The Principle of Intentionality}
+The starting point for Husserl is, as it was for Descartes, the 
+analysis of \co{cogito}. The conclusions, however, are very different.
+Husserl observes that what is indubitably given in \co{cogito}
+is not, as Descartes claimed, 
+merely the \co{cogito} itself, the fact that \thi{I am thinking}. 
+Its object, the \co{cogitatum}, is 
+present with equal certainity and necessity, it is just the opposite 
+pole of the totality of a 
+single act. Cartesian \co{cogito} reveals, according to Husserl, not 
+the existence of a substantial subject -- it reveals only itself, 
+that is, an act and whatever is present in it.
+
+What is present in this act is not a separate subject and an external 
+object. Present is only the act -- a unity of two poles, of the \co{cogito} which is 
+conscious of some given \co{cogitatum}. These two poles cannot be 
+considered separately.
+What appears for consciousness are not some 
+external objects, lying outside the \wo{box of \co{cogito}}, but  
+\co{intentional objects}, necessary correlates of the acts of 
+consciousness.\footnote{This insight resolves the 
+worries about \co{things-in-themselves} 
+which always evade consciousness. It also dispenses with the mistaken 
+image of consciousness as a \quo{closed box} which tries to encompass 
+external things -- by means of some internal representations.}
+In each act of consciousness, there is not only consciousness itself
+but also, with equal necessity, an object. 
+The principle of intentionality says:\vspace*{-4ex} 
+\thesis{Consciousness is always 
+consciousness of \co{something}.\label{th:int}}\vspace*{-6ex}
+%
+\subsubsection{Transparency of \co{cogitatum}}
+Since \co{cogito} necessarily involves \co{cogitatum}, there is 
+no barrier separating consciousness from what is given for it.
+Objects of consciousness are not external things which, somehow, have to 
+be \wo{admitted to the immanency of consciousness}. 
+An object is an essential aspect
+of consciousness, an indispensable \co{correlate}
+of  any conscious act.
+Perhaps, it is not \wo{constructed} in exactly the same 
+way as a mathematical object is. 
+But being an inherent part of the whole act, it is \wo{intended} by consciousness, 
+it is not an external, but an \co{intentional object}. As such, it is as fully revealed 
+as the \co{cogito} itself. 
+
+The acts of rational reflection make accessible to consciousness the 
+\co{cogito} as well as the \co{cogitatum}. And the latter can be 
+given with the same degree of adequacy as the former, with the same 
+degree of precision as the objects of mathematics are given to a 
+mathematician. 
+And since this is the general feature of 
+consciousness, it applies not only to the objects of perception or of 
+mathematics, but to any objects whatsoever of which we can be 
+conscious.
+
+\subsubsection{\co{Essential intuitions} and \co{eidetic reduction}}
+But, of course, not everything we are aware of appears with such a 
+full clarity; some objects emerge only indistinctly, without sharp 
+limits and characteristics. Nevertheless, although not all objects are 
+immediately given in a fully adequate intuition, the thesis goes, 
+they always can be. This is so because objects, being  
+\co{intentional objects}, are objects of consciousness and are 
+\wo{constituted as correlates of intentional acts}.  
+
+Without going 
+into too many details, let us only emphasize the main point: each 
+\co{intentional object} has an \co{essence} which can be given in
+\co{essential intuition}. It can be found by means 
+of \co{eidetic reduction}, or \co{ideation}.  Roughly, \co{ideation} amounts to 
+varying the appearance of the object, to positing it in new contexts, 
+attempting to see it from various sides. The residuum of a series of 
+such variations, what remains after the accidental aspects have been 
+changed and replaced by others, reveals the \co{essence} -- the object of 
+\co{essential intuition}.\footnote{Obviously, \co{essences} are 
+ideal objects, and the \co{essential 
+intuition} is very much like the \co{intellectual intuition} so 
+definitely denied by Kant.} 
+
+%The following point concerning \co{ideation} should be emphasized. 
+One has to keep clearly in mind that \co{ideation} is not a process of 
+{\em deriving} \co{essence} from appearances.
+\co{Essence} is {\em not derived} from the
+appearances -- it can only be {\em seen in} the appearances. In 
+particular, \co{ideation} has nothing to do with induction, it is not 
+a generalization from a series of appearances -- it is only a method 
+of finding the \co{essence} among appearances.
+Once an essential insight (or intuition) occurs, there is 
+no need for more variations. In a way, \co{essential intuition} puts an 
+end to the insecurity as to what the next appearance may bring with 
+it -- it establishes an insight which, from now on, rules over the
+upredictable richness of the world of appearances.
+Phenomenology describes the ways of 
+achieving the knowledge of \co{essences}, and \co{essences} given in 
+\co{essential intuition} are the primary objects of its 
+study.
+% ~\footnote{This goes a bit counter the general intention of the 
+% phenomenological project. Inspired by the analogy of scientific 
+% development, phenomenological investigations are expected to develop 
+% (forever?) by gradual verification and accummulation of essential 
+% insights. But why should it be so, if essential intuition presents us 
+% with {\em the} essence?}
+
+\subsubsection{\co{Epoch\={e}} -- reduction of the irrelevant}
+
+Phenomenology is thus the study of essences of the phenomena which 
+appear as intentional objects of consciousness.  And Husserl 
+certainly means that everything worth studying falls within this 
+domain. There is only one old question which cannot be settled by 
+such a study of contents of consciousness, namely, the question 
+whether these contents also {\em exist independently} from 
+consciousness. But since such an \thi{independent existence} cannot be 
+given {\em in} consciousness, the question is deemed irrelevant, and in 
+order to stop asking it, Husserl recommands \co{phenomenological 
+reduction}, \co{epoch\={e}}.
+It amounts precisely to that: \wo{putting the world in 
+parentheses} and, instead of worrying about irresolvable (because not 
+given as a phenomenon) issue, 
+concentrate on the contents accessible to consciousness.
+
+Its justification lies in the conviction that 
+everything else, but this question, can be studied phenomenologically, 
+that except phenomena, there remains nothing but the question of 
+external existence of \co{intentional objects}. 
+Consequently, the only thing affected by \co{epoch\={e}} is the \wo{non-phenomenal}
+-- what is \wo{outside} consciousness -- that is, the possible existence 
+of the 
+objects independent from consciousness.\footnote{This is the 
+phenomenological way of avoiding the fruitless diputes about the 
+existence of external world: the issue is 
+simply declared irrelevant.} \co{Epoch\={e}}, leaving all the contents 
+unchanged and accessible to consciousness, excludes the question about 
+the independent,  non-phenomenal existence from the field of
+ phenomenological inquiry. 
+% Thus, we can formulate the phenomenological reduction in the following way:
+%
+\thesis{\co{Epoch\={e}} reduces away everything which is 
+non-phenomenal, everything which, not appearing for consciousness,
+falls outside the principle of intentionality.\label{th:epint}}
+%
+Notice that the question whether things {\em are} external is 
+different from 
+the fact that things {\em appear as being} external. However, 
+they appear as external {\em for consciousness} and  the latter 
+fact does not imply the former.
+This \co{appearing as external} is an intrinsic aspect of 
+givenness of many objects and, 
+as such, will be observed by the phenomenological analysis. But that 
+objects actually {\em are} external is not -- yeah, {\em can not} be 
+-- given in the immanency of consciousness, and so is not a phenomenological issue.
+% And so this question is 
+% excluded from the field of phenomenological intersts.
+
+\section{Limits of Intentionality}\label{sec:limits}
+Methodology amounts always to excluding things considered incorrect 
+or 
+irrelevant. In sciences, this follows typically by some implicit 
+assumptions and tacit understanding as to what is justifiable and what is not. 
+In methodological discussions, 
+however, one always argues about which procedures, observations, even 
+facts, are to be allowed and which are to be considered illegitimate. 
+Observing this restrictive function, Feyerabend arguing \quo{Against 
+Method} suggests that in real scientific development 
+\quo{anything goes} -- methodological justification, if it is not to restrict 
+the researchers, may come {\em post factum}. This 
+kind 
+of anarchism may be too extreme for many, but the concession that 
+methodology, {\em any} methodology, forbids some ways of thinking or 
+arguing, would naturally lead to a dose of scepticism about its value. Does also
+the phenomenological method suffer such a drawback? And if 
+so, what does it exclude?
+This section will attempt to illustrate the thesis that 
+\thesis{Intentionality does not govern all forms of 
+givenness.\label{th:nointGen}}
+In (\ref{th:epint}) phenomenal contents and principle of intentionality were 
+mentioned in one line. Indeed, the two are in Husserl, if not equivalent, then 
+at least co-extensional: the access to 
+any intentional object goes exclusively via phenomena and, on the other hand, 
+intentionality is the constitutive feature of consciousness and so any phenomena 
+appear only in the context of some intentional object.
+However, distinguishing between the two as (\ref{th:nointGen}) suggests, one should 
+specify whether \co{epoch\={e}} reduces the non-phenomenal or the non-intentional 
+contents. 
+%I do not want to enter the speculations about which aspect should be sacrified.
+The thesis that
+\thesis{\co{epoch\={e}} excludes more than the mere question 
+about the external existence\label{th:epex}}
+can be proposed under the assumption that, in (\ref{th:epint}), we put 
+emphasis on the \co{non-intentional}, 
+that which \wo{falls outside the principle of intentionality}. If, instead, we 
+emphasize the \co{non-phenomenal}, then we should ignore the claim (\ref{th:epex}). 
+In any case, the main thesis (\ref{th:nointGen}) is not affected by this choice.
+%
+\subsection{Actuality}
+The examples of phenomena to be found in Husserl's writings are mostly 
+of two kinds: either objects of perception or else mathematical 
+entities. In fact, it is relatively easy to follow an analysis of 
+what appears in my consciousness when I think, for 
+instance, \phe{this table in front of me}. If I try to analyse 
+\phe{table as such} (or the \co{essence} of the phenomenon \phe{table}) 
+it becomes more problematic but still, this intentional object seems 
+to be given with a sufficient degree of clarity. 
+And so on, I can start analyzing the phenomena of \phe{the room I am 
+sitting in}, \phe{the building I am in}, \phe{the city of Bergen}, 
+\phe{my world}, \phe{the world}, etc.
+
+Here, however, there seems to arise an important distinction. What is 
+the essence of \phe{the city of Bergen}, or even worse, of 
+\phe{my world}, supposed to be? Surely, something appears in my 
+consciousness when I think these things, but what is it? I may still 
+have some vague ideas about \phe{the city of Bergen}, but when it 
+comes to \phe{my world} I can only say that it is \quo{something but I 
+do not really have a clue what}. Well, it is \co{something} -- like 
+anything of which I am conscious -- and in order to find what it is, 
+Husserl would suggest \co{eidetic reduction}. But how long am I supposed 
+to keep varying and reducing? For the rest of my life, I guess, 
+because what my world was yeasterday does not apply today, and what 
+it is going to be tomorrow, only tomorrow can tell. Yet \phe{my world} 
+yeasterday was as much my world as \phe{my world} today is, and as 
+\phe{my world} tomorrow is going to be -- it is the same \phe{my 
+world}.
+
+The distinction I have in mind is between the objects (phenomena) 
+which naturally fit within \co{the horizon of actuality} 
+of consciousness and those which do not. Consciousness is actual 
+through and through, it is, perhaps, the \co{actuality pure and 
+simle}.\footnote{With all the \co{protentions} and \co{retentions}, for 
+sure, but still a unit of actuality which is centered around an
+\co{intentional object}.}
+Whenever I am conscious (of something) it happens here-and-now, 
+within a narrow (if at all extended) \co{horizon of actuality}. 
+Concepts, or objects of perception fit well into it, but \phe{my world} does not.
+
+Take another example. I meet a wise man, that is, the phenomenon 
+\phe{this wise man} appears in my consciousness. I can reflect over 
+this appearance and analyse its contents, since it is a particular 
+phenomenon appearing here-and-now. But so I pass to another phenomenon: 
+\phe{wisdom}. And...? What do I find in my consciousness? Probably 
+just a bunch of associations which are immediately deemed 
+\wo{psychological}. %The suggested ideation would, i
+In common terms, \co{ideation} would 
+amount to \wo{trying to bring some order} into these 
+associations. But to hit the \co{essence} of \phe{wisdom} I have to be 
+really lucky -- wise people have been trying for thousands of years. 
+(Ok, they did not know about phenomenology, but I still have a 
+feeling that I have to be really lucky. And even if I am, then how 
+many other lucky people are there who disagree?)
+%
+%% \thesis{There are phenomena which cannot be fully present as \co{intentional objects}
+%% within the \co{horizon of actuality}.\label{th:nonact}}
+%
+
+That \co{intentional objects} exceed the \co{horizon of actuality} and appear
+differently in various phenomena was obvious to Husserl. 
+But the point here is that 
+\thesis{There are phenomena which are 
+intrinsically elusive, whose \co{essence} cannot be given adequately as 
+an \co{intentional object}.\label{th:noint}}  
+% 
+These objects 
+% whose supposed \co{essence} evades the actual intuition and
+can be called \wo{transcendent} -- not in any 
+sense of transcendence envisaged by Husserl, but precisely in the sense 
+of (\ref{th:noint}): not only they themselves, but also their supposed 
+\co{essences} are \wo{too rich} to be adequately given as \co{intentional 
+objects} within the scope of a single act. In particular, they never appear 
+as sharp, 
+well-defined objects with a clear \co{site of identity} -- their 
+essence is never given adequately in \co{essential intuition}. On the 
+contrary, things like \phe{wisdom}, \phe{world}, \phe{love}, \phe{evil} have no 
+\wo{sameness}\footnote{Called by Levinas \wo{ipseity}.}
+and are never exhausted in intuition or thinking. Unlike the
+\co{intentional objects} of \co{essential intuition} they are always \wo{too rich}
+and \wo{diffuse}. 
+They are more like \wo{fields} -- some overlapping, some disjoint -- 
+of inexhaustible possibilities of ever new manifestations.
+Consequently, the supposedly \wo{absolute being of consciousness} has 
+no power to grasp their essence for, if they have any, it transcends 
+the actuality to which consciousness is confined. Instead of being 
+grasped, they rather announce their presence by invading 
+consciousness, by embracing it and taking it into their possession.
+
+% Intentionality excludes \wo{richness}.
+
+\subsection{Non-intentional phenomena}
+
+True, there isn't much more for a (non-dogmatic) philosopher to 
+analyze than the contents of his consciousness. But it does not 
+follow that all such contents are necessarily given as 
+definite objects.
+
+Husserl did analyse the phenomena like \phe{Lebenswelt} applying his method 
+to them as to all other phenomena. 
+But so did Heidegger and Marcel, so did Scheler and Sartre. Nobody 
+will claim that they arrived at even remotely similar conclusions. 
+Husserl would say that one genuine essential intuition cannot 
+contradict another, so, most probably, some of them did not arrive at 
+such an intuition.
+
+Trying to decide who of them did and who did not, 
+% apply the phenomenological method correctly, 
+would probably lead only to more 
+disagreement of opinions. Assuming, on the other hand, that they all 
+did  (and why shouldn't we?), we can quote the well known observation:
+in the analysis of \wo{more general phenomena}, phenomenology 
+does not at all lead to an agreement between different 
+thinkers.
+The \wo{more general phenomena} are things like \phe{the world}, 
+\phe{wisdom}, \phe{my life}, \phe{evil}, etc., referred to in (\ref{th:noint}). 
+They, too, appear for 
+consciousness but lack this definiteness and sameness which characterizes the 
+\co{intentional objects}. So let me call them \wo{non-intentional phenomena}. 
+% and refine (\ref{th:nonact})
+%
+% \thesis{There are phenomena which are 
+% intrinsically elusive, whose \co{essence} cannot be given adequately as 
+% an \co{intentional object}.\label{th:noint}}  
+
+A peculiar thing about these \co{non-intentional phenomena}, namely that 
+they lead to a variety of 
+opinions rather than a unified, essential view, reminds of another 
+observation. One can hardly express an opinion in some 
+general matter without, at the same time, revealing something of 
+oneself. Expressing my views about \thi{the character of the world}, \thi{the quality of 
+love}, \thi{the source of evil}, I am not merely stating some facts about the 
+objects -- first of all, I am telling who I am.\footnote{This does not 
+necessarily mean that such views are purely subjective, but it is another story.}
+
+\subsection{Subjectivistic illusion}
+
+Yet, as said before, Husserl claimed to have performed 
+phenomenological analysis of some such phenomena (e.g., \phe{Lebenswelt}), 
+and so seem others 
+to have done. (\ref{th:noint}) claims that not everything in the 
+concrete life of consciousness appears as sharp, \co{intentional objetcs}. 
+But it does not exclude the possibility of transforming a \co{non-intentional phenomenon}
+into such an object and, subsequently, of grasping it within the actuality of 
+consciousness.
+The \co{non-intentional phenomena} exceed the \co{horizon of actuality} 
+and appear only in \wo{diffuse}, ever new and unclear
+intuitions. Nevertheless, they can be stripped of their unpredictability 
+and otherness, and can be constituted as \co{intentional objects}, that 
+is, forced to appear within the \co{horizon of actuality}. 
+
+\subsubsection{Concepts}
+When I experience love, I know that its concreteness exceeds not only the powers 
+of my understanding but also of my being -- \wo{it is greater than 
+me}. But, certainly, I can try to reflect over it, to determine some  
+features of this experience, to characterize it, in short, to entertain 
+a \thi{concept of love}. This is reminiscent of 
+\co{eidetic reduction}, with the reservation that there the objective is not a 
+concept but \co{essential intuition}. The effect, however, seems to 
+be very much the same: the original experience disappears and, 
+instead, one is confronted with a comprised, reduced sign, an 
+\co{intentional object} -- {\em a concept} -- which can be grasped in a single act.
+ 
+Concepts (or, if you still insist, \co{essential intuitions}) are 
+means by which phenomena exceeding the \co{horizon of actuality} can be, at 
+least partially, made present within it. 
+Heidegger's analyses of the phenomenon of \phe{the world} or 
+Sartre's analyses of \phe{love}
+are nothing more than analyses of {\em what they understand by} (see, 
+associate with) the words \wo{world}, \wo{love}. The result is either a 
+conceptual nettwork of interrelations, or else a mood and an underlying 
+feeling of hesitation (in the former case) and disgust (in the 
+latter). And, above all, the feeling that these analyses point towards something
+which we can experience, but that no matter how much has been 
+said about it, there is always more to be said.
+
+\subsubsection{Reflective vs. immediate consciousness}
+It is important to keep in mind that phenomenological analysis is a 
+process of \co{reflective consciousness}.\footnote{\wo{Reflective} 
+consciousness is by no means the same as \wo{reflexive} one. It is 
+highly unclear (at least to me) what the latter could be.} 
+I sit down and decide to 
+analyze, that is, reflect over, the experience of this or that. This 
+decision obviously implies directing my attention at the intended 
+object, i.e., it constitutes the intentional object -- {\em of 
+reflection\/}! And certainly, reflection may focus on the object, 
+on my reaction to it, on the mode of its givenness. All the 
+characteristics ascribed by Husserl to consciousness -- in particular 
+the directedness of intention -- seem to apply 
+without restrictions to \co{reflective consciousness}. The theses of 
+this section suggest that these characteristics can not be 
+transferred to the \co{immediate consciousness}, or else to our 
+pre-reflective being, without falsifying it.
+
+The \wo{subjectivistic illusion} from the title of this subsection 
+indicates the effect of such a transfer: 
+everything {\em can be made} into a definite, intentional object and 
+studied as such. But this 
+does not mean that everything is {\em originally given} as such an object.
+The subjectivistic illusion consists in mistaking the possibility of 
+treating everyting as a definite object for the actuality of everything being 
+given as such an object.
+Treating the \co{non-intentional phenomena} in this way confuses their nature 
+and diminishes the significance they have in our life.
+
+\section{Conclusion}
+Phenomenology did not become the universal method of 
+scientifc philosophy. Instead, ironically enough (and for Husserl this 
+would certainly be a very bitter irony), the main use it was put to was to 
+admit existentialism into the domain of respectable philosophical 
+discourse. 
+
+Much of the attractive power of phenomenology -- and certainly, much 
+of the reason that existentially oriented philosophers found it so 
+attractive -- consists in that it 
+does not exclude anything from the field of potential investigation. 
+On the contrary, anything can (must?) be approached via the way in which it 
+appears for the consciousness. In particular, it does not dismiss individual
+appearances -- it provides the means for analyzing concrete,
+individual phenomena, thus bringing a philosopher back to the world of \wo{concrete
+experience}.
+
+But the seductive power of the 
+method consists in the smooth transition between, in fact, the equivocation 
+of the \co{reflective} and \co{immediate} 
+consciousness. The former is always directed at some specific (even if 
+not clearly recognized) \co{intentional object} -- the object of actual 
+reflection. But, as I tried to argue, such objects do not exhaust 
+% are not always to be found in 
+the immediacy of consciousness which is always haunted 
+by the \co{non-intentional phenomena}.
+
+The limitation of the method lies in that it is designed for the 
+study of \co{essences}, in particular, that it prescribes to view everything
+as \co{intentional objects} appearing within the \co{horizon of actuality}. 
+Consequently, the \co{non-intentional phenomena} eluding such a mode of 
+appearance, must be 
+squeezed to fit within this horizon -- a procedure which necessarily
+reduces them to something they are not. For the purpose of analysis this is, 
+probably, unavoidable. It is also fine --
+%This may be fine (probably, is even unavoidable)
+but only as long as one is aware of this reduction and makes it explicit.
+In the opposite case, one will be constantly perplexed by the fact that
+ one's \co{essential intuitions}
+and insights, \wo{revealing} the \co{essence} of \phe{the world}, 
+\phe{death}, \phe{love}, etc., strangely enough, %all the time
+miss the supposed \co{essence} and are not so exact and definitive as 
+they are supposed to be.
+
+\begin{thebibliography}{SU}
+\bibitem[1]{RS} E.~Husserl, ``Philosophie als strenge Wissenschaft'', {\em Logos}, I, 
+1910-11, 289-341. %{\em Philosophy as Rigorous Science},
+\end{thebibliography}
+
+\end{document}

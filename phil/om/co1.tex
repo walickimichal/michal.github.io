@@ -1,0 +1,56 @@
+\setlength{\unitlength}{0.012500in}%
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined
+% extract first six characters in \fmtname
+\def\x#1#2#3#4#5#6#7\relax{\def\x{#1#2#3#4#5#6}}%
+\expandafter\x\fmtname xxxxxx\relax \def\y{splain}%
+\ifx\x\y   % LaTeX or SliTeX?
+\gdef\SetFigFont#1#2#3{%
+  \ifnum #1<17\tiny\else \ifnum #1<20\small\else
+  \ifnum #1<24\normalsize\else \ifnum #1<29\large\else
+  \ifnum #1<34\Large\else \ifnum #1<41\LARGE\else
+     \huge\fi\fi\fi\fi\fi\fi
+  \csname #3\endcsname}%
+\else
+\gdef\SetFigFont#1#2#3{\begingroup
+  \count@#1\relax \ifnum 25<\count@\count@25\fi
+  \def\x{\endgroup\@setsize\SetFigFont{#2pt}}%
+  \expandafter\x
+    \csname \romannumeral\the\count@ pt\expandafter\endcsname
+    \csname @\romannumeral\the\count@ pt\endcsname
+  \csname #3\endcsname}%
+\fi
+\fi\endgroup
+\begin{picture}(375,60)(12,772)
+\put( 13,801){\makebox(0,0)[lb]{\smash{\SetFigFont{6}{7.2}{sf}a}}}
+\put( 38,801){\makebox(0,0)[lb]{\smash{\SetFigFont{6}{7.2}{sf}b}}}
+\put( 74,801){\makebox(0,0)[lb]{\smash{\SetFigFont{6}{7.2}{sf}c}}}
+\put(113,801){\makebox(0,0)[lb]{\smash{\SetFigFont{6}{7.2}{sf}d}}}
+\thinlines
+\put( 13,794){\circle*{2}}
+\put( 34,794){\circle*{2}}
+\put( 42,794){\circle*{2}}
+\put( 66,794){\circle*{2}}
+\put( 72,794){\circle*{2}}
+\put( 80,794){\circle*{2}}
+\put(102,794){\circle*{2}}
+\put(109,794){\circle*{2}}
+\put(117,794){\circle*{2}}
+\put(125,794){\circle*{2}}
+\put(276,823){\makebox(0,0)[lb]{\smash{\SetFigFont{6}{7.2}{sf}a}}}
+\put(300,823){\makebox(0,0)[lb]{\smash{\SetFigFont{6}{7.2}{sf}b}}}
+\put(337,823){\makebox(0,0)[lb]{\smash{\SetFigFont{6}{7.2}{sf}c}}}
+\put(375,823){\makebox(0,0)[lb]{\smash{\SetFigFont{6}{7.2}{sf}d}}}
+\put(289,824){\oval( 42, 36)[bl]}
+\put(289,824){\oval( 42, 36)[br]}
+\put(306,824){\oval( 84, 64)[bl]}
+\put(306,824){\oval( 82, 64)[br]}
+\put(324,824){\oval(128,102)[bl]}
+\put(324,824){\oval(126,102)[br]}
+\put(331,773){\circle*{2}}
+\put(293,806){\circle*{2}}
+\put(311,792){\circle*{2}}
+\put(279,819){\circle*{2}}
+\multiput(276,821)(2.33607,-1.94672){25}{\makebox(0.1111,0.7778){\SetFigFont{5}{6}{rm}.}}
+\put(178,796){\makebox(0,0)[lb]{\smash{\SetFigFont{8}{9.6}{rm}but rather as}}}
+\end{picture}

@@ -1,0 +1,392 @@
+
+\documentclass[10pt,twocolumn]{article}
+%% \makeatletter
+%% \input{a4wide}
+%% \makeatother
+
+%% \input{defs}
+
+\newcounter{EQ}
+%\newcommand{\equ}[1]{\refstepcounter{EQ}\begin{center}\ \hfill #1\hfill{(\theEQ)}\end{center}}
+\newcommand{\equ}[1]{\refstepcounter{EQ}\vspace{.5ex}\par\noindent\ 
+    \hfill #1\hfill{(\theEQ)}\\[.5ex]}
+\newcommand{\refp}[1]{(\ref{#1})}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+
+\newcommand{\MyLPar}{\parsep -.2ex plus.2ex minus.2ex\itemsep\parsep
+   \vspace{-\topsep}\vspace{.5ex}}
+
+\hyphenation{be-visst-het ufull-stendig-het kon-fron-ta-sjon be-skri-vel-se}
+\hyphenation{re-fe-re-re re-fe-ran-se etter-lig-ne gjel-de gjel-der ob-jekt-et ob-jekt 
+ til-felle sys-tem sys-tem-et pro-gram pro-gram-mer-ing set-ning set-ning-en bes-temt
+ bes-tem-me sann-het sann-hets-ver-di ver-di nod-ven-dig as-pekt de-ter-mi-nis-tisk
+ de-ter-mi-nis-tis-ke eks-emp-el eks-emp-le-ne kunn-skap si-tu-asjon}
+
+
+\title{Mekanisk selv-referanse vs. menneskelig selv-bevissthet}
+\author{Micha{\l} Walicki}
+\date{{}}
+\begin{document}
+
+\maketitle
+%%\hfill\today
+Sp{\o}rsm{\aa}let har en uhyggelig lukt av ``kunstig intelligens'' i dens 
+ureflektert optimisme med trykket p{\aa} ``intelligens'' heller enn 
+p{\aa} ``kunstig''. 
+Prosjektet {\aa} bygge en maskin 
+som kunne best{\aa} Turing test\footnote{Per kan stille 
+vilk{\aa}rlige sp{\o}rsm{\aa}l til to ``lukker''. Fra 
+hver lukke f{\aa}r han et svar og kan stille nye sp{\o}rsm{\aa}l. Bak en av
+lukkene sitter et menneske mens bak den andre en maskin. Maskinen 
+best{\aa}r Turing test dersom Per ikke er istand til {\aa} si hvilke svar 
+som kommer fra maskinen og hvilke fra menneske. 
+Man har kritisert testens behavioristike karakter og reist tvil om 
+den var tilstrekkelig for {\aa} kalle maskin ``intelligent''.}, 
+er omtrent d{\o}d.
+I dag betyr utrykket enten en kommersiell fiasko eller en 
+nisje i datateknologi som utnytter s{\ae}regne datastrukturer og
+programmeringsteknikker.
+
+Men man kan l{\ae}re selv fra de mest fatale erfaringer.
+En gang ps{\aa} 50-60-tallet,
+observerte man at enhver betydningsful oppdagelse innen ``kunstig intelligens'' 
+f{\o}rte til forskyving av grensen for hva som 
+mentes {\aa} skille mekanisk og menneskelig tenkning et tak h{\o}yre -- 
+menneskelig intelligens har hele tiden v{\ae}rt det som vi nettopp ikke hadde 
+n{\aa}dd. 
+ Mens en fullstendig definisjon 
+av menneskelig intelligens, for {\aa} ikke snakke om selv-bevissthet, er 
+fortsatt manglende
+kan det v{\ae}re opplysende {\aa} sammenligne det udefinerbare med noe 
+konkret som vi vet ikke holder m{\aa}l. 
+
+Analyse av selv-referanse, tross 
+uung{\aa}elige forenklinger, er noe alle kompetente personer burde
+kunne si seg enig 
+i.\footnote{Siden informatikk er bare en stedatter av matematikk mens 
+datamaskiner
+kun et teknologisk uttrykk av informatikk, vil jeg fritt blande maskiner,
+formelle system og logiske teorier.}
+Selv-bevissthet er en annen sak og her 
+m{\aa}tte jeg i st{\o}rre grad ty til mine private meninger.
+
+
+\section{Jeg lyver}
+Er det 
+sant at jeg lyver, s{\aa} lyver jeg om at jeg lyver, alts{\aa} lyver jeg ikke. 
+Snakker jeg ikke sant, dvs. lyver jeg i det jeg sier ``jeg 
+lyver'', s{\aa} er det usant at jeg lyver, alts{\aa} snakker jeg 
+sant. 
+Dette er Russells variant av Epimenides' paradoks (500~f.K.): er setningen
+\equ{Denne\ setning\ er\ usann.
+}\label{pa:b}
+sann, s{\aa} blir den usann og omvend.
+En selvmotsigelse viser at noen av antakelsene m{\aa} v{\ae}re galt, og 
+eneste antakelse vi synes {\aa} ha gjort i dette tilfelle var at en 
+setning m{\aa} enten v{\ae}re sann eller usann. 
+
+Tilsvarende selv-referanse paradokser ble brukt for {\aa} p{\aa}vise 
+umulighet av forskjellige antakelser og vi skal se p{\aa} et par eksempler 
+fra dette {\aa}rhundret.
+For {\aa} knytte naturlig spr{\aa}k formulering som \refp{pa:b} 
+til mer formelle varianter omformulerer vi det slikt:
+\equ{$E=$\ \ \ \ Setntningen\ $\<E\>$\ er\ usann.}\label{pa:f}
+Det er en subtil men viktig forskjell mellom \refp{pa:b} og \refp{pa:f} som vil
+spille en viktig rolle i det f{\o}lgende.
+I naturlig spr{\aa}k formuleringer refereres til seg selv 
+ v.hj.a. indeksikalske ord som ``jeg'', ``denne'' hvis 
+referanse avhenger av konteksten. 
+I den mer formelle \refp{pa:f} 
+er selv-referanse oppn{\aa}d v.hj.a. et nytt navn $E$ som 
+betegner hele setningen, samt en spesiel m{\aa}te {\aa} antyde at innenfor 
+setningen refererer vi til denne -- notasjonen $\<E\>$ kan ses som 
+et alternativ til ``$E$''.
+
+
+I siste etappe av QEDs stafetten siterte Jan Arne Telle et eksempel av 
+l{\o}gner paradokset som viser uavgj{\o}rbarhet 
+av stoppeproblemet. Anta at vi kan gi en maksin{\em beskrivelse} som input for en 
+manskin (dette er ikke noe annet enn et progrma som utf{\o}res p{\aa} en 
+datamaskin) og videre at vi har en maskin (program) ${\sf 
+terminerer}\<P\>$ som tar en slik maskinbeskrivelse $\<P\>$ som input og 
+alltid gir et korrekt svar {\sf Sant} dersom $P$ terminerer og {\sf 
+Usant} 
+dersom $P$ ikke terminerer. Da kan vi lage et nytt program:
+\equ{ $E=$\ \ \ \ \ $l:$ if ${\sf terminerer}\<E\>$ goto 
+$l$;}\label{pa:t}
+Sp{\o}r vi om $E$ terminerer, har vi to muligheter. Hvis $E$ 
+terminerer, er ${\sf terminerer}\<E\>$ sant og $E$ vil g{\aa} tilbake 
+til $l$ og fortsette kj{\o}ring derifra i det uendelige -- dvs. den 
+vil ikke terminere. Dersom $E$ ikke terminerer, er ${\sf 
+terminerer}\<E\>$ usant, og dens kj{\o}ring vil stoppe umiddelbart -- 
+ $E$ vil terminere.
+
+Kanskje det mest kjente eksemplet
+% av l{\o}gnerparadokset som ristet matematisk verden og 
+%  f{\o}rte til oppl{\o}sning av et par matematisk-filosofiske skoler 
+finner vi i G\"{o}dels ufullstendighetsteorem. 
+Anta at vi har en aksiomatisk teori $T$ (et spr{\aa}k, identifiserbare aksiomer,
+ inferensregler) som er konsistent (motsigelsesfri) og tillater oss 
+{\aa} snakke om matematiske st{\o}rrelser -- i det minste om 
+naturlige tall.
+Disse, heller rimelige, antakelser 
+tillater oss {\aa} gj{\o}re to ting. For det f{\o}rste, en
+ vilk{\aa}rlig p{\aa}stand 
+$P$ kan {\em kodes} som et objekt -- et naturli tall -- $\<P\>$, 
+som s{\aa} kan omtales av 
+andre p{\aa}stander i $T$. For det andre, kan vi utrykke 
+et predikat ${\sf bevisbar}_{T}\<P\>$ som er sant 
+dersom tallet $\<P\>$ koder en p{\aa}stand $P$ som
+kan bevises i $T$. 
+G\"{o}del konstruerer s{\aa} en setning:
+\equ{$E=$\ \ \ ikke-${\sf bevisbar}_{T}\<E\>$}\label{pa:G}
+Er ${\sf bevisbar}_{T}\<E\>$ sant, dvs. kan $E$ bevises i $T$, skal $E$ 
+v{\ae}re sant, dvs. det skal 
+v{\ae}re sant at $E$ ikke kan bevises i $T$.\footnote{Bland viktige 
+detaljer som ble feid under teppe, er minimumskravet til enhver teori at 
+det som kan bevises er ``sant''.}
+Dermed m{\aa} det v{\ae}re sant at ikke-${\sf bevisbar}_{T}\<E\>$,
+dvs. $E$ er sann men ikke-bevisbar. Konklusjonen 
+viser umuligheten av {\aa} lage en teori som er 
+konsistent og som kan bevise alle sanne p{\aa}stander. Spesielt, er 
+det umulig {\aa} formalisere {\em hele} matematikken i et konsistent
+logisk system. \\[1.5ex]
+%
+%\subsubsection*
+{\bf Selv-referanse} %\label{sub:sr}
+
+La oss n{\aa} se litt p{\aa} det som er felles for de forskjellige 
+eksemplene. Et formelt system har to klart adskilte aspekter: et domene av objekter 
+som kan omtales (input for et program, naturlige tall) samt et 
+spr{\aa}k som brukes for {\aa} omtale disse objektene (programmer, 
+p{\aa}stander i en teori). Objektene er det som kan {\em refereres 
+til} mens p{\aa}stander er det som {\em refererer} til objektene. 
+I eksemplene har vi skilt mellom disse ved {\aa} skrive $E$ for en p{\aa}stand 
+og $\<E\>$ for et omtalt objekt. 
+Dermed er det ingen forskjell mellom referansen til objektet 5 i p{\aa}standen
+``$P=$\ ikke ${\sf bevisbar}_{T}5$'' og til objektet $\<E\>$ i 
+p{\aa}standen ``$E=$\ ikke ${\sf bevisbar}_{T}\<E\>$''. Begge sier at 
+objektet enten ikke koder en p{\aa}stand eller koder en p{\aa}stand 
+som ikke kan bevises. 
+
+Selv-referanse oppn{\aa}es i to steg. For det 
+f{\o}rste, systemets spr{\aa}k m{\aa} v{\ae}re uttryksfult nok for 
+{\aa} kunne {\em kode} sine egne p{\aa}stander som objekter. 
+Vanligvis bruker vi anf{\o}rselstegn for dette form{\aa}let:
+%setningen -- ``Per'' har tre bokstaver. --
+``Per'' refererer til et syntaktisk objekt, ordet ``Per''
+og ikke til personen Per. Likes{\aa} er $\<E\>$ et tall, et input 
+til et program, men ikke en p{\aa}stand. Spesielt s{\aa} {\em brukes} 
+$\<E\>$ {\em som et objekt} referert til av setningen $E$.
+
+Det andre steget er mer innviklet fordi det skjer p{\aa} et 
+metaniv{\aa}. I ingen av v{\aa}re system gjelder 
+likheten
+\equ{$E\ =\ \<E\>$}\label{eq:sr}
+Noe slikt kan ikke en gang uttrykkes -- $\<E\>$ er et objekt og
+kan omtales av  p{\aa}stander men  $E$ er en p{\aa}stand 
+som kan omtales kun p{\aa} metaniv{\aa} (${\sf bevisbar}_{T}E$ 
+gir ingen mening!) Vi har trivielt likheten 
+\equ{$\<E\>=\<E\>$}\label{eq:gn}
+men det er 
+\refp{eq:sr} som ville utrykke ``ekte'' selv-referanse {\em innenfor} systemet.
+
+Selv-referensiell karakter av $E$ kommer 
+til syne utenfra $E$ -- i beste fall for resten av
+systemet som {\em koder} $E$ som $\<E\>$, manipulerer det siste,
+og etablerer likheten \refp{eq:gn}. I verste fall er den
+sett kun  utenfra systemet av en som kan {\em 
+tolke} likheten \refp{eq:gn} som \refp{eq:sr}, samt 
+{\em tolke} resultater av en manipulasjon av $\<E\>$ som gjeldende for $E$.
+Vi har f{\o}lgende hovedpunkter ang{\aa}ende 
+selv-referanse i et formelt system: 
+\hfill{\refstepcounter{EQ}(\theEQ)\label{no:sr}}
+\begin{itemize}\MyLPar
+\item[1.] Det er et skarpt skille mellom det som refererer 
+%(program, formler) 
+og det som refereres til. 
+\item[1a.] Formler m{\aa} kunne {\em kodes} som objekter.
+\item[1b.] Selv-referanse er dermed et spesielt tilfelle av 
+referanse. % der formler refererer til objekter.
+\item[2.] Det finnes ikke selv-refererende system -- kun system der 
+ det er mulig {\aa} konstruere selv-refererende formler. 
+\item[2a.] Identiteten av det som refererer og det som refereres til sees kun 
+utenfra selve referanse-relasjonen.
+\end{itemize}  
+%
+%\subsubsection*
+{\bf Usikkerhet og ufullstendighet}
+
+Maskiner kan h{\aa}ndtere  vel 
+definerte problemer og meget avgrensede omr{\aa}der men er hjelpesl{\o}se 
+ ovenfor problemer som de ikke p{\aa} forh{\aa}nd var 
+programert til {\aa} l{\o}se. Formell, mekanisk betraktning av uforutsigbarhet 
+h{\o}res ut som {\em contradicto in adjecto} men det er nettopp objektet
+av intens studiet 
+innen felt som ikke-monoton, fuzzy og modal logikk,
+ikke-deterministiske beregninger,
+maskinl{\ae}ring, nevrale nettverk, genetiske og on-line algoritmer 
+m.m. Felles for disse er fors{\o}k p{\aa} {\aa} definere algoritmer
+for {\aa} handle ut fra ufullstendig informasjon samt reagere til 
+uforutsatte situasjoner -- akkurat som vi handler hele tiden ut fra 
+ufullstendig kunnskap om verden.
+
+V{\aa}re eksempler antyder at ufullstendighet er 
+et n{\o}dvendig aspekt ikke bare av v{\aa}r kunnskap men ogs{\aa} av selv-referanse.
+Alle ledet til en form for ufullstendighet av 
+systemet innenfor hvilket den oppsto. 
+\refp{pa:b} %``Denne setningen er usann'' 
+viser at noen setninger ikke har en bestemt sannhetsverdi;
+% som vi ikke kan si er sanne eller usanne; 
+det er umulig {\aa} avgj{\o}re om et program vil 
+terminere fordi vi kan lage selv-refererende 
+programmer \refp{pa:t}; en teori som er istand til {\aa} konstruere 
+selv-refererende p{\aa}stander vil inneholde sanne setninger som den 
+ikke kan bevise \refp{pa:G}. Alts{\aa}, litt spekulativt:
+\equ{selv-referanse\ \ $\Rightarrow$\ \ ufullstendighet}\label{eq:ufu}
+Med denne observasjonen forlater vi matematiske fakta
+ og g{\aa}r over til filosofisk ``spekulasjon''.
+
+\section{Selv-bevissthet}
+I daglig spr{\aa}kbruk betyr ``(selv-)bevissthet'' ofte det samme som 
+``(selv-)refleksjon''. I det jeg betrakter et maleri er jeg ikke bevisst 
+(reflektivt) klar over at jeg gj{\o}r det -- jeg bare betrakter det. 
+F{\o}rst n{\aa}r noen sp{\o}r meg ``Hva gj{\o}r du?'' vil jeg rette 
+min opmerksomhet til det faktum {\em at} jeg betrakter dette maleriet. 
+Dette {\aa}pner for et uendelig regress karakteristisk for 
+selv-refleksjon: jeg betrakter et maleri, jeg tenker {\em at} jeg betrakter et 
+maleri, jeg tenker {\em at} jeg tenker {\em at} jeg betrakter... I hvert 
+tilfelle, er akten `jeg tenker {\em at}...' noe annet enn det som st{\aa}r 
+i ``...''. Jeg som tenker {\em at} jeg betrakter et maleri er en annen enn jeg 
+som betrakter maleriet fordi i det jeg tenker {\em at} jeg betrakter, 
+s{\aa} betrakter jeg ikke lenger men tenker {\em at}... Refleksjon er alltid 
+rettet mot noe i fortiden som ikke lenger er tilstedet.
+%, den kommer alltid for sent 
+% for {\aa} v{\ae}re med p{\aa} det den fors{\o}ker {\aa} fange.
+
+Filosofer har lenge brukt et skille mellom slik selv-refleksiv bevissthet 
+og ummidelbar selv-bevissthet som vi n{\aa} m{\aa} si et par ord 
+om.\footnote{Skillet g{\aa}r tilbake til Middelalder men 
+analyser av selv-bevissthet er spesielt sentrale i tysk 
+idealisme med Kant, Hegel of Fichte, samt i fenomenologi 
+med Husserl og Sartre.} Poenget er at selv-refleksjon ville v{\ae}re umulig uten 
+umiddelbar selv-bevissthet. Jeg kan svare p{\aa} sp{\o}rsm{\aa}let ``Hva 
+gj{\o}r du?'' med opplagt ``Jeg betrakter et maleri'' bare fordi i det jeg 
+betrakter uten {\aa} reflektere over det, er jeg umiddelbar, implisitt klar over hva 
+jeg gj{\o}r -- jeg bare ikke fokuserer p{\aa} {\em at} jeg gj{\o}r det.
+
+I selv-refleksjon skiller man lett mellom refleksjonens objekt -- 
+meg selv som betrakter (eller har nettopp betraktet) et maleri, fra refleksjonens
+subjekt -- jeg som n{\aa} tenker {\em at}... Dette skillet minner
+om det vi har sett i selv-referanse: setningen $E$ som refererer til 
+sin egen koding $\<E\>$ og som trenger en utenforlliggende instans (systemet, og her 
+en ny refleksjonsakt) for {\aa} etablere identiteten av begge \refp{eq:sr}.
+ 
+Analyser av umiddelbar selv-bevissthet 
+avsl{\o}rer en mye mer intim sammenheng. En av feneomenologiens sentrale 
+teser lyder 
+\equ{Bevissthet er n{\o}dvendigvis bevissthet {\em om noe}.}\label{eq:be}
+Dette ``om noe'' markerer en avstand fra kartesisk dualisme der 
+bevissthet tenkes som en isolert, selvstendig boks som p{\aa} en eller 
+annen mystisk vis konfronteres med ting, objekt, verden. If{\o}lge 
+\refp{eq:be} er det {\aa} ha et eller annet objekt et essensielt aspekt 
+ved bevisstheten -- {\aa} tenke bevisstheten i seg selv, uten et objekt er 
+feil, om overhodet mulig.
+
+Maleriet er mitt objekt og i det jeg betrakter det er jeg meg dette 
+objektet (umiddelbart) bevist. Men hva vil det si at jeg er meg et objekt 
+bevist? Det vil si at jeg har dette objektet foran meg, at jeg vet at jeg 
+betrakter et objekt som er der ute, foran meg, p{\aa} veggen. 
+Jeg vet at objektet er noe annet, at det ikke er {\em meg selv}.
+Det {\aa} v{\ae}re bevist, det {\aa} ha et objekt er det {\aa} vite 
+at det er noe {\em annet enn meg selv} -- alts{\aa} {\aa} v{\ae}re umiddelbart 
+seg selv bevisst! 
+Det at jeg oppfatter maleriet som noe ytre, noe annet enn meg selv betyr
+at jeg setter det opp mot meg selv, spesielt, at jeg er umiddelbart 
+meg selv bevisst. Og p{\aa} den andre siden, det at jeg er meg selv bevisst 
+betyr at jeg oppfatter meg selv som konfronter med noe 
+ytre, noe annet som ikke er meg selv.
+
+G{\aa}r vi analytisk til verks kan vi skille mellom min 
+selv-bevistthet, min
+bevissthet om et objekt og selve objektet. Men fenomenologisk analyse viser 
+at alle disse elementene er uadskillelige
+og kan ikke betraktes som om de kunne inntreffe uavhengig av 
+hverandre. 
+% Bevisstheten er rettethet mot et objekt, som inneb{\ae}rer 
+% umiddelbar kjennskap til forskjellen mellom dette objektet og seg selv, dvs.
+% umiddelbar selv-bevissthet. Og p{\aa} den andre siden, 
+% betyr ikke selv-bevisstheten noe annet enn bevisstheten om et eller annet som 
+% ikke er meg selv.
+%
+Med litt god vilje kan vi knytte dette til \refp{eq:ufu}: 
+\equ{selv-bevissthet\ \ $\Rightarrow$\ \ ytre objekt}
+%
+Implikasjonen betyr det vi nettopp sa: selv-be\-visst\-het inneb{\ae}rer bevissthet
+om noe annet, en 
+konfrontasjon med et {\em ytre} objekt. Den kan ikke
+l{\o}s\-ri\-ves fra ytre verden som i denne
+sammenhengen kan bety uforutsigbarhet, overraskelse, uffulstendighet
+av bevissthetens kontrol og kunnskap.
+
+Men her slutter analogien -- ingen av egenskapene
+til formell selv-referanse listet under \refp{no:sr} finnes igjen i 
+selv-bevissthetens struktur: 
+\hfill{\refstepcounter{EQ}(\theEQ)\label{no:sb}}
+\begin{itemize}\MyLPar
+\item[1.] Det som refererer (bevissthet) og det som refereres til 
+(objekter) er n{\o}dvendigvis knyttet sammen og kan skilles kun i teoretisk 
+refleksjon.
+\item[1a.] Selv-bevissthet er umiddelbar og krever ingen {\em koding} 
+eller gjenkjennelse.
+\item[1b.] Selv-bevissthet er ikke et spesielt tilfelle av bevissthet 
+ -- begge er aspekter av samme struktur.
+\item[2.] Selv-bevissthet er ikke en spesiell akt innenfor et st{\o}rre 
+system (mitt liv?) men er det som utgj{\o}r min vedvarende v{\ae}rem{\aa}te.
+\item[2a.] Selv'et av selv-bevisstheten er ikke der, i verden, for s{\aa} {\aa} innse 
+at det er identisk med seg selv. Selv-identiteten er en umiddelbar 
+relasjon, en umiddelbar erkjennelse av bevisstheten konfrontert med 
+eksternalitet.
+\end{itemize}
+Legg merke til at ingen av disse observasjonene gjelder for selv-refleksjon 
+for hvilken beskrivelse av selv-referanse \refp{no:sr} 
+er mye mer adekvat.
+
+\section{Reduksjonisme ?}
+Motsetningene mellom \refp{no:sb} og \refp{no:sr} kunne ikke v{\ae}rt st{\o}rre.
+Men det er p{\aa} ingen m{\aa}te vist eller
+bevist at det vi opplever i v{\aa}r selv-bevissthet ikke 
+kan reduseres til noen element{\ae}re 
+prosesser, kan hende, noen innviklede self-refererende strukturer.
+Eddingtons forestilling om at jeg som betrakter et vakkert maleri og selve maleriet
+bare er en illusjon, en manifestasjon av et kaotisk spill av atomer og 
+element{\ae}re partikler har plaget mange. Mer 
+schizofrent kan et sunt menneskes verdensbilde vanskelig bli men hva er 
+man ikke villig til {\aa} akseptere i navn av vitenskapelig rasjonalitet?
+
+Forklaring, og spesielt en vitenskapelig forklaring, ender typisk med 
+reduksjon der opplevelse erstattes med mekanisme. Ogs{\aa} i dette tilfelle 
+st{\aa}r man fritt til 
+{\aa} tro at en slik reduksjon er mulig.\footnote{For 
+interesserte kan jeg anbefale bl.a. meget 
+oppfinsomme teorier av D.Denett framlagt f.eks. i  b{\o}ker 
+``Consciousness Explained'' eller ``Kinds of Minds''.} 
+Men det er vanskelig {\aa} ane minste mulighet til {\aa} etterligne 
+menneskelig tenkem{\aa}te v.hj.a. n{\aa}v{\ae}rende (data)teknologi. 
+Selv-bevissthet er ikke bare selv-bevissthet men ogs{\aa} bevissthet,
+tenkning er ikke bare tenkning men tenkning om noen
+bestemt virkelighet, psykologi er ikke bare psykologi men ogs{\aa} biologi. 
+Ting som i prinsippet kan skilles 
+-- kropp og sjel, selv-bevissthet og tenkning, tenkning og persepsjon -- 
+er knyttet sammen mye n{\ae}rmere enn vi pleide {\aa} tro.
+Mest sannsynlig, for at en maskin skal v{\ae}re selv-bevisst og 
+kunne tenke som oss, m{\aa} 
+den f{\o}rst kunne forholde seg til den samme virkeligheten som vi gj{\o}r. 
+I dag er maskiners `virkelighet', deres `ytre verden' kun en liten 
+redusert del av v{\aa}r virkelighet. At den, i en overskuelig framtid, kunne bli noe
+kvalitativt mer er en dr{\o}m 
+som bare mest optimistiske reduksjonister gidder {\aa} dr{\o}mme.
+
+
+\end{document}

@@ -1,0 +1,565 @@
+
+\documentclass[10pt]{article}
+\makeatletter
+\input{a4wide}
+\makeatother
+
+%% \input{defs}
+
+\newcounter{EQ}
+%\newcommand{\equ}[1]{\refstepcounter{EQ}\begin{center}\ \hfill #1\hfill{(\theEQ)}\end{center}}
+\newcommand{\equ}[1]{\refstepcounter{EQ}\vspace{.5ex}\par\noindent\ 
+    \hfill $#1$\hfill{(\theEQ)}\\[.5ex]}
+\newcommand{\refe}[1]{(\ref{#1})}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+
+\newcommand{\MyLPar}{\parsep -.2ex plus.2ex minus.2ex\itemsep\parsep
+   \vspace{-\topsep}\vspace{.5ex}}
+
+\newcommand{\co}[1]{{\sf{#1}}}
+\newcommand{\wo}[1]{`#1'}
+\newcommand{\thi}[1]{{\sl{#1}\/}}
+
+\title{The Truth of `Meaning' and ... the Meaning of `Truth'}
+\author{Micha{\l} Walicki}
+\date{{}}
+\begin{document}
+
+\maketitle
+\hfill\today
+
+\noindent
+All kinds of coherence and immanent theories of truth and meaning 
+notwithstanding, the basic intuition remains the same: linguistic 
+expressions 
+refer, for the most, to some non-linguistic world and language's meaning is 
+constituted by a relation to this world. What this relation consists of is 
+the painful question, even more so, as it is hard to say what the world 
+is without saying it in ... some language. A schematic illustration of this 
+follows. %\vspace*{-1ex}
+
+\begin{figure}[hbt]  \begin{center}
+\setlength{\unitlength}{1cm}
+\hspace*{6em}
+\begin{picture}(4,3)  
+\put(1,3){\oval(3,.6)}
+\put(.2,2.9){L(anguage)}
+\thicklines \put(1,1.4){\line(0,1){1.2}} \thinlines
+\put(1.1,2){$M$}
+\put(1,1){\oval(3,.6)}
+\put(.3,.9){W(orld)}
+\end{picture}  \vspace*{-4ex}\end{center}
+\caption{Linguistic frame}\label{lang}
+\end{figure}
+
+
+\noindent
+I won't elaborate too much on the painful question about the character of 
+this relation. For our discussion it will do if we merely keep in mind that
+it is a {\em relation} and not necessarily a function. (We draw a line at $M$, 
+not an arrow!) An ambiguous 
+expression may have different meanings while, on the other hand, the same 
+meaning (not only the same object) can be expressed in different words. 
+
+
+Given the relation $M$, it is tempting to make the following 
+definitions. A linguistic expression (and I won't go into detailed 
+distinctions between such), say \wo{dog}, has the associate semantic 
+field in the world, namely all the \thi{dogs}. 
+The meaning of an expression 
+\wo{expr} is its afterset wrt. this relation, i.e., 
+\equ{M({expr})=\{ {obj}:\<{expr},{obj}\> \in M\},}
+whatever this set is and 
+however it is constituted. Dually, any thing \thi{obj} has the associated 
+set of linguistic expressions which can refer to it, namely, the foreset 
+wrt. the relation \footnote{There is nothing wrong with allowing the language 
+to be part 
+of the world and let its expressions refer to other expressions. The above 
+illustration captures only the schematic situation of a linguist for whom
+the language is an independed object of studies in its relation to the world.
+Also, I am by no means
+limiting myself to extensional view. If you like, the meaning of an 
+\wo{intensional expression} can be taken to be its \thi{intension} which, 
+like \thi{dogs}, is in the world.)
+Accepting the danger of oversimplification I will gloss over this, and many 
+other niceties.} 
+\equ{M^-({obj})=\{{expr}:\<{expr},{obj}\> \in M\}.}
+It should be emphasized that meaning $M$, being a relation, may very well 
+leave some expressions without any associated meaning and, vice versa, some 
+meanings without associated expressions.
+ 
+To fix terminology, let me call the pair 
+\wo{word}-\thi{its meaning} a {\em concept}, e.g., the concept \co{dog} is 
+the pair \wo{dog}-\thi{dogs}.
+It is so clean and nice that there must be serious problems and I am sure 
+that if philosophers got his into their hands, there would be an 
+unpleasant slaughter. But I am not making any metaphysical or epistemic 
+claims, I do not insist that this is what concepts {\em really 
+are} -- after all, who can tell? I just stipulate the definition since this 
+pair will play an important role in what follows.
+
+
+Now, I believe that the figure~\ref{lang} reflects the universal situation 
+in semantic: we have a language, its epressions refer to 
+something-out-there, and our task is to investigate how that happens, what 
+this relation consists of, how it is consituted. I am by no means 
+unsymphatetic, this is certainly fruitful and demanding. But I think that 
+there is also an underlying assumption which I will try to confront; the 
+assumption that this figure is static and fixed, that concepts, even if 
+fuzzy, are given, that meaning, even if ineffable, is constituted withing 
+such a static linguistic frame. This fundamental fuzziness and ineffability  
+come from even more basic fact that there are hardly any static sematnic 
+frames and that what constitues meaning is as much a static relation within 
+a frame as a dynamic relation of transition between frames.
+
+\section{Indeterminacy and Invariants of Translation}
+Translation is considered to be a transition between two frames. Ok, it is a 
+transition from one language to another but, of course, not an arbirtary 
+one but one ``preserving the meaning''. Again, we may draw a neat schema:
+% \vspace*{-1ex}
+
+\begin{figure}[hbt]  \begin{center}
+\setlength{\unitlength}{1cm}
+\begin{picture}(8,3)  
+\put(1,3){\oval(2,.6)}   
+\put(.9,2.9){$L_1$}
+ \thicklines \put(2.2,3){\line(1,0){2.6}} \thinlines
+ \put(3.4,3.2){$\tau_L$}
+\thicklines \put(1,1.4){\line(0,1){1.2}} \thinlines
+\put(1.1,2){$M_1$}
+\put(1,1){\oval(2,.6)}
+\put(.9,.9){$W_1$}
+ \thicklines \put(2.2,1){\line(1,0){2.6}} \thinlines
+ \put(3.4,1.2){$\tau_W$}
+
+\put(6,3){\oval(2,.6)}
+\put(5.9,2.9){$L_2$}
+\thicklines \put(6,1.4){\line(0,1){1.2}} \thinlines
+\put(6.1,2){$M_2$}
+\put(6,1){\oval(2,.6)}
+\put(5.9,.9){$W_2$}
+
+\end{picture}  \vspace*{-4ex}\end{center}
+
+\caption{Traslation}\label{trans}
+\end{figure}
+
+Typically, one would draw the upper horisontal arrow and not just line. However, 
+although this is how translation is used in practice, this possibility is 
+based on the existence -- and discovery -- of a correspondence between the 
+respective languages. If one can translate language $L_1$ into $L_2$, 
+then one can also translate, even if imperfectly, $L_2$ into $L_1$. 
+Besides, as we know, already the first translation is imperfect. For us, 
+this means that here too we have to do with {\em relation}.
+
+What may strike one in the above figure is the presence of the associated 
+translation of the worlds. Uuhh?! Yes. It does not show, if we stick to 
+simple examples. We have no reservations when German \wo{Hund} gets 
+translated as \wo{dog} -- \thi{dogs} are \thi{dogs}, whether in Germany or 
+in England, and there is no need, at least no explicit need, to translate 
+\thi{German dogs} to \thi{English dogs}. It would be a bit worse if we had, 
+in Germany, a race of dogs not known in England. The actual 
+\wo{Hund} might then refer to a \thi{dog}, sorry, \thi{Hund} of this race.
+Ok, it is well-known that the semantic fields of words which we often take 
+to be translations of each another are not necessarily the same in two 
+languages. Or as we might say, using our definition: the concept 
+\co{Hund} may not exactly coincide with the concept \co{dog}. And since 
+one may try to look for another phrase describing the actual \thi{Hund} of 
+the unknown race, indeterminacy of translation follows.
+
+The point is only that translation does involve not only correspondence of 
+the linguistic expressions but, equally, a correspondence between their 
+semantic fields. When the fields diverge, one looks for other expressions. 
+And what if one does not find any? Well, one always finds some, sometimes 
+better and sometimes worse. And this is the whole meaning of the lower 
+relation: when no exact linguistic counterpart is found, that is, there is 
+no concept in the target language coinciding with the concept from the 
+source language, one translates the respective world. This is much more 
+clear if we ask for a translation of Nordic mythology (where there is a lot 
+of snow) into a language of a small, isolated African tribe {\em Umba}, 
+where no word 
+for \thi{snow} exists. These are perhaps rare cases, but they show that, 
+in fact, translation of the worlds takes place too. And when we think that 
+it does not, it is because the two worlds are so close to each other that 
+this translation takes care of itself.\footnote{Formally, if you do not 
+like the idea of translating worlds, you may take both $W_1$ and $W_2$ to 
+be the same world and $\tau_W$ to be identity.}
+As in the case of $M$, both $\tau_L$ and $\tau_W$ are relations and so, 
+formally, nothing precludes the cases where a word, \wo{snow}, in one 
+language has no counterpart in the other. More significantly, \thi{snow} 
+existing in one world may have no counterpart in the other world.
+
+In fact, something more subtle can be said here. I am trying to translate 
+an expression \wo{$e_1$} from $L_1$ to $L_2$. I find a candidate 
+$e_2=\tau_L'(e_1)$ -- it says $\tau_L'$ to indicate that I 
+have chosen a particular candidate among the possible ones given by the 
+full afterset $\tau_L(e_1)$. I find its meaning $M_2(\tau_L'({e_1}))$ and 
+check whether, translated back to the world $W_1$ it will yield the meaning 
+of the original expression. The more subtle point concerns the fact that 
+while the translation of the language goes from the source to the target, 
+the associated -- verifying -- translation of the worlds goes in the 
+opposite direction. Ideally, I should get what was there in the begining, 
+that is, the formula for the ideal translation would be:
+\equ{\label{inst} 
+M_1({e_1}) = \tau_W^-(M_2(\tau_L'({e_1}))) }
+Notice that another procedure of ideal translation would be expressed by 
+the formula:
+\equ{\label{ninst} 
+\tau_W(M_1({e_1})) = M_2(\tau_L'({e_1})) }
+If I discover that {\em Umba} has no word for \thi{snow}, I may decide for 
+something like \wo{white pulver coming from the sky instead of rain}. 
+According to \refe{inst}, I have lost, for, although the meaning of this 
+phrase translated back to English has something to do with snow, it 
+certainly isn't the same. However, according to \refe{ninst}, I am fine 
+because what this phrase describes in {\em Umba} is what I get when I 
+translate the English meaning of \wo{snow}, namely \thi{snow}, into 
+the {\em Umba} world.
+
+Since, mathematically \refe{inst} and \refe{ninst} are 
+equivalent, this shows that our mathematics is too simple to capture all 
+possible dimensions. Nevertheless, mathematics can say a lot about various 
+compatibility criteria for the situations illustrated in 
+figure~\ref{trans}, some of which will be indicated later on. In any case, 
+mathematics serves us here merely as a model -- even if imperfect one. More 
+importantly, this model should suffice to convey the fundamental point 
+which is:
+
+\section{Meaning is an invariant of translation}
+If this sounds audacious, this section will try to make it less so. The 
+setting of translation are two separate linguistic frames. And if we restrict 
+our attention to this context, there isn't much more to say than that 
+``translation attempts to preserve meaning''. Such a static view amounts to 
+freezing and, as a matter of fact, absolutizing the static character of 
+respective frames. The first claim is, that the relation, that is the 
+relation within a frame between expressions and their referents, is by no 
+means that static. I have intensionally been very 
+vague as to what $L_1$, $L_2$ are and, more importantly, what $W_1$, $W_2$ 
+may be. They certainly may be the frames of two separate language communities 
+with distinc languages. But they also may be the frames within one 
+language community, for instance, the frames of two persons. The 
+relation $\tau$ would then be called \wo{communication} rather than 
+\wo{translation}. They may also be frames of one and the same person at 
+different moments of time, in which case, $\tau$ amounts to development of 
+individual language capacities as well as world perception. \footnote{I am 
+using \wo{world perception} to denote something like {\em Weltanschaung} -- not 
+just perception but all the 
+capacities of perceiving, recognizing, thinking distinctions and 
+connections, as well as relating to them.} 
+Probably, there are more plausible interpretations, but 
+these will do for now.
+
+To justify the first claim I only briefly mention the aspects of these two 
+latter situations showing that all of the them share the structure represented 
+in figure~\ref{trans}. Meeting new people, one often confronts a situation 
+requiring a good deal of translation. And, provided that both speak the 
+same language, even the language of the same social class, the translation 
+will typically involve the translation of the respective worlds. Another 
+tells me about his children, and his feelings for them, and I, who have no 
+children, try to be emphatetic, which means, try to translate the setting 
+he is sketching and incorporate it into my world. Or else he tells me about
+his travels to foreign countries, or about his house, or problems at work, 
+or whatever. Everything, which I understand pefectly well, has to be 
+accommodated to my frame. Occasionally, he may use a word I do not 
+understand. If I cannot translate it merely from the context, I ask him 
+for explaining the word and, pretty adult and mature language users as we 
+are, the conversation may go on. However, it may also turn out that he 
+uses a word, which was familiar to me, in a way which does not make sense 
+from the context. I haven't noticed it the first time, judged it a slip of 
+the tounge, but then he did it again, and now again. Well, I cannot make it 
+fit, I cannot translate it, so I ask him again. He gives me an 
+astonishingly precise description of its meaning. I must admit that, in 
+the past, I used to be occassionally uncertain about this word and now I 
+realize why. I had slightly misunderstood it, I construed it in an 
+approximate fashion which worked by and large, but sometimes caused 
+uncertainty. Now I see why. I give him the right and he continues. It 
+should pass without saying that I enter analogous scenario when reading a 
+book, listen to a radio, or participate in a discussion between several 
+people.
+
+The story of a development of personal frame is indicated in the above 
+conversation. Children development may illustrate it more 
+clearly because here it is harder to deny that actual expansion 
+and adjustements of both the language and the world and their mutual 
+relation take place. Elimination of overgeneralizations is supposedly 
+showing that language capacities are developed under the corrective of the 
+environment. And surely, they are. However, they show development not only 
+of language capacities but also of the world perception.
+ If, at first, a child calles a 
+\thi{plane} a \wo{bird}, a correction amounts to forcing a distinction which 
+might not have been there before. And so on and on. Instead of multiplying 
+examples, let me say at once that in this case, it will be typically the 
+case that the relations $\tau$ effect sophistication of concepts. On the 
+one hand, overgeneralizations get refined, and on the other, new 
+abstactions appear. The latter corresponds to emergence of new words and 
+expressions which collect various earlier meanings. Thus, having learned 
+\wo{Europeans}, I do not find any word in the earlier language $L_1$ -- 
+still, I may be able to find a group of entities (meanings) in the earlier 
+world $W_1$ to which I can correctly translate the current meaning 
+$M_2(Europeans_2)$.
+The former corresponds to relating the word 
+\wo{bird}$_1$ to word \wo{bird}$_2$ and, perhaps, also to the new word 
+\wo{plane}$_2$. Notice that the corresponding $\tau^-_W$ will have no 
+proper counterpart for \thi{plane}$_2$ in the earlier world $W_1$.
+However, what is left from \thi{bird}$_1$ after it became \thi{bird}$_2$ is 
+invariant under translation: any \thi{bird}$_2$ can be translated back to 
+\thi{bird}$_1$.
+
+Thus arises the second, and main claim, that meaning is what is invariant 
+in various, yes, all transitions between frames. It is what persists
+through all confrontations with new and other frames, whether my own or 
+other people's, or other language's. Notice that, like the abstraction 
+example above shows, new concepts may arise and thus, new meanings. They 
+need not be entirely new -- I can translate the meaning of \wo{Europens} 
+back -- but they are new as meanings of {\em new expressions}. 
+One might, probably, try to think of meanings-in-themselves but for our 
+purposes meanings are always meanings of some expressions. Thus, 
+speaking about meaning as invariance under translation makes sense only from the 
+point where meaning appeared in the semantic world {\em and} a 
+corresponding expression appeared at the linguistic level.
+
+\paragraph{Interdependency of meaning and translation.}
+According to the main thesis, meaning of an expression is not fixed once 
+and for all. For sure, it may be very stable, especially when living in a 
+static world with few changes. But it also has a shifting aspect, any word 
+can acquire a slight variation of meaning, a slight modification of 
+emphasis, tone, flavour, when confronted with a new variation of its 
+original meaning or else with a close but different meaning of a word in a 
+different language. 
+
+Only the assumption that each linguistic frame is static and closed leaves
+us satisfied with the 
+indeterminacy of translation. But there is more to translation 
+than that. As any person using daily two different languages 
+will know, it is creative and constitutive for meaning, it may endow old 
+expressions with new meanings and old meanings with new expressions.
+Taking as the basis figure \ref{trans} (or, rather, an innumerable bunch of such 
+figures) instead of figure~\ref{lang}, allows us to fiddle not only with 
+$\tau$'s, in order to accommodate them to $M$'s, but with $M$'s as well.
+ This is what everybody learning a language does. (Linguists 
+learning foreing languages do exactly that, too -- they change the frame.)
+This is what a great translation of a difficult piece of text does.
+And this is what everybody listening 
+to other people does.\footnote{Beware, I do not mean that there are no bad, 
+or incorrect translations -- in the literal, and not our general sense. 
+In pratice, one does have two relatively stable 
+frames, typically, sharing most of the world and separated by distinc 
+languages. In practice, a lot of ingenuity is needed to make translation 
+affect meaning in an acceptable way.} 
+
+\paragraph{No language without language users.}
+A point which may be worth noting is that linguistic frames are certainly 
+anchored somewhere, namely, at the language users whether individual or 
+collective. Meaning is inseparably linked to the use of the language. 
+For conversation, discussion and any attempt to understand what another is 
+saying, is a translation, that is, enrichment. It is where meaning of a 
+language emerges. And since few people talk exclusively to 
+themselves, meaning is a highly social phenomenon. 
+
+I hope to have made it clear that no solipsistic constitution of meaning 
+is assumed nor ensures. But it is not excluded either. It all depends on 
+what one is willing to consider as frames. I, at least, would include here 
+the examples from the begining of this section. Thus, since children 
+certainly hear their parents and we certainly do talk and listen, the 
+meaning is an invariant of a horrible sphagetti of mutual relations and 
+translations. 
+
+This, I believe, may account 
+also for the impossibility to define the meaning of even simplest phrases. 
+On the one hand, such a definition has to relate to the world which, we feel, is richer 
+than language. But on the other hand, it has to accommodate all the 
+modifications with which innumerable contexts and users, also all future poeats,
+may  endow the meaning of the words.
+
+
+
+\paragraph{Invariance, meaning...}
+In a sense, I have dissociated meaning from expressions. It now resides 
+beyond any single frame, at a meta-linguistic level. In a sense. And it is 
+fine with me. But this smells, I am afraid, again the absolutization of semantic 
+frames. I know, linguists love them but the whole point here is that, 
+important and basic as they are, single frames are not that constitutive for 
+meaning which emerges only between them. 
+(Keep also in mind that frames are not just different languages, 
+they exist withing every single language as well.) 
+But, although meaning emerges between frames, there is 
+no access to it except through some actual single frame. Only 
+from such a frame, can I begin translating and, eventually, arrive 
+at a new, larger frame encompassing the meaning of an expression, or else, 
+more prosaically, elucidate the meanig of the exprerssion within my old 
+frame.
+
+More to the point, what does \wo{invariance} actually mean? I do not think 
+I have said it very precisely. (If you feel I did, you may skip to the next 
+section.) The point of departure is, as I just said the relation $M$ within 
+one frame (right after I have heard or said the first words.) Eventually, 
+it is the frame of an adult person who speaks the language he speaks and 
+lives in the world he lives in. At this stage, there is apparently not so much 
+new-meaning-acquisition, as only reuse of various meanings constituted in the 
+course of development. But only apparently because, as I have argued, we 
+do translate as long as we converse. If we ask about the meaning within a 
+single frame, it must appear as something primitive, given, metaphysical, 
+if not simply mysterious. The only experience revealing its ... well, 
+meaning, is a transition to another frame. 
+
+In terms of the 
+figure~\ref{trans}, the invariant is this part of $M_1$ which makes the 
+diagram commute, that is all these pairs $\<e_1,m_1\>\in M_1$ which survive the 
+transition and hold after application of $\tau:$ 
+\equ{\label{pres}
+%e_1M_1m_1 \Rightarrow \tau_L(e_1)M_2\tau_W(m_1).
+\<e_1,m_1\> \in M_1 \Rightarrow \<\tau_L(e_1),\tau_W(m_1)\> \in M_2.
+} 
+But even reducing the intuitive discussion to such 
+a formal statement, we still have a lot of choices. What we have just said 
+is that meaning is what is {\em preserved} by translation. Why not {\em 
+reflected}, that is, why not that part of $M_2$ which originates from $M_1$, i.e.:
+\equ{\label{refl}
+\<e_2,m_2\> \in M_2 \Rightarrow \<\tau_L^-(e_2),\tau_W^-(m_2)\> \in M_1 \ \mbox{\rm ?}
+%e_2M_2m_2 \Rightarrow \tau_L^-(e_2)M_1\tau_W^-(m_2)
+}
+These are not equivalent. So, perhaps, we should require both 
+preservation {\em and} reflection? But why?
+
+Things are even worse because all our $M$'s and $\tau$'s are 
+relations. Thus, in general, $\tau_W(m_1)$ or $\tau_L^-(e_2)$ are {\em 
+sets}. For instance, in \refe{pres} we start with singletons $e_1$ and 
+$m_1$ but arrive at the sets $\tau_L(e_1)$ and $\tau_W(m_1)$. Should we 
+require $M_2$ to hold between all individuals from these sets, some, at 
+least one pair?
+There are all kinds of possibilitites of combining 
+preservation/reflection properties with the set-valued operations leading 
+to a variety of possible formal invariance criteria. Snice I do not intend 
+to settle this detail here, I refer interested reader to mathematical work 
+on the subject.\footnote{\cite{Koh, Brink, WB}}
+
+\section{Truth and meaning}
+Speaking abut \thi{truth} should make one uncomfortable so I will start 
+assumig the, by now quite common, position and treat it with symbols and 
+formal systems. I haven't said that, but the figure~\ref{trans} has a 
+special case (in fact is a generalization) where 
+ $M$ is replaced by $\models$. This little known picture\footnote{It is 
+widely known only in a tiny subculture of theoretical computer scientists 
+who, themselves, constitue only a small branch of computer science; see~\cite{Inst}.} 
+is as 
+follows:
+
+\begin{figure}[hbt]  \begin{center}
+\setlength{\unitlength}{1cm}
+\begin{picture}(8,3)  
+\put(1,3){\oval(2,.6)}   
+\put(.9,2.9){$L_1$}
+ \thicklines \put(2.2,3){\vector(1,0){2.6}} \thinlines
+ \put(3.4,3.2){$\tau_L$}
+\thicklines \put(1,1.4){\line(0,1){1.2}} \thinlines
+\put(1.1,2){$\models_1$}
+\put(1,1){\oval(2,.6)}
+\put(.9,.9){$W_1$}
+ \thicklines \put(4.8,1){\vector(-1,0){2.6}} \thinlines
+ \put(3.4,1.2){$\tau_W^-$}
+
+\put(6,3){\oval(2,.6)}
+\put(5.9,2.9){$L_2$}
+\thicklines \put(6,1.4){\line(0,1){1.2}} \thinlines
+\put(6.1,2){$\models_2$}
+\put(6,1){\oval(2,.6)}
+\put(5.9,.9){$W_2$}
+
+\end{picture}  \vspace*{-4ex}\end{center}
+\caption{Logical frame}\label{instF}
+\end{figure}
+
+\noindent
+At the language level, we have formal theories: languages 
+of some kind, for instance, all possible signatures (collections of 
+non-logical symbols) for first-order logic with some axioms. 
+With each such theory there
+is associated its world -- the class of structures which interpret all the 
+symbols. These (theories and worlds) are then related by $\models$-relation, 
+in this case, the usual satisfaction relation of first-order logic. 
+One 
+defines translation of theories in some purposeful manner (for instance, 
+so that it preserves logical symbols) and then shows, that for each 
+language translation $\tau_L$ there is a corresponding, but contravariant, 
+model translation $\tau_W^-$ at the model level. Given 
+a translation $\tau_L:T_1\rightarrow T_2$ and any model $M_2\models T_2$ in $W_2$, one 
+may recover a model $M_1=\tau_W^-(M2)$. The whole thing is of interest iff 
+all these translations and $\models$-relations satisfy the condition for
+every model $M_2$ and sentence $e_1:$
+\equ{ \label{lf}
+\tau_W^-(M_2)\models_1 e_1 \iff M_2\models_2 \tau_L(e_1)
+}
+Yes, roughly but not exactly, this is what we have seen in \refe{inst}. (Only here 
+both $\tau_L$ and $\tau_W^-$ are functions.) 
+This notion of logical frame generalizes the traditional notion of 
+truth -- it is easy to show that most (if not all) standard logical 
+systems known from the history of formal logic satisfy the 
+condition~\refe{lf}. But now, one stands quite free to choose which 
+parts of the picture to adjust -- one may fiddle with the definition of 
+translation as well as with the definition of $\models$. And when one 
+arrives at something which satisfies \refe{lf}, one is pretty sure that it 
+isn't nonsense.\footnote{There exists quite an extensive theory of such 
+logical frames.}
+
+In this scenario, it is truth and only truth (well, $\models$) that is 
+invariant under translation. So one may rightly say. But we do not have to 
+yield to mathematical accidents. These people wanted to generalize Tarski's 
+truth definition and they seem to have succeded quite well. But we want 
+something different. Let me therefore say it at once. I certainly want to 
+keep truth invariant under translation. However, meaning already is and 
+the two do not seem to cincide. So ...? Truth is again a kind of (yes, I 
+want to be vague) relation between linguistic expressions and the world. But 
+not arbitrary linguistic expressions -- only propositional ones. Invariance 
+of truth is a special case of the invariance of meaning, just as 
+propositions (or whatever you assume can have truth-value) are special 
+cases of linguistic expressions. 
+
+Did I say that the meaning of a proposition is its truth conditions? Or even 
+worse, its truth value? And therefore is preserved by translation, since 
+meaning is... It is certainly a possible and simplest way. But I didn't mean 
+it. I think the whole project of reducing meaning to truth is a dinosaur, 
+so let's keep it where it belongs. I think, on the contrary, that it is 
+truth of a proposition that depends on its meaning. I do not intend to 
+define truth but I am prepared to claim that: preservation of 
+meaning implies preservation of truth. If \wo{Ich bin ein Mann} is true, it 
+is because of what it means. If I translate it and get \wo{I am a man} 
+then what I got is true {\em provided that the translation preserved the 
+meaning}. 
+
+I hope that I said more than a few tautologies. That \wo{Ich bin ein Mann} 
+is true because of what it means may be one. Given a static linguistic frame, 
+it may be very difficult to say something more precise about the relation 
+between truth and meaning. However, our dynamic view enables me to say: 
+preservation of meaning implies preservation of truth. This, I hope, at 
+least says something.
+
+
+\section{Summarizing}
+\begin{enumerate}
+\item The normal situation of a language user is not to stay within a single, 
+static linguistic frame but to constantly switch between them or, perhaps, constantly
+extend his frame. In general, we call a transition between frames \wo{translation}.
+\item Meaning is {\em defined as} an invariant of all translations. It manifests 
+itself within a single (current) frame of a language user, but it emerges only through
+the process of translation.
+\item Since meaning of a proposition is what determines its truth-value, truth, too, 
+is invariant under translation.
+\end{enumerate}
+We have left all technicalities for ``future research'' -- good luck!
+\begin{thebibliography}{MM99}\MyLPar
+\bibitem[BK86]{Koh} W. Bandler, L. Kohout, ``On the general theory of relational 
+  morphisms'', {\em Int.~J.~General Systems}, vol. 13, (1986).
+\bibitem[Br93]{Brink} Ch.~Brink, 
+  ``Power Structures'', {\em Algebra Universalis}, 30, (1993).
+\bibitem[GB83]{Inst} J. Goguen, R. Burstall, ``Introducing Institutions'', in
+ {\em Logics of Programs}, LNCS, vol. 164, Springer, (1983).
+\bibitem[WB97]{WB} M. Walicki, M. Bia{\l}asik, ``Categories of relational structures'', 
+ in {\em Recent Trends in Algebraic Development Techniques}, LNCS, vol. 1376, Springer, 
+ (1997).
+
+
+\end{thebibliography}
+
+\end{document}
+
+\paragraph{Who defines whom?}

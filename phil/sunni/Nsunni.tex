@@ -1,0 +1,529 @@
+\documentstyle[a4wide,11pt]{article}
+
+\newcommand{\qpa}[1]{[???\hspace*{1em} {\em #1}\hspace*{1em} ???]}
+\newcommand{\lev}[1]{{\sf{#1}}}
+%\newcommand{\prg}[1]{\paragraph{[#1]}}
+\newcommand{\prg}[1]{\vspace*{1.5ex}\par\noindent{\lev{#1.}}\par }
+
+\newcounter{THESIS}
+\def\theTHESIS{\arabic{section}.\arabic{THESIS}}
+\newcommand{\thesis}[1]{\refstepcounter{THESIS} \\[1ex]
+% \vspace*{1ex}\par\noindent
+  (\theTHESIS)\hspace*{1em}{\parbox[t]{13.5cm}{\sf #1}\\[2ex]}}
+%     \vspace*{2ex}\par\noindent}
+ %%     \begin{center}{(\theTHESIS)\hfill\sf 
+ %%         #1}\hfill{$\bullet$}\end{center}}
+%%%     \vspace*{1.5ex}\par\noindent{\em #1}\hfill{(\theTHESIS)}\par }
+
+\newcommand{\comment}[1]{\\[1ex] {\small{$\lceil$#1$\rfloor$}}\\[1ex]}
+
+\newcommand{\co}[1]{{\sl{#1\/}}}
+\newcommand{\wo}[1]{``#1''}
+\newcommand{\thi}[1]{`{\sl{#1\/}}'}
+\newcommand{\phe}[1]{\thi{#1}} %{{\sf{#1}}}
+
+\newcommand{\quo}[1]{``{\em #1\/}''}
+\newcommand{\quot}[1]{\begin{quote} #1\end{quote}}
+\newcommand{\ee}[1]{#1} %{{\sf{[#1]}}}
+
+\newcommand{\ep}{\co{epoch\={e}}}
+\newcommand{\Ep}{\co{Epoch\={e}}}
+
+\newcommand{\MyLPar}{\parsep -.2ex plus.2ex minus.2ex\itemsep\parsep
+   \vspace{-\topsep}\vspace{.5ex}}
+
+\renewcommand{\abstract}[1]{{\small{#1}}}
+
+\renewcommand{\baselinestretch}{1.5}
+
+\begin{document}
+
+\title{\co{Intensjonalitetsprinsippet}  -- metodens begrensninger \\
+{\normalsize{(semesteroppgave -- filosofi grunnfag)}}}
+\author{{\em Sunniva Vigeland} }
+
+\date{}%\hfill\small\today}  % August 8, 1996
+\maketitle 
+
+\abstract{Jeg vil i oppgaven argumentere at fenomenologien, som 
+enhver metode, har sine begrensinger. Studiet av intensjonale akter 
+og bevissthetsobjekter gjennom fenomenologiske reduksjoner 
+ekskluderer viktige erfaringsaspekt. Her menes ikke ekskludering i 
+betydningen ignorering. Som universell metode fors{\o}ker den {\aa} 
+presse erfaringer til {\aa} passe inn i en metodologisk korsett, hvor 
+de kommer til syne p{\aa} en tildekket, mangelfull m{\aa}te.
+Del~\ref{sec:over} gir et kort overblikk over noen aspekt ved den 
+fenomenologiske metode -- med vektlegging av 
+intensjonalitetsprinsippet -- som er relevante for argumentasjonen 
+som f{\o}lger i del~\ref{sec:limits}.}
+
+\section{Et kort overblikk}\label{sec:over}
+Husserls prosjekt begynner med samme beklagelse som Kants:
+\quo{I do not say that philosophy is an imperfect science; I say 
+simply that it is not {\em yet} science at all, that as science it 
+has not {\em yet} begun.} (\cite{RS}, min uthevelse) Med 
+\ee{oppmerksomheten rettet mot} de ulike vitenskapers utvikling 
+gjennom noen hundre {\aa}r, hevder ikke Husserl, som Descartes eller 
+Kant, at vitenskapen skaffer oss den absolutte, endelige sannhet. Det 
+viktige ved vitenskap er ikke s{\aa} mye resultatenes 
+uimotsigelige sikkerhet som det at disse resultatene oppn{\aa}s 
+og akkumuleres under veiledning av en metode. Metoden er det 
+vesentlige trekk ved vitenskapen: vitenskapen trenger ikke en metode 
+-- den {\em er} en metode; og fenomenologien skal v{\ae}re metoden 
+for den vitenskapelige filosofi som \quo{has not {\em} yet 
+begun}.\footnote{En fin balanse m{\aa} holdes her da den innledende 
+intensjon var {\aa} oppn{\aa} tilgang til uimotsigelig kunnskap. Men 
+siden et slikt kunnskapsideal ikke lenger finnes selv i 
+vitenskapen, er man n{\o}dt til {\aa} oppgi det i den 
+vitenskapsinspirerte filosofien. Det som er da igjen er metodologi.} 
+Presisjonen og sikkerhet i matematikken har fasinert mange filosofer. 
+Som Descartes og Kant, begynner ogs{\aa} Husserl sin s{\o}ken etter 
+en metode med denne paradigmatiske vitenskap.
+
+\subsection{Det matematiske ideal}
+I matematikken er det ingen tvil \wo{hva en snakker om} -- objektene 
+er gitt fullstendig, eller \co{adekvat}; deres definisjoner 
+utt{\o}mmer det gitte innholdet, selv om deres konsekvenser kan 
+forbli uklare. N{\aa}r en matematikker betrakter \phe{naturlige tall} 
+eller \phe{triangler}, er han fullstendig vitende om hva de er -- 
+selv om han ikke er vitende \ee{(i samme {\o}yeblikket, eller 
+generelt)} om alle egenskapene de kan besitte.
+
+Husserl observerer at sikkerheten som er oppn{\aa}elig i 
+mattematikken skyldes den rent \co{intensjonale} karakter til 
+objektene en behandler. Til tross for diskusjoner mellom platonister, 
+intuisjonister og formalister, \ee{er matematikkens objekter} 
+\wo{konstruert} heller enn \wo{oppdaget}; de er resultater av 
+skarpsindige definisjoner og konstruksjoner, og ikke av en 
+kofrontasjon med eksterne objekter og erfaringer.
+
+Den fenomenologiske metode er ikke en direkte anvendelse av 
+matematikk (eller matematisk metode) p{\aa} filosofi. Ikke desto 
+mindre, m{\aa}let er {\aa} avdekke bevissthets strukturene og 
+gitthetsm{\aa}tene til dens objekter som \ee{kunne m{\aa}les mot den 
+matematiske tenkningens sikkerheten og presisjonen av dens objekter}.
+
+ 
+\subsection{Intensjonalitet}
+Startpunktet for Husserl er, som det var for Descartes, analysen av 
+\co{cogito}. Men konklusjonene er sv{\ae}rt forskjellige. Husserl 
+p{\aa}peker at det som er uimotsigelig gitt i \co{cogito} ikke er, 
+som Descartes hevdet, bare \co{cogito} selv, det faktum et \phe{Jeg 
+tenker}. Med samme sikkerhet og n{\o}dvendighet er der gitt ogs{\aa} 
+denne \phe{tenkningens} objekt, \co{cogitatum}. Det kartesiske 
+\co{cogito} avdekker, if{\o}lge Husserl, ikke en eksistens av et 
+substansielt subjekt -- det avdekker bare seg selv, dvs. en akt, og 
+det som er tilstedet i den.
+
+Det som er tilstedet i en slik akt er ikke et separat subjekt og et 
+eksternt objekt. Tilstede er bare akten -- en enhet\footnote{Eller, 
+rettere sagt, \wo{samtidighet}.} av to poler: av \co{cogito} som er 
+bevist av et gitt \co{cogitatum}. 
+\quo{Og likevel er det klart at \co{cogitatio}-et i seg er cogitatio
+av sitt \co{cogitatum}, og at dette \co{cogitatum} som s{\aa}dan, 
+slik det er der, ikke kan skilles fra \co{cogitatio}-et.} \cite{RI},~s.216.
+Disse to polene kan ikke sees 
+separat. Det som kommer til syne for bevisstheten er ikke eksterne 
+objekter, liggende \wo{utenfor \co{cogito}s boksen}, men 
+\co{intensjonale objekter}, n{\o}dvendige \co{korrelater} til 
+bevissthetsaktene.\footnote{Denne innsikt l{\o}ser bekymringene om 
+\co{ting-i-seg-selv} som alltid unnviker bevisstheten. Den kommer 
+ogs{\aa} utenom det feilaktige bildet av bevisstheten som en 
+\wo{lukket boks} som pr{\o}ver {\aa} omfatte, vhja. interne 
+representasjoner, eksterne ting.}
+I hver bevissthetsakt, er det ikke bare bevisstheten selv, men 
+ogs{\aa}, med samme n{\o}dvendighet, et objekt. 
+Intensjonalitetsprinsippet formuleres ofte som:
+\thesis{Bevissthet er alltid bevissthet om 
+\co{noe}.\label{th:int}}\vspace*{-6ex}
+%
+\subsubsection{\co{Cogitatum}s transparens}
+Siden \co{cogito} n{\o}dvendigvis involverer \co{cogitatum}, er det 
+ingen barriere som separerer bevisst\-het fra det som er gitt for den: 
+\quo{enhvert orgin{\ae}rt givende anskuelse skal v{\ae}re en rettskilde for 
+erkjennelse, at alt som i intuisjonen frembyr seg for oss orgin{\ae}rt [...], 
+det skal man ganske enkelt ta inn over seg som det det gir seg som, men ogs{\aa}
+bare innenfor de grenser hvor det gir seg} \cite{Id1}.
+Bevissthetsobjektene er ikke eksterne ting som \ee{bevisst\-heten 
+m{\aa}, p{\aa} en eller anne m{\aa}te, skaffe seg adgang til}. Et 
+objekt er et vesentlig aspekt ved bevissthet, et uunv{\ae}rlig 
+korrelat ved enhver bevissthetsakt. Kanskje, er det ikke 
+\wo{konstruert} p{\aa} n{\o}yaktig samme m{\aa}te som et matematisk 
+objekt er. Men den er en uatskillelig del av den hele bevissthetsakt i 
+hvilken bevissthet \wo{retter seg mot noe}, \wo{intederer sitt 
+objekt}. Som et slikt, ikke eksternt men \co{intensjonalt objekt}, er 
+det like fullt {\aa}penbart for \co{cogito} som \co{cogito} selv.
+
+En rasjonell refleksjonsakt gj{\o}r \co{cogito} s{\aa}vel som 
+\co{cogitatum} tilgjengelig for bevisstheten. Og \co{cogitatum} kan 
+bli gitt med samme grad av tilstrekkelighet og fullstendighet som 
+\co{cogito}, med samme grad av presisjon som matematiske objekter er 
+gitt for matematikeren. Og siden dett er det generelle trekk ved 
+bevisstheten, gjelder det ikke bare for persepsjons- eller 
+matematiske objekter, men for ethvert objekt som kan komme til syne for 
+bevisstheten.
+
+\subsubsection{\co{Vesensintuisjon} og \co{eidetisk reduksjon}}
+Men selvsagt, ikke alt vi er oss bevist fremtrer med en slik 
+full klarhet. En god del ting viser seg bare utydelig, uten skarpe 
+grenser og karakteristikker. Tross dette, fortsetter tesen, kan alle 
+objektene til sist bli gitt i en fullstendig klar intuisjon. 
+Dette fordi objekter, som \co{intensjonale objekter}, er objekter {\em for} 
+bevisstheten og er \wo{konstituert som korrelater til intensjonale 
+akter}.
+
+Uten {\aa} g{\aa} for mye i detalj, la oss bare vektlegge 
+hovedpoenget: hvert \co{intensjonalt objekt} har et \co{vesen} 
+(\wo{essens}) som kan bli gitt i en \co{vesensintuisjon}. Veien til 
+en slik intuisjon g{\aa}r via \co{eidetisk reduksjon}, eller 
+\co{ideasjon}. I hovedtrekk: \co{ideasjon} inneb{\ae}rer det {\aa} 
+variere m{\aa}ten objektet blir anskuet p{\aa}, {\aa} plassere 
+objektet i nye kontekster, se det fra ulike sider. Det 
+tilbakev{\ae}rende av en serie av slike variasjoner, det som er igjen 
+etter at tilfeldige aspekt er blitt byttet ut og erstattet av andre (\quo{i vesensskuen gis
+det avkall p{\aa} tilfeldigheten} \cite{RI},~s.223), 
+{\aa}penbarer \co{essensen} -- objektet til 
+\co{vesensintuisjon}.\footnote{\co{Essens} er et idealt objekt og 
+\co{vesensintuisjon} er meget likt den \co{intellektuele intuisjon} 
+s{\aa} bestemt benktet av Kant.} \quo{Ethvert individuelt noe har en \co{eidos} som kan
+skues eller fattes generelt i seg},~\cite{RI},~s.231.
+
+En m{\aa} ha klart for seg at \co{ideasjon} ikke er en prosess hvor 
+man {\em avleder} essenser fra fremtoninger. \co{Essens} er ikke avledet 
+fra framtoninger -- den kan bare {\em sees i} fremtoninger. Spesielt, 
+\co{ideasjon} har ingenting med induksjon {\aa} gj{\o}re, den er 
+ingen generalisering fra en rekke erfaringer -- den er bare en metode 
+for {\aa} finne \co{essens} blandt fremtoninger.
+N{\aa}r en \co{vesensintuisjon} finner sted, er det ikke lenger 
+n{\o}dvendig med mer variasjon. P{\aa} en m{\aa}te avslutter 
+\co{vesensintuisjonen} usikkerheten i forhold til hva den neste 
+fremtoning kan bringe med seg. Den etablerer en innsikt som, fra 
+n{\aa} av, hersker over den uforutsigbare rikdom i 
+framtredelsesverdenen.
+Fenomenologien beskriver m{\aa}tene {\aa} oppn{\aa} vesentlig 
+kunnskap, og \co{essenser} gitt i \co{vesensintuisjon} er dens
+prim{\ae}re studieobjekter.
+
+\subsubsection{\co{Epoch\={e}} -- reduksjon av det irrelevante}
+Fenomenologi er dermed studiet av \co{essenser} som framtrer i
+fenomener som \co{intensjonale objekter}. Og Husserl mener bestemt at 
+alt som er verd {\aa} studere h{\o}rer innefor dette domenet. Det er 
+bare et gammelt sp{\o}rsm{\aa}l som ikke kan l{\o}ses av studiet av 
+bevissthetsinnhold,nemlig, sp{\o}rsm{\aa}let om disse innhold 
+ogs{\aa} eksisterer {\em uavhengig av} bevissthet. Men siden en slik 
+\wo{uavhengig eksistens} ikke kan gies {\em i} bevisstheten, er 
+sp{\o}rsm{\aa}let ansett som irrelevant. For {\aa} slutte {\aa} 
+stille det, anbefaler Husserl den \co{transcendentale reduksjon}, 
+\co{epoch\={e}}. Dens m{\aa}l er nettopp dette: \wo{sette verden i 
+parantes} og, isteden for {\aa} bekymre seg for det ul{\o}selige 
+(fordi ikke gitt som et fenomen) sp{\o}rsm{\aa}l, fokusere p{\aa} 
+innhold som er tilgjengelig for bevisstheten. \quo{Man m{\aa} alts{\aa}
+f{\o}rst fatte den rene bevissthets vesen, og s{\aa} se hva som ikke er
+ren bevissthet, hva som i ontisk forstand er transcendent i forhold til bevisstheten.
+Som f{\o}lge av dette er det mulig {\aa} gjennomf{\o}re reduksjonen, 
+og derved f{\aa} den rene bevissthet for seg selv, som rest.}~\cite{RI},~s.252.
+
+Reduksjonen rettferdiggj{\o}res ved den overbevisningen 
+% at alt annet enn dette sp{\o}rsm{\aa}let kan studeres fenomenologisk, 
+at utenom 
+fenomener st{\aa}r ingenting annet igjen enn sp{\o}rsm{\aa}let om en 
+slik \wo{ekstern eksistens}. F{\o}lgelig er det eneste som blir 
+ber{\o}rt av \co{epoch\={e}} det som er \wo{utenom fenomener}, som 
+ligger \wo{utenfor ren bevissthet}, dvs. den mulige eksistens av objekter 
+uavhengig av bevissthet. \co{Epoch\={e}} etterlater alt innhold 
+uforandret og tilgjengelig for bevisstheten og ekskluderer 
+sp{\o}rsm{\aa}let om uavhengig, dvs. ikke-fenomenaktig, eksistens:
+%
+\thesis{\co{Epoch\={e}} reduserer bort alt det ikke-fenomenaktige, 
+alt det som, fordi det ikke fremtrer for bevisstheten, faller utenfor 
+intensjonalitetsprinsippet.\label{th:epint}}
+%
+Legg merke til at gjenstanders eksterne eksistens
+er forskjellig fra det faktum at de {\em er gitt 
+som} eksterne. Men de er gitt som eksterne {\em for} bevissthet og 
+det faktum at de {\em er gitt som} eksterne betyr ikke at de faktisk 
+{\em er} slike. Denne \wo{gitthet som eksternt eksisterende} er et 
+viktig aspekt ved mange objekters gitthet og vil bli observert av den 
+fenomenologiske analyse. Men at de faktisk {\em er} eksterne er ikke 
+-- {\em kan ikke} v{\ae}re -- gitt i bevissthet, og h{\o}rer dermed 
+ikke inn under et fenomenologisk studium.
+
+\section{Intensjonalitetens begrensing}\label{sec:limits}
+Metodologi sikter alltid mot {\aa} ekskludere det som ansees uviktig 
+ellers ikke relevant. I vitenskapen ekskluderes slikt typisk gjennom 
+implisitte antakelser og stilltiende forst{\aa}else i forhold til hva 
+som er forsvarlig og hva som ikke er det. Metodologiske diskusjoner 
+kretser alltid rundt sp{\o}rsm{\aa}l om hvilke fremgangsm{\aa}ter, 
+observasjoner, til og med fakta, som skal tillates og hvilke som skal ansees 
+ugyldige. \co{Epoch\={e}} er fenomenologiens m{\aa}te {\aa} 
+utelate det som metodologien anseer for {\aa} v{\ae}re irrelevant. 
+Denne delen vil prim{\ae}rt pr{\o}ve {\aa} begrunne p{\aa}standen at 
+%
+\thesis{Intensjonaliteten gjelder ikke for all former for 
+gitthet.\label{th:nointGen}}
+%
+I (\ref{th:epint}) nevnes det \wo{ikke-fenomenaktige} og det som 
+\wo{faller utenfor intensjonaltetsprinsippet} som om de var 
+ekvivalente begreper. Fenomener og intensjonalitet er hos Husserl, om 
+ikke ekvivalente, s{\aa} i det minste, \wo{samh{\o}rende}: ethvert 
+intensjonalt objekt er tilgjengelig kun i fenomener og, p{\aa} 
+den andre side, intensjonalitet er det fundamentale trekk ved 
+bevissthet - fenomener fremtrer bare som fremtoninger av intensjonale 
+objekter.
+(\ref{th:nointGen}) indikerer at disse to aspektene ikke 
+n{\o}dvendigvis h{\o}rer s{\aa} tett sammen. Da b{\o}r vi ogs{\aa} 
+spesifisere om \co{epoch\={e}} reduserer bort det ikke-fenomenaktige 
+eller det ikke-intensjonale innhold.
+Tesen at
+\thesis{\co{epoch\={e}} ekskluderer mer enn bare sp{\o}rsm{\aa}let om 
+den eksterne eksistens\label{th:epex}}
+kan framlegges under forutsetning av at vi, i (\ref{th:epint}), 
+vektlegger det ikke-intensjonale, det som \wo{faller utenfor 
+intensjonalitetsprinsippet}. Hvis man isteden vil framheve det 
+ikke-fenomenaktige, vil vi ikke insistere p{\aa} riktigheten av 
+(\ref{th:epex}). Uansett valget vi gj{\o}r her, forblir 
+(\ref{th:nointGen}), som er hovedtesen v{\aa}r, uber{\o}rt
+%
+\subsection{Aktualitet}
+Eksemplene p{\aa} fenomener som man finner hos Hussserl er for det 
+meste av to slag: enten persepsjonsobjek eller matematiske entiteter. 
+Det er relativt lett {\aa} f{\o}lge en analyse av hva som fremtrer i 
+min bevissthet n{\aa}r jeg tenker p{\aa}, f.els., \phe{dette bordet 
+foran meg}. Hvis jeg pr{\o}ver {\aa} se hva som fremtrer under 
+analyse av \phe{bordet i seg selv} (eller \co{essensen} av fenomenet 
+\phe{bord}) blir det vanskeligere men ogs{\aa} dette intensjonale 
+objektet synes {\aa} v{\ae}re gitt med en tilstrekkelig grad av 
+klarhet. Med litt innsats og oppfinsomhet kan hende, kommer jeg fram 
+til noen \co{vesentlige} karakteriseringene av disse. Slikt kan jeg 
+g{\aa} videre med analyser av \phe{rommet jeg sitter i}, 
+\phe{byggningen jeg er i}, \phe{Bergen by}, \phe{min verden}, 
+\phe{verden}, osv.
+
+Er det virkelig ingen forskjell (metodologisk sett) mellom disse 
+fenomener? Hva skal den antatte \co{essensen} av \phe{Bergen by}, eller 
+v{\ae}rre, av \phe{min verden} v{\ae}re? Noe fremtrer i min 
+bevissthet n{\aa}r jeg tenker disse, men hva? Jeg kan ha noen vage 
+tanker om \phe{Bergen by}, men om \phe{min verden} kan jeg bare si at 
+\wo{det er noe, men jeg aner ikke hva}. Det er \co{noe} -- som alt jeg 
+er bevisst om -- og for {\aa} finne ut hva det er ville Husserl 
+foresl{\aa} \co{eidetiske reduksjon}. Men hvor lenge skal jeg hold 
+p{\aa} {\aa} variere og redusere? Resten av livet, antar jeg, fordi 
+hva \co{min verden} var i g{\aa}r gjelder ikke i dag, og hva den blir 
+til i morgen, kan bare morgendagen vise. Allikevel, min verden i 
+g{\aa}r var like mye \phe{min verden} som min verden i dag er, og som 
+min verden i morgen kommer til {\aa} v{\ae}re -- det er den samme 
+\phe{min verden}, og den er sikkert forskjellig fra \phe{din verden}.
+
+En viktig distinksjon som jeg har i tankene er mellom objektene 
+(fenomenene) som naturlig passer inn i bevissthetens
+\co{aktualitetshorisont} og de som ikke gj{\o}r det. Bevissthet er 
+tvers gjennom {\em aktuell}, den er, muligens, \wo{den rene 
+aktualitet}.\footnote{Selvsagt, med alle \co{protensjoner} og 
+\co{retensjoner} men fremdelse bare en akutalitetsenhet sentrert rund 
+et intensjonalt objekt.} Hver gang jeg er bevisst (om noe) hender det 
+her-og-n{\aa}, innenfor en begrenset (hvis i det hele tatt utstrakt) 
+aktualitetshorisont. Begreper, eller persepsjonsobjekter passer bra inni 
+her, men \phe{min verden} gj{\o}r ikke det.
+
+Ta et annet eksempel. Jeg m{\o}ter en vis man, dvs. fenomenet 
+\phe{denne vise mann} fremtrer i min bevissthet. Det er et h{\o}yst 
+individuelt fenomen og slik kan jeg reflektere over dette 
+fenomenet, analysere dets innhold som er gitt meg her-og-n{\aa}. Men 
+s{\aa} g{\aa}r jeg videre til et annet fenomen: \phe{visdom}, og ...? 
+Hva finner jeg i bevisstheten min? Antakeligvis bare en mengde 
+assosiasjoner som umiddelbart blir sett p{\aa} som \wo{psykologiske}. 
+I vanlige termer, vil \co{ideasjon} bety \wo{{\aa} fors{\o}ke {\aa} 
+bringe orden} inn i disse assosiasjonene. Men for {\aa} n{\aa} 
+\co{essensen} av \phe{visdom} m{\aa} jeg virkelig v{\ae}re heldig -- 
+vise mennesker har fors{\o}kt det i noen tusener av {\aa}r. (Riktig 
+nok, s{\aa} kjente de ikke til fenomenologien, men jeg har fortsatt 
+f{\o}lelsen av at jeg m{\aa} v{\ae}re sv{\ae}rt heldig. Og selv om 
+jeg er det, s{\aa} hvor mange andre heldige mennesker er der som er 
+uenig?)
+
+At \co{intensjonale objekter} overskrider \co{aktualitetshorisonten} og 
+fremtrer ulikt gjennom forskjellige fenomener var opplagt for Husserl. 
+Men poenget her er at
+%
+\thesis{Det finnes fenomener som er vesentlig unnvikende, hvis 
+\co{essens} ikke kan gies \co{adekvat} som et \co{intensjonalt 
+objekt} innenfor aktualitethorisont.\label{th:noint}}  
+% 
+Slike objekter kan kalles \wo{transcendente} -- ikke i noen av 
+Husserls betydninger men presist i betydningen av (\ref{th:noint}): ikke 
+bare de selv, men ogs{\aa} deres antatte \co{essens} er \wo{for 
+rike} til {\aa} bli \co{adekvat} gitt som \wo{intensjonale objekter} 
+innefor rammen av en enkel akt. Spesielt, fremtrer de aldri som 
+skarpe, \ee{veldefinerte} objekter med et klar 
+\wo{identitetssentrum} -- deres \co{essens} er aldri gitt adekvat 
+i \co{vesensintuisjon}. Tvert imot, fenomener som \phe{visdom}, 
+\phe{verden}, \phe{kj{\ae}rlighet}, \phe{det onde}, har ingen 
+\wo{ensartethet} (\wo{ipseity}) og blir aldri utt{\o}mt gjennom 
+intuisjon eller tenkning. Ulik de \co{intensjonale objekter} gitt i 
+\co{vesensintuisjon}, er disse alltid \wo{for rike} og \wo{diffuse}. 
+De er mer som \wo{felter} -- noen overlappende, andre disjunkte -- av 
+uutt{\o}mmelige muligheter av stadig nye manifestasjoner. 
+F{\o}lgelig, den antatte \wo{bevissthets absolutte v{\ae}ren} har 
+ingen mulighet til {\aa} gripe deres \co{essens} for, hvis de har 
+noen, transcenderer den den \co{aktualitet} som bvevissthet er begrenset 
+til. Istedenfor {\aa} bli fattet, tilkjennegies de gjennom {\aa} 
+invadere bevissthet, gjennom {\aa} omslutte den og ta den i sin 
+besittelse.
+
+\subsection{Ikke-intensjonale fenomener}
+Sant nok, det er ikke mye mer for en (ikke dogmatisk) filosof {\aa} 
+analysere enn innholdet av hans bevissthet. Men det f{\o}lger ikke 
+herav at alle slike innhold n{\o}dvendigvis er gitt som tydelige objekter.
+
+Husserl analyserte fenomener som \phe{Lebenswelt} ved {\aa} anvende 
+sin metode p{\aa} disse som p{\aa} alle andre fenomener. Men slikt 
+gjorde ogs{\aa} Heidegger og Marcel, Scheler og Sartre. Ingen vil 
+hevde at de har kommet fram til engang liknende konklusjoner. Husserl 
+ville si at en genuin \co{vesensintuisjon} ikke kan motsi en annen, 
+s{\aa} mest sannsynlig, noen av de endte ikke opp med en slik intuisjon.
+
+{\AA} pr{\o}ve {\aa} bestemme hvem av de som gjorde og hvem som ikke 
+gjorde det, ville antakelig bare f{\o}re til enda mer uenighet og 
+meningsforskjeller. P{\aa} den annen side, ved {\aa} anta at de alle 
+gjorde det, kan vi sitere en velkjent observasjon: i analysen av mer 
+generelle fenomener f{\o}rer ikke fenomenologien i det hele tatt til 
+enighet mellom forskjellige tenkere. \wo{Mer generelle fenomener} er 
+ting som \phe{verden}, \phe{visdom}, \phe{mitt liv}, \phe{det onde}, 
+osv., referert til i (\ref{th:noint}). 
+Disse fremtrer ogs{\aa} for bevisstheten, men mangler denne 
+bestemthet og \wo{ensartethet} som karakteriserer de \co{intensjonale 
+objekter}. S{\aa} la meg kalle de \wo{ikke-intensjonale fenomen}.
+
+En spesiell side ved disse, nemlig at de f{\o}rer til  
+meningsforskjell heller enn et enhetlig syn, p{\aa}minner oss om en 
+annen observasjon. En kan vanskelig uttrykke sin mening om et 
+generelt emne uten {\aa}, p{\aa} samme tid, avdekke noe av seg selv. 
+Ved {\aa} uttrykke mitt syn p{\aa} \phe{verdens karakter}, 
+\phe{kj{\ae}rlighetens kvalitet}, \phe{ondskapens kilde}, framsetter 
+jeg ikke bare noen fakta om objektene -- f{\o}rst og fremst 
+\wo{uttrykker jeg {\em mitt} syn}, dvs., forteller hvem jeg 
+er.%\footnote{Dette betyr ikke at det m{\aa} v{\ae}re subjektive...}
+
+\subsection{Subjektivistisk illusjon}
+
+Allikevel, som sagt tidligere, hevdet Husserl {\aa} ha utf{\o}rt 
+fenomenologisk analyse av noen slike fenomener (som 
+\phe{Lebenswelt}), og slikt hevder ogs{\aa} andre {\aa} ha gjort. 
+(\ref{th:noint}) hevder at ikke alt i det konkrete bevissthetsliv 
+fremtrer som tydelige, \co{intensjonale objekter}. Men det utelukker 
+ikke muligheten for {\aa} omgj{\o}re et \co{ikke-intensjonal fenomen} 
+til et slikt objekt og, dermed, gripe det innefor bevissthetens 
+aktualitet. De \co{ikke-intensjonale fenomener} overskrider 
+\co{aktualitetshorisonten} og fremtrer bare i \wo{diffuse}, uklare 
+intuisjoner, i stadig nye former. Allikevel, kan de fratas deres 
+uforutsigbarhet og \wo{annerledeshet}, og bli konstituert som 
+\co{intensjonale objekter}, dvs., tvunget til {\aa} fremtre innenfor 
+\co{aktualitetshorisonten}. 
+
+\subsubsection{Begreper}
+N{\aa}r jeg opplever kj{\ae}rlighet, kjenner jeg at dens karakter og 
+makt overskrider ikke bare min forst{\aa}else men ogs{\aa} meg selv, min 
+v{\ae}ren -- \wo{den er st{\o}rre en meg}. Men jeg kan, sikkert og 
+visst, reflektere over den, bestemme noen sider ved den, for{\o}ke 
+{\aa} karakterisere denne erfaringen, kort og godt, ta under 
+overveielse et {\em kj{\ae}rlighets begrep}. Dette minner om 
+\co{eidetiske reduksjon} med det forbehold at der siktes det  mot en 
+\co{vesensintuisjon} og ikke mot et begrep. Virkningen synes, 
+allikevel, {\aa} v{\ae}re mye den samme: den opprinnelige erfaringen 
+forsvinner og, istedenfor, konfronteres en med et inbefattet, 
+redusert tegn, et \co{intensjonalt objekt} -- et {\em begrep} -- som 
+kan gripes i en enkel akt.
+
+Begreper (eller, dersom det fremdeles insisteres, 
+\co{vesensintuisjoner}) er middelet  gjennom hvilket
+\wo{ufattelige}, \wo{for store}, \co{ikke-intensjonale fenomener} som 
+overskrider \co{aktualitetshorisonten}, kan bli gjort, i det minste delvis, 
+tilstede innenfor denne horisonten. Heideggers an\-a\-lyser av fenomenet 
+\phe{verden} eller Sartres an\-a\-lyser av \phe{kj{\ae}rlighet} er ikke 
+ennet enn an\-a\-lyser av {\em hva de forst{\aa}r  med} (assosierer, ser 
+i) ordene \wo{verden}, \wo{kj{\ae}rlighet}. Resultatet er enten et 
+begrepsmessig nettverk eller en stemning og en underliggende 
+f{\o}lelse av undring (i det f{\o}rste tilfelle) eller avsmak (i det 
+siste). Og f{\o}rst og fremst, f{\o}lelsen av at disse analysene 
+peker mot noe vi kan erfare, men at uansett hvor mye som er sagt om 
+det, vil det alltid v{\ae}re mer igjen {\aa} si.
+
+\subsubsection{Reflektiv vs. umiddelbar bevissthet}
+Det er viktig {\aa} huske at fenomenologisk analyse er en prosess av 
+\co{reflektiv bevissthet}. Jeg setter meg ned og bestemmer meg for 
+{\aa} analysere, reflektere over, erfaringen av noe. %ditt eller datt. 
+Dette impliserer tydeligvis {\aa} henlede min 
+oppmerksomhet mot det tilsiktede objektet, dvs. den konstituerer det 
+\co{intensjonale objektet} -- for {\em refleksjonen}!! Og videre, 
+refleksjonen kan fokusere p{\aa} objektet, p{\aa} min reaksjon p{\aa} det, 
+p{\aa} dets gitthetsm{\aa}te. Alle trekk som Husserl 
+tilskriver bevisstheten -- spesielt intensjonens rettethet -- 
+passer uten restriksjoner til \co{reflektiv bevissthet}.
+If{\o}lge v{\aa}r hovedtese (\ref{th:nointGen}) og dens presisering 
+(\ref{th:noint}), kan ikke alle disse karakteristikkene overf{\o}res 
+til \co{umiddelbar bevissthet} (eller til v{\aa} pre-reflektive 
+v{\ae}ren) uten {\aa} forfalske den.
+
+Den \wo{subjektivistiske illusjon} indikerer f{\o}lger av en slik 
+overf{\o}ring: alt {\em kan gj{\o}res til} tydelige intensjonale 
+objekter og studeres slikt men dette betyr ikke at alt {\em 
+opprinnelig er gitt} som slike objekter. Den subjektivistiske 
+illusjon best{\aa}r i {\aa} forveksle {\em muligheten} av {\aa} behandle alt 
+som avgrensede objekter innenfor \co{aktualitetshorisont} med det at 
+alt {\em faktisk er gitt} som slike objekter. Ved {\aa} betrakte 
+\co{ikke-intensjonale fenomener} p{\aa} denne m{\aa}ten, forvirrer 
+man deres natur og forminsker den betydning de har i v{\aa}re liv.
+
+\section{Konklusjon}
+Fenomenologien ble ikke den universelle metode for vitenskapelig 
+filosofi som den var ment {\aa} bli. Isteden, ironisk nok (og for 
+Husser ville det sikkert v{\ae}re en bitter ironi), ble den brukt 
+hovedsakelig for {\aa} tillate eksistensialismens inntreden i domenet 
+av respektabel filosofisk diskurs. 
+
+Mye av fenomenologiens tiltrekkende kraft -- og mye av grunnen til at 
+eksistensielt orienterte tenkere fant den s{\aa} tiltrekkende -- 
+best{\aa}r i at den ikke ekskluderer noe fra feltet av potensielle 
+unders{\o}kelser. Faktisk, alt kan (m{\aa}?) tiln{\ae}rmes via 
+m{\aa}ten det fremtrer for bevisstheten. Spesielt, den avviser ikke 
+individuelle erfaringer men, tvert imot, s{\o}rger for 
+mulighet og middel for {\aa} studere nettopp slike konkrete 
+fenomener. Dermed bringer den en filosof tilbake til en verden av 
+\wo{konkret liv og erfaring}.
+
+Men metodens forf{\o}rende kraft best{\aa}r i den myke overgangen 
+mellom, ja faktisk en forveksling av, den \co{reflektive} og 
+\co{umiddelbare} bevissthet. Den f{\o}rste er alltid rettet mot 
+spesifikke (selv om ikke n{\o}dvendigvis klart gjenkjente) \co{intensjonale 
+objekter} -- objekter av den aktuelle refleksjonen. Men, som jeg har 
+pr{\o}vd {\aa} argumentere, slike objekter utt{\o}mmer ikke 
+bevissthetens umiddelbare liv som alltid hjems{\o}kes av 
+\co{ikke-intensjonale} fenomener.
+
+Begrensningen ligger i at metoden er laget for {\aa} studere 
+\co{essenser}, spesielt, at den foreskriver {\aa} betrakte alt som 
+\co{intensjonale objekter} fremtredende innefor en
+\co{aktualitetshorisont}. F{\o}lgelig m{\aa} de 
+\co{ikke-intensjonale} fenomener, som unnviker en slik 
+fremtredelsesm{\aa}te, presses inn i horisonten -- en prosedyre 
+som n{\o}dvendigvis reduserer dem til noe de ikke er. For analysens 
+form{\aa}l er dette, antakeligvis, uung{\aa}elig.  Det er ogs{\aa} 
+greit -- men {\em bare s{\aa} lenge} en er klar over denne reduksjonen 
+og gj{\o}r den eksplisitt. I motsatt fall, vil en bli stadig forvirret 
+av det faktum at ens \co{vesensintuisjon} som 
+\wo{avdekker} \co{essens} av \phe{verden}, \phe{d{\o}den}, 
+\phe{kj{\ae}rligheten}, merkelig nok, savner den antatte \co{essens} 
+og ikke er s{\aa} eksakt som den skulle v{\ae}re.
+
+\begin{thebibliography}{SU}
+\bibitem[1]{RS} E.~Husserl, ``Philosophie als strenge Wissenschaft'', 
+{\em Logos}, I, 
+1910-11, 289-341. %{\em Philosophy as Rigorous Science},
+\bibitem[2]{Id1} E.~Husserl, {\em Ideen I}, s.52. 
+   (etter \cite{RI})
+\bibitem[3]{RI} R.~Ingarden, {\em Innf{\o}ring i Edmund Husserls fenomenologi}, 
+   Johan Grundt Tanum Forlag, Oslo 1970.
+\end{thebibliography}
+
+\end{document}
+
