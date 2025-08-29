@@ -1,0 +1,1493 @@
+\documentstyle[12pt]{article}
+\textheight9in \headsep 0in \headheight0in \topmargin0in \textwidth 
+6.5in \oddsidemargin0in
+\setlength{\unitlength}{1cm}
+
+\def\D{\displaystyle}
+\def\NI{\noindent}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}{Lemma}
+\newtheorem{DEFN}{Definition}
+\def\qed{\rule{2mm}{2mm}}
+\def\SOF{split opfibration}
+\def\BC#1{{\bf \cal #1}}
+\def\MON{\hookrightarrow}
+\def\COP#1{{\bf \cal #1}^{\rm op}}
+\def\OP{\mbox{\small op}}
+\def\AMC#1#2#3{{\BC #1}_{{#2},{\BC #3}}} \def\ACT#1#2#3{{\BC 
+#1}_{{\BC #2},#3}}
+
+%%% 4 Oct 94
+
+
+\begin{document}
+
+\title{Identification of certain structures as split opfibrations 
+over $\Delta^{\rm op}$}
+
+\author{Paul G. Glenn\\Department of Mathematics\\Catholic University 
+of America\\Washington, DC 20064\\E-mail: glenn\symbol{'100}cua.edu} 
+
+\date{October 3, 1994}
+
+\maketitle
+\begin{abstract}
+The purpose of this paper is to show how certain interesting 
+structures, models of coherent first-order theories on the one hand 
+and Grothendieck topologies on the other, may be viewed as split 
+opfibrations.
+
+In the course of doing so, two general classes of \SOF s will be 
+defined of which models and topologies comprise two special examples. 
+\end{abstract}
+\tableofcontents
+
+\section{Introduction}
+
+The purpose of this paper is to show how certain interesting 
+structures, models of coherent first-order theories on the one hand 
+and Grothendieck topologies on the other, may be viewed as split 
+opfibrations (equivalently, as wreath products or as coalgebras for a 
+certain kind of cotriple on {\bf Cat}).
+
+In the course of doing so, two general classes of \SOF s will be 
+defined of which models and topologies comprise two special examples. 
+
+The two general classes of \SOF s are related and arise as follows. 
+Let ${P: {\cal D} \to {\cal C}}$ and ${K : \BC{D} \to 
+{\BC{M}}^{\mbox{op}}}$ be functors where $K$ is a \SOF. Form the 
+category $\BC A$ whose objects are monics $i : A \MON P(D)$, denoted 
+by $\{A,D \}$. In the case where $P$ is contravariant, a map of $\BC 
+A$, $\{A,D \} \to \{A',D' \}$ is a commutative square (in $\BC C$) 
+
+\begin{center}
+\begin{picture}(6,2)
+\put(1,0){\makebox(0,0){$A$}}
+\put(1,2){\makebox(0,0){$A'$}}
+\put(4,0){\makebox(0,0){$P(D)$}}
+\put(4,2){\makebox(0,0){$P(D')$}}
+\put(1,1.5){\vector(0,-1){1}}
+\put(4,1.5){\vector(0,-1){1}}
+\put(1.5,0){\vector(1,0){1.8}}
+%\put(1.5,0.35){\oval(.4,.3)[l]}
+\put(1.5,2){\vector(1,0){1.8}}
+\put(.5,1){$u$}
+\put(4.2,1){$P(f)$}
+\end{picture}
+\end{center}
+
+\NI where $f : D \to D'$ is in $\BC D$.
+
+In the case where $P$ is covariant, a map $\{A,D \} \to \{A',D' \}$ 
+is a commutative square like the one above except that the vertical 
+maps go in the opposite direction.
+
+The category $\BC A$ possesses a \SOF\ structure (over $\BC M$) 
+provided that $\BC C$ satisfies certain hypotheses, different in each 
+case.
+
+For Grothendieck topologies, the objects of $\BC A$ are sieves $ A 
+\MON \BC{M}(-,m)$ where $P:\BC{M} \to \BC{S}^{M^{\mbox{\small op}}}$ 
+is the contravariant Yoneda embedding.
+
+For models of coherent first-order theories, an object of $\BC A$ is 
+a monic $A \MON \prod_{i=0}^n M(\tau_i)$ where $\tau_0,\ldots,\tau_n 
+$ are sorts of the theory and $M$ is a model of the theory in the 
+category $\BC C$. Here the descriptions of $P$ and $\BC D$ are longer 
+and will be given in later sections.
+
+\section{Notations}
+
+\subsection{Split opfibrations}
+
+Here is the notation which will be used in connection with the \SOF\ 
+$K : \BC{A} \to \COP M $. For each $A \in \mbox{Ob } \BC A$ over $n 
+\in \COP M$ and for for each map $g : m \to n$ in $\BC M$, we'll 
+denote the opcartesian map over $g$ by $\lambda(A,g) : A \to A^g$. 
+The axioms for split opfibrations require: 
+
+\begin{enumerate}
+
+\item $A^1=A$ and $\lambda(A,1)=1_A$.
+\item Whenever $gh$ is defined, then $(A)^{gh}={(A^g)}^h$ and 
+$\lambda(A^g,h)\lambda(A,g)=\lambda(A,gh)$. 
+
+\end{enumerate}
+That $\lambda(A,g)$ is opcartesian means that for each $u : A \to B$ 
+in $\BC A$ over $g : m \to n$, there is a unique map $\iota(u) : A^g 
+\to B$ over $1_m$ such that $u = \iota(u) \lambda(A,g)$. 
+
+All this summarized in the diagram:
+
+\begin{center}
+\begin{picture}(7,4)
+\put(1,3){\makebox(0,0){$A$}}
+\put(4,3){\makebox(0,0){$A^g$}}
+\put(7,3){\makebox(0,0){B}}
+\put(1,1){\makebox(0,0){n}}
+\put(4,1){\makebox(0,0){m}}
+\put(7,1){\makebox(0,0){m}}
+\put(2,2.5){$\lambda(A,g)$}
+\put(5,2.5){$\iota(u)$}
+\put(2.5,0.5){$g^{\mbox{\small op}}$}
+\put(5.5,0.5){$1$}
+\put(1.5,3){\vector(1,0){2}}
+\put(4.5,3){\vector(1,0){2}}
+\put(1.5,1){\vector(1,0){2}}
+\put(4.5,1){\vector(1,0){2}}
+\put(1,2.5){\vector(0,-1){1}}
+\put(.9,2.5){\line(1,0){.2}}
+\put(4,2.5){\vector(0,-1){1}}
+\put(3.9,2.5){\line(1,0){.2}}
+\put(7,2.5){\vector(0,-1){1}}
+\put(6.9,2.5){\line(1,0){.2}}
+\put(1,3.5){\line(0,1){.5}}
+\put(1,4){\line(1,0){6}}
+\put(7,4){\vector(0,-1){.5}}
+\put(4,4.2){$u$}
+\put(0,1){\makebox(0,0){$\COP M:$}}
+\put(0,3){\makebox(0,0){$\BC A:$}}
+\end{picture}
+\end{center}
+
+\section{Structures based on pullbacks } 
+
+\subsection{The general construction}
+
+In this section, we work with fixed small categories $\BC M$, $\BC D$ 
+and $\BC C$ and with the functors $P : \COP D \to \BC C$ and $K : \BC 
+D \to \COP M$.
+
+Form a new category $\BC A$ as follows. For each $A \in \mbox{Ob } 
+\BC C$, $D \in \mbox{Ob } \BC D$ and each monic $i : A \MON P(D)$, 
+the data comprised of $i$, $A$ and $D$ is an object of $\BC A$. We 
+will denote such an object simply by $\{ A,D \}$. 
+
+A map of $\BC A$ from $\{ A,D \}$ to $\{ A',D' \}$ consists of a pair 
+of maps $u : A' \to A$ and $f : D \to D'$ such that $P(f) i' = i u$. 
+We will denote such a map by $(u,f)$ where $(u_1,f_1)=(u_2,f_2)$ if 
+and only if $f_1=f_2$. (Note that $f_1=f_2$ and $i$ being monic imply 
+$u_1=u_2$).
+
+\begin{center}
+\begin{picture}(4,3.3)
+\put(1,3){\makebox(0,0){$A'$}}
+\put(3,3){\makebox(0,0){$P(D')$}}
+\put(1,1){\makebox(0,0){$A$}}
+\put(3,1){\makebox(0,0){$P(D)$}}
+\put(1,2.7){\vector(0,-1){1.2}}
+\put(3,2.7){\vector(0,-1){1.2}}
+\put(1.3,1){\vector(1,0){1}}
+\put(1.3,3){\vector(1,0){1}}
+\put(2,3.2){$i'$}
+\put(2,.5){$i$}
+\put(.7,2){$u$}
+\put(3.2,2){$P(f)$}
+\end{picture}
+\end{center}
+
+\begin{thm} Assume that $P$ is faithful and that $K$ is a \SOF . 
+Suppose that $\BC C$ has the property that for each monic $i : A \MON 
+P(D)$ in $\BC C$ and all $f : D \to D'$ in $\BC D$, the pullback of 
+$i$ along $P(f)$ exists. Define the functor $F : \BC A \to \BC D$ by 
+$F(\{A,D\}) = D$ and $F(u,f) = f$. Then $H = KF : \BC A \to \BC D \to 
+\COP M$ is a \SOF.
+\end{thm}
+
+\NI {\bf Proof}: First, suppose $H(\{A,D\})=n$ and $g^{\mbox{\small 
+op}} : n \to m$ is given in $\COP M$. Then, since $K$ is a fibration, 
+one has a map $D \to D^g$ in $\BC D$ over $g^{\mbox{\small op}}$. We 
+then form the pullback (whose existence follows from the hypothesis 
+on $\BC C$):
+
+\begin{center}
+\begin{picture}(6,4)
+\put(1,3){\makebox(0,0){$A^g$}}
+\put(4,3){\makebox(0,0){$P(D^g)$}}
+\put(1,1){\makebox(0,0){$A$}}
+\put(4,1){\makebox(0,0){$P(D)$}}
+\put(1,2.7){\vector(0,-1){1.2}}
+\put(4,2.7){\vector(0,-1){1.2}}
+\put(1.3,1){\vector(1,0){2}}
+\put(1.3,3){\vector(1,0){2}}
+\put(2.5,3.3){\makebox(0,0){$i^g$}}
+\put(2.5,.5){\makebox(0,0){$i$}}
+\put(.7,2){\makebox(0,0){$u^g$}}
+\put(5.2,2){\makebox(0,0){$P(\lambda(D,g))$}} \end{picture}
+\end{center}
+
+We define $\{A,D\}^g$ to be $i^g : A^g \MON P(D^g)$ and define 
+$\lambda(\{A,D\},g)$ in $\BC A$ to be the pullback square 
+$(u^g,\lambda(D,g))$ above. Then $H(u^g,\lambda(D,g)) = 
+K(\lambda(D,g)) =g$ and the equational conditions for $\lambda$ (for 
+the functor $H$) follow immediately. As for the $\iota$ for $H$, let 
+$(u,f) : \{A,D\} \to \{A',D'\}$ be any map in $\BC A$ over $g^{\OP}$. 
+Consider the following diagram
+
+\begin{center}
+\begin{picture}(10,8)
+\put(1,7){\makebox(0,0){$A'$}}
+\put(1,1){\makebox(0,0){$A$}}
+\put(3,4){\makebox(0,0){$A^g$}}
+\put(6,4){\makebox(0,0){$P(D^g)$}}
+\put(8,7){\makebox(0,0){$P(D')$}}
+\put(8,1){\makebox(0,0){$P(D)$}}
+\put(1,6){\vector(0,-1){4}}
+\put(8,6){\vector(0,-1){4}}
+\put(2,7){\vector(1,0){5}}
+\put(2,1){\vector(1,0){5}}
+\put(4,4){\vector(1,0){1}}
+\put(2.5,3.5){\vector(-2,-3){1}}
+\put(6.5,3.5){\vector(2,-3){1}}
+\put(1.5,6.5){\vector(2,-3){1}}
+\put(7.5,6.5){\vector(-2,-3){1}}
+\put(5.8,2.5){\makebox(0,0){$P (\lambda(D,g))$}} 
+\put(2.3,2.5){\makebox(0,0){$u^g$}}
+\put(6,6){\makebox(0,0){$P (\iota(f))$}} 
+\put(8.5,4){\makebox(0,0){$P(f)$}}
+\put(.5,4){\makebox(0,0){$u$}}
+\put(2,6){$u'$}
+\end{picture}
+\end{center}
+
+\NI The lower square is $\lambda(\{A,D\},g)$. Since the lower square 
+is a pullback, a unique map $u' : A' \to A^g$ exists making the upper 
+square commute. We define $\iota(u,f)$ to be $(u',\iota(f))$. The map 
+$(u',\iota(f))$ is unique since $P$ is faithful. It follows 
+immediately that $K(\iota(u,f))=1_m$ and also that 
+$\lambda(\{A,D\},g)$ is opcartesian. \qed 
+
+\subsection{Example of sieves and Grothendieck topologies} 
+
+Fix a small category $\BC M$. For the functor $P : \COP D \to \BC C$ 
+we take $\BC D = \COP M$, $\BC C = S^{\COP M}$ and $P$ to be the 
+Yoneda embedding. The \SOF\ $K : \BC D \to \COP M$ is the identity 
+functor. The construction given in the previous section yields a 
+\SOF\ $\BC A_+$. A typical object of $\BC A_+$ is a sieve $i : R \MON 
+\BC M (-,n)$. The maps of $\BC A_+$ are commutative squares in 
+$S^{\COP M}$:
+
+\begin{center}
+\begin{picture}(4,3.5)
+\put(1,3){\makebox(0,0){$S$}}
+\put(3,3){\makebox(0,0){$(-,m)$}}
+\put(1,1){\makebox(0,0){$R$}}
+\put(3,1){\makebox(0,0){$(-,n)$}}
+\put(1,2.7){\vector(0,-1){1.2}}
+\put(3,2.7){\vector(0,-1){1.2}}
+\put(1.3,1){\vector(1,0){1}}
+\put(1.3,3){\vector(1,0){1}}
+%\put(2,3.3){\makebox(0,0){$a$}}
+%\put(2,.5){\makebox(0,0){$b$}}
+\put(.7,2){\makebox(0,0){$u$}}
+\put(3.3,2){\makebox(0,0){$g_*$}}
+\end{picture}
+\end{center}
+
+Any family of sieves on $\BC M$ which is closed under pullback along 
+all $g_*$ is clearly a \SOF\ subcategory of $\BC A_+$. This holds in 
+particular for any Grothendieck topology on $\BC M$. Further, it 
+turns out that topologies may be characterized specifically in terms 
+of a closure property on \SOF\ subcategories of $\BC A_+$.
+
+\begin{lem}
+Suppose $R \MON (-,n)$ and $R' \MON (-,n)$ are given objects of $\BC 
+A_+$. If there is a map $(q,g) : \{R,n\} \to \{(-,m),m\}$ then there 
+is also a map $(u,g) : \{R' \cap R,n\} \to \{R' \times_n (-,m),m\}$
+\end{lem}
+
+\NI {\bf Proof}: The map $(q,g)$ is the commutative square 
+\begin{center}
+\begin{picture}(4,3.5)
+\put(1,3){\makebox(0,0){$(-,m)$}}
+\put(3,3){\makebox(0,0){$(-,m)$}}
+\put(1,1){\makebox(0,0){$R$}}
+\put(3,1){\makebox(0,0){$(-,n)$}}
+\put(1,2.7){\vector(0,-1){1.2}}
+\put(3,2.7){\vector(0,-1){1.2}}
+\put(1.3,1){\vector(1,0){1}}
+\put(1.6,3){\vector(1,0){.7}}
+\put(2,3.3){\makebox(0,0){$1$}}
+%\put(2,.5){\makebox(0,0){$b$}}
+\put(.7,2){\makebox(0,0){$u$}}
+\put(3.3,2){\makebox(0,0){$g_*$}}
+\end{picture}
+\end{center}
+
+\NI and simply indicates that $g_* : (-,m) \to (-,n)$ factors through 
+$R$. Thus we have a composite of pullbacks: \begin{center} 
+\begin{picture}(11,5)
+\put(2,4.5){\makebox(0,0){$R' \times_n (-,m)$}} 
+\put(2,2.5){\makebox(0,0){$(-,m)$}}
+\put(6.5,4.5){\makebox(0,0){$R' \cap R$}} 
+\put(6.5,2.5){\makebox(0,0){$R$}}
+\put(10,4.5){\makebox(0,0){$R'$}}
+\put(10,2.5){\makebox(0,0){$(-,n)$}}
+\put(4,4.5){\vector(1,0){1.2}}
+\put(8,4.5){\vector(1,0){1.5}}
+\put(2,4){\vector(0,-1){1}}
+\put(6.5,4){\vector(0,-1){1}}
+\put(10,4){\vector(0,-1){1}}
+\put(3,2.5){\vector(1,0){2.8}}
+\put(7,2.5){\vector(1,0){2.3}}
+\put(2,1.7){\line(0,-1){.7}}
+\put(2,1){\line(1,0){8}}
+\put(10,1){\vector(0,1){.7}}
+\put(4.5,5){\makebox(0,0){proj}}
+\put(4.5,2){\makebox(0,0){$q$}}
+\put(6,.5){\makebox(0,0){$g_*$}}
+\end{picture}
+\end{center}
+
+\NI from which one obtains $(u,g)$ as \medskip 
+
+\begin{center} \begin{picture}(8.5,3)
+\put(2,3){\makebox(0,0){$R' \times_n (-,m)$}} 
+\put(2,1){\makebox(0,0){$R' \cap R$}}
+\put(5,1){\makebox(0,0){$R$}}
+\put(8,1){\makebox(0,0){$(-,n)$}}
+\put(8,3){\makebox(0,0){$(-,m)$}}
+\put(3,2){\makebox(0,0){$u=proj$}}
+\put(8.4,2){\makebox(0,0){$g_*$}}
+\put(4,3){\vector(1,0){3}}
+\put(2,2.5){\vector(0,-1){1}}
+\put(8,2.5){\vector(0,-1){1}}
+\put(3,1){\vector(1,0){1.5}}
+\put(5.5,1){\vector(1,0){1.8}}
+\end{picture} \end{center}
+\qed
+
+\begin{thm}
+Let $\BC A$ be a \SOF\ subcategory of $\BC A_+$. Then ob $\BC A$ is a 
+Grothendieck topology on $\BC M$ if the following conditions hold. 
+\begin{enumerate} \item For each $n \in \mbox{ob } \BC M$, $\{(-,n)\} 
+\in \mbox{ob } \BC A$.
+
+\item For all $\{R,n\}$ in $\BC A$ and $\{R',n\}$ in $\BC A_+$, if 
+for all $m$ such that a map $(q,g) : \{R,n\} \to \{(-,m),m\}$ exists, 
+one has $\{R' \times_n (-,m),m\}$ in $\BC A$, then $\{R',n\}$ belongs 
+to $\BC A$ also.
+
+\end{enumerate}
+\end{thm}
+
+\NI {\bf Proof}: Condition 1 states that all $1_n : (-,n) \to (-,n)$ 
+belong to $\BC A$. Since $\BC A$ is a \SOF\ subcategory of $\BC A_+$, 
+then ob $\BC A$ is stable under pullback. Next: the lemma above shows 
+that the existence of $(q,g) : \{R,n\} \to \{(-,m),m\}$ yields the 
+composite of pullback squares shown above. Thus condition 2 is a 
+precise rephrasing of the local character axiom for a Grothendieck 
+topology. \qed
+
+\section{Structures defined with images} 
+
+\subsection{Notations and review of definitions} 
+\label{IMAGES}
+For the reader's convenience, we review some definitions. See 
+\cite{FS} and \cite{regcats}.
+
+The {\em image} of a map $f : X \to Y$ in a category $\BC C$ is the 
+smallest subobject (if there is one), denoted $\mbox{im } f \MON Y$ 
+through which $f$ factors. If $\mbox{im } f=Y$ then $f$ is said to be 
+{\em surjective}. (Elsewhere, \cite{Borceux}, $f$ is called an 
+extremal epimorphism).
+
+>From now on, we assume $\BC C$ satisfies the following conditions. 
+\begin{DEFN}
+\label{IMCAT}
+\begin{enumerate}
+\item All maps of $\BC C$ have images.
+\item $\BC C$ has pullbacks.
+\item Images are stable under pullbacks. \end{enumerate}
+\end{DEFN}
+
+\NI All regular categories, for example, satisfy these hypotheses. 
+
+The following lemma concerning $\BC C$ is elementary. 
+
+\begin{lem} (1) Monic surjective maps are isomorphisms. (2) The 
+composition of surjective maps is surjective. (3) Surjective maps are 
+epimorphisms.
+\end{lem}
+
+\subsection{Split opfibrations defined with images: general $\BC M$} 
+\label{IMAGE_SOF}
+In this section, we work with fixed small categories and functors $P 
+: \BC D \to \BC C$ and $K : \BC D \to \COP M$. 
+
+Form the new category $\BC A$ as follows. For each $A \in \mbox{ob } 
+\BC A$, $D \in \mbox{ob } \BC D$ and each monic $i : A \MON P(D)$, 
+the data comprised of $i$, $A$ and $D$ is an object of $\BC A$. We'll 
+denote this object by $\{A,D\}$.
+
+A map $(u,f) : \{A,D\} \to \{A',D'\}$ is a pair of maps $u : A \to 
+A'$ in $\BC C$ and $f : D \to D'$ in $\BC D$ such that $P(f) i = i'u$.
+\begin{center}
+\begin{picture}(6,2.5)
+\put(1,0){\makebox(0,0){$A'$}}
+\put(1,2){\makebox(0,0){$A$}}
+\put(4,0){\makebox(0,0){$P(D')$}}
+\put(4,2){\makebox(0,0){$P(D)$}}
+\put(1,1.5){\vector(0,-1){1}}
+\put(4,1.5){\vector(0,-1){1}}
+\put(1.5,0){\vector(1,0){1.8}}
+\put(1.5,2){\vector(1,0){1.8}}
+\put(.5,1){$u$}
+\put(4.2,1){$P(f)$}
+\put(2.5,.4){$i'$}
+\put(2.5,2.4){$i$}
+\end{picture}
+\end{center}
+
+\NI As before, $(u_1,f_1)=(u_2,f_2)$ only if $f_1=f_2$ and 
+(redundantly, since $i'$ is monic) $u_1=u_2$. 
+
+\begin{thm}
+If $\BC C$ satisfies the conditions given in definition \ref{IMCAT}, 
+$K : \BC D \to \COP M$ is a \SOF\ and $P$ is faithful, then $\BC A$ 
+has a \SOF\ structure over $\COP M$ given by $H : \BC A \to \COP M$ 
+where $H=KF : \BC A \to \BC D \to \COP M$ with $F$ defined by 
+$F(\{A,D\}) = D$ and $F(u,f)=f$.
+\end{thm}
+
+\NI {\bf Proof}: Let $(u,f) : \{A,D\} \to \{A',D'\}$ be given. Since 
+$K$ is a \SOF\ then $f : D \to D'$ factors as $\iota(f) \lambda(D,g) 
+: D \to D^g \to D'$ where $g=K(f)$. 
+
+Define $i^g : A^g \MON P(D^g)$ to be $im(A \stackrel{i}{\MON} P(D) 
+\stackrel{P(\lambda(D,g))}{\longrightarrow} P(D^g))$ with $u^g : A 
+\to A^g$ the corresponding surjection.
+
+Let $A'' \MON P(D')$ be $im(A^g \stackrel{i^g}{\to} P(D^g) 
+\stackrel{P(\iota(f))}{\longrightarrow} P(D'))$. 
+
+Since $A \to P(D) \to P(D') = A \stackrel{u^g}{\to} A^g \to A'' \MON 
+P(D')$, then $A'' \MON P(D') = im(P(f)i) = im(i'u)$, and therefore 
+$A''$ is a subobject of $A'$. This is summarized in the following 
+diagram.
+\begin{center}
+\begin{picture}(13,6)
+\put(1,4){\makebox(0,0){$P(D)$}}
+\put(1,2){\makebox(0,0){$A$}}
+\put(5,4){\makebox(0,0){$P(D^g)$}}
+\put(5,2){\makebox(0,0){$A^g$}}
+\put(9,2){\makebox(0,0){$A''$}}
+\put(12,4){\makebox(0,0){$P(D')$}}
+\put(12,2){\makebox(0,0){$A'$}}
+\put(1.2,3){\makebox(0,0){$i$}}
+\put(5.3,3){\makebox(0,0){$i^g$}}
+\put(12.3,3){\makebox(0,0){$i'$}}
+\put(2.8,4.3){\makebox(0,0){$P(\lambda(D,g))$}} 
+\put(8,4.3){\makebox(0,0){$P(\iota(f))$}} 
+\put(2.5,1.7){\makebox(0,0){$u^g$}}
+\put(2.5,2.2){\makebox(0,0){{\footnotesize surj}}} 
+\put(6.5,2.2){\makebox(0,0){{\footnotesize surj}}} 
+\put(10.25,2.2){\makebox(0,0){{\footnotesize monic}}} 
+\put(6,1.2){\makebox(0,0){$u$}}
+\put(6,5.3){\makebox(0,0){$f$}}
+\put(2,4){\vector(1,0){2}}
+\put(6,4){\vector(1,0){5}}
+\put(1.5,2){\vector(1,0){3}}
+\put(5.5,2){\vector(1,0){3}}
+\put(9.5,2){\vector(1,0){2.2}}
+\put(1,2.5){\vector(0,1){1}}
+\put(5,2.5){\vector(0,1){1}}
+\put(12,2.5){\vector(0,1){1}}
+\put(9.5,2.4){\vector(3,2){1.7}}
+\put(12,5){\vector(0,-1){.5}}
+\put(12,1){\vector(0,1){.5}}
+\put(1,4.5){\line(0,1){.5}}
+\put(1,5){\line(1,0){11}}
+\put(1,1.5){\line(0,-1){.5}}
+\put(1,1){\line(1,0){11}}
+\end{picture}
+\end{center}
+
+We define $\lambda(\{A,D\},g)$ to be $(u^g,\lambda(D,g))$ and define 
+$\iota(u,f)$ to be $(u^\#,\iota(f))$ where $u^\# = A^g \to A'' \MON 
+A'$. The uniqueness of $\iota(u,f) = (u^\#,\iota(f))$ follows from 
+$P$ being faithful.
+
+To complete the proof:
+$H(\lambda(\{A,D\},g))=H(u,\lambda(D,g))=K(\lambda(D,g) )=g$ and 
+$H(\iota(u,f))=K(\iota(f))=1$. The equational conditions for 
+$\lambda$ (of $H$) follow immediately, and the condition that 
+$\lambda(\{A,D\},g)$ is opcartesian follows from the uniqueness of 
+$\iota(u,f)$. \qed
+
+\subsection{Split opfibrations defined with images; $\BC M= \Delta$}
+
+\subsubsection{Notations} For each $n \ge 0$, $[n]$ denotes the 
+linearly ordered set $\{0,\ldots,n\}$. The objects of the simplicial 
+category $\Delta$ are all $[n]$ and the maps are all non-decreasing 
+functions.
+
+Given any ordinal number $\kappa$ and any integer $n \ge 0$, we will 
+consider various maps $[n] \to \kappa$ in the sections below. All of 
+these maps will be {\em assumed non-decreasing} without further 
+mention.
+
+\subsubsection{An ordinal mapped \SOF}
+\label{ORD_SOF}
+Let $\BC C$ be any category. Fix an infinite ordinal $\kappa$ and a 
+function $T : \kappa \to \mbox{ob } \BC C$, which we will refer to as 
+an {\em ordinal mapping} of $\BC C$. Also fix a subcategory $\BC Q$ 
+of $\BC C$ which contains every object in the image of $T$. 
+
+>From these data we form a new category ${\BC C}_{T,\BC Q}$ as 
+follows. 
+For all $n \ge 0$ and all maps $x : [n] \to \kappa$, the composite 
+map $Tx$ is an object of ${\BC C}_{T,\BC Q}$. Let $x : [n] \to 
+\kappa$ and $y : [m] \to \kappa$ be given. A map $Tx \to Ty$ in ${\BC 
+C}_{T,\BC Q}$ is given by the following data: 
+
+\begin{enumerate}
+\item A map $g : [m] \to [n]$ in $\Delta$. \item A sequence of maps 
+$q_j : Txg(j) \to Ty(j)$ for $0 \le j \le m$ where each $q_j$ belongs 
+in the subcategory $\BC Q$. \end{enumerate}
+
+\NI The map will be denoted $(g;q_\bullet)$. It might be visualized as
+
+\begin{center}
+\begin{picture}(14,4)
+\put(2,4){\makebox(0,0){$Tx:$}}
+\put(2,1){\makebox(0,0){$Ty:$}}
+\put(4,1){\makebox(0,0){$Ty(0)$}}
+\put(6,4){\makebox(0,0){$Txg(0)$}}
+\put(8,1){\makebox(0,0){$Ty(j)$}}
+\put(9,4){\makebox(0,0){$Txg(j)$}}
+\put(12,4){\makebox(0,0){$Txg(m)$}}
+\put(14,1){\makebox(0,0){$Ty(m)$}}
+\put(1,2.5){\makebox(0,0){$(g;q_\bullet)$}} 
+\put(6,2.5){\makebox(0,0){$q_0$}}
+\put(9,2.5){\makebox(0,0){$q_j$}}
+\put(13.5,2.5){\makebox(0,0){$q_m$}}
+\put(4,4){\makebox(0,0){$\cdots$}}
+\put(6,1){\makebox(0,0){$\cdots$}}
+\put(6.75,2.5){\makebox(0,0){$\cdots$}}
+\put(7.5,4){\makebox(0,0){$\cdots$}}
+\put(10.5,4){\makebox(0,0){$\cdots$}}
+\put(10.75,2.5){\makebox(0,0){$\cdots$}} 
+\put(11,1){\makebox(0,0){$\cdots$}}
+\put(14,4){\makebox(0,0){$\cdots$}}
+\put(6,3.5){\vector(-2,-3){1.3}}
+\put(2,3.5){\vector(0,-1){2}}
+\put(9,3.5){\vector(-1,-2){1}}
+\put(12,3.5){\vector(2,-3){1.3}}
+\end{picture}
+\end{center}
+
+Given $[k] \stackrel{f}{\to} [m] \stackrel{g}{\to} [n]$ in 
+$\Delta$,and $z : [k] \to \kappa$, the composite $Tx 
+\stackrel{(g;q_\bullet)}{\longrightarrow} Ty 
+\stackrel{(f;r_\bullet)}{\longrightarrow} Tz$ is $(gf;s_\bullet)$ 
+where $s_i = r_i q_{f(i)} : Txgf(i) \to Tyf(i) \to Tz(i)$ and $0 \le 
+i \le k$.
+\bigskip
+
+\NI {\bf Remark}: An alternative to the definition above of ${\BC 
+C}_{T,\BC Q}$ is to form the category $\BC T_\kappa C$ which has the 
+same objects as $\BC C$. A map $A \to B$ in $\BC T_\kappa C$ 
+corresponds to $i \le j < \kappa$ such that $T(i)=A$ and $T(j)=B$. 
+Then $x : [n] \to \kappa$ determines a functor $\bar x : [n] \to \BC 
+T_\kappa C$ given by $\bar x (i) =Tx(i)$. With these definitions, we 
+may view ${\BC C}_{T,\BC Q}$ as the category whose objects are all 
+functors of the form $\bar x : [n] \to \BC T_\kappa C$ for all $n \ge 
+0$ and where a map from $\bar x : [n]\to \BC T_\kappa C$ to $\bar y : 
+[m] \to \BC T_\kappa C$ consists of $(g;q_\bullet)$ defined as above 
+where $q_\bullet$ is a natural transformation $\bar x g \to \bar y$ 
+all of whose components are required to belong to $\BC Q$. 
+
+\begin{thm} \label{CTQ_SOF}
+The functor $K : {\BC C}_{T,\BC Q} \to \Delta^{op}$ is a \SOF, where 
+$K(Tx)=[n]$ if dom$(x)=[n]$ and $K(g;q_\bullet)=g$. \end{thm}
+
+\NI {\bf Proof}: Let $x : [n] \to \kappa$ and $g : [m] \to [n]$ be 
+given. Suppose there is a map $(g;q_\bullet) : Tx \to Ty$. Then 
+$(g;q_\bullet)$ factors as $(1_{[m]};q_\bullet) (g;1_\bullet)$. 
+Define $(Tx)^g$ to be $Txg$, $\lambda(Tx,g) : Tx \to Txg$ to be 
+$(g;1_\bullet)$, and $\iota(g;q_\bullet)$ to be $(1_{[m]};q_\bullet) 
+: Txg \to Ty$. The \SOF\ conditions follow easily. \qed 
+
+\subsection{Split opfibrations of relations} \label{REL_SOF}
+
+In this section, assume that $\BC C$ satisfies definition \ref{IMCAT} 
+in section \ref{IMAGES} {\em and} has all finite products. Choose an 
+ordinal mapping $T : \kappa \to \mbox{ob } \BC C$ and a subcategory 
+$\BC Q$ of $\BC C$ containing the image of $T$, as in the previous 
+section.
+
+Define the functor $P : {\BC C}_{T,\BC Q} \to \BC C$ as follows. 
+Given $x : [n] \to \kappa$, define $P(Tx) = \prod_{i=0}^n Tx(i)$. 
+Given $(g;q_\bullet) : Tx \to Ty$, we define $P(g;q_\bullet)$ to be 
+the composite $$\prod_{i=0}^n Tx(i) \to \prod_{j=0}^m Txg(j) \to 
+\prod_{j=0}^m Ty(j)$$ where the $j$'th component of the composite is 
+$q(j) \mbox{pr}_{g(j)}$. It is clear that $P$ is faithful. 
+
+We may now construct a \SOF\ $\BC A$ as described in section 
+\ref{IMAGE_SOF} using $P : {\BC C}_{T,\BC Q} \to \BC C$ and the \SOF\ 
+$K : {\BC C}_{T,\BC Q} \to \Delta^{op}$. An object of $\BC A$, 
+$\{A,Tx\}$ is a monic $i : A \MON P(Tx)=\prod_{i=0}^n Tx$, that is: a 
+relation on $Tx(0) \times \cdots \times Tx(n)$. A map of $\BC A$ is a 
+``homomorphism of relations''. The fibration functor $H : \BC A \to 
+\Delta^{op}$ sends $\{A,Tx\}$ to dom($x$) and sends the map 
+$(u,(g;q_\bullet))$ to $g$.
+
+\section{Split opfibrations arising from models} 
+
+Let $\cal T$ be a coherent first-order theory and let $M : \cal T \to 
+\BC C$ be a model of $\cal T$ in a logical category $\BC C$. Then a 
+formula $\phi$ of $\cal T$ with free variables $t_0,\ldots,t_n $ is 
+associated by $M$ to a monic $M(\phi) \MON \prod_{i=0}^n M(\tau_i)$ 
+in ${\BC C}$ where $\tau_i$ is the sort of the variable $t_i$. Our 
+goal is to set out how this situation may be described in terms of 
+split opfibrations.
+
+The reader is referred to \cite{MR} for background information on 
+coherent first-order theories and their models. However, for the 
+reader's convenience, the next section gives a brief outline of some 
+of that information.
+
+\subsection{Background on coherent first-order theories} \label{CFOT}
+We will consider many-sorted theories-with-equality with connectives 
+$\wedge$, $\vee$ and the existential quantifier $\exists$. The 
+presentation of a particular theory provides the operation and 
+predicate symbols used to form atomic terms and atomic formulas. 
+Formulas are then built up from the terms and atomic formulas in the 
+standard fashion.
+
+Assertions (called {\em sequents}) of the theory take the form $\Phi 
+\Rightarrow \Psi$ where $\Phi$ and $\Psi$ are sets of formulas. The 
+intended meaning of $\Phi \Rightarrow \Psi$ is: ``the conjunction of 
+the formulas in $\Phi$ implies the disjunction of the formulas in 
+$\Psi$''. There is a set of logical axioms and rules of inference 
+concerning ``$\Rightarrow$'' together with whatever proper axioms may 
+belong to the particular theory.
+
+The interpretation of a theory $\cal T$ in a suitable category $\BC 
+C$ follows closely the details of interpretation of theories in 
+sets-with-structure. For each sort $\tau$ of the theory, an 
+interpretation $M$ designates an object $M(\tau)$ of $\BC C$. 
+Compound sorts, denoted $\tau_0 \times \cdots \times \tau_n$, are 
+interpreted by $M$ as products $M(\tau_0) \times \cdots \times 
+M(\tau_n)$ in $\BC C$. Thus, $\BC C$ must admit at least those 
+products. Operation symbols are interpreted as maps between such 
+products, and predicate symbols are interpreted as subobjects of 
+products of $M(\tau)$'s.
+
+If $\phi$ is a formula with free variables $t_0,\ldots,t_n$ of sorts 
+$\tau_0,\ldots,\tau_n$ then $\phi$ is interpreted by $M$ as a 
+subobject of $M(\tau_0) \times \cdots \times M(\tau_n)$. There is a 
+precise correspondence between building up formulas using connectives 
+and $\exists$ in the language of $\cal T$ and defining objects and 
+maps in $\BC C$ using certain operations and properties of $\BC C$. 
+$\BC C$ must have equalizers (in order to interpret formulas 
+involving equality), and therefore all finite limits. In order to 
+interpret formulas of the form $\exists \phi$, $\BC C$ must have 
+images and satisfy the conditions in section \ref{IMAGES}. In order 
+to interpret disjunctions, $\BC C$ must have suprema of arbitrary 
+finite sets of subobjects. That is, if $\{A_i \MON X\}_{i \in I}$ is 
+a finite set of monics in $\BC C$, then there is a smallest monic 
+through which they all factor. Categories having all these properties 
+are called {\em logical} categories in \cite{MR} 
+
+We'll denote an interpretation $M$ of $\cal T$ in $\BC C$ by $M : 
+\cal T \to \BC C$. In order for M to be a {\em model} of $\cal T$, 
+$M$ must associate to every $\cal T$-provable assertion $\Phi 
+\Rightarrow \Psi$ of $\cal T$ a monic $M(\bigwedge \Phi) \MON 
+M(\bigvee \Psi))$. 
+
+Given a coherent first-order theory $\cal T$, one may form a logical 
+category $\BC C (\cal T)$ in which the theory has a canonical model 
+$M_0 : \cal T \to \BC C (\cal T)$. The category $\BC C (\cal T)$ is 
+the ``classifying logical category'' of $\cal T$ in the sense that 
+every model of $\cal T$ factors though $M_0$. 
+
+The objects of $\BC C (\cal T)$ are equivalence classes of formulas 
+of the theory where two formulas belong to the same equivalence class 
+if they are $\cal T$-provably equivalent. The maps of $\BC C (\cal 
+T)$ are equivalence classes of formulas which are $\cal T$-provably 
+the graphs of maps. (The graph of a map in any category with products 
+is a subobject of a product satisfying the usual conditions; these 
+are expressible as sequents. A formula is provably a graph if these 
+sequents are provable in $\cal T$).
+
+The canonical model $M_0$ of $\cal T$ in $\BC C (\cal T)$ associates 
+to each formula its equivalence class.
+
+The construction of a logical category from a first-order theory has 
+(nearly) an inverse in the formation of a theory $\cal T (\BC C)$ 
+from a given small logical category $\BC C$, such that $\BC C$ is the 
+classifying logical category of $\cal T (\BC C)$. The sorts of $\cal 
+T (\BC C)$ are the objects of $\BC C$ and the operation symbols of 
+$\cal T (\BC C)$ are the maps of $\BC C$. The $\wedge \vee 
+\exists$-language with equality is sufficient to express 
+axiomatically the properties of a category being logical. These, plus 
+axioms corresponding to identity maps and commutative triangles, 
+comprise the proper axioms of $\cal T (\BC C)$. 
+
+\subsection{Split opfibration corresponding to a model} 
+\label{MODEL_SOF}
+Let $M : \cal T \to \BC C$ be a model of the coherent first-order 
+theory $\cal T$ in the logical category $\BC C$. Choose and fix an 
+indexing of the set of all basic and compound sorts of $\cal T$ by an 
+ordinal $\kappa$. Relative to this indexing, define the function $T : 
+\kappa \to \mbox{ob } \BC C$ by setting $T(i)$ to be the image under 
+$M$ of the $i$'th sort so indexed. Note that each $T(i)$ is a finite 
+product in $\BC C$:
+$$
+i \stackrel{\mbox{\small indexing}}{\longmapsto} \tau_{i(0)} \times 
+\cdots \times \tau_{i(n)} \longmapsto \prod_{k=0}^n M(\tau_{i(k)}) $$
+where $\tau_{i(0)} \times \cdots \times \tau_{i(n)}$ is the sort 
+associated to $i$ by the indexing.
+
+Next, we must designate a subcategory $\BC Q$ of $\BC C$ which is 
+appropriately related to $\cal T$ and the model $M$. 
+
+\begin{DEFN}
+Given $M : {\cal T} \to {\BC C}$ and $T : \kappa \to \mbox{ob } {\BC 
+C}$, let $\BC Q$ be the smallest subcategory of $\BC C$ satisfying 
+the following conditions.
+\begin{enumerate}
+\item For each $i \in \kappa$, $T(i)$ is an object of $\BC Q$. 
+
+\item For all $i \in \kappa$, $\BC Q$ contains every projection map 
+with domain $T(i)$.
+
+\item For each operation symbol $f$ in the language of $\cal T$, $\BC 
+Q$ contains the corresponding map $M(f)$. 
+
+\item If $\BC Q$ contains the maps $u_k : T(i) \to T(j_k)$ for 
+$k=0,\ldots,n$, then $\BC Q$ also contains the map $(u_0,\ldots,u_n) 
+: T(i) \to \prod_{k=0}^n T(j_k)$
+\end{enumerate}
+\end{DEFN}
+
+Note the inductive nature of the definition of $\BC Q$ in the last 
+condition of the definition. Note also that every map of $\BC Q$ is 
+one of the four types listed in the definition. 
+
+Once given $T$ and $\BC Q$ there is an ordinal indexed \SOF\ ${\BC 
+C}_{T,\BC Q}$ as defined in section \ref{ORD_SOF}. 
+
+Let $\BC A (M)$ denote the \SOF\ arising from $P : {\BC C}_{T, \BC Q} 
+\to \BC C$ and the \SOF\ $K : {\BC C}_{T, \BC Q} \to \Delta$. A 
+typical object of $\BC A (M)$ is a monic $\{A,Tx\} : A \MON 
+\prod_{k=0}^n Tx(k)$.\medskip
+
+Now suppose $\phi$ is a formula of the theory $\cal T$ with free 
+variables $t_0,\ldots,t_n$ of sorts $\tau_0,\ldots,\tau_n$. We may 
+assume that the sorts are listed according to the indexing so that 
+there is an $x : [n] \to \kappa$ such that $\tau_k=Tx(k)$ for each 
+$k=0,\ldots,n$. Then $M$ associates to $\phi$ a monic $M(\phi) \MON 
+\prod_{k=0}^n M(\tau_k) = PTx$ which is an object $\{M(\phi),Tx\}$ of 
+$\BC A (M)$.
+
+Note that $n$ is a part of the specification of the object 
+$\{M(\phi),Tx\}$. If $\phi$ were such that one could group some of 
+its free variables into a single compound free variable (thus 
+changing $n$), the result would be a {\em different} object of ${\BC 
+A}(M)$.
+
+\subsection{Split opfibration subcategories of $\BC A (M)$} 
+\label{SOF_ATM}
+
+In general, there will be many objects $\{A,Tx\}$ in $\BC A (M)$ such 
+that $A \neq M(\phi)$ for any formula $\phi$. However, we may 
+identify a \SOF\ subcategory of $\BC A (M)$ whose objects do come 
+from the theory via $M$.
+
+First we will say what it means for a map of $\BC C$ to ``come from'' 
+the theory. Recall that in a category with products, the {\em graph} 
+of a map $f : A \to B$ is the monic $1 \times f : A \MON A \times B$, 
+or any subobject of $A \times B$ isomorphic to $1 \times f$. 
+Subobjects of $A \times B$ which are graphs are identified by the 
+following elementary lemma.
+
+\begin{lem} Let $g : R \MON A \times B$ be given such that 
+$\mbox{pr}_A g : R \MON A \times B \to A$ is an isomorphism. Let 
+$h={(\mbox{pr}_A g)}^{-1}$. Then $gh = 1 \times f$ where $f = 
+\mbox{pr}_B g h : A \stackrel{h}{\to} R \stackrel{g}{\to} A \times B 
+\stackrel{{\rm pr}_B}{\to} B$.
+\qed
+\end{lem}
+
+The following definition and lemma are from \cite{MR} 
+
+\begin{DEFN} Let $\phi(x)$, $\psi(y)$ and $\theta(x,y)$ be formulas 
+of the theory $\cal T$ where $x$ and $y$ are the free variables of 
+$\phi$ and $\psi$ respectively. Then $\theta(x,y)$ is {\em provably 
+the graph of a function from $\phi$ to $\psi$} if the following 
+sequents are provable in $\cal T$: (1) $\theta(x,y) \Rightarrow 
+\phi(x) \wedge \psi(y)$. (2) $\theta(x,y_1) \wedge \theta(x,y_2) 
+\Rightarrow y_1=y_2$. (3) $\phi(x) \Rightarrow \exists y \, 
+\theta(x,y)$.
+\end{DEFN}
+
+\begin{lem}
+If $\theta$ is provably the graph of a function from $\phi$ to $\psi$ 
+and $M : \cal T \to \BC C$ is a model of $\cal T$ in the logical 
+category $\BC C$, then $M(\theta) \MON M(\phi) \times M(\psi)$ is the 
+graph of a map in $\BC C$. \qed \end{lem}
+
+We may now define what it means for a map in $\BC C$ to ``come from'' 
+$\cal T$ via $M$.
+
+\begin{DEFN}
+Let $M : \cal T \to \BC C$ be a model of a coherent first-order 
+theory in a logical category, and let $g : R \MON A \times B$ be the 
+graph of $f : A \to B$ in $\BC C$. Then we say that $f$ is an {\em 
+$M$-map} if there are formulas $\phi(x)$, $\psi(y)$ and $\theta(x,y)$ 
+of $\cal T$ such that $\theta$ is provably the graph of a function 
+from $\phi$ to $\psi$ and $M(\theta) \MON M(\phi) \times M(\psi)$ is 
+$g$. \end{DEFN}
+
+\NI {\bf Remark}: Recall from section \ref{CFOT} that a coherent 
+first-order theory $\cal T$ has a classifying logical category $\BC C 
+(\cal T)$ whose objects are equivalence classes of formulas and where 
+two formulas are in the same class if they are $\cal T$-provably 
+equivalent. The maps are equivalence classes of graphs of functions 
+(as in the definition above). The lemma above is part of the proof 
+that the model $M : \cal T \to \BC C$ determines a logical functor 
+$\BC C (\cal T) \to \BC C$. A map is an $M$-map if it is in the image 
+of the functor ${\BC C}({\cal T}) \to \BC C$. 
+
+\begin{lem}
+Let $M : \cal T \to \BC C$ be a model of a coherent first-order 
+theory in a logical category and let $\BC Q$ be the subcategory 
+defined in section \ref{MODEL_SOF}. Then all maps of $\BC Q$ are 
+$M$-maps \end{lem}
+
+\NI {\bf Proof}: The maps of $\BC Q$ are all identity maps, all 
+projections $\prod_{k=0}^n Tx(k) \to Tx(j)$, all maps $M(f)$ where 
+$f$ is an operation symbol of $\cal T$ and all maps of the form 
+$(u_0,\ldots,u_n) : A \to \prod_{k=0}^n B_k$ arising from maps $u_k : 
+A \to B_k$ all belonging to $\BC Q$. We will give appropriate $\phi$, 
+$\psi$ and $\theta$ for each of these types of maps but omit the 
+details.
+
+(Note that by the Completeness Theorem in \cite{MR}, it is sufficient 
+to interpret the formulas in set-valued models. In sets, the formulas 
+below are elementary).
+
+\begin{enumerate}
+\item Identity maps: Take $\theta(x,y)$ to be the formula `$x=y$'. 
+\item Projection maps: $\mbox{pr}_j : \prod_{k=0}^n Tx(k) \to Tx(j)$. 
+Let $t_i$ be a variable of sort $\tau_i$ where $M(\tau_i)=Tx(i)$. 
+Take $\phi(t_0,\ldots,t_n)$ to be the formula `$(t_0=t_0) \wedge 
+\cdots \wedge (t_n=t_n)$', $\psi(y)$ to be the formula `$y=y$' where 
+$y$ is of sort $\tau_j$. Then let $\theta(t_0,\ldots,t_n,y)$ be the 
+formula `$\phi(t_0,\ldots,t_n) \wedge (t_j=y)$. 
+
+\item Suppose $f : \tau_0 \times \cdots \tau_n \to \tau_0' \times 
+\cdots \times \tau_m'$ is an operation symbol of $\cal T$. Let $t_i$ 
+be a variable of sort $\tau_i$, $t'_j$ of sort $\tau_j'$, and let 
+$t=(t_0,\ldots,t_n)$ and $t'=(t_0',\ldots,t_m')$ be the corresponding 
+compound variables. To represent $M(f)$ as an $M$-map, take $\phi(t)$ 
+to be the formula `$(t_0=t_0) \wedge \cdots \wedge (t_n=t_n)$', 
+$\psi(t')$ to be the formula `$(t_0'=t_0') \wedge \cdots \wedge 
+(t_m'=t_m')$' and take $\theta(t,t')$ to be `$t'=f(t)$'. 
+
+\item If $u_k : P(Tx) \to P(Ty(k))$ are given for $k=0,\ldots,n$ 
+where each $u_k$ is an $M$-map with graph $M(\theta_k(t,t'_k))$, then 
+the map $(u_0,\ldots,u_n)$ has graph $M(\theta)$ where $\theta(t,t')$ 
+is the formula `$\theta_0(t,t'_0) \wedge \cdots \wedge 
+\theta_n(t,t'_n)$'.
+\end{enumerate} \qed
+
+\begin{lem} With the same hypotheses of the previous lemma: 
+\begin{enumerate}
+\item Composites of $M$-maps are $M$-maps. \item Let $f : A \to B$ be 
+given in $\BC C$ with image $i : C \MON B$ and surjection factor $q : 
+A \to C$. If $f$ is an $M$-map then so are $q$ and $i$.
+\item Let $(g;q_\bullet) : Tx \to Ty$ be given in ${\BC C}_{T,\BC 
+Q}$. Then $P(g;q_\bullet)$ is an $M$-map.
+\end{enumerate}
+\end{lem}
+
+\NI {\bf Proof}: (1) Suppose $\theta_1$ is provably the graph of a 
+function from $\phi_1(t)$ to $\phi_2(t')$ and $\theta_2$ is provably 
+the graph of a function from $\phi_2(t')$ to $\phi_3(t'')$. Then 
+$\theta_3$ is provably the graph of a function from $\phi_1(t)$ to 
+$\phi_3(t'')$ where $\theta_3$ is the formula: `$\, \exists t' \, 
+(\theta_1(t,t') \wedge \theta_2(t',t''))\,$'. 
+
+(2) Suppose $\theta(t,t')$ is provably the graph of a function from 
+$\phi(t)$ to $\psi(t')$ with $A=M(\phi(t))$, $B=M(\psi(t'))$ and 
+$R=M(\theta(t,t'))$, where $1 \times f : R \MON A \times B$ is the 
+graph of $f$. Then $C=M(\exists t \, \theta(t,t'))$. The graph of $q 
+: A \to C$ is also $M(\theta)$ and the graph of $i : C \to B$ is 
+$M(\bar \theta (t_1',t_2'))$ where $\bar \theta$ is the formula `$\, 
+\exists t \, \theta(t,t_1') \wedge (t_1'=t_2')\,$'. 
+
+(3) The map $(g;q_\bullet)$, where $g : [m] \to [n]$, factors as 
+$(1;q_\bullet)(g;1_\bullet) : Tx \to Txg \to Ty$. (See section 
+\ref{ORD_SOF}). $P(g;1_\bullet) =
+(\mbox{pr}_{xg(0)},\ldots,\mbox{pr}_{xg(m)})$. Each component of 
+$P(g;1_\bullet)$ is an $M$-map since it is a projection, hence so is 
+$P(g;1_\bullet)$ by the previous lemma. Next, each component of 
+$P(1;q_\bullet) : \prod_{k=0}^m Txg(k) \to \prod_{k=0}^m Ty(k)$ is 
+$q_j\, \mbox{pr}_j$. This is an $M$-map, by part 1, since each factor 
+is. Hence so is $P(1;q_\bullet)$ (previous lemma) and 
+$P(g;q_\bullet)$ (part 1). \qed \medskip 
+
+Given a model $M : \cal T \to \BC C$ as above with its \SOF\ $\BC A 
+(M)$ (section \ref{MODEL_SOF}), we may define a subcategory $\AMC 
+AMC$ as follows.
+
+The objects of $\AMC AMC$ are all $\{A,Tx\} : A \MON P(Tx)$ which are 
+$M$-maps of $\BC C$. The maps of $\AMC AMC$ are all 
+$(u,(g;q_\bullet)) : \{A,Tx\} \to \{B,Ty\}$ such that $u$ is an 
+$M$-map of $\BC C$.
+
+It follows immediately that every formula $\phi$ of $\cal T$ gives 
+rise to an object of $\AMC AMC$, namely $\{M(\phi), Tx \}$ where $x : 
+[n] \to \kappa$ indexes the compound sort of the free variables of 
+$\phi$. Of course, every object of $\AMC AMC$ is of this form. 
+
+\begin{thm}
+$\AMC AMC$ is a \SOF\ subcategory of $\BC A (M)$. \end{thm}
+
+\NI {\bf Proof}: Define $\bar K$ to be $\AMC AMC \stackrel{{\rm full 
+\, incl}}{\longrightarrow} \BC A (M) \stackrel{K}{\longrightarrow} 
+\Delta^{\rm op}$. Given any map $(u,(g;q_\bullet)) : \{a,Tx \} \to 
+\{B,Ty\}$ in $\AMC AMC$, where $g : [m] \to [n]$,
+it suffices to show that $\lambda(\{A,Tx\},g) : \{A,Tx\} \to 
+\{A^g,Txg\}$ and $\iota(u,(g;q_\bullet)) : \{A^g,Txg\} \to \{B,Ty\}$ 
+are maps of $\AMC AMC$.
+
+The map $(u,(g;q_\bullet))$ factors as $\iota(u,(g;q_\bullet)) 
+\lambda(\{A,Tx\},g)$ as shown in the diagram below. \medskip 
+
+\begin{center}
+\begin{picture}(13,4)
+\put(1,4){\makebox(0,0){$P(Tx)$}}
+\put(1,2){\makebox(0,0){$A$}}
+\put(5,4){\makebox(0,0){$P(Txg)$}}
+\put(5,2){\makebox(0,0){$A^g$}}
+\put(9,2){\makebox(0,0){$A''$}}
+\put(12,4){\makebox(0,0){$P(Ty)$}}
+\put(12,2){\makebox(0,0){$B$}}
+\put(1.4,3){\makebox(0,0){$i_A$}}
+\put(5.3,3){\makebox(0,0){$i^g$}}
+\put(12.3,3){\makebox(0,0){$i_B$}}
+%\put(2.8,4.3){\makebox(0,0){$P(\lambda(D,g))$}} 
+%\put(8,4.3){\makebox(0,0){$P(\iota(f))$}} 
+%\put(2.5,1.7){\makebox(0,0){$u^g$}}
+\put(2.5,2.2){\makebox(0,0){{\footnotesize surj}}} 
+\put(6.5,2.2){\makebox(0,0){{\footnotesize surj}}} 
+\put(10.25,2.2){\makebox(0,0){{\footnotesize monic}}} 
+\put(9.3,3){\makebox(0,0){{\footnotesize monic}}} 
+\put(6,1.2){\makebox(0,0){$u$}}
+\put(2,4){\vector(1,0){2}}
+\put(6,4){\vector(1,0){5}}
+\put(1.5,2){\vector(1,0){3}}
+\put(5.5,2){\vector(1,0){3}}
+\put(9.5,2){\vector(1,0){2.2}}
+\put(1,2.5){\vector(0,1){1}}
+\put(5,2.5){\vector(0,1){1}}
+\put(12,2.5){\vector(0,1){1}}
+\put(9.5,2.4){\vector(3,2){1.7}}
+\put(12,1){\vector(0,1){.5}}
+\put(1,1.5){\line(0,-1){.5}}
+\put(1,1){\line(1,0){11}}
+\end{picture}
+\end{center}
+
+\NI In this diagram, $A'' \MON P(Ty)$ is the image of $A^g \to P(Txg) 
+\to P(Ty)$.
+
+The composite $A \MON P(Tx) \to P(Txg)$ is an $M$-map since it is the 
+composite of $M$-maps. Thus $A^g \in \mbox{ob } \AMC AMC$ and both $A 
+\to A^g$ and $A^g \MON P(Txg)$ are $M$-maps. Therefore, 
+$\lambda(\{A,Tx\},g)$ is a map in $\AMC AMC$ 
+
+By similar reasoning, $A^g \MON P(Txg) \to P(Ty)$ is also an 
+$M$-map.Thus both $A^g \to A''$ and $A'' \MON P(Ty)$ are $M$-maps. 
+Now $A'' \MON B$ is also an $M$-map since it is the image of the 
+$M$-map $u : A \to B$. Therefore $\iota(u,(g;q_\bullet))$ is also a 
+map in $\AMC AMC $ \qed
+
+\subsection{Simplicial structure}
+
+Any \SOF\ $K : \BC A \to \Delta^{\rm op}$ determines a simplicial set 
+structure on ob $\BC A$ in which $A \in \mbox{ob } \BC A$ is an 
+$n$-simplex if $K(A)=n$. If $g : [m] \to [n]=K(A)$ then one has 
+$\lambda(A,g) : A \to A^g$ where the $m$-simplex $A^g$ is the 
+simplicial image of $A$ along $g$.
+
+In particular, $d_i(A)=$ the $i$'th face of $A$ is $A^{\partial_i}$ 
+where $\partial_i : [n-1] \to [n]$ is the map whose image omits $i$. 
+The $i$'th degeneracy of $A$ is $s_i(A)=A^{\sigma_i}$ where $\sigma_i 
+: [n+1] \to [n]$ is the map whose image repeats $i$. 
+
+If the \SOF\ $\BC A$ arises from a model of a coherent first-order 
+theory then there are particularly simple interpretations of faces 
+and degeneracies.
+
+Let $M : \cal T \to \BC C$ be a model and let $\BC A = \AMC AMC$ be 
+the \SOF\ as defined in section \ref{SOF_ATM}. Suppose $\{A,Tx\}$ is 
+an $n$-simplex where $A=M(\phi)$, the free variables of $\phi$ are 
+$t_0,\ldots,t_n$ of sorts $\tau_0,\ldots,\tau_n$, and $x : [n] \to 
+\kappa$ indexes these sorts ($Tx(k)=\tau_k$). Given
+$\partial_i : [n-1] \to [n]$ as above, then $P(\partial_i;1_\bullet) 
+: P(Tx) \to P(Tx\partial_i)$ is just the projection $\prod_{k=0}^n 
+M(\tau_k) \to \prod_{k \neq i} M(\tau_k)$. The map 
+$\lambda(\{A,Tx\},\partial_i) : \{A,Tx\} \to \{d_i(A),Tx\partial_i\}$ 
+is
+
+\begin{center}
+\begin{picture}(6,3.3)
+\put(1,3){\makebox(0,0){$A$}}
+\put(3,3){\makebox(0,0){$P(Tx)$}}
+\put(4.5,3){\makebox(0,0){$=$}}
+\put(6,3){\makebox(0,0){$\prod_{k=0}^n M(\tau_k)$}} 
+\put(1,1){\makebox(0,0){$d_i(A)$}}
+\put(3,1){\makebox(0,0){$P(Tx\partial_i)$}} 
+\put(4.5,1){\makebox(0,0){$=$}}
+\put(6,1){\makebox(0,0){$\prod_{k \neq i}^n M(\tau_k)$}} 
+\put(1,2.5){\vector(0,-1){1}}
+\put(3,2.5){\vector(0,-1){1}}
+\put(1.7,1){\vector(1,0){.5}}
+\put(1.5,3){\vector(1,0){.8}}
+\put(.5,2){$u$}
+\put(3.3,2){$P(\partial_i;1_\bullet)$}
+
+\end{picture}
+\end{center}
+
+\NI Thus $d_i(A) = d_i(M(\phi)) = M(\exists t_i \, \phi)$. 
+
+Next, consider the degeneracy operator $\sigma_i : [n+1] \to [n]$. 
+Since $(\partial_i;1_\bullet) (\sigma_i;1_\bullet) = 
+\mbox{identity}$, then $P(\sigma_i;1_\bullet)$ is monic so that the 
+image of $A \MON P(Tx) \MON P(Tx\sigma_i)$ is $A \MON P(Tx\sigma_i)$. 
+According to the interpretation of the language of $\cal T$ in a 
+logical category, as a subobject of $P(Tx \sigma_i)$, $A$ is 
+$s_i(M(\phi)) = M(\phi \wedge (t_i'=t_i')) \MON P(Tx \sigma_i)$. 
+
+\subsection{Functors relating models and \SOF s} 
+
+Let $F : {\BC C}_1 \to {\BC C}_2$ be a ``logical'' functor (see 
+below) between logical categories, and let $H : M_1 \to M_2$ be a 
+homomorphism of models of $\cal T$ in ${\BC C}_1$. We will review how 
+``composition of $M_1$ with $F$'' yields a model, denoted $FM_1$, of 
+$\cal T$ in ${\BC C}_2$ and show how this determines an opcartesian 
+functor of the \SOF s $\BC A (M_1) \to \BC A (FM_1)$ which restricts 
+to $\AMC A{M_1}{C_1} \to \AMC A{FM_1}{C_2}$. 
+
+We will also show how the homomorphism $H$ determines an opcartesian 
+functor $\AMC A{M_1}C \to \AMC A{M_2}C$. Finally, we will apply these 
+results to form a category $\mbox{Mod}_{\rm all}{\cal T}$ of all 
+models of $\cal T$ in all logical categories and show that there is a 
+functor $\mbox{Mod}_{\rm all}{\cal T} \to \mbox{SOF}({\Delta^{\rm 
+op}})$, the category of \SOF s over $\Delta^{\rm op}$.
+
+\subsubsection{Review of definitions}
+\label{REVDEF}
+
+\NI {\bf Logical functors, composition with a model}. Let $M : \cal T 
+\to \BC C$ be a model and let $F : \BC C \to \BC C'$ be a functor of 
+logical categories. Assume that $F$ is {\em logical} (\cite{MR}), 
+that is: it preserves finite inverse limits, suprema of finite sets 
+of subobjects, and images. Then evaluation along $F$ determines a 
+model of $\cal T$ in $\BC C'$. The sort $\tau$ is interpreted as 
+$F(M(\tau))$, the operation symbol $f : \tau \to \tau'$ is 
+interpreted as $F(M(f)) : F(M(\tau)) \to F(M(\tau'))$, and the 
+predicate symbol $R$ of sort $\tau$ is interpreted as $F(M(R)) \MON 
+F(M(\tau))$. \medskip
+
+\NI {\bf Homomorphisms of models}. Suppose $M_1$ and $M_2$ are models 
+of $\cal T$ in $\BC C$. A {\em homomorphism} $H : M_1 \to M_2$ is a 
+family of maps $H(\tau) : M_1(\tau) \to M_2(\tau)$ , (for each 
+$\tau=$ a basic or compound sort of $\cal T$), satisfying the 
+following commutativity properties.
+\begin{enumerate}
+
+\item For each operation symbol $f : \tau \to \tau'$, $H(\tau') 
+M_1(f) = M_2(f) H(\tau)$.
+
+\item For each predicate $R$ of sort $\tau$, there is a map $H(R) : 
+M_1(R) \to M_2(R)$ such that $M_1(R) \MON M_1(\tau) 
+\stackrel{H(\tau)}{\longrightarrow} M_2(\tau) = M_1(R) 
+\stackrel{H(R)}{\longrightarrow} M_2(\phi) \MON M_2(\tau)$ 
+
+\end{enumerate}
+
+\NI It follows by a standard induction argument for the 
+interpretation of well-formed formulas that if $H$ is a homomorphism 
+then for each formula $\phi(t)$ where $t$ is of sort $\tau$, there is 
+a map $H(\phi) : M_1(\phi) \to M_2(\phi)$ such that $M_1(\phi) \MON 
+M_1(\tau) \stackrel{H(\tau)}{\longrightarrow} M_2(\tau) = M_1(\phi) 
+\stackrel{H(\phi)}{\longrightarrow} M_2(\phi) \MON M_2(\tau)$. In 
+effect, $H(\phi)$ is built up in a precise way from the $H(\tau)$'s 
+and $H(R)$'s analogous to the interpretation of $\phi$ by $M$. 
+
+Since the composition of $M$-maps and the equality of two $M$-maps 
+can be expressed in the language of $\cal T$, then the commutativity 
+of any finite diagram $\cal F : {\BC D} \to {\BC C}$ of $M$-maps can 
+be expressed in the language of $\cal T$. It follows that if $H : M_1 
+\to M_2$ is a homomorphism of models, and if $\cal F : {\BC D} \to 
+{\BC C}$ is a finite diagram of $M$-maps in $\BC C$, then there is a 
+corresponding finite diagram $\cal F' : {\BC D} \to {\BC C}$ of 
+$M'$-maps obtained by applying $M'$ to the formulas for the objects 
+and maps of the diagram $\cal F$. Since the formulas expressing the 
+commutativity of the diagram $\cal F$ are theorems of $\cal T$, the 
+diagram $\cal F'$ obtained via $M'$ has the corresponding 
+commutativity. That is: $H$ determines a natural transformation $\cal 
+F \to \cal F'$. 
+
+In the simple case when the diagram is simply an $M$-map $u : M(\phi) 
+\to M(\psi)$, with $u' : M'(\phi) \to M'(\psi)$ the corresponding 
+$M'$-map, then there is a commutative square with $u' H(\phi) = 
+H(\psi) u$.
+
+Similarly, if one has a commutative square of $M$-maps then there is 
+a corresponding commutative square of $M'$-maps. $H$ then yields a 
+commutative cube diagram in $\BC C$. These remarks will apply to the 
+proof of Theorem \ref{HOM_THM} below.\medskip 
+
+\NI{\bf Opcartesian functors}. Finally, recall (\cite{BarrWells} 
+\cite{Grothen}) that if $K : \BC A \to \BC X$ and $K' : \BC A' \to 
+\BC X$ are \SOF s, then an {\em opcartesian functor} $F : \BC A \to 
+\BC A'$ is a functor such that $K' F = K$ and for all $A \in \mbox{ob 
+} \BC A$ and all $g : m \to n = K(A)$ in $\BC X$, $F(\lambda(A,g)) = 
+\lambda(F(A),g) : F(A) \to F(A^g) = (F(A))^g$. 
+
+\subsubsection{The opcartesian functor determined by a logical 
+functor} \label{F_OF_FM}
+
+Let $M: \cal T \to \BC C$ be a model and let $F : \BC C \to \BC C'$ 
+be a logical functor. Let $M'=FM : \cal T \to \BC C'$ be the model 
+resulting from composition with $F$ as just described. Given a 
+$\kappa$-indexing of the sorts of $\cal T$ where $T : \kappa \to 
+\mbox{ob }\BC C$ is the corresponding function (section 
+\ref{MODEL_SOF}), define $T' : \kappa \to \mbox{ob }\BC C'$ to be 
+$FT$. Let $\BC Q$ and $\BC Q'$ be the subcategories of $\BC C$ and 
+$\BC C'$ respectively for $M$ and $M'$. Note that $F$ restricted to 
+$\BC Q$ has values in $\BC Q'$.
+
+\begin{thm} \label{FM_THM}
+\begin{enumerate}
+\item $F$ determines an opcartesian functor $F^+ : {\BC C}_{{\cal 
+T},\BC Q} \to {\BC C'}_{{\cal T},\BC Q'}$. \item $F$ determines an 
+opcartesian functor $F^M : \BC A (M) \to \BC A (M')$.
+\item $F$ preserves $M$-maps and $F^M$ restricts to an opcartesian 
+functor $\AMC AMC \to \AMC A{M'}{C'}$.
+\end{enumerate}
+\end{thm}
+
+\NI {\bf Proof}:
+\begin{enumerate}
+\item The definition of $F^+$ is: $F^+(Tx) = T'x = FTx$ and if 
+$(g;q_\bullet) : Tx \to Ty$ then
+$F^+ (g;q_\bullet) = (g;F(q_\bullet))$. Now $\lambda(Tx,g) = 
+(g;1_\bullet)$ and so $F^+(\lambda(Tx,g)) = (g;F(1_\bullet)) = 
+\lambda(T'x,g)$. Thus $F^+$ is opcartesian. 
+
+\item $F^M$ is defined by applying $F$ as shown in the following 
+diagram.
+\begin{center}
+\begin{picture}(13,4)
+\put(1,3){\makebox(0,0){$A$}}
+\put(1,1){\makebox(0,0){$B$}}
+\put(3,3){\makebox(0,0){$P(Tx)$}}
+\put(3,1){\makebox(0,0){$P(Ty)$}}
+\put(8,3){\makebox(0,0){$F(A)$}}
+\put(8,1){\makebox(0,0){$F(B)$}}
+\put(11,3){\makebox(0,0){$P(T'x)$}}
+\put(11,1){\makebox(0,0){$P(T'y)$}}
+\put(.5,2){\makebox(0,0){$u$}}
+\put(2,3.5){\makebox(0,0){$i_A$}}
+\put(2,.5){\makebox(0,0){$i_B$}}
+\put(4,2){\makebox(0,0){$P(g;q_\bullet)$}} 
+\put(7.3,2){\makebox(0,0){$F(u)$}}
+\put(12.5,2){\makebox(0,0){$P(F^+(g;q_\bullet))$}} 
+\put(9.5,3.5){\makebox(0,0){$F(i_A)$}}
+\put(9.5,.5){\makebox(0,0){$F(i_B)$}}
+\put(1,2.5){\vector(0,-1){1}}
+\put(3,2.5){\vector(0,-1){1}}
+\put(8,2.5){\vector(0,-1){1}}
+\put(11,2.5){\vector(0,-1){1}}
+\put(1.5,3){\vector(1,0){.8}}
+\put(1.5,1){\vector(1,0){.8}}
+\put(8.7,3){\vector(1,0){1.5}}
+\put(8.7,1){\vector(1,0){1.5}}
+\put(5,2){\vector(1,0){1}}
+\put(5,1.8){\line(0,1){.4}}
+\end{picture}
+\end{center}
+
+\NI Recall that $\lambda(\{A,Tx\},g) = (v,(g;1_\bullet)) : \{A,Tx\} 
+\to \{A^g,Txg\}$ where $i^g : A^g \MON P(Txg)$ is the image of $A 
+\stackrel{i_a}{\MON} P(Tx) \to P(Txg)$ and $v : A \to A^g$ is the 
+corresponding surjection. Thus $F^M(\lambda (\{A,Tx\},g)) = 
+(F(v),F^M((g;1_\bullet))) = (F(v),(g;F(1_\bullet)))$ which is 
+$\lambda(\{F(A),T'x\},g)$. Thus $F^M$ is opcartesian. 
+
+\item If $f : A \to B$ in $\BC C$ is an $M$-map with graph $1 \times 
+f : R \MON A \times B$ where
+$A=M(\phi(t))$, $B=M(\psi(t'))$ and $R = M(\theta(t,t'))$ then $F(1 
+\times f) = 1 \times F(f) : F(R) \MON F(A) \times F(B)$ which is 
+$M'(\theta(t,t')) \MON M'(\phi(t)) \times M'(\psi(t'))$. That is, 
+$F(f)$ is an $M'$-map.
+
+If $(u,(g;q_\bullet)) : \{A,Tx\} \to \{B,Ty\}$ is a map in $\AMC AMC$
+
+\begin{center}
+\begin{picture}(5,4)
+\put(1,3){\makebox(0,0){$A$}}
+\put(1,1){\makebox(0,0){$B$}}
+\put(3,3){\makebox(0,0){$P(Tx)$}}
+\put(3,1){\makebox(0,0){$P(Ty)$}}
+\put(.5,2){\makebox(0,0){$u$}}
+\put(2,3.5){\makebox(0,0){$i_A$}}
+\put(2,.5){\makebox(0,0){$i_B$}}
+\put(4,2){\makebox(0,0){$P(g;q_\bullet)$}} 
+\put(1,2.5){\vector(0,-1){1}}
+\put(3,2.5){\vector(0,-1){1}}
+\put(1.5,3){\vector(1,0){.8}}
+\put(1.5,1){\vector(1,0){.8}}
+\end{picture}
+\end{center}
+
+\NI then all the maps are $M$-maps and the image of this diagram 
+under $F$ is $F^M(u,(g;q_\bullet))$ which consists of $M'$-maps. Thus 
+$F^M$ restricts to an opcartesian functor $\AMC AMC \to \AMC A{M'}{C' 
+}$. \qed
+
+\end{enumerate}
+
+\subsubsection{The opcartesian functor determined by a homomorphism 
+of models} \label{F_OF_H}
+
+Let $H : M \to M'$ be a homomorphism of models of $\cal T$ in the 
+logical category $\BC C$. Given a $\kappa$-indexing of the sorts of 
+$\cal T$, we have two functions $T, T' : \kappa \to \mbox{ob } \BC C$ 
+where, for each $i < \kappa$, $T(i)=M(i \mbox{'th sort indexed})$ and 
+$T'(i)=M'(i \mbox{'th sort indexed})$. $M$ and $M'$ determine the 
+subcategories $\BC Q$ and $\BC Q'$ as described in section 
+\ref{MODEL_SOF}.
+
+\begin{thm}
+\label{HOM_THM}
+The homomorphism $H : M \to M'$ determines an opcartesian functor 
+$F^H : \AMC AMC \to \AMC A{M'}C$.
+\end{thm}
+
+\NI {\bf Proof}:
+First we define a functor $H^T : {\BC C}_{{\cal T},{\BC Q }} \to {\BC 
+C}_{{\cal T},{\BC Q'}}$. Set $H^T(Tx) = T'x$. Given the map 
+$(g;q_\bullet) : Tx \to Ty$ with $g : [m] \to [n]$ in $\Delta$, then 
+$H^T(g;q_\bullet) = (g;q'_\bullet) : T'x \to T'y$ where for each 
+$i=0,\ldots,m$, we must define $q'_i : T'xg(i) \to T'y(i)$. 
+
+Let $\tau_{xg(i)}$ and $\tau_{y(i)}$ denote the sorts indexed by 
+$xg(i)$ and $y(i)$ respectively. By definition, 
+$Txg(i)=M(\tau_{xg(i)})$, $Ty(i)=M(\tau_{y(i)})$ and $q_i : Txg(i) 
+\to Ty(i)$ is an $M$-map whose graph is $M(\theta_i ) \MON 
+M(\tau_{xg(i)}) \times M(\tau_{y(i)})$ for some formula $\theta_i$. 
+We define $q_i'$ to be the function whose graph is $M'(\theta_i ) 
+\MON M'(\tau_{xg(i)}) \times M'(\tau_{y(i)})$. It follows from this 
+definition that the following diagram commutes for each 
+$i=0,\ldots,m$.
+
+\begin{center}
+\begin{picture}(6,3.6)
+%\put(){\makebox(0,0){$$}}
+
+\put(2,1){\makebox(0,0){$M'(\tau_{xg(i)})$}} 
+\put(2,3){\makebox(0,0){$M(\tau_{xg(i)})$}} 
+\put(5,1){\makebox(0,0){$M'(\tau_{y(i)})$}} 
+\put(5,3){\makebox(0,0){$M(\tau_{y(i)})$}} 
+\put(3.5,3.3){\makebox(0,0){$q_i$}}
+\put(3.5,.5){\makebox(0,0){$q_i'$}}
+\put(0.8,2){\makebox(0,0){$H(\tau_{xg(i)})$}} 
+\put(6,2){\makebox(0,0){$H(\tau_{y(i)})$}} 
+\put(2,2.5){\vector(0,-1){1}}
+\put(5,2.5){\vector(0,-1){1}}
+\put(3,1){\vector(1,0){1}}
+\put(3,3){\vector(1,0){1}}
+\end{picture}
+\end{center}
+
+Next we define $F^H$. Let $\{A,Tx\} = i_A : A \MON P(Tx)$ 
+be an object of $\AMC AMC$
+where $A=M(\phi(t))$, $t$ is the compound sort $(t_0,\ldots,t_n)$ 
+with $t_i$ of sort $\tau_{x(i)}$ and $i_A$ is an $M$-map. Then $H$ 
+being a homomorphism implies the following diagram commutes. 
+
+\begin{center}
+\begin{picture}(6,3.6)
+%\put(){\makebox(0,0){$$}}
+\put(2,1){\makebox(0,0){$M'(\phi(t))$}}
+\put(2,3){\makebox(0,0){$M(\phi(t))$}}
+\put(5,1){\makebox(0,0){$\prod M'(\tau_{x(i)})$}} 
+\put(5,3){\makebox(0,0){$\prod M(\tau_{x(i)})$}} 
+\put(3.5,3.3){\makebox(0,0){\small monic}} 
+\put(3.5,.5){\makebox(0,0){\small monic}} 
+%\put(0.8,2){\makebox(0,0){$H(\tau_{xg(i)})$}} 
+\put(6,2){\makebox(0,0){$ \prod H(\tau_{x(i)})$}} 
+\put(2,2.5){\vector(0,-1){1}}
+\put(5,2.5){\vector(0,-1){1}}
+\put(3,1){\vector(1,0){1}}
+\put(3,3){\vector(1,0){1}}
+\end{picture}
+\end{center}
+
+\NI Define $F^H(\{A,Tx\})$ to be the monic $M'(\phi(t)) \MON \prod 
+M'(\tau_{x(i)}) = i_{A'}:A' \MON T'x$. The earlier observation about 
+homomorphisms in section \ref{REVDEF} establishes the functoriality 
+of $F^H$.
+
+Finally, to show that $F^H$ is opcartesian, we have to show that 
+$F^H(\lambda(\{A,Tx\},g)) = \lambda(F^H\{A,Tx\},g)$. Now 
+$\lambda(\{A,Tx\},g)$ is the commutative square of $M$-maps 
+
+\begin{center}
+\begin{picture}(5,3.5)
+%\put(){\makebox(0,0){$$}}
+\put(1,3){\makebox(0,0){$A$}}
+\put(1,1){\makebox(0,0){$A^g$}}
+\put(4,3){\makebox(0,0){$P(Tx)$}}
+\put(4,1){\makebox(0,0){$P(Txg)$}}
+\put(1,2.5){\vector(0,-1){1}}
+\put(4,2.5){\vector(0,-1){1}}
+\put(1.5,1){\vector(1,0){1.7}}
+\put(1.5,3){\vector(1,0){1.7}}
+\put(1.5,2){\makebox(0,0){\small surj}}
+\put(4.5,2){\makebox(0,0){\small proj}}
+\put(2.5,3.3){\makebox(0,0){\small monic}} 
+\put(2.5,.5){\makebox(0,0){\small monic}} \end{picture}
+\end{center}
+
+\NI where if $A=M(\phi)$ then $A^g = M(\exists t^{\neg g} \, \phi)$ 
+where $t^{\neg g}$ is the list of those free variables $t_k$ where $0 
+\le k \le n$ and $k$ is not in the image of $g : [m] \to [n]$.
+
+Similarly, $\lambda(F^H\{A,Tx\},g)$ is the commutative square of 
+$M'$-maps
+
+\begin{center}
+\begin{picture}(5,3.5)
+\put(1,3){\makebox(0,0){$A'$}}
+\put(1,1){\makebox(0,0){${(A')}^g$}}
+\put(4,3){\makebox(0,0){$P(T'x)$}}
+\put(4,1){\makebox(0,0){$P(T'xg)$}}
+\put(1,2.5){\vector(0,-1){1}}
+\put(4,2.5){\vector(0,-1){1}}
+\put(1.5,1){\vector(1,0){1.7}}
+\put(1.5,3){\vector(1,0){1.7}}
+\put(1.5,2){\makebox(0,0){\small surj}}
+\put(4.5,2){\makebox(0,0){\small proj}}
+\put(2.5,3.3){\makebox(0,0){\small monic}} 
+\put(2.5,.5){\makebox(0,0){\small monic}} \end{picture}
+\end{center}
+
+\NI where $A'=M'(\phi)$ and ${(A')}^g = M'(\exists t^{\neg g} \, 
+\phi) = (A^g)'$. Thus $F^H(\lambda(\{A,Tx\},g)) = 
+\lambda(F^H\{A,Tx\},g)$. \qed
+
+\subsubsection{The category of all models of $\cal T$} 
+
+Fix a coherent first-order theory $\cal T$. We will denote each model 
+$M$ of $\cal T$ in the logical category $\BC C$ by $(M,{\BC C})$. The 
+class of all models of $\cal T$ in all small logical categories is 
+the class of objects of a category denoted $\mbox{Mod}_{\rm all} \cal 
+T$. A map $(H,F) : (M,{\BC C}) \to (M',{\BC C'})$ consists of a 
+logical functor $F : {\BC C} \to {\BC C'}$ and a homomorphism of 
+models $H : FM \to M'$. ($FM$ is the model $\cal T \stackrel{M }{\to} 
+{\BC C} \stackrel{F}{\to} {\BC C'}$ defined in section \ref{F_OF_FM}).
+
+\begin{center}
+\begin{picture}(5,2.5)
+\setlength{\unitlength}{1mm}
+%\put(){\makebox(0,0){$$}}
+\put(0,20){\makebox(0,0){$\BC C$}}
+\put(20,0){\makebox(0,0){$\cal T$}}
+\put(40,20){\makebox(0,0){$\BC C'$}}
+\put(5,5){\makebox(0,0){$M$}}
+\put(35,5){\makebox(0,0){$M'$}}
+\put(20,13){\makebox(0,0){$H$}}
+\put(20,23){\makebox(0,0){$F$}}
+\put(5,20){\vector(1,0){30}}
+\put(17,5){\vector(-1,1){12}}
+\put(23,5){\vector(1,1){12}}
+\put(15,10){\vector(1,0){10}}
+\end{picture}
+\end{center}
+
+The composite $(M,{\BC C}) \stackrel{(H,F)}{\to} (M',{\BC C'}) 
+\stackrel{(H',F')}{\to} (M'',{\BC C''})$ is $(H'',F'F)$ where for 
+each sort $\tau$, $H''(\tau)= F'F(M(\tau)) \stackrel{F'(H(\tau))}{\to 
+} F'(M'(\tau)) \stackrel{H'(\tau)}{\to} M''(\tau)$. For each 
+operation symbol $f$ and each predicate $R$, the maps $H''(f)$ and 
+$H''(R)$ are defined similarly.\medskip
+
+\NI {\bf Remark}: Let ${\mbox{\bf Cat}}_{\rm log}$ denote the 
+category of all logical categories and logical functors. The functor 
+$\mbox{Mod}_{\rm all} \cal T \to {\mbox{\bf Cat}}_{\rm log}$ defined 
+by $(M,{\BC C}) \mapsto {\BC C}$ and $(H,F) \mapsto F$ is a \SOF\ 
+where $\lambda((M,{\BC C}),F) = (1,F) : (M,{\BC C}) \to (FM,{\BC 
+C'})$ and $\iota(H,F) = (H,1_{\BC C}) : (FM,{\BC C'}) \to (M'{\BC 
+C'})$. \medskip
+
+Theorems \ref{FM_THM} and \ref{HOM_THM} combine to establish the 
+following result.
+
+\begin{thm} There is a faithful functor $W : \mbox{Mod}_{\rm all} 
+{\cal T} \to \mbox{SOF}(\Delta^{\rm op})$ where $W(M,{\BC C}) = 
+K_{M,{\BC C}} : {\AMC AMC} \to \Delta^{\rm op}$. If $(H,F) : (M,{\BC 
+C}) \to (M',{\BC C'})$ is a map of models then the opcartesian 
+functor for $W(H,F)$ is ${\AMC AMC} \stackrel{F^M}{\to} {\AMC A {FM} 
+{C'}} \stackrel{F^H}{\to} {\AMC A {M'} {C'}}$. \qed
+\end{thm}
+
+\subsubsection{A ``purely categorical'' result} 
+
+There is a ``purely categorical'' theorem which shadows the previous 
+theorem. It is based on the coherent first order theory ${\cal 
+T}({\BC C})$ determined by a small logical category $\BC C$. Recall 
+(from \ref{CFOT}) that the sorts of ${\cal T}({\BC C})$ are the 
+objects of $\BC C$ and the operation symbols of ${\cal T}({\BC C})$ 
+are the maps of $\BC C$. The canonical model $M_0 : {\cal T}({\BC C 
+}) \to {\BC C}$ interprets each sort $C$ as the object $C$, each 
+operation symbol $f : C \to C'$ as the map $f$, each predicate $R 
+\MON C_0 \times \cdots \times C_n$ as the subobject $R$ and so on. 
+
+Given an ordinal $\kappa$ and a function $T : \kappa \to \mbox{ob 
+}{\BC C}$, there is an associated \SOF\ defined as follows. One 
+defines the category ${\BC C}_T$ to be ${\BC C}_{T,{\BC Q}}$ as in 
+section \ref{ORD_SOF} by taking ${\BC Q} = {\BC C}$. We define the 
+functor $P : {\BC C}_T \to {\BC C}$ as before: $P(Tx) = \prod_{i=0}^n 
+Tx(i)$ if $\mbox{dom}(x)=[n]$. This functor together with the \SOF\ 
+$K : {\BC C}_T \to \Delta^{\rm op}$ (theorem \ref{CTQ_SOF}) define a 
+\SOF\ of relations $\ACT ACT$ as in section \ref{REL_SOF}. 
+
+Each logical functor $F : {\BC C} \to {\BC C'}$ yields a model $FM_0 
+: {\cal T}({\BC C}) \to {\BC C'}$ obtained from the canonical model 
+$M_0 : {\cal T}({\BC C }) \to {\BC C}$ by composition with $F$. By 
+theorem \ref{FM_THM}, there is an opcartesian functor ${\ACT ACT} \to 
+{\ACT A{C'}{T'}}$ where $T' : \kappa \to \mbox{ob }{\BC C'}$ is $FT : 
+\kappa \to \mbox{ob }{\BC C} \to \mbox{ob }{\BC C'}$.
+
+Let us call a logical category together with a function $T : \kappa 
+\to \mbox{ob }{\BC C}$ an {\em ordinal-mapped logical category} and 
+denote it $({\BC C},T)$. A morphism $({\BC C},T) \to ({\BC C'},T')$ 
+is a logical functor $F : {\BC C} \to {\BC C'}$ where $T'=FT$. 
+
+Let ${\mbox{Cat}}^{\rm ind}_{\rm log}$ be the category of all 
+ordinal-mapped logical categories and logical functors. 
+
+We then obtain:
+
+\begin{thm} There is a faithful functor ${\mbox{Cat}}^{\rm ind}_{\rm 
+log} \to {SOF}(\Delta^{\rm op})$ \qed \end{thm} 
+
+
+\bibliographystyle{plain}
+%\bibliography{abibl}
+\input{glennbib.tex}
+
+\end{document}
