@@ -1,0 +1,59 @@
+\documentstyle[a4wide,12pt]{article}
+%% \makeatletter
+
+%%%\setlength{\textwidth}{17cm}
+%%%\setlength{\evensidemargin}{-.8cm}
+%%%\setlength{\oddsidemargin}{-.8cm}
+
+%% \makeatother
+\input{defs}
+
+\begin{document}
+%\ \ \hspace*{1em}\ \  \hfill{\rabove
+\begin{figure}[hbt]
+\hspace*{2em}
+\begin{tabular}{|r@{\ }l@{\ \ \ \ \ \ \ }r@{\ }ll|}
+\multicolumn{5}{r}{{\small{\today}}} \\
+\hline
+\multicolumn{4}{|c}{{\bf Axioms}:} & \\[1ex]
+\multicolumn{4}{|c}{
+$\GSD, t\Incl t$ \ \ \ \ \ \  $\GSD,x=x$ \ \ \ \ \ \ $s\odot t,\GSD,s\odot t$} & \\[4ex]
+%% \multicolumn{4}{|c}{$x\Incl y,\GSD,x=y$
+%% \ \ \ \ \  $x=y,\GSD,x\Incl y$
+%% \ \ \ \ \  $x\Incl y,\GSD,y\Incl x$} & \\[3ex]
+\multicolumn{4}{|c}{{\bf Identity rules}:} & \\[1ex]
+($=_{s}$) &
+ \prule{t=s,\Gamma\Seq\Delta,\phi[s]}{t=s,\Gamma\Seq\Delta,\phi[t]} & 
+ ($=_{a}$) & 
+  \prule{t=s, \phi[s], \Gamma\Seq\Delta}{s=t, \phi[t],\Gamma\Seq\Delta} &\\[4ex]
+%
+\multicolumn{4}{|c}{{\bf Inclusion rules}:} & \\[1ex]
+($\Incl_{Ls}$) & \prule{s\Incl t,\GSD, p(t)\preceq q}{s\Incl t, \GSD, p(s)\preceq q}  &
+     ($\Incl_{La}$) & 
+     \prule{s\Incl t, p(s)\preceq q,\GSD}{s\Incl t, p(t)\preceq q,\GSD} & \\[4ex]
+%
+\multicolumn{4}{|c}{{\bf Elimination rules}:} & \\[1ex]
+($E_s$) & \prule{x\Incl t,\GSD}{\GSD_t^x}  &
+($E_a$) & \prule{x\Incl t, y\Incl q(x),\GSD}{y\Incl q(t),\GSD} & \\[.5ex]
+&  {\footnotesize - $x\not\in \Vars(\Gamma,t)$} &  
+   &  {\footnotesize - $x\not\in \Vars(t,\Gamma,\Delta,y)$} & \\
+& {\footnotesize - at most one $x$ in $\Delta$;} &  
+   & {\footnotesize - at most one occurrence of $x$ in $q(x)$} & \\[2ex]
+%
+\multicolumn{4}{|c}{{\bf Cut}:} & \\[1ex]
+\multicolumn{4}{|c}{(cut)\ \ \prule{\GSD,A\ \ ;\ \ A,\GSD}{\GSD}} &\\[3ex]
+\multicolumn{4}{|c}{{\bf Specific cut rules}:} & \\
+\multicolumn{4}{|c}
+{for each specific axiom $\Ax_k$: \(a_1,...,a_n\Seq s_1,...,s_m\), 
+a  rule:} & \\[1ex]
+\multicolumn{4}{|c}
+{\prule{\Gamma\Seq\Delta,a_1\ ;...;\ \Gamma\Seq\Delta,a_n\ ;\ 
+s_1,\Gamma\Seq\Delta\ ;...;\ s_m,\Gamma\Seq\Delta} 
+{\Gamma\Seq\Delta}\ \ \ ($Sp.cut_k$)} & \\[3ex]
+ \hline
+\end{tabular} 
+\caption{The rules of $NEQ_{2}$ ($x,y\in\Vars$)} %\label{fi:neq4}
+\end{figure}
+
+
+\end{document}

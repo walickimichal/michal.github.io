@@ -1,0 +1,227 @@
+\documentclass[10pt]{article}
+%%\documentstyle[a4wide,10pt]{article}
+\makeatletter
+\input{a4wide}
+\makeatother
+
+%%%\setlength{\textwidth}{17cm}
+%%%\setlength{\evensidemargin}{-.8cm}
+%%%\setlength{\oddsidemargin}{-.8cm}
+
+%% \makeatother
+\input{defs}
+\input xypic
+
+\title{A Logic for Set-Valued Functions:\\ Cut-Elimination and Other Improvements}
+
+\author{ {\em Regimantas ~Pliu\v skevi\v cius}\ \thanks{Department of Mathematical Logic,
+Vilnius Institute of Mathematics and Informatics, Lithuania,
+{\sl \{regis, jurates, aida\}@ktl.mii.lt}} \\
+{\em Micha{\l}~Walicki}\ \thanks{Department of Informatics, University of Bergen, 5020
+Bergen, Norway, {\sl michal@ii.uib.no}} \\
+{\em Jurate~Sakalauskait\.e }$^*$ \\
+{\em Aida~Pliu\v skevi\v cien\.e }$^*$ 
+}
+
+
+
+\begin{document}
+\maketitle
+\abstract{Motivated by the interest in algebraic specification of nondeterminism we sketch the
+ multialgebraic semantics and present an associated sound and complete calculus.
+Through a series of transformations we arrive at an equivalent calculus not containing the
+general cut rule. We show also how specific (non-logical) axioms can be replaced by 
+specific cut rules and introduce some other improvements of the original calculus.}
+
+\section{Introduction} %\hfill{\small\today}}
+The paper presents a logic introduced in the field of algebraic specifications
+for the purpose of specifying abstract data types involving nondeterministic
+operations. The traditional algebraic specifications \cite{EM}
+use various variants of equational
+logic for specfying deterministic data types which are modelled as algebras.
+However, in many situations, one is faced with the task of specifying a system
+whose functionality is not uniquely determined by the requirements or, even
+worse, whose intended behaviour may admit a degree of nondeterminism. In such cases,
+the use of nondeterminism at the description level either increases the desired level
+of abstraction (avoiding overspecification) or even, in some cases, proves 
+indispensable.  \cite{Surv} surveys the problems and proposals for extending the
+algebraic framework with nondeterminism. One such proposal is to generalize
+algebras to {\em multialgebras} where operations return not necessarily individual 
+elements but, possibly, sets thereof \cite{Hus, Mich, WB}. At the same time, one
+wants to carefully distinguish the operations which can return a set (i.e., are
+nondeterministic) from the ones which always return individuals (are deterministic).
+There are various ways of making such a distinction so here let us, for the sake of
+example and simplicity, assume that there is a predicate $D$ which, applied to a
+term $t$ evaluates to true iff $t$ is deterministic.
+At the language (and logic) level, this poses the following problem. 
+Suppose that we have a nondeterministic operation $f:X\Ord Y$ and a deterministic
+one $d:Y\Ord Z$. In particular, $D(d(y))$ is true for every $y\in Y$. 
+In the traditional
+setting, this enables us to conclude, by simple substitution, 
+$D(d(f(x)))$. However, since $f(x)$ may denote a set,
+so $d(f(x))$ may yield a set too, and $D(d(f(x)))$ is not a sound conclusion.\footnote{The problem does not, of course, depend
+on {\em how} deterministic operations are distinguished from the nondeterminisitc ones
+-- only that they {\em can} be distinguished.}
+
+The specific feature of the calculus which we will study is the accommodation of such a
+restricted substitutivity. 
+In section~\ref{se:specs} we introduce a sound and complete calculus 
+$NEQ$ for the
+multialgebraic semantics of nondeterminism (originally from \cite{Mich}, and whose 
+variants were studied in 
+\cite{WM}, \cite{Top}). Using techniques of \cite{K}, \cite{Aida1}, \cite{Aida2},
+and their refinements and modifications, the paper presents a series
+of transformations, sections~\ref{se:inter}-\ref{se:lastNEQ}, leading
+to an equivalent calculus without the general ($cut$) rule. 
+In the context of algebraic specifications one is interested in axiomatizing data
+types. Typically, a logic is applied to a set of specific (non-logical) axioms for
+deriving their consequences.
+We show how the
+specific (non-logical) axioms and the general cut-rule can be replaced by 
+the {\em specific-cut}
+rules (section~\ref{sub:Spcut}). Several other useful specializations of rules are
+introduced. The main cut-elimination is proved in subsection~\ref{sub:cut} and section
+\ref{se:lastNEQ} gives the final version of the cut-free calculus $NEQ_5$ with
+specific-cut rules replacing specific axioms.
+Then section~\ref{se:noax} studies the situation when no specific
+axioms are present, showing that in this case no cut or cut-like elimination rules 
+are needed,
+thus yielding quite a simple calculus for proving multialgebraic tautologies.
+Sections~\ref{se:connectives}-\ref{se:related} contain some concluding remarks and
+comparison with related works.
+
+The paper consists of a series of transformations of the calculi and lengthy syntactic 
+proofs of their equivalences.
+The impatient reader may consult directly the main results:\\[1ex]
+\begin{tabular}{rlcl}
+1. &  figure \ref{fi:neq} on page \pageref{fi:neq} & -- & the original version of
+the calculus $NEQ$ \\
+2. & figure \ref{fi:neq51} on page \pageref{fi:neq51} & -- & the final cut-free
+version $NEQ_5$ \\
+% & & & specific axioms are dealt with by means of  \\
+ & & & with the specific-cut rules \\
+3. & proposition~\ref{le:elcut}, page \pageref{le:elcut} 
+       & -- & the main cut-elimination result \\
+   & lemma \ref{le:nott}, \ref{le:noxx}, page \pageref{le:nott}, \pageref{le:noxx} 
+       & -- & elimination of auxiliary cut-rules \\
+4. & figure \ref{fi:neq6a} on page \pageref{fi:neq6a} & -- & the final calculus
+$NEQ_6$ for multialgebraic tautologies\\ 
+ & & & not containing cut, specific cut or elimination rules \\
+5. & section \ref{se:connectives} & -- & final comments
+\end{tabular}
+
+
+\input{neqA}
+
+\input{neqB}
+
+\input{neqC}
+
+\section{Related work.}\label{se:related}
+The first, to our knowledge, reasoning system for multialgebras was introduced 
+by Hu{\ss}mann in
+\cite{Hus}. It dealt only with simple (atomic) inclusions and, more significantly, 
+was not complete.
+A complete extension of this calculus was given in \cite{Mich}.
+The present system $NEQ_5$ is a significant improvement of the original
+calculi from \cite{Mich} and \cite{Top}, particularly, due to cut-freeness.
+
+Another cut-free, Gentzen-style calculus was introduced in \cite{BK95}.
+It addresses proofs of tautologies (no specific axioms) and so it is a counterpart
+of our $NEQ_6$.
+% -- $NEQ_5$ is essentially an extension of this system.
+\begin{itemize}\MyLPar
+\item 
+The main difference is that \cite{BK95} address partial multialgebras, i.e. ones where
+some terms may denote empty set. Our calculi work only for total multialgebras. 
+\item
+There are two differences in the language. The first one concerns
+the special ``let'' term-construction: `$let\ x:=t\ in\ f(x,x)$' is a possible term. 
+Although absent from our language, it is
+expressible, except for the cases when a term with $let$ occurs in the RHS
+of inclusion. 
+\item 
+On the other hand, our system
+deals not only with inclusion, but also with the determinisitc equality which
+is not a part of the language in \cite{BK95}.
+Our results show that, restricting the language to inclusions, 
+the only rules needed are the first axiom and the inclusion rules
+from figure \ref{fi:neq6a}.
+\item
+The proofs in the calculus from \cite{BK95} proceed essentially in a bottom-up 
+fashion by 1) replacing (sub)terms of concern by variables and introducing 
+additional assumptions about the relations between them, and then 2) performing 
+the deductions using rules handling variables. In general, this leads to complex
+proof-{\em trees} -- in $NEQ_6$ all the proofs are linear.
+\item
+The restrictions on the inclusion and elimination rules are essentially the same
+in both systems.
+However, we have
+made it explicit that the elimination rules (which are present in \cite{BK95}, 
+even though no specific axioms are admitted)
+are needed only in the presence of 
+specific axioms -- when no such axioms are involved they can be eliminated and $NEQ_6$
+is a complete system for deriving all multialgebraic tautologies.
+\end{itemize}
+The sufficiency of $\elNEQ$ is a significant strengthening of these earlier results.
+In addition, the cut-freeness of the system from \cite{BK95} corresponds to the 
+situations when
+no specific axioms are present (i.e., cut-freeness of $\elNEQ$). 
+We have shown how such axioms can be treated explicitly by
+the more specific cut rules instead of general cut. Finally, other rules of the 
+calculus have
+been given very specific restrictions. All these results enhance significantly 
+proof search.
+
+\subsection*{Acknowledgment}
+We thank Valentinas Kriau\v ciukas and Sigurd
+Meldal for the comments and help they provided during our work on this paper.
+
+The first three authors were supported by a grant from the Norwegian Research Council.
+
+\begin{thebibliography}{MM99}\MyLPar
+\bibitem[BK95]{BK95} M.~Bia{\l}asik, B.~Konikowska. 
+   {\em Reasoning with Nondeterministic Specifications,} Tech.~Rep. no.~793, IPI PAN, Warszawa,
+   (1995).
+\bibitem[EM85]{EM} H. Ehrig, B. Mahr {\em Fundamentals ofAlgebraic Specification},
+ vol.~1, Springer, (1985).
+\bibitem[Hus90]{Hus} H. Hu{\ss}mann, {\em Nondeterministic Algebraic Specifications},
+Ph.D. thesis, Fakult\"{a}t f\"{u}r Mathematik und Informatik, Universit\"{a}t Passau, 
+ (1990).
+\bibitem[Kan63]{K} S.~Kanger,
+   {\em A simplified proof method for elementary logic,}
+   in Comput. Progr. and Formal Systems, North-Holland, Amsterdam, (1963).
+\bibitem[Pli71]{Aida1} A.~Pliu\v skevi\v cien\.e, 
+   {\em Elimination of cut-type rules in axiomatic theories with equality,}
+   Seminars in mathematics V.A.Steklov Mathem. Inst., Leningrad, 16, 90-94, (1971).
+\bibitem[Pli73]{Aida2} A.~Pliu\v skevi\v cien\.e,
+   {\em Specialization of the use of axioms for deduction search in 
+   axiomatic theories with equality,}
+   J. Soviet Math., 1, (1973).
+\bibitem[PWM94]{LFCS} A.~Pliu\v skevi\v cien\.e, R.~Pliu\v skevi\v cius,
+   M.~Walicki, S.~Meldal,
+   {\em On specialization of derivations in axiomatic equality theories,}
+   in Proc. of LFCS'94, LNCS vol. 813, (1994).
+\bibitem[Wal93]{Mich} M.~Walicki,
+   {\em Algebraic Specifications of Nondeterminism,}
+   Ph.D. thesis, Institute of Informatics, University of Bergen, (1993).
+\bibitem[WB97]{WB} M.~Walicki, M.~Bia{\l}asik, Categories of Relational Structures, in
+{\em Recent Trends in Algebraic Development Techniques}, (ed. F.Parisi Presicce), 
+  LNCS, vol.~1376, Springer, (1997)
+% {\em Relations, Multialgebras and 
+%   Homomorphisms}, Tech.Rep., no~838, Polish Academy of Sciences, Institute of
+%  CS, (1997).
+\bibitem[WB95]{Broy} M.~Walicki, M.~Broy, Structured Specifications and Implementation of
+   Nondeterministic Data Types, {\em Nordic Journal of Computing}, vol.~2, (1995).
+\bibitem[WM95a]{WM} M.~Walicki, S.~Meldal, 
+   Multialgebras, Power Algebras and Complete Calculi of Identities and 
+    Inclusions, {\em Recent Trends in Data Type  Specification}, LNCS, vol. 906 (1995).
+\bibitem[WM95b]{Top} M.~Walicki, S.~Meldal, 
+ A Complete Calculus for the Multialgebraic and Functional Semantics of Nondeterminism,  
+    {\em ACM ToPLaS}, vol.~17, no.~2, (1995).
+\bibitem[WM97]{Surv} M.~Walicki, S.~Meldal, Algebraic Approaches to Nondeterminism --
+ an Overview, {\em ACM Computing Surveys}, vol.~29, no.~1, (1997).
+\end{thebibliography} 
+
+
+\end{document}

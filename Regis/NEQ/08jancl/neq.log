@@ -1,0 +1,616 @@
+This is TeX, Version 3.1415 (C version 6.1) (format=latex 94.6.28)  26 AUG 1999 11:06
+**&latex2e neq
+(neq.tex
+LaTeX2e <1994/06/01> patch level 2
+Hyphenation patterns for english, norsk, swedish, danish,
+german & francais loaded.
+(/local/TeX/macros/LaTeX/article.cls
+Document Class: article 1994/06/02 v1.2s Standard LaTeX document class
+(/local/TeX/macros/LaTeX/size10.clo
+File: size10.clo 1994/06/02 v1.2s Standard LaTeX file (size option)
+)
+\c@part=\count82
+\c@section=\count83
+\c@subsection=\count84
+\c@subsubsection=\count85
+\c@paragraph=\count86
+\c@subparagraph=\count87
+\c@figure=\count88
+\c@table=\count89
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (a4wide.tex) (defs.tex
+\c@ax=\count90
+\c@axA=\count91
+\c@axB=\count92
+\c@axC=\count93
+\c@axD=\count94
+\c@CLAIM=\count95
+\c@FACT=\count96
+\c@ITEM=\count97
+)
+(/local/TeX/macros/xypic-3.5/xypic.tex (/local/TeX/macros/xypic-3.5/xyv2.tex
+(/local/TeX/macros/xypic-3.5/xy.tex Bootstrap'ing: catcodes, docmode,
+(/local/TeX/macros/xypic-3.5/xyrecat.tex)
+(/local/TeX/macros/xypic-3.5/xyidioms.tex)
+
+ Xy-pic version 3.5 <1997/05/28>
+ Copyright (c) 1991-1997 by Kristoffer H. Rose <krisrose@brics.dk>
+ Xy-pic is free software: see the User's Guide for details.
+
+Loading kernel: messages; fonts; allocations: state,
+\X@c=\dimen103
+\Y@c=\dimen104
+\U@c=\dimen105
+\D@c=\dimen106
+\L@c=\dimen107
+\R@c=\dimen108
+\Edge@c=\toks15
+\X@p=\dimen109
+\Y@p=\dimen110
+\U@p=\dimen111
+\D@p=\dimen112
+\L@p=\dimen113
+\R@p=\dimen114
+\Edge@p=\toks16
+\X@origin=\dimen115
+\Y@origin=\dimen116
+\X@xbase=\dimen117
+\Y@xbase=\dimen118
+\X@ybase=\dimen119
+\Y@ybase=\dimen120
+\X@min=\dimen121
+\Y@min=\dimen122
+\X@max=\dimen123
+\Y@max=\dimen124
+\lastobjectbox@=\box25
+\zerodotbox@=\box26
+\almostz@=\dimen125
+ direction,
+\d@X=\dimen126
+\d@Y=\dimen127
+\K@=\count98
+\KK@=\count99
+\Direction=\count100
+\K@dXdY=\dimen128
+\K@dYdX=\dimen129
+\xyread@=\read1
+\xywrite@=\write4
+\csp@=\count101
+\quotPTK@=\dimen130
+
+utility macros; pictures: \xy, positions,
+\swaptoks@@=\toks17
+\connectobjectbox@@=\box27
+ objects,
+\styletoks@=\toks18
+ decorations;
+kernel objects: directionals, circles, text; options; algorithms: directions,
+edges, connections;  Xy-pic loaded)
+ Xy-pic option: Version 2 Compatibility v.3.4
+
+Xy-pic Warning: `\stop' redefined.
+
+(/local/TeX/macros/xypic-3.5/xyframe.tex
+ Xy-pic option: Frame and Bracket extension v.3.4 loaded)
+(/local/TeX/macros/xypic-3.5/xymatrix.tex  Xy-pic option: Matrix feature v.3.4
+\Row=\count102
+\Col=\count103
+\queue@=\toks19
+\queue@@=\toks20
+\qcount@=\count104
+\qcount@@=\count105
+\matrixsize@=\count106
+
+loaded) (/local/TeX/macros/xypic-3.5/xyarrow.tex
+ Xy-pic option: Arrow and Path feature v.3.5 path, \ar, loaded) loaded))
+(neq.aux)
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 29.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 29.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 29.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 29.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <9> on input line 54.
+ [1
+
+]
+Overfull \hbox (24.98544pt too wide) in paragraph at lines 93--112
+[] 
+ []
+
+(neqA.tex [2]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 111.
+ [3] [4] [5] [6]
+Overfull \hbox (10.54173pt too wide) detected at line 443
+[]
+ []
+
+
+Overfull \hbox (21.87212pt too wide) detected at line 521
+[]
+ []
+
+[7] [8]) (neqB.tex
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 12.
+ (neq4.tex) [9]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 160.
+
+
+Overfull \hbox (18.24713pt too wide) detected at line 161
+| []
+ []
+
+[10]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 230.
+
+
+Overfull \hbox (61.11115pt too wide) detected at line 231
+| []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 242.
+
+
+Overfull \hbox (58.98544pt too wide) detected at line 243
+| []
+ []
+
+[11] [12]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 379.
+
+
+Overfull \hbox (59.6909pt too wide) detected at line 380
+| []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 396.
+
+
+Overfull \hbox (39.047pt too wide) detected at line 397
+| []
+ []
+
+
+Overfull \hbox (1.0743pt too wide) detected at line 444
+[]    \OMS/cmsy/m/n/9 )    []
+ []
+
+[13]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 543.
+
+
+Overfull \hbox (72.23181pt too wide) detected at line 543
+| []
+ []
+
+
+Overfull \hbox (42.70865pt too wide) detected at line 560
+[]    \OMS/cmsy/m/n/9 )    []
+ []
+
+
+Overfull \hbox (13.66583pt too wide) detected at line 574
+| []    \OMS/cmsy/m/n/9 )    []
+ []
+
+
+Overfull \hbox (25.4852pt too wide) detected at line 587
+[]    \OMS/cmsy/m/n/9 )    []
+ []
+
+[14]
+Overfull \hbox (48.72324pt too wide) detected at line 602
+[]    \OMS/cmsy/m/n/9 )    []
+ []
+
+
+Overfull \hbox (44.83093pt too wide) detected at line 616
+[]    \OMS/cmsy/m/n/9 )    []
+ []
+
+[15]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 703.
+
+
+Overfull \hbox (38.00327pt too wide) detected at line 704
+| []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 817.
+
+
+Overfull \hbox (37.22256pt too wide) detected at line 818
+| []
+ []
+
+[16]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 851.
+
+
+Overfull \hbox (32.26924pt too wide) detected at line 851
+| []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 866.
+
+
+Overfull \hbox (40.37198pt too wide) detected at line 867
+| []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 878.
+
+
+Overfull \hbox (34.63905pt too wide) detected at line 878
+| []
+ []
+
+[17]
+Overfull \hbox (14.60933pt too wide) detected at line 966
+[]    \OMS/cmsy/m/n/9 )    []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 978.
+
+
+Overfull \hbox (34.73665pt too wide) detected at line 979
+| []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 990.
+
+
+Overfull \hbox (31.41812pt too wide) detected at line 991
+| []
+ []
+
+
+Overfull \hbox (7.29893pt too wide) detected at line 1001
+[]    \OMS/cmsy/m/n/9 )    []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1027.
+
+
+Overfull \hbox (53.27005pt too wide) detected at line 1028
+| []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1095.
+
+
+Overfull \hbox (56.70953pt too wide) detected at line 1096
+| []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1107.
+
+
+Overfull \hbox (59.95673pt too wide) detected at line 1108
+| []
+ []
+
+[18]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1119.
+
+
+Overfull \hbox (61.02637pt too wide) detected at line 1120
+| []
+ []
+
+[19]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1278.
+
+
+Overfull \hbox (72.30797pt too wide) detected at line 1279
+| []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1290.
+
+
+Overfull \hbox (68.13158pt too wide) detected at line 1291
+| []
+ []
+
+
+Overfull \hbox (26.74194pt too wide) detected at line 1312
+[]    \OMS/cmsy/m/n/9 )    []
+ []
+
+[20]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1338.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1343.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1356.
+
+
+Overfull \hbox (73.85579pt too wide) detected at line 1357
+| []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1383.
+
+
+Overfull \hbox (76.13348pt too wide) detected at line 1384
+| []
+ []
+
+[21] [22] [23] [24]
+Overfull \hbox (3.64767pt too wide) in paragraph at lines 1900--1915
+[]| [] 
+ []
+
+(proof.tex [25]
+Overfull \hbox (33.64038pt too wide) detected at line 90
+\OML/cmm/m/it/9 D[] []
+ []
+
+[26]
+Overfull \hbox (6.2242pt too wide) detected at line 154
+[]
+ []
+
+
+Overfull \hbox (14.14642pt too wide) detected at line 238
+[]
+ []
+
+[27]
+Overfull \hbox (57.95444pt too wide) detected at line 276
+[]
+ []
+
+
+Overfull \hbox (2.4053pt too wide) detected at line 296
+| \OML/cmm/m/it/9 M []
+ []
+
+
+Overfull \hbox (18.39046pt too wide) detected at line 380
+[]
+ []
+
+
+Overfull \hbox (31.71608pt too wide) detected at line 410
+[]
+ []
+
+[28]
+Overfull \hbox (29.76372pt too wide) detected at line 441
+[]
+ []
+
+
+Overfull \hbox (55.41254pt too wide) detected at line 468
+[]
+ []
+
+)) (neqC.tex [29] [30]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 202.
+
+
+Overfull \hbox (5.58109pt too wide) detected at line 216
+[]    \OMS/cmsy/m/n/9 )    []
+ []
+
+
+Overfull \hbox (2.66449pt too wide) detected at line 229
+[]    \OMS/cmsy/m/n/9 )    []
+ []
+
+
+Overfull \hbox (3.17352pt too wide) detected at line 242
+[]    \OMS/cmsy/m/n/9 )    []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 286.
+
+
+Overfull \hbox (39.87479pt too wide) detected at line 287
+| []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 301.
+
+
+Overfull \hbox (40.84354pt too wide) detected at line 302
+| []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 316.
+
+
+Overfull \hbox (31.89246pt too wide) detected at line 317
+| []
+ []
+
+[31]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 328.
+
+
+Overfull \hbox (65.78772pt too wide) detected at line 329
+| []
+ []
+
+
+Overfull \hbox (13.68814pt too wide) detected at line 342
+[]    \OMS/cmsy/m/n/9 )    []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 354.
+
+
+Overfull \hbox (39.77191pt too wide) detected at line 355
+| []
+ []
+
+
+Overfull \hbox (29.98166pt too wide) detected at line 397
+[]    \OMS/cmsy/m/n/9 )    []
+ []
+
+
+Overfull \hbox (29.01291pt too wide) detected at line 410
+[]    \OMS/cmsy/m/n/9 )    []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 449.
+
+
+Overfull \hbox (48.18953pt too wide) detected at line 450
+| []
+ []
+
+[32]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 462.
+
+
+Overfull \hbox (41.1098pt too wide) detected at line 463
+| []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 518.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 532.
+
+
+Overfull \hbox (43.76909pt too wide) detected at line 533
+| []
+ []
+
+[33] [34]
+Overfull \hbox (41.00433pt too wide) detected at line 748
+[]    \OMS/cmsy/m/n/9 )    []
+ []
+
+
+Overfull \hbox (40.0703pt too wide) detected at line 759
+[]    \OMS/cmsy/m/n/9 )    []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 798.
+
+
+Overfull \hbox (56.1535pt too wide) detected at line 799
+| []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 813.
+
+
+Overfull \hbox (55.81912pt too wide) detected at line 814
+| []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 833.
+
+
+Overfull \hbox (54.27151pt too wide) detected at line 834
+| []
+ []
+
+[35]
+Overfull \hbox (0.25354pt too wide) detected at line 859
+[]    \OMS/cmsy/m/n/9 )    []
+ []
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 884.
+
+
+Overfull \hbox (46.29062pt too wide) detected at line 885
+| []
+ []
+
+[36]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1015.
+
+
+Overfull \hbox (23.66855pt too wide) detected at line 1016
+| []
+ []
+
+[37]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1169.
+
+
+Overfull \hbox (69.06981pt too wide) detected at line 1170
+| []
+ []
+
+[38] [39])
+Underfull \hbox (badness 1655) in paragraph at lines 183--186
+[][]\OT1/cmr/m/n/9 M. Bia lasik, B. Konikowska. \OT1/cmr/m/it/9 Rea-son-ing wit
+h Non-de-ter-min-is-tic Spec-i-fi-ca-tions,
+ []
+
+[40] [41] (neq.aux) ) 
+Here is how much of TeX's memory you used:
+ 2199 strings out of 11024
+ 20620 string characters out of 74866
+ 113082 words of memory out of 262141
+ 4996 multiletter control sequences out of 9500
+ 12893 words of font info for 46 fonts, out of 100000 for 255
+ 14 hyphenation exceptions out of 607
+ 24i,20n,21p,935b,746s stack positions out of 300i,40n,60p,3000b,4000s
+
+Output written on neq.dvi (41 pages, 258212 bytes).

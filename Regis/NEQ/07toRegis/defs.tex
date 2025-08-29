@@ -1,0 +1,260 @@
+%\makeatletter
+%\show\
+%\makeatother
+
+%%%%%%%%%%% for Regis %%%%%%%%%%%%%%%%%%
+
+\newcommand{\wow}[1]{\hfill{\ !\footnote{#1}!}}
+  %{\hfill{\ \ \hspace*{3em}{!! WOW !!}}}
+
+\newcommand{\der}[3]{{#1}\vdash^{{#2}}#3}
+\newcommand{\MMod}{M\!M\!od}
+\newcommand{\spNEQ}{NEQ_5^-}
+\newcommand{\elNEQ}{NEQ_6}
+\newcommand{\conv}{\ \ \ \impl\ \ \ }
+\newcommand{\mconv}{\ \impl\ }
+\newcommand{\convd}{\] \[ \Downarrow \] \[ }
+\newcommand{\atom}{A}
+\newcommand{\batom}{B}
+
+\newcommand{\iLa}{(\Incl_{La})}
+\newcommand{\iRa}{(\Incl_{Ra})}
+\newcommand{\iLs}{(\Incl_{Ls})}
+\newcommand{\iRs}{(\Incl_{Rs})}
+\newcommand{\eLa}{(=_{La})}
+\newcommand{\eRa}{(=_{Ra})}
+\newcommand{\eLs}{(=_{Ls})}
+\newcommand{\eRs}{(=_{Rs})}
+\newcommand{\iLar}{(\Incl_{Lar})}
+\newcommand{\iLanr}{(\Incl_{Lanr})}
+\newcommand{\iRar}{(\Incl_{Rar})}
+\newcommand{\iRanr}{(\Incl_{Ranr})}
+\newcommand{\iLsr}{(\Incl_{Lsr})}
+\newcommand{\iRsr}{(\Incl_{Rsr})}
+\newcommand{\eLar}{(=_{Lar})}
+\newcommand{\eLanr}{(=_{Lanr})}
+\newcommand{\eRar}{(=_{Rar})}
+\newcommand{\eRanr}{(=_{Ranr})}
+\newcommand{\eLsr}{(=_{Lsr})}
+\newcommand{\eRsr}{(=_{Rsr})}
+\newcommand{\eRsnr}{(=_{Rsnr})}
+\newcommand{\eae}{(=_{a=})}
+\newcommand{\Rsr}{\iRsr}
+\newcommand{\iRsnr}{(\Incl_{Rsnr})}
+
+\newcommand{\Esr}{(E_{sr})}
+\newcommand{\Es}{(E_{s})}
+\newcommand{\Esx}{(E_{sx})}
+\newcommand{\Ear}{(E_{ar})}
+\newcommand{\Eax}{(E_{ax})}
+
+\newcommand{\eRsx}{(=_{Rsx})}
+\newcommand{\eRax}{(=_{Rax})}
+\newcommand{\eRanx}{(=_{Ranx})}
+\newcommand{\iRsx}{(\Incl_{Rsx})}
+\newcommand{\eLsx}{(=_{Lsx})}
+\newcommand{\iLsx}{(\Incl_{Lsx})}
+\newcommand{\eLax}{(=_{Lax})}
+\newcommand{\iLax}{(\Incl_{Lax})}
+\newcommand{\eLanx}{(=_{Lanx})}
+\newcommand{\iLanx}{(\Incl_{Lanx})}
+
+\newcommand{\Lsix}{(\Incl_{Lsix})}
+\newcommand{\Rsix}{(\Incl_{Rsix})}
+\newcommand{\Laix}{(\Incl_{Laix})}
+
+\newcommand{\iLarx}{(\Incl_{Larx})}
+\newcommand{\eLarx}{(=_{Larx})}
+\newcommand{\eRarx}{(=_{Rarx})}
+
+\newcommand{\pLsx}{(\preceq_{Lsx})}
+\newcommand{\pLs}{(\preceq_{Ls})}
+\newcommand{\pLarx}{(\preceq_{Larx})}
+\newcommand{\pLax}{\pLarx} % {(\preceq_{Lax})}
+\newcommand{\pLa}{(\preceq_{La})}
+\newcommand{\pLanr}{(\preceq_{Lanr})}
+\newcommand{\pLar}{(\preceq_{Lar})}
+
+\newcommand{\exch}{\mathrel{\leftrightarrow}}
+
+\newcommand{\prar}[1]{\begin{array}[t]{rl} #1 \end{array}}
+\newcommand{\prarc}[1]{\begin{array}{rl} #1 \end{array}}
+\newcommand{\cl}{\\ \cline{1-1}}
+
+\newcommand{\sma}[1]{\hspace*{-1.5em}{\small{#1}}}
+%%%%%%%%%%%%%%%% Nested list-environments %%%%%%%%%%%%%%%%
+
+\newcounter{ax}
+\newcounter{axA}[ax]
+\newcounter{axB}[axA]
+\newcounter{axC}[axB]
+\newcounter{axD}[axC]
+\def\theax{{\normalsize{\sf \arabic{ax})}}}
+\def\theaxA{{\normalsize{\sf \arabic{ax}.\arabic{axA})}}}
+\def\theaxB{{\normalsize{\sf \arabic{ax}.\arabic{axA}.}}{\footnotesize{\sf \arabic{axB}}})}
+\def\theaxC{{\normalsize{\sf \arabic{ax}.\arabic{axA}.\arabic{axB}.}}{\footnotesize{\sf \arabic{axC}}})}
+\def\theaxD{{\normalsize{\sf
+\arabic{ax}.\arabic{axA}.\arabic{axB}.\arabic{axC}.}{\footnotesize{\sf \arabic{axD}}}})}
+
+\def\marg{1.6em}
+\def\margA{0em}
+\def\margB{.5em}
+\def\margC{.5em}
+\def\margD{.5em}
+
+\newenvironment{LS}{\begin{list}{\normalsize {\sf \arabic{ax}})}{\leftmargin
+\marg \usecounter{ax}}}{\end{list}}
+%0em \labelwidth -\labelsep \usecounter{ax}}}{\end{list}}
+%
+%\newenvironment{LS}{\begin{list}{\normalsize{\sf \arabic{ax}.}}{\leftmargin
+%0em \usecounter{ax}}}{\end{list}}
+\newenvironment{LSA}{\begin{list}{{\normalsize {\sf \arabic{ax}.\arabic{axA}})}}
+ {\leftmargin \margA \labelwidth -\labelsep \topsep .8ex \itemsep 1ex \usecounter{axA}}} {\end{list}}
+\newenvironment{LSB}{\begin{list}{{\normalsize {\sf \arabic{ax}.\arabic{axA}.}}{\footnotesize{\sf \arabic{axB}}})}
+ {\leftmargin \margB \labelwidth -\labelsep \topsep .8ex \itemsep 1.5ex  \usecounter{axB}}} {\end{list}}
+\newenvironment{LSC}{\begin{list}{{\normalsize {\sf
+\arabic{ax}.\arabic{axA}.\arabic{axB}.}}{\footnotesize{\sf \arabic{axC}}})}
+ {\leftmargin \margC \labelwidth -\labelsep \topsep .8ex \itemsep 1.5ex \usecounter{axC}}} {\end{list}}
+\newenvironment{LSD}{\begin{list}{{\normalsize {\sf
+\arabic{ax}.\arabic{axA}.\arabic{axB}.\arabic{axC}.}}{\footnotesize {\sf \arabic{axD}}})}
+ {\leftmargin \margD \labelwidth -\labelsep \topsep 1ex \itemsep 1.5ex \usecounter{axD}}} {\end{list}} 
+
+%%%%%%%%%%%%%%%%%%%% end of nested-lists %%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\new}[1]{\begin{center}[[[\hfill {\sf{#1}}\hfill ]]]\end{center}}
+
+\newtheorem{CLAIM}{Proposition}[section]
+\newtheorem{FACT}{Fact}[section]
+\newtheorem{REMARK}[CLAIM]{Remark}
+\newtheorem{TRANSFORMATION}[CLAIM]{Transformation}
+\newtheorem{COROLLARY}[CLAIM]{Corollary}
+\newtheorem{THEOREM}[CLAIM]{Theorem}
+\newtheorem{LEMMA}[CLAIM]{Lemma}
+\newcommand{\reff}[1]{(\ref{#1})}
+\newcommand{\MyLPar}{\parsep -.2ex plus.2ex minus.2ex\itemsep\parsep
+   \vspace{-\topsep}\vspace{.5ex}}
+\newcommand{\MyNumEnv}[1]{\trivlist\refstepcounter{CLAIM}\item[\hskip
+   \labelsep{\bf #1\ \theCLAIM\ }]\sf\ignorespaces}
+\newcommand{\MyNumEnvA}[1]{\trivlist\refstepcounter{CLAIM}\item[\hskip
+   \labelsep{\bf #1\ \theCLAIM\ }]\em\ignorespaces}
+\newcommand{\MyNumEnvB}[1]{\trivlist\refstepcounter{CLAIM}\item[\hskip
+   \labelsep{\bf #1\ \theCLAIM\ }]\ignorespaces}
+\newenvironment{DEFINITION}{\MyNumEnvA{Definition}}{\par\vspace{2ex}}
+\newenvironment{EXAMPLE}{\MyNumEnvB{Example}}{\nopagebreak\finish}
+\newenvironment{PROOF}{{\bf Proof.}}{\samepage\finishP} %{\nopagebreak\finishP}
+\newcommand{\finish}{\nopagebreak 
+      \par\noindent\vspace{1ex}}
+\newcommand{\finishP}{\nopagebreak 
+      \hfill{{\small {\sc qed.}}}\par\noindent\vspace{1ex}}
+%% \Box not legal in LaTeX2e      $\Box$ \par\noindent\vspace{1ex}}
+%\newcommand{\finish}{\hspace*{\fill}\nopagebreak 
+%     \raisebox{-1ex}{$\Box$}\hspace*{1em}\par\addvspace{1ex}}
+%\renewcommand{\abstract}[1]{ \begin{quote}\noindent \small {\bf Abstract.} #1
+%    \end{quote}}
+\newcommand{\B}[1]{{\rm I\hspace{-.2em}#1}}
+\newcommand{\Nat}{{\B N}}
+\renewcommand{\c}[1]{{\cal #1}}
+\newcommand{\Funcs}{{\cal F}}
+\newcommand{\Spec}{{\cal {A}}}
+\newcommand{\Ax}{{\cal {A}}}
+\newcommand{\Sorts}{{\cal S}}
+%\newcommand{\Terms}{{\cal T}(\Funcs,\Vars)}
+\newcommand{\Terms}[1]{{\cal T}(#1)}
+\newcommand{\Vars}{{\cal V}}
+\newcommand{\Incl}{\mathbin{\prec}}
+\newcommand{\Cont}{\mathbin{\succ}}
+\newcommand{\Int}{\mathbin{\frown}}
+\newcommand{\Seteq}{\mathbin{\asymp}}
+\newcommand{\Eq}{\mathbin{\approx}}
+\newcommand{\notEq}{\mathbin{\Not\approx}}
+\newcommand{\notIncl}{\mathbin{\Not\prec}}
+\newcommand{\notCont}{\mathbin{\Not\succ}}
+\newcommand{\notInt}{\mathbin{\Not\frown}}
+\newcommand{\Seq}{\mathrel{\mapsto}}
+\newcommand{\Ord}{\mathbin{\rightarrow}}
+\newcommand{\M}[1]{\mathbin{\mathord{#1}^m}}
+\newcommand{\Mset}[1]{{\cal M}(#1)}
+\newcommand{\interpret}[1]{[\![#1]\!]^{A}_{\rho}}
+\newcommand{\Interpret}[1]{[\![#1]\!]^{A}}
+%\newcommand{\Comp}[2]{\mbox{\rm Comp}(#1,#2)}
+\newcommand{\Comp}[2]{#1\diamond#2}
+\newcommand{\Repl}[2]{\mbox{\rm Repl}(#1,#2)}
+\renewcommand\SS[1]{{\cal S}^{#1}}
+\newcommand{\To}[1]{\mathbin{\stackrel{#1}{\longrightarrow}}}
+\newcommand{\TTo}[1]{\mathbin{\stackrel{#1}{\Longrightarrow}}}
+\newcommand{\oT}[1]{\mathbin{\stackrel{#1}{\longleftarrow}}}
+\newcommand{\oTT}[1]{\mathbin{\stackrel{#1}{\Longleftarrow}}}
+\newcommand{\es}{\emptyset}
+\newcommand{\C}[1]{\mbox{$\cal #1$}}
+\newcommand{\Mb}[1]{\mbox{#1}}
+\newcommand{\<}{\langle}
+\renewcommand{\>}{\rangle}
+\newcommand{\Def}{\mathrel{\stackrel{\mbox{\tiny def}}{=}}}
+\newcommand{\impl}{\mathrel\Rightarrow}
+\newcommand{\then}{\mathrel\Rightarrow}
+% \newfont{\msym}{msxm10}
+\newcommand{\restrict}{\mathbin{\mbox{\msym\symbol{22}}}}
+\newcommand{\List}[3]{#1_{1}#3\ldots#3#1_{#2}}
+\newcommand{\lis}[1]{#1_{1}...#1_{n}}
+\newcommand{\lism}[2]{#1_{1}...#1_{#2}}
+\newcommand{\col}[1]{\renewcommand{\arraystretch}{0.4} \begin{array}[t]{c} #1
+  \end{array}}
+\newcommand{\prule}[2]{\({\displaystyle #1 \strut 
+  \over \strut \displaystyle#2}\)}
+\newcommand{\mprule}[2]{{\displaystyle #1 \strut 
+  \over \strut \displaystyle#2}}
+\newcommand{\bigc}{\mathop{\textstyle\bigcup}}
+\newcounter{ITEM}[section]
+\newcommand{\newITEM}[1]{\gdef\ITEMlabel{ITEM:#1-}\setcounter{ITEM}{0}}
+\makeatletter
+\newcommand{\Not}[1]{\mathbin {\mathpalette\c@ncel#1}}
+\renewcommand{\not}[1]{\mathbin {\mathpalette\c@ncel#1}}
+
+\def\LabeL#1$#2{\edef\@currentlabel{#2}\label{#1}}
+\newcommand{\ITEM}[2]{\par\addvspace{.7ex}\noindent
+   \refstepcounter{ITEM}\expandafter\LabeL\ITEMlabel#1${(\roman{ITEM})}%
+   {\advance\linewidth-2em \hskip2em %
+   \parbox{\linewidth}{\hskip-2em {\rm\bf \@currentlabel\
+   }\ignorespaces #2}}\par \addvspace{.7ex}\noindent\ignorespaces}
+\def\R@f#1${\ref{#1}}
+\newcommand{\?}[1]{\expandafter\R@f\ITEMlabel#1$}
+%\newcommand{\clause}[2]{{\rm\bf #1}\def\@currentlabel{#1}\label{#2}}
+\newcommand{\lab}[1]{\edef\@currentlabel{#1}}
+\makeatother
+\newcommand{\PROOFRULE}[2]{\stepcounter{ITEM}\lab{\thesection.\arabic{ITEM}}
+\trivlist\item[\hskip\labelsep {(\thesection.\arabic{ITEM})}] \quad \(
+{\displaystyle #1 \strut \over \strut \displaystyle #2}\) 
+ \vspace{2ex}\noindent\ignorespaces}
+
+\newcommand{\TABRULE}[2]{\stepcounter{ITEM}\lab{\thesection.\arabic{ITEM}}
+\noindent{(\thesection.\arabic{ITEM})\ }  \(
+{\displaystyle #1 \strut \over \strut \displaystyle #2}\) }
+\newcommand{\TABRUL}[1]{\stepcounter{ITEM}\lab{\thesection.\arabic{ITEM}}
+\noindent{(\thesection.\arabic{ITEM})\ }  \({\displaystyle #1}\) }
+
+\newcommand{\PROOFR}[2]{\({\displaystyle #1 \strut \over \strut \displaystyle #2}\) 
+ \vspace{2ex}\noindent\ignorespaces}
+\newcommand{\PROOFRUL}[1]{\stepcounter{ITEM}\lab{\thesection.\arabic{ITEM}}
+\trivlist\item[\hskip\labelsep {(\thesection.\arabic{ITEM})}] \quad \(
+{\displaystyle #1}\) \vspace{2ex}\noindent\ignorespaces}
+%\newlength\clauselength
+%\setlength{\clauselength}{6cm}
+\newcommand{\clause}[3]{\par\addvspace{.7ex}\noindent\LabeL#2${{\rm\bf #1}}%
+  {\advance\linewidth-3em \hskip 3em
+   \parbox{\linewidth}{\hskip-3em \parbox{3em}{\rm\bf#1.}#3}}\par 
+   \addvspace{.7ex}\noindent\ignorespaces}
+%\newenvironment{clauses}{$$\begin
+%    {array}{lp{\clauselength}p{\clauselength}}}{\end{array}$$}
+\newcommand{\Cs}{\varepsilon}
+\newcommand{\const}[3]{\Cs_{\scriptscriptstyle#2}(#1,#3)}
+\newcommand{\Ein}{\sqsubset}%
+\newcommand{\Eineq}{\sqsubseteq}%
+
+\newcommand{\rabove}[1]{\raisebox{1.2ex}[1.5ex][0ex]{$#1$} }
+\newcommand{\rbelow}[1]{\raisebox{-1.2ex}[1.5ex][0ex]{$#1$} }
+\newcommand{\GSD}{\Gamma\Seq\Delta}
+\newcommand{\PST}{\Pi\Seq\Theta}
+
+\voffset -1cm

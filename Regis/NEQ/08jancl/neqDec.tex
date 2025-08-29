@@ -1,0 +1,71 @@
+\begin{LEMMA}\label{le:noLaix}
+The rule $\Laix$ is redundant.
+\end{LEMMA}
+\begin{PROOF}
+No atomic formula can be affected by the rule.
+By lemma \ref{le:noiRs} we assume that the derivation contains no applications of $\iRs$.
+\begin{LS}
+\item $\iLa$
+\[\prarc{
+t\Incl x, p(f)\Incl q, f\Incl r(x), \GSD \cl
+t\Incl x, p(r(x))\Incl q, f\Incl r(x), \GSD & \rabove{\iLa} \cl
+t\Incl x, p(r(t))\Incl q, f\Incl r(x), \GSD & \rabove{\Laix}
+}\conv
+??? 
+\]
+and another case
+\item $\Lsix$
+\[\sma{ \prar{
+t\Incl x, p(x)\Incl y, \GSD, f(p(x))\preceq q \cl
+t\Incl x, p(x)\Incl y, \GSD, f(y)\preceq q & \rabove{\Lsix} \cl
+t\Incl x, p(t)\Incl y, \GSD, f(y)\preceq q & \rabove{\Laix}
+}\conv
+\prar{
+t\Incl x, p(x)\Incl y, \GSD, f(p(x))\preceq q \cl
+t\Incl x, p(t)\Incl y, \GSD, f(p(x))\preceq q & \rabove{\Laix} \cl
+t\Incl x, p(t)\Incl y, \GSD, f(p(t))\preceq q & \rabove{\iLs}  \cl
+t\Incl x, p(t)\Incl y, \GSD, f(y)\preceq q & \rabove{\Lsix} 
+} }
+\]
+\item $\eLanx$
+\[\sma{ \prarc{
+t\Incl x, p(f)\Incl q, f=r(x), \GSD \cl
+t\Incl x, p(r(x))\Incl q, f=r(x), \GSD & \rabove{\eLanx} \cl
+t\Incl x, p(r(t))\Incl q, f=r(x), \GSD & \rabove{\Laix}
+}\conv
+\prarc{
+t\Incl x, p(f)\Incl q, f=r(x), f=r(t), \GSD \cl
+t\Incl x, p(r(t))\Incl q, f=r(x), f=r(t), \GSD & \rabove{\eLanx} \cl
+t\Incl x, p(r(t))\Incl q, f=r(x), f=r(x), \GSD & \rabove{\iLa} 
+} }
+\]
+and another case
+\[\sma{ \prarc{
+s=r, t(s)\Incl x, p(t(r))\Incl q, \GSD \cl
+s=r, t(r)\Incl x, p(t(r))\Incl q, \GSD & \rabove{\eLanx}\cl
+s=r, t(r)\Incl x, p(x)\Incl q, \GSD & \rabove{\Laix}
+}\conv
+\prarc{
+t(r)\Incl x, s=r, t(s)\Incl x, p(t(r))\Incl q, \GSD \cl
+t(r)\Incl x, s=r, t(s)\Incl x, p(x)\Incl q, \GSD & \rabove{\Laix} \cl
+t(r)\Incl x, s=r, t(r)\Incl x, p(x)\Incl q, \GSD & \rabove{\eLanx} 
+} }
+\]
+\item $\iLs$
+\[\sma{ \prar{
+t\Incl x, p(x)\Incl q, \GSD, f(q)\Incl r \cl
+t\Incl x, p(x)\Incl q, \GSD, f(p(x))\Incl r & \rabove{\iLs} \cl
+t\Incl x, p(t)\Incl q, \GSD, f(p(x))\Incl r & \rabove{\Laix}
+}\conv
+\prar{
+t\Incl x, p(x)\Incl q, \GSD, f(q)\Incl r \cl
+t\Incl x, p(t)\Incl q, \GSD, f(q)\Incl r & \rabove{\Laix} \cl
+t\Incl x, p(t)\Incl q, \GSD, f(p(t))\Incl r & \rabove{\iLs} \cl
+t\Incl x, p(t)\Incl q, \GSD, f(p(x))\Incl r & \rabove{\Lsix}
+} }
+\]
+\item
+\end{LS}
+\end{PROOF}
+
+

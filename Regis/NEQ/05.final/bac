@@ -1,0 +1,94 @@
+\begin{LEMMA}\label{le:inclaad} The following rule is admissible in $NEQ_4^c$:
+\PROOFRULE{s\Incl t, q\Incl t, \Gamma\Seq\Delta}{s\Incl t, q\Incl s,
+\Gamma\Seq\Delta}\ \ ($\Incl_a^*$) \\
+Moreover, if $D^*$ is a derivation using the rule ($\Incl_a^*$) and $D$ is the corresponding
+derivation not using this rule, then $\#(\preceq_a,D)\leq\#(\preceq_a,D^*)$, and
+$\#(\preceq_{anr},D)\leq\#(\preceq_{anr},D^*)$. \\ 
+-- MOVED from NEQ-3: to be FIXED. New $\Incl_{ar}$ modifies something that disappears
+in case 2)
+\end{LEMMA}
+\begin{PROOF}
+By induction on $\< \#(\Incl_a^*,D^*),h(D^*)\>$. Consider the rule
+applied just above ($\Incl_a^*$).
+\begin{LS}
+\item ($\Incl_a$):
+\[ \begin{array}{rl}
+ s(y) \Incl t, q\Incl t, y\Incl p, \GSD \\ \cline{1-1}
+ s(p) \Incl t, q\Incl t, y\Incl p, \GSD & \rabove{(\Incl_{ar})} \\
+ \cline{1-1}
+ s(p) \Incl t, q\Incl s(p), y\Incl p, \GSD & \rabove{(\Incl_a^*)}
+ \end{array} \conv
+%The applications may be swapped, when we weaken the derivation:
+ \begin{array}{rl}
+s(p)\Incl t, s(y)\Incl t, q\Incl t, y\Incl p, \GSD \\ \cline{1-1}
+s(p)\Incl t, s(y)\Incl t, q\Incl s(p), y\Incl p, \GSD &
+\rabove{(\Incl_a^*)} \\ \cline{1-1}
+s(p)\Incl t, s(p)\Incl t, q\Incl s(p), y\Incl p, \GSD &
+\rabove{(\Incl_{ar})} \end{array} \]
+%
+\item ($\Incl_s$): $q\not\in\Vars$ -- if $s\in\Vars$ we get $\Incl_{sx}$
+\[ \begin{array}{rl}
+s\Incl t, q\Incl t, \GSD, w(t)\preceq p \\ \cline{1-1}
+s\Incl t, q\Incl t, \GSD, w(q)\preceq p & \rabove{(\Incl_s)} \\
+\cline{1-1}
+s\Incl t, q\Incl s, \GSD, w(q)\preceq p & \rabove{(\Incl_a^*)} \end{array} \conv
+%We just swap:
+ \begin{array}{rl}
+s\Incl t, q\Incl t, \GSD, w(t)\preceq p \\ \cline{1-1}
+s\Incl t, q\Incl s, \GSD, w(t)\preceq p & \rabove{(\Incl_a^*)} \\
+\cline{1-1}
+s\Incl t, q\Incl s, \GSD, w(s)\preceq p & \rabove{(\Incl_s)} \\
+\cline{1-1} 
+s\Incl t, q\Incl s, \GSD, w(q)\preceq p & \rabove{(\Incl_s)} 
+\end{array} \]
+\item ($E_a$):
+\[ \begin{array}{rl}
+x\Incl t, y\Incl r(x), s\Incl r(t), \GSD \\ \cline{1-1}
+          y\Incl r(t), s\Incl r(t), \GSD  & \rabove{(E_a)} \\ \cline{1-1}
+          y\Incl s, s\Incl r(t), \GSD  & \rabove{(\Incl_a^*)} \end{array}
+  \conv
+%Again, swapping after weakening, we reduce the height:
+ \begin{array}{rl}
+x\Incl t, y\Incl r(x), s\Incl r(t), s\Incl r(x),\GSD \\ \cline{1-1}
+x\Incl t, y\Incl s, s\Incl r(t), s\Incl r(x),\GSD  & \rabove{(\Incl_a^*)} \\ \cline{1-1}
+          y\Incl s, s\Incl r(t), s\Incl r(t),\GSD  & \rabove{(E_a)} \end{array} \]
+%
+We do exactly the same if ($E_a$) modifies the active (rather than the side)
+formula of the application of ($\Incl_a^*$).
+\item ($=_{Lar}$): 
+\[ \hspace*{-2em}\begin{array}{rl}
+s(x)\Incl t, q\Incl t, x=p, \GSD \\ \cline{1-1}
+s(p)\Incl t, q\Incl t, x=p, \GSD & \rabove{(=_{Lar})} \\ \cline{1-1}
+s(p)\Incl t, q\Incl s(p), x=p, \GSD & \rabove{(\Incl_a^*)} \end{array} \conv
+%Swap the applications, and clean up:
+\begin{array}{rl}
+s(p)\Incl t,s(x)\Incl t, q\Incl t, x=p, \GSD \\ \cline{1-1}
+s(p)\Incl t,s(x)\Incl t, q\Incl s(p), x=p, \GSD & \rabove{(\Incl_a^*)} \\ \cline{1-1}
+s(p)\Incl t,s(p)\Incl t, q\Incl s(p), x=p, \GSD & \rabove{(=_{Lar})} \end{array}
+% WAS: -- if $q\not\in\Vars$ we get $=_{Ranr}$
+% \begin{array}{rl}
+% s(x)\Incl t, q\Incl t, x=p, \GSD \\ \cline{1-1}
+% s(x)\Incl t, q\Incl s(x), x=p, \GSD & \rabove{(\Incl_a^*)} \\ \cline{1-1}
+% s(p)\Incl t, q\Incl s(x), x=p, \GSD & \rabove{(=_{Lar})} \\ \cline{1-1}
+% s(p)\Incl t, q\Incl s(p), x=p, \GSD & \rabove{(=_{Ra?})} 
+% \end{array}
+\]
+\item ($=_{Rar}$):
+\[ \hspace*{-2em} \begin{array}{rl}
+s\Incl t(p), x\Incl t(r), r=p, \GSD \\ \cline{1-1}
+s\Incl t(p), x\Incl t(p), r=p, \GSD & \rabove{(=_{Rar})}\\ \cline{1-1}
+s\Incl t(p), x\Incl s, r=p, \GSD & \rabove{(\Incl_a^*)} \end{array} \conv
+%Weakening allows us to swap:
+ \begin{array}{rl}
+s\Incl t(r), s\Incl t(p), x\Incl t(r), r=p, \GSD \\ \cline{1-1}
+s\Incl t(r), s\Incl t(p), x\Incl s, r=p, \GSD & \rabove{(\Incl_a^*)} \\ \cline{1-1}
+s\Incl t(p), s\Incl t(p), x\Incl s, r=p, \GSD & \rabove{(=_{Rar})} \end{array} \]
+%
+\item The rules ($=_s$), ($E_s$) and ($cut_t$) can be trivially swapped, since they do
+not affect the antecedent -- the active formula, which is either equality or
+disappears, cannot be involved in the final application of ($\Incl_a^*$).
+\end{LS}
+We see that no new applications of ($\preceq_a$) appear in the transformed derivations 
+$D$, and the ones which occur there are the same as in the original derivations $D^*$.
+\end{PROOF}
+%

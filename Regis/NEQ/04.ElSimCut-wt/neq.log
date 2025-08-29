@@ -1,0 +1,280 @@
+This is TeX, Version 3.1415 (C version 6.1) (format=latex 94.6.28)  22 APR 1996 18:31
+**&latex2e neq
+(neq.tex
+LaTeX2e <1994/06/01> patch level 2
+Hyphenation patterns for english, norsk, swedish, danish,
+german & francais loaded.
+(/local/TeX/macros/LaTeX/latex209.def
+File: latex209.def 1994/06/01 Standard LaTeX file
+
+Entering LaTeX 2.09 compatibility mode.
+\footheight=\dimen102
+\@maxsep=\dimen103
+\@dblmaxsep=\dimen104
+(/local/TeX/macros/LaTeX/tracefnt.sty
+Package: tracefnt 1994/05/29 v2.3k Standard LaTeX package (font tracing)
+\tracingfonts=\count82
+LaTeX Info: Redefining \selectfont on input line 113.
+)
+\symbold=\mathgroup4
+\symsans=\mathgroup5
+\symtypewriter=\mathgroup6
+\symitalic=\mathgroup7
+\symsmallcaps=\mathgroup8
+\symslanted=\mathgroup9
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 179.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 180.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 181.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 187.
+LaTeX Info: Redefining \em on input line 197.
+ (/local/TeX/macros/LaTeX/latexsym.sty
+Package: latexsym 1994/05/27 v2.1e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup10
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+LaTeX Font Info:    Redeclaring math delimiter \lgroup on input line 262.
+LaTeX Font Info:    Redeclaring math delimiter \rgroup on input line 264.
+LaTeX Font Info:    Redeclaring math delimiter \bracevert on input line 266.
+)
+(/local/TeX/macros/LaTeX/article.cls
+Document Class: article 1994/06/02 v1.2s Standard LaTeX document class
+(/local/TeX/macros/LaTeX/size10.clo
+File: size10.clo 1994/06/02 v1.2s Standard LaTeX file (size option)
+)
+\c@part=\count83
+\c@section=\count84
+\c@subsection=\count85
+\c@subsubsection=\count86
+\c@paragraph=\count87
+\c@subparagraph=\count88
+\c@figure=\count89
+\c@table=\count90
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+Compatibility mode: definition of \rm ignored.
+Compatibility mode: definition of \sf ignored.
+Compatibility mode: definition of \tt ignored.
+Compatibility mode: definition of \bf ignored.
+Compatibility mode: definition of \it ignored.
+Compatibility mode: definition of \sl ignored.
+Compatibility mode: definition of \sc ignored.
+\bibindent=\dimen105
+) (/local/TeX/macros/misc/a4wide.sty
+(/local/TeX/macros/misc/a4.sty)) (defs.tex
+\c@ax=\count91
+\c@axA=\count92
+\c@axB=\count93
+\c@axC=\count94
+\c@axD=\count95
+\c@CLAIM=\count96
+\c@ITEM=\count97
+) (neq.aux)
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    No math setup on input line 43.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 43.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 43.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 43.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 43.
+
+(/local/TeX/macros/LaTeX/Ulasy.fd
+File: Ulasy.fd 1994/05/27 v2.1eLaTeX symbol font definitions
+)
+LaTeX Font Info:    No math setup on input line 43.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 43.
+
+Underfull \hbox (badness 3108) in paragraph at lines 43--43
+[][]\OT1/cmr/m/n/8 Department of Math-e-mat-i-cal Logic, Vil-nius In-sti-tute o
+f Math-e-mat-ics and In-for-mat-ics, Lithua-nia,
+ []
+
+LaTeX Font Info:    No math setup on input line 49.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 49.
+LaTeX Font Info:    No math setup on input line 84.
+LaTeX Font Info:    No math setup on input line 86.
+[1
+
+]
+LaTeX Font Info:    No math setup on input line 142.
+LaTeX Font Info:    No math setup on input line 142.
+LaTeX Font Info:    No math setup on input line 159.
+LaTeX Font Info:    No math setup on input line 159.
+LaTeX Font Info:    No math setup on input line 160.
+LaTeX Font Info:    No math setup on input line 160.
+LaTeX Font Info:    No math setup on input line 161.
+LaTeX Font Info:    No math setup on input line 161.
+LaTeX Font Info:    No math setup on input line 162.
+LaTeX Font Info:    No math setup on input line 162.
+LaTeX Font Info:    No math setup on input line 162.
+LaTeX Font Info:    No math setup on input line 162.
+LaTeX Font Info:    No math setup on input line 162.
+LaTeX Font Info:    No math setup on input line 162.
+LaTeX Font Info:    No math setup on input line 163.
+LaTeX Font Info:    No math setup on input line 163.
+LaTeX Font Info:    No math setup on input line 163.
+LaTeX Font Info:    No math setup on input line 163.
+ [2]
+LaTeX Font Info:    No math setup on input line 234.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 234.
+LaTeX Font Info:    No math setup on input line 235.
+ [3]
+LaTeX Font Info:    No math setup on input line 311.
+LaTeX Font Info:    No math setup on input line 312.
+ [4]
+LaTeX Font Info:    No math setup on input line 351.
+LaTeX Font Info:    No math setup on input line 366.
+ [5] [6]
+Underfull \hbox (badness 10000) in paragraph at lines 523--525
+
+ []
+
+LaTeX Font Info:    No math setup on input line 529.
+LaTeX Font Info:    No math setup on input line 530.
+
+Underfull \hbox (badness 10000) in paragraph at lines 547--551
+
+ []
+
+LaTeX Font Info:    No math setup on input line 591.
+LaTeX Font Info:    No math setup on input line 591.
+LaTeX Font Info:    No math setup on input line 592.
+LaTeX Font Info:    No math setup on input line 592.
+LaTeX Font Info:    No math setup on input line 592.
+LaTeX Font Info:    No math setup on input line 592.
+LaTeX Font Info:    No math setup on input line 593.
+LaTeX Font Info:    No math setup on input line 593.
+LaTeX Font Info:    No math setup on input line 593.
+LaTeX Font Info:    No math setup on input line 593.
+LaTeX Font Info:    No math setup on input line 594.
+LaTeX Font Info:    No math setup on input line 594.
+LaTeX Font Info:    No math setup on input line 594.
+LaTeX Font Info:    No math setup on input line 594.
+[7] [8] [9] [10] [11] [12] [13] [14] [15]
+Underfull \hbox (badness 10000) in paragraph at lines 1318--1320
+
+ []
+
+[16] [17]
+LaTeX Font Info:    No math setup on input line 1510.
+LaTeX Font Info:    No math setup on input line 1513.
+ [18]
+LaTeX Font Info:    No math setup on input line 1542.
+LaTeX Font Info:    No math setup on input line 1542.
+LaTeX Font Info:    No math setup on input line 1545.
+LaTeX Font Info:    No math setup on input line 1545.
+LaTeX Font Info:    No math setup on input line 1555.
+LaTeX Font Info:    No math setup on input line 1555.
+LaTeX Font Info:    No math setup on input line 1557.
+LaTeX Font Info:    No math setup on input line 1557.
+LaTeX Font Info:    No math setup on input line 1564.
+LaTeX Font Info:    No math setup on input line 1564.
+LaTeX Font Info:    No math setup on input line 1565.
+LaTeX Font Info:    No math setup on input line 1565.
+LaTeX Font Info:    No math setup on input line 1566.
+LaTeX Font Info:    No math setup on input line 1566.
+LaTeX Font Info:    No math setup on input line 1566.
+LaTeX Font Info:    No math setup on input line 1566.
+LaTeX Font Info:    No math setup on input line 1567.
+LaTeX Font Info:    No math setup on input line 1567.
+LaTeX Font Info:    No math setup on input line 1567.
+LaTeX Font Info:    No math setup on input line 1567.
+ [19]
+Underfull \hbox (badness 10000) in paragraph at lines 1598--1606
+
+ []
+
+[20] [21] [22] [23] [24] [25] (proof.tex [26] [27]
+LaTeX Font Info:    No math setup on input line 238.
+LaTeX Font Info:    No math setup on input line 257.
+LaTeX Font Info:    No math setup on input line 278.
+LaTeX Font Info:    No math setup on input line 298.
+ [28]
+LaTeX Font Info:    No math setup on input line 350.
+LaTeX Font Info:    No math setup on input line 369.
+
+Overfull \hbox (4.1662pt too wide) detected at line 397
+[]
+ []
+
+
+Overfull \hbox (5.17102pt too wide) detected at line 428
+[]
+ []
+
+[29]
+Overfull \hbox (4.49727pt too wide) detected at line 449
+[]
+ []
+
+)
+LaTeX Font Info:    No math setup on input line 2164.
+LaTeX Font Info:    No math setup on input line 2168.
+LaTeX Font Info:    No math setup on input line 2189.
+LaTeX Font Info:    No math setup on input line 2189.
+LaTeX Font Info:    No math setup on input line 2192.
+LaTeX Font Info:    No math setup on input line 2192.
+LaTeX Font Info:    No math setup on input line 2202.
+LaTeX Font Info:    No math setup on input line 2202.
+LaTeX Font Info:    No math setup on input line 2204.
+LaTeX Font Info:    No math setup on input line 2204.
+LaTeX Font Info:    No math setup on input line 2211.
+LaTeX Font Info:    No math setup on input line 2211.
+LaTeX Font Info:    No math setup on input line 2212.
+LaTeX Font Info:    No math setup on input line 2212.
+LaTeX Font Info:    No math setup on input line 2213.
+LaTeX Font Info:    No math setup on input line 2213.
+LaTeX Font Info:    No math setup on input line 2213.
+LaTeX Font Info:    No math setup on input line 2213.
+LaTeX Font Info:    No math setup on input line 2214.
+LaTeX Font Info:    No math setup on input line 2214.
+LaTeX Font Info:    No math setup on input line 2214.
+LaTeX Font Info:    No math setup on input line 2214.
+LaTeX Font Info:    No math setup on input line 2215.
+LaTeX Font Info:    No math setup on input line 2215.
+LaTeX Font Info:    No math setup on input line 2216.
+LaTeX Font Info:    No math setup on input line 2216.
+LaTeX Font Info:    No math setup on input line 2341.
+ [30]
+LaTeX Font Info:    No math setup on input line 2354.
+ [31]
+LaTeX Font Info:    No math setup on input line 2394.
+LaTeX Font Info:    No math setup on input line 2418.
+LaTeX Font Info:    No math setup on input line 2477.
+LaTeX Font Info:    No math setup on input line 2478.
+ [32]
+LaTeX Font Info:    No math setup on input line 2517.
+LaTeX Font Info:    No math setup on input line 2517.
+LaTeX Font Info:    No math setup on input line 2520.
+LaTeX Font Info:    No math setup on input line 2520.
+LaTeX Font Info:    No math setup on input line 2530.
+LaTeX Font Info:    No math setup on input line 2530.
+LaTeX Font Info:    No math setup on input line 2532.
+LaTeX Font Info:    No math setup on input line 2532.
+ [33] [34] [35] (neq.aux) ) 
+Here is how much of TeX's memory you used:
+ 675 strings out of 11024
+ 6252 string characters out of 74866
+ 66596 words of memory out of 262141
+ 3468 multiletter control sequences out of 9500
+ 21400 words of font info for 78 fonts, out of 100000 for 255
+ 14 hyphenation exceptions out of 607
+ 22i,20n,21p,971b,726s stack positions out of 300i,40n,60p,3000b,4000s
+
+Output written on neq.dvi (35 pages, 187136 bytes).

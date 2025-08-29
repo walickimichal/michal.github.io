@@ -1,0 +1,76 @@
+\documentclass[11pt]{article}
+
+\usepackage{epsfig}
+
+\makeatletter
+\input{a4letter}
+\makeatother
+
+\newcommand{\pd}[1]{{\sc{#1}}} %appears only in the footer
+
+\def\thepage{{}} % removes pagenumbers
+\def\thefootnote{{}}
+
+\newcommand{\listdo}[1]{\noindent\parbox[b]{12cm}{#1} \\[12ex]  
+    \hspace*{1em}  \hfill{\today} \\ }
+\newcommand{\opening}[1]{\noindent \hspace*{-.5ex}#1 \\[1ex] }
+
+\newcommand{\reg}[1]{\noindent {\bf Re:} #1 \\[1ex] }
+
+\newcommand{\signature}[1]{\ \\[4ex] \hspace*{22em}#1\commu \\[8ex] 
+                   \hspace*{23em}Micha{\l} Walicki}
+\newcommand{\head}{\epsfxsize=2cm\epsfysize=2cm
+\noindent
+ \raisebox{11ex}{\noindent \hspace*{-1em}\raisebox{-3.5ex}{\mbox{\epsffile{uib.ps}}}
+ \begin{tabular}[b]{l} 
+ {\Large\sc{University of Bergen, Department of Informatics}} \hspace*{1em} \\
+ \hline  {\sc{associate professor, dr. Micha{\l} Walicki}}
+ \end{tabular} 
+}}
+
+\renewcommand{\footnoterule}{\hspace*{-2em}\hrulefill}
+\newcommand{\commu}{\footnotetext{\hspace*{-2.5em}
+  \begin{tabular}{l@{\ \ \ \ \ \ \ \ \ \ \ \ }l@{\ \ \ \ \ \ \ \ \ \ \ \ \ }l}
+   {\pd{Postal Address:}} & {\pd{Visiting Address:}} & {\pd{Communication:}} \\
+ \ \ {HiB, 5020 Bergen} &\ \ {Thorm{\o}lensgt. 55} &\ \ {ph.: +47 55 58-41-78, \hfill fax: +47 55 58-41-99} \\
+ \ \ Norway &\ \ Bergen, Norway  & \ \ michal@ii.uib.no,\ \ \ \hfill
+          http:$/\!\!/$www.ii.uib.no/{\~{}}michal/
+  \end{tabular} }}
+
+\begin{document}
+\head
+
+\listdo{ {\bf Prof. Luis Fari\~{n}as del Cerro} \\  
+Editor-in-Chief, Journal of Applied Non-Classical Logics \\
+IRIT -- Universit\'{e} Paul Sabatier \\ 118 route de Narbonne \\ 
+F-31062 Toulouse, Cedex 4\\ France
+}
+
+%\reg{What}
+
+\opening{ Dear Editor in Chief,}
+Please, find enclosed 3 copies of our paper 
+\begin{center}
+{\em ``A Logic for Set-Valued Functions: 
+Cut-Elimination and other Improvements''}
+\end{center} 
+which we would like to submit for publication
+in the {\em Journal of Applied Non-Classical Logics}.
+
+We realize that the paper is rather long and involves a series of proofs which 
+a reader might find rather lengthy and cumbersome. 
+We have nevertheless decided to submit now the full version since we believe some readers
+ might question
+the conclusions not supported by the actual proofs and, in fact, that some of the proofs 
+may constitute a contribution in themselves.
+If we are mistaken in this, or else if the length of the proofs is considered a problem, 
+while the results are judged worthy of publication, 
+we 
+are prepared to submit a shorter version of the paper.
+
+
+
+\signature{With best regards}
+
+
+\end{document}

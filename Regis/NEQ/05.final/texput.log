@@ -1,0 +1,24 @@
+This is TeX, Version 3.1415 (C version 6.1) (format=latex 94.6.28)  25 SEP 1997 18:41
+**&latex2e
+
+*\end
+
+*\end
+! TeX capacity exceeded, sorry [parameter stack size=60].
+\end #1->
+         \csname end#1\endcsname \@checkend {#1}\expandafter \endgroup \if@e...
+<*> \end
+        
+If you really absolutely need more capacity,
+you can ask a wizard to enlarge me.
+
+ 
+Here is how much of TeX's memory you used:
+ 1 string out of 11024
+ 10 string characters out of 74866
+ 42211 words of memory out of 262141
+ 2888 multiletter control sequences out of 9500
+ 3640 words of font info for 14 fonts, out of 100000 for 255
+ 14 hyphenation exceptions out of 607
+ 60i,0n,61p,10b,7s stack positions out of 300i,40n,60p,3000b,4000s
+No pages of output.

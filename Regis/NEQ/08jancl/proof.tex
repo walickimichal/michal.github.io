@@ -1,0 +1,479 @@
+
+\begin{CLAIM}\label{le:elcut}
+If $D$ is a $NEQ_4^c$ and $D_1$, $D_2$ are $NEQ_4$ derivations as follows:
+%\begin{center}
+\[ D\left\{ \begin{array}{cl}
+ D_1\left\{ \begin{array}{c}
+  \vdots \\   \Gamma\Seq\Delta, \phi
+ \end{array} \right.
+ D_2\left\{ \begin{array}{c}
+  \vdots \\   \phi, \Gamma'\Seq\Delta'
+ \end{array} \right. \\ \cline{1-1}
+\Gamma,\Gamma' \Seq \Delta,\Delta'
+&   \raisebox{1.2ex}[1.5ex][0ex]{$(cut)$}
+\end{array}\right. \]
+%\end{center}
+then $\der{NEQ_4}{}{\Gamma,\Gamma'\Seq\Delta,\Delta'}$.
+\end{CLAIM}
+\begin{PROOF}
+By the assumption 1. we let $D_1$ contain no $\eRs$, $\eLs$ or $\iLs$. 
+By the assumption 2. we let $D_2$ contain only reduced applications $\iLar$, 
+$\eRar$, $\iRsr$ -- $\eLanr$ does not belong to $NEQ_4$ -- and no $\eRs$.
+
+The induction is then on $\< \#(\pLar,D_2), h(D_1), h(D_2)\>$, 
+where the first parameter is the total number of applications of $\iLar$
+{\em or} $\eLar$ {\em which modify the cut formula} $\phi$ in $D_2$ (this
+qualification is essential in case \ref{it:cutactive} on page
+\pageref{it:cutactive}).
+%  $h(D_1)$ is the height of $D_1$ and $h(D_2)$ the height of  $D_2$. 
+\\[1ex]
+\noindent 
+If $h(D_1)=0$, then the resulting sequent of $D_1$ is an axiom. If
+the cut formula is not the one mentioned explicitly in the axioms (Fig.~\ref{fi:neq4}) 
+then we obtain a cut-free derivation directly by choosing
+another instance of the same axiom. In the other case, if the cut formula is
+ $t\Incl t$ or $x=x$, the assumption 4. allows us to conclude the
+ existence of a derivation of the conclusion of $D_2$ without this formula in
+ the antecedent. Finally, if the axiom in $D_1$ is
+ $s=t,\GSD,s=t$ or $x\Incl t,\GSD,x\Incl t$ and the cut formula is $s=t$, resp. 
+$x\Incl t$, then it will also appear in the
+ antecedent of the conclusion of ($cut$). Then this conclusion can be
+ obtained without ($cut$) directly from $D_2$ by starting it with the
+ instance of the axiom extended with $\Gamma$ and $\Delta$. \\[1ex]
+\noindent
+For $h(D_1)>0$, we consider the last rule $R$ applied in $D_1$. \\[1ex]
+\noindent
+{\bf I.} $\iLa$, $\Ear$, $\eLar$, $\eRa$, ($Sp.cut$), $(cut_{x=})$ or ($cut_x$): 
+Since none of
+these rules modifies the succedent, their application as $R$ in $D_1$ means
+that we can apply ($cut$) with $D_1^*$ -- before $R$ -- instead. The 
+induction on $h(D_1)$ and a subsequent application of $R$
+gives the conclusion. \\[1ex]
+\noindent
+{\bf II.} The rules $\eRs$, $\eLs$ and $\iLs$ are not used 
+in $D_1$ by assumption 1.\\[1ex]
+%
+\noindent
+{\bf III.} $\iRs$: and the derivations end as follows:
+\[ D \left \{\begin{array}{cl}
+ D_1\left\{ \begin{array}{cl}
+ D_1^*\left\{ \begin{array}{c}
+  \vdots \\   s\Incl t,\GSD, w\Incl q(s)
+ \end{array} \right. \\ \cline{1-1}
+s\Incl t,\GSD, w\Incl q(t) & \rabove{\iRs}
+ \end{array} \right.
+ D_2\left\{ \begin{array}{c}
+  \vdots \\   w\Incl q(t), \Gamma'\Seq\Delta'
+ \end{array} \right. \\ \cline{1-1}
+s\Incl t,\Gamma,\Gamma' \Seq \Delta,\Delta'
+&   \raisebox{1.2ex}[1.5ex][0ex]{($cut$)}
+\end{array} \right . 
+%\convd
+\]
+We drop this last application of $\iRs$ in $D_1$ and extend weakened $D_2$ as follows:
+\[
+ D' \left \{ \begin{array}{cl}
+ D_1^*\left\{ \begin{array}{c}
+  \vdots \\ \vdots \\  s\Incl t,\Gamma\Seq\Delta, w\Incl q(s)
+ \end{array} \right. 
+D'_2\left\{ \begin{array}{cl}
+ D_2\left\{ \begin{array}{c}
+  \vdots \\   w\Incl q(t), q(s)\Incl q(t), \Gamma'\Seq\Delta'
+ \end{array} \right. \\ \cline{1-1}
+w\Incl q(s), q(s)\Incl q(t), \Gamma'\Seq\Delta' & \rabove{\iRa}
+ \end{array} \right. \\ \cline{1-1}
+s\Incl t,q(s)\Incl q(t)\Gamma,\Gamma' \Seq \Delta,\Delta'
+&   \raisebox{1.2ex}[1.5ex][0ex]{($cut$)} \cl
+s\Incl t,q(t)\Incl q(t),\Gamma,\Gamma' \Seq \Delta,\Delta' & \rabove{\iLa} \cl
+s\Incl t,\Gamma,\Gamma' \Seq \Delta,\Delta' & \rabove{(cut_t)} 
+\end{array} \right .
+\]
+By assumption 3. (lemma~\ref{le:inclaad}) the application of $\iRa$ is admissible
+without increasing the number of $\pLar$, so $(cut)$ can be eliminated by the 
+second argument of induction. The result will be a $NEQ_4$ derivation which
+admits $(cut_t)$ by assumption 4 (lemma~\ref{le:nott}). \\[1ex]
+%
+{\bf IV.} $\Esr$ :
+%
+\[ \begin{array}{cl}
+D_1\left\{ \begin{array}{cl}
+ D_1^*\left\{ \begin{array}{cl}
+  \vdots \\ 
+  x\Incl t,\Gamma\Seq\Delta, \phi[x]
+ \end{array} \right. \\ \cline{1-1}
+\Gamma\Seq\Delta, \phi[t] & \rabove{\Esr}
+ \end{array} \right .
+ D_2\left\{ \begin{array}{cl}
+  \vdots \\ \cline{1-1}  \phi[t], \Gamma'\Seq\Delta' & \rabove{R'}
+ \end{array} \right. \\ \cline{1-1}
+\Gamma,\Gamma' \Seq \Delta,\Delta'
+&   \raisebox{1.2ex}[1.5ex][0ex]{($cut$)}
+\end{array} \]
+%
+By restrictions on $\Esr$, $t\not\in\Vars$ and, furthermore, 
+$x\not\in\C V(\Gamma,\Delta,t)$ so we can choose
+ $x$ so that $x\not\in\C V(\Gamma',\Delta')$. We consider two cases: \ref{it:Ar} when
+in $D_1$, $x$ in $\phi$ is in the RHS of $\Incl$, 
+and \ref{it:Bl} when $x$ occurs in
+a LHS of $\Incl$ or when $\phi$ is an equality. 
+\begin{LS}
+%
+%
+\item\label{it:Ar} Let $\phi$ be $p\Incl s(t)$  \\[.5ex]
+\noindent
+-- $t$ indicating the only occurrence
+which has been substituted for $x$. We can then 
+%construct the following derivation 
+extend $D_2$ and construct the following derivation:
+%
+\[
+ \begin{array}{cl}
+ D_1^*\left\{ \begin{array}{cl}
+  \ \\ \ \\ \vdots \\ 
+  x\Incl t,\Gamma\Seq\Delta, p\Incl s(x) 
+         \end{array} \right. \ \ \ 
+%
+D'_2\left\{ \begin{array}{cl}
+  D_2\left\{ \begin{array}{cl}
+  \vdots \\ 
+  p\Incl s(t),\Gamma'\Seq\Delta' \end{array} \right.  \\ \cline{1-1}
+ s(x)\Incl s(t),p\Incl s(t),\Gamma'\Seq\Delta' 
+   & \raisebox{1.2ex}[1.5ex][0ex]{(W)} \\ \cline{1-1}
+s(x)\Incl s(t), p\Incl s(x),\Gamma'\Seq\Delta' & \rabove{\iRa}
+         \end{array} \right.
+\\ \cline{1-1}
+x\Incl t, s(x)\Incl s(t), \Gamma',\GSD,\Delta' 
+  & \raisebox{1.2ex}[1.5ex][0ex]{($cut$)} \\ \cline{1-1}
+x\Incl t, s(t)\Incl s(t), \Gamma',\GSD,\Delta' 
+  & \rabove{\iLar} \\ \cline{1-1}
+s(t)\Incl s(t), \Gamma',\GSD,\Delta' 
+  & \rabove{\Esr} \\ \cline{1-1}
+\Gamma',\GSD,\Delta' 
+& \raisebox{1.2ex}[1.5ex][0ex]{($cut_t$)} 
+\end{array} 
+ \]
+\noindent
+% Notice that $x\not=s(x)\not\in\Vars$ since, otherwise, the application of 
+% ($E_s$) in $D_1$ would be ($E_{Rsd}$) which is excluded by lemma~\ref{le:noErsd}.
+The rule $\iRa$ is admissible (assumption 3, lemma \ref{le:inclaad}) and
+does not increase the number of
+applications of $\pLar$. So ($cut$)
+can be eliminated by induction on $h(D_1^*)<h(D_1)$.
+The resulting derivation is  in $NEQ_4$ so, by assumption 4. (lemma~\ref{le:nott})
+($cut_t$) is admissible.
+%
+\item\label{it:Bl} Let $\phi$ be $s(t)\preceq p$ \\[.5ex]
+\noindent
+Here we have three subcases, depending on
+whether $\phi$ in the application of the last rule $R'$ in $D_2$ was 
+\ref{it:cutneither} neither modified nor active, \ref{it:cutmodified} modified, 
+or \ref{it:cutactive} active.
+%
+\begin{LSA}
+%
+\item\label{it:cutneither} The cut formula $\phi$ is neither modified nor active.\\
+We may then swap the
+applications of $R'$ and ($cut$), and the induction on the height of $D_2$
+yields the required elimination of ($cut$). 
+%
+\item\label{it:cutmodified}  $\phi$ is modified by $R'$.\\
+%%\begin{LSA}
+%%  \item $\phi$ is inclusion $s(t)\Incl p$ (modifed by $R'$).  \\[.5ex]
+The two possibilities of $\phi$ being an inclusion and equality are entirely 
+analogous. This case depends only on the rule $R'$ -- if $\phi$ is an equality, 
+$R'$ cannot be $\eae$, but except for that the two cases are identical.
+%  {\sf II.a) 
+%
+ \begin{LSB}
+   \item $R'$ is $\Ear$ or ($=_{Rar}$): \\
+%II.a.$\alpha$ 
+  This would require $\phi$ to be an inclusion with  a single
+   variable in the LHS, i.e, $y\Incl p$. %$s(t)=y$. 
+Since in the current case \ref{it:Bl}, $\Esr$ in $D_1$
+   replaces $x$ in the LHS of $\Incl$, this would mean that this application is
+   actually degenerate ($E_{sx}$), what is excluded by lemma \ref{le:noEsd}. 
+\item  $R'$ is $\iLar$ or $\eLar$: \\
+These two cases are identical so we treat them jointly and
+  write $\pLar$. In each subcase, all occurrences of $\pLar$ must be
+  replaced consistently either by $\iLar$ or by $\eLar$, unless we
+  mention the latter rules explicitly. The cut formula $\phi$ 
+has the form $\phi[x]$ and $\phi[t]$ after the application of $\Esr$ in $D_1$, 
+while in $D_2$ we 
+write it as $\phi'[y]$, and as $\phi'[t']$ after the final application 
+of $\pLar$, i.e. 
+ $\phi[t] = \phi = \phi'[t']$. This is to indicate that the term $t$ introduced in $D_1$ and
+$t'$ introduced in $D_2$ into $\phi$ may be different. The relation between the two
+ does not matter, however -- what makes it possible to treat all the (sub)cases in
+the same way, is the fact that if $\phi'[y]$ is an inclusion the modified term is introduced into
+its LHS.
+
+$D_2$ ends as follows:
+\[ D_2 \left \{ \begin{array}{cl}
+ D_2^* \left \{ \begin{array}{cl}
+ \vdots \\
+ \phi'[y], y\preceq t', \Gamma'\Seq\Delta' \end{array} \right . \\ \cline{1-1}
+ \phi'[t'], y\preceq t', \Gamma'\Seq\Delta' & \rabove{\pLar}
+ \end{array} \right . \]
+We drop this last application of $\pLar$ and, instead, extend $D_1$
+weakened with $y\preceq t'$. % \\[.5ex]
+%
+% \mbox{ 
+{ \footnotesize 
+\[\begin{array}{cl}
+D_1' \left \{ \begin{array}{cl}
+D_1 \left \{ \begin{array}{cl}
+  \vdots \\ 
+  y\preceq t', x\Incl t,\Gamma\Seq\Delta, \phi[x]  \\ \cline{1-1}
+y\preceq t', \Gamma\Seq\Delta, \phi[t]  & \rabove{\Esr}
+ \end{array} \right . \\ \cline{1-1}
+y\preceq t', \Gamma\Seq\Delta, \phi'[y] & \rabove{\pLs}
+ \end{array} \right .
+%
+ D_2^*\left\{ \begin{array}{cl}
+ \vdots \\
+\vdots \\
+\phi'[y], y\preceq t', \Gamma'\Seq\Delta' \end{array} \right .
+ \\ \cline{1-1}
+y\preceq t', \Gamma,\Gamma' \Seq \Delta,\Delta' &   \raisebox{1.2ex}[1.5ex][0ex]{($cut$)}
+\end{array} \] }
+%  \) }} \\[.5ex]
+The obtained application of $\pLs$ is admissible and here harmless.
+%(lemma~\ref{le:noInclsx}).) So
+($cut$) can be eliminated by induction hypothesis on $\#(\pLa,D_2)$.
+%
+\end{LSB}
+%
+%
+\item\label{it:cutactive} %LSA 
+ $\phi$ is active in $R'$
+\begin{LSB}
+\item\label{it:inact} $\phi$ is inclusion $s(t)\Incl p$ (active in $R'$),
+\\
+%  {\sf III.a) 
+that is $R'$ is either $\iLs$, $\iRsr$ or $\iLar$.
+The last two cases are excluded because they would require $s(t)$ to be a variable.
+Then we would have a degenerate application of $\Esx$ in $D_1$, which does not 
+belong to $NEQ_4$.
+So let
+ $R'$ be $\iLs$. We have the following derivation: 
+{\footnotesize \[ \begin{array}{cl} %\hspace*{-4em}
+D_1 \left \{ \begin{array}{cl}
+ D_1^*\left\{ \begin{array}{cl}
+  \vdots \\ 
+  x\Incl t,\Gamma\Seq\Delta, s(x)\Incl p  
+ \end{array} \right. \\ \cline{1-1}
+\Gamma\Seq\Delta, s(t)\Incl p & \rabove{\Esr}
+ \end{array} \right .
+ D_2\left\{ \begin{array}{cl}
+  D_2^* \left \{ \begin{array}{c}
+\vdots \\
+s(t)\Incl p, \Gamma'\Seq\Delta', w(p)\preceq q \end{array} \right .
+\\ \cline{1-1}  
+s(t)\Incl p, \Gamma'\Seq\Delta', w(s(t))\preceq q & \rabove{\iLs}
+ \end{array} \right. \\ \cline{1-1}
+\Gamma,\Gamma' \Seq \Delta,\Delta', w(s(t))\preceq q
+ &   \raisebox{1.2ex}[1.5ex][0ex]{($cut$)}
+\end{array} \] }
+%} \\[.5ex]
+%
+First, construct the derivation $M'$ by cutting $s(t)\Incl p$ after $D_1$ and
+ $D_2^*$. Since $h(D_2^*)<h(D_2)$ this ($cut$) can be eliminated using the third argument of 
+induction. Then extend $M'$ to $M$  as follows:
+\[ \hspace*{-1em} M \left \{ \begin{array}{cl} 
+  M' \left \{ \begin{array}{cl}
+ D_1 \left \{ \begin{array}{c}
+ \vdots \\
+ \GSD, s(t)\Incl p \end{array} \right .
+ D_2^* \left \{ \begin{array}{c}
+ \vdots \\
+ s(t)\Incl p, \Gamma'\Seq\Delta', w(p)\preceq q \end{array} \right . \\ \cline{1-1}
+ \Gamma,\Gamma'\Seq\Delta,\Delta', w(p)\preceq q & \rabove{(cut)} \end{array} \right . \\
+ \cline{1-1}
+ s(x)\Incl p, \Gamma,\Gamma'\Seq\Delta,\Delta',w(p)\preceq q
+ &   \raisebox{1.2ex}[1.5ex][0ex]{($W_a$)} \\ \cline{1-1}
+ s(x)\Incl p, \Gamma,\Gamma'\Seq\Delta,\Delta',w(s(x))\preceq q
+ &   \rabove{\iLs}
+ \end{array} \right . \]
+The application of ($cut$) to $M$ with $D_1^*$ can be eliminated
+by induction hypothesis $h(D_1^*)<h(D_1)$ -- notice that we are using here
+the fact that $\#(\pLa,M)$ {\em modifying the cut formula} is not greater
+than $\#(\pLa,D_2^*)$, even if the total number of arbitrary applications
+of $\pLa$ in $M$ may be far greater than in $D_2^*$ (due to
+applications in $D_1$).
+It yields the following sequent leading
+to the desired conclusion by an application of $\Esr$ -- $x$ may be chosen so
+that $x\Not\in\Vars(\Gamma',\Delta',w,q$):
+\[ \begin{array}{cl}
+ x\Incl t, \Gamma, \Gamma' \Seq \Delta, \Delta', w(s(x))\preceq q \\
+ \cline{1-1}
+ \Gamma, \Gamma' \Seq \Delta, \Delta', w(s(t))\preceq q & \rabove{\Esr}
+\end{array} \]
+\noindent
+%
+\item % LSB {\sf III.b) 
+ $\phi$ is equality $s(t)= p$ (active in $R'$). \\
+ We have only three cases for $R'$ which are all treated analogously to
+the previous case \ref{it:inact}. By assumption 2., the case of $\eRs$ for $R'$ 
+is excluded.
+% (III.a).
+\begin{LSC}
+\item $R'$ is $\eLs$ \\
+This is treated exactly as \ref{it:inact} with applications of
+$\eLs$ instead of $\iLs$. 
+%
+%% \item $R'$ is $\eRs$ \\
+%% By assumption 2. this case is excluded.
+%% must be a reduced application, i.e., either $s(t)$ or $p$ 
+%% must be a variable.
+%% The former case is excluded since then we would have a degenerate application 
+%% of $(E_s)$ in $D_1$. If $p$ is a variable, say $y$, we proceed as in case \ref{it:inact}.
+%% The result of $M'$ -- $(cut)$ between $D_1$ and $D^*_2$ is eliminated by 
+%% induction on $h(D_2)$ --
+%% is weakened with $s(x)=y$, i.e., 
+%% \[ \hspace*{-1em} M \left \{ \begin{array}{cl} 
+%%   M' \left \{ \begin{array}{cl}
+%%  D_1 \left \{ \begin{array}{c}
+%%  \vdots \\
+%%  \GSD, s(t)=y \end{array} \right .
+%%  D_2^* \left \{ \begin{array}{c}
+%%  \vdots \\
+%%  s(t)=y, \Gamma'\Seq\Delta', w\Incl q(y) \end{array} \right . \\ \cline{1-1}
+%%  \Gamma,\Gamma'\Seq\Delta,\Delta', w\Incl q(y) & \rabove{(cut)} \end{array} \right . \\
+%%  \cline{1-1}
+%%  s(x)=y, \Gamma,\Gamma'\Seq\Delta,\Delta',w\Incl q(y)
+%%  &   \raisebox{1.2ex}[1.5ex][0ex]{($W_a$)} \\ \cline{1-1}
+%%  s(x)=y, \Gamma,\Gamma'\Seq\Delta,\Delta',w\Incl q(s(x))
+%%  &   \rabove{\eRsr}
+%%  \end{array} \right . \]
+%% The $(cut)$ of this sequent with $D^*_1$ can be eliminated by induction on $h(D_1)$ -- 
+%% the first argument of induction is here $0$ --
+%% and leads to the following 
+%% \[ \begin{array}{cl}
+%%  x\Incl t, \Gamma, \Gamma' \Seq \Delta, \Delta', w\Incl q(s(x)) \\
+%%  \cline{1-1}
+%%  \Gamma, \Gamma' \Seq \Delta, \Delta', w\Incl q(s(t))& \rabove{(E_s)}
+%% \end{array} \]
+\item  $R'$ is ($=_{Lar}$) or ($=_{Rar}$)\\
+We proceed as above with the construction of $M'$, $M$ and ($cut$). The
+differences occur only in the last step, so we make the following generic
+description where $\psi$ is the side and $\psi'$ the modified formula
+of $R'$: 
+% \\[.5ex]  \hspace*{-.5em} \mbox{ 
+{\footnotesize
+\[ \begin{array}{cl}  \hspace*{-1.5em}
+D_1 \left \{ \begin{array}{cl}
+ D_1^*\left\{ \begin{array}{cl}
+  \vdots \\ 
+  x\Incl t,\Gamma\Seq\Delta, s(x)= p  
+ \end{array} \right. \\ \cline{1-1}
+\Gamma\Seq\Delta, s(t)= p & \rabove{\Esr}
+ \end{array} \right .
+ D_2\left\{ \begin{array}{cl}
+  D_2^* \left \{ \begin{array}{c}
+\vdots \\
+s(t)= p, \psi, \Gamma'\Seq\Delta' \end{array} \right .
+\\ \cline{1-1}  
+s(t)= p, \psi', \Gamma'\Seq\Delta',  & \raisebox{1.2ex}[1.5ex][0ex]{($R'$)}
+ \end{array} \right. \\ \cline{1-1}
+\psi', \Gamma,\Gamma' \Seq \Delta,\Delta'
+ &   \raisebox{1.2ex}[1.5ex][0ex]{($cut$)}
+\end{array} \] }
+% } } \\[.5ex] \noindent
+First, construct the derivation $M'$ by cutting $s(t)=p$ after $D_1$ and
+ $D_2^*$ which is weakened with $s(x)=p$. $h(D_2^*)<h(D_2)$ means that this ($cut$)
+ can be eliminated. This
+yields the following sequent
+\[  s(x)=p, \psi, \Gamma, \Gamma' \Seq \Delta, \Delta' \]
+leading to the desired conclusion by the procedure depending on
+ $R'$. (Remember that $x$ may be chosen so
+that $x\Not\in\Vars(\Gamma',\Delta',\psi$), and $\#(\preceq_a,M')$ is not
+greater than in $D_2^*$):
+\begin{LSD}
+\item $R'$ is ($=_{Lar}$)\\
+ $s(t)$ cannot be a variable (since then $\Es$ in $D_1$ would be
+ degenerate), so $p$ must be a variable $y$ and $\psi$ is $f(y)\Incl q$, and $\psi'$ is $f(s(t))\Incl q$.
+\[ \begin{array}{cl}
+D_1^* \left \{ \begin{array}{c} \vdots \\ 
+   x \Incl t, \GSD, s(x)=y \end{array} \right . \ \ \ \ \ 
+\begin{array}{rl}
+ s(x)=y, f(y)\Incl q, \Gamma, \Gamma' \Seq \Delta, \Delta' \\
+ \cline{1-1}
+ s(x)=y, f(s(x))\Incl q, \Gamma, \Gamma' \Seq \Delta, \Delta' 
+ &   \raisebox{1.2ex}[1.5ex][0ex]{($=_{Lar}$)}  
+ \end{array} \\ \cline{1-1}
+x\Incl t, f(s(x))\Incl q, \Gamma, \Gamma' \Seq \Delta, \Delta' 
+ &   \raisebox{1.2ex}[1.5ex][0ex]{($cut$)} \\ \cline{1-1}
+x\Incl t, f(s(t))\Incl q, \Gamma, \Gamma' \Seq \Delta, \Delta' 
+ &   \rabove{\iLar} \\ \cline{1-1}
+f(s(t))\Incl q, \Gamma, \Gamma' \Seq \Delta, \Delta' 
+ &   \rabove{\Esr}
+\end{array} \]
+% \[ \begin{array}{rl}
+%  s(x)=y, f(y)\Incl q, \Gamma, \Gamma' \Seq \Delta, \Delta' \\
+%  \cline{1-1}
+%  s(x)=y, f(s(x))\Incl q, \Gamma, \Gamma' \Seq \Delta, \Delta' 
+%  &   \raisebox{1.2ex}[1.5ex][0ex]{($=_{Lar}$)} \\ \cline{1-1}
+% x\Incl t, f(s(x))\Incl q, \Gamma, \Gamma' \Seq \Delta, \Delta' 
+%  &   \raisebox{1.2ex}[1.5ex][0ex]{($cut$)\ with\ $s(x)=y$\ after\ $D_1^*$} \\ \cline{1-1}
+% x\Incl t, f(s(t))\Incl q, \Gamma, \Gamma' \Seq \Delta, \Delta' 
+%  &   \raisebox{1.2ex}[1.5ex][0ex]{($\Incl_a$)} \\ \cline{1-1}
+% f(s(t))\Incl q, \Gamma, \Gamma' \Seq \Delta, \Delta' 
+%  &   \raisebox{1.2ex}[1.5ex][0ex]{($E_s$)}
+% \end{array} \]
+This ($cut$) can be eliminated since $h(D_1^*)<h(D_1)$.
+%
+\item $R'$ is ($=_{Rar}$)\\
+substituting $s(t)$ for $p$, i.e., $\psi$ is $y\Incl f(p)$, and $\psi'$ is
+$y\Incl f(s(t))$ for a $y\in\Vars$:
+\[ \begin{array}{cl}
+D_1^* \left \{ \begin{array}{c} \vdots \\ 
+ x\Incl t, \GSD, s(x)=p \end{array} \right . \ \ \ \ \ \ 
+\begin{array}{rl}
+ s(x)=p, y\Incl f(p), \Gamma, \Gamma' \Seq \Delta, \Delta' \\
+ \cline{1-1}
+ s(x)=p, y\Incl f(s(x)), \Gamma, \Gamma' \Seq \Delta, \Delta' 
+ &   \raisebox{1.2ex}[1.5ex][0ex]{($=_{Rar}$)} 
+ \end{array} \\ \cline{1-1}
+x\Incl t, y\Incl f(s(x)), \Gamma, \Gamma' \Seq \Delta, \Delta' 
+ &   \raisebox{1.2ex}[1.5ex][0ex]{($cut$)} \\ \cline{1-1}
+y\Incl f(s(t)), \Gamma, \Gamma' \Seq \Delta, \Delta' 
+ &   \rabove{\Ear}
+\end{array} \]
+This ($cut$) can be eliminated since $h(D_1^*)<h(D_1)$.
+%
+\item $R'$ is ($=_{Rar}$)\\
+substituting $p$ for $s(t)$, i.e., $\psi$ is $y\Incl f(s(t))$, and $\psi'$ is
+ $y\Incl f(p)$ for a $y\in\Vars$. Here we have to weaken $D_2^*$ also with 
+$f(s(x))\Incl f(s(t))$:
+{\footnotesize
+\[ \begin{array}{cl} \hspace*{-2em}
+D_1^* \left \{ \begin{array}{c} \vdots \\ 
+ x\Incl t, \GSD, s(x)=p \end{array} \right . \ \ \ \ 
+\begin{array}{rl}
+f(s(x))\Incl f(s(t)), s(x)=p, y\Incl f(s(t)), \Gamma, \Gamma' \Seq \Delta, \Delta' \\
+ \cline{1-1}
+f(s(x))\Incl f(s(t)), s(x)=p, y\Incl f(s(x)), \Gamma, \Gamma' \Seq \Delta, \Delta' 
+ &   \rabove{\iRa} \\ \cline{1-1}
+f(s(x))\Incl f(s(t)), s(x)=p, y\Incl f(p), \Gamma, \Gamma' \Seq \Delta, \Delta' 
+ &   \raisebox{1.2ex}[1.5ex][0ex]{($=_{Rar}$)} 
+ \end{array} \\ \cline{1-1}
+x\Incl t, f(s(x))\Incl f(s(t)), y\Incl f(p), \Gamma, \Gamma' \Seq \Delta, \Delta' 
+ &   \raisebox{1.2ex}[1.5ex][0ex]{($cut$)} \\ \cline{1-1}
+x\Incl t, f(s(t))\Incl f(s(t)), y\Incl f(p), \Gamma, \Gamma' \Seq \Delta, \Delta' 
+ &   \rabove{\iLar} \\ \cline{1-1}
+x\Incl t, y\Incl f(p), \Gamma, \Gamma' \Seq \Delta, \Delta' 
+ &   \raisebox{1.2ex}[1.5ex][0ex]{($cut_t$)} \\ \cline{1-1}
+y\Incl f(p), \Gamma, \Gamma' \Seq \Delta, \Delta' 
+ &   \rabove{\Esr}
+\end{array} \]
+}
+Again, ($cut$) can be eliminated since $h(D_1^*)<h(D_1)$.
+% By the same argument as in the case \ref{it:Ar}, $s(x)\not\in\Vars$ and
+% hence also $f(s(x))\not\in\Vars$ and $f(s(t))\not\in\Vars$, 
+% so we can apply $\iRa$.
+\end{LSD}
+\end{LSC}
+\end{LSB}
+\end{LSA}
+\end{LS}
+\end{PROOF}

@@ -1,0 +1,1367 @@
+\section{The final cut-free calculus $NEQ_5$}\label{se:lastNEQ}
+Although the elementary cut rules
+%\reff{ru:cutx} from definition \ref{de:neq4}
+are relatively innocent,
+we make the final step showing that they are redundant. 
+We do it in two steps. First, in \ref{sub:onecut}, we remove the rule $(cut_x)$ 
+obtaining $NEQ'_5$ which is equivalent to $NEQ_4$.
+This step isn't really problematic.
+The rule $(cut_{x=})$, however, expresses the specific character of variables as
+compared to arbitrary other terms. In \ref{sub:nocut} we show that it can be
+replaced by two other rules which capture this specificity of variables, thus
+obtaining the final cut-free version of the calculus $NEQ_5$.
+
+%
+\subsection{$NEQ'_5$ -- the calculus with one elementary cut}\label{sub:onecut}
+\begin{DEFINITION}\label{de:neq5}
+ $NEQ'_5$ is obtained from $NEQ_4$ by 
+\begin{itemize}\MyLPar
+\item replacing the axiom $x\Incl t,\GSD,x\Incl t$ by $\GSD,t\Incl t$;
+%\item adding axiom $x\Incl y,\GSD, y\Incl x$ for $x,y\in\Vars$
+\item admitting non-reduced applications of $\eLanr$ but \\
+ removing the degenerate applications $\eRax$ and $\eLax$ which result in a single 
+variable; % and $\iLax$;
+\item removing the elementary cut rule ($cut_x$) and $\eRs$;
+%\item imposing additional restrictions on $\eLa$ and $\eRa$
+\end{itemize}
+\end{DEFINITION}
+\noindent
+The rules of $NEQ'_5$ are given in figure \ref{fi:neq5}.
+\begin{figure}[hbt]
+\hspace*{3em}\begin{tabular}{|l@{\ \ \ \ \ \ \ \ \ \ \ \ }ll|}
+\hline
+\multicolumn{2}{|c}{{\bf Axioms}:} & \\[1ex]
+\multicolumn{3}{|c|}{$\GSD, t\Incl t$\ \ \ \ \ \ $\GSD, x=x$\ \ \
+\ \ \  %$x\Incl y,\GSD, y\Incl x$\ \ \ \ \ \ 
+$s=t,\GSD, s=t$ }\\[2ex]
+%
+\multicolumn{2}{|c}{{\bf Identity rules}:} & \\[1ex]
+$\eLs$\ \prule{t=s,\GSD, p(s)\preceq q}{t=s,\GSD, p(t)\preceq q} 
+& 
+$\eLanx$\ \prule{s=t, p(s)\Incl q,\GSD}{s=t, p(t)\Incl q,\GSD} 
+       \ \ {\footnotesize{$p(t)\not\in\Vars$}} 
+& \\[2.5ex]
+ & 
+%$\eRs$\ \prule{s=t, \GSD, p\Incl q(s)}{s=t,\GSD, p\Incl q(t)}   & 
+ $\eRanx$\ \prule{s=t, p\Incl q(s), \GSD}{s=t, p\Incl q(t),\GSD} 
+ \ \ {\footnotesize{$q(t)\not\in\Vars$}} 
+ & 
+\\[2ex]
+%
+\multicolumn{2}{|c}{{\bf Inclusion rules}:}
+& \\[1ex]
+ $\iLs$\ \prule{t\Incl s, \Gamma\Seq \Delta, p(s)\preceq q}{t\Incl s, \Gamma\Seq
+\Delta, p(t)\preceq q} & 
+$\iLa$\ \prule{s\Incl t, p(s)\preceq q, \GSD}{s\Incl t, p(t)\preceq q, \GSD} & \\[2ex]
+%       \ \ {\footnotesize{$t\not\in\Vars$}} & \\[2ex]
+%
+ $\iRs$\ \prule{s\Incl t, \GSD, p\Incl q(s)}{s\Incl t,\GSD, p\Incl q(t)} & 
+%% $p(t)\not\in\Vars$ & 
+& \\[2ex]
+\multicolumn{2}{|c}{{\bf Elimination rules}:} & \\[1ex]
+ $\Esr$\ \prule{\Gamma, x\Incl t\Seq\Delta,\phi[x]} 
+  {\Gamma\Seq\Delta,\phi[t]}  & 
+\multicolumn{2}{l|}{ $\Ear$\ \prule{x\Incl t, y\Incl r(x), \Gamma\Seq\Delta}
+  {y\Incl r(t),\Gamma\Seq\Delta} } %($E_{ar}^*$)} 
+   \\[.5ex]
+{\footnotesize \ \ \ - $x\not\in \Vars(\Gamma,\Delta,t),\ t\not\in\Vars$}
+    &  \multicolumn{2}{l|}{{\footnotesize \ \ \
+ - $x\not\in \Vars(t,\Gamma,\Delta,y),\ t\not\in\Vars$}} \\
+ {\footnotesize \ \ \ - at most one $x$ in $\phi$;} 
+  &  \multicolumn{2}{l|}{{\footnotesize \ \
+ \ - at most one occurrence of $x$ in $r$ }} \\[2ex]
+%
+\multicolumn{3}{|c|}{{\bf Elementary cut}:}\\
+%\multicolumn{3}{|c|}{
+$(cut_{x=})$\ \ \prule{x=x,\GSD}{\GSD} &&  %}
+\\[2ex]
+\multicolumn{3}{|c|}{{\bf Specific cut rules}:}\\
+\multicolumn{3}{|c|}
+{for each specific axiom $\Ax_k$: \(a_1,...,a_n\Seq s_1,...,s_m\), 
+a  rule:}\\[1ex]
+\multicolumn{3}{|c|}
+{\prule{\Gamma\Seq\Delta,a_1\ ;...;\ \Gamma\Seq\Delta,a_n\ ;\ 
+s_1,\Gamma\Seq\Delta\ ;...;\ s_m,\Gamma\Seq\Delta} 
+{\Gamma\Seq\Delta}\ \ \ ($Sp.cut_k$)} \\
+ \hline
+\end{tabular} 
+\caption{The calculus $NEQ'_5$ ($x,y\in\Vars$)}\label{fi:neq5}
+\end{figure}
+%
+\begin{LEMMA}\label{le:neq5toneq4}
+$NEQ'_5\impl NEQ_4$.
+\end{LEMMA}
+\begin{PROOF}
+Obviously, the axiom $\GSD, t\Incl t$ is derivable in $NEQ_4$ by choosing a fresh
+variable in the axiom $x\Incl t,\GSD, x\Incl t$ and applying $(E_{sr})$. 
+If $t$ is a variable $x\in\Vars$,
+then one starts with $x\Incl x,\GSD, x\Incl x$ and applies $(cut_x)$.
+Another new axiom is derivable in $NEQ_4$ as follows:
+\[\prarc{
+x=y, x\Incl y, \GSD, x\Incl y \cl
+x=y, x\Incl y, \GSD, y\Incl y & \rabove{\eLs} \cl
+x=y, x\Incl y, \GSD, y\Incl x & \rabove{\eRs} \cl
+y=y, x\Incl y, \GSD, y\Incl x & \rabove{\iLa} \cl
+     x\Incl y, \GSD, y\Incl x & \rabove{(cut_{x=})}
+}
+\]
+The non-reduced applications $\eLanr$ are admissible in $NEQ_4$ by lemma~\ref{le:noLanr}.
+%The non-reduced applications $\eLanr$ are admissible 
+%in $NEQ_4$ by lemma~\ref{le:noLanr}.
+\end{PROOF}
+
+\noindent
+For the other implication $NEQ_4\impl NEQ'_5$ we show admissibility in $NEQ'_5$
+of the missing rules: %. By corollary~\ref{co:noxeq}, we have to show
+%admissibility of 
+$(cut_x)$ % $(cut_{x=})$ 
+and unrestricted $\eLar$ and $\eRa$.
+
+\begin{LEMMA}\label{le:noxeq}
+The rule $(cut_x)$ is admissible in $NEQ'_5$.
+\end{LEMMA}
+\begin{PROOF}
+%% By lemma \ref{le:noax} we assume that derivation $D$ above $(cut_x)$ 
+%% contains no $\eLarx$ or $\eRax$
+%% and proceed by induction on $D$'s height.
+Instead of any axiom with $x\Incl x$ in the antecedent, we may
+take the one without it. The only rules which might possibly generate this formula in the
+antecedent are $\Ear$, $\eLanx$, $\eRanx$ or $\iLa$. 
+But since the first three of these rules are non-degenerate, they cannot introduce 
+a single variable, 
+i.e. they cannot result in a formula $x\Incl x$. Thus the only possibility is the
+following:
+%% \begin{LS}
+%% \item $\Ear$ -- cannot generate $x\Incl x$ due to the
+%% restriction that $\Ear$ does not result in a variable.
+%% \item $\eLar$ and $\eRa$ are non-degenerate -- $\eLanx$ and $\eRanx$ cannot 
+%% introduce a variable resulting in $x\Incl x$.
+%% \item $\iLanx$ -- does not introduce a variable either.
+%% %would require the following situation
+\[\prar{t\Incl x, t\Incl x, \GSD \cl
+x\Incl x, t\Incl x, \GSD & \rabove{\iLa}
+}
+\]
+But the resulting sequent is the same as the premise weakened with $x\Incl x$.
+%% \end{LS}
+\end{PROOF}
+
+\begin{LEMMA}\label{le:noax}
+%$\der{NEQ'_5}DS\impl\der{NEQ'_5}{D^*}S$ and $D^*$ contains no 
+$NEQ'_5$ admits degenerate applications of $\eLar$, namely, 
+\[
+\eLarx\ \ \mprule{y=x, y\Incl t,\GSD}{y=x, x\Incl t,\GSD}\ \ \ \ \ \ \ \ \ \ \ 
+%\iLax\ \ \mprule{s\Incl x, s\preceq t,\GSD}{s\Incl x, x\preceq t,\GSD}\ \ \ \ 
+%\eRax\ \ \mprule{t=x, s\Incl t,\GSD}{t=x, s\Incl x,\GSD}\ \ \ \ 
+ y,x\in\Vars
+\]
+\end{LEMMA}
+\begin{PROOF}
+By %simultaneous 
+induction on the number of applications of the rule and the height
+of derivation. The rules is not applicable to any axiomatic formula, so
+%% \[\prarc{
+%% y=z, y\Incl x,\GSD, x\Incl y \cl
+%% y=z, z\Incl x,\GSD, x\Incl y & \rabove{\eLarx}
+%% }\conv
+%% \prarc{
+%% y=z, z\Incl x,\GSD, x\Incl z \cl
+%% y=z, z\Incl x,\GSD, x\Incl y & \rabove{\eRs}
+%% }
+%% \]
+consider the rule applied above.
+%We consider first the case of when the uppermost application was of $\eLarx$.
+\begin{LS}
+\item $\eLanx$ -- the two applications cannot interact and can be swapped %for $\eLarx$ 
+since the subsequent application $\eLarx$ is 
+reduced, i.e.,
+it replaces a variable which couldn't have been introduced just above it by a 
+non-degenerate application of $\eLanx$. 
+\item $\iLanx$ -- two cases 
+%% can be swapped since their interaction with the
+%% subsequent $\eLarx$ would require
+%% a degenerate application $\iLax$
+%% \[\prar{
+%%  x=y, s\Incl y, s\Incl q,\GSD \cl
+%%  x=y, s\Incl y, y\Incl q,\GSD & \rabove{\iLax} \cl
+%%  x=y, s\Incl y, x\Incl q,\GSD & \rabove{\eLarx}
+%%  }\ \ \ \ \ \ \ 
+%% \prar{
+%%  x=s, s\Incl y, y\Incl q, \GSD \cl
+%%  x=y, s\Incl y, y\Incl q, \GSD & \rabove{\iLax} \cl
+%%  x=y, s\Incl y, x\Incl q, \GSD & \rabove{\eLarx}
+%%  }
+%% \]
+\[\sma{ \prar{
+  x=y, s\Incl y, s\Incl q,\GSD \cl
+  x=y, s\Incl y, y\Incl q,\GSD & \rabove{\iLa} \cl
+  x=y, s\Incl y, x\Incl q,\GSD & \rabove{\eLarx}
+}\conv
+\prar{
+  x=s, x=y, s\Incl y, s\Incl q,\GSD \cl
+  x=s, x=y, s\Incl y, x\Incl q,\GSD & \rabove{\eLarx} \cl
+  x=y, x=y, s\Incl y, x\Incl q,\GSD & \rabove{\iLa} 
+} }
+\]
+Analogous weakening when $\iLa$ modifies the formula 
+active in the application of $\eLarx$;
+\[\prarc{
+ x=s, s\Incl y, y\Incl q, \GSD \cl
+ x=y, s\Incl y, y\Incl q, \GSD & \rabove{\iLa} \cl
+ x=y, s\Incl y, x\Incl q, \GSD & \rabove{\eLarx}
+ }\conv
+\prarc{
+  x=y, x=s, s\Incl y, y\Incl q, \GSD \cl
+  x=y, x=s, s\Incl y, x\Incl q, \GSD & \rabove{\eLarx} \cl
+  x=y, x=y, s\Incl y, x\Incl q, \GSD & \rabove{\iLa}
+ }
+\]
+\item 
+$\Ear$ -- swapping is possible since $x\in\Vars$
+\[\prarc{
+z\Incl p, x=y, y\Incl r(z),\GSD \cl
+          x=y, y\Incl r(p),\GSD & \rabove{\Ear} \cl
+          x=y, x\Incl r(p),\GSD & \rabove{\eLarx} 
+}\conv
+\prarc{
+z\Incl p, x=y, y\Incl r(z),\GSD \cl
+z\Incl p, x=y, x\Incl r(z),\GSD & \rabove{\eLarx} \cl
+          x=y, x\Incl r(p),\GSD & \rabove{\Ear} 
+}
+\]
+\item $\iLs$ 
+\[\prar{
+y\Incl t, y=x, \GSD, p(t)\preceq q \cl
+y\Incl t, y=x, \GSD, p(y)\preceq q & \rabove{\iLs} \cl
+x\Incl t, y=x, \GSD, p(y)\preceq q & \rabove{\eLarx} 
+}\conv
+\prar{
+y\Incl t, y=x, \GSD, p(t)\preceq q \cl
+x\Incl t, y=x, \GSD, p(t)\preceq q & \rabove{\eLarx} \cl
+x\Incl t, y=x, \GSD, p(x)\preceq q & \rabove{\iLs} \cl
+x\Incl t, y=x, \GSD, p(y)\preceq q & \rabove{\eLs} 
+}
+\]
+\item $\iRs$ -- is treated analogously to $\iLs$.
+\item Neither active nor modified formulae of $\eLs$ %$\eRs$ 
+or $\Esr$ can be
+affected by $\eLarx$, so these, as well as $(Sp.cut)$,
+allow trivial swap with $\eLarx$.
+$\eRa$ modifies at most the RHS of inclusion modified then by $\eLarx$, so these 
+two can be swapped, too.
+\end{LS}
+% As we can see, no applications of $\eRax$ appear in the transformed derivations.
+%
+\end{PROOF}
+%
+To show admissibility of the unrestricted $\eRa$ we need the following lemma.
+\begin{LEMMA}\label{le:yeseae}
+The rule $\eae$ is admissible in $NEQ'_5$
+\[ \eae\ \ \mprule{s=t, p(s)=q,\GSD}{s=t,p(t)=q,\GSD}\ \ p(t)\not\in\Vars \]
+\end{LEMMA}
+\begin{PROOF}
+Application to an axiom is transformed as follows:
+\[\prarc{
+s=t, p(s)=q,\GSD, p(s)=q \cl
+s=t, p(t)=q,\GSD, p(s)=q & \rabove{\eae}
+}\conv
+\prarc{
+s=t, p(t)=q,\GSD, p(t)=q \cl
+s=t, p(t)=q,\GSD, p(s)=q & \rabove{\eLs}
+}
+\]
+The trivial differences from the proof of lemma~\ref{le:noeqeq} concern the presence
+of non-reduced version of $\eLa$. In addition this case used there
+$(cut_x)$. Here it will be treated as follows:
+\begin{LS}
+\item $\eLanx$ -- $p(f(s)), f(t)\not\in\Vars$ \vspace*{-1ex}
+\[\sma{ \prar{
+s=t, f(s)=r, p(r)\Incl q, \GSD \cl
+s=t, f(s)=r, p(f(s))\Incl q, \GSD & \rabove{\eLanx} \cl
+s=t, f(t)=r, p(f(s))\Incl q, \GSD & \rabove{\eae}
+}\conv
+\prar{
+s=t, f(s)=r, p(r)\Incl q, \GSD \cl
+s=t, f(t)=r, p(r)\Incl q, \GSD & \rabove{\eae} \cl
+s=t, f(t)=r, p(f(t))\Incl q, \GSD & \rabove{\eLanx} \cl
+s=t, f(t)=r, p(f(s))\Incl q, \GSD & \rabove{\eLanx} 
+} } %\vspace*{-2ex}
+\]
+The first application is $\eLanx$ because $f(t)\not\in\Vars\impl p(f(t))\not\in\Vars$.
+
+And the other possibility -- $p(r), f(t)\not\in\Vars$
+\[ \sma{ \prar{
+s=t, f(s)=r, p(f(s))\Incl q, \GSD \cl
+s=t, f(s)=r, p(r)\Incl q, \GSD & \rabove{\eLanx} \cl
+s=t, f(t)=r, p(r)\Incl q, \GSD & \rabove{\eae} 
+}\conv
+\prar{
+s=t, f(s)=r, p(f(s))\Incl q, \GSD \cl
+s=t, f(t)=r, p(f(s))\Incl q, \GSD & \rabove{\eae} \cl
+s=t, f(t)=r, p(f(t))\Incl q, \GSD & \rabove{\eLanx} \cl
+s=t, f(t)=r, p(r)\Incl q, \GSD & \rabove{\eLanx} 
+} }  %\vspace*{-4ex}
+\] 
+Again, the first application is $\eLanx$ because 
+$f(t)\not\in\Vars\impl p(f(t))\not\in\Vars$.
+%
+\item $\iLa$ -- $p(t)\not\in\Vars$
+\[\sma{\prarc{
+s\Incl t, p(s)=q, p(t)=r, \GSD \cl
+s\Incl t, p(t)=q, p(t)=r, \GSD & \rabove{\iLa} \cl
+s\Incl t, r=q, p(t)=r, \GSD & \rabove{\eae} 
+}\conv
+\prarc{
+p(s)= r, s\Incl t, p(s)=q, p(t)=r, \GSD \cl
+p(s)= r, s\Incl t, p(s)=q, p(t)=r, \GSD & \rabove{\eae} \cl
+p(t)= r, s\Incl t, p(s)=q, p(t)=r, \GSD & \rabove{\iLa} 
+} }
+\]
+Furthermore, we have the case when $t(k)\not\in\Vars$ which needs $\eRanx$
+\[\sma{ \prarc{
+s\Incl t(k), p(s)=q, k=r, \GSD \cl
+s\Incl t(k), p(t(k))=q, k=r, \GSD & \rabove{\iLa} \cl
+s\Incl t(k), p(t(r))=q, k=r, \GSD & \rabove{\eae}
+}\conv
+\prarc{
+s\Incl t(r), s\Incl t(k), p(s)=q, k=r, \GSD \cl
+s\Incl t(r), s\Incl t(k), p(t(r))=q, k=r, \GSD & \rabove{\eae} \cl
+s\Incl t(k), s\Incl t(k), p(t(r))=q, k=r, \GSD & \rabove{\eRanx}
+} }
+\]
+If $t(k)\in\Vars$, i.e. it is an $x$ we have the following situation with 
+$p(r)\not\in\Vars$:
+\[\prarc{
+s\Incl x, p(s)=q, x=r, \GSD \cl
+s\Incl x, p(x)=q, x=r, \GSD & \rabove{\iLa} \cl
+s\Incl x, p(r)=q, x=r, \GSD & \rabove{\eae}
+}\conv
+\prarc{
+s\Incl x, p(s)=q, x=r, s=r, \GSD \cl
+s\Incl x, p(r)=q, x=r, s=r, \GSD & \rabove{\eae} \cl
+s\Incl x, p(r)=q, x=r, x=r, \GSD & \rabove{\iLa}
+}
+\]
+\item $\eRanx$ -- $q(t), f(r)\not\in\Vars$
+\[\sma{ \prar{
+t=s, p\Incl f(q(s)), q(s)=r, \GSD \cl
+t=s, p\Incl f(r), q(s)=r, \GSD & \rabove{\eRanx} \cl
+t=s, p\Incl f(r), q(t)=r, \GSD & \rabove{\eae} 
+}\conv
+\prar{
+t=s, p\Incl f(q(s)), q(s)=r, \GSD \cl
+t=s, p\Incl f(q(s)), q(t)=r, \GSD & \rabove{\eae} \cl
+t=s, p\Incl f(q(t)), q(t)=r, \GSD & \rabove{\eRanx} \cl
+t=s, p\Incl f(r), q(t)=r, \GSD & \rabove{\eRanx}
+} }
+\]
+The first resulting application is $\eRanx$ since 
+$q(t)\not\in\Vars\impl f(q(t))\not\in\Vars$.
+Analogous transformation is applied when $\eae$ modifies $r$ rather than $q(s)$.
+%% \item $\eRs$
+%% \[\prar{
+%% s=t, q(s)=r, \GSD, p\Incl f(q(s)) \cl
+%% s=t, q(s)=r, \GSD, p\Incl f(r)  & \rabove{\eRs} \cl
+%% s=t, q(t)=r, \GSD, p\Incl f(r)  & \rabove{\eae} 
+%% }\conv
+%% \prar{
+%% s=t, q(s)=r, \GSD, p\Incl f(q(s)) \cl
+%% s=t, q(t)=r, \GSD, p\Incl f(q(s)) & \rabove{\eae} \cl
+%% s=t, q(t)=r, \GSD, p\Incl f(q(t)) & \rabove{\eRs} \cl
+%% s=t, q(t)=r, \GSD, p\Incl f(r) & \rabove{\eRs} 
+%% }
+%% \]
+%% Another case is analogous
+%% \[\prar{
+%% s=t, q(s)=r, \GSD, p\Incl f(r) \cl
+%% s=t, q(s)=r, \GSD, p\Incl f(q(s)) & \rabove{\eRs} \cl
+%% s=t, q(t)=r, \GSD, p\Incl f(q(s)) & \rabove{\eae} 
+%% }\conv
+%% \prar{
+%% s=t, q(s)=r, \GSD, p\Incl f(r) \cl
+%% s=t, q(t)=r, \GSD, p\Incl f(r) & \rabove{\eae} \cl
+%% s=t, q(t)=r, \GSD, p\Incl f(q(t)) & \rabove{\eRs} \cl
+%% s=t, q(t)=r, \GSD, p\Incl f(q(s)) & \rabove{\eRs} 
+%% }
+%% \]
+\item $\eLs$ %-- the cases here are entirely analogous to those for $\eRs$.
+\[\prar{
+s=t, q(s)=r, \GSD,  f(q(s))\Incl p \cl
+ s=t, q(s)=r, \GSD, f(r)\Incl p  & \rabove{\eLs} \cl
+ s=t, q(t)=r, \GSD, f(r)\Incl p  & \rabove{\eae} 
+}\conv
+\prar{
+ s=t, q(s)=r, \GSD, f(q(s))\Incl p \cl
+ s=t, q(t)=r, \GSD, f(q(s))\Incl p & \rabove{\eae} \cl
+ s=t, q(t)=r, \GSD, f(q(t))\Incl p & \rabove{\eLs} \cl
+ s=t, q(t)=r, \GSD, f(r)\Incl p & \rabove{\eLs} 
+}
+\]
+Another case is analogous
+\[\prar{
+ s=t, q(s)=r, \GSD, f(r)\Incl p \cl
+ s=t, q(s)=r, \GSD, f(q(s))\Incl p & \rabove{\eLs} \cl
+ s=t, q(t)=r, \GSD, f(q(s))\Incl p & \rabove{\eae} 
+}\conv
+\prar{
+ s=t, q(s)=r, \GSD, f(r)\Incl p \cl
+ s=t, q(t)=r, \GSD, f(r)\Incl p & \rabove{\eae} \cl
+ s=t, q(t)=r, \GSD, f(q(t))\Incl p & \rabove{\eLs} \cl
+ s=t, q(t)=r, \GSD, f(q(s))\Incl p & \rabove{\eLs} 
+}
+\]
+\item Other cases are trivial. The active formula of $\iLs$ and $\iRs$ is an inclusion
+and, similarly, elimination rules involve only inclusions. $(Sp.cut)$ can be trivially
+swapped.
+\end{LS}
+\end{PROOF}
+%
+\begin{LEMMA}\label{le:eRax}
+%$\der{NEQ'_5}DS\impl\der{NEQ'_5}{D^*}S$ and $D^*$ contains no 
+$NEQ'_5$ admits degenerate applications of $\eRa$, namely, 
+\[
+\eRax\ \ \mprule{t=x, s\Incl t,\GSD}{t=x, s\Incl x,\GSD}\ \ \ \ 
+ x\in\Vars
+\]
+\end{LEMMA}
+\begin{PROOF}
+%% Application to an axiomatic formula is treated as follows:
+%% \[\prarc{
+%% x=z, y\Incl x, \GSD, x\Incl y \cl
+%% x=z, y\Incl z, \GSD, x\Incl y & \rabove{\eRax}
+%% }\conv
+%% \prarc{
+%% x=z, y\Incl z, \GSD, x\Incl y \cl
+%% x=z, y\Incl z, \GSD, x\Incl y & \rabove{\eLs}
+%% }
+%% \]
+The rule isn't applicable to any axiomatic formula, so we consider the
+rule applied just above.
+\begin{LS}
+\item $\eRanx$ -- $q(t)\not\in\Vars$
+\[\sma{ \prarc{
+s=t, q(t)=x, p\Incl q(s), \GSD \cl
+s=t, q(t)=x, p\Incl q(t), \GSD & \rabove{\eRanx} \cl
+s=t, q(t)=x, p\Incl x, \GSD & \rabove{\eRax} 
+}\conv
+\prarc{
+q(s)= x, s=t, q(t)=x, p\Incl q(s), \GSD \cl
+q(s)= x, s=t, q(t)=x, p\Incl x, \GSD & \rabove{\eRax} \cl
+q(t)= x, s=t, q(t)=x, p\Incl x, \GSD & \rabove{\eae}
+} }
+\]
+Since $q(t)\not\in\Vars$, the rule $\eae$ is admissible by lemma~\ref{le:yeseae}.
+\item $\iLa$  %-- $t\not\in\Vars$
+\[\sma{ \prarc{
+x= p(s), s\Incl t, q\Incl p(t), \GSD \cl % 
+x= p(t), s\Incl t, q\Incl p(t), \GSD & \rabove{\iLa} \cl % 
+x= p(t), s\Incl t, q\Incl x, \GSD & \rabove{\eRax}
+}\conv
+\prarc{
+x=p(t), x= p(s), s\Incl t, q\Incl p(t), \GSD \cl
+x=p(t), x= p(s), s\Incl t, q\Incl x, \GSD & \rabove{\eRax} \cl
+x=p(t), x= p(t), s\Incl t, q\Incl x, \GSD & \rabove{\iLa} 
+} }
+\]
+Similar weakening when $\iLanx$ introduces the subsequently substituted variable:
+\[\prarc{
+r=p, r\Incl x, q\Incl p, \GSD \cl
+x=p, r\Incl x, q\Incl p, \GSD & \rabove{\iLa} \cl
+x=p, r\Incl x, q\Incl x, \GSD & \rabove{\eRax}
+}\conv
+\prarc{
+x=p, r=p, r\Incl x, q\Incl p, \GSD \cl
+x=p, r=p, r\Incl x, q\Incl x, \GSD & \rabove{\eRax} \cl
+r=p, r=p, r\Incl x, q\Incl x, \GSD & \rabove{\iLa}
+}
+\]
+Interaction of both formulae gives two cases; the first with $t\not\in\Vars$
+\[\prar{
+x=p, p\Incl t, \GSD \cl
+x=t, p\Incl t, \GSD  & \rabove{\iLa} \cl
+x=t, p\Incl x, \GSD  & \rabove{\eRax}
+}\conv
+\prar{
+x=t, x=p, p\Incl t, \GSD \cl
+x=t, x=p, p\Incl x, \GSD & \rabove{\eRax} \cl
+x=t, x=x, p\Incl x, \GSD & \rabove{\iLa} \cl
+x=t, x=t, p\Incl x, \GSD & \rabove{\eae} 
+}
+\]
+where $\eae$ is admissible by lemma~\ref{le:yeseae} since $t\not\in\Vars$. 
+%(It does not introduce any applications of $\eRanx$.)
+If $t$ is an $y\in\Vars$
+\[\prar{
+x=p, p\Incl y, \GSD \cl
+x=y, p\Incl y, \GSD & \rabove{\iLa} \cl
+x=y, p\Incl x, \GSD & \rabove{\eRax}
+}\conv
+\prar{
+p\Incl y, x=p, p\Incl x, \GSD \cl
+p\Incl y, x=y, p\Incl x, \GSD  & \rabove{\iLa} \cl
+x\Incl y, x=y, p\Incl x, \GSD  & \rabove{\iLa} \cl
+y\Incl y, x=y, p\Incl x, \GSD  & \rabove{\eLax} \cl
+          x=y, p\Incl x, \GSD  & \rabove{(cut_x)}
+}
+\]
+The rule $\eLax$ is admissible by lemma \ref{le:noax} and $(cut_x)$ by \ref{le:noxeq}.
+%-- both without introducing new applications of $\eRa$.
+\item $\iLs$
+\[\sma{ \prar{
+x=q, p\Incl q, \GSD, r(q))\preceq s \cl
+x=q, p\Incl q, \GSD, r(p)\preceq s & \rabove{\iLs} \cl
+x=q, p\Incl x, \GSD, r(p)\preceq s & \rabove{\eRax}
+}\conv
+\prar{
+x=q, p\Incl q, \GSD, r(q)\preceq s \cl
+x=q, p\Incl x, \GSD, r(q)\preceq s & \rabove{\eRax} \cl
+x=q, p\Incl x, \GSD, r(x)\preceq s & \rabove{\eLs} \cl
+x=q, p\Incl x, \GSD, r(p)\preceq s & \rabove{\iLs} 
+} }
+\]
+\item $\iRs$ is treated analogously with applications of $\iRs$ and $\eRs$.
+\item\label{case:Ear} $\Ear$ -- $t\not\in\Vars$ %two cases
+\[\sma{ \prar{
+z\Incl t,    r(t)=x, y\Incl r(z), \GSD \cl
+             r(t)=x, y\Incl r(t), \GSD & \rabove{\Ear} \cl
+             r(t)=x, y\Incl x, \GSD & \rabove{\eRax}
+}\conv
+\prar{
+z\Incl t,  r(z)=x,  r(t)=x, y\Incl r(z), \GSD \cl
+z\Incl t,  r(z)=x,  r(t)=x, y\Incl x, \GSD & \rabove{\eRax} \cl
+z\Incl t,  r(t)=x,  r(t)=x, y\Incl x, \GSD & \rabove{\iLa}  \cl
+           r(t)=x,  r(t)=x, y\Incl x, \GSD & \rabove{\Ear}
+} }
+\]
+%% was general \eRa
+%% \[\sma{ \prar{
+%% z\Incl r(t), t=s, y\Incl q(z), \GSD \cl
+%%              t=s, y\Incl q(r(t)), \GSD & \rabove{\Ear} \cl
+%%              t=s, y\Incl q(r(s)), \GSD & \rabove{\eRa}
+%% }\conv
+%% \prar{
+%% z\Incl r(t), t=s, y\Incl q(z), \GSD \cl
+%% z\Incl r(s), t=s, y\Incl q(z), \GSD & \rabove{\eRa} \cl
+%%        t=s, y\Incl q(r(s)), \GSD & \rabove{\Ear} 
+%% } }
+%% \]
+%% PROBLEM -- if $r(t)=t$ and $s=x\in\Vars$
+\item All other rules allow trivial swap. $\eLanx$ modifies LHS of an inclusion so 
+it does not interact with $\eRax$. The latter cannot affect the active equalities
+of $\eLs$. % or $\eRs$.
+\end{LS}
+\end{PROOF}
+
+\noindent
+We have thus obtained:
+\begin{CLAIM}\label{pr:neq5isneq4}
+$NEQ'_5\equiv NEQ_4$.
+\end{CLAIM}
+\begin{PROOF}
+$\impl$ is lemma~\ref{le:neq5toneq4}. For the opposite implication we use
+lemma~\ref{fa:noeRs}, i.e. the fact that $NEQ_4\equiv NEQ_4-\eRs$.
+%, we 
+%use corollary~\ref{co:noxeq}, i.e. assuming the first of the following imlications, 
+%we show the second:
+%$NEQ_4\impl\ NEQ_4-\{(cut_{x=}),\iLax\}\ \impl NEQ'_5$.
+The $NEQ_4$ axiom $x\Incl t,\GSD,x\Incl t$ is derivable in $NEQ'_5$ from the
+axiom $x\Incl t,\GSD, t\Incl t$ by a single application of $\iLs$. 
+Admissibility of all the missing rules was shown above: 
+$(cut_x)$ in lemma~\ref{le:noxeq}, $\eLarx$ in \ref{le:noax} and 
+$\eRax$ in \ref{le:eRax}. 
+(By lemma~\ref{fa:noeRs} wee don't need to show admissibility of $\eRs$ in $NEQ'_5$.)
+%e -- though we did not show it --
+%by the proof which is a repetition of the proof of lemma~\ref{fa:noeRs}. (The resulting
+%applications of a-rules, which were introduced there, are either now the same as in
+%$NEQ'_5$ or else admissible by the preceding lemmas.
+\end{PROOF}
+
+
+\subsection{$NEQ_5$ -- the calculus with no cut}\label{sub:nocut}
+We now remove the rule $(cut_{x=})$ and introduce two new 
+rules $\Lsix$ and $\Laix$ -- see fig.~\ref{fi:neq51}.
+
+
+\begin{figure}[hbt]
+\hspace*{3em}\begin{tabular}{||l@{\ \ \ \ \ \ \ \ \ \ \ \ }ll||}
+\hline\hline
+\multicolumn{2}{||c}{{\bf Axioms}:} & \\[1ex]
+\multicolumn{3}{||c||}{$\GSD, t\Incl t$\ \ \ \ \ \ $\GSD, x=x$\ \ \
+\ \ \  %$x\Incl y,\GSD, y\Incl x$\ \ \ \ \ \ 
+$s=t,\GSD, s=t$ }\\[2ex]
+%
+\multicolumn{2}{||c}{{\bf Identity rules}:} & \\[1ex]
+$\eLs$\ \prule{t=s,\GSD, p(s)\preceq q}{t=s,\GSD, p(t)\preceq q} 
+& 
+$\eLanx$\ \prule{s=t, p(s)\Incl q,\GSD}{s=t, p(t)\Incl q,\GSD} 
+       \ \ {\footnotesize{$p(t)\not\in\Vars$}} 
+& \\[2.5ex]
+ & 
+%$\eRs$\ \prule{s=t, \GSD, p\Incl q(s)}{s=t,\GSD, p\Incl q(t)}   & 
+ $\eRanx$\ \prule{s=t, p\Incl q(s), \GSD}{s=t, p\Incl q(t),\GSD} 
+ \ \ {\footnotesize{$q(t)\not\in\Vars$}} 
+ & 
+\\[2ex]
+%
+\multicolumn{2}{||c}{{\bf Inclusion rules}:}
+& \\[1ex]
+ $\iLs$\ \prule{t\Incl s, \Gamma\Seq \Delta, p(s)\preceq q}{t\Incl s, \Gamma\Seq
+\Delta, p(t)\preceq q} & 
+$\iLa$\ \prule{s\Incl t, p(s)\preceq q, \GSD}{s\Incl t, p(t)\preceq q, \GSD} & \\[2ex]
+%       \ \ {\footnotesize{$t\not\in\Vars$}} & \\[2ex]
+%
+ $\iRs$\ \prule{s\Incl t, \GSD, p\Incl q(s)}{s\Incl t,\GSD, p\Incl q(t)} & 
+%% $p(t)\not\in\Vars$ & 
+& \\[3ex]
+$\Lsix$\ \prule{t\Incl x,\GSD, p(t)\preceq q}{t\Incl x,\GSD, p(x)\preceq q} & 
+$\Laix$\ \prule{t\Incl x, p(x)\Incl q,\GSD}{t\Incl x,p(t)\Incl q,\GSD} 
+       \ \ {\footnotesize{$p(t)\not\in\Vars$}} 
+& \\[3ex]
+\multicolumn{2}{||c}{{\bf Elimination rules}:} & \\[1ex]
+ $\Esr$\ \prule{\Gamma, x\Incl t\Seq\Delta,\phi[x]} 
+  {\Gamma\Seq\Delta,\phi[t]}  & 
+\multicolumn{2}{l||}{ $\Ear$\ \prule{x\Incl t, y\Incl r(x), \Gamma\Seq\Delta}
+  {y\Incl r(t),\Gamma\Seq\Delta} } %($E_{ar}^*$)} 
+   \\[.5ex]
+{\footnotesize \ \ \ - $x\not\in \Vars(\Gamma,\Delta,t),\ t\not\in\Vars$}
+    &  \multicolumn{2}{l||}{{\footnotesize \ \ \
+ - $x\not\in \Vars(t,\Gamma,\Delta,y),\ t\not\in\Vars$}} \\
+ {\footnotesize \ \ \ - at most one $x$ in $\phi$;} 
+  &  \multicolumn{2}{l||}{{\footnotesize \ \
+ \ - at most one occurrence of $x$ in $r$ }} \\[2ex]
+%
+\multicolumn{3}{||c||}{{\bf Specific cut rules}:}\\
+\multicolumn{3}{||c||}
+{for each specific axiom $\Ax_k$: \(a_1,...,a_n\Seq s_1,...,s_m\), 
+a  rule:}\\[1ex]
+\multicolumn{3}{||c||}
+{\prule{\Gamma\Seq\Delta,a_1\ ;...;\ \Gamma\Seq\Delta,a_n\ ;\ 
+s_1,\Gamma\Seq\Delta\ ;...;\ s_m,\Gamma\Seq\Delta} 
+{\Gamma\Seq\Delta}\ \ \ ($Sp.cut_k$)} \\
+ \hline\hline
+\end{tabular} 
+\caption{The calculus $NEQ_5$ ($x,y\in\Vars$)}\label{fi:neq51}
+\end{figure}
+
+\begin{LEMMA}\label{le:primeto5}
+Rules $\Lsix$ and $\Laix$ are 
+admissible in $NEQ'_5$, i.e., $NEQ_5\impl NEQ'_5$.
+\end{LEMMA}
+\begin{PROOF}
+The activity of these rules can be simulated by the activity
+of $t=x$ which, then, can be reduced to $x=x$ and eliminated by $(cut_{x=})$.
+The cases for both rules are entirely analogous.
+%Thus, 
+\[\prar{
+\multicolumn{1}{c}{\vdots} \\
+t\Incl x, \GSD, p(t)\preceq q \cl
+t\Incl x, \GSD, p(x)\preceq q & \rabove{\Lsix\ \ \ \ \ \impl\ \ \ \ \ }
+}%\conv
+\prar{
+\multicolumn{1}{c}{\vdots} \\
+t=x, t\Incl x, \GSD, p(t)\preceq q \cl
+t=x, t\Incl x, \GSD, p(x)\preceq q & \rabove{\eLs} \cl
+x=x, t\Incl x, \GSD, p(x)\preceq q & \rabove{\iLa} \cl
+     t\Incl x, \GSD, p(x)\preceq q & \rabove{(cut_{x=})}
+}
+\]
+and analogous case for $\Laix$ -- here $p(t)\not\in\Vars:$
+\[\prar{
+\multicolumn{1}{c}{\vdots} \\
+t\Incl x, p(x)\Incl q,\GSD \cl
+t\Incl x, p(t)\Incl q,\GSD & \rabove{\Laix\ \ \ \ \ \impl\ \ \ \ \ }
+}%\conv
+\prar{
+\multicolumn{1}{c}{\vdots} \\
+t=x, t\Incl x, p(x)\Incl q, \GSD \cl
+t=x, t\Incl x, p(t)\Incl q, \GSD & \rabove{\eLanx} \cl
+x=x, t\Incl x, p(t)\Incl q, \GSD & \rabove{\iLa} \cl
+     t\Incl x, p(t)\Incl q, \GSD & \rabove{(cut_{x=})}
+}
+\]
+%% and entirely analogous case for $\Rsix$.
+%% \[\prar{
+%% \multicolumn{1}{c}{\vdots} \\
+%% t\Incl x, \GSD, p\Incl q(x) \cl
+%% t\Incl x, \GSD, p\Incl q(t) & \rabove{\Rsix\ \ \ \ \ \impl\ \ \ \ \ }
+%% }%\conv
+%% \prar{
+%% \multicolumn{1}{c}{\vdots} \\
+%% t=x, t\Incl x, \GSD, p\Incl q(x) \cl
+%% t=x, t\Incl x, \GSD, p\Incl q(t) & \rabove{\eRs} \cl
+%% x=x, t\Incl x, \GSD, p\Incl q(t) & \rabove{\iLa} \cl
+%%      t\Incl x, \GSD, p\Incl q(t) & \rabove{(cut_{x=})}
+%% }
+%% \]
+\end{PROOF}
+
+\noindent
+To show admissibility of $(cut_{x=})$ in $NEQ_5$, we will need
+\begin{LEMMA}\label{le:xok}
+If $\der{NEQ_5}D{x\Incl x,\GSD}$ then $\der{NEQ_5}{D^*}{\GSD}$ and $h(D^*)\leq h(D)$.
+\end{LEMMA}
+\begin{PROOF}
+The argument is exactly the same as in the proof of lemma~\ref{le:noxeq}. The new rule
+$\Laix$ cannot generate $x\Incl x$ because of the restriction $p(t)\not\in\Vars$.
+\end{PROOF}
+
+
+\begin{LEMMA}\label{le:noxx}\label{le:nocutx}
+Admissibility of $(cut_{x=}):$ 
+If $\der{NEQ_5}D{x=x,\GSD}$ then $\der{NEQ_5}{}{\GSD}$.
+\end{LEMMA}
+\begin{PROOF} 
+By induction on $h(D)$. 
+Instead of any axiom with $x=x$ in the antecedent, we may
+take the one without it. 
+So, consider the last rule applied before the appearance
+of $x=x$, i.e., when it was the modified formula. 
+The only possibility is $\iLa$.
+ First we have the case when this rule was applied to an axiom,
+and the only problematic case is the following:
+%axiom $x=y,\GSD,y\Incl x$, with 
+%two possibilities:
+\[
+\prarc{
+x=t, t\Incl x,\GSD,x=t \cl
+x=x, t\Incl x,\GSD,x=t& \rabove{\iLa} 
+}\conv
+\prarc{
+t\Incl x,\GSD,x=x  \cl 
+t\Incl x,\GSD,x=t & \rabove{\iLs} 
+}
+\]
+(Notice that this case shows that $(cut_{x=})$ and $\iLs$ cannot be removed
+simultaneously -- the case 1.3) of the proof of lemma~\ref{le:nosx} needed $(cut_{x=})$
+to eliminate $\iLs$.)
+Consider the rule applied just above $\iLa$.
+\begin{LS}
+\item $\iLa$ -- first there are two similar cases
+\[\prarc{
+x=p(t), p(s)\Incl x, t\Incl s, \GSD \cl
+x=p(s), p(s)\Incl x, t\Incl s, \GSD & \rabove{\iLa} \cl
+x=x, p(s)\Incl x, t\Incl s, \GSD & \rabove{\iLa} 
+}\conv
+\prarc{
+x=p(t), p(t)\Incl x, p(s)\Incl x, t\Incl s, \GSD \cl
+x=x, p(t)\Incl x, p(s)\Incl x, t\Incl s, \GSD & \rabove{\iLa} \cl
+x=x, p(s)\Incl x, p(s)\Incl x, t\Incl s, \GSD & \rabove{\iLa} 
+}
+\]
+\[\prarc{
+x=p(s), p(t)\Incl x, t\Incl s, \GSD \cl
+x=p(s), p(s)\Incl x, t\Incl s, \GSD & \rabove{\iLa} \cl
+x=x, p(s)\Incl x, t\Incl s, \GSD & \rabove{\iLa} 
+}\conv
+\prarc{
+x=p(s), p(s)\Incl t, p(t)\Incl x, t\Incl s, \GSD \cl
+x=x, p(s)\Incl t, p(t)\Incl x, t\Incl s, \GSD & \rabove{\iLa} \cl
+x=x, p(s)\Incl t, p(s)\Incl x, t\Incl s, \GSD & \rabove{\iLa} 
+}
+\]
+Then we have the following case:
+\[\prar{
+\multicolumn{1}{c}{\vdots} \cl
+t=t,t\Incl x,\GSD & \rabove R \cl
+x=t,t\Incl x,\GSD & \rabove{\iLa} \cl
+x=x,t\Incl x,\GSD & \rabove{\iLa} 
+}
+\]
+We consider the rule $R$ -- the only relevant cases are when it modified a formula
+resulting in $t=t$ or $t\Incl x$. 
+\begin{LSA}
+\item The first case is the axiom:
+\[\prar{
+t=t, t\Incl x,\GSD, t=t \cl
+x=t,t\Incl x,\GSD, t=t & \rabove{\iLa} \cl
+x=x,t\Incl x,\GSD, t=t & \rabove{\iLa} 
+}\conv
+\prar{
+t\Incl x, \GSD, x=x \cl
+t\Incl x, \GSD, x=t & \rabove{\iLs} \cl
+t\Incl x, \GSD, t=t & \rabove{\iLs} 
+}
+\]
+\item $\iLa$ -- two analogously treated cases:
+\begin{LSB}
+\item modified $t=t$
+\[\sma{ \prarc{
+t(s)=t(p), p\Incl s, t(s)\Incl x, \GSD \cl
+t(s)=t(s), p\Incl s, t(s)\Incl x, \GSD & \rabove{\iLa} \cl
+x=t(s), p\Incl s, t(s)\Incl x, \GSD & \rabove{\iLa} \cl
+x=x, p\Incl s, t(s)\Incl x, \GSD & \rabove{\iLa} 
+}
+\conv
+\prarc{
+t(s)=t(p), p\Incl s, t(s)\Incl x, t(p)\Incl x, \GSD \cl
+x=t(p), p\Incl s, t(s)\Incl x, t(p)\Incl x,  \GSD & \rabove{\iLa} \cl
+x=x, p\Incl s, t(s)\Incl x, t(p)\Incl x, \GSD & \rabove{\iLa} \cl
+x=x, p\Incl s, t(s)\Incl x, t(s)\Incl x, \GSD & \rabove{\iLa} 
+} }
+\]
+\item\label{lst} modified $t\Incl x$
+\[\sma{\prarc{
+t(s)=t(s), p\Incl s, t(p)\Incl x, \GSD \cl
+t(s)=t(s), p\Incl s, t(s)\Incl x, \GSD & \rabove{\iLa} \cl
+x =t(s), p\Incl s, t(s)\Incl x, \GSD & \rabove{\iLa} \cl
+x =x, p\Incl s, t(s)\Incl x, \GSD & \rabove{\iLa} 
+}
+\conv
+\prarc{
+t(s)=t(s), p\Incl s, t(p)\Incl x, t(s)\Incl x, \GSD \cl
+x=t(s), p\Incl s, t(p)\Incl x, t(s)\Incl x, \GSD & \rabove{\iLa} \cl
+x=x, p\Incl s, t(p)\Incl x, t(s)\Incl x, \GSD & \rabove{\iLa} \cl
+x=x, p\Incl s, t(s)\Incl x, t(s)\Incl x, \GSD & \rabove{\iLa} 
+} }
+\]
+\end{LSB}
+\item $\eLanx$ -- this case is entirely analogous to the case \ref{lst} of $\iLa$ and
+is treated by the same form of weakening.
+\item $\Laix$ -- modifying $t\Incl x$, is again entirely analogous to the case \ref{lst}.
+\item All other rules allow trivial swaps.
+\end{LSA}
+\item $\eLanx$ -- we have following cases 
+\begin{LSA}
+\item\label{csa} -- the modified formula was $t\Incl x$
+\[\sma{ \prarc{
+x=p(t), p(y)\Incl x, y=t, \GSD \cl
+x=p(t), p(t)\Incl x, y=t, \GSD & \rabove{\eLanx} \cl
+x=x, p(t)\Incl x, y=t, \GSD & \rabove{\iLa} 
+}\conv
+\prarc{
+x=p(t), p(t)\Incl x, p(y)\Incl x, y=t, \GSD \cl
+x=x, p(t)\Incl x, p(y)\Incl x, y=t, \GSD & \rabove{\iLa} \cl
+x=x, p(t)\Incl x, p(t)\Incl x, y=t, \GSD & \rabove{\eLanx} 
+} }
+\]
+\item -- again with modified $t\Incl x$
+\[\prar{
+x=t, x\Incl x, \GSD \cl
+x=t, t\Incl x, \GSD & \rabove{\eLanx} \cl
+x=x, t\Incl x, \GSD & \rabove{\iLa} 
+}\conv
+\prar{
+x=t, t\Incl x, \GSD \cl
+x=x, t\Incl x, \GSD & \rabove{\iLa}
+}
+\]
+The conversion is possible by weakening and admissibility of $(cut_x)$, 
+lemma~\ref{le:xok}, without increasing the length of the derivation.
+\item -- another modfied formula
+\[\prarc{
+x=t, t\Incl x, p(x)\Incl q, \GSD \cl
+x=t, t\Incl x, p(t)\Incl q, \GSD & \rabove{\eLanx} \cl
+x=x, t\Incl x, p(t)\Incl q, \GSD & \rabove{\iLa} 
+}\conv
+\prarc{
+x=t, t\Incl x, p(x)\Incl q, \GSD \cl
+x=x, t\Incl x, p(x)\Incl q, \GSD & \rabove{\iLa} \cl
+x=x, t\Incl x, p(t)\Incl q, \GSD & \rabove{\Laix} 
+}
+\]
+The application of $\Laix$ is legal since $p(t)\not\in\Vars$.
+\item -- the case symmetric to the above
+\[\prarc{
+x=t, t\Incl x, p(t)\Incl q, \GSD \cl
+x=t, t\Incl x, p(x)\Incl q, \GSD & \rabove{\eLanx} \cl
+x=x, t\Incl x, p(x)\Incl q, \GSD & \rabove{\iLa} 
+}\conv
+\prarc{
+x=t, t\Incl x, p(t)\Incl q, \GSD \cl
+x=x, t\Incl x, p(t)\Incl q, \GSD & \rabove{\iLa} \cl
+x=x, t\Incl x, p(x)\Incl q, \GSD & \rabove{\iLa} 
+}
+\]
+\end{LSA}
+\item $\Laix$ -- this is similar to the case \ref{csa}:
+\[\sma{ \prarc{
+x=t(s), t(y)\Incl x, s\Incl y, \GSD \cl
+x=t(s), t(s)\Incl x, s\Incl y, \GSD & \rabove{\Laix} \cl
+x=x, t(s)\Incl x, s\Incl y, \GSD & \rabove{\iLa}
+}\conv
+\prarc{
+x=t(s), t(y)\Incl x, s\Incl y, t(s)\Incl y, \GSD \cl
+x=x, t(y)\Incl x, s\Incl y, t(s)\Incl y, \GSD & \rabove{\iLa} \cl
+x=x, t(s)\Incl x, s\Incl y, t(s)\Incl y, \GSD & \rabove{\Laix}
+} }
+\]
+\item $\eLs$ -- replacing $x$ for $t$ 
+\[\prarc{
+x=t, t\Incl x, \GSD, p(t)\preceq q \cl
+x=t, t\Incl x, \GSD, p(x)\preceq q & \rabove{\eLs} \cl
+x=x, t\Incl x, \GSD, p(x)\preceq q & \rabove{\iLa} 
+}\conv
+\prarc{
+x=t, t\Incl x, \GSD, p(t)\preceq q \cl
+x=x, t\Incl x, \GSD, p(t)\preceq q & \rabove{\iLa} \cl
+x=x, t\Incl x, \GSD, p(x)\preceq q & \rabove{\Lsix}
+}
+\]
+The dual case is even simpler not requiring the rule $\Lsix$
+\[\prarc{
+x=t, t\Incl x, \GSD, p(x)\preceq q \cl
+x=t, t\Incl x, \GSD, p(t)\preceq q & \rabove{\eLs} \cl
+x=x, t\Incl x, \GSD, p(t)\preceq q & \rabove{\eLs}
+}\conv
+\prarc{
+x=t, t\Incl x, \GSD, p(x)\preceq q \cl
+x=x, t\Incl x, \GSD, p(x)\preceq q & \rabove{\iLa} \cl
+x=x, t\Incl x, \GSD, p(t)\preceq q & \rabove{\iLs} 
+}
+\]
+\item Other rules allow trivial swaps: $\eRanx$ and $\Ear$ 
+cannot result in $t\Incl x$, $\iLs$ and
+$\iRs$ may involve active $t\Incl x$ which remains unchanged and hence can be swapped; 
+$\Esr$ and $(Sp.cut)$ can be trivially swapped.
+%\item $\eRs$ -- replacing $t$ for $x$ ???
+\end{LS}
+\end{PROOF}
+
+\begin{CLAIM}\label{pr:lastneq}
+$NEQ_5\equiv NEQ'_5$.
+\end{CLAIM}
+\begin{PROOF}
+$\impl$ is lemma \ref{le:primeto5}. $\Leftarrow$ follows from lemma~\ref{le:noxx} -- 
+admissibility of $(cut_{x=})$
+\end{PROOF}
+
+\noindent
+This is the end of the cut-elimination story. Combining the chain of equivalences of the
+intermediary calculi, summarised in
+% given in lemmas \ref{le:neqisneq1}, \ref{le:neq1isneq2}, \ref{le:neq2isneq3}, 
+theorem \ref{th:neq4cisneq4}, and
+the propositions \ref{pr:neq5isneq4}, \ref{pr:lastneq} from this section,
+we conclude that $NEQ_5$ is a cut-free
+equivalent of $NEQ$.
+
+In the following section, we study the special case of the calculus
+$NEQ_5$ without any specific axioms, showing further possibility of
+simplifications. 
+
+
+%\newpage\input{trash}
+
+%\newpage
+\section{No specific axioms -- no elimination rules}\label{se:noax}
+We have shown that calculus $NEQ$ with specific axioms can be replaced by an
+equivalent calculus with specific cut rules.
+In the presence of the specific cut rules, the general ($cut$)
+can be eliminated. 
+Obviously, derivations of tautologies in the absence of any specific axioms
+will not require the specific cut rules. Below we show a much less obvious
+and stronger result
+-- when no specific axioms are present, 
+one can even dispense with the elimination rules! 
+Observe that these rules do have a cut-like flavor.
+Thus, in spite of the
+complications in the world of multialgebras, one can
+obtain the multialgebraic tautologies with quite a simple means of the identity
+and inclusion rules. Of course, when specific axioms are present, the
+elimination rules are indispensable since they play the role of substitution rules.
+
+%Assuming the absence of specific axioms, and l
+Letting $\spNEQ$ be $NEQ_5$
+without the ($Sp.cut$) rules, we have the obvious:
+\begin{LEMMA}
+If there are no specific axioms then $\spNEQ\equiv NEQ_5$.
+\end{LEMMA}
+%
+Redundancy of elimination rules will be shown using the following fact.
+\begin{LEMMA}\label{le:ssp}
+Assume that $\der{\spNEQ}D{\GSD}$ and for an $x\in\Vars$
+\begin{enumerate}\MyLPar
+\item\label{ca:ax} if an equation $p(x)=q \in \Delta$ then there is only this one
+occurrence of $x$ in $\Delta$,
+\item\label{ca:el2} if $x\Incl r \in\Gamma$ then $x$ is different from the LHS of any
+inclusion modified by an application of $\Ear$ in $D$,
+% this does not seem necessary \item $x\not\in\Vars(t)$,
+\item\label{ca:six} if $s\Incl x \in\Gamma$ then $x$ is different from any variable
+modified by $\Lsix$ in $D$, and
+%$x$ does not occur in any equation
+%nor LHS of any inclusion in $\Delta$
+\item\label{ca:aix} if $s\Incl x \in\Gamma$ then $x$ is different from any variable
+modified by $\Laix$ in $D$
+\end{enumerate}
+\noindent
+then $\der{\spNEQ}{D^*}{(\GSD)_t^x}$ (with {\em all} $x$'s replaced by $t$)
+\end{LEMMA}
+\begin{PROOF}
+The intention of these conditions is to enable exactly the same derivations
+with $t$ occurring instead of $x$.
+The case \ref{ca:ax} prevents us from concluding derivability of $\GSD, t=t$
+from the fact that $\GSD,x=x$, being an axiom, is derivable. 
+In all other cases, we can
+ start derivation with an axiom where $t$ occurs instead of $x$. All the
+ rules applied in $D$ and involving $x$ can be applied 
+in the same order in $D^*$ with $t$ instead of $x$.
+The possible exceptions  are: % $\Ear$: %($E_{ar}^*$):
+\[ \sma{ \begin{array}{c@{\ \ \ \ \ \ \ }c@{\ \ \ \ \ \ \ }c}
+D \left \{ \begin{array}{rl}
+ \multicolumn{1}{c}{\vdots} \\
+ y\Incl q, x\Incl r(y),\GSD  \\ \cline{1-1}
+ x\Incl r(q),\GSD  % & \rabove{\Ear} 
+ \end{array} \right . 
+&
+D \left \{ \begin{array}{rl}
+ \multicolumn{1}{c}{\vdots} \\
+ s\Incl x,\GSD, p(s)\preceq q  \\ \cline{1-1}
+ s\Incl x,\GSD, p(x)\preceq q  % & \rabove{\Lsix} 
+ \end{array} \right . 
+&
+D \left \{ \begin{array}{rl}
+ \multicolumn{1}{c}{\vdots} \\
+ s\Incl x, p(x)\Incl q,\GSD  \\ \cline{1-1}
+ s\Incl x, p(s)\Incl q, \GSD  % & \rabove{\Laix} 
+\end{array} \right . \\[5ex]
+ \Ear &  \Lsix &  \Laix
+\end{array} }
+\]
+The sequent resulting from $\Ear$ cannot be obtained with $t$ substituted for $x$ by the
+application of $\Ear$ unless $t$ is a variable. This case, however, is
+excluded by the condition \ref{ca:el2}.
+Similarly, sequents resulting from $\Lsix$, resp. $\Laix$, cannot be obtained with
+$t$ instead of $x$ 
+if $t$ isn't a variable. Conditions \ref{ca:six}, resp. \ref{ca:aix}, 
+exclude these cases.
+\end{PROOF}
+
+\begin{DEFINITION}\label{de:neq6}
+ $\elNEQ'$ is $\spNEQ$ but without the elimination rules $\Esr$
+ and $\Ear$. %($E_{ar}^*$).
+\end{DEFINITION}
+\noindent
+The rules of the calculus  $\elNEQ'$ for the case without specific axioms 
+are given in figure \ref{fi:neq6}. 
+
+\begin{figure}[hbt]
+\hspace*{2em}
+\begin{tabular}{|l@{\ \ \ \ \ \ \ \ \ \ \ \ }ll|}
+\hline
+\multicolumn{2}{|c}{{\bf Axioms}:} & \\[1ex]
+\multicolumn{3}{|c|}{$\GSD, t\Incl t$;\ \ \ \ \ \ $\GSD, x=x$;\ \ \
+\ \ \ 
+$s=t,\GSD, s=t$ }\\[2ex]
+%
+\multicolumn{2}{|c}{{\bf Identity rules}:} & \\[1ex]
+ $\eLs$\ \prule{t=s,\GSD, p(s)\preceq q}{t=s,\GSD, p(t)\preceq q}
+& 
+$\eLanx$\ \prule{s=t, p(s)\Incl q,\GSD}{s=t, p(t)\Incl q,\GSD} 
+       \ \ {\footnotesize{$p(t)\not\in\Vars$}}    & \\[2.5ex]
+& $\eRanx$\ \prule{s=t, p\Incl q(s), \GSD}{s=t, p\Incl q(t),\GSD} 
+        \ \ {\footnotesize{$q(t)\not\in\Vars$}}   &  \\[3ex]
+% & 
+%$\eRs$\ \prule{s=t, \GSD, p\Incl q(s)}{s=t,\GSD, p\Incl q(t)}   & & \\[2ex]
+%
+\multicolumn{2}{|c}{{\bf Inclusion rules}:}
+& \\[1ex]
+$\iLs$\ \prule{t\Incl s, \Gamma\Seq \Delta, p(s)\preceq q}{t\Incl s, \Gamma\Seq
+\Delta, p(t)\preceq q} & 
+$\iLa$\ \prule{s\Incl t, p(s)\preceq q, \GSD}{s\Incl t, p(t)\preceq q, \GSD} 
+%       \ \ {\footnotesize{$t\not\in\Vars$}}
+   & \\[3ex]
+%
+$\iRs$\ \prule{s\Incl t, \GSD, p\Incl q(s)}{s\Incl t,\GSD, p\Incl q(t)}  & & \\[3ex]
+$\Lsix$\ \prule{t\Incl x,\GSD, p(t)\preceq q}{t\Incl x,\GSD, p(x)\preceq q} & 
+$\Laix$\ \prule{t\Incl x, p(x)\Incl q,\GSD}{t\Incl x,p(t)\Incl q,\GSD} 
+       \ \ {\footnotesize{$p(t)\not\in\Vars$}} 
+& \\[2.5ex]
+ \hline
+\end{tabular} 
+\caption{The rules of $\elNEQ'$ ($x\in\Vars$) -- no specific axioms}\label{fi:neq6}
+\end{figure}
+%
+\begin{REMARK}\label{re:oldhold}
+Revisiting the proof of lemma \ref{le:nott}, %\ref{le:nocutx}, 
+we see that the transformations used 
+there did not introduce any new applications of the elimination rules 
+(neither did lemma~\ref{le:noeqeq} used in this proof).
+The same holds (trivially) for the proof of lemma~\ref{le:xok} 
+(cf.~lemma~\ref{le:noxeq}).
+Hence: %, these lemmas hold also for $\elNEQ'$, in particular:
+\begin{enumerate}\MyLPar
+% \item $\der{\elNEQ'}{}{x=x, \GSD}\ \impl\ \der{\elNEQ'}{}{\GSD}$;
+\item ($cut_x$) is admissible in $\elNEQ'$ (cf. lemma \ref{le:xok}, \ref{le:noxeq});
+\item ($cut_t$) is admissible in $\elNEQ'$ (cf. lemma \ref{le:nott});
+%% $\der{\elNEQ'}{}{t\Incl t, \GSD}\ \impl\ \der{\elNEQ'}{}{\GSD}$ (lemma \ref{le:nott});
+%\item ($cut$) is admissible in $\elNEQ'$;
+\item lemma \ref{le:ssp} holds for $\elNEQ'$.
+\end{enumerate}
+\end{REMARK}
+\noindent
+Using this observation, we get:
+%
+\begin{CLAIM}\label{le:spneqiselneq}
+In the absence of specific axioms $\spNEQ \equiv \elNEQ'$
+\end{CLAIM}
+\begin{PROOF}
+ $\Leftarrow$ is obvious, and for $\impl$ we have to show admissibility of
+ the elimination rules in $\elNEQ'$. Consider the uppermost application of an
+ elimination rule $E$:
+\begin{LS}
+\item $E$ is $\Ear$: %($E_{ar}^*$):
+ \[ \begin{array}{rl}
+D_1 \left \{ \begin{array}{c}
+\vdots \\
+ x\Incl t, y\Incl r(x),\GSD \end{array} \right . \\ \cline{1-1}
+ y\Incl r(t), \GSD & \rabove{\Ear} \end{array} 
+\conv 
+\begin{array}{rl}
+D_1' \left \{ \begin{array}{c}
+\vdots \\
+ t\Incl t, y\Incl r(t),\GSD \end{array} \right . \\ \cline{1-1}
+ y\Incl r(t), \GSD & \rabove{(cut_t)} \end{array} 
+\]
+The application of $\Ear$ implies $x\not\in\Vars(t,y,\Gamma,\Delta)$, and hence the
+conditions of lemma \ref{le:ssp} are satisfied. Applying it to $D_1$, we
+obtain $D'_1$ and $(cut_t)$ is admissible by remark \ref{re:oldhold}.
+%%  \[ \begin{array}{rl}
+%% D_1' \left \{ \begin{array}{c}
+%% \vdots \\
+%%  t\Incl t, y\Incl r(t),\GSD \end{array} \right . \\ \cline{1-1}
+%%  y\Incl r(t), \GSD & \rabove{(cut_t)} \end{array} \]
+\item $E$ is $\Esr$:
+ \[ \begin{array}{rl}
+      D_1 \left \{ \begin{array}{c}
+         \vdots \\
+        x\Incl t,\GSD, \phi[x] \end{array} \right . \\ \cline{1-1}
+     \GSD, \phi[t] & \rabove{\Esr} \end{array} 
+\conv
+\begin{array}{rl}
+      D_1 \left \{ \begin{array}{c}
+         \vdots \\
+        t\Incl t,\GSD, \phi[t] \end{array} \right . \\ \cline{1-1}
+     \GSD, \phi[t] & \rabove{(cut_t)} \end{array} 
+\]
+By the restrictions on $\Esr$, there is at most one occurrence of $x$ in 
+$\Gamma,\Delta,\phi[x]$ so, again, the
+conditions of lemma \ref{le:ssp} hold and we can apply it to $D_1$ obtaining $D'_1$, 
+% $t\Incl t,\GSD, \phi[t]$, 
+which leads to the desired conclusion 
+% $\der{\elNEQ}{}{\GSD,\phi[t]}$ 
+by admissibility of $(cut_t)$. \vspace*{-1ex}
+\end{LS}
+\end{PROOF}
+
+
+\begin{LEMMA}\label{le:noiRs}
+The rule $\iRs$ is redundant.
+\end{LEMMA}
+\begin{PROOF}
+\begin{LS}
+\item Axiom
+\[\prarc{
+s\Incl t, \GSD, q(s)\Incl q(s) \cl
+s\Incl t, \GSD, q(s)\Incl q(t) & \rabove{\iRs}
+}\conv
+\prarc{
+s\Incl t, \GSD, q(t)\Incl q(t) \cl
+s\Incl t, \GSD, q(s)\Incl q(t) & \rabove{\iLs}
+}
+\]
+\item $\Laix$
+\[\sma{\prarc{
+t\Incl x, p(x)\Incl q, \GSD, r\Incl f(p(t)) \cl
+t\Incl x, p(t)\Incl q, \GSD, r\Incl f(p(t)) & \rabove{\Laix} \cl
+t\Incl x, p(t)\Incl q, \GSD, r\Incl f(q) & \rabove{\iRs}
+}\conv
+\prarc{
+t\Incl x, p(x)\Incl q, p(t)\Incl q, \GSD, r\Incl f(p(t)) \cl
+t\Incl x, p(x)\Incl q, p(t)\Incl q, \GSD, r\Incl f(q) & \rabove{\iRs} \cl
+t\Incl x, p(t)\Incl q, p(t)\Incl q, \GSD, r\Incl f(q) & \rabove{\Laix} 
+} }
+\]
+\item $\iLa$, $\eLanx$, $\eRanx$ -- these are treated by the same kind of weakening
+as the above case of $\Laix$
+\item The remaining rules modify at most LHS of a formula in the consequent and thus
+allow trivial swaps.
+\end{LS}
+\end{PROOF}
+
+\noindent
+Thus all multialgebraic tautologies are derivable with the calculus $\elNEQ$ given
+in figure~\ref{fi:neq6a}.
+
+\begin{figure}[hbt]
+\hspace*{2em}
+\begin{tabular}{||l@{\ \ \ \ \ \ \ \ \ \ \ \ }ll||}
+\hline\hline
+\multicolumn{2}{||c}{{\bf Axioms}:} & \\[1ex]
+\multicolumn{3}{||c||}{$\GSD, t\Incl t$;\ \ \ \ \ \ $\GSD, x=x$;\ \ \
+\ \ \ 
+$s=t,\GSD, s=t$ }\\[2ex]
+%
+\multicolumn{2}{||c}{{\bf Identity rules}:} & \\[1ex]
+ $\eLs$\ \prule{t=s,\GSD, p(s)\preceq q}{t=s,\GSD, p(t)\preceq q}
+& 
+$\eLanx$\ \prule{s=t, p(s)\Incl q,\GSD}{s=t, p(t)\Incl q,\GSD} 
+       \ \ {\footnotesize{$p(t)\not\in\Vars$}}    & \\[2.5ex]
+& $\eRanx$\ \prule{s=t, p\Incl q(s), \GSD}{s=t, p\Incl q(t),\GSD} 
+        \ \ {\footnotesize{$q(t)\not\in\Vars$}}   &  \\[3ex]
+% & 
+%$\eRs$\ \prule{s=t, \GSD, p\Incl q(s)}{s=t,\GSD, p\Incl q(t)}   & & \\[2ex]
+%
+\multicolumn{2}{||c}{{\bf Inclusion rules}:}
+& \\[1ex]
+$\iLs$\ \prule{t\Incl s, \Gamma\Seq \Delta, p(s)\preceq q}{t\Incl s, \Gamma\Seq
+\Delta, p(t)\preceq q} & 
+$\iLa$\ \prule{s\Incl t, p(s)\preceq q, \GSD}{s\Incl t, p(t)\preceq q, \GSD} 
+%       \ \ {\footnotesize{$t\not\in\Vars$}}
+   & \\[3ex]
+%
+%$\iRs$\ \prule{s\Incl t, \GSD, p\Incl q(s)}{s\Incl t,\GSD, p\Incl q(t)}  & & \\[3ex]
+$\Lsix$\ \prule{t\Incl x,\GSD, p(t)\preceq q}{t\Incl x,\GSD, p(x)\preceq q} & 
+$\Laix$\ \prule{t\Incl x, p(x)\Incl q,\GSD}{t\Incl x,p(t)\Incl q,\GSD} 
+       \ \ {\footnotesize{$p(t)\not\in\Vars$}} 
+& \\[2.5ex]
+ \hline\hline
+\end{tabular} 
+\caption{The rules of $\elNEQ$ ($x\in\Vars$) -- no specific axioms}\label{fi:neq6a}
+\end{figure}
+%
+
+
+\subsection*{Hmmm...}
+In fact, the simplicity of the rules of $\elNEQ$ makes the calculus decidable!
+
+\begin{THEOREM}
+Provability in $\elNEQ$, i.e., the relation $\der{\elNEQ}{}S$, is decidable.
+\end{THEOREM}
+\begin{PROOF}
+Obviously the predicate $\Ax(S)$, which is true iff $S$ is an axiom of $\elNEQ$, 
+is decidable. 
+Consider a given sequent $S$ and a bottom-up construction of a possible proof. 
+We see that no rules introduce new atomic subformulae, i.e., the length $|S|$ remains
+unchanged throughout the whole derivation. The only possible exception is implicit
+contraction involved in an application of $\iLa$. This, however, reduces the 
+number of different subformula in the conclusion sequent, namely:
+\[\begin{array}{rrl}
+S'= & s\Incl t, s\Incl t,\GSD \\ \cline{2-2}
+S= & s\Incl t, t\Incl t,\GSD & \rabove{\iLa}
+\end{array}
+\]
+Taking $|S|$ to be the number of different atomic subformulae in $S$, this transition
+reduces this number, i.e. $|S'| < |S|$.
+On the other hand, no rule introduces any (sub)terms which do not already occur in the
+antecedent of the sequent. Thus, given $S$, there is only finitely many rules which 
+possibly can be applied and, each of these rules can be applied in only finitely many
+ways. We thus obtain a finitely branching tree of possible derivations:
+\[
+\xymatrix{
+[S_1] &  & [S_2] & \ldots & [S_6] & & [S_7]  \\
+ & & & \save\overline{\ \ S\ \ } \restore \ar@{.}[lllu]|<<\hole|{\eLs} \ar@{.}[lu]|{\iLs} 
+ \ar@{.}[ru]|{\iLa} \ar@{.}[rrru]|<<\hole|{\Laix}
+&         &       &       
+}
+\]
+Each node $[S_i]$ denotes the (finite set of premise) formulae
+resulting from applying the corresponding rule in all possible ways to $S$.
+A branch in such a tree can % be closed in one of the following cases
+\begin{enumerate}\MyLPar
+\item terminate when the obtained formula is an axiom -- this is then a proof of $S$, or
+\item terminate when no rule is applicable, or
+\item be infinite.
+\end{enumerate}
+If any one of the branches terminates in case 1. we obtain a proof of $S$. Otherwise, 
+we have only branches of kind 2. -- which are closed, and 3. 
+In this last case, we can nevertheless close the branch at a finite height, because
+in an infinite branch, at some point, the obtained formula occurs already somewhere 
+below in the same branch. This follows simply from the fact that no new (sub)terms are
+introduced by any rule. Given a (finite) $S$, there is only finitely many (distinct)
+atomic formulae in the antecedent and hence only finitely many possible substitutions.
+If, constructing a branch, we obtain a sequent which has already appeared below, we 
+close the branch. 
+
+The possible problem with infinite branches may be caused by the activity of 
+``reflective'' formulae, where one side is a subterm of another:
+\[\sma{\begin{array}{l@{\ \ \ \ \ \ }l}
+\begin{array}{r@{\ \ \ \ }rl}
+& \multicolumn{1}{c}{\vdots} \\
+S''= & p(t(t(t(s))))\Incl q, s=t(s), \GSD \\ \cline{2-2}
+S'= & p(t(t(s)))\Incl q, s=t(s), \GSD & \rabove{\eLanx} \\ \cline{2-2}
+S= & p(t(s))\Incl q, s=t(s), \GSD & \rabove{\eLanx}
+\end{array}
+&
+\begin{array}{ll}
+\multicolumn{1}{c}{\vdots} \\
+ s\Incl t(s), \GSD, p(t(t(t(s))))\Incl q \cl
+ s\Incl t(s), \GSD,  p(t(t(s)))\Incl q & \rabove{\iLs} \cl
+ s\Incl t(s), \GSD,  p(t(s))\Incl q & \rabove{\iLs}
+\end{array}
+\end{array}}
+\]
+This situation may occur with most of the rules, in particular, the rule $\Lsix$ which
+shows that we cannot force (i.e. show) the complexity of the replaced term to be
+smaller than that of the substituted one.
+Even worse, ``reflectivity'' can be mutual...
+\[
+\begin{array}{rl}
+\multicolumn{1}{c}{\vdots} \\
+k(t(t(p)))\preceq q, t(p)\Incl s, s\Incl p, \GSD \cl
+k(t(s))\preceq q, t(p)\Incl s, s\Incl p, \GSD & \rabove{\iLa} \cl
+k(t(p))\preceq q, t(p)\Incl s, s\Incl p, \GSD & \rabove{\iLa} \cl
+k(s)\preceq q, t(p)\Incl s, s\Incl p, \GSD & \rabove{\iLa}
+\end{array}
+\]
+If, at some point, we obtain a sequent with such a ``reflectivity'' in the
+antecedent, we have to give it a more specific treatement.
+\begin{center}
+BUT WHAT ?
+\end{center}
+\end{PROOF}
+
+
+\section{Other connectives}\label{se:connectives}
+Since satisfaction of a sequent is defined in the usual way, soundness/completeness
+%sound\-ness/com\-ple\-te\-ness 
+of $NEQ$ and its equivalence with $NEQ_5$ imply that the entailment
+relation in $NEQ_5$ coincides with the semantic consequence. If we restrict
+our formulae $\phi$ to the atomic ones (i.e., $s\Incl t$ or $s=t$), this
+means that, given a specification with specific axioms $\Ax = \{\phi_1,...,\phi_n\}$, 
+ $\MMod(\Ax)\models \phi \Leftrightarrow \der{NEQ_5}{}{\Ax\Seq\phi}$. Since the specific
+ axioms are thus incorporated into the actual sequents to be proved, we need
+ no ($Sp.cut$) rules and can
+ conclude that  \[ \MMod(\Ax)\models \phi \iff \der{\elNEQ}{}{\Ax\Seq\phi}\]
+\noindent
+Notice that this formulation, however simple and convincing, requires us to
+``guess'' the variable names which have to be used in $\phi$ in order to
+``match'' the appropriate variable names in the axioms.
+
+Furthermore, we may extend the language introducing other logical operators
+in the usual way.
+We obtain a sound and complete system $NEQ_i^+$ (for $i\leq 6$) by extending
+ $NEQ_i$ with the standard rules \\[1ex]
+%
+\begin{tabular}{rl@{\hspace*{6em}}rl}
+($\neg\ \Seq$) & \PROOFR{\Gamma\Seq\Delta,\phi}{\Gamma,\neg\phi\Seq\Delta} & 
+($\Seq\ \neg$) & \PROOFR{\Gamma,\phi\Seq\Delta}{\Gamma\Seq\Delta,\neg\phi} \\
+($\lor\ \Seq$) & \PROOFR{\Gamma,\phi_1\Seq\Delta\ \ ;\ \
+\Gamma,\phi_2\Seq\Delta}{\Gamma,\phi_1\lor\phi_2\Seq\Delta}
+& ($\Seq\ \lor$) &
+\PROOFR{\Gamma\Seq\Delta,\phi_1,\phi_2}{\Gamma\Seq\Delta,\phi_1\lor\phi_2} \\
+($\land\ \Seq$) &
+\PROOFR{\Gamma,\phi_1,\phi_2\Seq\Delta}{\Gamma,\phi_1\land\phi_2\Seq\Delta} &
+($\Seq\ \land$) & \PROOFR{\Gamma\Seq\Delta,\phi_1\ \ ;\ \
+\Gamma\Seq\Delta,\phi_2}{\Gamma\Seq\Delta,\phi_1\land\phi_2} \\
+($\impl\ \Seq$) & \PROOFR{\Gamma,\phi_1\Seq\Delta\ \ ;\ \
+\Gamma\Seq\Delta,\phi_2}{\Gamma,\phi_2\impl\phi_1\Seq\Delta}  & ($\Seq\ \impl$) &
+\PROOFR{\Gamma,\phi_1\Seq\Delta,\phi_2}{\Gamma\Seq\Delta,\phi_1\impl\phi_2} 
+\end{tabular} \\[1ex]
+%
+We then have that, for a set of specific axioms $\Ax=\{\Phi_1,...,\Phi_n\}$ and a
+formula $\Phi$, all built from the atomic equalities and
+inclusions with the logical operators,  $\MMod(\Ax)\models \Phi \Leftrightarrow
+ \der{NEQ_5^+}{}{\Ax\Seq\Phi}$. A proof in $NEQ_5^+$ will typically consist of a series
+ of applications of the above eight rules leading to a sequent
+ $\Gamma\Seq\Delta$, to which one then applies the rules of $NEQ_5$.
+Here again axioms are incorporated into the formulae, so we can use $\elNEQ$
+instead:
+ \[ \MMod(\Ax)\models \Phi \iff  \der{\elNEQ^+}{}{\Ax\Seq\Phi} \]
+
+%\section{Further specialization of $Sp.cut$}
+%\PROOFRULE{\Gamma_i\Seq\Delta_i,r_i\odot_i s_i\ \ ;\ \ 
+%u_j\odot_j v_j,\Gamma_j\Seq\Delta_j} {\bigc_i\Gamma_i,\bigc_j\Gamma_j
+%\Seq \bigc_i\Delta_i,\bigc_j\Delta_j}
+%
+
+
+

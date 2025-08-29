@@ -1,0 +1,1928 @@
+%\documentclass[10pt]{article}
+%%%\documentstyle[a4wide,10pt]{article}
+%\makeatletter
+%\input{a4wide}
+%\makeatother
+
+%\input{defs}
+
+%\begin{document}
+
+
+\section{$NEQ_4$ and admissibility of ($cut$).}
+%
+The appplications of ($E_s$) and ($E_a$) substituting a variable 
+%in the RHS of the active formula
+%, and those of ($E_s$) where the modified term is 
+%a variable making up a {\em whole} RHS of an inclusion 
+will be called {\em degenerate}:
+\begin{itemize}\MyLPar
+\item $(E_{ax})$\ \ \prule{\Gamma,x\Incl z, y\Incl r(x)\Seq\Delta}{\Gamma,
+y\Incl r(z)\Seq\Delta}\ \
+ $z\in\Vars$\ \ \ \ ($r(x)=x$ is a special case)
+\item $(E_{sx})$\ \ \prule{\Gamma,x\Incl z\Seq\Delta}{\Gamma\Seq\Delta_z^x}\ \
+ $z\in\Vars$
+%\item $(E_{Rsd})$\ \ \prule{\Gamma,x\Incl t\Seq\Delta,p\preceq x}{\Gamma\Seq\Delta,p\preceq t}
+\end{itemize}
+These are excluded from $NEQ_4$. On the other hand, applications of 
+various rules replacing a non-variable term will be called {\em 
+non-reduced}. We also divide the applications of the 
+equality rules explicitly into those modifying the LHS or RHS of 
+inclusions. The a-equality rule modifying another equality has been 
+removed.
+Only reduced applications of the a-rule for modifying an LHS, $\eLar$,
+are included in $NEQ_{4}$. 
+The simple cut rule of $NEQ_{3}$ removing $t\Incl t$ is replaced by the 
+elementary cut removing only variable $x\Incl x$.
+The rules of $NEQ_{4}$ are shown in figure~\ref{fi:neq4}.
+
+
+\input{neq4}
+%% \begin{REMARK}\label{re:cutx}
+%% Actually, a more restricted
+%% version of the elementary cut rule would suffice: 
+%% \begin{center} \prule{x\Incl x,
+%% x=p(r), \GSD}{x=p(r),\GSD} \end{center}
+%% However, the more general formulation here makes
+%% the proofs in this section easier, and the rule will be eliminated anyway in the
+%% final version of the calculus in the next section.
+%% \end{REMARK}
+\noindent
+The essential facts in the rest of this section are: 
+\begin{enumerate}\MyLPar
+\item The possibility of transforming $NEQ_{4}$ 
+derivations in two different ways eliminating either some undesirable 
+applications of a-rules or else of some s-rules. These proofs are in 
+subsection~\ref{sub:der}. 
+\item Admissibility of the rules 
+excluded from $NEQ_{3}$ leading to the equivalence of the two 
+calculi. These proofs are partly in subsection~\ref{sub:der} -- the 
+crucial proofs of admissibility of the simple cut rule and
+%redundancy of the $(cut_{x=})$ rule, as well as 
+equivalence of the two calculi are in subsection \ref{sub:equiv}. 
+\item Admissibility of $(cut)$ in $NEQ_{4}$ is 
+shown in subsection~\ref{sub:cut}. The proof is based on the  
+possibility of modifying $NEQ_{4}$ derivations as in point 1 above.
+\end{enumerate}.
+
+\subsection{Some facts about $NEQ_{4}$ derivations}\label{sub:der}
+
+\begin{LEMMA}\label{fa:noeRs}
+$\der{NEQ_4}DS\ \impl\ \der{NEQ_4}{D^*}S$
+and $D^*$  does not contain $\eRs$.
+%[Moreover, $D^*$ does not introduce any new applications of s-rules.
+%This fact will be combined with lemma~\ref{le:nosx}.]
+\end{LEMMA}
+\begin{PROOF}
+%By lemmas~\ref{le:noeqeq}-\ref{le:noLanr} we may assume that $D$ contains no
+%applications of ($=_{a=}$), ($\Incl_{anr}$) or ($=_{Lanr}$).
+By induction on $\<\#(\eRs,D),h(D)\>$.
+For the axioms, we only have to consider the one with inclusion in the consequent.
+%\begin{itemize}
+%\item $x\Incl t,\GSD,x\Incl t$
+%\end{itemize}
+\[
+\begin{array}{rl}
+p=s, x\Incl t(s),\GSD,x\Incl t(s) \\ \cline{1-1}
+p=s, x\Incl t(s),\GSD,x\Incl t(p) & \rabove{\eRs}
+\end{array}
+\conv
+\begin{array}{rl}
+p=s, x\Incl t(p),\GSD,x\Incl t(p) \\ \cline{1-1}
+p=s, x\Incl t(s),\GSD,x\Incl t(p) & \rabove{\eRa}
+\end{array}
+\]
+Consider the uppermost application of ($=_{Rs}$) in $D$:
+\[ \begin{array}{cl}
+\vdots          & \raisebox{-1.2ex}[1.5ex][0ex]{$R$} \\ \cline{1-1}
+r=s, \Gamma\Seq\Delta, q\Incl t(r) &
+\raisebox{-1.2ex}[1.5ex][0ex]{($=_{Rs}$)} \\ \cline{1-1}
+r=s, \Gamma\Seq\Delta, q\Incl t(s) 
+\end{array} \]
+\begin{LS}
+\item\label{it:RsEsA} $R=\Esr$ with $q\Incl t(r)$ as the modified formula and $r$ as
+modified term. We have two subcases corresponding to the situation when the
+term $r'$ substituted by $\Esr$ for its eigen-variable is a subterm or
+superterm of (or equal to) $r$. (When the two are independent, the case is
+trivial.) 
+\begin{LSA}
+\item  $r'$ is a subterm of $r$,\\
+i.e., $t'(r')$ and $t(r)$ are identical with $r=f(r')$ and $t'(x)=t(f(x))$.
+\[ D \left \{\begin{array}{cl}
+%\vdots          \\
+x\Incl r', f(r')=s, \GSD, q\Incl t(f(x)) & \raisebox{-1.2ex}[1.5ex][0ex]{$\Esr$} \\ \cline{1-1}
+f(r')=s, \GSD, q\Incl t(f(r')) &
+\raisebox{-1.2ex}[1.5ex][0ex]{($=_{Rs}$)} \\ \cline{1-1}
+f(r')=s, \GSD, q\Incl t(s) 
+\end{array} \right . \convd
+D' \left \{ \begin{array}{cl}
+x\Incl r', f(r')=s, f(x)=s, \Gamma\Seq\Delta,q\Incl t(f(x)) & \raisebox{-1.2ex}[1.5ex][0ex]{($=_{Rs}$)} \\ \cline{1-1}
+x\Incl r', f(r')=s, f(x)=s, \Gamma\Seq\Delta, q\Incl t(s) &
+\raisebox{-1.2ex}[1.5ex][0ex]{$\iLa$} \\ \cline{1-1}
+x\Incl r', f(r')=s, f(r')=s, \Gamma\Seq\Delta, q\Incl t(s) &
+\raisebox{-1.2ex}[1.5ex][0ex]{$\Esr$} \\ \cline{1-1}
+f(r')=s, \Gamma\Seq\Delta, q\Incl t(s) 
+\end{array} \right . \]
+Induction hypothesis allows us to eliminate the application of ($=_{Rs}$)
+from $D'$ since it occurs higher than in $D$.
+\item $r'$ is a superterm of (or equal to) $r$,
+i.e., $r'=f(r)$ and $t(x)=t'(f(x))$. \\ On the right we have the case when
+$r'=r$ and $s$ is a variable $y$
+\[ \sma{\begin{array}{c@{\hspace*{5em}}c}%D \left \{
+\begin{array}[t]{cl}
+%\vdots          \\
+x\Incl f(r), r=s, \Gamma\Seq\Delta, q\Incl t'(x) & \\ \cline{1-1}
+r=s, \Gamma\Seq\Delta, q\Incl t'(f(r)) & \rabove{\Esr} \\ \cline{1-1}
+r=s, \Gamma\Seq\Delta, q\Incl t'(f(s)) & \rabove{\eRs} 
+\end{array} %\right . 
+& 
+\prar{
+x\Incl r, r=y, \GSD, q\Incl t'(x) \cl
+          r=y, \GSD, q\Incl t'(r) & \rabove{\Esr} \cl
+          r=y, \GSD, q\Incl t'(y) & \rabove{\eRs} 
+} \\[.5ex]
+\Downarrow & \Downarrow \\[.5ex]
+%\convd %D \left \{
+\begin{array}[t]{cl}
+x\Incl f(r), r=s, \Gamma\Seq\Delta, q\Incl t'(x) & \\ \cline{1-1}
+x\Incl f(s), r=s, \Gamma\Seq\Delta, q\Incl t'(x) & \rabove{\eRa}
+\\ \cline{1-1}
+r=s, \Gamma\Seq\Delta, q\Incl t'(f(s)) & \rabove{\Esr} 
+\end{array} %\right . 
+&
+\prar{
+x\Incl r, r=y, \GSD, q\Incl t'(x) \cl
+x\Incl y, r=y, \GSD, q\Incl t'(x) & \rabove{\eRa} \cl
+x\Incl y, r=y, \GSD, q\Incl t'(y) & \rabove{\iRs} \cl
+x\Incl r, r=y, \GSD, q\Incl t'(y) & \rabove{\eRa} \cl
+          r=y, \GSD, q\Incl t'(y) & \rabove{\Esr}
+}
+\end{array} }
+\]
+The case when the modified term is substituted into LHS of $\Incl$ allows simple
+swap since then $\Esr$ and $\eRs$ modify different terms.%is treated analogously 
+\end{LSA}
+\item $R=\iLa$ with the modified formula $r=s(v)$ and $v$ as the modified
+term:
+\[ D \left \{ \begin{array}{cl}
+ D_1 \left \{ \begin{array}{c}
+               \vdots       \\ 
+               r=s(u), u\Incl v, \Gamma\Seq\Delta,q\Incl t(r) 
+           \end{array} \right . 
+         & \raisebox{-3.2ex}[1.5ex][0ex]{$\iLa$}  \\ \cline{1-1}
+ r=s(v), u\Incl v, \Gamma\Seq\Delta, q\Incl t(r) &
+ \raisebox{-1.2ex}[1.5ex][0ex]{($=_{Rs}$)} \\ \cline{1-1}
+ r=s(v), u\Incl v, \Gamma\Seq\Delta, q\Incl t(s(v)) 
+ \end{array} \right . \convd
+  D^* \left \{ \begin{array}{cl}
+  D' \left \{ \begin{array}{cl}
+    D_1 \left \{ \begin{array}{cl}
+ \vdots       \\ 
+ r=s(u), u\Incl v, \Gamma\Seq\Delta,q\Incl t(r) 
+  \end{array} \right . & \raisebox{-3.2ex}[1.5ex][0ex]{($W_a$)}  \\
+  \cline{1-1}
+ r=s(u), r=s(v), u\Incl v, \Gamma \Seq \Delta, q\Incl t(r)
+  & \raisebox{-1.2ex}[1.5ex][0ex]{($=_{Rs}$)} \\ \cline{1-1}
+ r=s(u), r=s(v), u\Incl v, \Gamma\Seq\Delta, q\Incl t(s(v))  \end{array}
+ \right . &  \\ \cline{1-1}
+ r=s(v), r=s(v), u\Incl v, \Gamma\Seq\Delta, q\Incl t(s(v)) 
+ & \raisebox{1.2ex}[1.5ex][0ex]{$\iLa$} 
+ \end{array} \right . \]
+  $h(D') < h(D)$, so $D^*$
+  can be transformed into a desired derivation without ($=_{Rs}$). (Notice
+  that the result of $D^*$ is the same as the result of $D$ by the implicit
+  application of contraction.)
+ \item $R=\iLs$ :
+ \[ D \left \{ \begin{array}{cl}
+  D_1 \left \{ \begin{array}{c}
+               \vdots       \\ 
+               r=s, q\Incl u, \Gamma\Seq\Delta, u\Incl t(r) 
+            \end{array} \right . 
+          & \raisebox{-3.2ex}[1.5ex][0ex]{$\iLs$}  \\ \cline{1-1}
+ r=s, q\Incl u, \Gamma\Seq\Delta, q\Incl t(r) &
+ \raisebox{-1.2ex}[1.5ex][0ex]{($=_{Rs}$)} \\ \cline{1-1}
+ r=s, q\Incl u, \Gamma\Seq\Delta, q\Incl t(s) 
+ \end{array} \right . \convd
+  D^* \left \{ \begin{array}{cl}
+  D' \left \{ \begin{array}{cl}
+    D_1 \left \{ \begin{array}{cl}
+ \vdots       \\ 
+ r=s, q\Incl u, \Gamma\Seq\Delta, u\Incl t(r) 
+  \end{array} \right . & \raisebox{-3.2ex}[1.5ex][0ex]{($=_{Rs}$)}  \\
+  \cline{1-1}
+ r=s, r=s(v), q\Incl u, \Gamma \Seq \Delta, u\Incl t(s) \end{array}
+ \right . &  \\ \cline{1-1}
+ r=s, q\Incl u, \Gamma\Seq\Delta, q\Incl t(s) 
+ & \raisebox{1.2ex}[1.5ex][0ex]{$\iLs$} 
+ \end{array} \right . \]
+ Since $h(D')<h(D)$, the induction hypothesis yields a desired derivation.
+ \item $R=\iRs$
+\[\sma{\prarc{
+f(p)=s, r\Incl p,\GSD, t\Incl q(f(r)) \cl
+f(p)=s, r\Incl p,\GSD, t\Incl q(f(p)) & \rabove{\iRs} \cl
+f(p)=s, r\Incl p,\GSD, t\Incl q(s) & \rabove{\eRs}
+}
+\conv
+\prarc{
+f(r)=s,f(p)=s, r\Incl p,\GSD, t\Incl q(f(r)) \cl
+f(r)=s,f(p)=s, r\Incl p,\GSD, t\Incl q(s)  & \rabove{\eRs} \cl
+f(p)=s,f(p)=s, r\Incl p,\GSD, t\Incl q(s)  & \rabove{\iLa} 
+} }
+\]
+\[\sma{ \prarc{
+p\Incl f(s), s=r, \GSD, t\Incl q(p) \cl
+p\Incl f(s), s=r, \GSD, t\Incl q(f(s)) &\rabove{\iRs} \cl
+p\Incl f(s), s=r, \GSD, t\Incl q(f(r)) &\rabove{\eRs} 
+}
+\conv
+\prarc{
+p\Incl f(r), p\Incl f(s), s=r, \GSD, t\Incl q(p) \cl
+p\Incl f(r), p\Incl f(s), s=r, \GSD, t\Incl q(f(r)) &\rabove{\iRs} \cl
+p\Incl f(s), p\Incl f(s), s=r, \GSD, t\Incl q(f(r)) &\rabove{\eRa}
+} }
+\]
+ \item The other cases when $R$ is $\Ear$, $\eLs$, ($=_{Ra}$), ($=_{La}$), 
+ ($Sp.cut$) or ($cut_t$) can be trivially swapped 
+ with the application of ($=_{Rs}$) since they do not affect the active
+ equation nor the modified inclusion of ($=_{Rs}$).
+ \end{LS}
+%% As we see, $D^*$ involves the same applications of the s-rules
+%% as the original derivation $D$.
+%Also,
+% since $\#(\preceq_{anr},D)=0$ and no new such applications occurred, we do get
+% $\#(\preceq_{anr},D^*)=0$.]
+ \end{PROOF}
+
+%\newpage
+\subsubsection{Some admissible and redundant a-rules}
+The underlying theme of this subsection are the reduced vs. non-reduced applications
+of various a-rules. This facts, to be utilized in the proof of the $(cut)$-elimination,
+appear in the side-conditions of the lemmas.
+\begin{LEMMA}\label{le:noeqeq}
+The following rule is admissible in $NEQ_4$:
+\[
+\mprule{s=t, f(s)=p, \GSD}{s=t, f(t)=p,\GSD}\ \ \eae
+\]
+\noindent
+Morover, if $D^*$ derives $S$ using this
+rule while $D$ derives $S$ without it then
+$\#(\pLar,D^*)\leq \#(\pLar,D)$,
+and $\#(\pLanr,D^*)\leq \#(\pLanr,D)$.
+\end{LEMMA}
+\begin{PROOF}
+By lemma \ref{fa:noeRs} we assume no applications of $\eRs$ in $D$.
+By induction on $\#(\eae,D)$ and $h(D)$. 
+For $h(D)=1$ we have one possible axiom:
+\[ \begin{array}{rl}
+ s=t, f(s)=p,\GSD, f(s)=p \\ \cline{1-1}
+ s=t, f(t)=p,\GSD, f(s)=p & \rabove{\eae}
+\end{array} 
+\conv
+\begin{array}{rl}
+ s=t, f(t)=p,\GSD, f(t)=p \\ \cline{1-1}
+ s=t, f(t)=p,\GSD, f(s)=p & \rabove{\eLs}
+\end{array}
+\]
+%
+Consider the uppermost application of
+$\eae$ and the rule $R$ applied just above it.  The elimination rules, 
+$\iLs$, $\iRs$, ($Sp.cut$) and ($cut_x$) 
+do not affect
+the active or the principal formula of $\eae$ so these can be swapped
+reducing the height at which the application of $\eae$ occurs. We have
+then the following cases for $R$:
+\begin{LS}
+\item $\eLar$:
+\[ D \left\{ \begin{array}{rl}
+ D_1 \left\{ \begin{array}{r}
+\multicolumn{1}{c}{\vdots} \\
+r=x, x=t, s(x)\Incl p, \GSD \end{array} \right. \\ \cline{1-1}
+r=x, x=t, s(t)\Incl p, \GSD & \rabove{\eLar} \\ \cline{1-1}
+r=x, r=t, s(t)\Incl p, \GSD & \rabove{\eae} 
+\end{array} \right.
+\convd
+D^* \left\{ \begin{array}{rl}
+       D^*_1\left\{ \begin{array}{r}
+       \multicolumn{1}{c}{\vdots} \\
+       x\Incl t, r=x,x=t,s(x)\Incl p,\GSD \end{array} \right . \\ \cline{1-1}
+x\Incl t, r=x, r=t,s(x)\Incl p,\GSD & \rabove{\eae} \cl
+x\Incl t, r=x, r=t,s(t)\Incl p,\GSD &\rabove{\iLar} \cl
+x\Incl r, r=x, r=t,s(t)\Incl p,\GSD &\rabove{\eRa} \cl
+x\Incl x, r=x, r=t,s(t)\Incl p,\GSD &\rabove{\eRa} \cl
+r=x, r=t, s(t)\Incl p,\GSD & \raisebox{1.2ex}[1.5ex][0ex]{($cut_x$)}
+\end{array} \right .
+\]
+\noindent $h(D^*_1)< h(D_1)+1$ yields the conclusion. Exactly the same transformation 
+is made when $\eae$ in $D$ modifies $t$ (or its subterm).
+Since the transformation replaces an application of $\eLar$ by an application of 
+$\iLar$, we have the unchanged total number of applications of $\pLar$ and $\pLanr$.
+
+\item $\eLs$: The only case when simple swapping of the last two rules is
+insufficient occurs when
+the active formula of $\eLs$ is modified in the last application of
+$\eae$. 
+The end of the derivation has then the form:
+%
+\[D \left\{ \begin{array}{cl}
+%\vdots \\
+s=t, w(t)=q,\Gamma \Seq \Delta, p(q)=r  &  \\ \cline{1-1}
+s=t, w(t)=q,\Gamma \Seq \Delta, p(w(t))=r & \rabove{\eLs} \\ \cline{1-1}
+s=t, w(s)=q, \Gamma \Seq\Delta, p(w(t))=r & \rabove{\eae} 
+\end{array} \right. \convd
+%
+%Nevertheless, swapping the applications of ($=_a$) and ($=_s$) we may obtain:
+%
+ D^* \left \{ \begin{array}{cl}
+D_1 \left\{ \begin{array}{rl}
+%\multicolumn{1}{c}{\vdots} \\
+s=t, w(t)=q, \Gamma \Seq\Delta, p(q)=r  & \\ \cline{1-1}
+s=t, w(s)=q,\Gamma \Seq\Delta, p(q)=r  & \rabove{\eae}
+\end{array} \right.
+\\ \cline{1-1}
+s=t, w(s)=q, \Gamma \Seq\Delta, p(w(s))=r & \rabove{\eLs} \\ \cline{1-1}
+s=t, w(s)=q, \Gamma \Seq\Delta, p(w(t))=r & \rabove{\eLs} 
+\end{array}  \right . \]
+%
+$h(D_1) < h(D)$ so, by the induction hypothesis, there is a $NEQ_4$ derivation
+corresponding to $D^*$ deriving the same  sequent without $\eae$. 
+The case when in  $D$,$\eLs$ replaces $w(t)$ by $q$ is treated analogously.
+%
+\item $\iLa$ -- two cases%($\Incl_a$):
+\[D \left\{ \begin{array}{rl} D_1\left\{\begin{array}{c} \vdots \\
+s=t, w(p)=q, p\Incl r(t),\Gamma \Seq \Delta \end{array}\right. & \\ \cline{1-1}
+s=t, w(r(t))=q, p\Incl r(t),\Gamma \Seq \Delta  &   
+         \rabove{\iLa} \\ \cline{1-1}
+s=t, w(r(s))=q, p\Incl r(t),\Gamma \Seq\Delta & \rabove{\eae} 
+\end{array} \right. \convd
+%
+%We construct $D^*$:
+D^* \left\{ \begin{array}{rl} D^*_1\left\{ \begin{array}{c} \vdots \\
+s=t, w(p)=q, p\Incl r(t), p\Incl r(s),\Gamma \Seq \Delta\end{array}\right. \\ \cline{1-1}
+s=t, w(r(s))=q, p\Incl r(t), p\Incl r(s), \Gamma \Seq \Delta  & 
+   \rabove{\iLa} \\ \cline{1-1}
+s=t, w(r(s))=q, p\Incl r(t),p\Incl r(t),\Gamma \Seq\Delta  &
+   \rabove{\eRa}
+\end{array} \right. \]
+%
+where the last sequent is the same as in $D$ by implicit contraction. The last sequent 
+of $D^*_1$ can be obtained as in $D_1$ by weakening (lemma~\ref{le:noweak})
+with $h(D^*_1)=h(D_1)$.
+\[\sma{\prarc{
+s=t(r), w(t(p))=q, p\Incl r, \GSD \cl
+s=t(r), w(t(r))=q, p\Incl r, \GSD & \rabove{\iLa} \cl
+s=t(r), w(s)=q, p\Incl r, \GSD & \rabove{\eae}
+}\conv
+\prarc{
+s=t(p), s=t(r), w(t(p))=q, p\Incl r, \GSD \cl
+s=t(p), s=t(r), w(s)=q, p\Incl r, \GSD & \rabove{\eae} \cl
+s=t(r), s=t(r), w(s)=q, p\Incl r, \GSD & \rabove{\iLa} 
+} }
+\]
+%
+\item ($=_{Ra}$):
+\[ \sma{
+\begin{array}{rl}
+\multicolumn{1}{c}{\vdots} \\
+r=u, w(u)=t, p\Incl f(w(u)), \GSD \\ \cline{1-1}
+r=u, w(u)=t, p\Incl f(t), \GSD & \rabove{\eRa} \\ \cline{1-1}
+r=u, w(r)=t, p\Incl f(t), \GSD & \rabove{\eae} \end{array}
+\conv
+\begin{array}{rl}
+\multicolumn{1}{c}{\vdots} \\
+r=u, w(u)=t, p\Incl f(w(u)), \GSD \\ \cline{1-1}
+r=u, w(r)=t, p\Incl f(w(u)), \GSD & \rabove{\eae} \\ \cline{1-1}
+r=u, w(r)=t, p\Incl f(w(r)), \GSD & \rabove{\eRa} \\ \cline{1-1}
+r=u, w(r)=t, p\Incl f(t), \GSD & \rabove{\eRa} 
+\end{array} }
+\]
+Analogous transformation is applied when $\eae$ modifies $t$ rather than $w(u)$.
+%% \item $\eRs$
+%% \[\prar{
+%% p(s)=r, t=s,\GSD, q\Incl f(p(s)) \cl
+%% p(s)=r, t=s,\GSD, q\Incl f(r) & \rabove{\eRs} \cl
+%% p(t)=r, t=s,\GSD, q\Incl f(r) & \rabove{\eae} 
+%% }\conv
+%% \prar{
+%% p(s)=r, t=s,\GSD, q\Incl f(p(s)) \cl
+%% p(t)=r, t=s,\GSD, q\Incl f(p(s)) & \rabove{\eae} \cl
+%% p(t)=r, t=s,\GSD, q\Incl f(p(t)) & \rabove{\eRs} \cl
+%% p(t)=r, t=s,\GSD, q\Incl f(r) & \rabove{\eRs} 
+%% }
+%% \]
+\item All other cases involve only $\Incl$ in the antecedent so they admit trivial swap.
+\end{LS}
+In all cases no new applications of $\pLa$ appear in the transformed derivations 
+$D^*$, and the ones which occur there are the same as in the original derivations $D$.
+\end{PROOF}
+%
+\begin{LEMMA}\label{le:noar}\label{le:noRanr} 
+$\der{NEQ_4}DS\ \impl\ \der{NEQ_4}{D^*}S$
+and $D^*$ contains no applications of $\iLanr$ nor $\eRanr$.
+Moreover, $\#(\pLar,D^*)\leq\#(\pLar,D)$ and
+ $\#(\pLanr,D^*)\leq\#(\pLanr,D)$.
+\end{LEMMA}
+\begin{PROOF}
+By induction on $\<(\#\iLanr+\#\eRanr,D),h(D)\>$.
+By lemma~\ref{fa:noeRs}, we assume that the derivation $D$ does not 
+contain any $\eRs$.
+We first consider the case where the uppermost application of any of the
+two rules is $\iLanr$.
+
+%, where $n$ is the number of
+%applications of ($\Incl_{anr}$) in $D$ and $h(D)$ is the height of $D$. 
+The basis
+case of $h(D)=1$ is as follows:
+\[ \begin{array}{rl}
+ s\Incl t, f(s)=p,\GSD, f(s)=p \\ \cline{1-1}
+ s\Incl t, f(t)=p,\GSD, f(s)=p & \rabove{\iLanr}
+\end{array} 
+\conv
+\begin{array}{rl}
+ s\Incl t, f(t)=p,\GSD, f(t)=p \\ \cline{1-1}
+ s\Incl t, f(t)=p,\GSD, f(s)=p & \rabove{\iLs}
+\end{array}
+\]
+If we were to use ($=_{Ranr}$) the axiom must be of the form $x\Incl t,\GSD,x\Incl t$, 
+so the application would be reduced. 
+
+Consider the uppermost application of $\iLanr$ and the rule $R$ applied
+immediately above it:
+\[ q\notin \cal V\ \ \ \begin{array}{cl}
+  \vdots & \\ \cline{1-1}
+  q\prec t,s(q)\preceq p,\Gamma\Seq\Delta & \rabove{R} \\ \cline{1-1}
+  q\prec t,s(t)\preceq p,\Gamma\Seq\Delta & \rabove{\iLanr} 
+\end{array} \]
+%
+%where $q\notin \cal V$.
+\begin{LS}
+\item $R$ is $\iLs$ with the active formula $s(q)\Incl p$. 
+  \[D \left\{ \begin{array}{cl}
+%\vdots \\
+ q\prec t,s(q)\Incl p,\Gamma \Seq \Delta,s_1(p)\preceq q_1  &
+  \\ \cline{1-1}
+q\prec t,s(q)\Incl p,\Gamma \Seq \Delta, s_1(s(q))\preceq q_1 &\rabove{\iLs} 
+\\ \cline{1-1}
+ q\prec t,s(t)\Incl p,\Gamma \Seq\Delta, s_1(s(q))\preceq q_1 &
+ \rabove{\iLanr} 
+\end{array} \right. \]
+If the active formula of $\iLs$ does not contain $q$ in the way 
+indicated above, the two applications can be
+trivially swapped and the induction hypothesis allows to eliminate 
+$\iLanr$. 
+
+From the above  $D$, we may deduce the existence of the following derivation:
+\[ \begin{array}{cl}
+D_1\left\{
+\begin{array}{cl}
+%\vdots \\
+ q\prec t,s(q)\Incl p,\GSD,s_1(p)\preceq q_1
+         & \raisebox{-1.2ex}[1.5ex][0ex]{$\iLanr$} \\ \cline{1-1}
+ q\prec t,s(t)\Incl p,\GSD,s_1(p)\preceq q_1
+\end{array} \right. \\ \cline{1-1}
+ q\prec t,s(t)\Incl p,\GSD, s_1(s(t))\preceq q_1
+         & \rabove{\iLs} \\ \cline{1-1}
+ q\prec t,s(t)\Incl p,\GSD, s_1(s(q))\preceq q_1
+         & \rabove{\iLs}
+\end{array}  \]
+Since $h(D_1) < h(D)$, the induction hypothesis allows us to eliminate 
+$\iLanr$.
+\item $R$ is $\Ear$. Since
+$q\not\in\cal V$ also $s(q)\not\in\cal V$. Therefore none of $q\Incl t$
+and $s(q)\preceq p$ can be the modified formula of an application of $\Ear$.
+Hence the two applications can be swapped and induction hypothesis applied.
+%
+\item\label{it:eqLa} $R$ is $\eLar$: %, i.e., ($=_{Lar}$):
+\[ \begin{array}{rl}
+%\multicolumn{1}{c}{\vdots} \\
+q(x)\Incl t, s(q(r))\preceq p, x=r, \Gamma\Seq\Delta \\ \cline{1-1}
+q(r)\Incl t, s(q(r))\preceq p, x=r, \Gamma\Seq\Delta  &
+\raisebox{1.2ex}[1.5ex][0ex]{$(=_{Lar})$} \\ \cline{1-1}
+q(r)\Incl t, s(t)\preceq p, x=r, \Gamma\Seq\Delta  &
+\raisebox{1.2ex}[1.5ex][0ex]{$\iLanr$}
+\end{array} \convd
+%Using weakening (another axiom) we construct the following derivation $D'$:
+ \begin{array}{rl}
+%\multicolumn{1}{c}{\vdots} \\
+q(r)\Incl t, q(x)\Incl t, s(q(r))\preceq p, x=r, \GSD \cl
+q(r)\Incl t, q(x)\Incl t, s(t)\preceq p, x=r, \GSD  & \rabove{\iLanr} \cl
+q(r)\Incl t, q(r)\Incl t, s(t)\preceq p, x=r, \GSD  & \rabove{\eLar}
+\end{array} \] 
+Analogous weakening is used when the modified formula of $\eLa$
+is modified also in the subsequent application of $\iLanr$.
+%
+\item $R$ is $\eRar$ %($=_{Rar}$):
+If the active formula of $\iLanr$ is not modified by ($=_{Rar}$) we
+obtain the required reduction in height by swapping analogous to the previous
+case. So, assume it was modified. The derivation ends then as follows:
+\[ \begin{array}{rl}
+%\multicolumn{1}{c}{\vdots} \\
+t(y) \Incl q, y\Incl p(k), r=k, \Gamma\Seq\Delta \\ \cline{1-1}
+t(y)\Incl q, y\Incl p(r), r=k, \Gamma\Seq\Delta &
+\rabove{\eRar} \\ \cline{1-1}
+t(p(r))\Incl q, y\Incl p(r), r=k, \Gamma\Seq\Delta &
+\rabove{\iLar} 
+\end{array} 
+\]
+Since we have ($=_{Rar}$), the LHS in $y\Incl p(k)$ must be a variable, which means 
+that the final application is ($\Incl_{Lar}$).
+%
+\item $R$ is $\iLar$: This case is treated exactly as 
+case \ref{it:eqLa}  with the applications of $\iLar$ instead:
+\[ \sma{ \begin{array}{rl}
+%\multicolumn{1}{c}{\vdots} \\
+q(x)\Incl t, s(q(r))\preceq p, x\Incl r, \GSD \cl
+q(r)\Incl t, s(q(r))\preceq p, x\Incl r, \GSD  & \rabove{\iLar} \cl
+q(r)\Incl t, s(t)\preceq p, x\Incl r, \GSD  & \rabove{\iLanr}
+\end{array} 
+\conv
+ \begin{array}{rl}
+%\multicolumn{1}{c}{\vdots} \\
+q(r)\Incl t, q(x)\Incl t, s(q(r))\preceq p, x\Incl r, \GSD \cl
+q(r)\Incl t, q(x)\Incl t, s(t)\preceq p, x\Incl r, \GSD  & \rabove{\iLanr} \cl
+q(r)\Incl t, q(r)\Incl t, s(t)\preceq p, x\Incl r, \GSD  & \rabove{\iLar}
+\end{array} } \]
+Analogous procedure yields the result if the modified formula of the
+application of $\iLar$ is not active but modified in the subsequent $\iLanr$.
+%
+\item $R$ is $\iRs$
+\[\prar{
+q\Incl t, s(q)\Incl p, \GSD, r\Incl f(s(q)) \cl
+q\Incl t, s(q)\Incl p, \GSD, r\Incl f(p) & \rabove{\iRs} \cl
+q\Incl t, s(t)\Incl p, \GSD, r\Incl f(p) & \rabove{\iLanr} 
+}
+\conv
+\prar{
+q\Incl t, s(q)\Incl p, \GSD, r\Incl f(s(q)) \cl
+q\Incl t, s(t)\Incl p, \GSD, r\Incl f(s(q)) & \rabove{\iLanr} \cl
+q\Incl t, s(t)\Incl p, \GSD, r\Incl f(s(t)) & \rabove{\iRs} \cl
+q\Incl t, s(t)\Incl p, \GSD, r\Incl f(p) & \rabove{\iRs} 
+}
+\]
+\item $\Esr$, ($Sp.cut$) and ($cut_t$) can be swapped with $\iLanr$.
+\end{LS}
+Now the case when the uppermost application is of $\eRanr$
+\begin{LS}
+\item $R$ is $\eLar$: %($=_{La}$) $D$ ends as follows
+\[ \hspace*{-1.5em}  \begin{array}{rl} 
+x=u, s=t, q(x)\Incl p(t), \GSD \\ \cline{1-1}
+x=u, s=t, q(u)\Incl p(t), \GSD & \rabove{\eLar} \cl
+x=u, s=t, q(u)\Incl p(s), \GSD & \rabove{\eRanr} \end{array} \conv
+% \] Swapping, we get ($=_{Ranr}$) at a lower height: \[ 
+\begin{array}{rl}
+x=u, s=t, q(x)\Incl p(t), \GSD \\ \cline{1-1}
+x=u, s=t, q(x)\Incl p(s), \GSD & \rabove{\eRanr} \cl
+x=u, s=t, q(u)\Incl p(s), \GSD & \rabove{\eLar} \end{array} \]
+%
+\item $R$ is $\iLar$: The side formula of $\eRanr$ cannot be active
+here, since we are using reduced version $\iLar$:
+\[ \begin{array}{rl}
+x\Incl u, s=t, q(x)\Incl p(t), \GSD \\ \cline{1-1}
+x\Incl u, s=t, q(u)\Incl p(t), \GSD & \rabove{\iLar} \cl
+x\Incl u, s=t, q(u)\Incl p(s), \GSD & \rabove{\eRanr} \end{array} 
+%Again, swapping gives reduction of height:
+\conv
+\begin{array}{rl}
+x\Incl u, s=t, q(x)\Incl p(t), \GSD \\ \cline{1-1}
+x\Incl u, s=t, q(x)\Incl p(s), \GSD & \rabove{\eRanr} \cl
+x\Incl u, s=t, q(u)\Incl p(s), \GSD & \rabove{\iLar} \end{array} \]
+%
+\item $R$ is $\iLs$: %($\Incl_{s}$)
+\[ \prar{
+s=t, q\Incl p(t), \GSD, w(p(t))\preceq r \cl
+s=t, q\Incl p(t), \GSD, w(q)\preceq r & \rabove{\iLs} \cl
+s=t, q\Incl p(s), \GSD, w(q)\preceq r & \rabove{\eRanr} 
+}
+\conv
+%We transform the derivation reducing the height of $\eRanr$
+\prar{
+s=t, q\Incl p(t), \GSD, w(p(t))\preceq r \cl
+s=t, q\Incl p(s), \GSD, w(p(t))\preceq r & \rabove{\eRanr} \cl
+s=t, q\Incl p(s), \GSD, w(p(s))\preceq r & \rabove{\eLs} \cl
+s=t, q\Incl p(s), \GSD, w(q)\preceq r & \rabove{\iLs} 
+} \]
+%
+\item $R$ is $\iRs$:
+\[ \prar{
+s=t, q\Incl p(t),\GSD, r\Incl f(q) \cl
+s=t, q\Incl p(t),\GSD, r\Incl f(p(t)) & \rabove{\iRs} \cl
+s=t, q\Incl p(s),\GSD, r\Incl f(p(t)) & \rabove{\eRanr}
+} \conv
+\prar{
+s=t, q\Incl p(t),\GSD, r\Incl f(q) \cl
+s=t, q\Incl p(s),\GSD, r\Incl f(q) & \rabove{\eRanr}\cl
+s=t, q\Incl p(s),\GSD, r\Incl f(p(s)) & \rabove{\iRs} \cl
+s=t, q\Incl p(s),\GSD, r\Incl f(p(t)) & \rabove{\eRs} %\wow{This is why I need $\eRs$}
+}
+\]
+\item Other cases are trivial. \\
+If $R$ is ($=_{Rar}$) or $\Ear$ then they do not affect the active or side
+formula of ($=_{Ranr}$) since, otherwise, the LHS of the latter would have to
+be a variable. \\
+%% $\eRs$, 
+$\eLs$, $\Esr$, ($Sp.cut$) and ($cut_x$) can be trivially swapped.
+\end{LS}
+As we can see, the applications of $\pLa$ 
+occurring in the transformed derivations are the same as the original ones. 
+Hence $\#(\pLa,D^*)\leq\#(\pLa,D)$ and $\#(\pLar,D^*)\leq
+\#(\pLar,D^*)$.
+\end{PROOF}
+%
+%%\subsubsection{Some rules admissible in $NEQ_4$ 
+%%    without increasing $\#\pLar+\#\pLanr$}\label{sub:adm}
+\begin{LEMMA}\label{le:noLanr}
+The following rule is admissible in $NEQ_4$:
+\[ \eLanr\ \ \mprule{s=t, p(s)\Incl q,\GSD}{s=t,p(t)\Incl q,\GSD}\ s\not\in\Vars \]
+Moreover, if $\der{NEQ_{4}}DS$ and $\der{NEQ_{4}+\eLanr}{D'}S$, 
+%$D'$ derives $S$ using this rule while $D$ derives $S$ not using it, 
+we can construct $D'$ so that \\ $\#(\pLar,D')\leq\#(\pLar,D)$, and 
+$\#(\pLanr,D')\leq\#(\pLanr,D)$.
+\end{LEMMA}
+\begin{PROOF}
+By lemma %~\ref{fa:noeRs} and 
+\ref{le:noar}, we assume that $D$ does not contain
+any applications of $\iLanr$. %($\Incl_{anr}$). 
+By induction on $\<\#(=_{Lanr},D),h(D)\>$. 
+If $h(D)=1$, the only relevant possibility is the axiom with an inclusion in the
+antecednet, but it has a variable in the LHS, % $x\Incl t,\GSD,x\Incl t$,
+so an application of ($=_{La}$) %to $x\Incl t$ 
+has to be reduced.
+
+Consider the last rule above the
+uppermost application of ($=_{Lanr}$). 
+\begin{LS}
+ \item $\iLa$, i.e, $\iLar$. \\
+The first case is when both $\iLar$ and $\eLanr$ %and ($=_{Lanr}$) 
+modify the same formula:
+\[ %D \left \{ 
+\begin{array}{rl}
+f(x)\Incl p, r=u, x\Incl s(u), \Gamma \Seq\Delta \\ \cline{1-1}
+f(s(u))\Incl p, r=u, x\Incl s(u), \Gamma \Seq\Delta  & \rabove{\iLar} \cl
+f(s(r))\Incl p, r=u, x\Incl s(u), \Gamma \Seq\Delta  &
+\rabove{\eLanr} \end{array} %\right .
+ \convd
+%We transform it into :
+% D' \left \{ 
+\begin{array}{rl}
+f(x)\Incl p, r=u, x\Incl s(u), x\Incl s(r), \Gamma \Seq\Delta \\ \cline{1-1}
+f(s(r))\Incl p, r=u, x\Incl s(u), x\Incl s(r),\Gamma \Seq\Delta  & \rabove{\iLar} \cl
+f(s(r))\Incl p, r=u, x\Incl s(u), x\Incl s(u),\Gamma \Seq\Delta  &
+\rabove{\eRar} \end{array} %\right .  
+\]
+Another case is the following:
+\[\prarc{
+f(g(x))\Incl p, x\Incl t, q=g(t),\GSD \cl
+f(g(t))\Incl p, x\Incl t, q=g(t),\GSD & \rabove{\iLar} \cl
+f(q)\Incl p, x\Incl t, q=g(t),\GSD & \rabove{\eLanr} 
+}\convd
+\prarc{
+f(g(x))\Incl p, x\Incl t, q=g(t), q=g(x), \GSD \cl
+f(q)\Incl p, x\Incl t, q=g(t), q=g(x), \GSD & \rabove{\eLanr} \cl
+f(q)\Incl p, x\Incl t, q=g(t), q=g(t), \GSD & \rabove{\iLar} 
+} 
+\]
+The last case is when the formula $\phi$ modified by $\eLanr$ in $D$ was active in the
+preceding 
+application of $\iLar$. But in this case, since we only have reduced applications
+$\iLar$, $\phi$'s LHS must be a variable, so the application of $\eLa$ would not be
+$\eLanr$ but $\eLar$.
+%
+\item $\iLs$: The two applications $\iLs$-$\eLanr$ are easily
+replaced by $\eLanr$-$\eLs$.
+\item $\iRs$:
+\[\sma{ \prar{
+f(s)\Incl t, s=r,\GSD,p\Incl q(f(s)) \cl
+f(s)\Incl t, s=r,\GSD,p\Incl q(t) & \rabove{\iRs} \cl
+f(r)\Incl t, s=r,\GSD,p\Incl q(t) & \rabove{\eLanr} 
+}
+\conv
+\prar{
+f(s)\Incl t, s=r,\GSD,p\Incl q(f(s)) \cl
+f(r)\Incl t, s=r,\GSD,p\Incl q(f(s)) & \rabove{\eLanr} \cl
+f(r)\Incl t, s=r,\GSD,p\Incl q(f(r)) & \rabove{\eRs} \cl
+f(r)\Incl t, s=r,\GSD,p\Incl q(t) & \rabove{\iRs} 
+} }
+\]
+%
+\item ($=_{Lar}$): 
+% \[ D \left \{ \begin{array}{rl}
+% q(s(y)) \Incl p, y=u, s(u)=r, \Gamma\Seq\Delta  \\ \cline{1-1}
+% q(s(u)) \Incl p, y=u, s(u)=r, \Gamma\Seq\Delta &
+% \raisebox{1.2ex}[1.5ex][0ex]{($=_{Lar}$)} \\ \cline{1-1}
+% q(r) \Incl p, y=u, s(u)=r, \Gamma\Seq\Delta &
+% \raisebox{1.2ex}[1.5ex][0ex]{($=_{Lanr}$)} \end{array} \right . \convd
+%  D' \left \{ \begin{array}{rl}
+% q(s(y)) \Incl p, y=u, s(u)=r, s(y)=r, \Gamma\Seq\Delta \\ \cline{1-1}
+% q(r) \Incl p, y=u, s(u)=r, s(y)=r, \Gamma\Seq\Delta &
+% \raisebox{1.2ex}[1.5ex][0ex]{($=_{Lanr}$)} \\ \cline{1-1}
+% q(r) \Incl p, y=u, s(u)=r, s(u)=r, \Gamma\Seq\Delta &
+% \raisebox{1.2ex}[1.5ex][0ex]{$\eae$} \end{array} \right . \]
+% OLD:
+\[ D \left \{ \begin{array}{rl}
+f(x)\Incl p, r=u, x= s(u), \Gamma \Seq\Delta \\ \cline{1-1}
+f(s(u))\Incl p, r=u, x= s(u), \Gamma \Seq\Delta  &
+\raisebox{1.2ex}[1.5ex][0ex]{($=_{Lar}$)} \\ \cline{1-1}
+f(s(r))\Incl p, r=u, x= s(u), \Gamma \Seq\Delta  &
+\raisebox{1.2ex}[1.5ex][0ex]{($=_{Lanr}$)} \end{array} \right . \convd
+%We transform it into :
+ D' \left \{ \begin{array}{rl}
+f(x)\Incl p, r=u, x= s(u), x=s(r),\Gamma \Seq\Delta \\ \cline{1-1}
+f(s(r))\Incl p, r=u, x= s(u), x=s(r),\Gamma \Seq\Delta  &
+\raisebox{1.2ex}[1.5ex][0ex]{($=_{Lanr}$)} \\ \cline{1-1}
+f(s(r))\Incl p, r=u, x= s(u), x=s(u),\Gamma \Seq\Delta  &
+\raisebox{1.2ex}[1.5ex][0ex]{$\eae$} \end{array} \right . \]
+By induction hypothesis ($=_{Lanr}$) can be eliminated from $D'$, and by 
+lemma \ref{le:noeqeq} $D'$ can be transformed so that it
+does not contain $\eae$ and this transformation does not
+introduce any additional applications of $\pLa$. %($=_{Lanr}$).
+The same applies in the other case:
+\[
+\prar{
+f(s(x))\Incl p, x=u, s(u)=r, \GSD \cl
+f(s(u))\Incl p, x=u, s(u)=r, \GSD & \rabove{\eLar} \cl
+f(r)\Incl p, x=u, s(u)=r, \GSD & \rabove{\eLanr} 
+}\convd
+\prar{
+f(s(x))\Incl p, x=u, s(u)=r, s(x)=r, \GSD \cl
+f(r)\Incl p, x=u, s(u)=r, s(x)=r, \GSD & \rabove{\eLanr} \cl
+f(r)\Incl p, x=u, s(u)=r, s(u)=r, \GSD & \rabove{\eae} 
+} 
+\]
+%
+\item Elimination rules are not relevant,
+neither is ($Sp.cut$) and $(cut_x)$, and $\eRa$ and $\eRs$ are trivially swapped
+since their active formula (equality) is not affected by $\eLanr$.
+\end{LS}
+We see that no new applications of
+$\pLar$ or $\pLanr$ emerge.
+\end{PROOF}
+%
+\begin{LEMMA}\label{le:inclaad} The following rule is admissible in $NEQ_4$:
+\[\mprule{s\Incl t, q\Incl t,\GSD}{s\Incl t, q\Incl s,\GSD} %\ $s,t\not\in\Vars$
+\ \ \ \ \iRa
+\]
+Moreover, if $D^*$ is a derivation using the rule $\iRa$ and $D$ is the corresponding
+derivation not using this rule, then $\#(\pLar,D)\leq\#(\pLar,D^*)$, and
+$\#(\pLanr,D)\leq\#(\pLanr,D^*)$. 
+%  [Also, $D$ does not introduce new applications of $(cut_{x=})$ -- the fact to be used
+%in lemma~\ref{le:noxx}.]
+\end{LEMMA}
+\begin{PROOF}
+By induction on $\< \#(\iRa,D^*),h(D^*)\>$. 
+By lemma  % \ref{fa:noeRs} and 
+\ref{le:noar} % and \ref{le:noLanr}, 
+we assume that the derivation does not 
+contain any % $\eRs$, 
+$\iLanr$ or $\eRanr$. % nor $\eLanr$.
+The possible application to an axiom is: % $x\Incl t,\GSD,x\Incl t$
+\[
+\begin{array}{rl}
+x\Incl t, s\Incl t,\GSD,x\Incl t &  \\ \cline{1-1}
+x\Incl s, s\Incl t,\GSD,x\Incl t & \rabove{\iRa}
+\end{array}
+\conv
+\begin{array}{rl}
+x\Incl s, s\Incl t,\GSD,x\Incl s \\ \cline{1-1}
+x\Incl s,s\Incl t, \GSD,x\Incl t & \rabove{\iRs}
+\end{array}
+\]
+Consider the rule applied just above $\iRa$.
+\begin{LS}
+\item $\iRs$
+\[ \prar{
+q\Incl t, s\Incl t,\GSD,p\Incl f(q) \\ \cline{1-1}
+q\Incl t, s\Incl t,\GSD,p\Incl f(t) & \rabove{\iRs} \\ \cline{1-1}
+q\Incl s, s\Incl t,\GSD,p\Incl f(t) & \rabove{\iRa}
+}
+\conv
+\prar{
+q\Incl t, s\Incl t,\GSD,p\Incl f(q) \\ \cline{1-1}
+q\Incl s, s\Incl t,\GSD,p\Incl f(q) & \rabove{\iRa} \\ \cline{1-1}
+q\Incl s, s\Incl t,\GSD,p\Incl f(s) & \rabove{\iRs} \\ \cline{1-1}
+q\Incl s, s\Incl t,\GSD,p\Incl f(t) & \rabove{\iRs}
+}
+\]
+\item $\iLar$:
+\[ \sma{ \begin{array}{rl}
+ s(y) \Incl t, q\Incl t, y\Incl p, \GSD \\ \cline{1-1}
+ s(p) \Incl t, q\Incl t, y\Incl p, \GSD & \rabove{\iLar} \\
+ \cline{1-1}
+ s(p) \Incl t, q\Incl s(p), y\Incl p, \GSD & \rabove{\iRa}
+ \end{array} \conv
+ \begin{array}{rl}
+s(p)\Incl t, s(y)\Incl t, q\Incl t, y\Incl p, \GSD \\ \cline{1-1}
+s(p)\Incl t, s(y)\Incl t, q\Incl s(p), y\Incl p, \GSD &
+\rabove{\iRa} \\ \cline{1-1}
+s(p)\Incl t, s(p)\Incl t, q\Incl s(p), y\Incl p, \GSD &
+\rabove{\iLar} \end{array} 
+}
+\]
+%
+\item $\iLs$ %($\Incl_s$): $q\not\in\Vars$
+% -- if $s\in\Vars$ we get $\Incl_{sx}$
+\[ \prar{
+s\Incl t, q\Incl t, \GSD, w(t)\preceq p \\ \cline{1-1}
+s\Incl t, q\Incl t, \GSD, w(q)\preceq p & \rabove{\iLs} \\
+\cline{1-1}
+s\Incl t, q\Incl s, \GSD, w(q)\preceq p & \rabove{\iRa} 
+}\conv
+%We just swap:
+\prar{
+s\Incl t, q\Incl t, \GSD, w(t)\preceq p \\ \cline{1-1}
+s\Incl t, q\Incl s, \GSD, w(t)\preceq p & \rabove{\iRa} \\
+\cline{1-1}
+s\Incl t, q\Incl s, \GSD, w(s)\preceq p & \rabove{\iLs} \\
+\cline{1-1} 
+s\Incl t, q\Incl s, \GSD, w(q)\preceq p & \rabove{\iLs} 
+} \]
+%% The obtained applications of $(\Incl_s)$ are not $(\Incl_{sx})$ -- the first
+%% by restriction on $\iRa$ -- $s\not\in\Vars$, and the second since $q\not\in\Vars$.
+\item $\Ear$:
+\[ \sma{
+\begin{array}{rl}
+x\Incl t, y\Incl r(x), s\Incl r(t), \GSD \\ \cline{1-1}
+          y\Incl r(t), s\Incl r(t), \GSD  & \rabove{\Ear} \\ \cline{1-1}
+          y\Incl s, s\Incl r(t), \GSD  & \rabove{\iRa} \end{array}
+  \conv
+%Again, swapping after weakening, we reduce the height:
+ \begin{array}{rl}
+x\Incl t, y\Incl r(x), s\Incl r(t), s\Incl r(x),\GSD \\ \cline{1-1}
+x\Incl t, y\Incl s, s\Incl r(t), s\Incl r(x),\GSD  & \rabove{\iRa} \\ \cline{1-1}
+          y\Incl s, s\Incl r(t), s\Incl r(t),\GSD  & \rabove{\Ear} \end{array} 
+}\]
+%
+We do exactly the same if $\Ear$ modifies the active (rather than the side)
+formula of the application of $\iRa$.
+\item $\eLar$:
+\[ \sma{
+\begin{array}{rl}
+s(x)\Incl t, q\Incl t, x=p, \GSD \\ \cline{1-1}
+s(p)\Incl t, q\Incl t, x=p, \GSD & \rabove{(=_{Lar})} \\ \cline{1-1}
+s(p)\Incl t, q\Incl s(p), x=p, \GSD & \rabove{\iRa} \end{array} \conv
+%Swap the applications, and clean up:
+\begin{array}{rl}
+s(p)\Incl t,s(x)\Incl t, q\Incl t, x=p, \GSD \\ \cline{1-1}
+s(p)\Incl t,s(x)\Incl t, q\Incl s(p), x=p, \GSD & \rabove{\iRa} \\ \cline{1-1}
+s(p)\Incl t,s(p)\Incl t, q\Incl s(p), x=p, \GSD & \rabove{(=_{Lar})} \end{array}
+}
+\]
+\item $\eRar$:
+\[ \sma{ \begin{array}{rl}
+s\Incl t(p), x\Incl t(r), r=p, \GSD \\ \cline{1-1}
+s\Incl t(p), x\Incl t(p), r=p, \GSD & \rabove{(=_{Rar})}\\ \cline{1-1}
+s\Incl t(p), x\Incl s, r=p, \GSD & \rabove{\iRa} \end{array} \conv
+%Weakening allows us to swap:
+ \begin{array}{rl}
+s\Incl t(r), s\Incl t(p), x\Incl t(r), r=p, \GSD \\ \cline{1-1}
+s\Incl t(r), s\Incl t(p), x\Incl s, r=p, \GSD & \rabove{\iRa} \\ \cline{1-1}
+s\Incl t(p), s\Incl t(p), x\Incl s, r=p, \GSD & \rabove{\eRa} \end{array} 
+} \]
+Analogous transformation is applied if $\iRa$ in the original derivation yields
+$s\Incl x, x\Incl t(p)\ldots$.
+%
+\item The rules $\eLs$, $\eRs$, $\Esr$, $(Sp.cut)$, $(cut_x)$ and ($cut_{x=}$) 
+can be trivially swapped, since they do
+not affect the antecedent -- the active formula, which is either equality or
+disappears, cannot be involved in the final application of $\iRa$.
+\end{LS}
+We see that no new applications of $\pLa$ appear in the transformed derivations 
+$D$, and the ones which occur there are the same as in the original 
+derivations $D^*$.
+[Also, no new applications of $(cut_{x=})$ appear in the transformed derivations.]
+\end{PROOF}
+%
+
+\subsubsection{Some redundant s-rules}\label{sub:nosx}
+First lemma shows the possibility of eliminating most of the s-rules from the $NEQ_4$
+derivations.
+%% the following degenerate 
+%% applications can be avoided in $NEQ_4$ derivations:
+%% \[\sma{
+%% \eRsx\ \ \mprule{s=x, \GSD, t\Incl f(s)}{s=x, \GSD, t\Incl f(x)} 
+%% \hspace*{2em}
+%% \iLsx\ \ \mprule{s\Incl x, \GSD, f(s)\preceq t}{s\Incl x, \GSD,f(x)\preceq t} 
+%% \hspace*{3em}
+%% \eLsx\ \ \mprule{s= x, \GSD, f(s)\preceq t}{s= x, \GSD, f(x)\preceq t}  
+%% }
+%% \]
+\begin{LEMMA}\label{le:nosx}
+$\der{NEQ_4}DS \impl \der{NEQ_4}{D^*}S$ and $D^*$ uses no applications
+of $\eRs$, $\iLs$ or $\eLs$.
+%% Applications $\eRsx$, $\iLsx$, $\eLsx$ can be eliminated.
+%% [Morover, the resulting derivations do not introduce any new applications of
+%% s-rules.]
+\end{LEMMA}
+\begin{PROOF}
+We proceed by simultaneous induction on 
+the number of applications of all the listed rules and by subinduction on the
+height of the derivation. 
+By lemma~\ref{fa:noeRs}, we may assume that derivation contains 
+no applications of $\eRs$.
+%, in particular, no applications of $\eRsx$.
+
+Writing $\pLs$, we mean either $\iLs$ or $\eLs$ and use this notation when the
+two cases are treated analogously. 
+\begin{LS}
+\item Each form of the axioms gives rise to several cases:
+\begin{LSA}
+\item $x\Incl t,\GSD, x\Incl t$
+\begin{LSB}
+\item If $s\not\in\Vars$, we choose a fresh variable $y:$
+\[
+\prar{
+s\preceq x, x\Incl t, \GSD, x\Incl t \cl
+s\preceq x, x\Incl t, \GSD, s\Incl t & \rabove{\pLs}
+} \conv
+\prar{
+y\Incl s, s\preceq x, y\Incl t, \GSD, y\Incl t \cl
+y\Incl s, s\preceq x, s\Incl t, \GSD, y\Incl t & \rabove{\iLar} \cl
+     s\preceq x, s\Incl t, \GSD, s\Incl t & \rabove{\Esr}
+}
+\]
+\item 
+If $s$ is a variable, say $y$:
+\[
+\prarc{
+y\preceq x, x\Incl t, \GSD, x\Incl t \cl
+y\preceq x, x\Incl t, \GSD, y\Incl t & \rabove{\pLs}
+} \conv
+\prarc{
+y\preceq x, y\Incl t, \GSD, y\Incl t \cl
+y\preceq x, x\Incl t, \GSD, y\Incl t & \rabove{\pLar}
+}
+\]
+\end{LSB}
+\item $s=t,\GSD,s=t$ gives rise to four cases
+\begin{LSB}
+\item The substituted term is a variable $x$
+\[
+\prarc{
+x\Incl p, s(p)= t, \GSD, s(p)= t \cl
+x\Incl p, s(p)= t, \GSD, s(x)= t & \rabove{\iLs}
+} \conv
+\prarc{
+x\Incl p, s(x)= t, \GSD, s(x)= t \cl
+x\Incl p, s(p)= t, \GSD, s(x)= t & \rabove{\iLar}
+}
+\]
+\item and variable substituted by $\eLs$:
+\[\sma{
+\prar{
+x= p, s(p)= t, \GSD, s(p)= t \cl
+x= p, s(p)= t, \GSD, s(x)= t & \rabove{\eLs}
+} \conv
+\prar{
+x\Incl p, x= p, s(x)= t, \GSD, s(x)= t \cl
+x\Incl p, x= p, s(p)= t, \GSD, s(x)= t & \rabove{\iLar} \cl
+x\Incl x, x= p, s(p)= t, \GSD, s(x)= t & \rabove{\eRar} \cl
+ x= p, s(p)= t, \GSD, s(x)= t & \rabove{(cut_x)} 
+} }
+\]
+\item The substituted term $r\not\in\Vars$ -- we choose a fresh variable $y:$
+\[\sma{ \prar{
+r=p, s(p)=t, \GSD, s(p)=t \cl
+r=p, s(p)=t, \GSD, s(r)=t & \rabove{\eLs}
+}\conv
+\prar{
+y\Incl p, r=p, s(y)=t, \GSD, s(y)=t \cl
+y\Incl p, r=p, s(p)=t, \GSD, s(y)=t & \rabove{\iLar} \cl
+y\Incl r, r=p, s(p)=t, \GSD, s(y)=t & \rabove{\eRar} \cl
+      r=p, s(p)=t, \GSD, s(r)=t & \rabove{\Esr} 
+} }
+\]
+\item and non-variable substituted by $\iLs$
+\[\prarc{
+r\Incl p, s(p)=t, \GSD, s(p)=t \cl
+r\Incl p, s(p)=t, \GSD, s(r)=t & \rabove{\iLs}
+}\conv
+\prar{
+r\Incl p, s(r)=t, \GSD, s(r)=t \cl
+r\Incl p, s(p)=t, \GSD, s(r)=t & \rabove{\iLa}
+}
+\]
+\end{LSB}
+\item $\GSD, x=x$.
+The situation \[\prar{s=x,\GSD,x=x \cl s=x,\GSD,s=x& \rabove{\eLs}}\] gives an 
+instance of an axiom. The case of $\iLs$ is treated as follows:
+\[\prar{
+t\Incl x, \GSD, x=x \cl 
+t\Incl x,\GSD, t=x & \rabove{\iLs}
+}\conv
+\prar{
+t=x, t\Incl x,\GSD, t=x \cl
+x=x, t\Incl x,\GSD, t=x & \rabove{\iLa} \cl
+t\Incl x, \GSD, t=x & \rabove{(cut_{x=})}
+}
+\]
+\end{LSA}
+\item $\iLa$
+\[\sma{ \prarc{
+q(t)\preceq r, t\Incl s, \GSD, p(r)\preceq t \cl
+q(s)\preceq r, t\Incl s, \GSD, p(r)\preceq t & \rabove{\iLa} \cl
+q(s)\preceq r, t\Incl s, \GSD, p(q(s))\preceq t & \rabove{\pLs} 
+}\conv
+\prarc{
+q(s)\preceq r, q(t)\preceq r, t\Incl s, \GSD, p(r)\preceq t \cl
+q(s)\preceq r, q(t)\preceq r, t\Incl s, \GSD, p(q(s))\preceq t & \rabove{\pLs} \cl
+q(s)\preceq r, q(s)\preceq r, t\Incl s, \GSD, p(q(s))\preceq t & \rabove{\iLa} 
+} }
+\]
+%% \item $\eLs$ % $s\not\in\Vars$
+%% We consider the cases of $\iLsx$ and $\eLsx$ separately
+%% \begin{LSA}
+%% \item $\iLsx$
+%% \[\prarc{
+%% x\Incl s, s=t,\GSD, p(t)\preceq q \cl
+%% x\Incl s, s=t,\GSD, p(s)\preceq q & \rabove{\eLs} \cl
+%% x\Incl s, s=t,\GSD, p(x)\preceq q & \rabove{\iLsx} 
+%% }\conv
+%% \prarc{
+%% x\Incl t, x\Incl s, s=t,\GSD, p(t)\preceq q \cl
+%% x\Incl t, x\Incl s, s=t,\GSD, p(x)\preceq q & \rabove{\iLsx} \cl
+%% x\Incl s, x\Incl s, s=t,\GSD, p(x)\preceq q & \rabove{\eRar} 
+%% }
+%% \]
+%% Another case is as follows:
+%% \[\sma{ \prarc{
+%% x\Incl s, t=r(s), \GSD, p(t)\preceq q \cl
+%% x\Incl s, t=r(s), \GSD, p(r(s))\preceq q & \rabove{\eLs} \cl
+%% x\Incl s, t=r(s), \GSD, p(r(x))\preceq q & \rabove{\iLsx} 
+%% }\conv
+%% \prarc{
+%% x\Incl s, t=r(s), t=r(x), \GSD, p(t)\preceq q \cl
+%% x\Incl s, t=r(s), t=r(x), \GSD, p(r(x))\preceq q & \rabove{\eLs} \cl
+%% x\Incl s, t=r(s), t=r(s), \GSD, p(r(x))\preceq q & \rabove{\iLar} 
+%% } }
+%% \]
+%% \item 
+%% The two cases of $\eLsx$
+%% \[\prar{
+%% x= s, s=t,\GSD, p(t)\preceq q \cl
+%% x= s, s=t,\GSD, p(s)\preceq q & \rabove{\eLs} \cl
+%% x= s, s=t,\GSD, p(x)\preceq q & \rabove{\eLsx} 
+%% }\conv
+%% \prar{
+%% x\Incl t, x= s, s=t,\GSD, p(t)\preceq q \cl
+%% x\Incl t, x= s, s=t,\GSD, p(x)\preceq q & \rabove{\iLsx} \cl
+%% x\Incl s, x= s, s=t,\GSD, p(x)\preceq q & \rabove{\eRa} \cl
+%% x\Incl x, x= s, s=t,\GSD, p(x)\preceq q & \rabove{\eRa} \cl
+%%           x= s, s=t,\GSD, p(x)\preceq q & \rabove{(cut_x)} 
+%% }
+%% \]
+%% \[\sma{ \prar{
+%% x=s, r(s)=t,\GSD, p(t)\preceq q \cl
+%% x=s, r(s)=t,\GSD, p(r(s))\preceq q & \rabove{\eLs} \cl
+%% x=s, r(s)=t,\GSD, p(r(x))\preceq q & \rabove{\eLsx}
+%% } } \convd \sma{
+%% \prar{
+%% x\Incl s, r(x)=t, x=s, r(s)=t,\GSD, p(t)\preceq q \cl
+%% x\Incl s, r(x)=t, x=s, r(s)=t,\GSD, p(r(x))\preceq q & \rabove{\eLs} \cl
+%% x\Incl s, r(s)=t, x=s, r(s)=t,\GSD, p(r(x))\preceq q & \rabove{\iLar} \cl
+%% x\Incl x, r(s)=t, x=s, r(s)=t,\GSD, p(r(x))\preceq q & \rabove{\eRa} \cl
+%%       r(s)=t, x=s, r(s)=t,\GSD, p(r(x))\preceq q & \rabove{(cut_x)}
+%% } }
+%% \]
+%% \end{LSA}
+\item $\Ear$
+\[\sma{\prarc{
+y\Incl t, x\Incl q(y),\GSD, f(q(t))\preceq p \cl
+          x\Incl q(t),\GSD, f(q(t))\preceq p & \rabove{\Ear} \cl
+          x\Incl q(t),\GSD, f(x)\preceq p & \rabove{\iLs}
+}\conv
+\prarc{
+x\Incl q(t), y\Incl t, x\Incl q(y),\GSD, f(q(t))\preceq p \cl
+x\Incl q(t), y\Incl t, x\Incl q(y),\GSD, f(x)\preceq p & \rabove{\iLs} \cl
+x\Incl q(t), x\Incl q(t),\GSD, f(x)\preceq p & \rabove{\Ear}
+} }
+\]
+\item $\eLar$
+\[\sma{ \prarc{
+s(y)\Incl q, t=y,\GSD, f(q)\preceq t \cl
+s(t)\Incl q, t=y,\GSD, f(q)\preceq t & \rabove{\eLar} \cl
+s(t)\Incl q, t=y,\GSD, f(s(t))\preceq t & \rabove{\iLs} 
+}\conv
+\prarc{
+s(t)\Incl q, s(y)\Incl q, t=y,\GSD, f(q)\preceq t \cl
+s(t)\Incl q, s(y)\Incl q, t=y,\GSD, f(s(t))\preceq t & \rabove{\iLs} \cl
+s(t)\Incl q, s(t)\Incl q, t=y,\GSD, f(s(t))\preceq t & \rabove{\eLar} 
+} }
+\]
+\item $\eRa$
+\[\sma{\prarc{
+x\Incl p(t), t=s,\GSD, f(p(s))\preceq q \cl
+x\Incl p(s), t=s,\GSD, f(p(s))\preceq q & \rabove{\eRa} \cl
+x\Incl p(s), t=s,\GSD, f(x)\preceq q & \rabove{\iLs}
+}\conv
+\prarc{
+x\Incl p(s), x\Incl p(t), t=s,\GSD, f(p(s))\preceq q \cl
+x\Incl p(s), x\Incl p(t), t=s,\GSD, f(x)\preceq q & \rabove{\iLs} \cl
+x\Incl p(s), x\Incl p(s), t=s,\GSD, f(x)\preceq q & \rabove{\eRa} 
+} }
+\]
+\item $\iRs$, $\eRs$, $\Esr$, $(cut_x)$, $(cut_{x=})$ and $(Sp.cut)$ can be 
+trivially swapped.
+\end{LS}
+As we see, no new applications of s-rules appear in the resulting derivations.
+\end{PROOF}
+%
+
+\noindent
+In lemma~\ref{fa:noeRs} we have shown that rule $\eRs$ can be eliminated from the
+derivations. % without introducing new applications of s-rules. 
+However, new applications of a-rules appeared in the transformed derivations. 
+Moreover, in lemma~\ref{le:noar}, eliminating non-reduced
+applications of $\eRanr$ we used an application of $\eRs$ in the transformed derivation
+(case 4). The final lemma shows now that, as a matter of fact, we can eliminate $\eRs$, 
+as well as a non-reduced version of $\iRsnr$, from derivations without increasing the
+number of $\pLanr$ and $\eRanr$. 
+\begin{LEMMA}\label{le:noiRsnr}
+$\der{NEQ_{4}}DS\ \impl\ \der{NEQ_{4}}{D^{*}}S$ and $D^*$ contains no 
+applications of $\eRs$ nor
+\[
+\iRsnr\ \ \ \mprule{s\Incl t,\GSD, p\Incl q(s)}{s\Incl t,\GSD,p\Incl q(t)}\ \ 
+s\not\in\Vars
+\]
+Moreover $\#(\pLanr,D^*) \leq \#(\pLanr,D)$ and $\#(\eRanr,D^*)\leq\#(\eRanr,D)$.
+\end{LEMMA}
+\begin{PROOF}
+By lemma \ref{le:noar} 
+we assume that no non-reduced applications $\iLanr$ or $\eRanr$
+appear in $D$. Proceeding by simultaneous induction on the number of applications
+of $\eRs$ and $\iRsnr$ and subinduction on the height of $D$, we consider first the
+case when the uppermost application of one of these two rules is $\eRs$. (This part
+of the proof is essentially revisting the proof of lemma~\ref{fa:noeRs} and checking
+that the current side-conditions are satisfied.)
+
+For the axioms, we only have to consider the one with inclusion in the consequent.
+%\begin{itemize}
+%\item $x\Incl t,\GSD,x\Incl t$
+%\end{itemize}
+\[
+\begin{array}{rl}
+p=s, x\Incl t(s),\GSD,x\Incl t(s) \\ \cline{1-1}
+p=s, x\Incl t(s),\GSD,x\Incl t(p) & \rabove{\eRs}
+\end{array}
+\conv
+\begin{array}{rl}
+p=s, x\Incl t(p),\GSD,x\Incl t(p) \\ \cline{1-1}
+p=s, x\Incl t(s),\GSD,x\Incl t(p) & \rabove{\eRar}
+\end{array}
+\]
+The application is reduced  $\eRar$.
+Consider the uppermost application of ($=_{Rs}$) in $D$:
+\begin{LS}
+\item\label{it:RsEsB} $R=\Esr$ with $q\Incl t(r)$ as the modified formula and $r$ as
+modified term. We have two subcases corresponding to the situation when the
+term $r'$ substituted by $\Esr$ for its eigen-variable is a subterm or
+superterm of (or equal to) $r$. (When the two are independent, the case is
+trivial.) 
+\begin{LSA}
+\item  $r'$ is a subterm of $r$,\\
+i.e., $t'(r')$ and $t(r)$ are identical with $r=f(r')$ and $t'(x)=t(f(x))$.
+\[ D \left \{\begin{array}{cl}
+%\vdots          \\
+x\Incl r', f(r')=s, \GSD, q\Incl t(f(x)) & \raisebox{-1.2ex}[1.5ex][0ex]{$\Esr$} \\ \cline{1-1}
+f(r')=s, \GSD, q\Incl t(f(r')) &
+\raisebox{-1.2ex}[1.5ex][0ex]{($=_{Rs}$)} \\ \cline{1-1}
+f(r')=s, \GSD, q\Incl t(s) 
+\end{array} \right . \convd
+D' \left \{ \begin{array}{cl}
+x\Incl r', f(r')=s, f(x)=s, \Gamma\Seq\Delta,q\Incl t(f(x)) & \raisebox{-1.2ex}[1.5ex][0ex]{($=_{Rs}$)} \\ \cline{1-1}
+x\Incl r', f(r')=s, f(x)=s, \Gamma\Seq\Delta, q\Incl t(s) &
+\raisebox{-1.2ex}[1.5ex][0ex]{$\iLar$} \\ \cline{1-1}
+x\Incl r', f(r')=s, f(r')=s, \Gamma\Seq\Delta, q\Incl t(s) &
+\raisebox{-1.2ex}[1.5ex][0ex]{$\Esr$} \\ \cline{1-1}
+f(r')=s, \Gamma\Seq\Delta, q\Incl t(s) 
+\end{array} \right . \]
+The obtained application of $\iLar$ is reduced.
+\item $r'$ is a superterm of (or equal to) $r$,\\
+i.e., $r'=f(r)$ and $t(x)=t'(f(x))$.
+\[ D \left \{\begin{array}{cl}
+%\vdots          \\
+x\Incl f(r), r=s, \Gamma\Seq\Delta, q\Incl t'(x) & \\ \cline{1-1}
+r=s, \Gamma\Seq\Delta, q\Incl t'(f(r)) & \rabove{\Esr} \\ \cline{1-1}
+r=s, \Gamma\Seq\Delta, q\Incl t'(f(s)) & \rabove{\eRs} 
+\end{array} \right . \convd
+D \left \{\begin{array}{cl}
+x\Incl f(r), r=s, \Gamma\Seq\Delta, q\Incl t'(x) & \\ \cline{1-1}
+x\Incl f(s), r=s, \Gamma\Seq\Delta, q\Incl t'(x) & \rabove{\eRar}
+\\ \cline{1-1}
+r=s, \Gamma\Seq\Delta, q\Incl t'(f(s)) & \rabove{\Esr} 
+\end{array} \right . \]
+Again, the resulting application of $\eRar$ is reduced.
+The case when the modified term is substituted into LHS of $\Incl$ is treated
+analogously.
+\end{LSA}
+\item $R=\iLar$ with the modified formula $r=s(v)$ and $v$ as the modified
+term:
+\[ D \left \{ \begin{array}{cl}
+ D_1 \left \{ \begin{array}{c}
+               \vdots       \\ 
+               r=s(x), x\Incl v, \Gamma\Seq\Delta,q\Incl t(r) 
+           \end{array} \right . 
+         & \raisebox{-3.2ex}[1.5ex][0ex]{$\iLa$}  \\ \cline{1-1}
+ r=s(v), x\Incl v, \Gamma\Seq\Delta, q\Incl t(r) &
+ \raisebox{-1.2ex}[1.5ex][0ex]{($=_{Rs}$)} \\ \cline{1-1}
+ r=s(v), x\Incl v, \Gamma\Seq\Delta, q\Incl t(s(v)) 
+ \end{array} \right . \convd
+  D^* \left \{ \begin{array}{cl}
+  D' \left \{ \begin{array}{cl}
+    D_1 \left \{ \begin{array}{cl}
+ \vdots       \\ 
+ r=s(x), x\Incl v, \Gamma\Seq\Delta,q\Incl t(r) 
+  \end{array} \right . & \raisebox{-3.2ex}[1.5ex][0ex]{($W_a$)}  \\
+  \cline{1-1}
+ r=s(x), r=s(v), x\Incl v, \Gamma \Seq \Delta, q\Incl t(r)
+  & \raisebox{-1.2ex}[1.5ex][0ex]{($=_{Rs}$)} \\ \cline{1-1}
+ r=s(x), r=s(v), x\Incl v, \Gamma\Seq\Delta, q\Incl t(s(v))  \end{array}
+ \right . &  \\ \cline{1-1}
+ r=s(v), r=s(v), x\Incl v, \Gamma\Seq\Delta, q\Incl t(s(v)) 
+ & \raisebox{1.2ex}[1.5ex][0ex]{$\iLar$} 
+ \end{array} \right . \]
+The resulting application of $\iLa$ is the same as the original one -- hence reduced.
+The same transformation is applied if $\eRs$ substitutes $r$ for $s(v)$.
+ \item $R=\iLs$ :
+ \[ D \left \{ \begin{array}{cl}
+  D_1 \left \{ \begin{array}{c}
+               \vdots       \\ 
+               r=s, q\Incl u, \Gamma\Seq\Delta, u\Incl t(r) 
+            \end{array} \right . 
+          & \raisebox{-3.2ex}[1.5ex][0ex]{$\iLs$}  \\ \cline{1-1}
+ r=s, q\Incl u, \Gamma\Seq\Delta, q\Incl t(r) &
+ \raisebox{-1.2ex}[1.5ex][0ex]{($=_{Rs}$)} \\ \cline{1-1}
+ r=s, q\Incl u, \Gamma\Seq\Delta, q\Incl t(s) 
+ \end{array} \right . \convd
+  D^* \left \{ \begin{array}{cl}
+  D' \left \{ \begin{array}{cl}
+    D_1 \left \{ \begin{array}{cl}
+ \vdots       \\ 
+ r=s, q\Incl u, \Gamma\Seq\Delta, u\Incl t(r) 
+  \end{array} \right . & \raisebox{-3.2ex}[1.5ex][0ex]{($=_{Rs}$)}  \\
+  \cline{1-1}
+ r=s, r=s(v), q\Incl u, \Gamma \Seq \Delta, u\Incl t(s) \end{array}
+ \right . &  \\ \cline{1-1}
+ r=s, q\Incl u, \Gamma\Seq\Delta, q\Incl t(s) 
+ & \raisebox{1.2ex}[1.5ex][0ex]{$\iLs$} 
+ \end{array} \right . \]
+% Since $h(D')<h(D)$, the induction hypothesis yields a desired derivation.
+\item $R=\iRsr$
+\[\sma{\prarc{
+f(p)=s, x\Incl p,\GSD, t\Incl q(f(x)) \cl
+f(p)=s, x\Incl p,\GSD, t\Incl q(f(p)) & \rabove{\iRsr} \cl
+f(p)=s, x\Incl p,\GSD, t\Incl q(s) & \rabove{\eRs}
+}
+\conv
+\prarc{
+f(p)=s,f(x)=s, x\Incl p,\GSD, t\Incl q(f(x)) \cl
+f(p)=s,f(x)=s, x\Incl p,\GSD, t\Incl q(s)  & \rabove{\eRs} \cl
+f(p)=s,f(p)=s, x\Incl p,\GSD, t\Incl q(s)  & \rabove{\iLar} 
+} }
+\]
+\[\sma{ \prarc{
+x\Incl f(s), s=r, \GSD, t\Incl q(x) \cl
+x\Incl f(s), s=r, \GSD, t\Incl q(f(s)) &\rabove{\iRsr} \cl
+x\Incl f(s), s=r, \GSD, t\Incl q(f(r)) &\rabove{\eRs} 
+}
+\conv
+\prarc{
+x\Incl f(r), x\Incl f(s), s=r, \GSD, t\Incl q(x) \cl
+x\Incl f(r), x\Incl f(s), s=r, \GSD, t\Incl q(f(r)) &\rabove{\iRs} \cl
+x\Incl f(s), x\Incl f(s), s=r, \GSD, t\Incl q(f(r)) &\rabove{\eRar}
+} }
+\]
+In both cases, since the original application of $\iRsr$ is reduced, so are
+the resulting applications of $\iLar$ and $\eRar$.
+ \item The other cases are easily swapped as in lemma ~\ref{fa:noeRs}.
+\end{LS}
+%
+So the case when the uppermost application is $\iRsnr$.
+%\ref{fa:noeRs} we assume that $D$ contains no 
+%$\eRs$.
+For the axiom we have the following case ($y$ is a fresh variable):
+\[
+\prarc{
+s\Incl t, x\Incl q(s),\GSD, x\Incl q(s) \cl
+s\Incl t, x\Incl q(s),\GSD, x\Incl q(t) & \rabove{\iRsnr}
+} \conv
+\prarc{
+y\Incl s, y\Incl t, x\Incl q(y), \GSD, x\Incl q(y) \cl
+y\Incl s, y\Incl t, x\Incl q(y), \GSD, x\Incl q(t) & \rabove{\iRsr} \cl
+y\Incl s, s\Incl t, x\Incl q(y), \GSD, x\Incl q(t) & \rabove{\iLar} \cl
+          s\Incl t, x\Incl q(y), \GSD, x\Incl q(t) & \rabove{\Ear}
+}
+\]
+Consider the rule applied just above $\iRsnr$.
+\begin{LS}
+\item $\iRsr$ -- we choose a fresh variable $y$
+\[\prarc{
+s\Incl t, x\Incl f(s),\GSD, p\Incl q(x) \cl
+s\Incl t, x\Incl f(s),\GSD, p\Incl q(f(s)) & \rabove{\iRsr} \cl
+s\Incl t, x\Incl f(s),\GSD, p\Incl q(f(t)) & \rabove{\iRsnr} 
+} \convd
+\prarc{
+y\Incl s, y\Incl t, x\Incl f(y), s\Incl t, x\Incl f(s),\GSD, p\Incl q(x) \cl
+y\Incl s, y\Incl t, x\Incl f(y), s\Incl t, x\Incl f(s),\GSD, p\Incl 
+q(f(y)) & \rabove{\iRsr} \cl
+y\Incl s, y\Incl t, x\Incl f(y), s\Incl t, x\Incl f(s),\GSD, p\Incl 
+q(f(t)) & \rabove{\iRsr} \cl
+y\Incl s, s\Incl t, x\Incl f(y), s\Incl t, x\Incl f(s),\GSD, p\Incl 
+q(f(t)) & \rabove{\iLar} \cl
+      s\Incl t, x\Incl f(s), s\Incl t, x\Incl f(s),\GSD, p\Incl 
+q(f(t)) & \rabove{\Ear}
+}
+\]
+Another case is as follows:
+\[\sma{ \prarc{
+f(s)\Incl f(t), x\Incl s,\GSD, p\Incl q(f(x)) \cl
+f(s)\Incl f(t), x\Incl s,\GSD, p\Incl q(f(s)) & \rabove{\iRsr} \cl
+f(s)\Incl f(t), x\Incl s,\GSD, p\Incl q(f(t)) & \rabove{\iRsnr} 
+} }\convd
+\sma{ \prarc{
+f(x)\Incl f(t), f(s)\Incl f(t), x\Incl s,\GSD, p\Incl q(f(x)) \cl
+f(x)\Incl f(t), f(s)\Incl f(t), x\Incl s,\GSD, p\Incl q(f(t)) & \rabove{\iRsnr} \cl
+f(s)\Incl f(t), f(s)\Incl f(t), x\Incl s,\GSD, p\Incl q(f(t)) & \rabove{\iLar} 
+} }
+\]
+The new application of $\iLar$ is reduced.
+\item $\iLar$ or $\eLar$ are treated analogously
+\[\sma{ \prarc{
+p(x)\Incl q, x\preceq t,\GSD, r\Incl f(p(t)) \cl
+p(t)\Incl q, x\preceq t,\GSD, r\Incl f(p(t)) &\rabove{\pLar} \cl
+p(t)\Incl q, x\preceq t,\GSD, r\Incl f(q) &\rabove{\iRsnr} 
+} \conv
+\prarc{
+p(t)\Incl q, p(x)\Incl q, x\preceq t,\GSD, r\Incl f(p(t)) \cl
+p(t)\Incl q, p(x)\Incl q, x\preceq t,\GSD, r\Incl f(q) & \rabove{\iRsnr} \cl
+p(t)\Incl q, p(t)\Incl q, x\preceq t,\GSD, r\Incl f(q) & \rabove{\pLar}
+} }
+\]
+\item $\eRar$ -- since this requires a variable in the LHS of the modified 
+formula, the subsequent application will be reduced $\iRsr$:
+\[\prar{
+x\Incl t(p), p=r, \GSD, w\Incl q(x) \cl
+x\Incl t(r), p=r, \GSD, w\Incl q(x) & \rabove{\eRa} \cl
+x\Incl t(r), p=r, \GSD, w\Incl q(t(r)) & \rabove{\iRsr} 
+}
+%\conv
+%\prar{
+%s\Incl t(r), s\Incl t(p), p=r, \GSD, w\Incl q(s) \cl
+%s\Incl t(r), s\Incl t(p), p=r, \GSD, w\Incl q(t(r)) & \rabove{\iRsnr} \cl
+%s\Incl t(r), s\Incl t(r), p=r, \GSD, w\Incl q(t(r)) & \rabove{\eRa}
+%} 
+\]
+\item $\Esr$
+\[\sma{ \prar{
+x\Incl t, q(t)\Incl p,\GSD, r\Incl w(q(x)) \cl
+x\Incl t, q(t)\Incl p,\GSD, r\Incl w(q(t))  & \rabove{\Esr} \cl
+x\Incl t, q(t)\Incl p,\GSD, r\Incl w(p)  & \rabove{\iRsnr}
+} \conv
+\prar{
+x\Incl t, q(x)\Incl p, q(t)\Incl p,\GSD, r\Incl w(q(x)) \cl
+x\Incl t, q(x)\Incl p, q(t)\Incl p,\GSD, r\Incl w(p))  & \rabove{\iRsnr} \cl
+x\Incl t, q(t)\Incl p, q(t)\Incl p,\GSD, r\Incl w(p))  & \rabove{\iLar} \cl
+x\Incl t, q(t)\Incl p, q(t)\Incl p,\GSD, r\Incl w(p))  & \rabove{\Esr} 
+} }
+\]
+\item The rules $\eLs$ and $\iLs$ can be trivially swapped since they affect only
+the LHS of the inclusion in the consequent. The rule $\Ear$ requires
+a variable in the LHS of the modified formula, so if this formula is active in a 
+subsequent application of $\iRs$ this must be $\iRsr$. By the assumption, we do not
+have applications of $\eRs$. $(cut_x)$ and $(Sp.cut)$ can be trivially swapped.
+\end{LS}
+The new applications of $\pLa$ are all reduced and in case 2) are of the same kind
+as in the original derivation. Also, no new applications of $\eRa$ appear. 
+Hence $\#\pLanr$ and $\#\eRanr$ are not increased.
+\end{PROOF}
+
+%%\begin{LEMMA}\label{le:noeRsnr}
+%%$\der{NEQ_{4}}DS\ \impl\ \der{NEQ_{4}}{D^{*}}S$ and $D^*$ contains no 
+%%applications of 
+%%\[
+%%\eRsnr\ \ \ \mprule{s=t,\GSD, p\Incl q(s)}{s=t,\GSD,p\Incl q(t)}\ \ 
+%%s\not\in\Vars
+%%\]
+%%Moreover $\#(R,D^*) \leq \#(R,D)$ for $R$ any rule among
+%%$\pLanr$, $\eRanr$ and $\iRsnr$.
+%%\end{LEMMA}
+%%\begin{PROOF}
+%%By lemmas \ref{le:noar} and \ref{le:noiRsnr}, we assume that $D$ contains only 
+%%reduced applications of  $\iLar$, $\eRar$ and $\iRsr$.
+%%For an application to the axiom we have the following transformation:
+%%\[\prarc{
+%%s=t, x\Incl p(s),\GSD, x\Incl p(s) \cl
+%%s=t, x\Incl p(s),\GSD, x\Incl p(t) & \rabove{\eRsnr}
+%%} \conv
+%%\prarc{
+%%s=t, x\Incl p(t),\GSD, x\Incl p(t) \cl
+%%s=t, x\Incl p(s),\GSD, x\Incl p(t) & \rabove{\eRar}
+%%}
+%%\]
+%%Consider the last rule applied above the uppermost $\eRsnr$
+%%\begin{LS}
+%%\item $\iRsr$
+%%\[\sma{ \prarc{
+%%s=t, x\Incl p(s),\GSD, q\Incl f(x) \cl
+%%s=t, x\Incl p(s),\GSD, q\Incl f(p(s)) & \rabove{\iRsr} \cl
+%%s=t, x\Incl p(s),\GSD, q\Incl f(p(t)) & \rabove{\eRsnr} 
+%%} \mconv
+%%\prarc{
+%%x\Incl p(t), s=t, x\Incl p(s),\GSD, q\Incl f(x) \cl
+%%x\Incl p(t), s=t, x\Incl p(s),\GSD, q\Incl f(p(t)) &\rabove{\iRsr} \cl
+%%x\Incl p(s), s=t, x\Incl p(s),\GSD, q\Incl f(p(t)) &\rabove{\eRar} 
+%%} }
+%%\]
+%%\item $\iLar$
+%%\[\sma{ \prarc{
+%%s(x)=t, x\Incl r,\GSD, q\Incl f(s(r)) \cl
+%%s(r)=t, x\Incl r,\GSD, q\Incl f(s(r)) & \rabove{\iLar} \cl
+%%s(r)=t, x\Incl r,\GSD, q\Incl f(t) & \rabove{\eRsnr} 
+%%}\mconv
+%%\prarc{
+%%s(r)=t, s(x)=t, x\Incl r,\GSD, q\Incl f(s(r)) \cl
+%%s(r)=t, s(x)=t, x\Incl r,\GSD, q\Incl f(t) &\rabove{\eRsnr} \cl
+%%s(r)=t, s(r)=t, x\Incl r,\GSD, q\Incl f(t) &\rabove{\iLar}
+%%} }
+%%\]
+%%\item $\eRsr$
+%%\[\sma{ \prarc{
+%%x=q(s), t=s, \GSD, w\Incl f(x) \cl
+%%x=q(s), t=s, \GSD, w\Incl f(q(s)) & \rabove{\eRsr} \cl
+%%x=q(s), t=s, \GSD, w\Incl f(q(t)) & \rabove{\eRsnr} 
+%%} \mconv
+%%\prarc{
+%%x\Incl q(t), x=q(s), t=s, \GSD, w\Incl f(x) \cl
+%%x\Incl q(t), x=q(s), t=s, \GSD, w\Incl f(q(t)) & \rabove{\iRsr} \cl
+%%x\Incl q(s), x=q(s), t=s, \GSD, w\Incl f(q(t)) & \rabove{\eRar} \cl
+%%x\Incl x, x=q(s), t=s, \GSD, w\Incl f(q(t)) & \rabove{\eRar} \cl
+%%x=q(s), t=s, \GSD, w\Incl f(q(t)) & \rabove{(cut_x)} 
+%%} }
+%%\]
+%%\item $\Esr$
+%%\[\sma{ \prar{
+%%x\Incl q(s), s=t, \GSD, w\Incl f(x) \cl
+%% s=t, \GSD, w\Incl f(q(s)) & \rabove{\Esr} \cl
+%% s=t, \GSD, w\Incl f(q(t)) & \rabove{\eRsnr}
+%%} \mconv
+%%\prar{
+%%x\Incl q(t), x\Incl q(s), s=t, \GSD, w\Incl f(x) \cl
+%%x\Incl q(t), x\Incl q(s), s=t, \GSD, w\Incl f(q(t)) & \rabove{\iRsr} \cl
+%%x\Incl q(s), x\Incl q(s), s=t, \GSD, w\Incl f(q(t)) & \rabove{\eRar} \cl
+%%             x\Incl q(s), s=t, \GSD, w\Incl f(q(t)) \cl
+%%              s=t, \GSD, w\Incl f(q(t)) & \rabove{\Esr} 
+%%} }
+%%\]
+%%\item Other rules can be easily swapped: 
+%%$\iLs$ and $\eLs$ modify only LHS of $\Incl$; $\Ear$, $\eRar$ and $\eLar$ modify an 
+%%inclusion, i.e., not the active formula of a subsequent application of $\eRsnr$;
+%%$(cut_x)$ and $(Sp.cut)$ are obvious.
+%%\end{LS}
+%%As we see, no new non-reduced applications appear in the transformed derivations, 
+%%so the side condition of the lemma is satisfied.
+%%\end{PROOF}
+\begin{REMARK}\label{re:crucial}
+%The side-conditions of lemmas \ref{fa:noeRs} and 
+Lemma \ref{le:nosx} allows us to 
+conclude that the applications of $\eRs$, $\eLs$ and $\iLs$ can be
+eliminated from any derivation in $NEQ_4$.
+
+Similarly, though alternatively, combining lemmas~\ref{le:noar} and \ref{le:noiRsnr} 
+%and \ref{le:noeRsnr}
+-- in this order, and with their side-conditions -- allows us to conclude 
+that the applications of $\iLanr$, $\eRanr$, $\eRs$ and $\iRsnr$ can be 
+eliminated. 
+
+These two facts will be of crucial importance in the proof of cut-elimination in
+\ref{sub:cut}.
+\end{REMARK}
+%
+\subsection{Equivalence $NEQ_{4}\equiv NEQ_{3}$}\label{sub:equiv}
+The rules of $NEQ_{4}$ are merely restricted versions of the rules of 
+$NEQ_{3}$, so we trivially have $NEQ_{4}\impl NEQ_{3}$. For the 
+opposite implication, we need to show admissibility in $NEQ_{4}$ of 
+the unrestricted rules. Lemma~\ref{le:noeqeq} showed admissibility 
+of $\eae$ and lemma~\ref{le:noLanr} of $\eLanr$. 
+We now show admissibility in $NEQ_{4}$ of the remaining rules $(E_{ax})$, $(E_{sx})$ 
+and $(cut_{t})$. % and $(cut_{x=})$ 
+
+\begin{LEMMA}\label{le:noEad}\label{le:noEsd} 
+% $\der{NEQ_4}DS\ \impl\ \der{NEQ_4}{D'}S$ and $D'$ uses no applications of 
+The rules $\Eax$ and $\Esx$ are admissible in $NEQ_4$.
+\end{LEMMA}
+\begin{PROOF}
+Consider first the uppermost application of $\Eax$.
+Renaming the eigen-variable $z$ in the whole $D_1$ to $x$, and applying ($cut_x$)
+to the result of $D_1'$, we get the desired result. (Remember that we may have $r(z)=z$.)
+\[ \begin{array}{cl}
+D_1 \left \{ \begin{array}{c}
+ \vdots \\
+ z\Incl x, y\Incl r(z), \Gamma\Seq\Delta \end{array} \right . \\ \cline{1-1}
+ y \Incl r(x), \Gamma\Seq\Delta & \rabove{\Eax}
+\end{array} 
+\conv
+\begin{array}{cl}
+D_1' \left \{ \begin{array}{c}
+ \vdots \\
+ x\Incl x, y\Incl r(x), \Gamma\Seq\Delta \end{array} \right . \\ \cline{1-1}
+ y \Incl r(x), \Gamma\Seq\Delta & \raisebox{1.2ex}[1.5ex][0ex]{$(cut_x)$}
+\end{array} \]
+In a similar way, we consider the uppermost application of $\Esx$:
+\[ \begin{array}{cl}
+D\left\{ \begin{array}{c}
+ \vdots \\
+ \Gamma,x\Incl y\Seq\Delta \end{array} \right. \\ \cline{1-1}
+ \Gamma\Seq\Delta_y^x  &  \raisebox{1.2ex}[1.5ex][0ex]{($E_{sx}$)}
+\end{array} \]
+In all applications of $\Esr$ and $\Ear$ in $D$, replace the
+eigen-variables so that they differ from the eigen-variable $x$ and from $y$. 
+In the obtained
+derivation, replace all the occurrences of $x$ by $y$. In this way, we 
+obtain a derivation of $\Gamma,y\Incl y\Seq\Delta_y^x$. 
+Application of ($cut_x$) gives the desired derivation $D^*$ of the
+sequent $\Gamma\Seq\Delta_y^x$ 
+without using degenerated applications of ($E_{sx}$).
+\end{PROOF}
+%
+%% \begin{LEMMA}\label{le:noEsd} 
+%% The rule ($E_{sx}$) is admissible in $NEQ_4$.
+%% \end{LEMMA}
+%% \begin{PROOF}
+%% By induction on the number of applications of ($E_{sx}$) in a given
+%% derivation $D$. Consider the uppermost application:
+%% \[ \begin{array}{cl}
+%% D\left\{ \begin{array}{c}
+%%  \vdots \\
+%%  \Gamma,x\Incl y\Seq\Delta \end{array} \right. \\ \cline{1-1}
+%%  \Gamma\Seq\Delta_y^x  &  \raisebox{1.2ex}[1.5ex][0ex]{($E_{sx}$)}
+%% \end{array} \]
+%% In all applications of $\Esr$ and $\Ear$ in $D$, replace the
+%% eigen-variables so that they differ from the eigen-variable $x$ and from $y$. 
+%% In the obtained
+%% derivation, replace all the occurrences of $x$ by $y$. In this way, we 
+%% obtain a derivation of $\Gamma,y\Incl y\Seq\Delta_y^x$. 
+%% Application of ($cut_x$) gives the desired derivation $D^*$ of the
+%% sequent $\Gamma\Seq\Delta_y^x$ 
+%% without using degenerated applications of ($E_{sx}$).
+%% \end{PROOF}
+%
+%We show that ($cut_t$) is admissible in $NEQ_4$.
+\begin{LEMMA}\label{le:nott} $\der{NEQ_4}D{t\Incl t,\Gamma\Seq\Delta}  
+\ \ \Rightarrow \ \ \der{NEQ_4}{D^*}{\Gamma\Seq\Delta}$.
+%[$D^*$ does not introduce new applications of $(cut_{x=})$.]
+%, and $D^*$ does not use ($E_{sx}$) if $D$ does not use it.
+\end{LEMMA}
+\begin{PROOF} 
+By lemma~\ref{le:noar} %\ref{le:noLanr}, $\eLanr$,
+we assume that $D$ contains no applications of  $\iLanr$, $\eRanr$
+
+By induction on $\<\gamma[t],h(D)\>$, where $\gamma[t]$ is the complexity of 
+the term $t$ (defined in the usual way). 
+If $\gamma[t]=0$, i.e., $t$ is a variable $x$,  application of ($cut_x$) yields the 
+conclusion. This is all that may happen if $h(D)=1$, i.e. we merely modify once
+some axiom. (Superposition of the antecedent in $x\Incl t,\GSD,x\Incl t$ leads to
+$t\Incl t,x\Incl t,\GSD,x\Incl t$ -- removal of $t\Incl t$ yields the same axiom.)
+
+So let $\gamma[t]>0$ and $R$ be the last rule applied.
+ The only rules which may generate $t\Incl t$ in the antecedent
+are $\iLar$, $\Ear$ and $\eRar$ or
+$\eLar$. We consider these cases by looking at the rule $R_1$ applied just above
+%
+\begin{LS}
+\item $R$ is $\iLar$ and $D$ ends as shown below, where $t$ is $t(s)$:
+\[ D \left \{ \begin{array}{rl}
+\multicolumn{1}{c}{\vdots} \\ \cline{1-1}
+t(y)\Incl t(s), y\Incl s, \Gamma\Seq\Delta & \rabove{R_1} \\ \cline{1-1}
+t(s) \Incl t(s), y\Incl s, \GSD & \rabove{\iLar} \end{array} \right .\]
+%
+\begin{LSA}
+\item $R_1$ is $\iLar$: The two possibilities are that $t(y)\Incl t(s)$ was
+\ref{it:tact} active
+or \ref{it:tmod} modified in $R_1$. The former requires $t(y)$ to be the variable
+ $y$ and so $t(s)$ to be $s$.
+\begin{LSB}
+\item\label{it:tact} $y\Incl t$ was active:
+\[ \begin{array}{rl}
+\multicolumn{1}{c}{\vdots} \\ 
+y\Incl t, y\Incl t, q(y)\preceq p, \Gamma\Seq\Delta  \\ \cline{1-1}
+y\Incl t, y\Incl t, q(t)\preceq p, \Gamma\Seq\Delta & \rabove{\iLar} \\ \cline{1-1}
+t\Incl t, y\Incl t, q(t)\preceq p, \GSD & \rabove{\iLar} \end{array} \]
+Swapping the two applications gives a derivation with an earlier
+appearance of $t\Incl t$. 
+%
+\item\label{it:tmod} $y\Incl t$ was modified (we write it here in full as $t(y)\Incl t(p(q))$):
+\[ D \left \{ \begin{array}{rl}
+\multicolumn{1}{c}{\vdots} \\ 
+y\Incl p(x), t(y)\Incl t(p(q)), x\Incl q, \GSD \\ \cline{1-1}
+y\Incl p(x), t(p(x))\Incl t(p(q)), x\Incl q, \GSD & \rabove{\iLar} \\ \cline{1-1}
+y\Incl p(x), t(p(q))\Incl t(p(q)), x\Incl q, \GSD & \rabove{\iLar} \end{array} \right
+.\]
+We first use a weakened derivation with $y\Incl p(q)$
+\[ \begin{array}{cl}
+ D_1 \left \{ \begin{array}{rl}
+\multicolumn{1}{c}{\vdots} \\ 
+y\Incl p(q), y\Incl p(x), t(y)\Incl t(p(q)), x\Incl q, \GSD \\ \cline{1-1}
+y\Incl p(q), y\Incl p(x), t(p(q))\Incl t(p(q)), x\Incl q, \GSD & \rabove{\iLar} 
+ \end{array} \right . \\ \cline{1-1}
+p(x) \Incl p(q), y\Incl p(x), t(p(q))\Incl t(p(q)), x\Incl q, \GSD &
+\rabove{\iLar}  \\ \cline{1-1}
+p(q) \Incl p(q), y\Incl p(x), t(p(q))\Incl t(p(q)), x\Incl q, \GSD &
+\rabove{\iLar} \end{array} \]
+By induction on $h(D_1)<h(D)$ we can obtain the sequent concluding $D_1$ without
+ $t(p(q))\Incl t(p(q))$.
+Then, the final $p(q)\Incl p(q)$, can be eliminated by induction hypothesis
+on complexity of terms, since $\gamma[p(q)]< \gamma[t(p(q))]$.
+\end{LSB}
+%
+\item $R_1$ is $\Ear$:
+\[ \begin{array}{rl}
+x\Incl p, y\Incl t(x), y\Incl t(p), \GSD \\ \cline{1-1}
+ y\Incl t(p), y\Incl t(p), \GSD & \rabove{\Ear} \\ \cline{1-1}
+ t(p)\Incl t(p), y\Incl t(p), \GSD & \rabove{\iLar} \end{array} \convd
+%Weaken the derivation as follows:
+ \begin{array}{rl}
+x\Incl p, y\Incl t(x),    y\Incl t(p), y\Incl t(x),\GSD \\ \cline{1-1}
+x\Incl p, t(x)\Incl t(x), y\Incl t(p), y\Incl t(x),\GSD & \rabove{\iLar} \\ \cline{1-1}
+ t(x)\Incl t(x), y\Incl t(p), y\Incl t(p),\GSD & \rabove{\Ear} \end{array} \]
+Induction on complexity (or height) gives the conclusion (having 
+eliminated $t(x)\Incl t(x)$ the application of $\Ear$ becomes correct).
+%
+\item $R$ is $\eRar$:
+\[ \begin{array}{rl}
+ y\Incl t(s), y\Incl t(p), p=s, \GSD \\ \cline{1-1}
+ y\Incl t(p), y\Incl t(p), p=s, \GSD & \rabove{\eRar} \\ \cline{1-1}
+ t(p)\Incl t(p), y\Incl t(p), p=s, \GSD & \rabove{\iLar} \end{array} \]
+Weakening the derivation  with $y\Incl t(s)$ (if $\gamma[t(s)]<\gamma[t(p)]$,
+and with $y\Incl t(p)$ otherwise), we obtain:
+\[ \begin{array}{rl}
+y\Incl t(s), y\Incl t(s), y\Incl t(p), p=s, \GSD \\ \cline{1-1}
+ t(s)\Incl t(s), y\Incl t(s), y\Incl t(p), p=s, \GSD & \rabove{\iLar} \\ \cline{1-1}
+ t(s)\Incl t(s), y\Incl t(p), y\Incl t(p), p=s, \GSD & \rabove{\eRar} \end{array} \]
+Induction on height gives the conclusion. 
+%
+\item $R$ is $\eLar$:
+\[ D \left \{ \begin{array}{rl}
+t(x)\Incl t(s(p)), x=s(y), y\Incl p, \GSD \\ \cline{1-1}
+t(s(y))\Incl t(s(p)), x=s(y), y\Incl p, \GSD & \rabove{\eLar} \\
+\cline{1-1}
+t(s(p))\Incl t(s(p)), x=s(y), y\Incl p, \GSD & \rabove{\iLar} \end{array}
+\right . \convd
+%Weakening $D$ we may obtain:
+ \begin{array}{cl}
+D_1 \left \{ \begin{array}{rl}
+x\Incl s(p), t(x)\Incl t(s(p)), x=s(y), y\Incl p, \GSD \\ \cline{1-1}
+x\Incl s(p), t(s(p))\Incl t(s(p)), x=s(y), y\Incl p, \GSD & \rabove{\iLar} \end{array}
+\right . \\ \cline{1-1}
+s(y)\Incl s(p), t(s(p))\Incl t(s(p)), x=s(y), y\Incl p, \GSD &
+\rabove{\eLar} \\ \cline{1-1}
+s(p)\Incl s(p), t(s(p))\Incl t(s(p)), x=s(y), y\Incl p, \GSD &
+\rabove{\iLar} \end{array} \]
+Occurence of $t(s(p))\Incl t(s(p))$ in $D_1$ can be eliminated by induction
+hypothesis $h(D_1)<h(D)$, and of $s(p)\Incl s(p)$ by $\gamma[s(p)] < \gamma[t(s(p))]$.
+%
+\item All the remaining cases can be easily swapped yielding an earlier
+occurrence of $t\Incl t$.
+
+$\Esr$ :  Since the active and the side formula of the subsequent
+$\iLar$ have to share a variable in the LHS, neither might be active in 
+this application of $\Esr$.
+
+$\iLs$, $\iRs$ : Activity of $t(y)\Incl t(s)$ in this rule, can be simulated by
+the activity of $y\Incl s$ which also must be present.
+
+$\eLs$, $\eRs$, ($Sp.cut$), ($cut_x$) and $(cut_{x=})$ are trivial.
+\end{LSA}
+%
+\item  $R$ is $\eLar$ and $D$ ends as shown below :
+\[ D \left \{ \begin{array}{rl}
+\multicolumn{1}{c}{\vdots} \\ \cline{1-1}
+t(y)\Incl t(s), y=s, \Gamma\Seq\Delta & \rabove{R_1} \\ \cline{1-1}
+t(s) \Incl t(s), y=s, \GSD & \rabove{\eLar} \end{array} \right .\]
+%
+\begin{LSA}
+%
+\item $R_1$ is $\iLar$ The two possibilities are that $t'(y)\Incl t$ was
+\ref{it:yact} active
+or \ref{it:ymod} modified in $R_1$. The former requires $t'(y)$ to be the variable
+$y$.
+\begin{LSB}
+\item\label{it:yact} $y\Incl t$ active:
+\[ D \left \{ \begin{array}{rl}
+\multicolumn{1}{c}{\vdots} \\ 
+y\Incl t, y=t, q(y)\preceq p, \Gamma\Seq\Delta  \\ \cline{1-1}
+y\Incl t, y=t, q(t)\preceq p, \Gamma\Seq\Delta & \rabove{\iLar} \\ \cline{1-1}
+t \Incl t, y=t, q(t)\preceq p, \GSD & \rabove{\eLar} \end{array} \right
+. \convd
+%Instead, we may use
+  \begin{array}{cl} D_1 \left \{ \begin{array}{rl}
+\multicolumn{1}{c}{\vdots} \\ 
+y\Incl t, y=t, q(y)\preceq p, \Gamma\Seq\Delta  \\ \cline{1-1}
+t\Incl t, y=t, q(y)\preceq p, \Gamma\Seq\Delta & \rabove{\eLar} \end{array}
+\right . \\ \cline{1-1}
+t \Incl t, y=t, q(t)\preceq p, \GSD & \rabove{\eLar} \end{array} \]
+and induction hypothesis, $h(D_1)<h(D)$, gives the conclusion. 
+%\begin{REMARK}
+%This merely exemplifies  the fact that activity of $y\Incl t$, can be
+%simulated by activity of $y=t$: in 
+ %\end{REMARK}
+%
+\item\label{it:ymod} $y\Incl t$ was modified (we write it as $q(y)\Incl q(p(t))$)
+\[ D \left \{ \begin{array}{rl}
+\multicolumn{1}{c}{\vdots} \\ 
+y\Incl p(x), q(y)\Incl q(p(t)), x=t, \GSD \\ \cline{1-1}
+y\Incl p(x), q(p(x))\Incl q(p(t)), x=t, \GSD & \rabove{\iLar} \\ \cline{1-1}
+y\Incl p(x), q(p(t))\Incl q(p(t)), x=t, \GSD & \rabove{\eLar} \end{array} \right
+. \convd
+%Then we derive the same sequent
+ D' \left \{ \begin{array}{cl} D_1 \left \{ \begin{array}{rl}
+\multicolumn{1}{c}{\vdots} \\ 
+y\Incl p(t), y\Incl p(x), q(y)\Incl q(p(t)), x=t, \GSD \\ \cline{1-1}
+y\Incl p(t), y\Incl p(x), q(p(t))\Incl q(p(t)), x=t, \GSD & \rabove{\iLar} \end{array}
+\right . \\ \cline{1-1}
+y\Incl p(x), y\Incl p(x), q(p(t))\Incl q(p(t)), x=t, \GSD & \rabove{\eRar} \end{array} \right
+.\]
+\end{LSB}
+%
+\item $R_1$ is $\Ear$
+\[ D \left \{ \begin{array}{rl}
+x\Incl p, y\Incl t(x), t(p)=y, \GSD \\ \cline{1-1}
+y\Incl t(p), t(p)=y, \GSD  & \rabove{\Ear} \\ \cline{1-1}
+t(p)\Incl t(p), t(p)=y, \GSD  & \rabove{\eLar} \end{array} \right. \convd
+%Construct:
+ D' \left \{ \begin{array}{rl}
+x\Incl p, y\Incl t(x), t(p)=y, \GSD \\ \cline{1-1}
+y\Incl t(p), t(p)=y, \GSD  & \rabove{\Ear} \\ \cline{1-1}
+y\Incl y, t(p)=y, \GSD  & \rabove{\eRar} \end{array} \right . \]
+and $y\Incl y$ can be eliminated by induction hypothesis on $\gamma[t]$.
+%
+\item $R_1$ is $\eRar$ Then LHS of the side inclusion must be a variable,
+i.e., 
+\[ D \left \{ \begin{array}{rl}
+y\Incl t(p), p=q, y=t(q), \GSD \\ \cline{1-1}
+y\Incl t(q), p=q, y=t(q), \GSD & \rabove{\eRar} \\ \cline{1-1}
+t(q)\Incl t(q), p=q, y=t(q), \GSD & \rabove{\eLar} \end{array} \right . \convd
+%We construct $D'$ as follows:
+ D' \left \{ \begin{array}{cl}
+  D_1 \left \{ \begin{array}{rl}
+ y\Incl t(p), p=q, y=t(q), y=t(p), \GSD \\ \cline{1-1}
+t(p)\Incl t(p), p=q, y=t(q), y=t(p), \GSD & \rabove{\eLar} 
+\end{array} \right . \\ \cline{1-1}
+t(p)\Incl t(p), p=q, y=t(q), y=t(q), \GSD & \rabove{(=_{a=})} 
+\end{array} \right . \]
+ $h(D_1)<h(D)$ yields the conclusion.
+%
+\item $R_1$ is $\eLar$ 
+\[ D \left \{ \begin{array}{rl}
+ t(x)\Incl t(s(p)), y=p, x=s(y), \GSD \\ \cline{1-1}
+ t(s(y))\Incl t(s(p)), y=p, x=s(y), \GSD & \rabove{\eLar} \\ \cline{1-1}
+ t(s(p))\Incl t(s(p)), y=p, x=s(y), \GSD & \rabove{\eLar} \end{array}
+ \right . \convd
+%Weakening we get:
+ \begin{array}{cl} D_1 \left \{ \begin{array}{rl}
+ x=s(p), t(x)\Incl t(s(p)), y=p, x=s(y), \GSD \\ \cline{1-1} 
+ x=s(p), t(s(p))\Incl t(s(p)), y=p, x=s(y), \GSD & \rabove{\eLar} 
+\end{array} \right .  \\ \cline{1-1}
+ x=s(y), t(s(p))\Incl t(s(p)), y=p, x=s(y), \GSD & \rabove{(=_{a=})} 
+\end{array} \]
+ $h(D_1)<h(D)$ gives the conclusion. \\
+In the last two cases we have used lemma~\ref{le:noeqeq} which admits $\eae$.
+
+%
+\item All other cases of $R_1$ can be easily swapped leading to an earlier
+occurrence of $t\Incl t$ (cf. the end of case 1. for $R$ = $\iLar$)
+%
+\end{LSA}
+%
+\item  $R$ is $\Ear$ This would require a degenerate application of this
+rule which does not belong to $NEQ_4$ (cf. lemma \ref{le:noEad}). 
+%
+\item  $R$ is $\eRar$ Since this requires a variable in the LHS, we are
+back in the ground case for $\gamma[t]=0$.
+\end{LS}
+%As we see, no new applications of $(cut_{x=})$ appear in the transformed derivations.
+\end{PROOF}
+
+\noindent
+The remark at the very begining of this section \ref{sub:equiv}, together with lemmas
+\ref{le:noeqeq}, \ref{le:noLanr}, \ref{le:noEsd} and
+\ref{le:nott} (showing the admissibility of the 
+missing $NEQ_{3}$ rules in $NEQ_{4}$), give us the first part of the 
+following fact from which the second follows trivially.
+\begin{CLAIM}\label{le:neq3isneq4}
+$NEQ_3\equiv NEQ_4$, and thus, also $NEQ_{3}^{c}\equiv NEQ_{4}^{c}$.
+\end{CLAIM}
+% \noindent
+% As an immediate corollary of this lemma, we have a strengthening of 
+% lemma~\ref{le:neq3cisneq4c}: 
+% \begin{COROLLARY}\label{co:neq3isneq4}
+% $NEQ_3\equiv NEQ_4$.
+% \end{COROLLARY}
+% Thus, rules admissible in $NEQ_3$ are admissible in $NEQ_4$ too.
+
+%
+%% \begin{LEMMA}\label{le:noErsd} $\der{NEQ_4}DS\ \impl\ \der{NEQ_4}{D^*}S$
+%% and $D^*$ contains no applications of ($E_{Rsd}$).
+%% \end{LEMMA}
+%% \begin{PROOF}
+%% By induction on the number of applications of ($E_{Rsd}$) in a given
+%% derivation $D$. 
+%% By lemma~\ref{le:noar} we assume no applications of $\eRanr$ or $\iLanr$ in $D$.
+%% %By lemma~\ref{le:noEad} %, resp. \ref{le:noEsd} 
+%% %we assume that $D$ contains no applications of $(E_{ax})$.
+%% %, resp. $(E_{sx})$ 
+%% \[ \begin{array}{cl}
+%% D_1\left\{ \begin{array}{cl}
+%%  \vdots & \\ \cline{1-1}
+%%  x\Incl t,\GSD,p\preceq x & \raisebox{1.2ex}[1.5ex][0ex]{$R$}\end{array} \right. \\ \cline{1-1}
+%%  \GSD,p\preceq t  &  \raisebox{1.2ex}[1.5ex][0ex]{($E_{Rsd}$)}
+%% \end{array} \]
+%% \begin{LS}
+%% \item $R$ is $\eRar$ %$(=_{Rar})$
+%% \[ \begin{array}{cl}
+%% s=r, x\Incl t(r),\GSD, p\preceq x  & \\ \cline{1-1}
+%% s=r, x\Incl t(s),\GSD,p\preceq x & \rabove{\eRar} \\ \cline{1-1}
+%% s=r,\GSD,p\preceq t(s)  &  \rabove{(E_{Rsd})}
+%% \end{array} 
+%% \conv 
+%% \begin{array}{cl}
+%%  s=r,x\Incl t(r),\GSD, p\preceq x  & \\ \cline{1-1}
+%%  s=r, \GSD,p\preceq t(r) & \rabove{(E_{Rsd})} \\ \cline{1-1}
+%%  s=r, \GSD,p\preceq t(s) & \rabove{\eRs} 
+%% \end{array}
+%% \]
+%% ($E_{Rsd}$) can be eliminated by induction on $h(D)$. 
+%% %The application of ($=_{Rs}$), admissible in $NEQ_3$ (lemma~\ref{le:noeqSD}) and, 
+%% %by corollary~\ref{le:neq3cisneq4c} in $NEQ_4$, does not then introduce any new
+%% %applications of $E_s$ by the qualification in lemma~\ref{le:noeqSD}.
+%% \item $R$ is $\iLar$ 
+%% \[ \begin{array}{cl}
+%% x\Incl t, w(x)\Incl q,\GSD, p\preceq x  & \\ \cline{1-1}
+%% x\Incl t, w(t)\Incl q,\GSD,p\preceq x & \rabove{\iLar} \\ \cline{1-1}
+%% w(t)\Incl q, \GSD,p\preceq t  &  \rabove{(E_{Rsd})}
+%% \end{array} 
+%% \conv 
+%% \begin{array}{cl}
+%% x\Incl t, w(x)\Incl q,\GSD, p\preceq x  & \\ \cline{1-1}
+%% x\Incl t, w(x)\Incl q,\GSD,p\preceq t & \rabove{(E_{Rsd})} \\ \cline{1-1}
+%% w(t)\Incl q, \GSD,p\preceq t  &  \rabove{\iLar}
+%% \end{array}
+%% \]
+%% \item $R$ is $(E_a)$ 
+%% \[ \begin{array}{cl}
+%% x\Incl t(z), z\Incl q,\GSD, p\preceq x  & \\ \cline{1-1}
+%% x\Incl t(q), \GSD,p\preceq x & \raisebox{1.2ex}[1.5ex][0ex]{($E_{a}$)} \\ \cline{1-1}
+%%  \GSD,p\preceq t(q)  &  \raisebox{1.2ex}[1.5ex][0ex]{($E_{Rsd}$)}
+%% \end{array} 
+%% \conv 
+%% \begin{array}{cl}
+%% x\Incl t(z), z\Incl q,\GSD, p\preceq x  & \\ \cline{1-1}
+%% z\Incl t(q), \GSD,p\preceq t(z) & \raisebox{1.2ex}[1.5ex][0ex]{($E_{Rsd}$)} \\ \cline{1-1}
+%%  \GSD,p\preceq t(q) & \raisebox{1.2ex}[1.5ex][0ex]{($E_{s}$)} 
+%% \end{array}
+%% \]
+%% By lemma~\ref{le:noEad} the application of $(E_a)$ is not $(E_{ax})$, i.e. $t(z)\not=z$.
+%% Hence, the resulting application of $(E_s)$ is not $(E_{Rsd})$.
+%% \end{LS}
+%% The rest is simple. $(=_{Lar})$ cannot result in $x\Incl t$, so it can be swapped.
+%% Similarly, $(\preceq_{sr})$ modify at most LHS in the consequent, and $(E_s)$ involves 
+%% another eigen-variable, so they can be swapped.
+%% as well.
+%% \end{PROOF}
+
+\subsection{Admissibility of ($cut$).}\label{sub:cut}
+Referring to the remark~\ref{re:crucial}, 
+in the following proof of ($cut$)-elimination, 
+we may introduce additional
+\\[1ex]
+\noindent
+{\bf Assumptions:} If $\der{NEQ_4}DS$ then $\der{NEQ_4}{D^*}S$ where $D^*$ contains 
+\vspace*{1ex}
+%Any derivation $D$ in $NEQ_4$ can be transformed so that
+%it contains
+
+\hspace*{-1em}\begin{tabular}{rll}
+1.& either no $\eRs$, $\eLs$, $\iLs$ 
+ & lemma  \ref{le:nosx} (\ref{fa:noeRs}) \\ % subsection \\
+2.& or no $\iLanr$, $\eRanr$, $\eRs$, $\iRsnr$
+ & lemma \ref{le:noar}, \ref{le:noiRsnr} \\[.5ex]
+% (3.)& no formula $x=x$ in the antecedent & lemma \ref{le:noxx} \\
+% (4.)& no formula $t\Incl t$ in the antecedent & lemma \ref{le:nott} \\[.5ex]
+\multicolumn{3}{l}{\hspace*{-1em}Also, $NEQ_4$ admits the rules} \\[.5ex]
+3.& $\eae$, $\iLanr$, $\eRanr$, $\eLanr$  and $\iRa$ 
+ & lemma \ref{le:noeqeq}, \ref{le:noar}, \ref{le:noLanr}, \ref{le:inclaad} 
+ \\[.5ex]
+& without increasing the total number of $\iLar$ and $\eLar$  \\[.5ex]
+4.& $(cut_t)$    %and $(cut_{x=})$ 
+  & lemma \ref{le:nott} % \ref{le:noxx}
+\end{tabular} 
+
+ \input{proof}
+%
+\noindent
+The proposition yields the problematic implication of the 
+\begin{THEOREM}\label{th:neq4cisneq4}
+ $NEQ_4^c \equiv NEQ_4$ \end{THEOREM}
+Combined with proposition~\ref{le:neq3isneq4} (and the equivalences 
+from propositions~\ref{le:neqisneq1}, \ref{le:neq1isneq2} and \ref{le:neq2isneq3})
+we have also:
+\begin{COROLLARY}\label{co:Allequiv}
+$NEQ\equiv NEQ_3^c \equiv NEQ_4^c \equiv NEQ_4 \equiv NEQ_3$.
+\end{COROLLARY}
+

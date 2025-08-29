@@ -1,0 +1,136 @@
+\documentclass[10pt]{article}
+%%\documentstyle[a4wide,10pt]{article}
+\makeatletter
+\input{a4wide}
+\makeatother
+
+%%%\setlength{\textwidth}{17cm}
+%%%\setlength{\evensidemargin}{-.8cm}
+%%%\setlength{\oddsidemargin}{-.8cm}
+
+%% \makeatother
+\input{defs}
+\input xypic
+
+\title{Cut-Elimination and Other Gimmicks\\ for Logic of Nondeterminism}
+
+\author{ {\em Regimantas ~Pliu\v skevi\v cius}\ \thanks{Department of Mathematical Logic,
+Vilnius Institute of Mathematics and Informatics, Lithuania,
+{\sl \{logica@sedcs.mii2.lt\}}} \\
+{\em Micha{\l}~Walicki}\ \thanks{Department of Informatics, University of Bergen, 5020
+Bergen, Norway, {\sl \{michal@ii.uib.no\}}} \\
+{\em Jurate~Sakalauskait\.e }$^*$ \\
+{\em Aida~Pliu\v skevi\v cien\.e }$^*$ 
+}
+
+\begin{document}
+
+
+\input{neqA}
+
+\input{neqB}
+
+\input{neqC}
+
+\section{Related work.}\label{se:related}
+The first, to our knowledge, reasoning system for multialgebras was introduced 
+by Hu{\ss}mann in
+\cite{Hus}. It dealt only with simple (atomic) inclusions and, more significantly, 
+was not complete.
+A complete extension of this calculus was given in \cite{Mich}.
+The present system $NEQ_5$ is a significant improvement of the original
+calculi from \cite{Mich} and \cite{Top}, particularly, due to cut-freeness.
+
+Another cut-free, Gentzen-style calculus was introduced in \cite{BK95}.
+It addresses proofs of tautologies (no specific axioms) and so it is a counterpart
+of our $NEQ_6$.
+% -- $NEQ_5$ is essentially an extension of this system.
+\begin{itemize}\MyLPar
+\item 
+The main difference is that \cite{BK95} address partial multialgebras, i.e. ones where
+some terms may denote empty set. Our calculi work only for total algebras. 
+Nevertheless, it seems that partiality is captured by ...
+\item
+There are two differences in the language. The first one concerns
+the special ``let'' term-construction: `$let\ x:=t\ in\ f(x,x)$' is a possible term. 
+Although absent from our language, it is
+expressible, except for the cases when a term with $let$ occurs in the RHS
+of inclusion. 
+\item 
+On the other hand, our system
+deals not only with inclusion, but also with the determinisitc equality which
+is not a part of the language in \cite{BK95}.
+Thus, our results show that the
+only rules needed for their case are the first axiom and the inclusion rules
+from figure \ref{fi:neq6}.
+\item
+The proofs in the calculus from \cite{BK95} proceed essentially in a bottom-up 
+fashion by 1) replacing (sub)terms of concern by variables and introducing 
+additional assumptions about the relations between them, and then 2) performing 
+the deductions using rules handling variables. In general, this leads to complex
+proof-{\em trees} -- in $NEQ_6$ all the proofs are linear.
+\item
+The restrictions on the inclusion and elimination rules are essentially the same
+in both systems.
+However, we have
+made it explicit that the elimination rules (which are present in \cite{BK95}, 
+even though no specific axioms are admitted)
+are needed only in the presence of 
+specific axioms -- when no such axioms are involved they can be eliminated and $NEQ_6$
+is a complete system for deriving all multialgebraic tautologies.
+\end{itemize}
+The sufficiency of $\elNEQ$ is a significant strengthening of these earlier results.
+In addition, the cut-freeness of the system from \cite{BK95} corresponds to the 
+situations when
+no specific axioms are present (i.e., cut-freeness of $\elNEQ$). 
+We have shown how such axioms can be treated explicitly by
+the more specific cut rules instead of general cut. Finally, other rules of the 
+calculus have
+been given very specific restrictions. All these results enhance significantly 
+proof search.
+
+\subsection*{Acknowledgment}
+We thank Valentinas Kriau\v ciukas and Sigurd
+Meldal for the comments and help they provided during our work on this paper.
+
+The first three authors were supported by a grant from the Norwegian Research Council.
+
+\begin{thebibliography}{MM99}\MyLPar
+\bibitem[BK95]{BK95} M.~Bia{\l}asik, B.~Konikowska. 
+   {\em Reasoning with Nondeterministic Specifications,} Tech.~Rep. no.~793, IPI PAN, Warszawa,
+   (1995).
+\bibitem[Hus90]{Hus} H. Hu{\ss}mann, {\em Nondeterministic Algebraic Specifications},
+Ph.D. thesis, Fakult\"{a}t f\"{u}r Mathematik und Informatik, Universit\"{a}t Passau, 
+ (1990).
+\bibitem[Kan63]{K} S.~Kanger,
+   {\em A simplified proof method for elementary logic,}
+   in Comput. Progr. and Formal Systems, North-Holland, Amsterdam, (1963).
+\bibitem[Pli71]{Aida1} A.~Pliu\v skevi\v cien\.e, 
+   {\em Elimination of cut-type rules in axiomatic theories with equality,}
+   Seminars in mathematics V.A.Steklov Mathem. Inst., Leningrad, 16, 90-94, (1971).
+\bibitem[Pli73]{Aida2} A.~Pliu\v skevi\v cien\.e,
+   {\em Specialization of the use of axioms for deduction search in 
+   axiomatic theories with equality,}
+   J. Soviet Math., 1, (1973).
+\bibitem[PWM94]{LFCS} A.~Pliu\v skevi\v cien\.e, R.~Pliu\v skevi\v cius,
+   M.~Walicki, S.~Meldal,
+   {\em On specialization of derivations in axiomatic equality theories,}
+   in Proc. of LFCS'94, LNCS vol. 813, (1994).
+\bibitem[Wal93]{Mich} M.~Walicki,
+   {\em Algebraic Specifications of Nondeterminism,}
+   Ph.D. thesis, Institute of Informatics, University of Bergen, (1993).
+\bibitem[WB97]{WB} M.~Walicki, M.~Bia{\l}asik, {\em Relations, Multialgebras and 
+   Homomorphisms}, Tech.Rep., no~838, Polish Academy of Sciences, Institute of
+  CS, (1997).
+\bibitem[WB95]{Broy} M.~Walicki, M.~Broy, Structured Specifications and Implementation of
+   Nondeterministic Data Types, {\em Noric Journal of Computing}, vol.~2, (1995).
+\bibitem[WM95a]{WM} M.~Walicki, S.~Meldal, 
+   Multialgebras, Power Algebras and Complete Calculi of Identities and 
+       Inclusions, {\em Recent Trends in Data Type  Specification}, LNCS, vol. 906 (1995).
+\bibitem[WM95b]{Top} M.~Walicki, S.~Meldal, 
+   A Complete Calculus for the Multialgebraic and Functional Semantics of Nondeterminism,  
+       {\em ACM ToPLaS}, vol.~17, no.~2, (1995).
+\end{thebibliography} 
+
+
+\end{document}
