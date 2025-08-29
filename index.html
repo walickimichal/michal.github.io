@@ -330,43 +330,6 @@ Computing, 2001.
 <li> <A HREF="phil/phil1.html">philosophy</A>, telemark skiing.
 <!-- <li> <A HREF ="https://www.pch24.pl/ich-prawdziwe-cele">trafny opis </A>
 <!--<li><A HREF="http://interface.time-popcorn.info"> popCornTime</A> -->
-
-<!--<li> <A HREF="HOLD-UP.mp4">HOLD-UP, a film in French about current affairs</A>
--->   
+  
 </ol>
 <BR>
-
-<?php
-// File to store the count
-$file = __DIR__ . "/counter.txt";
-
-// If file doesn’t exist, create it with 0
-if (!file_exists($file)) {
-    file_put_contents($file, "0");
-}
-
-// Read the current count
-$count = (int)file_get_contents($file);
-
-// Increment by 1 for each visit
-$count++;
-
-// Save the new count back to the file
-file_put_contents($file, $count);
-
-// Now we can display it
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-</head>
-<body>
-  <p>You are visitor number: <strong><?= $count ?></strong>
- since 21.08.2025.</H3>
-</p>
-</body>
-</html>
-
-<BR>
-
