@@ -1,0 +1,886 @@
+\magnification=\magstep1
+\hsize=13.5truecm
+\vsize=19truecm
+\tolerance=10000
+\font\tit=cmbx12 scaled\magstep1
+\font\titl=cmbx12
+\font\titli=cmbx10
+\font\normalfont=cmr10
+\font\abstractsfont=cmr9
+\font\otherboldfont=cmbx9
+\def\rut{{\scriptstyle\bigcirc}}
+\def\kva{{\scriptstyle\square}}
+\def\ddr{\Rightarrow}
+\def\rro{\omega}\def\rrO{\Omega}
+\def\rrG{\Gamma}
+\def\rrl{\lambda}
+\def\cW{{\cal W}}
+\def\abzac{\hskip 0.5cm}
+\def\sat{{\rm Sat}}
+\def\g{G_{L\rro}}
+\def\tus{\varnothing}
+\def\rightheadline{\headsfont\hfil \null \hfil\otherfont\folio}
+\def\leftheadline{\otherfont\folio\headsfont\hfil \null\hfil}
+\def\nothing{\hfill}
+\def\skyrius#1{{\it#1}}
+\def\skyr#1{\vskip .75cm{\bf #1}\medskip}
+\def\sky#1{\vskip .5truecm{\titli #1}\vskip 0.35truecm}
+%\nopagenumbers
+\headline={\null}
+\def\bruks{\hbox to 4truecm{\dotfill}}
+\def\s{\v s}
+\def\e{\. e}
+\def\cv{\v c}
+\def\abzac{\hskip 0.75cm}
+\def\proof{{\it Proof.\ }}
+\def\ref{\parindent=0.5truecm\noindent\hang}
+\def\br{\t \nobreak --\allowbreak \t }
+\def\mly{\leqslant}\def\dly{\geqslant}
+\def\cut{{\rm cut}}
+\def\sp{{\rm Sp.}}
+
+%\vskip2truecm
+\parindent=0pt
+
+\normalfont
+\centerline{\tit On Specialization of Derivations}
+\centerline{\tit in Axiomatic Equality Theories}
+\vskip 0.5cm
+\centerline{A. Pliu\s kevi\cv ien\e ,\  R. Pliu\s kevi\cv ius}
+\vskip 0.3cm
+\centerline{\vtop{\hbox{Institute of Mathematics and Informatics}
+\hbox{Akademijos 4, Vilnius 2600, LITHUANIA}
+\hbox{email: logica@sedcs.mii2.lt}}}
+\vskip 0.5truecm
+\centerline{M. Walicki, S. Meldal}
+\vskip 0.3truecm
+\centerline{\vtop{\hbox{University of Bergen}
+\hbox{Department of Informatics}
+\hbox{HiB, N-5020 Bergen, NORWAY}
+\hbox{e-mail: $\{$michal,sigurd$\}$@ii.uib.no}}}
+%\vskip 0.75truecm
+%spell_date
+%spell_from
+
+\skyr{Abstract}
+\vbox{\abstractsfont
+\baselineskip=9pt
+\lineskip=0pt
+Walicki and Meldal have defined a calculus $DEQ$ (``Disjunctive
+EQuational calculus'') for reasoning about
+nondeterministic operators when specifying nondeterministic systems in
+an equation-oriented style.
+
+A variant of $DEQ$, the calculus $DEQ^\ast$ for axiomatic equality theories
+with cut-like rules introducing as cut formulas only the negative equalities
+of a specific axiom, is constructed. For pure positive specific axioms
+(i.e. with empty antecedents) and for so called non-contrary equality
+theories $DEQ^\ast$ does not contain cut-like rules at all. The variant of
+the calculus $DEQ^\ast$ without structural rules of contraction and exchange
+is constructed.  A simple cut-elimination procedure for axiomatic equality
+theories is presented.  }
+
+\skyr{1. Introduction}
+
+The motivation for introducing $DEQ$ was the need for the disjunctive
+formulae when specifying and reasoning about nondeterministic
+operations [9].
+The notion of nondeterminism arises naturally in describing concurrent
+systems. Nondeterminism is also a natural concept in describing sequential
+programs, either as a means of indicating a {\it don't care} attitude as to
+which among a number of computational paths will actually be utilized in a
+particular computation or as a means of increasing
+the level of abstraction [3]. In terms of satisfiability,
+allowing nondeterminism is quite distinct from underspecification. The
+latter, though admitting distinct models, still insists on a function always
+returning a particular value, given a particular list of arguments. In the
+case of nondeterministic operators this is no longer true.
+
+In [9, 10] we presented a function oriented view of nondeterministic
+operators.  The result of a (non-)deterministic operator is considered a
+single (rather than set) value, namely the result of a {\it particular
+application}. Distinct occurrences of a particular term each denote a
+single value, but not necessarily the same one for each. For instance,
+specifying an operator $\sqcup.s$ which chooses 
+nondeterministically an element from the set $s$, one needs to say
+that for any application $i$, $\sqcup_i.\{0,1\}=0  or
+\sqcup_i.\{0,1\}=1$. In [9,10] it is shown how viewing
+nondeterministic operations as determinisitc functions dependent on an
+additional index (application) argument, allows one to translate
+nondeterministic specifications into deterministic ones using
+the language of conditional equations extended with disjunction.
+Then we presented a natural deduction system, $DEQ$, as a
+reasoning tool for transformed algebraic specifications of nondeterministic
+operators, using axiomatic equality theories.  Along with the natural
+aspect and modularity, the system $DEQ$ contains a cut rule which is not
+amenable to automated reasoning. This paper introduces an equivalent
+variant $DEQ^\ast$ of the $DEQ$ calculus where cut is replaced by
+cut-like rules making $DEQ^\ast$ more amenable to automation.
+
+A general theory of specialization of derivations in axiomatic
+equality theories was proposed by M. Rogava in [8] and A. Pliu\s kevi\cv
+ien\e \ in [4, 5]. In [8] specific axioms of axiomatic equality
+theories were divided into two types: The axioms having a single
+equality, i.e. only one item-equality, were identified as being of
+{\it type 1}. The other specific axioms were identified as axioms
+of {\it type 2}.  For specific axioms of type 1 equality-like rules
+were introduced in [8].  For specific axioms of type 2 unspecialized
+cut-like rules were introduced in [8]. In [4, 5] we introduced
+specialized cut-like rules for specific axioms of type 2, introducing
+positive equalities of specific axioms as cut formulas.
+
+There we also introduced the complex notion of variants of equality formulas
+by specific axioms with a view to eliminate the introduction of the negative
+equalities of specific axioms as cut formulas.  The main purpose of this
+paper is to construct the calculus $DEQ^\ast$ which is equivalent to
+$DEQ$. $DEQ^\ast$ contains a cut-like rule introducing as cut formulas only
+the negative equalities of specific axioms.  Therefore in $DEQ^\ast$ the
+complex notion of variant of [4, 5] is not necessary.  For pure positive
+specific axioms (i.e. with empty antecedents) and for so-called non-contrary
+equality theories one can construct the calculus $DEQ^\ast$ not containing
+cut-like rules at all.  In this process no variant notion is used. The
+alternate version of the calculus $DEQ^\ast$ not containing structural rules
+of contraction and exchange is also constructed. In the paper a simple
+cut-elimination procedure for axiomatic equality theories is presented.
+
+\skyr{2. The natural deduction-like calculi $DEQ$ and $DEQ^\prime$}
+
+\skyrius{Definition 2.1} (sequent) A sequent is an expression $\rrG\to \Delta,$
+where $\rrG, \Delta$ are finite sets of equalities $r=s,$ where
+$r, s$ are arbitrary terms.  $\bigtriangledown$
+
+\skyrius{Definition 2.2} (calculus $DEQ$). A calculus $DEQ$ is
+defined by the following postulates (see e.g. [9, 10]):
+
+\parindent=25pt
+\item{(1)} specific axioms (specifications)
+\medskip
+\item{\ } (Sp.\  $AX_k$) $r_1=s_1, \ldots , r_m=s_m\to
+u_1=v_1, \ldots , u_n=v_n,$
+\medskip
+\item{\ } where $k, m, n$ are some natural numbers; the index $k$
+identifies the specific axioms;
+\item{(2)} equality postulates (where $e$ represents a single equation,
+$t, t_1, t_2$ are arbitrary terms)
+\medskip
+\item{\ } R1.\hskip 5truecm  $\displaystyle{\to t=t}$
+\medskip
+\item{\ } R2.\hskip 4truecm ${\displaystyle\rrG^x_{t_1}\to
+\Delta^x_{t_1};\quad \rrG^\prime\to t_1=t_2\over
+\displaystyle\rrG^x_{t_2},\ \rrG^\prime\to \Delta^x_{t_2}}$
+\medskip
+\item{\ } R3.\hskip 5truecm ${\displaystyle\rrG\to \Delta\over\displaystyle
+\rrG^x_t\to \Delta^x_t}$
+\medskip
+\item{\ } R4.\hskip 6truecm $\displaystyle {e\to e}$
+\medskip
+\item{(3)} Structural rules
+\medskip
+\item{\ } R5. \hskip 4truecm ${\displaystyle\rrG\to
+\Delta\over\displaystyle \rrG\to \Delta, e}\qquad
+{\displaystyle\rrG\to \Delta\over
+\displaystyle e, \rrG\to \Delta}\, ({\rm weakening})$
+\medskip
+\item{\ } R6.\hskip 4truecm  ${\displaystyle\rrG\to \Delta, e;\quad e,
+\rrG^\prime\to \Delta^\prime\over
+\displaystyle\rrG, \rrG^\prime\to \Delta, \Delta^\prime}\, ({\rm cut})$
+$\bigtriangledown$
+\parindent=0pt
+\medskip
+
+\skyrius{Remark 2.1.}
+
+(i) $DEQ$ is sound and complete w.r.t. standard semantics (see [9]
+with reference to [1]).
+
+(ii) $DEQ$ represents a variant of the  natural deduction system for the
+applied axiomatic theory of equations.
+
+(iii) In $DEQ$  the rule
+$${\rrG^x_{t_1}\to \Delta^x_{t_1};\quad \rrG^\prime\to t_1=t_2,
+\Delta^\prime\over
+\rrG^x_{t_2}, \rrG^\prime\to \Delta^x_{t_2}, \Delta^\prime}$$
+is derivable (using R2, R4 and R6).
+
+(iv) From  definition 2.2 it follows that $DEQ$ implicitly contains
+the structural rules ``exchange'' and ``contraction''.
+$\bigtriangledown$
+
+In the following assume given a set of specific axioms $({\rm Sp.}\ AX_k)$.
+
+\skyrius{Definition 2.3} (the calculus $DEQ^\prime$). A calculus
+$DEQ^\prime$ is constructed from $DEQ$ by removing rule R3 and
+changing $({\rm Sp.}\ AX_k)$ of $DEQ$ in the following manner: let $S$
+be $({\rm Sp.}\ AX_k)$ of $DEQ,$ then $S^{x_1,\ldots,
+x_n}_{t_1,\ldots, t_n}$ is the set of specific axioms $({\rm Sp.}\
+AX^\prime_k)$ of $DEQ^\prime,$ where $t_1, \ldots , t_n$ are arbitrary
+terms.  $\bigtriangledown$
+
+\skyrius{Definition 2.4} (inclusion and equivalence of calculi). Let $I_1, I_2$
+be arbitrary calculi then the notation $I_1 \ddr I_2$ indicates that
+if $I_1\vdash S$ then $I_2\vdash S$ (where $S$ is a sequent) and the
+notation $I_1\equiv I_2$ means $I_1\ddr I_2$ and $I_2\ddr I_1.$
+$\bigtriangledown$
+
+\skyrius{Lemma 2.1.} $DEQ\equiv DEQ^\prime.$
+
+\skyrius{Proof:} Follows from the fact that $DEQ^\prime\vdash \rrG\to
+\Delta\ddr DEQ^\prime\vdash \rrG^x_t\to \Delta^x_t.$ $\bigtriangledown$
+
+
+\skyr{3. Kanger-like calculus $DEQ_1$}
+
+\skyrius{Definition 3.1} (calculus $DEQ_1$). A calculus $DEQ_1$ is
+obtained from $DEQ^\prime$ by replacing axiom R4 and rule R2 with the
+rules (see e.g. [2]): $${r=s, \rrG^x_s\to \Delta^x_s\over r=s,
+\rrG^x_r\to \Delta^x_r}\, (=_1)\qquad {s=r, \rrG^x_s\to
+\Delta^x_s\over s=r, \rrG^x_r\to \Delta^x_r}\, (=_2)$$
+
+\skyrius{Lemma 3.1.} $DEQ_1\equiv DEQ^\prime.$
+
+\skyrius{Proof:} Follows from the following facts: (1) rules $(=_1), (=_2)$ are
+derivable in $DEQ^\prime;$  (2) R4 and R2 are derivable in $DEQ_1.$
+$\bigtriangledown$
+\vskip -6pt
+
+\skyr{4. Rogava-like calculi $DEQ_2, \ DEQ_3$}
+
+\skyrius{Definition 4.1} (calculus $DEQ_2$). A calculus $DEQ_2$ is
+obtained from
+$DEQ_1$ by removing (cut) and replacing every specific axiom $(\sp\
+AX^\prime_k)$
+by the following
+$(\sp\ \cut_k)$ rule  (see e.g. [8, 4]):
+$${S_{11};\ldots; S_{1m};\ S_{21}; \ldots ; S_{2n}\over
+\rrG\to \Delta}\, (\sp\ \cut_k),$$
+where
+
+$\rrG\to \Delta:=\rrG_{11}, \ldots, \rrG_{1m}, \rrG_{21}, \ldots, \rrG_{2n}
+\to \Delta_{11}, \ldots, \Delta_{1m}, \Delta_{21}, \ldots , \Delta_{2n}$
+$$\eqalignno{&S_{11}:=\rrG_{11}\to \Delta_{11},\ r_1=s_1\cr
+&\quad \bruks\cr
+&S_{1m}:=\rrG_{1m}\to \Delta_{1m}, \ r_m=s_m\cr
+&S_{21}:=u_1=v_1,\ \rrG_{21}\to \Delta_{21}\cr
+&\quad \bruks\cr
+&S_{2n}:=u_n=v_n,\ \rrG_{2n}\to \Delta_{2n}\cr}$$~$\bigtriangledown$
+
+\skyrius{Definition 4.2} (calculus $I+\cut$). Let $I$ be some calculus  not
+containing (cut), then $I+\cut$  denotes the calculus obtained from $I$
+by adding (cut). $\bigtriangledown$
+
+\skyrius{Lemma 4.1.} ($\sp \ AX^\prime_k$) are derivable in $DEQ_2.$
+
+\skyrius{Proof:} Using rules $(\sp\ \cut_k).$  $\bigtriangledown$
+
+\skyrius{Lemma 4.2.} The rules $(\sp \ \cut_k)$ are derivable in $DEQ_1.$
+
+\skyrius{Proof:} Using the (cut) rule. $\bigtriangledown$
+
+\skyrius{Theorem 4.1.} $DEQ_1\equiv DEQ_2+(\cut).$
+
+\skyrius{Proof:} From Lemmas 4.1 and 4.2. $\bigtriangledown$
+
+\skyrius{Definition 4.3} (calculus $DEQ_3$). A calculus $DEQ_3$ is obtained from
+the calculus $DEQ_2$ by replacing rules $(=_1), (=_2)$ by the following
+rules (see e.g. [7]):
+$${r=s,\ \rrG\to \Delta^x_s\over r=s,\ \rrG\to \Delta^x_r}\,
+(=_{1s})\qquad {s=r, \ \rrG\to \Delta^x_s\over s=r, \ \rrG\to
+\Delta^x_r}\, (=_{2s})$$
+$\bigtriangledown$
+
+\skyrius{Remark 4.1.} Sometimes the
+notation $(=_s)$ will be used instead of the notation $(=_{is})\
+(i=1,2)$.
+$\bigtriangledown$
+
+\skyrius{Lemma 4.3.} $DEQ_3\vdash S\ddr DEQ_2\vdash S.$
+
+\proof: Obvious.   $\bigtriangledown$
+
+\skyrius{Definition 4.4.} The notation $I\vdash^D S$ will represent the
+fact that one
+can construct a derivation $D$ of the sequent $S$ in calculus $I.$
+  $\bigtriangledown$
+
+\skyrius{Lemma 4.4.}  $DEQ_2\vdash^D S\ddr DEQ_3\vdash^{D^\ast} S.$
+
+\skyrius{Proof.}  The proof is carried out
+by induction on $n\rro+h(D),$ where $n$ is the
+number of antecedent applications of $(=_1), (=_2)$ and  $h(D)$ is the
+height of the
+given derivation $D.$  Consider the upper application of
+$(=_i)\ (i=1, 2)$ in $D.$ We consider only the following case:
+$$D^+\left \{\eqalign{&\ u=v,\ r=s(u), \ \rrG^x_{s(u)}\to \Delta^x_{s(v)}\cr
+\noalign{\vskip -10pt}
+&\hbox to 6truecm{\hrulefill}\, (=_{2s})\cr
+\noalign{\vskip -6pt}
+&\ u=v, r=s(u), \rrG^x_{s(u)}\to \Delta^x_{s(u)}\cr
+\noalign{\vskip -10pt}
+&\hbox to 6truecm{\hrulefill}\, (=_1)\cr
+\noalign{\vskip -6pt}
+&\ u=v,\ r=s(u),\ \rrG^x_r\to \Delta^x_r\cr}\right. $$
+
+We construct the following derivation $D^\prime$ in $DEQ_2:$
+$$D^\prime\left \{ \eqalign{D_1\Big \{ &{\ u=v,\ r=s(u), \rrG^x_{s(u)}\to
+\Delta^x_{s(v)}\over
+u=v,\ r=s(u), \rrG^x_r\to \Delta^x_{s(v)}}\, (=_1)\cr
+\noalign{\vskip -10pt}
+&\hbox to 6truecm{\hrulefill}\, (=_{2s})\cr
+\noalign{\vskip -6pt}
+&\ u=v,\ r=s(u),\ \rrG^x_r\to \Delta^x_{s(u)}\cr
+\noalign{\vskip -10pt}
+&\hbox to 6truecm{\hrulefill}\, (=_{1s})\cr
+\noalign{\vskip -6pt}
+&\ u=v, r=s(u),\ \rrG^x_r\to \Delta^x_r\cr}\right.$$
+
+As $h(D_1)<h(D^+),$ then $DEQ_2\vdash ^{D_1} S_1\ddr
+DEQ_3\vdash ^{D^\ast_1} S_1,$ where $S_1:=u=v, r=s(u), \rrG^x_r\to
+\Delta^x_{s(v)}$ and $DEQ_2\vdash^{D^\prime} S_2\ddr DEQ_3 \vdash
+^{D^{\prime\ast}}
+S_2,$ where $S_2:=u=v,\ r=s(u), \ \rrG^x_r\to \Delta^x_r.$
+ $\bigtriangledown$
+
+\skyrius{Theorem 4.2.} $DEQ_2\equiv DEQ_3.$
+
+\skyrius{Proof:} Follows from Lemmas 4.3 and 4.4. $\bigtriangledown$
+
+\skyrius{Remark 4.1.} From the proof of Lemma 4.4 it follows that
+$h(D^\ast)>h (D),$
+where $D^\ast$ is the derivation of a sequent $S$ in $DEQ_3,\ D$ is the
+derivation of the same sequent $S$ in $DEQ_2.$ $\bigtriangledown$
+
+\skyrius{Lemma 4.5.} $DEQ_3\vdash r=r, \ \rrG\to \Delta\ddr DEQ_3\vdash \rrG\to
+\Delta.$
+
+\skyrius{Proof:} By induction on the height of the given derivation.
+$\bigtriangledown$
+
+
+\skyrius{Lemma 4.6.} Consider the derivation $D:$
+$${D_1\big \{ \rrG\to \Delta, e;\quad D_2\big \{e, \Pi\to \Theta\over
+\rrG, \Pi\to \Delta, \Theta}\, (\cut),$$
+where $D_1, D_2$ are the derivations in $DEQ_3,$ then $DEQ_3\vdash \rrG,
+\Pi\to \Delta, \Theta.$
+
+\skyrius{Proof.} The proof is carried out by induction on $h(D_1).$
+ Let $h(D_1)=0,$ then $\rrG\to\Delta,\ e := \to r=r.$ Consider  the
+derivation $D_2$ in $DEQ_3.$ By Lemma 4.5 we get $DEQ_3\vdash^{D^\prime_2}
+\Pi\to \Theta$ and $D^\prime_2$ is the desired derivation.
+ Let $h(D_1)>0,$ then we consider only the following case:
+$${{\displaystyle D^\prime_1\big \{u=v, \ \rrG\to \Delta, \ r=s(v)\over
+\displaystyle u=v, \ \rrG\to \Delta, \ r=s(u)}\, (=_s)\quad
+D_2\big \{ r=s(u), \ \Pi\to \Theta\over
+u=v, \ \rrG, \Pi\to \Delta, \Theta}\, (\cut)$$
+
+Applying (weakening) and $(=)$ to $D_2$ weget $DEQ_2\vdash^{D^\prime_2}
+S^\prime_2 := r=s(v),\ u=v, \ \Pi\to \Theta.$  Using Lemma 4.4 we get $DEQ_3
+\vdash^{D^{\prime\ast}_2} S^\prime_2.$ Applying (cut) to
+$D^\prime_1, D^{\prime\ast}_2$ we get
+$DEQ_3+\cut\vdash^{D^\prime} S := u=v, \ \rrG, \Pi\to \Delta, \Theta.$ As
+$h(D^\prime_1)<h(D_1)$ we get $DEQ_3\vdash  S.$  $\bigtriangledown$
+
+\skyrius{Theorem 4.3} (elemination theorem for $DEQ_2$). $DEQ_2+\cut \ddr
+DEQ_2.$
+
+\skyrius{Proof:} Follows from Lemma  4.6 and Theorem 4.2. $\bigtriangledown$
+
+\skyrius{Theorem 4.4.} $DEQ_1\equiv DEQ_2.$
+
+\skyrius{Proof:} From Theorems 4.1 and 4.3. $\bigtriangledown$
+
+
+\skyr{5. Specialization of $(\sp \ \cut_k)$ rules}
+
+\skyrius{Definition 5.1} (calculus $DEQ_4$). A calculus $DEQ_4$ is obtained
+from
+$DEQ_2$ by replacing rules $(\sp \ \cut_k)$ by the rules
+$${S_{11};\ldots; S_{1m}; S_{21};\ldots ; S_{2n}\over
+\rrG\to \Delta}\, (\sp =_k),$$
+
+where
+
+$\matrix{\rrG\to &\Delta:=\hfill\cr
+                 &\rrG_{11}, \ldots, \rrG_{1m}, \rrG_{21}, \ldots , \rrG_{2n}
+\to \Delta_{11}, \ldots, \Delta_{1m}, \Delta_{21} {x_1\atop \tau_{11}},
+\ldots , \Delta_{2n}
+{x_n\atop \tau_{n1}}}$
+$$\eqalignno{&S_{11}:=\rrG_{11}\to \Delta_{11},\ r_1=s_1\cr
+&\quad \bruks\cr
+&S_{1m}:=\rrG_{1m}\to \Delta_{1m},\ r_m=s_m\cr
+&S_{21}:=\rrG_{21}\to \Delta_{21}{x_1\atop\tau_{12}}\cr
+&\quad \bruks\cr
+&S_{2n}:=\rrG_{2n}\to \Delta_{2n}{x_n\atop \tau_{n2}}\cr}$$
+where $\tau_{j1}, \tau_{j2}\in \{u_j, v_j\},$
+$j\in \{1, \ldots, n\}$ and $\tau_{j1}\neq \tau_{j2}.$
+$\bigtriangledown$
+
+\skyrius{Remark 5.1.} Special cases of $(\sp =_k)$ rules, corresponding
+to specific axioms of the form $\to u=v,$ were presented in [8, 4,
+5]. In [4, 5] the complex notion of variant of formula by specific
+axioms was used instead of the introduction of negative
+equalities $r_j=s_j\ (j=1, \ldots , m)$ of specific axioms as cut
+formulas in the premises $s_{11}, \ldots, s_{1m}$;
+equalities
+$u_j=v_j\ (j=1, \ldots, n)$ in the premises $s_{21}, \ldots, s_{2n}$
+were introduced as cut formulas, besides. In rules $(\sp =_k)$ only the
+negative equalities of specific axioms are introduced as cut
+formulas. Therefore the complex notion of the variant of a formula is
+unnecessary. If $m=0$ then the $(\sp =k)$ rules are purely cut-free.
+Analogous rules (corresponding to the case when $m=0$) were presented
+in [6] for arithmetical robinson system and at the same time no
+cut-like rule was not introduced for the specific axiom containing a
+negative equality.
+
+\skyrius{Example 5.1.} Let $DEQ^\prime$ have the following three
+specific axioms $(\sp \ AX_k)\ (k\in \{1, 2, 3\}):$
+
+$\matrix{(1)\,\hfill&\hfill r=s&\to u_1(c_1)=v_1(c_2),\
+u_2(c_3)=v_2(c_4)\hfill\cr
+(2)\,\hfill&\hfill u_1(c_5)=v_1(c_6)&\to \hfill\cr
+(3)\,\hfill&\hfill u_2(c_7)=v_2(c_8)&\to \hfill}$
+
+Then the calculus $DEQ_4$ has the following three $(\sp =_k)\ (k\in \{1, 2,
+3\})$
+rules:
+$${\rrG_1\to \Delta_1, r=s;\quad \rrG_2\to \Delta_2 {x_1\atop \tau_{12}};\quad
+\rrG_3\to \Delta_3{x_2\atop \tau_{22}}\over
+\rrG_1, \rrG_2, \rrG_3\to \Delta_1, \Delta_2 {x_1\atop \tau_{11}},
+\Delta_3{x_2\atop \tau_{21}}}\,
+(\sp =_1)$$
+$${\rrG\to \Delta, u_1(c_5)=v_1(c_6)\over \rrG\to \Delta}\,
+(\sp =_2)$$
+$${\rrG\to \Delta, u_2(c_7)=v_2(c_8)\over \rrG\to \Delta}\,
+(\sp =_3),$$
+where
+$$\eqalignno{&\tau_{11}, \tau_{12}\in \{u_1(c_1), v_1(c_2)\}\cr
+&\tau_{21}, \tau_{22}\in \{u_2(c_3), v_2(c_4)\}\cr}$$
+Let $S:=\rrG\to, $ where $\rrG:=s=r,$ $c_1=c_5, c_2=c_6, c_3=c_7, c_4=c_8,$ then
+applying $(\sp =_3), (\sp =_2), (=_s), (\sp =_1)$ bottom-up we get
+$DEQ_4\vdash S.$   $\bigtriangledown$
+
+\skyrius{Lemma 5.1.} $DEQ_4\ddr DEQ_3.$
+
+\skyrius{Proof:} Follows from the fact  that rules $(\sp =_k)$ are derivable in
+$DEQ_3.$   $\bigtriangledown$
+
+\skyrius{Example 5.2.} Let $DEQ_4$ be as in Example 5.1. Consider
+the rule $({\rm Sp.}=_1).$ Let us show that $({\rm Sp.}=_1)$ is derivable in
+$DEQ_3$. Let
+
+$\matrix{S_1:=\rrG_1\to \Delta_1, r=s\hfill\cr
+S_2:= \rrG_2\to \Delta_2 {x_1\atop \tau_{12}}\hfill\cr
+S_3:=\rrG_3\to \Delta_3 {x_2\atop \tau_{22}}\hfill}$
+
+Applying $(W),\ ( =_{is})\ (i=1,2)$ to $S_2, S_3$ we get
+
+$\matrix{S^\prime_2:=u_1(c_1)=v_1(c_2), \rrG_2\to \Delta_2 {x_1\atop
+\tau_{11}}\hfill\cr
+S^\prime_3:=u_2 (c_3)=v_2 (c_4), \rrG_3\to \Delta_3 {x_2\atop \tau_{21}}}$
+
+Applying (Sp. ${\rm cut}_1$) to
+$S_1, S^\prime_2, S^\prime_3$ we get the conclusion $S$ of (Sp.$=_1$).
+$\bigtriangledown$
+
+\skyrius{Lemma 5.2.} Consider the derivation $D$
+$${\buildrel \vdots \over S_{11}; \ldots; \buildrel \vdots \over S_{1m};
+\buildrel \vdots \over S_{21}; \ldots; \buildrel \vdots \over S_{2n} \over
+\rrG\to \Delta }\, (\sp \ {\rm cut}_k)$$
+and let  $D_{11}, \ldots, D_{1m}, D_{21}, \ldots , D_{2n}$
+be the derivations of the sequents $S_{11}, \ldots, S_{1m}, S_{21}, \ldots
+, S_{2n},$ respectively, in the
+calculus  $DEQ_4,$ then $DEQ_4\vdash \rrG\to \Delta.$
+
+\skyrius{Proof:} By induction on $h(D_{21})+\cdots +h(D_{2n}).$
+   $\bigtriangledown$
+
+\skyrius{Example 5.3.} Let $DEQ_4$ be the same as in Example 5.1 and let
+$S_1, S^\prime_2, S^\prime_3$ be the same as in Example 5.2. Then (Sp.
+${\rm cut}_1$) has
+the following form:
+$$\eqalign{&D_1\{ S_1; \ D_2\{ S^\prime_2; \ D_3\{ S^\prime_3\cr
+\noalign{\vskip -10pt}
+&\hbox to 4.3truecm {\hrulefill}\ \ ({\rm Sp.} {\rm cut}_1)\cr
+\noalign{\vskip -6pt}
+&\hskip 1.7truecm S\cr}$$
+
+Let us consider only the case when $D_2, D_3$ have the following forms:
+
+$$D_2\left \{  \eqalign{ D^\prime_2 \Big \{ & u_1 (c_1)=v_1 (c_2),\
+\rrG_2\to \Delta_2{x_1\atop \tau_{12}}\cr
+\noalign{\vskip -10pt}
+&\hbox to 6truecm{\hrulefill}\, (=_{is})\cr
+\noalign{\vskip -6pt}
+&u_1 (c_1)=v_1(c_2),\ \rrG_2\to \Delta_2 {x_1\atop \tau_{11}}\cr}\right. $$
+$$D_3\left \{  \eqalign {D^\prime_3 \Big \{& u_2 (c_3)=v_2 (c_4),\
+\rrG_3\to \Delta_3{x_2\atop \tau_{22}}\cr
+\noalign{\vskip -10pt}
+&\hbox to 6truecm{\hrulefill}\, (=_{is})\cr
+\noalign{\vskip -6pt}
+&u_2 (c_3)=v_2(c_4),\ \rrG_3\to \Delta_3 {x_2\atop \tau_{21}}\cr}\right. $$
+
+Having set $\rrG:=\rrG_1,\ \rrG_2,\ \rrG_3$ and
+$S_2:=u_1(c_1)=v_1(c_2),\ \rrG_2\to \Delta_2{x_1\atop \tau_{12}},\ \allowbreak
+S_3:=u_2(c_3)=v_2(c_4),\
+\rrG_3\to \Delta_3{x_2\atop \tau_{22}}$,
+we construct the following derivation $D^\ast$:
+
+$$D^\ast\,\left \{
+\eqalign{
+&\hskip 1.3truecmS_1;\ D^\prime_2\{ S_2;\ D_3 \{ S^\prime_3
+\hskip 1.5truecmS_1;\ D_2\{ S^\prime_2;\ D^\prime_3 \{ S_3\cr
+\noalign{\vskip -10pt}
+&\hskip 1.1truecm\hbox to 4.2truecm{\hrulefill}\ %\, ({\rm Sp. cut}_1)
+\hskip 0.5truecm\hbox to 4.2truecm{\hrulefill}\cr %\ \,({\rm Sp. cut}_1)\cr
+\noalign{\vskip -6pt}
+&S_1;\hskip 0.5truecm \rrG\to
+\Delta_1, \Delta_2{x_1\atop \tau_{12}}, \Delta_3 {x_2\atop \tau_{21}}
+\hskip 0.5truecm\rrG\to
+\Delta_1, \Delta_2{x_1\atop \tau_{11}}, \Delta_3 {x_2\atop \tau_{22}}\cr
+\noalign{\vskip -10pt}
+&\hbox to 10.5truecm{\hrulefill}\ ({\rm Sp.} =_1)\cr
+\noalign{\vskip -6pt}
+&\hskip 3.5truecm  \rrG\to
+\Delta_1, \Delta_2{x_1\atop \tau_{11}}, \Delta_3 {x_2\atop \tau_{21}}\cr}
+\right.$$
+
+
+As $h(D^\prime_2)<h(D_2)$ and $h(D^\prime_3)<h(D_3)$, The (Sp. ${\rm cut}_1$)
+steps (unlabeled above) can be eliminated from the derivation~$D^\ast.$
+
+
+\skyrius{Theorem 5.1.} $DEQ_4\equiv DEQ_3.$
+
+\skyrius{Proof:} Follows from Lemmas 5.1 and 5.2.    $\bigtriangledown$
+
+\skyrius{Definition 5.2} (calculus $DEQ_5$). A calculus $DEQ_5$ is
+obtained from calculus $DEQ_4$ by  replacing rules $(\sp =_k)$ by
+the  rules $(\sp =_k^\ast):$
+$${S_{11};\ldots ; S_{1m};\ S_{21};\ldots ; S_{2n}\over \rrG\to \Delta}\,
+(\sp =^\ast_k),$$
+where
+$$\eqalignno{&\rrG\to\Delta:=\rrG \to \Delta {x_1\ldots x_n\atop \tau_{11}
+\ldots \tau_{n1}}\cr
+&S_{11}:=\rrG\to \Delta {x_1\ldots x_n\atop \tau_{11}\ldots \tau_{n1}},
+r_1=s_1\cr
+&\quad \bruks \cr
+&S_{1m}:=\rrG\to \Delta {x_1\ldots x_n\atop \tau_{11}\ldots \tau_{n1}},
+r_m=s_m\cr
+&S_{21}:=\rrG\to \Delta {x_1 x_2\ldots x_n\atop \tau_{12}\tau_{21} \ldots
+\tau_{n1}}\cr
+&\quad \bruks \cr
+&S_{2n}:=\rrG\to \Delta {x_1\ldots x_{n-1}x_n\atop \tau_{11}\ldots \tau_{n-11}
+\tau_{n2}}\cr}$$
+   $\bigtriangledown$
+
+
+\skyrius{Lemma 5.2.} $DEQ_4\equiv DEQ_5.$
+
+\skyrius{Proof:} Using structural rule weakening.  $\bigtriangledown$
+
+\skyrius{Definition 5.3} (calculus $DEQ^\ast$). A calculus $DEQ^\ast$ is
+obtained from the calculus $DEQ_5$ by dropping structural rule weakening and
+replacing the axiom $\to r=r$ by the axiom $\rrG\to \Delta, r=r.$
+    $\bigtriangledown$
+
+\skyrius{Lemma 5.3.} Structural rule weakening is admissible in $DEQ^\ast.$
+
+\skyrius{Proof:} By induction on the  height of a given derivation.
+    $\bigtriangledown$
+
+\skyrius{Theorem 5.2.} $DEQ^\ast\equiv DEQ.$
+
+\skyrius{Proof:} Follows from Lemmas 2.1, 3.1, Theorems 4.2, 4.4, 5.1 and
+Lemmas 5.2,~5.3.     $\bigtriangledown$
+
+\skyr{6. Some specializations of $(\sp =_k)$ rules}
+
+\skyrius{Definition 6.1} (contrary calculus $DEQ$). A calculus
+$DEQ$ will
+be called {\it contrary} if  there  exists some
+substitution  $\bar x / \bar t$ (where $\bar x := x_1, \ldots , x_n;\
+\allowbreak
+\bar t :=t_1, \ldots , t_n$)  and some specific axiom $k$ containing a
+negative occurrence of an equality $r^{k}_i=s^{k}_i,$ where $i\in \{1, \ldots,
+m_k\},$ such that using only equality rules $(=_{is})$ it is possible to
+construct a derivation of the sequent $\rrG^{\bar x}_{\bar t}\to
+(r^{k}_i=s^{k}_i)^{\bar x}_{\bar t}$ where $\rrG$ consists of positive
+occurrences of equality in specific axioms of $DEQ$ and maybe some equalities
+constituted only from symbols of constants entering in axioms (Sp. $AX_k$) In
+the opposite case $DEQ$ will be called {\it non-contrary}.  $\bigtriangledown$
+
+\skyrius{Example 6.1.} Let $DEQ$ have the following specific axioms (Sp.
+$AX_k$)  $(k\in \{1, 2, 3\}):$
+
+$\matrix{(1)\,\hfill& \hfill f(u)=r(a)&\to t_1=t_2 (c_1)\hfill\cr
+(2)\hfill& &\to f(c_1)=g(v)\hfill\cr
+(3)\hfill& &\to r(b)=g(c_2)\hfill}$
+
+where $a, b, c_1, c_2$ are some constants.
+
+$DEQ$ is contrary because it is possible to construct the derivation $D$ of
+the sequent $\rrG^{\bar x}_{\bar t}\to (r^{k}_i=s^{k}_i)^{\bar x}_{\bar t}$,
+where $\rrG:= f(c_1)=g(v),\ r(b)=g(c_2),\ a=b;\  \ (r^{k}_i=s^{k}_i):=
+f(u)=r(a)$
+and the substitution $\bar x/\bar t,$ where $\bar x:=u, v; \ \bar t:=c_1, c_2$.
+The  derivation  $D$ has the form:
+$$\eqalign{&\ f(c_1)=g(c_2),\ r(b)=g(c_2),\ a=b\to r(a)=r(a)\cr
+\noalign{\vskip -10pt}
+&\hbox to 9.5truecm{\hrulefill}\, (=_s)\cr
+\noalign{\vskip -6pt}
+&\ f(c_1)=g(c_2),\ r(b)=g(c_2),\ a=b\to r(b)=r(a)\cr
+\noalign{\vskip -10pt}
+&\hbox to 9.5truecm{\hrulefill}\, (=_s)\cr
+\noalign{\vskip -6pt}
+&\ f(c_1)=g(c_2),\ r(b)=g(c_2),\ a=b\to g(c_2)=r(a)\cr
+\noalign{\vskip -10pt}
+&\hbox to 9.5truecm{\hrulefill}\, (=_s)\cr
+\noalign{\vskip -6pt}
+&\ f(c_1)=g(c_2),\ r(b)=g(c_2),\ a=b\to f(c_1)=r(a)\cr}$$
+$\bigtriangledown$
+
+\skyrius{Example 6.2.} Let $DEQ$ has the following (Sp. $AX_k$)  $(k\in
+\{1, 2\}):$
+
+$\matrix{
+(1)\,\hfill&f(u)=g(v)&\to t_1=t_2 (c_1)\hfill\cr
+(2)\hfill& &\to g(c_1)=f(c_2)\hfill}$
+
+where $c_1, c_2$ are some constants.
+
+It is easy to see that $DEQ$ is contrary under the substitution
+$\bar x/\bar t$, where $\bar x:=u, v; \bar t:=c_2, c_1$.
+The following derivation of the sequent   $y=c_1,\  u=c_2,\  v=c_1\to
+t_1=t_2 (y)$
+shows the necessity of introducing as cut formula the negative occurrence of
+equality $f(u)=g(v):$
+$$\eqalign{&\ \rrG\to f(c_2)=f(c_2)\cr
+\noalign{\vskip -10pt}
+&\hbox to 4.truecm{\hrulefill}\, ({\rm Sp.}=_2)\cr
+\noalign{\vskip -6pt}
+&\ \rrG\to f(c_2)=g(c_1)\cr
+\noalign{\vskip -10pt}
+&\hbox to 3.7truecm{\hrulefill}\, (=_s), (=_s)\cr
+\noalign{\vskip -6pt}
+&\ \rrG\to f(u)=g(v)\qquad \qquad \qquad \rrG\to t_1=t_1\cr
+\noalign{\vskip -10pt}
+&\hbox to 8truecm{\hrulefill}\, ({\rm Sp.}=_1)\cr
+\noalign{\vskip -6pt}
+&\hskip 2.3truecm \rrG\to t_1=t_2 (c_1)\cr
+\noalign{\vskip -10pt}
+&\hskip 2truecm\hbox to 3.5truecm{\hrulefill}\, (=_s)\cr
+\noalign{\vskip -6pt}
+&\hskip 2.3truecm \rrG\to t_1=t_2 (y)\cr}$$
+
+where $\rrG:= y=c_1,\ u=c_2,\ v=c_1.$ $\bigtriangledown$
+
+\skyrius{Definition 6.2} (calculus $DEQ^{\ast\ast}$).
+The calculus $DEQ^{\ast\ast}$ is obtained from the calculus $DEQ^\ast$ (1)
+replacing rules
+$(\sp =^\ast_k)$ by following ones:
+$${S^\prime_{21};\ldots ; S^\prime_{2n}\over
+\Pi, \rrG\to \Delta^{x_1\ldots x_n}_{\tau_{11}\ldots \tau_{n1}}}\,
+(\sp =^{\ast\ast}_k),$$
+where $\Pi:=r^\prime_1=s^\prime_1, \ldots , r^\prime_m=s^\prime_m;\ \ r^\prime_i
+\in\{r_i, s_i\}, \ s^\prime_i\in \{r_i, s_i\},\  i\in \{1, \ldots, m\}, \
+r^\prime_i\neq s^\prime_i;$
+$S^\prime_{2j}$ is obtained from $S_{2j}$ of rules $(\sp =^\ast_k)$ changing
+$\rrG$ by $\Pi, \rrG;$  (2) replacing rules $(=_{is})$ by $(=_i)\ (i=1,2).$
+$\bigtriangledown$
+
+\skyrius{Theorem 6.1.} Let $DEQ$ be a non-contrary calculus, then
+$DEQ\equiv DEQ^{\ast\ast}.$
+
+\skyrius{Proof:} Applying the definition of contrary calculus.
+  $\bigtriangledown$
+
+\skyrius{Example 6.3.} Let $DEQ$ be the following (Sp. $AX_k$) ($k\in \{
+1,2\}):$
+
+$\matrix{(1)\,\hfill&g(v)=f(u)&\to t_1=t_2(c_1)\hfill\cr
+(2)\hfill& &\to g(c_1)=g(c_2)\hfill}$
+
+where $c_1, c_2$ are some constants.
+
+It is easy to see that $DEQ$ is
+non-contrary. We construct the following derivations of the sequent
+$y=c_1,\, v=s, u=r,\, f(u)=g(s)\to t_1=t_2(y)$,
+which shows how  the rule (Sp. $=^{\ast\ast}$)works :
+
+$$\eqalign{ &\hskip 1truecm \rrG\to t_1=t_1\cr
+\noalign{\vskip -10pt}
+&\hbox to 5truecm{\hrulefill}\, ({\rm Sp.}=^{\ast\ast})\cr
+\noalign{\vskip -6pt}
+&\hskip 1truecm \rrG\to t_1=t_2(c_1)\cr
+\noalign{\vskip -10pt}
+&\hbox to 5truecm{\hrulefill}\, (=_s)\cr
+\noalign{\vskip -6pt}
+&\hskip 1truecm \rrG\to t_1=t_2(y)\cr
+\noalign{\vskip -10pt}
+&\hbox to 5truecm{\hrulefill}\, (=)\cr
+\noalign{\vskip -6pt}
+&\hskip 1truecm \rrG^\ast \to t_1=t_2(y)\cr}$$
+where $\rrG:=y=c_1, \ v=s, u=r, f(u)=g(v); \ \rrG^\ast :=y=c_1, v=s,
+u=r, f(u)=g(s).$
+ $\bigtriangledown$
+
+\skyrius{Remark 6.1.} To prove that $DEQ \equiv DEQ^{\ast\ast}$ in case
+$DEQ$  is contrary it is necessary to change the rules $(\sp =_k^{\ast\ast})$
+in such a way that they involve the notion of variant of formula by
+specific axioms (see [4,5]).   $\bigtriangledown$
+
+\skyr{7. Elimination of contraction and exchange}
+
+\skyrius{Definition 7.1} (calculus $DEQ_6$). A calculus $DEQ_6$ is
+obtained from the calculus $DEQ^\ast$ in the following way:
+
+(i) the $\rrG, \Delta$
+in sequent $\rrG\to \Delta$ are considered arbitrary lists rather than sets;
+
+(ii) adding the structural rules of contraction and exchange:
+$${\rrG, e_1, e_2, \Pi\to \Delta \over \rrG, e_2, e_1, \Pi\to \Delta}\,
+(EX\to)\qquad {\rrG\to \Delta, e_1, e_2, \Theta\over \rrG\to\Delta, e_2, e_1,
+\Theta}\,(\to EX)$$
+$${e, e, \rrG\to\Delta\over e, \rrG\to \Delta}\, (C\to)\qquad
+{\rrG\to \Delta, e, e\over \rrG\to \Delta, e}\, (\to C)$$
+ $\bigtriangledown$
+
+\skyrius{Lemma 7.1.} $DEQ_6\equiv DEQ^\ast.$
+
+\skyrius{Proof:}  Applying definition 7.1.  $\bigtriangledown$
+
+\skyrius{Definition 7.2.} (calculus $DEQ_7$). The calculus $DEQ_7$ is
+obtained from the calculus $DEQ_6$ by dropping structural rules
+$(EX\to), (\to EX).$  $\bigtriangledown$
+
+\skyrius{Lemma 7.2.} $DEQ_6\equiv DEQ_7.$
+
+\skyrius{Proof:}d Aanalogously to the proof in [7]. $\bigtriangledown$
+
+\skyrius{Definition 7.3} (Calculus $DEQ_8$). A calculus $DEQ_8$ is
+obtained from the calculus $deq_7$ by dropping the structural rules $(C\to),
+(\to C)$ and changingthe rules $(=)$ and $(\sp =_k)$ in such a way that the
+main formulas are duplicated in the premises of the rule.
+$\bigtriangledown$
+
+For example, instead
+of the rule $(=_{1s})$ the following rule: $${r=s, \rrG\to\Delta^x_s,
+\Delta^x_r\over r=s, \rrG\to \Delta^x_r}\, (=^\ast_{1s})$$ is in the calculus
+$DEQ_8.$
+
+\skyrius{Definition 7.4} (calculus $DEQ^\prime_7$). A calculus
+$DEQ^\prime_7$ is obtained from the calculus $DEQ_7$ by dropping the
+structural rule $(C\to).$ $\bigtriangledown$
+
+\skyrius{Lemma 7.3.} $DEQ_7\vdash ^D S\ddr DEQ^\prime_7\vdash^{D^\ast} S.$
+
+\skyrius{Proof:} By induction on $n\rro+h(D),$ where $n$ is the number of
+applications of $(C\to)$ in $D.$ $\bigtriangledown$
+
+\skyrius{Lemma 7.4.} $DEQ^\prime_7\vdash^D\ddr DEQ_8\vdash ^{D^\ast} S.$
+
+\skyrius{Proof.} The proof is carried out by $n\rro+h(D),$ where $n$ is the
+number
+of applications of $(\to C)$ in $D.$ We consider only the
+following case
+
+$$D^\prime\left \{ \eqalign{D^\prime_1 \Big \{  &\ \rrG,\ r=s\to \Delta, \
+p(s)=q, p(r)=q, p(r)=q\cr
+\noalign{\vskip -12pt}
+&\ \hbox to 8truecm{\hrulefill}\, (=^\ast_s)\cr
+\noalign{\vskip -6pt}
+&\ \rrG,\ r=s\to \Delta, \ p(r)=q, \ p(r)=q\cr
+\noalign{\vskip -10pt}
+&\ \hbox to 6.5truecm{\hrulefill}\, (\to C)\cr
+\noalign{\vskip -6pt}
+&\ \rrG,\ r=s\to\Delta,\ p(r)=q\cr}\right.$$
+
+where $D^\prime_1$ is the derivation in $DEQ_8.$ Let us construct the
+following derivation $D^{\prime\ast}:$
+
+$$D^{\prime\ast}\left \{ \eqalign{D^{\prime\ast}_1\Big \{ &{\ \rrG,\ r=s\to
+\Delta, \
+p(s)=q, p(r)=q, p(r)=q\over
+\rrG,\ r=s\to \Delta, \ p(s)=q, \ p(r)=q}\
+\, (\to C)\cr
+\noalign{\vskip -10pt}
+&\ \hbox to 8truecm{\hrulefill}\, (=^\ast_s)\cr
+\noalign{\vskip -6pt}
+&\ \rrG,\ r=s\to\Delta,\ p(r)=q\cr}\right.$$
+
+As $h(D^{\prime\ast}_1)<h(D^\prime_1)$ then $DEQ^\prime_7\vdash^{D^{\prime\ast}}
+S^\ast\ddr DEQ_8\vdash^{D^{\prime\ast\ast}} S^\ast,$ where
+$S^\ast:=\rrG, r=s\to \Delta, p(r)=q.$ $\bigtriangledown$
+
+
+\skyrius{Theorem 7.2.} $DEQ_7\equiv DEQ_8.$
+
+\skyrius{Proof:} Follows from Lemmas 7.3 and 7.4.  $\bigtriangledown$
+
+\skyrius{Remark 7.1.}  Let $p=q$ be any explicitly indicated term in
+(Sp. $AX_k$) of $DEQ^\prime,$  then $p,q$ will be called {\it axiom terms}.
+We introduce an ordering of terms:
+Let $r(t)$ stand for the rank of a term $t$
+which is defined in the following way:
+
+(1) $r(t)=0,$ if $t$ is any axiom term;
+
+(2) $r(t_1)<r(t_2),$ if $t_1, t_2$ are not axiom terms and $t_1$ is less
+then $t_2$
+in a lexicograpfic ordering  of terms.
+
+Then using the ordering of terms introduced above we can
+drop duplication of the main formulas in the equality rules  and leave this
+duplication  in the rules $(\sp =^\ast_k)$ only.
+ $\bigtriangledown$
+\def\refa#1#2{\parindent=0.4cm\item{#1}{#2}\noindent\hang}
+\bigskip
+
+\centerline{\bf References}
+\medskip
+
+\ref {1.} {S. Feferman, Lectures on Proof Theory, LNM, 70, Springer, 1969.}
+
+\ref {2.} {S. Kanger, A simplified proof method for elementary logic.
+Comput. Progr. and  Formal Systems, North-Holland, Amsterdam,  87--94, 1963.}
+
+\ref {3.} {S. Meldal, An abstract axiomatization of pointer types,
+in Proc. of the 22nd Annual Hawaii International Conference on
+System Sciences, B.D. Shriver (ed.), IEEE Computer Society Press, vol. 2,
+129--134, 1989.}
+
+\ref {4.} {A. Pliu\v skevi\v cien\e ,\ Elimination of cut-type rules in
+axiomatic theories with equality. Seminars in mathematics V.A. Steklov Mathem.
+Institute, Leningrad, 16,  90--94, 1971.}
+
+\ref {5.} {A. Pliu\s kevi\cv ien\e ,\ Specialization of the use of axioms
+for deduction
+search in axiomatic theories with equality, Seminars in mathematics
+V.A. Steklov Mathem. Institute, Leningrad, J. Soviet Math.  1,  110--116, 1973.}
+
+\ref {6.} {A. Pliu\s kevi\cv ien\e ,\ A sequential variant of R.M.Robinson's
+arithmetic system not  containing  cut rules. Proc.  Steklov  Inst. Math.,
+Leningrad,
+ 121,  121--150, 1972.}
+
+\ref {7.} {R. Pliu\s kevi\cv ius, Sequential variant of the calculus of
+constructive logic
+for normal formulas. Proc. Steklov Inst. Math., 98,  175--229, 1968.}
+
+\ref {8.} {M. Rogava, Sequential variants of applied predicate calculi without
+structural deductive rules. Proc. Steklov Inst. Math. 121,  136--164, 1972.}
+
+\ref {9.} {M. Walicki,  Algebraic Specifications of nondeterminism,
+Ph. D thesis, University of Bergen, 1993.}
+
+\ref {10.} {M. Walicki, S. Meldal, A complete calculus for the
+multialgebraic and functional semantics of nondeterminism,
+(submitted for publ.) 1993.}
+%spell_to
+
+\bye
+
+
+
+
+
+
