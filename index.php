@@ -148,7 +148,7 @@ establish some known and new results and to analyse particular theories.
 <!--<H4>Kernels of digraphs and paradoxes</H4> -->
 
 
-<H3>Kernels of digraphs (paradoxes and satisfiability)</H3>
+<H3>Kernels of digraphs</H3>
 <!-- <ol start=10> -->
 
 <li class="paper"> A <A HREF="PoisonGame.pdf"> variant of Poison Game,</A> introduced by Duchet and Meyniel for finite digraphs, which can be useful for proving (non)existence of (semi)kernels on infinite digraphs. Nonexistence of any semikernel amounts to player B winning always in finitely many steps.
