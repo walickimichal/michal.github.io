@@ -110,12 +110,12 @@ Paradoxes are distinct from contradictions and do not lead to explosion, unless 
 <!-- <A HREF="GNF-FOL.pdf"> --> 
 
     
-  <li class="paper"><A HREF="https://academic.oup.com/jigpal/advance-article/doi/10.1093/jigpal/jzaa054/5954216?guestAccessKey=071eadea-9cb0-4552-9069-8cc5a6ef4f34">"Extensions in Graph Normal Form"
+  <li class="paper"><A HREF="https://academic.oup.com/jigpal/advance-article/doi/10.1093/jigpal/jzaa054/5954216?guestAccessKey=071eadea-9cb0-4552-9069-8cc5a6ef4f34">Extensions in Graph Normal Form
 - graph normal form for first-order logic</A>, with applications to (conservative) extensions [Logic Journal of the IGPL, Vol. 30, No. 1, pp.101-123, 2022]
 <!-- <A HREF="GNF-FOL.pdf"> --> 
 </li>
 
-<li class="paper"><A HREF="JSL17.pdf">"Resolving infinitary paradoxes"</A>, complete reasoning with classical resolution about and in the presence of inconsistency [preprint, final version in 
+<li class="paper"><A HREF="JSL17.pdf">Resolving infinitary paradoxes</A>, complete reasoning with classical resolution about and in the presence of inconsistency [preprint, final version in 
 <A HREF="https://www.cambridge.org/core/journals/journal-of-symbolic-logic/article/resolving-infinitary-paradoxes/285066F41EA1F0F0008A3CEF8A4CCD83"> Journal of Symbolic Logic, 82,(2),2017,709-723</A>]
 </li>
 
@@ -123,13 +123,13 @@ Paradoxes are distinct from contradictions and do not lead to explosion, unless 
   [<A HREF="https://ojs.victoria.ac.nz/ajl/article/view/6471">Australasian Journal of Logic, Vol. 19 No. 3, 2022</A>]
 </li>
 
- <li class="paper"><A HREF="graph-paradox.pdf">"Propositional Discourse Logic"</A>: graph structure of paradoxes, diagnosis of semantic paradoxes [preprint; appeared in Synthese, 2013]
+ <li class="paper"><A HREF="graph-paradox.pdf">Propositional Discourse Logic</A>: graph structure of paradoxes, diagnosis of semantic paradoxes [preprint; appeared in Synthese, 2013]
 </li>
 
 <li class="paper"><A HREF="Sjur-tese.pdf">Argumentation, paradox and kernels in directed graphs</A> - a Ph.D. thesis by Sjur Dyrkolbotn, written (and defended) under my supervision in 2012. 
 </li>
     
- <li class="paper"><A HREF="Synthese.pdf">"Reference, paradoxes and truth"</A>, 
+ <li class="paper"><A HREF="Synthese.pdf">Reference, paradoxes and truth</A>, 
  graph-based (or boolean equations based) approach to paradoxes of
  self-reference. Many cases problematic for earlier approaches are solved in a
  simple way. [preprint; the final version in Synthese, available at <A
@@ -156,7 +156,7 @@ establish some known and new results and to analyse particular theories.
 
 <li class="paper"> <A HREF="graph-revMath.pdf">Graph Normal Form for propositional logic and some reverse mathematical results</A>, at <A HREF="http://dx.doi.org/10.1016/j.apal.2011.08.004">APAL, vol. 162, no. 3, March 2012</A>
 
-<li class="paper"><A HREF="KernelSAT.pdf">"Finding kernels or solving SAT"</A>: analysing 
+<li class="paper"><A HREF="KernelSAT.pdf">Finding kernels or solving SAT</A>: analysing 
 the relations between the algorithms for kernels and SAT, [Journal of Discrete Algorithms, vol.10, 146-164, 2012]
 
 
@@ -165,16 +165,16 @@ the relations between the algorithms for kernels and SAT, [Journal of Discrete A
 <!-- <H4 style="margin-top:10px">--  Sequence Logic</H4> --> 
 <H4>--  Sequence Logic</H4>
 <!-- <ol start=14> -->
-<li class="paper"><A HREF="Marc/WalickiBezemSz.pdf">"A strongly complete logic of dense
- time intervals"</A>, ESSLI-06, (logic relating sequential descriptions (in an arbitrary
+<li class="paper"><A HREF="Marc/WalickiBezemSz.pdf">A strongly complete logic of dense
+ time intervals</A>, ESSLI-06, (logic relating sequential descriptions (in an arbitrary
  parameter logic) of systems passing through changing states)
 
- <li class="paper"><A HREF="Marc/JoLLI.pdf">"Developing Bounded Reasoning" </A>  (a preliminary
+ <li class="paper"><A HREF="Marc/JoLLI.pdf">Developing Bounded Reasoning</A>  (a preliminary
  version, 2008. The original publication is available at <A HREF="http://www.springerlink.com">www.springerlink.com</A>)
- <li class="paper"><A HREF="Marc/LPAR.pdf">"Completeness and decidability in Sequence Logic" </A>, LPAR'07
+ <li class="paper"><A HREF="Marc/LPAR.pdf">Completeness and decidability in Sequence Logic</A>, LPAR'07
 
-<li class="paper"><A HREF="modint.pdf">"Modalities as Interactions between the
- Classical and the Intuitionistic Logics"</A>, Tech.Rep. no.330, June 2006,
+<li class="paper"><A HREF="modint.pdf">Modalities as Interactions between the
+ Classical and the Intuitionistic Logics</A>, Tech.Rep. no.330, June 2006,
  (in the classical algebraic semantics, modalities can be viewed as
  combinations of classical and intuitionisitc negations) 
    <ul> <li> <A HREF="JLLP.pdf"> abbreviated version published in the journal 
@@ -192,11 +192,11 @@ the relations between the algorithms for kernels and SAT, [Journal of Discrete A
 Epistemic States</A>, in Declarative Agent Languages and Technologies, workshop 
 at AAMAS'2005. 
 
- <li class="paper"><A HREF="2004/thomasThesis.pdf">"The Logic of Finite Syntactic States"</A>
+ <li class="paper"><A HREF="2004/thomasThesis.pdf">The Logic of Finite Syntactic States</A>
 <br> (a Ph.D. thesis written under my supervision by Thomas AAgotnes, 2004
 (epistemic logic of finite agents with bounded resources) with a small <A
 HREF="2004/thomasErrata.ps">errata</A>)
- <li class="paper"><A HREF="Marc/joLLI.pdf">"Developing Bounded Reasoning"</A>  (a preliminary
+ <li class="paper"><A HREF="Marc/joLLI.pdf">Developing Bounded Reasoning</A>  (a preliminary
  version, 2008. The original publication is available at www.springerlink.com)
 <li class="paper"><A HREF="IGPL-Thomas.pdf">Complete axiomatisations of properties of finite sets</A>, Logic
  Journal of the IGPL, vol.16, no.3, June 2008.
@@ -207,33 +207,33 @@ HREF="2004/thomasErrata.ps">errata</A>)
  <li class="paper"> <A HREF="2003/wollic03.ps">Quantifier-free logic for multialgebraic
 theories</A>, WOLLIC, 2003 [revised version in Theoretical Computer Science, 2006]
 
-<li class="paper"><A HREF="toplas/toplas95.ps">"A Complete Calculus for the
-Multialgebraic and Functional Semantics of Nondeterminism"</A>
+<li class="paper"><A HREF="toplas/toplas95.ps">A Complete Calculus for the
+Multialgebraic and Functional Semantics of Nondeterminism</A>
  [<i>ACM TOPLAS</i>, Vol. 17, No. 2, March 1995], 
 <!--  <li> <A HREF="ftp://ftp.ii.uib.no/pub/michal/toplas95.ps">ftp the .ps file</A> 
  </ul> <P> -->
 
-  <li class="paper">A digression:<A HREF="Regis/StPet/stpet.ps">"On Specialization of Derivations in Axiomatic Equality Theories"</A>
+  <li class="paper">A digression:<A HREF="Regis/StPet/stpet.ps">On Specialization of Derivations in Axiomatic Equality Theories</A>
   [in <i>Proc. of LFCS'94,</i>LNCS vol. 813, 1994]
 
-<li class="paper">  <A HREF="adt94/adt.pdf">"Multialgebras, Power Algebras and Complete Calculi of Identities and
-  Inclusions"</A>   [ADT'94, in <i>Recent Trends in Data Type Specification,</i>LNCS, vol. 906, 1995]
+<li class="paper">  <A HREF="adt94/adt.pdf">Multialgebras, Power Algebras and Complete Calculi of Identities and
+  Inclusions</A>  [ADT'94, in <i>Recent Trends in Data Type Specification,</i>LNCS, vol. 906, 1995]
 
 <H4>-- Rewriting in multialgebras</H4>
 <!-- <ol start=27> -->
-<li class="paper">"Reasoning and Rewriting with Set-Relations I: Ground Completeness"
+<li class="paper">Reasoning and Rewriting with Set-Relations I: Ground Completeness, 
   [<i>Proc. of CSL'94</i>, L.Pacholski, J.Tiuryn (eds.), LNCS vol. 933, 1995]
   <br> - <A HREF="valis/csl94/csl.ps">ps file</A> or 
    <A HREF="valis/csl94/long/RewSet.ps">a longer version with more proofs</A>
 <!--  <li> <A HREF="ftp://ftp.ii.uib.no/pub/michal/csl.ps">ftp the .ps file</A> -->
  
-<li class="paper"><A HREF="valis/adt95/adt.ps">"Reasoning and Rewriting with Set-Relations II: Completeness for the
-  Non-Ground Case"</A>
+<li class="paper"><A HREF="valis/adt95/adt.ps">Reasoning and Rewriting with Set-Relations II: Completeness for the
+  Non-Ground Case</A>, 
   [<i>Recent Trends in Data Type Specification</i>, LNCS. vol.1130, 
   (eds. M.Haveraaen, O.Owe, O.-J.Dahl), Oslo, 1995]
 <!--  <li> <A HREF="ftp://ftp.ii.uib.no/pub/michal/adt.ps">ftp the .ps file</A> -->
 
-<li class="paper"> <A HREF="valis/Rels/nwpt.ps">"Nondeterministic Algebraic Specifications in Relational Syntax"</A>
+<li class="paper"> <A HREF="valis/Rels/nwpt.ps">Nondeterministic Algebraic Specifications in Relational Syntax</A>, 
  [<i>Proc. of Nordic Workshop on Programming Theory</i>,
    B.Bjerner, M.Larsson, B.Norstroem (eds.), Rep. 86, The Programming
    Methodology Group, Goeteborg University, pp.185-203, 1996]
@@ -263,60 +263,60 @@ Multialgebraic and Functional Semantics of Nondeterminism"</A>
  <li class="paper">  <A HREF="marcin/otCALCO.pdf"> "Bireachability and final
 multialgebras"</A> [Proceedings of CALCO'05, LNCS 3629]
 
- <li class="paper"> <A HREF="http://www.ii.uib.no/publikasjoner/texrap/pdf/2006-314.pdf">"A
-category for studying the standarization of reporting languages"</A> [TR, also in Proceedings of the 9th Asian
+ <li class="paper"> <A HREF="http://www.ii.uib.no/publikasjoner/texrap/pdf/2006-314.pdf">A
+category for studying the standarization of reporting languages</A> [TR, also in Proceedings of the 9th Asian
 Conference on Logic]
 
- <li class="paper"> <A HREF="2003/ftc01.ps">"Compositional Homomorphisms of Relational
-	 Structures"</A>, FTC 2001 <br> 
+ <li class="paper"> <A HREF="2003/ftc01.ps">Compositional Homomorphisms of Relational
+	 Structures</A>, FTC 2001 <br> 
 
- <li class="paper"><A HREF="2003/yngvePhD.ps">"The institution of Multialgebras - a general
-framework for algebraic software development"</A>
+ <li class="paper"><A HREF="2003/yngvePhD.ps">The institution of Multialgebras - a general
+framework for algebraic software development</A>
   <br> (a Ph.D. thesis written under my supervision by Yngve Lamo, 2003) 
 <!-- <li><A HREF="yngve/parameterization/parameterizedADT/TRmu.ps">"The Institution of Multialgebras"</A>
 Tech.Rep. no.209, Department of Informatics, University of Bergen, 2000 -->     
 
-<li class="paper">A digression: <A HREF="ca/caMSCS/04final/ca04final.ps">"Computation Algebras"</A>
+<li class="paper">A digression: <A HREF="ca/caMSCS/04final/ca04final.ps">Computation Algebras</A>
  [Tech. Rep. no. 117, Dept. of Informatics, University of Bergen, 1996], appeared in <i>Mathematical
   Structures in Computer Science</i>, 2001
 
 <H3>Multialgebraic semantics of nondeterminism</H3>
 <!-- <ol start=36>-->
-<li class="paper"> <A HREF="CompSurv/acm/walicki.ps">"Algebraic Approaches to Nondeterminism - an Overview"</A>
+<li class="paper"> <A HREF="CompSurv/acm/walicki.ps">Algebraic Approaches to Nondeterminism - an Overview</A>
   [<i>ACM Computing Surveys</i>,29, 1, March, 1997]
  <!--  <li> <A HREF="ftp://ftp.ii.uib.no/pub/michal/walicki.ps">ftp the .ps file</A> --> 
-<li class="paper"><A HREF="tapsoft.ps">"Generated Models and the Omega-rule: the Nondterministic Case"</A>
+<li class="paper"><A HREF="tapsoft.ps">Generated Models and the Omega-rule: the Nondterministic Case</A>, 
   [<i>Proc. of TAPSOFT'95</i>, LNCS, vol. 915, 1995]
 <!-- <ul>
   <li> <A HREF="tapsoft.ps">view the .ps file</A>
   <li> <A HREF="ftp://ftp.ii.uib.no/pub/michal/tapsoft.ps">ftp the .ps file</A>
  </ul> -->
-<li class="paper"> <A HREF="adt94/adt.pdf">"Multialgebras, Power Algebras and Complete Calculi of Identities and Inclusions"</A>
+<li class="paper"> <A HREF="adt94/adt.pdf">Multialgebras, Power Algebras and Complete Calculi of Identities and Inclusions</A>
   [ADT'94, in <i>Recent Trends in Data Type Specification,</i>LNCS, vol. 906, 1995]
 
-<li class="paper"><A HREF="NIK/NIK94.ps">"Initiality + Nondeterminism => Junk"</A>
+<li class="paper"><A HREF="NIK/NIK94.ps">Initiality + Nondeterminism => Junk</A>
   [in <i>Proc. of NIK'94,</i>Tapir, 1994]
 
-<li class="paper"><A HREF="SIAM/siam.ps">"Singular and Plural Nondeterministic Parameters"</A>
+<li class="paper"><A HREF="SIAM/siam.ps">Singular and Plural Nondeterministic Parameters</A>, 
  [<i>SIAM Journal on Computing,</i> 26-3, 1997 (1995)]
 
-<li class="paper"> <A HREF="2003/nondetUnder.ps">"Nondeterminism vs. Underspecification"</A>, SCI 2001
+<li class="paper"> <A HREF="2003/nondetUnder.ps">Nondeterminism vs. Underspecification</A>, SCI 2001
 
 <H3>Applications and extensions of nondeterministic specifications</H3>
 <!-- <ol start=42> -->
 
-<li class="paper"> <A HREF="Broy/TR.ps">"Structured Specifications and Implementation of Nondeterminisitc Data Types"</A>   [Tech. Rep. TUM-I9442, Inst. fur Informatik,
+<li class="paper"> <A HREF="Broy/TR.ps">Structured Specifications and Implementation of Nondeterminisitc Data Types</A>  [Tech. Rep. TUM-I9442, Inst. fur Informatik,
        Technische Universitat Munchen, 1994], appeared also in 
   <i>Nordic Journal of Computing,</i> no. 2, 1995. 
 
-<li class="paper"><A HREF="yngve/partial/par02TR/par.ps">"Modeling partiality by nondeterminism"</A>
+<li class="paper"><A HREF="yngve/partial/par02TR/par.ps">Modeling partiality by nondeterminism</A>
  [Tech. Rep. 178, Department of Informatics, University of Bergen, 1999.
 
-<li class="paper"><A HREF="2003/flirt02.ps">"Combining specification formalisms in the
-`general logic' of multialgebras"</A>, FLIRTS 2002 (2003).
+<li class="paper"><A HREF="2003/flirt02.ps">Combining specification formalisms in the
+`general logic' of multialgebras</A>, FLIRTS 2002 (2003).
 
-<li class="paper"><A HREF="2003/refine02.ps">"Composition and refinement of 
-specifications of parameterized data types"</A>, REFINE 2002.
+<li class="paper"><A HREF="2003/refine02.ps">Composition and refinement of 
+specifications of parameterized data types</A>, REFINE 2002.
 
 <li class="paper"><A HREF="yngve/parametrization/parameterizedADT/NJC/njc.ps">Specification
 of Parameterized Programs - persistency revisited</A>, Nordic Journal of
