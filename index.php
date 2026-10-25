@@ -67,7 +67,7 @@ anonymous ftp from the directory <b>/pub/michal</b> on the server <b> ftp.ii.uib
  <H3>Self-reference, paradoxes, truth theory and kernels of digraphs</H3> (about third part of these are joint works with Sjur Dyrkolbotn)
 <ol>
 
-<li><A HREF="LSOT.pdf">Truth is definable in Logic of Sentential Operators,</A> LSO (introduced in the paper below), without deviating from classical logic, (2025). 
+<li><A HREF="LSOT.pdf">Truth is definable in classical logic -- extended with sentential operators and quantifiers to Logic of Sentential Operators,</A> LSO (introduced in the paper below) (2025 - to appear in JSL). 
   
  <li>
 <A HREF="LSO-FINAL.pdf">Logic of sentential operators,</A> LSO,
@@ -330,43 +330,6 @@ Computing, 2001.
 <li> <A HREF="phil/phil1.html">philosophy</A>, telemark skiing.
 <!-- <li> <A HREF ="https://www.pch24.pl/ich-prawdziwe-cele">trafny opis </A>
 <!--<li><A HREF="http://interface.time-popcorn.info"> popCornTime</A> -->
-
-<!--<li> <A HREF="HOLD-UP.mp4">HOLD-UP, a film in French about current affairs</A>
--->   
+  
 </ol>
 <BR>
-
-<?php
-// File to store the count
-$file = __DIR__ . "/counter.txt";
-
-// If file doesn’t exist, create it with 0
-if (!file_exists($file)) {
-    file_put_contents($file, "0");
-}
-
-// Read the current count
-$count = (int)file_get_contents($file);
-
-// Increment by 1 for each visit
-$count++;
-
-// Save the new count back to the file
-file_put_contents($file, $count);
-
-// Now we can display it
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-</head>
-<body>
-  <p>You are visitor number: <strong><?= $count ?></strong>
- since 21.08.2025.</H3>
-</p>
-</body>
-</html>
-
-<BR>
-
