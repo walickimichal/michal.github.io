@@ -60,7 +60,7 @@ more specifically:
     a ray with infinitely many vertices dominating it.
 <p style="margin-bottom:0px;margin-top:5px"> has been proven for: 
 
-  1. <A HREF="finEnds.pdf">graphs with finite number of ends</A> (Discrete Mathematics, 2019)
+  1. <A HREF="finEnds.pdf">digraphs with finite number of ends</A> (Discrete Mathematics, 2019)
 
   2. A <A HREF="PoisonGame.pdf"> variant of Poison Game,</A> introduced by Duchet and
      Meyniel for finite digraphs, which can be useful for proving (non)existence of
@@ -68,6 +68,8 @@ more specifically:
 <p> (2 is attempted used <A HREF="2paradoxes.pdf">here</A> to establish the claim for all
      graphs, but with an unidentifeid mistake - if you find it, please, let me
      know. Plain compactness may not suffice to establish the general result.
+
+ 3. <A HREF="count-parity-safe.pdf">digraphs with countably may ends</A>, with <A HREF="count-parity-safe-proof.lean">the proof verified in Lean</A> 
  </H4>
 
 <!-- <p style="margin-top:0px"> -->
@@ -148,7 +150,7 @@ establish some known and new results and to analyse particular theories.
 <!--<H4>Kernels of digraphs and paradoxes</H4> -->
 
 
-<H3>Kernels of digraphs</H3>
+<H3>Kernels of digraphs (paradoxes and satisfiability)</H3>
 <!-- <ol start=10> -->
 
 <li class="paper"> A <A HREF="PoisonGame.pdf"> variant of Poison Game,</A> introduced by Duchet and Meyniel for finite digraphs, which can be useful for proving (non)existence of (semi)kernels on infinite digraphs. Nonexistence of any semikernel amounts to player B winning always in finitely many steps.
