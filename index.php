@@ -153,6 +153,9 @@ establish some known and new results and to analyse particular theories.
 <H3>Kernels of digraphs (paradoxes and satisfiability)</H3>
 <!-- <ol start=10> -->
 
+<li class="paper"> <A HREF="count-parity-safe.pdf">Parity-safe digraphs with countably many ends are kernel-perfect</A>, 2026 (using Claude).
+
+
 <li class="paper"> A <A HREF="PoisonGame.pdf"> variant of Poison Game,</A> introduced by Duchet and Meyniel for finite digraphs, which can be useful for proving (non)existence of (semi)kernels on infinite digraphs. Nonexistence of any semikernel amounts to player B winning always in finitely many steps.
 <li class="paper"> <A HREF="finEnds.pdf">Kernels of digraphs with finitely many ends</A>, a proof of the main conjecture (top of this page) for graphs with finitely many ends,  [preprint; Discrete Mathematics, 342, 473-486, 2019]
 
